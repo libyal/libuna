@@ -1,7 +1,8 @@
 TODO
 
 * implement error
-  - remove libuna_set_notify_values no use of notify_verbose
+ - move notify to ucatools
+ - remove libuna_set_notify_values no use of notify_verbose
 * rewrite size functions to return int instead of ssize_t
 
 * unaexport implement signal handling

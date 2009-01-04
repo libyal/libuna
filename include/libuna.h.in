@@ -44,12 +44,6 @@ LIBUNA_EXTERN const char *libuna_get_version(
 LIBUNA_EXTERN const char *libuna_get_error_string(
                            int error code );
 
-/* Set the notify values
- */
-LIBUNA_EXTERN void libuna_set_notify_values(
-                    FILE *stream,
-                    uint8_t verbose );
-
 /* -------------------------------------------------------------------------
  * Unicode character functions
  * ------------------------------------------------------------------------- */
@@ -187,11 +181,12 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32_stream(
 /* Determines the size of a byte stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 /* Copies a byte stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -211,11 +206,12 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
 /* Determines the size of a byte stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 /* Copies a byte stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -235,11 +231,12 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
 /* Determines the size of a byte stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 /* Copies a byte stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -272,10 +269,11 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_utf8_stream_copy_byte_order_mark(
 /* Determines the size of a UTF-8 stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_stream_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_stream_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t *utf8_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -294,10 +292,11 @@ LIBUNA_EXTERN int libuna_utf8_stream_copy_from_utf8(
 /* Determines the size of a UTF-8 stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_stream_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_stream_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf8_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -316,10 +315,11 @@ LIBUNA_EXTERN int libuna_utf8_stream_copy_from_utf16(
 /* Determines the size of a UTF-8 stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_stream_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_stream_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf8_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -342,11 +342,12 @@ LIBUNA_EXTERN int libuna_utf8_stream_copy_from_utf32(
 /* Determines the size of a UTF-8 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_byte_stream(
-                       uint8_t *byte_stream,
-                       size_t byte_stream_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_byte_stream(
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   int codepage,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from a byte stream
  * Returns 1 if successful or -1 on error
@@ -366,10 +367,11 @@ LIBUNA_EXTERN int libuna_utf8_string_copy_from_byte_stream(
 /* Determines the size of a UTF-8 string from a UTF-8 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_utf8_stream(
-                       uint8_t *utf8_stream,
-                       size_t utf8_stream_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_utf8_stream(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from an UTF-8 stream
  * Returns 1 if successful or -1 on error
@@ -388,10 +390,11 @@ LIBUNA_EXTERN int libuna_utf8_string_copy_from_utf8_stream(
 /* Determines the size of a UTF-8 string from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -410,11 +413,12 @@ LIBUNA_EXTERN int libuna_utf8_string_copy_from_utf16(
 /* Determines the size of a UTF-8 string from a UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_utf16_stream(
-                       uint8_t *utf16_stream,
-                       size_t utf16_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_utf16_stream(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from an UTF-16 stream
  * Returns 1 if successful or -1 on error
@@ -434,10 +438,11 @@ LIBUNA_EXTERN int libuna_utf8_string_copy_from_utf16_stream(
 /* Determines the size of a UTF-8 string from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -456,11 +461,12 @@ LIBUNA_EXTERN int libuna_utf8_string_copy_from_utf32(
 /* Determines the size of a UTF-8 string from a UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf8_string_size_from_utf32_stream(
-                       uint8_t *utf32_stream,
-                       size_t utf32_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf8_string_size_from_utf32_stream(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   uint8_t byte_order,
+                   size_t *utf8_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-8 string from an UTF-32 stream
  * Returns 1 if successful or -1 on error
@@ -494,10 +500,10 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 /* Determines the size of a UTF-16 stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_stream_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_stream_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf16_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -517,10 +523,11 @@ LIBUNA_EXTERN int libuna_utf16_stream_copy_from_utf8(
 /* Determines the size of a UTF-16 stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_stream_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_stream_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t utf16_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -540,10 +547,11 @@ LIBUNA_EXTERN int libuna_utf16_stream_copy_from_utf16(
 /* Determines the size of a UTF-16 stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_stream_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_stream_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t utf16_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -567,11 +575,12 @@ LIBUNA_EXTERN int libuna_utf16_stream_copy_from_utf32(
 /* Determines the size of a UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_byte_stream(
-                       uint8_t *byte_stream,
-                       size_t byte_stream_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_byte_stream(
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   int codepage,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
@@ -591,10 +600,11 @@ LIBUNA_EXTERN int libuna_utf16_string_copy_from_byte_stream(
 /* Determines the size of a UTF-16 string from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -613,10 +623,11 @@ LIBUNA_EXTERN int libuna_utf16_string_copy_from_utf8(
 /* Determines the size of a UTF-16 string from a UTF-8 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_utf8_stream(
-                       uint8_t *utf8_stream,
-                       size_t utf8_stream_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_utf8_stream(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from an UTF-8 stream
  * Returns 1 if successful or -1 on error
@@ -635,11 +646,12 @@ LIBUNA_EXTERN int libuna_utf16_string_copy_from_utf8_stream(
 /* Determines the size of a UTF-16 string from a UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_utf16_stream(
-                       uint8_t *utf16_stream,
-                       size_t utf16_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_utf16_stream(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from an UTF-16 stream
  * Returns 1 if successful or -1 on error
@@ -659,10 +671,11 @@ LIBUNA_EXTERN int libuna_utf16_string_copy_from_utf16_stream(
 /* Determines the size of a UTF-16 string from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -681,11 +694,12 @@ LIBUNA_EXTERN int libuna_utf16_string_copy_from_utf32(
 /* Determines the size of a UTF-16 string from a UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf16_string_size_from_utf32_stream(
-                       uint8_t *utf32_stream,
-                       size_t utf32_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf16_string_size_from_utf32_stream(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   uint8_t byte_order,
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-16 string from an UTF-32 stream
  * Returns 1 if successful or -1 on error
@@ -719,10 +733,11 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_utf32_stream_copy_byte_order_mark(
 /* Determines the size of a UTF-32 stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_stream_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_stream_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t utf32_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -742,10 +757,11 @@ LIBUNA_EXTERN int libuna_utf32_stream_copy_from_utf8(
 /* Determines the size of a UTF-32 string from a UTF-8 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_utf8_stream(
-                       uint8_t *utf8_stream,
-                       size_t utf8_stream_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_utf8_stream(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   size_t utf32_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 string from an UTF-8 stream
  * Returns 1 if successful or -1 on error
@@ -764,10 +780,11 @@ LIBUNA_EXTERN int libuna_utf32_string_copy_from_utf8_stream(
 /* Determines the size of a UTF-32 stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_stream_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_stream_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t utf32_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -787,10 +804,11 @@ LIBUNA_EXTERN int libuna_utf32_stream_copy_from_utf16(
 /* Determines the size of a UTF-32 stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_stream_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_stream_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t utf32_stream_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -814,11 +832,12 @@ LIBUNA_EXTERN int libuna_utf32_stream_copy_from_utf32(
 /* Determines the size of a UTF-32 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_byte_stream(
-                       uint8_t *byte_stream,
-                       size_t byte_stream_size,
-                       int codepage,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_byte_stream(
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   int codepage,
+                   size_t utf32_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 string from a byte stream
  * Returns 1 if successful or -1 on error
@@ -838,10 +857,11 @@ LIBUNA_EXTERN int libuna_utf32_string_copy_from_byte_stream(
 /* Determines the size of a UTF-32 string from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t utf32_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 string from an UTF-8 string
  * Returns 1 if successful or -1 on error
@@ -860,10 +880,11 @@ LIBUNA_EXTERN int libuna_utf32_string_copy_from_utf8(
 /* Determines the size of a UTF-32 string from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t utf32_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 string from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -878,11 +899,12 @@ LIBUNA_EXTERN int libuna_utf32_string_copy_from_utf16(
 /* Determines the size of a UTF-32 string from a UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_utf16_stream(
-                       uint8_t *utf16_stream,
-                       size_t utf16_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_utf16_stream(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   size_t utf32_string_size,
+                   libuna_error_t **error );
 
 /* Copies an UTF-32 string from an UTF-16 stream
  * Returns 1 if successful or -1 on error
@@ -902,11 +924,12 @@ LIBUNA_EXTERN int libuna_utf32_string_copy_from_utf16_stream(
 /* Determines the size of a UTF-32 string from a UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_EXTERN ssize_t libuna_utf32_string_size_from_utf32_stream(
-                       uint8_t *utf32_stream,
-                       size_t utf32_stream_size,
-                       uint8_t byte_order,
-                       libuna_error_t **error );
+LIBUNA_EXTERN int libuna_utf32_string_size_from_utf32_stream(
+                    uint8_t *utf32_stream,
+                    size_t utf32_stream_size,
+                    uint8_t byte_order,
+                    size_t utf32_string_size,
+                    libuna_error_t **error );
 
 /* Copies an UTF-32 string from an UTF-32 stream
  * Returns 1 if successful or -1 on error

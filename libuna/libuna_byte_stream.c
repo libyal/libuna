@@ -32,10 +32,11 @@
 /* Determines the size of a byte stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-ssize_t libuna_byte_stream_size_from_utf8(
-         libuna_utf8_character_t *utf8_string,
-         size_t utf8_string_size,
-         int codepage )
+int libuna_byte_stream_size_from_utf8(
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_stream_size,
+     int codepage )
 {
 	static char *function                        = "libuna_byte_stream_size_from_utf8";
 	size_t utf8_string_iterator                  = 0;
