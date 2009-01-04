@@ -22,6 +22,10 @@
 
 #include <common.h>
 
+/* Define HAVE_LOCAL_LIBUCA for local use of libuca
+ */
+#if !defined( HAVE_LOCAL_LIBUCA )
+
 #if defined( HAVE_WINDOWS_API )
 
 #include <windows.h>
@@ -55,6 +59,8 @@ BOOL WINAPI DllMain(
 	}
 	return( TRUE );
 }
+
+#endif
 
 #endif
 

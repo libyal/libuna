@@ -26,14 +26,14 @@
 #include <libuca/features.h>
 #include <libuca/types.h>
 
-#define LIBUCA_VERSION					20080831
+#define LIBUCA_VERSION					20080901
 
 /* The libuca version string
  */
 #if defined( LIBUCA_WIDE_CHARACTER_TYPE )
-#define LIBUCA_VERSION_STRING				L"20080831"
+#define LIBUCA_VERSION_STRING				L"20080901"
 #else
-#define LIBUCA_VERSION_STRING				"20080831"
+#define LIBUCA_VERSION_STRING				"20080901"
 #endif
 
 /* The endian definitions

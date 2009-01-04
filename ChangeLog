@@ -1,18 +1,26 @@
 TODO
 
-* implement from/to _utf8_stream and utf32_stream functions
+* add strict test
+  libuca_utf16_string_size_from_utf16_stream
+  libuca_utf16_string_copy_from_utf16_stream
+  libuca_utf16_stream_copy_from_utf16
+  libuca_utf32_string_size_from_utf32_stream
+  libuca_utf32_string_copy_from_utf32_stream
+  libuca_utf32_stream_copy_from_utf32
 
-* fix current codepages
+* check current codepages
 * add more code pages?
 
-* copy functions should return amount of bytes successfully processed?
+* copy from/to functions should return amount of bytes successfully processed?
+
+* refactor to use separate utf8/16/32 copy_byte_order_mark functions?
 
 Tools:
 * ucaexport
   tool to convert text files between string format types
   - add auto detection of input format
 * ucainfo
-  tool to determine the encoding type using the BOM
+  tool to determine the encoding type using the byte order mark
   perhaps some other tricks
   useful for automated conversion
 
@@ -30,6 +38,16 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20080901
+* Worked on initial version
+* Integrated local use of libuca using HAVE_LOCAL_LIBUCA for maintenance
+* implemented utf8/16 to/from utf32_stream functions
+* detection of endian defaults to big if no endianess could be determined
+* added detection of UTF-8 byte order mark
+* Worked on refactoring _streams to separate files change copy_to_ functions into copy_from
+* Implemented libuca_utf16_string_size_from_utf8, libuca_utf32_string_size_from_utf8
+* Implemented libuca_utf16_string_size_from_utf32, libuca_utf32_string_size_from_utf32
 
 20080831
 * Worked on initial version

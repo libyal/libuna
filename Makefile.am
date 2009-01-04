@@ -17,7 +17,8 @@ INCLUDE_FILES = \
         include/libuca.h.in \
         include/libuca/definitions.h.in \
 	include/libuca/features.h.in \
-        include/libuca/types.h.in
+        include/libuca/types.h.in \
+        libuca/libuca_definitions.h.in
 
 MACOSX_FILES = \
 	macosx/Introduction.rtf \
@@ -75,6 +76,7 @@ distclean: clean
 	/bin/rm -f include/libuca/definitions.h
 	/bin/rm -f include/libuca/features.h
 	/bin/rm -f include/libuca/types.h
+	/bin/rm -f libuca/libuac_definitions.h
 	/bin/rm -f libuca.pc
 	/bin/rm -f libuca.spec
 	/bin/rm -f macosx/Introduction.rtf

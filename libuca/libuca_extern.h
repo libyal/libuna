@@ -25,6 +25,10 @@
 
 #include <common.h>
 
+/* Define HAVE_LOCAL_LIBUCA for local use of libuca
+ */
+#if !defined( HAVE_LOCAL_LIBUCA )
+
 /* If libtool DLL support is enabled set LIBUCA_DLL_EXPORT
  * before including libuca/extern.h
  */
@@ -33,6 +37,12 @@
 #endif
 
 #include <libuca/extern.h>
+
+#else
+
+#define LIBUCA_EXTERN   extern
+
+#endif
 
 #endif
 
