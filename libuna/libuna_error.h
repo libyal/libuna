@@ -24,9 +24,6 @@
 #define _LIBUNA_INTERNAL_ERROR_H
 
 #include <common.h>
-#include <types.h>
-
-#include <stdio.h>
 
 #if !defined( HAVE_LOCAL_LIBUNA )
 #include <libuna/error.h>

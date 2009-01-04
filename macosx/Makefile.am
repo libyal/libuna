@@ -6,6 +6,6 @@ EXTRA_DIST = \
 	Readme.rtf
 
 distclean: clean
-	/bin/rm -f macosx/Introduction.rtf
+	/bin/rm -f Introduction.rtf
 	/bin/rm -f Makefile
 

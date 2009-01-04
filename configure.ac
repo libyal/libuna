@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20080920],
+  [20080921],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20080920])
+ [20080921])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -397,7 +397,7 @@ AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
-AC_CONFIG_FILES([docs/Makefile])
+AC_CONFIG_FILES([documents/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 AC_CONFIG_FILES([macosx/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])

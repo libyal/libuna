@@ -9,6 +9,9 @@ TODO
     most of the time not needed because the size of the string was already
     determined
 
+* unatools
+  - update system string
+
 * unaexport
   - what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
   - implement signal handling
@@ -48,6 +51,11 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20080921
+* first alpha release
+* fixed error in distclean
+* renamed docs into documents
 
 20080920
 * Worked on initial version

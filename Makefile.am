@@ -4,7 +4,7 @@ SUBDIRS = \
 	liberror \
 	libuna \
 	unatools \
-	docs \
+	documents \
 	manuals \
 	macosx \
 	msvscpp

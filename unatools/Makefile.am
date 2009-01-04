@@ -11,6 +11,7 @@ unaexport_SOURCES = \
 	glob.c glob.h \
 	notify.c notify.h \
 	process_status.c process_status.h \
+	safe_types.h \
 	string_conversion.c string_conversion.h \
 	system_string.c system_string.h \
 	unacommon.h \

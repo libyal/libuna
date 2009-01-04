@@ -30,6 +30,7 @@
 #include "libuna_definitions.h"
 #include "libuna_support.h"
 
+#if !defined( HAVE_LOCAL_LIBUNA )
 /* Returns the library version as a string
  */
 const char *libuna_get_version(
@@ -68,4 +69,5 @@ void libuna_error_backtrace_fprint(
 	 (liberror_error_t *) error,
 	 stream );
 }
+#endif
 
