@@ -55,6 +55,7 @@ Other Windows codepages (MBC)
 20081011
 * Updated MSVSCPP solution file for 2008 express version
 * Several changes for MSVSCPP build
+* fix in header file for utf16 and utf32 string size functions
 
 20080927
 * Fixed error in libuna.h

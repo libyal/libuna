@@ -59,6 +59,10 @@
 #define HAVE_IO_H	1
 #define HAVE_SHARE_H	1
 
+#if !defined( HAVE_FCNTL_H )
+#define HAVE_FCNTL_H    1
+#endif
+
 /* Windows does not have <sys/ioctl.h> and <sys/utsname.h>
  */
 #undef HAVE_SYS_IOCTL_H
@@ -90,12 +94,8 @@
 /* If wide character support was enabled
  * make use of the wide character support functions
  */
-#if defined( HAVE_WIDE_CHARACTER_TYPE )
 #if !defined( HAVE_WCHAR_H )
 #define HAVE_WCHAR_H		1
-#endif
-
-#define HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS	1
 #endif
 
 /* Make sure the function definitions are available
@@ -107,12 +107,7 @@
 #define HAVE_ERROR_STRING	1
 #define HAVE_FILE_IO		1
 #define HAVE_NARROW_STRING	1
-
-#if defined( HAVE_WIDE_CHARACTER_TYPE )
 #define HAVE_WIDE_STRING	1
-#else
-#undef HAVE_WIDE_STRING
-#endif
 
 /* Functions in unatools/date_time.h
  */
@@ -121,9 +116,7 @@
 #define HAVE_CTIME_R		1
 #endif
 
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
 #define HAVE_WCTIME_R		1
-#endif
 
 #if !defined( HAVE_GMTIME_R )
 #define HAVE_GMTIME_R		1
@@ -157,9 +150,7 @@
 #define HAVE_STRERROR_R		1
 #endif
 
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
 #define HAVE_WCSERROR_R		1
-#endif
 
 #else
 #undef HAVE_STRERROR_R
@@ -173,9 +164,7 @@
 #define HAVE_OPEN		1
 #endif
 
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
 #define HAVE_WOPEN		1
-#endif
 
 #if !defined( HAVE_CLOSE )
 #define HAVE_CLOSE		1
