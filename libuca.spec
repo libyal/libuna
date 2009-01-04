@@ -1,11 +1,11 @@
 Name: libuca
-Version: 20080901
+Version: 20080902
 Release: 1
 Summary: Library to support Unicode and ASCII (byte stream) conversions
 Group: System Environment/Libraries
 License: LGPL
 Source: %{name}-%{version}.tar.gz
-URL: https://www.uitwisselplatform.nl/projects/libuca
+URL: http://libuca.sourceforge.net
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description

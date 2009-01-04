@@ -3,19 +3,21 @@ TODO
 * add strict test
   libuca_utf16_string_size_from_utf16_stream
   libuca_utf16_string_copy_from_utf16_stream
+  libuca_utf16_stream_size_from_utf16
   libuca_utf16_stream_copy_from_utf16
   libuca_utf32_string_size_from_utf32_stream
   libuca_utf32_string_copy_from_utf32_stream
+  libuca_utf32_stream_size_from_utf32
   libuca_utf32_stream_copy_from_utf32
 
 * handle combining characters in windows 1255 and 1258 ?
 * add more code pages?
 
-* copy from/to functions should return amount of bytes successfully processed?
+* copy from/to functions should set/return amount of bytes successfully processed?
+  most of the time not needed because the size of the string was already
+  determined
 
 * refactor to use separate utf8/16/32 copy_byte_order_mark functions?
-
-* find and replace uitwisselplatform.nl
 
 Tools:
 * ucaexport
@@ -51,6 +53,8 @@ Other Windows codepages (MBC)
 20080902
 * Worked on initial version
 * Worked on ucaexport summary
+* Worked on UTF-16 stream functions
+* Worked on UTF-32 stream functions
 
 20080901
 * Worked on initial version
