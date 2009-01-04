@@ -1,11 +1,12 @@
 TODO
 
 * implement byte stream size/copy from functions
-* implement utf8 stream functions
 * ucaexport implement process_status
 * ucaexport implement signal handling
 
 * add strict test
+  libuca_utf8_stream_size_from_utf8
+  libuca_utf8_stream_copy_from_utf8
   libuca_utf16_string_size_from_utf16_stream
   libuca_utf16_string_copy_from_utf16_stream
   libuca_utf16_stream_size_from_utf16
@@ -21,8 +22,6 @@ TODO
 * copy from/to functions should set/return amount of bytes successfully processed?
   most of the time not needed because the size of the string was already
   determined
-
-* refactor to use separate utf8/16/32 copy_byte_order_mark functions?
 
 Tools:
 * ucaexport
@@ -60,11 +59,13 @@ Other Windows codepages (MBC)
 * Worked on ucaexport summary
 * Worked on UTF-16 stream functions
 * Worked on UTF-32 stream functions
+* Refactored to use separate UTF-8/16/32 copy_byte_order_mark functions
+* Worked on uTF-8 stream functions
 
 20080901
 * Worked on initial version
 * Integrated local use of libuca using HAVE_LOCAL_LIBUCA for maintenance
-* implemented utf8/16 to/from utf32_stream functions
+* implemented UTF-8/16 to/from UTF-32_stream functions
 * detection of endian defaults to big if no endianess could be determined
 * added detection of UTF-8 byte order mark
 * Worked on refactoring _streams to separate files change copy_to_ functions into copy_from

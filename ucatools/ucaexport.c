@@ -342,37 +342,63 @@ int main( int argc, char * const argv[] )
 		switch( output_format )
 		{
 			case UCACOMMON_FORMAT_UTF8:
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xef;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xbb;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xbf;
+				result = libuca_utf8_stream_copy_byte_order_mark(
+				          destination_string_buffer,
+				          destination_string_buffer_size,
+				          &destination_string_buffer_iterator );
 				break;
 
 			case UCACOMMON_FORMAT_UTF16BE:
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xfe;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xff;
+				result = libuca_utf16_stream_copy_byte_order_mark(
+				          destination_string_buffer,
+				          destination_string_buffer_size,
+				          &destination_string_buffer_iterator,
+				          LIBUCA_ENDIAN_BIG );
 				break;
 
 			case UCACOMMON_FORMAT_UTF16LE:
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xff;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xfe;
+				result = libuca_utf16_stream_copy_byte_order_mark(
+				          destination_string_buffer,
+				          destination_string_buffer_size,
+				          &destination_string_buffer_iterator,
+				          LIBUCA_ENDIAN_LITTLE );
 				break;
 
 			case UCACOMMON_FORMAT_UTF32BE:
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0x00;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0x00;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xfe;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xff;
+				result = libuca_utf32_stream_copy_byte_order_mark(
+				          destination_string_buffer,
+				          destination_string_buffer_size,
+				          &destination_string_buffer_iterator,
+				          LIBUCA_ENDIAN_BIG );
 				break;
 
 			case UCACOMMON_FORMAT_UTF32LE:
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xff;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0xfe;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0x00;
-				destination_string_buffer[ destination_string_buffer_iterator++ ] = 0x00;
+				result = libuca_utf32_stream_copy_byte_order_mark(
+				          destination_string_buffer,
+				          destination_string_buffer_size,
+				          &destination_string_buffer_iterator,
+				          LIBUCA_ENDIAN_LITTLE );
 				break;
 
 			default:
+				result = 1;
 				break;
+		}
+		if( result != 1 )
+		{
+			fprintf( stderr, "Unable to set byte order mark.\n" );
+
+			file_io_close(
+			 source_file_descriptor );
+			file_io_close(
+			 destination_file_descriptor );
+
+			memory_free(
+			 source_string_buffer );
+			memory_free(
+			 destination_string_buffer );
+
+			return( EXIT_FAILURE );
 		}
 	}
 	while( 1 )

@@ -218,6 +218,84 @@ LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf32(
                    uint8_t strict_mode );
 
 /* -------------------------------------------------------------------------
+ * UTF-8 stream functions
+ * ------------------------------------------------------------------------- */
+
+/* Copies an UTF-8 stream byte order mark (BOM)
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf8_stream_copy_byte_order_mark(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   size_t *utf8_stream_index );
+
+/* Determines the size of a UTF-8 stream from a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf8_stream_size_from_utf8(
+                       libuca_utf8_character_t *utf8_string,
+                       size_t utf8_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-8 stream from an UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf8_stream_copy_from_utf8(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf8_stream_copy_to_utf8 is implemented by
+ * libuca_utf8_string_copy_from_utf8_stream
+ */
+
+/* Determines the size of a UTF-8 stream from a UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf8_stream_size_from_utf16(
+                       libuca_utf16_character_t *utf16_string,
+                       size_t utf16_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-8 stream from an UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf8_stream_copy_from_utf16(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf8_stream_copy_to_utf16 is implemented by
+ * libuca_utf16_string_copy_from_utf8_stream
+ */
+
+/* Determines the size of a UTF-8 stream from a UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf8_stream_size_from_utf32(
+                       libuca_utf32_character_t *utf32_string,
+                       size_t utf32_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-8 stream from an UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf8_stream_copy_from_utf32(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf8_stream_copy_to_utf32 is implemented by
+ * libuca_utf32_string_copy_from_utf8_stream
+ */
+
+/* -------------------------------------------------------------------------
  * UTF-8 string functions
  * ------------------------------------------------------------------------- */
 
@@ -335,6 +413,88 @@ LIBUCA_EXTERN int libuca_utf8_string_copy_from_utf32_stream(
 
 /* The functionality for libuca_utf8_string_copy_to_utf32_stream is implemented by
  * libuca_utf32_stream_size_from_utf8
+ */
+
+/* -------------------------------------------------------------------------
+ * UTF-16 stream functions
+ * ------------------------------------------------------------------------- */
+
+/* Copies an UTF-16 stream byte order mark (BOM)
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf16_stream_copy_byte_order_mark(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order );
+
+/* Determines the size of a UTF-16 stream from a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf8(
+                       libuca_utf8_character_t *utf8_string,
+                       size_t utf8_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-16 stream from an UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf8(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf16_stream_copy_to_utf8 is implemented by
+ * libuca_utf8_string_copy_from_utf16_stream
+ */
+
+/* Determines the size of a UTF-16 stream from a UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf16(
+                       libuca_utf16_character_t *utf16_string,
+                       size_t utf16_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-16 stream from an UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf16(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf16_stream_copy_to_utf16 is implemented by
+ * libuca_utf16_string_copy_from_utf16_stream
+ */
+
+/* Determines the size of a UTF-16 stream from a UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf32(
+                       libuca_utf32_character_t *utf32_string,
+                       size_t utf32_string_size,
+                       uint8_t strict_mode );
+
+/* Copies an UTF-16 stream from an UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf32(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   uint8_t byte_order,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   uint8_t strict_mode );
+
+/* The functionality for libuca_utf16_stream_copy_to_utf32 is implemented by
+ * libuca_utf32_string_copy_from_utf16_stream
  */
 
 /* -------------------------------------------------------------------------
@@ -458,76 +618,85 @@ LIBUCA_EXTERN int libuca_utf16_string_copy_from_utf32_stream(
  */
 
 /* -------------------------------------------------------------------------
- * UTF-16 stream functions
+ * UTF-32 stream functions
  * ------------------------------------------------------------------------- */
 
-/* Determines the size of a UTF-16 stream from a UTF-8 string
+/* Copies an UTF-32 stream byte order mark (BOM)
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf8(
+LIBUCA_EXTERN int libuca_utf32_stream_copy_byte_order_mark(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   size_t *utf32_stream_index,
+                   uint8_t byte_order );
+
+/* Determines the size of a UTF-32 stream from a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf8(
                        libuca_utf8_character_t *utf8_string,
                        size_t utf8_string_size,
                        uint8_t strict_mode );
 
-/* Copies an UTF-16 stream from an UTF-8 string
+/* Copies an UTF-32 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf8(
-                   uint8_t *utf16_stream,
-                   size_t utf16_stream_size,
+LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf8(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
                    uint8_t byte_order,
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
                    uint8_t strict_mode );
 
-/* The functionality for libuca_utf16_stream_copy_to_utf8 is implemented by
- * libuca_utf8_string_copy_from_utf16_stream
+/* The functionality for libuca_utf32_stream_copy_to_utf8 is implemented by
+ * libuca_utf8_string_copy_from_utf32_stream
  */
 
-/* Determines the size of a UTF-16 stream from a UTF-16 string
+/* Determines the size of a UTF-32 stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf16(
+LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf16(
                        libuca_utf16_character_t *utf16_string,
                        size_t utf16_string_size,
                        uint8_t strict_mode );
 
-/* Copies an UTF-16 stream from an UTF-16 string
+/* Copies an UTF-32 stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf16(
-                   uint8_t *utf16_stream,
-                   size_t utf16_stream_size,
+LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf16(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
                    uint8_t byte_order,
                    libuca_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
                    uint8_t strict_mode );
 
-/* The functionality for libuca_utf16_stream_copy_to_utf16 is implemented by
- * libuca_utf16_string_copy_from_utf16_stream
+/* The functionality for libuca_utf32_stream_copy_to_utf16 is implemented by
+ * libuca_utf16_string_copy_from_utf32_stream
  */
 
-/* Determines the size of a UTF-16 stream from a UTF-32 string
+/* Determines the size of a UTF-32 stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf32(
+LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf32(
                        libuca_utf32_character_t *utf32_string,
                        size_t utf32_string_size,
                        uint8_t strict_mode );
 
-/* Copies an UTF-16 stream from an UTF-32 string
+/* Copies an UTF-32 stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf32(
-                   uint8_t *utf16_stream,
-                   size_t utf16_stream_size,
+LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf32(
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
                    uint8_t byte_order,
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    uint8_t strict_mode );
 
-/* The functionality for libuca_utf16_stream_copy_to_utf32 is implemented by
- * libuca_utf32_string_copy_from_utf16_stream
+/* The functionality for libuca_utf32_stream_copy_to_utf32 is implemented by
+ * libuca_utf32_string_copy_from_utf32_stream
  */
 
 /* -------------------------------------------------------------------------
@@ -644,79 +813,6 @@ LIBUCA_EXTERN int libuca_utf32_string_copy_from_utf32_stream(
 
 /* The functionality for libuca_utf32_string_copy_to_utf32_stream is implemented by
  * libuca_utf32_stream_size_from_utf32
- */
-
-/* -------------------------------------------------------------------------
- * UTF-32 stream functions
- * ------------------------------------------------------------------------- */
-
-/* Determines the size of a UTF-32 stream from a UTF-8 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf8(
-                       libuca_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       uint8_t strict_mode );
-
-/* Copies an UTF-32 stream from an UTF-8 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf8(
-                   uint8_t *utf32_stream,
-                   size_t utf32_stream_size,
-                   uint8_t byte_order,
-                   libuca_utf8_character_t *utf8_string,
-                   size_t utf8_string_size,
-                   uint8_t strict_mode );
-
-/* The functionality for libuca_utf32_stream_copy_to_utf8 is implemented by
- * libuca_utf8_string_copy_from_utf32_stream
- */
-
-/* Determines the size of a UTF-32 stream from a UTF-16 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf16(
-                       libuca_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       uint8_t strict_mode );
-
-/* Copies an UTF-32 stream from an UTF-16 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf16(
-                   uint8_t *utf32_stream,
-                   size_t utf32_stream_size,
-                   uint8_t byte_order,
-                   libuca_utf16_character_t *utf16_string,
-                   size_t utf16_string_size,
-                   uint8_t strict_mode );
-
-/* The functionality for libuca_utf32_stream_copy_to_utf16 is implemented by
- * libuca_utf16_string_copy_from_utf32_stream
- */
-
-/* Determines the size of a UTF-32 stream from a UTF-32 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN ssize_t libuca_utf32_stream_size_from_utf32(
-                       libuca_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       uint8_t strict_mode );
-
-/* Copies an UTF-32 stream from an UTF-32 string
- * Returns 1 if successful or -1 on error
- */
-LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf32(
-                   uint8_t *utf32_stream,
-                   size_t utf32_stream_size,
-                   uint8_t byte_order,
-                   libuca_utf32_character_t *utf32_string,
-                   size_t utf32_string_size,
-                   uint8_t strict_mode );
-
-/* The functionality for libuca_utf32_stream_copy_to_utf32 is implemented by
- * libuca_utf32_string_copy_from_utf32_stream
  */
 
 #if defined( __cplusplus )

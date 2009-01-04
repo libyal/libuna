@@ -32,6 +32,12 @@
 extern "C" {
 #endif
 
+LIBUCA_EXTERN int libuca_utf16_stream_copy_byte_order_mark(
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order );
+
 LIBUCA_EXTERN ssize_t libuca_utf16_stream_size_from_utf8(
                        libuca_utf8_character_t *utf8_string,
                        size_t utf8_string_size,

@@ -28,6 +28,68 @@
 #include "libuca_unicode_character.h"
 #include "libuca_utf16_stream.h"
 
+/* Copies an UTF-16 stream byte order mark (BOM)
+ * Returns 1 if successful or -1 on error
+ */
+int libuca_utf16_stream_copy_byte_order_mark(
+     uint8_t *utf16_stream,
+     size_t utf16_stream_size,
+     size_t *utf16_stream_index,
+     uint8_t byte_order )
+{
+	static char *function = "libuca_utf16_stream_copy_byte_order_mark";
+
+	if( utf16_stream == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-16 stream.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_stream_size > (size_t) SSIZE_MAX )
+	{
+		notify_warning_printf( "%s: invalid UTF-16 stream size value exceeds maximum.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_stream_index == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-16 stream index.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( ( *utf16_stream_index + 1 ) >= utf16_stream_size )
+	{
+		notify_warning_printf( "%s: UTF-16 stream too small.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( ( byte_order != LIBUCA_ENDIAN_BIG )
+	 && ( byte_order != LIBUCA_ENDIAN_LITTLE ) )
+	{
+		notify_warning_printf( "%s: unsupported byte order.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_order == LIBUCA_ENDIAN_BIG )
+	{
+		utf16_stream[ *utf16_stream_index     ] = 0xfe;
+		utf16_stream[ *utf16_stream_index + 1 ] = 0xff;
+	}
+	else if( byte_order == LIBUCA_ENDIAN_LITTLE )
+	{
+		utf16_stream[ *utf16_stream_index     ] = 0xff;
+		utf16_stream[ *utf16_stream_index + 1 ] = 0xfe;
+	}
+	*utf16_stream_index += 2;
+
+	return( 1 );
+}
+
 /* Determines the size of a UTF-16 stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
@@ -140,17 +202,16 @@ int libuca_utf16_stream_copy_from_utf8(
 
 		return( -1 );
 	}
-	/* Add the byte order mark (BOM)
-	 */
-	if( byte_order == LIBUCA_ENDIAN_BIG )
+	if( libuca_utf16_stream_copy_byte_order_mark(
+	     utf16_stream,
+	     utf16_stream_size,
+	     &utf16_stream_iterator,
+	     byte_order ) != 1 )
 	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
-	}
-	else if( byte_order == LIBUCA_ENDIAN_LITTLE )
-	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
+		notify_warning_printf( "%s: unable to copy UTF-16 byte order mark.\n",
+		 function );
+
+		return( -1 );
 	}
 	while( utf8_string_iterator < utf8_string_size )
 	{
@@ -275,17 +336,16 @@ int libuca_utf16_stream_copy_from_utf16(
 
 		return( -1 );
 	}
-	/* Add the byte order mark (BOM)
-	 */
-	if( byte_order == LIBUCA_ENDIAN_LITTLE )
+	if( libuca_utf16_stream_copy_byte_order_mark(
+	     utf16_stream,
+	     utf16_stream_size,
+	     &utf16_stream_iterator,
+	     byte_order ) != 1 )
 	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
-	}
-	else if( byte_order == LIBUCA_ENDIAN_BIG )
-	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
+		notify_warning_printf( "%s: unable to copy UTF-16 byte order mark.\n",
+		 function );
+
+		return( -1 );
 	}
 	while( utf16_string_iterator < utf16_string_size )
 	{
@@ -422,17 +482,16 @@ int libuca_utf16_stream_copy_from_utf32(
 
 		return( -1 );
 	}
-	/* Add the byte order mark (BOM)
-	 */
-	if( byte_order == LIBUCA_ENDIAN_LITTLE )
+	if( libuca_utf16_stream_copy_byte_order_mark(
+	     utf16_stream,
+	     utf16_stream_size,
+	     &utf16_stream_iterator,
+	     byte_order ) != 1 )
 	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
-	}
-	else if( byte_order == LIBUCA_ENDIAN_BIG )
-	{
-		utf16_stream[ utf16_stream_iterator++ ] = 0xfe;
-		utf16_stream[ utf16_stream_iterator++ ] = 0xff;
+		notify_warning_printf( "%s: unable to copy UTF-16 byte order mark.\n",
+		 function );
+
+		return( -1 );
 	}
 	while( utf32_string_iterator < utf32_string_size )
 	{
