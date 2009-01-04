@@ -1,9 +1,10 @@
 TODO
 
 * implement error
+  - remove libuna_set_notify_values no use of notify_verbose
 * rewrite size functions to return int instead of ssize_t
 
-* ucaexport implement signal handling
+* unaexport implement signal handling
 
 * speed test between index based and pointer based iteration
 
@@ -17,7 +18,7 @@ TODO
   determined
 
 Tools:
-* ucaexport
+* unaexport
   - add conversion summary (converting from x to y with codepage z) +/-
   - update man page
   - allow for different input and output codepage?
@@ -25,14 +26,14 @@ Tools:
   - determine total source file size for process status
   - add option to set buffer size?
   - check if input file is output file?
-* ucainfo
+* unainfo
   tool to determine the encoding type using the byte order mark
   perhaps some other tricks
   useful for automated conversion
   - write man page
-  - update ucaexport manpage 
+  - update unaexport manpage 
     .Sh SEE ALSO
-    .Xr ucainfo 1
+    .Xr unainfo 1
   - update spec.in file
   - update msvscpp project files
 
@@ -40,7 +41,7 @@ Deployment:
 * create debian package files
 * fix AUTHORS
 * update MSVSCPP solution file
-  - add ucaprocess_status to ucaexport project
+  - add unaprocess_status to unaexport project
 * update MacOS-X project file
 
 Other Windows codepages (SBC)
@@ -52,11 +53,13 @@ Other Windows codepages (MBC)
 * 950 (Traditional Chinese Big5)
 
 20080909
-* libuna already exists renamed to libuna
+* libuna already exists renamed to libuca
+* Worked on improved error handling
+* Worked on rewriting size functions
 
 20080908
 * Worked on initial version
-* Moved wide character specific code to ucatools no longer used in libuna
+* Moved wide character specific code to ucatools no longer used in libuca
 * Fixed ucabyte_size for conversion error in 2 digit after separator
 * Separated common code in to common code for tools and both libary and tools
 * Worked on improved error handling
@@ -88,13 +91,13 @@ Other Windows codepages (MBC)
 
 20080901
 * Worked on initial version
-* Integrated local use of libuna using HAVE_LOCAL_LIBUNA for maintenance
+* Integrated local use of libuca using HAVE_LOCAL_LIBUNA for maintenance
 * implemented UTF-8/16 to/from UTF-32_stream functions
 * detection of endian defaults to big if no endianess could be determined
 * added detection of UTF-8 byte order mark
 * Worked on refactoring _streams to separate files change copy_to_ functions into copy_from
-* Implemented libuna_utf16_string_size_from_utf8, libuna_utf32_string_size_from_utf8
-* Implemented libuna_utf16_string_size_from_utf32, libuna_utf32_string_size_from_utf32
+* Implemented libuca_utf16_string_size_from_utf8, libuca_utf32_string_size_from_utf8
+* Implemented libuca_utf16_string_size_from_utf32, libuca_utf32_string_size_from_utf32
 * Worked on codepages
 
 20080831

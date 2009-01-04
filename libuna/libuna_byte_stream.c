@@ -25,6 +25,7 @@
 #include <types.h>
 
 #include "libuna_definitions.h"
+#include "libuna_error.h"
 #include "libuna_unicode_character.h"
 #include "libuna_byte_stream.h"
 

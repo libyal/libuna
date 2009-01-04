@@ -338,57 +338,66 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 }
 
 /* Determines the size of a UTF-8 character to from a Unicode character
- * Returns the size of the byte stream
+ * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE ssize_t libuna_unicode_character_size_to_utf8(
-                       libuna_unicode_character_t unicode_character,
-                       libuna_error_t **error )
+LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
+                   libuna_unicode_character_t unicode_character,
+                   size_t *utf8_character_size,
+                   libuna_error_t **error )
 {
-	ssize_t utf8_character_size = 0;
+	if( utf8_character_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-8 character size.\n",
+		 function );
 
+		return( -1 );
+	}
 	if( unicode_character < 0x080 )
 	{
-		utf8_character_size = 1;
+		*utf8_character_size = 1;
 	}
 	else if( unicode_character < 0x0800 )
 	{
-		utf8_character_size = 2;
+		*utf8_character_size = 2;
 	}
 	else if( unicode_character < 0x010000 )
 	{
-		utf8_character_size = 3;
+		*utf8_character_size = 3;
 	}
 	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
-		utf8_character_size = 3;
+		*utf8_character_size = 3;
 	}
 	else
 	{
-		utf8_character_size = 4;
+		*utf8_character_size = 4;
 	}
 /* UTF-8 USC support ?
 	else if( unicode_character < 0x010000 )
 	{
-		utf8_character_size = 3;
+		*utf8_character_size = 3;
 	}
 	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
-		utf8_character_size = 2;
+		*utf8_character_size = 2;
 	}
 	else if( unicode_character < 0x0200000 )
 	{
-		utf8_character_size = 4;
+		*utf8_character_size = 4;
 	}
 	else if( unicode_character < 0x0400000 )
 	{
-		utf8_character_size = 5;
+		*utf8_character_size = 5;
 	}
 	else
 	{
-		utf8_character_size = 6;
+		*utf8_character_size = 6;
 	}
 */
-	return( utf8_character_size );
+	return( 1 );
 }
 
 /* Copies a Unicode character from a UTF-8 string
@@ -406,35 +415,50 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 
 	if( unicode_character == NULL )
 	{
-		notify_warning_printf( "%s: invalid Unicode character.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf8_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-8 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf8_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-8 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf8_string_index >= utf8_string_size )
 	{
-		notify_warning_printf( "%s: UTF-8 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-8 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -467,7 +491,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 	}
 	if( ( *utf8_string_index + utf8_character_additional_bytes + 1 ) > utf8_string_size )
 	{
-		notify_warning_printf( "%s: missing UTF-8 character bytes.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: missing UTF-8 character bytes.\n",
 		 function );
 
 		return( -1 );
@@ -478,7 +505,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 	 */
 	if( utf8_string[ *utf8_string_index ] > 0xf4 )
 	{
-		notify_warning_printf( "%s: invalid 1st UTF-8 character byte.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 "%s: invalid 1st UTF-8 character byte.\n",
 		 function );
 
 		return( -1 );
@@ -490,7 +520,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index ] >= 0x80 )
 		 && ( utf8_string[ *utf8_string_index ] < 0xc2 ) )
 		{
-			notify_warning_printf( "%s: invalid 1st UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 1st UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -500,7 +533,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 	{
 		if( utf8_string[ *utf8_string_index + 1 ] > 0xbf )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -508,7 +544,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index ] == 0xe0 )
 		 && ( utf8_string[ *utf8_string_index + 1 ] < 0xa0 ) )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -516,7 +555,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		else if( ( utf8_string[ *utf8_string_index ] == 0xed )
 		      && ( utf8_string[ *utf8_string_index + 1 ] > 0x9f ) )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -524,7 +566,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		else if( ( utf8_string[ *utf8_string_index ] == 0xf0 )
 		      && ( utf8_string[ *utf8_string_index + 1 ] < 0x90 ) )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -532,14 +577,20 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		else if( ( utf8_string[ *utf8_string_index ] == 0xf4 )
 		      && ( utf8_string[ *utf8_string_index + 1 ] > 0x8f ) )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
 		}
 		else if( utf8_string[ *utf8_string_index + 1 ] < 0x80 )
 		{
-			notify_warning_printf( "%s: invalid 2nd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -557,7 +608,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index + 2 ] < 0x80 )
 		  || ( utf8_string[ *utf8_string_index + 2 ] > 0xbf ) )
 		{
-			notify_warning_printf( "%s: invalid 3rd UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 3rd UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -575,7 +629,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index + 3 ] < 0x80 )
 		  || ( utf8_string[ *utf8_string_index + 3 ] > 0xbf ) )
 		{
-			notify_warning_printf( "%s: invalid 4th UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 4th UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -593,7 +650,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index + 4 ] < 0x80 )
 		  || ( utf8_string[ *utf8_string_index + 4 ] > 0xbf ) )
 		{
-			notify_warning_printf( "%s: invalid 5th UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 5th UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -611,7 +671,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		if( ( utf8_string[ *utf8_string_index + 5 ] < 0x80 )
 		  || ( utf8_string[ *utf8_string_index + 5 ] > 0xbf ) )
 		{
-			notify_warning_printf( "%s: invalid 6th UTF-8 character byte.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: invalid 6th UTF-8 character byte.\n",
 			 function );
 
 			return( -1 );
@@ -648,28 +711,40 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 
 	if( utf8_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-8 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf8_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-8 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-8 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf8_string_index >= utf8_string_size )
 	{
-		notify_warning_printf( "%s: UTF-8 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-8 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -716,7 +791,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 	 */
 	if( ( *utf8_string_index + utf8_character_additional_bytes ) >= utf8_string_size )
 	{
-		notify_warning_printf( "%s: UTF-8 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-8 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -737,18 +815,31 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 /* Determines the size of a UTF-16 character to from a Unicode character
  * Returns the size of the byte stream
  */
-LIBUNA_INLINE ssize_t libuna_unicode_character_size_to_utf16(
-                       libuna_unicode_character_t unicode_character,
-                       libuna_error_t **error )
+LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
+                   libuna_unicode_character_t unicode_character,
+                   size_t *utf16_character_size,
+                   libuna_error_t **error )
 {
-	ssize_t utf16_character_size = 1;
+	if( utf16_character_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 character size.\n",
+		 function );
 
+		return( -1 );
+	}
 	if( ( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
          && ( unicode_character <= LIBUNA_UTF16_CHARACTER_MAX ) )
 	{
-		utf16_character_size = 2;
+		*utf16_character_size = 2;
 	}
-	return( utf16_character_size );
+	else
+	{
+		*utf16_character_size = 1;
+	}
+	return( 1 );
 }
 
 /* Copies a Unicode character from a UTF-16 string
@@ -765,35 +856,50 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
 
 	if( unicode_character == NULL )
 	{
-		notify_warning_printf( "%s: invalid Unicode character.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf16_string_index >= utf16_string_size )
 	{
-		notify_warning_printf( "%s: UTF-16 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-16 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -808,7 +914,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
 	{
 		if( *utf16_string_index >= utf16_string_size )
 		{
-			notify_warning_printf( "%s: missing surrogate UTF-16 character bytes.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: missing surrogate UTF-16 character bytes.\n",
 			 function );
 
 			return( -1 );
@@ -855,28 +964,40 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16(
 
 	if( utf16_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf16_string_index >= utf16_string_size )
 	{
-		notify_warning_printf( "%s: UTF-16 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-16 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -899,7 +1020,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16(
 	{
 		if( ( *utf16_string_index + 1 ) >= utf16_string_size )
 		{
-			notify_warning_printf( "%s: UTF-16 string too small.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+			 "%s: UTF-16 string too small.\n",
 			 function );
 
 			return( -1 );
@@ -929,35 +1053,50 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16_stream(
 
 	if( unicode_character == NULL )
 	{
-		notify_warning_printf( "%s: invalid Unicode character.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf16_stream_index >= utf16_stream_size )
 	{
-		notify_warning_printf( "%s: UTF-16 stream too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-16 stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -965,7 +1104,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16_stream(
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		notify_warning_printf( "%s: unsupported byte order.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.\n",
 		 function );
 
 		return( -1 );
@@ -991,7 +1133,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16_stream(
 	{
 		if( *utf16_stream_index >= utf16_stream_size )
 		{
-			notify_warning_printf( "%s: missing surrogate UTF-16 character bytes.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+			 "%s: missing surrogate UTF-16 character bytes.\n",
 			 function );
 
 			return( -1 );
@@ -1051,28 +1196,40 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 
 	if( utf16_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf16_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-16 stream index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-16 stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( ( *utf16_stream_index + 1 ) >= utf16_stream_size )
 	{
-		notify_warning_printf( "%s: UTF-16 stream too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-16 stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -1080,7 +1237,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		notify_warning_printf( "%s: unsupported byte order.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.\n",
 		 function );
 
 		return( -1 );
@@ -1113,7 +1273,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 	{
 		if( ( *utf16_stream_index + 3 ) >= utf16_stream_size )
 		{
-			notify_warning_printf( "%s: UTF-16 stream too small.\n",
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+			 "%s: UTF-16 stream too small.\n",
 			 function );
 
 			return( -1 );
@@ -1158,10 +1321,23 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 /* Determines the size of a UTF-32 character to from a Unicode character
  * Returns the size of the byte stream
  */
-LIBUNA_INLINE ssize_t libuna_unicode_character_size_to_utf32(
-                       libuna_unicode_character_t unicode_character,
-                       libuna_error_t **error )
+LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
+                   libuna_unicode_character_t unicode_character,
+                   size_t *utf32_character_size,
+                   libuna_error_t **error )
 {
+	if( utf32_character_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 character size.\n",
+		 function );
+
+		return( -1 );
+	}
+	*utf32_character_size = 1;
+
 	return( 1 );
 }
 
@@ -1179,35 +1355,50 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32(
 
 	if( unicode_character == NULL )
 	{
-		notify_warning_printf( "%s: invalid Unicode character.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf32_string_index >= utf32_string_size )
 	{
-		notify_warning_printf( "%s: UTF-32 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-32 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -1242,28 +1433,40 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32(
 
 	if( utf32_string == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 string.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_string_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 string index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 string index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf32_string_index >= utf32_string_size )
 	{
-		notify_warning_printf( "%s: UTF-32 string too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-32 string too small.\n",
 		 function );
 
 		return( -1 );
@@ -1300,35 +1503,50 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32_stream(
 
 	if( unicode_character == NULL )
 	{
-		notify_warning_printf( "%s: invalid Unicode character.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *utf32_stream_index >= utf32_stream_size )
 	{
-		notify_warning_printf( "%s: UTF-32 stream too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-32 stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -1336,7 +1554,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32_stream(
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		notify_warning_printf( "%s: unsupported byte order.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.\n",
 		 function );
 
 		return( -1 );
@@ -1388,28 +1609,40 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32_stream(
 
 	if( utf32_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream size value exceeds maximum.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( utf32_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid UTF-32 stream index.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_INVALID_ARGUMENT,
+		 "%s: invalid UTF-32 stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( ( *utf32_stream_index + 1 ) >= utf32_stream_size )
 	{
-		notify_warning_printf( "%s: UTF-32 stream too small.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 "%s: UTF-32 stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -1417,7 +1650,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32_stream(
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		notify_warning_printf( "%s: unsupported byte order.\n",
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.\n",
 		 function );
 
 		return( -1 );

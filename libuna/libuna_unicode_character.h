@@ -27,6 +27,7 @@
 #include <types.h>
 
 #include "libuna_definitions.h"
+#include "libuna_error.h"
 #include "libuna_extern.h"
 #include "libuna_inline.h"
 
@@ -75,9 +76,10 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
                                  size_t *utf8_string_index,
                                  libuna_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE ssize_t libuna_unicode_character_size_to_utf16(
-                                     libuna_unicode_character_t unicode_character,
-                                     libuna_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
+                                 libuna_unicode_character_t unicode_character,
+                                 size_t *utf16_character_size,
+                                 libuna_error_t **error );
 
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
                                  libuna_unicode_character_t *unicode_character,
@@ -109,9 +111,10 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
                                  uint8_t byte_order,
                                  libuna_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE ssize_t libuna_unicode_character_size_to_utf32(
-                                     libuna_unicode_character_t unicode_character,
-                                     libuna_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
+                                 libuna_unicode_character_t unicode_character,
+                                 size_t *utf32_character_size,
+                                 libuna_error_t **error );
 
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32(
                                  libuna_unicode_character_t *unicode_character,

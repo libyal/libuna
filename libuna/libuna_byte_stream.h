@@ -26,55 +26,65 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_error.h"
 #include "libuna_extern.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf8(
-                       libuna_utf8_character_t *utf8_string,
-                       size_t utf8_string_size,
-                       int codepage );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf8(
+                   libuna_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
                    libuna_utf8_character_t *utf8_string,
-                   size_t utf8_string_size );
+                   size_t utf8_string_size,
+                   libuna_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf8 is implemented by
  * libuna_utf8_string_copy_from_byte_stream
  */
 
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf16(
-                       libuna_utf16_character_t *utf16_string,
-                       size_t utf16_string_size,
-                       int codepage );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf16(
+                   libuna_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
                    libuna_utf16_character_t *utf16_string,
-                   size_t utf16_string_size );
+                   size_t utf16_string_size,
+                   libuna_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf16 is implemented by
  * libuna_utf16_string_copy_from_byte_stream
  */
 
-LIBUNA_EXTERN ssize_t libuna_byte_stream_size_from_utf32(
-                       libuna_utf32_character_t *utf32_string,
-                       size_t utf32_string_size,
-                       int codepage );
+LIBUNA_EXTERN int libuna_byte_stream_size_from_utf32(
+                   libuna_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   int codepage,
+                   size_t *byte_stream_size,
+                   libuna_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf32(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
                    libuna_utf32_character_t *utf32_string,
-                   size_t utf32_string_size );
+                   size_t utf32_string_size,
+                   libuna_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf32 is implemented by
  * libuna_utf32_string_copy_from_byte_stream
