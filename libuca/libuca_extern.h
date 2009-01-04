@@ -40,7 +40,7 @@
 
 #else
 
-#define LIBUCA_EXTERN   extern
+#define LIBUCA_EXTERN
 
 #endif
 
