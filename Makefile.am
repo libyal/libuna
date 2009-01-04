@@ -1,12 +1,10 @@
 SUBDIRS = \
 	common \
+	liberror \
 	libuna \
 	unatools \
+	docs \
 	manuals
-
-CONFIG_FILES = \
-	common/config.h \
-	common/config_windows.h
 
 DOCUMENT_FILES = \
 	docs/ascii.txt \
@@ -33,10 +31,6 @@ MACOSX_FILES = \
 	macosx/License.rtf \
 	macosx/Readme.rtf
 
-MANUAL_FILES = \
-	manuals/unaexport.1 \
-	manuals/libuna.3
-
 MSVCPP_FILES = \
         msvscpp/unaexport \
         msvscpp/unaexport/unaexport.vcproj \
@@ -50,10 +44,8 @@ REDHAT_FILES = \
 
 EXTRA_DIST = \
         $(CONFIG_FILES) \
-        $(DOCUMENT_FILES) \
         $(HEADER_FILES) \
         $(MACOSX_FILES) \
-        $(MANUAL_FILES) \
         $(MSVCPP_FILES) \
         $(REDHAT_FILES) \
 	libuna.pc.in
@@ -85,7 +77,6 @@ library:
 distclean: clean
 	/bin/rm -f Makefile
 	/bin/rm -f config.status config.cache config.log
-	/bin/rm -f common/config.h
 	/bin/rm -f include/libuna.h
 	/bin/rm -f include/libuna/definitions.h
 	/bin/rm -f include/libuna/types.h

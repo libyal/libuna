@@ -20,26 +20,32 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "common.h"
-#include "date_time.h"
-#include "memory.h"
-#include "notify.h"
-#include "types.h"
+#include <common.h>
+#include <memory.h>
+#include <types.h>
 
-#if defined( HAVE_STRING_H )
-#include <string.h>
+#if defined( TIME_WITH_SYS_TIME )
+#include <sys/time.h>
+#include <time.h>
+#elif defined( HAVE_SYS_TIME_H )
+#include <sys/time.h>
+#else
+#include <time.h>
 #endif
+
+#include "date_time.h"
+#include "notify.h"
 
 #if !defined( HAVE_CTIME_R )
 
 /* Sets ctime in the string
- * The string must be at least 32 characters of length
+ * The string must be at least 32 characters of size
  * Returns the pointer to the string if successful or NULL on error
  */
 char *date_time_ctime(
        const time_t *timestamp,
        char *string,
-       size_t length )
+       size_t size )
 {
 	char *ctime_string    = NULL;
 	static char *function = "date_time_ctime";
@@ -58,14 +64,14 @@ char *date_time_ctime(
 
 		return( NULL );
 	}
-	if( length > (size_t) SSIZE_MAX )
+	if( size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid length.\n",
+		notify_warning_printf( "%s: invalid size.\n",
 		 function );
 
 		return( NULL );
 	}
-	if( length < 32 )
+	if( size < 32 )
 	{
 		notify_warning_printf( "%s: string too small.\n",
 		 function );
@@ -94,86 +100,6 @@ char *date_time_ctime(
 		return( NULL );
 	}
 	return( string );
-}
-#endif
-
-#if defined( date_time_localtime_r ) || defined( HAVE_LOCALTIME )
-/* Returns a structured representation of a time using the local time zone, or NULL on error
- */
-struct tm *date_time_localtime(
-            const time_t *timestamp )
-{
-#if !defined( date_time_localtime_r ) && defined( HAVE_LOCALTIME )
-	struct tm *static_time_elements = NULL;
-#endif
-	struct tm *time_elements        = NULL;
-	static char *function           = "date_time_localtime";
-
-	if( timestamp == NULL )
-	{
-		notify_warning_printf( "%s: invalid time stamp.\n",
-		 function );
-
-		return( NULL );
-	}
-	time_elements = (struct tm *) memory_allocate(
-	                               sizeof( struct tm ) );
-
-	if( time_elements == NULL )
-	{
-		notify_warning_printf( "%s: unable to create time elements.\n",
-		 function );
-
-		return( NULL );
-	}
-#if defined( date_time_localtime_r )
-#if defined( HAVE_WINDOWS_API )
-	if( date_time_localtime_r(
-	     timestamp,
-	     time_elements ) != 0 )
-#else
-	if( date_time_localtime_r(
-	     timestamp,
-	     time_elements ) == NULL )
-#endif
-	{
-		notify_warning_printf( "%s: unable to set time elements.\n",
-		 function );
-
-		memory_free(
-		 time_elements );
-
-		return( NULL );
-	}
-#elif defined( HAVE_LOCALTIME )
-	static_time_elements = localtime(
-	                        timestamp );
-
-	if( static_time_elements == NULL )
-	{
-		notify_warning_printf( "%s: unable to create static time elements.\n",
-		 function );
-
-		memory_free(
-		 time_elements );
-
-		return( NULL );
-	}
-	if( memory_copy(
-	     time_elements,
-	     static_time_elements,
-	     sizeof( struct tm ) ) == NULL )
-	{
-		notify_warning_printf( "%s: unable to set time elements.\n",
-		 function );
-
-		memory_free(
-		 time_elements );
-
-		return( NULL );
-	}
-#endif
-	return( time_elements );
 }
 #endif
 
@@ -207,7 +133,7 @@ struct tm *date_time_gmtime(
 		return( NULL );
 	}
 #if defined( date_time_gmtime_r )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 	if( date_time_gmtime_r(
 	     timestamp,
 	     time_elements ) != 0 )

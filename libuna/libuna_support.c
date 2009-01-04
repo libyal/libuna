@@ -21,6 +21,11 @@
  */
 
 #include <common.h>
+#include <types.h>
+
+#include <liberror.h>
+
+#include <stdio.h>
 
 #include "libuna_definitions.h"
 #include "libuna_support.h"
@@ -31,5 +36,36 @@ const char *libuna_get_version(
              void )
 {
 	return( (const char *) LIBUNA_VERSION_STRING );
+}
+
+/* Free an error and its elements
+ */
+void libuna_error_free(
+      libuna_error_t **error )
+{
+	liberror_error_free(
+	 (liberror_error_t **) error );
+}
+
+/* Prints a descriptive string of the error to the stream
+ */
+void libuna_error_fprint(
+     libuna_error_t *error,
+     FILE *stream )
+{
+	liberror_error_fprint(
+	 (liberror_error_t *) error,
+	 stream );
+}
+
+/* Prints a backtrace of the error to the stream
+ */
+void libuna_error_backtrace_fprint(
+     libuna_error_t *error,
+     FILE *stream )
+{
+	liberror_error_backtrace_fprint(
+	 (liberror_error_t *) error,
+	 stream );
 }
 

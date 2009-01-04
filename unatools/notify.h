@@ -1,5 +1,5 @@
 /*
- * File stream IO functions
+ * Notification functions
  *
  * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,12 +20,10 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _FILE_STREAM_IO_H )
-#define _FILE_STREAM_IO_H
+#if !defined( _NOTIFY_H )
+#define _NOTIFY_H
 
-#include "common.h"
-#include "narrow_string.h"
-#include "wide_string.h"
+#include <common.h>
 
 #include <stdio.h>
 
@@ -33,35 +31,31 @@
 extern "C" {
 #endif
 
-#if defined( HAVE_FOPEN )
-#define file_stream_io_fopen( filename, mode ) \
-	fopen( filename, mode )
-#endif
+extern int notify_verbose;
 
-#if defined( HAVE_WFOPEN )
-#define file_stream_io_wfopen( filename, mode ) \
-	_wfopen( filename, mode )
-#endif
+void notify_set_values(
+      FILE *stream,
+      int verbose );
 
-#if defined( HAVE_FCLOSE )
-#define file_stream_io_fclose( file_stream ) \
-	fclose( file_stream )
-#endif
+#define notify_set_values \
+        notify_set_values
 
-#if defined( HAVE_FREAD )
-#define file_stream_io_fread( stream, data, size ) \
-	fread( data, 1, size, stream )
-#endif
+void notify_printf(
+      char *format,
+      ... );
 
-#if defined( HAVE_FWRITE )
-#define file_stream_io_fwrite( stream, data, size ) \
-	fwrite( data, 1, size, stream )
-#endif
+#define notify_verbose_printf \
+	if( notify_verbose != 0 ) notify_printf
 
-#if defined( HAVE_FEOF )
-#define file_stream_io_feof( stream ) \
-	feof( stream )
-#endif
+#define notify_warning_printf \
+	if( notify_verbose != 0 ) notify_printf
+
+void notify_dump_data(
+      void *data,
+      size_t size );
+
+#define notify_verbose_dump_data( data, size ) \
+	if( notify_verbose != 0 ) notify_dump_data( data, size )
 
 #if defined( __cplusplus )
 }

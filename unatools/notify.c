@@ -20,9 +20,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "common.h"
-#include "notify.h"
-#include "types.h"
+#include <common.h>
+#include <types.h>
 
 #if defined( HAVE_STDLIB_H )
 #include <stdlib.h>
@@ -37,6 +36,8 @@
 #else
 #error Missing headers stdarg.h and varargs.h
 #endif
+
+#include "notify.h"
 
 FILE *notify_stream = NULL;
 int notify_verbose  = 0;

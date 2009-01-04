@@ -24,12 +24,12 @@
 #define _PROCESS_STATUS_H
 
 #include <common.h>
-#include <date_time.h>
 #include <types.h>
 
 #include <stdio.h>
 
 #include "character_string.h"
+#include "date_time.h"
 #include "safe_types.h"
 
 #if defined( __cplusplus )

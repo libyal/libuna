@@ -23,8 +23,9 @@
 #include <common.h>
 #include <types.h>
 
+#include <liberror.h>
+
 #include "libuna_definitions.h"
-#include "libuna_error.h"
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
 #include "libuna_utf32_string.h"
@@ -37,7 +38,7 @@ int libuna_utf32_string_size_from_byte_stream(
      size_t byte_stream_size,
      int codepage,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_byte_stream";
 	size_t byte_stream_iterator                  = 0;
@@ -45,10 +46,10 @@ int libuna_utf32_string_size_from_byte_stream(
 
 	if( byte_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -56,10 +57,10 @@ int libuna_utf32_string_size_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -67,10 +68,10 @@ int libuna_utf32_string_size_from_byte_stream(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -96,10 +97,10 @@ int libuna_utf32_string_size_from_byte_stream(
 		     codepage,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from byte stream.",
 			 function );
 
@@ -112,10 +113,10 @@ int libuna_utf32_string_size_from_byte_stream(
 		    utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -134,7 +135,7 @@ int libuna_utf32_string_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      int codepage,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_byte_stream";
 	size_t utf32_string_iterator                 = 0;
@@ -144,10 +145,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -155,10 +156,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -166,10 +167,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -177,10 +178,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -204,10 +205,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 		     codepage,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from byte stream.",
 			 function );
 
@@ -222,10 +223,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -236,10 +237,10 @@ int libuna_utf32_string_copy_from_byte_stream(
 	{
 		if( utf32_string_iterator >= utf32_string_size )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-			 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string too small.",
 			 function );
 
@@ -257,7 +258,7 @@ int libuna_utf32_string_size_from_utf8(
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_utf8";
 	size_t utf8_string_iterator                  = 0;
@@ -265,10 +266,10 @@ int libuna_utf32_string_size_from_utf8(
 
 	if( utf8_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 string.",
 		 function );
 
@@ -276,10 +277,10 @@ int libuna_utf32_string_size_from_utf8(
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
@@ -287,10 +288,10 @@ int libuna_utf32_string_size_from_utf8(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -309,10 +310,10 @@ int libuna_utf32_string_size_from_utf8(
 		     &utf8_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
@@ -325,10 +326,10 @@ int libuna_utf32_string_size_from_utf8(
 		     utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -346,7 +347,7 @@ int libuna_utf32_string_copy_from_utf8(
      size_t utf32_string_size,
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_utf8";
 	size_t utf8_string_iterator                  = 0;
@@ -355,10 +356,10 @@ int libuna_utf32_string_copy_from_utf8(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -366,10 +367,10 @@ int libuna_utf32_string_copy_from_utf8(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -377,10 +378,10 @@ int libuna_utf32_string_copy_from_utf8(
 	}
 	if( utf8_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 string.",
 		 function );
 
@@ -388,10 +389,10 @@ int libuna_utf32_string_copy_from_utf8(
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
@@ -408,10 +409,10 @@ int libuna_utf32_string_copy_from_utf8(
 		     &utf8_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
@@ -426,10 +427,10 @@ int libuna_utf32_string_copy_from_utf8(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -446,7 +447,7 @@ int libuna_utf32_string_size_from_utf8_stream(
      const uint8_t *utf8_stream,
      size_t utf8_stream_size,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_utf8_stream";
 	size_t utf8_stream_iterator                  = 0;
@@ -454,10 +455,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 
 	if( utf8_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 stream.",
 		 function );
 
@@ -465,10 +466,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 	}
 	if( utf8_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 stream size value exceeds maximum.",
 		 function );
 
@@ -476,10 +477,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 	}
 	if( utf8_stream_size < 1 )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-8 stream bytes.",
 		 function );
 
@@ -487,10 +488,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -526,10 +527,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 		     &utf8_stream_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8 stream.",
 			 function );
 
@@ -542,10 +543,10 @@ int libuna_utf32_string_size_from_utf8_stream(
 		    utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -563,7 +564,7 @@ int libuna_utf32_string_copy_from_utf8_stream(
      size_t utf32_string_size,
      const uint8_t *utf8_stream,
      size_t utf8_stream_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_utf8_stream";
 	size_t utf32_string_iterator                 = 0;
@@ -573,10 +574,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -584,10 +585,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -595,10 +596,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	}
 	if( utf8_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 stream.",
 		 function );
 
@@ -606,10 +607,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	}
 	if( utf8_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 stream size value exceeds maximum.",
 		 function );
 
@@ -617,10 +618,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	}
 	if( utf8_stream_size < 1 )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-8 stream bytes.",
 		 function );
 
@@ -654,10 +655,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 		     &utf8_stream_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8 stream.",
 			 function );
 
@@ -672,10 +673,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -686,10 +687,10 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	{
 		if( utf32_string_iterator >= utf32_string_size )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-			 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string too small.",
 			 function );
 
@@ -708,7 +709,7 @@ int libuna_utf32_string_size_from_utf16(
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_utf16";
 	size_t utf16_string_iterator                 = 0;
@@ -716,10 +717,10 @@ int libuna_utf32_string_size_from_utf16(
 
 	if( utf16_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 string.",
 		 function );
 
@@ -727,10 +728,10 @@ int libuna_utf32_string_size_from_utf16(
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
@@ -738,10 +739,10 @@ int libuna_utf32_string_size_from_utf16(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -760,10 +761,10 @@ int libuna_utf32_string_size_from_utf16(
 		     &utf16_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
@@ -776,10 +777,10 @@ int libuna_utf32_string_size_from_utf16(
 		     utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -797,7 +798,7 @@ int libuna_utf32_string_copy_from_utf16(
      size_t utf32_string_size,
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_utf16";
 	size_t utf16_string_iterator                 = 0;
@@ -806,10 +807,10 @@ int libuna_utf32_string_copy_from_utf16(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -817,10 +818,10 @@ int libuna_utf32_string_copy_from_utf16(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -828,10 +829,10 @@ int libuna_utf32_string_copy_from_utf16(
 	}
 	if( utf16_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 string.",
 		 function );
 
@@ -839,10 +840,10 @@ int libuna_utf32_string_copy_from_utf16(
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
@@ -859,10 +860,10 @@ int libuna_utf32_string_copy_from_utf16(
 		     &utf16_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
@@ -877,10 +878,10 @@ int libuna_utf32_string_copy_from_utf16(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -898,7 +899,7 @@ int libuna_utf32_string_size_from_utf16_stream(
      size_t utf16_stream_size,
      uint8_t byte_order,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_utf16_stream";
 	size_t utf16_stream_iterator                 = 0;
@@ -907,10 +908,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 
 	if( utf16_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 stream.",
 		 function );
 
@@ -918,10 +919,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 	}
 	if( utf16_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.",
 		 function );
 
@@ -930,10 +931,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 	if( ( utf16_stream_size < 2 )
 	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-16 stream bytes.",
 		 function );
 
@@ -943,10 +944,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 	 && ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.",
 		 function );
 
@@ -954,10 +955,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -1020,10 +1021,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 		     read_byte_order,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16 stream.",
 			 function );
 
@@ -1036,10 +1037,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 		     utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -1048,10 +1049,10 @@ int libuna_utf32_string_size_from_utf16_stream(
 	}
 	if( utf16_stream_iterator != utf16_stream_size )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-16 stream bytes.",
 		 function );
 
@@ -1069,7 +1070,7 @@ int libuna_utf32_string_copy_from_utf16_stream(
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
      uint8_t byte_order,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_utf16_stream";
 	size_t utf32_string_iterator                 = 0;
@@ -1080,10 +1081,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -1091,10 +1092,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -1102,10 +1103,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	}
 	if( utf16_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 stream.",
 		 function );
 
@@ -1113,10 +1114,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	}
 	if( utf16_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.",
 		 function );
 
@@ -1125,10 +1126,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	if( ( utf16_stream_size < 2 )
 	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-16 stream bytes.",
 		 function );
 
@@ -1138,10 +1139,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	 && ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.",
 		 function );
 
@@ -1202,10 +1203,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 		     read_byte_order,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16 stream.",
 			 function );
 
@@ -1220,10 +1221,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -1232,10 +1233,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	}
 	if( utf16_stream_iterator != utf16_stream_size )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-16 stream bytes.",
 		 function );
 
@@ -1245,10 +1246,10 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	{
 		if( utf32_string_iterator >= utf32_string_size )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-			 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string too small.",
 			 function );
 
@@ -1267,7 +1268,7 @@ int libuna_utf32_string_size_from_utf32_stream(
      size_t utf32_stream_size,
      uint8_t byte_order,
      size_t *utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_size_from_utf32_stream";
 	size_t utf32_stream_iterator                 = 0;
@@ -1276,10 +1277,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 
 	if( utf32_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 stream.",
 		 function );
 
@@ -1287,10 +1288,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 	}
 	if( utf32_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 stream size value exceeds maximum.",
 		 function );
 
@@ -1299,10 +1300,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 	if( ( utf32_stream_size < 4 )
 	 || ( ( utf32_stream_size % 4 ) != 0 ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-32 stream bytes.",
 		 function );
 
@@ -1310,10 +1311,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 	}
 	if( utf32_string_size == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string size.",
 		 function );
 
@@ -1386,10 +1387,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 		     read_byte_order,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32 stream.",
 			 function );
 
@@ -1402,10 +1403,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 		    utf32_string_size,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to unable to determine size of Unicode character in UTF-32.",
 			 function );
 
@@ -1414,10 +1415,10 @@ int libuna_utf32_string_size_from_utf32_stream(
 	}
 	if( utf32_stream_iterator != utf32_stream_size )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-32 stream bytes.",
 		 function );
 
@@ -1435,7 +1436,7 @@ int libuna_utf32_string_copy_from_utf32_stream(
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
      uint8_t byte_order,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                        = "libuna_utf32_string_copy_from_utf32_stream";
 	size_t utf32_string_iterator                 = 0;
@@ -1446,10 +1447,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -1457,10 +1458,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -1468,10 +1469,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	}
 	if( utf32_stream == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 stream.",
 		 function );
 
@@ -1479,10 +1480,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	}
 	if( utf32_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 stream size value exceeds maximum.",
 		 function );
 
@@ -1491,10 +1492,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	if( ( utf32_stream_size < 4 )
 	 || ( ( utf32_stream_size % 4 ) != 0 ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-32 stream bytes.",
 		 function );
 
@@ -1504,10 +1505,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	 && ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.",
 		 function );
 
@@ -1578,10 +1579,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 		     read_byte_order,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32 stream.",
 			 function );
 
@@ -1596,10 +1597,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 		     &utf32_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-32.",
 			 function );
 
@@ -1608,10 +1609,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	}
 	if( utf32_stream_iterator != utf32_stream_size )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing UTF-32 stream bytes.",
 		 function );
 
@@ -1621,10 +1622,10 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	{
 		if( utf32_string_iterator >= utf32_string_size )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-			 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string too small.",
 			 function );
 

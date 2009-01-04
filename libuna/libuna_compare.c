@@ -23,8 +23,11 @@
 #include <common.h>
 #include <types.h>
 
+#include <liberror.h>
+
+#include <stdlib.h>
+
 #include "libuna_compare.h"
-#include "libuna_error.h"
 #include "libuna_unicode_character.h"
 #include "libuna_types.h"
 
@@ -36,7 +39,7 @@ int libuna_compare_utf8_with_utf16(
      size_t utf8_string_size,
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                              = "libuna_compare_utf8_with_utf16";
 	size_t utf8_string_iterator                        = 0;
@@ -46,10 +49,10 @@ int libuna_compare_utf8_with_utf16(
 
 	if( utf8_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 string.",
 		 function );
 
@@ -57,10 +60,10 @@ int libuna_compare_utf8_with_utf16(
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
@@ -68,10 +71,10 @@ int libuna_compare_utf8_with_utf16(
 	}
 	if( utf16_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 string.",
 		 function );
 
@@ -79,10 +82,10 @@ int libuna_compare_utf8_with_utf16(
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
@@ -100,10 +103,10 @@ int libuna_compare_utf8_with_utf16(
 		     &utf8_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
@@ -118,10 +121,10 @@ int libuna_compare_utf8_with_utf16(
 		     &utf16_string_iterator,
                      error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
@@ -150,7 +153,7 @@ int libuna_compare_utf8_with_utf32(
      size_t utf8_string_size,
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                              = "libuna_compare_utf8_with_utf32";
 	size_t utf8_string_iterator                        = 0;
@@ -160,10 +163,10 @@ int libuna_compare_utf8_with_utf32(
 
 	if( utf8_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 string.",
 		 function );
 
@@ -171,10 +174,10 @@ int libuna_compare_utf8_with_utf32(
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
@@ -182,10 +185,10 @@ int libuna_compare_utf8_with_utf32(
 	}
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -193,10 +196,10 @@ int libuna_compare_utf8_with_utf32(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -214,10 +217,10 @@ int libuna_compare_utf8_with_utf32(
 		     &utf8_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
@@ -232,10 +235,10 @@ int libuna_compare_utf8_with_utf32(
 		     &utf32_string_iterator,
                      error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32.",
 			 function );
 
@@ -264,7 +267,7 @@ int libuna_compare_utf16_with_utf32(
      size_t utf16_string_size,
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     libuna_error_t **error )
+     liberror_error_t **error )
 {
 	static char *function                              = "libuna_compare_utf16_with_utf32";
 	size_t utf16_string_iterator                       = 0;
@@ -274,10 +277,10 @@ int libuna_compare_utf16_with_utf32(
 
 	if( utf16_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 string.",
 		 function );
 
@@ -285,10 +288,10 @@ int libuna_compare_utf16_with_utf32(
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
@@ -296,10 +299,10 @@ int libuna_compare_utf16_with_utf32(
 	}
 	if( utf32_string == NULL )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_INVALID,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -307,10 +310,10 @@ int libuna_compare_utf16_with_utf32(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		libuna_error_set(
+		liberror_error_set(
 		 error,
-		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -328,10 +331,10 @@ int libuna_compare_utf16_with_utf32(
 		     &utf16_string_iterator,
 		     error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
@@ -346,10 +349,10 @@ int libuna_compare_utf16_with_utf32(
 		     &utf32_string_iterator,
                      error ) != 1 )
 		{
-			libuna_error_set(
+			liberror_error_set(
 			 error,
-			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32.",
 			 function );
 

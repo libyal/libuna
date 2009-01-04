@@ -1,18 +1,15 @@
 AM_CPPFLAGS = -I$(top_srcdir)/include
 
-noinst_LTLIBRARIES = libcommon.la
-
-libcommon_la_SOURCES = \
+EXTRA_DIST = \
 	common.h \
-	date_time.c date_time.h \
-	file_io.c file_io.h \
-	file_stream_io.h \
+	config.h \
+	config_windows.h \
 	memory.h \
 	narrow_string.h \
-	notify.c notify.h \
 	types.h \
 	wide_string.h
 
 distclean: clean
+	/bin/rm -f common/config.h
 	/bin/rm -f Makefile
 

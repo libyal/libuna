@@ -33,10 +33,10 @@ extern "C" {
 #endif
 
 #if defined( HAVE_WIDE_CHARACTER_TYPE ) && defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-#define HAVE_WIDE_SYSTEM_CHARACTER_T	1
+#define HAVE_WIDE_SYSTEM_CHARACTER	1
 #endif
 
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 
 typedef wchar_t system_character_t;
 typedef wint_t system_integer_t;

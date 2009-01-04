@@ -23,10 +23,17 @@
 #if !defined( _DATE_TIME_H )
 #define _DATE_TIME_H
 
-#include "common.h"
-#include "types.h"
+#include <common.h>
+#include <types.h>
 
+#if defined( TIME_WITH_SYS_TIME )
+#include <sys/time.h>
 #include <time.h>
+#elif defined( HAVE_SYS_TIME_H )
+#include <sys/time.h>
+#else
+#include <time.h>
+#endif
 
 #if defined( __cplusplus )
 extern "C" {
@@ -38,25 +45,14 @@ extern "C" {
 #endif
 
 #if defined( HAVE_WCTIME_R )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define date_time_wctime( timestamp, string, size ) \
 	( _wctime_s( string, size, timestamp ) != 0 ? NULL : string )
 #endif
 #endif
 
-#if defined( HAVE_LOCALTIME_R )
-#if defined( HAVE_WINDOWS_API )
-#define date_time_localtime_r( timestamp, time_elements ) \
-	localtime_s( time_elements, timestamp )
-
-#else
-#define date_time_localtime_r( timestamp, time_elements ) \
-	localtime_r( timestamp, time_elements )
-#endif
-#endif
-
 #if defined( HAVE_GMTIME_R )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define date_time_gmtime_r( timestamp, time_elements ) \
 	gmtime_s( time_elements, timestamp )
 
@@ -67,7 +63,7 @@ extern "C" {
 #endif
 
 #if defined( HAVE_CTIME_R )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define date_time_ctime( timestamp, string, size ) \
 	( ctime_s( string, size, timestamp ) != 0 ? NULL : string )
 
@@ -84,23 +80,7 @@ extern "C" {
 char *date_time_ctime(
        const time_t *timestamp,
        char *string,
-       size_t length );
-#endif
-
-#if defined( HAVE_MKTIME )
-#if defined( HAVE_WINDOWS_API )
-#define date_time_mktime( time_elements ) \
-	mktime( time_elements )
-
-#else
-#define date_time_mktime( time_elements ) \
-	mktime( time_elements )
-#endif
-#endif
-
-#if defined( date_time_localtime_r ) || defined( HAVE_LOCALTIME )
-struct tm *date_time_localtime(
-            const time_t *timestamp );
+       size_t size );
 #endif
 
 #if defined( date_time_gmtime_r ) || defined( HAVE_GMTIME )

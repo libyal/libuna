@@ -20,10 +20,11 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "common.h"
-#include "narrow_string.h"
+#include <common.h>
+#include <narrow_string.h>
+#include <wide_string.h>
+
 #include "file_io.h"
-#include "wide_string.h"
 #include "notify.h"
 
 #if defined( HAVE_OPEN ) && defined( HAVE_CLOSE )
@@ -44,7 +45,7 @@ int file_io_exists(
 
 		return( -1 );
 	}
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 	if( _sopen_s(
 	     &file_descriptor,
 	     filename,
@@ -87,7 +88,7 @@ int file_io_wexists(
 
 		return( -1 );
 	}
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 	if( _wsopen_s(
 	     &file_descriptor,
 	     filename,
@@ -123,7 +124,7 @@ int file_io_open(
 
 		return( -1 );
 	}
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 	if( _sopen_s(
 	     &file_descriptor,
 	     filename,
@@ -168,7 +169,7 @@ int file_io_wopen(
 
 		return( -1 );
 	}
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 	if( _wsopen_s(
 	     &file_descriptor,
 	     filename,

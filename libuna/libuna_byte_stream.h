@@ -26,7 +26,8 @@
 #include <common.h>
 #include <types.h>
 
-#include "libuna_error.h"
+#include <liberror.h>
+
 #include "libuna_extern.h"
 #include "libuna_types.h"
 
@@ -39,7 +40,7 @@ LIBUNA_EXTERN int libuna_byte_stream_size_from_utf8(
                    size_t utf8_string_size,
                    int codepage,
                    size_t *byte_stream_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
                    uint8_t *byte_stream,
@@ -47,7 +48,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
                    int codepage,
                    const libuna_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf8 is implemented by
  * libuna_utf8_string_copy_from_byte_stream
@@ -58,7 +59,7 @@ LIBUNA_EXTERN int libuna_byte_stream_size_from_utf16(
                    size_t utf16_string_size,
                    int codepage,
                    size_t *byte_stream_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
                    uint8_t *byte_stream,
@@ -66,7 +67,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
                    int codepage,
                    const libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf16 is implemented by
  * libuna_utf16_string_copy_from_byte_stream
@@ -77,7 +78,7 @@ LIBUNA_EXTERN int libuna_byte_stream_size_from_utf32(
                    size_t utf32_string_size,
                    int codepage,
                    size_t *byte_stream_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf32(
                    uint8_t *byte_stream,
@@ -85,7 +86,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf32(
                    int codepage,
                    const libuna_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
-                   libuna_error_t **error );
+                   liberror_error_t **error );
 
 /* The functionality for libuna_byte_stream_copy_to_utf32 is implemented by
  * libuna_utf32_string_copy_from_byte_stream

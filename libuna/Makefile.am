@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror
 
 lib_LTLIBRARIES = libuna.la
 
@@ -17,7 +17,7 @@ libuna_la_SOURCES = \
 	libuna_codepage_windows_1257.c libuna_codepage_windows_1257.h \
 	libuna_codepage_windows_1258.c libuna_codepage_windows_1258.h \
 	libuna_definitions.h \
-	libuna_error.c libuna_error.h \
+	libuna_error.h \
 	libuna_extern.h \
 	libuna_inline.h \
 	libuna_support.c libuna_support.h \
@@ -29,6 +29,8 @@ libuna_la_SOURCES = \
 	libuna_utf16_string.c libuna_utf16_string.h \
 	libuna_utf32_stream.c libuna_utf32_stream.h \
 	libuna_utf32_string.c libuna_utf32_string.h
+
+libuna_la_LIBADD  = ../liberror/liberror.la
 
 distclean: clean
 	/bin/rm -f Makefile

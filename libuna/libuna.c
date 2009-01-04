@@ -26,7 +26,7 @@
  */
 #if !defined( HAVE_LOCAL_LIBUNA )
 
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 
 #include <windows.h>
 

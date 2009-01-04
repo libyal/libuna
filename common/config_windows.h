@@ -336,6 +336,6 @@
 
 /* Some functions are different within the Windows API
  */
-#define HAVE_WINDOWS_API	1
+#define WINAPI	1
 
 #endif

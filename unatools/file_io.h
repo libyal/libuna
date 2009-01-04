@@ -23,10 +23,10 @@
 #if !defined( _FILE_IO_H )
 #define _FILE_IO_H
 
-#include "common.h"
-#include "narrow_string.h"
-#include "types.h"
-#include "wide_string.h"
+#include <common.h>
+#include <narrow_string.h>
+#include <types.h>
+#include <wide_string.h>
 
 #if defined( HAVE_IO_H )
 #include <io.h>
@@ -52,7 +52,7 @@
 extern "C" {
 #endif
 
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define FILE_IO_O_CREAT 	_O_CREAT
 #define FILE_IO_O_RDONLY	_O_RDONLY
 #define FILE_IO_O_RDWR		_O_RDWR
@@ -91,7 +91,7 @@ int file_io_wopen(
 #endif
 
 #if defined( HAVE_READ )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define file_io_read( file_descriptor, buffer, size ) \
 	_read( file_descriptor, (void *) buffer, (unsigned int) size )
 
@@ -102,7 +102,7 @@ int file_io_wopen(
 #endif
 
 #if defined( HAVE_LSEEK )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define file_io_lseek( file_descriptor, offset, whence ) \
 	_lseeki64( file_descriptor, offset, whence )
 
@@ -113,7 +113,7 @@ int file_io_wopen(
 #endif
 
 #if defined( HAVE_WRITE )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define file_io_write( file_descriptor, buffer, size ) \
 	_write( file_descriptor, (const void *) buffer, (unsigned int) size )
 
@@ -124,7 +124,7 @@ int file_io_wopen(
 #endif
 
 #if defined( HAVE_CLOSE )
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #define file_io_close( file_descriptor ) \
 	_close( file_descriptor )
 

@@ -58,6 +58,12 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080920
+* Worked on initial version
+* Clean up of common
+* replaces HAVE_WINDOWS_API by WINAPI
+* moved error into liberror this make maintenace easier
+
 20080916
 * Worked on initial version
 * Fixed issue in error

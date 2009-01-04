@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20080916],
+  [20080920],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20080916])
+ [20080920])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -45,7 +45,7 @@ dnl Checks for libraries and library functions
 dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
 
 dnl Check for headers
-dnl Headers included in libuna/types.h
+dnl Headers included in include/libuna/types.h
 AC_CHECK_HEADER(
  [sys/types.h],
  [AC_DEFINE(
@@ -88,20 +88,13 @@ AC_CHECK_HEADER(
 dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
 
-dnl Headers included in common/directory_io.h and common/file_io.h
-AC_CHECK_HEADERS([sys/stat.h])
-
-dnl Headers included in common/file_io.h
-AC_CHECK_HEADERS([fcntl.h])
-AC_CHECK_HEADERS([unistd.h])
+dnl Headers included in common/memory.h
+AC_CHECK_HEADERS([stdlib.h])
 
 dnl Headers included in common/narrow_string.h
 AC_CHECK_HEADERS([string.h])
 
-dnl Headers included in common/memory.h
-AC_CHECK_HEADERS([stdlib.h])
-
-dnl Headers included in common/notify.c
+dnl Headers included in liberror/liberror_error.h and unatools/notify.h
 AC_CHECK_HEADERS(
  [stdarg.h],
  [],
@@ -111,6 +104,14 @@ AC_CHECK_HEADERS(
   [AC_MSG_FAILURE(
    [Missing headers: stdarg.h and varargs.h],
    [1]) ]) ])
+
+dnl Headers included in unatools/date_time.h
+AC_HEADER_TIME
+
+dnl Headers included in unatools/file_io.h
+AC_CHECK_HEADERS([sys/stat.h])
+AC_CHECK_HEADERS([fcntl.h])
+AC_CHECK_HEADERS([unistd.h])
 
 dnl Other headers
 AC_CHECK_HEADERS([glob.h])
@@ -214,70 +215,6 @@ AC_CHECK_FUNCS(
   [Missing function: realloc],
   [1]) ])
 
-dnl File input/output functions used in common/notify.h
-AC_CHECK_FUNCS(
- [vfprintf],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: vfprintf],
-  [1]) ])
-
-dnl File input/output functions used in common/file_io.h
-AC_CHECK_FUNCS(
- [close],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: close],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [lseek],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: lseek],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [open],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: open],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [read],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: read],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [write],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: write],
-  [1]) ])
-
-dnl Date and time functions used in common/date_time.h
-LIBUNA_CHECK_FUNC_CTIME
-
-AC_CHECK_FUNCS(
- [gmtime_r],
- [],
- [AC_CHECK_FUNCS(
-  [gmtime],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: gmtime_r and gmtime],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [time],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: time],
-  [1]) ])
-
 dnl Narrow character string functions used in common/narrow_string.h
 AC_CHECK_FUNCS(
  [fgets],
@@ -368,14 +305,6 @@ AC_CHECK_FUNCS(
    [Missing functions: strtoull and atoll],
    [1]) ]) ])
 
-dnl File input/output functions used in libuna/libuna_error.h
-AC_CHECK_FUNCS(
- [vsnprintf],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: vsnprintf],
-  [1]) ])
-
 dnl Check for error string functions used in unatools/error_string.h
 AC_FUNC_STRERROR_R(
  [],
@@ -385,6 +314,78 @@ AC_FUNC_STRERROR_R(
   [AC_MSG_FAILURE(
    [Missing functions: strerror_r and strerror],
    [1]) ]) ])
+
+dnl File input/output functions used in liberror/liberror_error.h
+AC_CHECK_FUNCS(
+ [vsnprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vsnprintf],
+  [1]) ])
+
+dnl Date and time functions used in unatools/date_time.h
+LIBUNA_CHECK_FUNC_CTIME
+
+AC_CHECK_FUNCS(
+ [gmtime_r],
+ [],
+ [AC_CHECK_FUNCS(
+  [gmtime],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: gmtime_r and gmtime],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [time],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: time],
+  [1]) ])
+
+dnl File input/output functions used in unatools/file_io.h
+AC_CHECK_FUNCS(
+ [close],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: close],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [lseek],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: lseek],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [open],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: open],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [read],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: read],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [write],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: write],
+  [1]) ])
+
+dnl File input/output functions used in unatools/notify.h
+AC_CHECK_FUNCS(
+ [vfprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vfprintf],
+  [1]) ])
 
 dnl Commandline argument/option parsing functions used in unatools/unagetopt.h
 AC_CHECK_FUNCS([getopt])
@@ -538,8 +539,10 @@ CFLAGS="$CFLAGS -Wall";
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([common/Makefile])
+AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
+AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuna.h])

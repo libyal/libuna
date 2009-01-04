@@ -25,7 +25,7 @@
 
 #include <common.h>
 
-#if defined( HAVE_WINDOWS_API )
+#if defined( WINAPI )
 #include <windows.h>
 #endif
 
@@ -42,7 +42,7 @@ int unasignal_attach(
 int unasignal_detach(
      void );
 
-#elif defined( HAVE_WINDOWS_API )
+#elif defined( WINAPI )
 typedef unsigned long unasignal_t;
 
 BOOL WINAPI unasignal_handler(
