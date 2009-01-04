@@ -1,5 +1,5 @@
 /*
- * Type definitions for the ucatools
+ * Features of libuca
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,41 +20,18 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCATYPES_H )
-#define _UCATYPES_H
+#if !defined( _LIBUCA_FEATURES_H )
+#define _LIBUCA_FEATURES_H
 
-#include <common.h>
-
-#if defined( __cplusplus )
-extern "C" {
-#endif
-
-/* These definitions make sure the size and offset types
- * are consistent for multiple platforms
+/* The libuca type support features
  */
+#if @HAVE_WIDE_CHARACTER_TYPE@ || defined( HAVE_WIDE_CHARACTER_TYPE )
+#define LIBUCA_WIDE_CHARACTER_TYPE      1
 
-#if ! HAVE_SIZE32_T
-typedef uint32_t size32_t;
+#if @HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS@ || defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+#define LIBUCA_WIDE_CHARACTER_FILE_FUNCTIONS    1
 #endif
 
-#if ! HAVE_SSIZE32_T
-typedef int32_t ssize32_t;
-#endif
-
-#if ! HAVE_SIZE64_T
-typedef uint64_t size64_t;
-#endif
-
-#if ! HAVE_SSIZE64_T
-typedef int64_t ssize64_t;
-#endif
-
-#if ! HAVE_OFF64_T
-typedef int64_t off64_t;
-#endif
-
-#if defined( __cplusplus )
-}
 #endif
 
 #endif

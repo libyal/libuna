@@ -1,5 +1,5 @@
 /*
- * Support functions
+ * Features of libuca
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,30 +20,18 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUCA_SUPPORT_H )
-#define _LIBUCA_SUPPORT_H
+#if !defined( _LIBUCA_FEATURES_H )
+#define _LIBUCA_FEATURES_H
 
-#include <common.h>
-#include <character_string.h>
-#include <types.h>
+/* The libuca type support features
+ */
+#if 0 || defined( HAVE_WIDE_CHARACTER_TYPE )
+#define LIBUCA_WIDE_CHARACTER_TYPE      1
 
-#include <stdio.h>
-
-#include "libuca_extern.h"
-
-#if defined( __cplusplus )
-extern "C" {
+#if 0 || defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+#define LIBUCA_WIDE_CHARACTER_FILE_FUNCTIONS    1
 #endif
 
-LIBUCA_EXTERN const character_t *libuca_get_version(
-                                  void );
-
-LIBUCA_EXTERN void libuca_set_notify_values(
-                    FILE *stream,
-                    uint8_t verbose );
-
-#if defined( __cplusplus )
-}
 #endif
 
 #endif

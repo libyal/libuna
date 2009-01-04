@@ -26,9 +26,10 @@
 #include "common.h"
 #include "types.h"
 
-#if defined( HAVE_WCHAR_H )
-#include <wchar.h>
-#endif
+/* Because wchar_t is defined in wchar.h
+ * and its included in types.h
+ * it's not included here
+ */
 
 #if defined( __cplusplus )
 extern "C" {
@@ -39,6 +40,9 @@ extern "C" {
 #if defined( HAVE_WCSLEN )
 #define wide_string_length( string ) \
 	wcslen( string )
+
+#define wide_string_size( string ) \
+	( string == NULL ) ? 0 : wcslen( string ) + 1
 #endif
 
 /* String compare

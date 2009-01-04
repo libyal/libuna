@@ -21,6 +21,7 @@
  */
 
 #include <common.h>
+#include <character_string.h>
 #include <notify.h>
 
 #include "libuca_definitions.h"
@@ -28,10 +29,10 @@
 
 /* Returns the library version
  */
-const char *libuca_get_version(
-             void )
+const character_t *libuca_get_version(
+                    void )
 {
-	return( (const char *) LIBUCA_VERSION_STRING );
+	return( (const character_t *) LIBUCA_VERSION_STRING );
 }
 
 /* Set the notify values

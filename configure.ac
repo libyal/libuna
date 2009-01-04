@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuca],
-  [20080908],
+  [20080904],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuca],
- [20080908])
+ [20080904])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -521,6 +521,7 @@ AC_CONFIG_FILES([manuals/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuca.h])
 AC_CONFIG_FILES([include/libuca/definitions.h])
+AC_CONFIG_FILES([include/libuca/features.h])
 AC_CONFIG_FILES([include/libuca/types.h])
 AC_CONFIG_FILES([libuca/libuca_definitions.h])
 dnl Have configure make distribution specific files

@@ -56,7 +56,6 @@
 #include "ucainput.h"
 #include "ucaoutput.h"
 #include "ucaprocess_status.h"
-#include "ucatypes.h"
 
 /* Prints the executable usage information
  */
