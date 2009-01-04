@@ -1,0 +1,59 @@
+TODO
+
+* fix ucaexport
+
+* fix current codepages
+* add more code pages?
+
+* copy functions should return amount of bytes successfully processed?
+
+Supported code pages to convert extended ASCII strings into Unicode:
+* Windows 1250, 1251, 1252, 1253, 1254, 1256 and 1257
+
+Tools:
+* ucaexport
+  tool to convert text files between string format types
+
+Deployment:
+* write man pages
+* modify rpm package files
+* create debian package files
+* fix AUTHORS
+* update macosx package files
+
+20080830
+* Worked on initial version
+* Worked on stand alone library
+* Renamed ascii to sbc (single byte character)
+
+20080829
+* Worked on initial version
+* Worked on support for converting extended ASCII stream into UTF
+* Change code into stand alone ibrary
+
+20080828
+* Worked on initial version
+* Worked on support for converting extended ASCII stream into UTF
+
+20080827
+* Worked on initial version
+* Worked on support for converting extended ASCII stream into UTF
+
+20080826
+* Worked on initial version
+* Worked on Unicode conversion routines
+
+20080825
+* Worked on initial version
+* Worked on Unicode conversion routines
+* Added maximum allowed UTF 0x110000 in strict mode
+* Worked on support for converting extended ASCII stream into UTF
+
+20080824
+* Worked on initial version
+* Worked on Unicode conversion routines
+
+20080823
+* Worked on initial version
+* Worked on Unicode conversion routines
+

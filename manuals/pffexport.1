@@ -1,0 +1,86 @@
+.Dd April 5, 2008
+.Dt tableauinfo
+.Os libtableau
+.Sh NAME
+.Nm tableauinfo
+.Nd shows meta data queried from a Tableau (TM) forensic bridge (write blocker)
+.Sh SYNOPSIS
+.Nm tableauinfo
+.Op Fl hvV
+.Va Ar source
+.Sh DESCRIPTION
+.Nm tableauinfo
+is a utility to show meta data queried from a Tableau (TM) forensic bridge (write blocker)
+.Pp
+.Nm tableauinfo
+is part of the
+.Nm libtableau
+package.
+.Nm libtableau
+is a library to read from the Tableau (TM) forenisc bridge (write blocker)
+.Pp
+.Ar source
+is the source device to read from.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl h
+shows this help
+.It Fl v
+verbose output to stderr
+.It Fl V
+print version
+.El
+.Sh ENVIRONMENT
+None
+.Sh FILES
+None
+.Sh EXAMPLES
+.Bd -literal
+# tableauinfo /dev/sdg
+tableauinfo 20080405 (libtableau 20080405, libsgutils 1.32 20070129)
+
+Tableau forensic bridge information
+        Vendor:                 Tableau
+        Model:                  T5
+        Serial number:          0123456789abcdef
+        Firmware date:          Feb 22 2008
+        Firmware time:          10:58:48
+        Firmware stepping:      4
+        Debug firmware:         false
+        Channel index:          0
+        Channel type:           PATA
+        Read only mode:         true
+        Read only reporting:    true
+        Write error reporting:  true
+
+Drive information
+        Vendor:
+        Model:                  WDC AC22100L
+        Serial number:          WD-WM3456789123
+        Revision number:        32.41N37
+
+Drive security information
+        HPA support:            false
+        HPA in use:             false
+        DCO support:            false
+        DCO in use:             false
+        Security support:       false
+        Security in use:        false
+        Amount of sectors:      4124736
+        HPA amount of sectors:  4124736
+        DCO amount of sectors:  4124736
+.Ed
+.Sh DIAGNOSTICS
+Errors, verbose and debug output are printed to stderr when verbose output \-v is enabled.
+Verbose and debug output are only printed when enabled at compilation.
+.Sh BUGS
+Please report bugs of any kind to <forensics@hoffmannbv.nl> or on the project website:
+https://www.uitwisselplatform.nl/projects/libtableau/
+.Sh AUTHOR
+These man pages were written by Joachim Metz.
+.Sh COPYRIGHT
+Copyright 2008 Joachim Metz, Hoffmann Investigations <forensics@hoffmannbv.nl> and contributors.
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.Sh SEE ALSO
+.Xr tableaucontrol 1
