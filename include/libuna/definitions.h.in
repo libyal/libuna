@@ -43,7 +43,7 @@ enum LIBUNA_ENDIAN
  */
 enum LIBUNA_CODEPAGE
 {
-	LIBUNA_CODEPAGE_ASCII                           = (int) 'a',
+	LIBUNA_CODEPAGE_ASCII                           = (int) 'A',
 	LIBUNA_CODEPAGE_WINDOWS_1250                    = 1250,
 	LIBUNA_CODEPAGE_WINDOWS_1251                    = 1251,
 	LIBUNA_CODEPAGE_WINDOWS_1252                    = 1252,

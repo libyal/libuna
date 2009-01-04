@@ -58,10 +58,16 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080911
+* Worked on initial version
+* fixed issue in error handling
+
 20080910
+* Worked on initial version
 * worked on local types definition
 
 20080909
+* Worked on initial version
 * libuna already exists renamed to libuca
 * Worked on improved error handling
 * Worked on rewriting size functions

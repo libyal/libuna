@@ -28,6 +28,14 @@
 
 #include <stdio.h>
 
+#if defined( HAVE_STDARG_H )
+#include <stdarg.h>
+#elif defined( HAVE_VARARGS_H )
+#include <varargs.h>
+#else
+#error Missing headers stdarg.h and varargs.h
+#endif
+
 /* Define HAVE_LOCAL_LIBUNA for local use of libuna
  */
 #if !defined( HAVE_LOCAL_LIBUNA )
@@ -115,7 +123,7 @@ void libuna_error_set(
 void libuna_error_add_message(
       libuna_error_t *error,
       const char *format,
-      ... );
+      va_list argument_list );
 
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );

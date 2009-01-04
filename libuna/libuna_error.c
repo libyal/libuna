@@ -101,34 +101,13 @@ void VARARGS(
 #undef VASTART
 #undef VAEND
 
-#if defined( HAVE_STDARG_H )
-#define VARARGS( function, error, type, argument ) \
-        function( error, type argument, ... )
-#define VASTART( argument_list, type, name ) \
-        va_start( argument_list, name )
-#define VAEND( argument_list ) \
-        va_end( argument_list )
-
-#elif defined( HAVE_VARARGS_H )
-#define VARARGS( error, function, error, type, argument ) \
-        function( va_alist ) va_dcl
-#define VASTART( argument_list, type, name ) \
-        { type name; va_start( argument_list ); name = va_arg( argument_list, type )
-#define VAEND( argument_list ) \
-        va_end( argument_list ); }
-
-#endif
-
 /* Adds a message to an error
  */
-void VARARGS(
-      libuna_error_add_message,
+void libuna_error_add_message(
       libuna_error_t *error,
-      const char *,
-      format )
+      const char *format,
+      va_list argument_list )
 {
-	va_list argument_list;
-
 	void *reallocation  = NULL;
 	size_t message_size = 64;
 	int print_count     = 0;
@@ -145,13 +124,9 @@ void VARARGS(
 	{
 		return;
 	}
-	( (libuna_internal_error_t *) error )->amount_of_messages += 1;
-	( (libuna_internal_error_t *) error )->message             = (char **) reallocation;
-
-	VASTART(
-	 argument_list,
-	 const char *,
-	 format );
+	( (libuna_internal_error_t *) error )->amount_of_messages                                                      += 1;
+	( (libuna_internal_error_t *) error )->message                                                                  = (char **) reallocation;
+	( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ] = NULL;
 
 	do
 	{
@@ -174,26 +149,19 @@ void VARARGS(
 		               format,
 		               argument_list );
 
-		if( ( print_count > -1 )
-		 && ( (size_t) print_count > message_size ) )
-		{
-			message_size = (size_t) ( print_count + 1 );
-		}
-		else if( print_count <= -1 )
+		if( print_count <= -1 )
 		{
 			message_size += 64;
 		}
+		else if( ( (size_t) print_count > message_size )
+		      || ( ( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ][ print_count ] != 0 ) )
+		{
+			message_size = (size_t) ( print_count + 1 );
+			print_count  = -1;
+		}
 	}
-	while( ( print_count <= -1 )
-	 || ( (size_t) print_count > message_size ) );
-
-	VAEND(
-	 argument_list );
+	while( print_count <= -1 );
 }
-
-#undef VARARGS
-#undef VASTART
-#undef VAEND
 
 /* Free an error and its elements
  */
@@ -210,7 +178,7 @@ void libuna_error_free(
 	{
 		if( ( (libuna_internal_error_t *) *error )->message != NULL )
 		{
-			for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) error )->amount_of_messages; message_iterator++ )
+			for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) *error )->amount_of_messages; message_iterator++ )
 			{
 				if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
 				{
@@ -244,24 +212,24 @@ void libuna_error_fprint(
 	{
 		return;
 	}
-	if( ( (libuna_internal_error_t *) *error )->message == NULL )
+	if( ( (libuna_internal_error_t *) error )->message == NULL )
 	{
 		return;
 	}
 	message_iterator = ( (libuna_internal_error_t *) error )->amount_of_messages - 1;
 
-	if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
+	if( ( (libuna_internal_error_t *) error )->message[ message_iterator ] != NULL )
 	{
 		fprintf(
 		 stream,
-		 "%s\n",
-		 ( (libuna_internal_error_t *) *error )->message[ message_iterator ] );
+		 "%s",
+		 ( (libuna_internal_error_t *) error )->message[ message_iterator ] );
 	}
 	else
 	{
 		fprintf(
 		 stream,
-		 "<missing>" );
+		 "<missing>\n" );
 	}
 }
 
@@ -281,24 +249,24 @@ void libuna_error_backtrace_fprint(
 	{
 		return;
 	}
-	if( ( (libuna_internal_error_t *) *error )->message == NULL )
+	if( ( (libuna_internal_error_t *) error )->message == NULL )
 	{
 		return;
 	}
 	for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) error )->amount_of_messages; message_iterator++ )
 	{
-		if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
+		if( ( (libuna_internal_error_t *) error )->message[ message_iterator ] != NULL )
 		{
 			fprintf(
 			 stream,
-			 "%s\n",
-			 ( (libuna_internal_error_t *) *error )->message[ message_iterator ] );
+			 "%s",
+			 ( (libuna_internal_error_t *) error )->message[ message_iterator ] );
 		}
 		else
 		{
 			fprintf(
 			 stream,
-			 "<missing>" );
+			 "<missing>\n" );
 		}
 	}
 }

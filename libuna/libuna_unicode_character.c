@@ -84,8 +84,9 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_byte_stream(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 			 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported codepage.\n",
-			 function );
+			 "%s: unsupported codepage: %d.\n",
+			 function,
+			 codepage );
 
 			return( -1 );
 	}
@@ -219,8 +220,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_byte_stream(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 			 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			"%s: unsupported codepage.\n",
-			 function );
+			"%s: unsupported codepage: %d.\n",
+			 function,
+			 codepage );
 
 			return( -1 );
 	}
@@ -343,8 +345,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 			 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			"%s: unsupported codepage.\n",
-			 function );
+			"%s: unsupported codepage: %d.\n",
+			 function,
+		         codepage );
 
 			return( -1 );
 	}
