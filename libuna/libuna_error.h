@@ -10,12 +10,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,18 +61,23 @@ enum LIBUNA_ERROR_DOMAINS
  */
 enum LIBUNA_ARGUMENT_ERROR
 {
-	LIBUNA_ARGUMENT_ERROR_INVALID           = 0,
-	LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM   = 1,
-	LIBUNA_ARGUMENT_ERROR_TOO_SMALL         = 2,
-	LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE = 3
+	LIBUNA_ARGUMENT_ERROR_GENERIC           = 0,
+	LIBUNA_ARGUMENT_ERROR_INVALID           = 1,
+	LIBUNA_ARGUMENT_ERROR_LESS_THAN_ZERO    = 2,
+	LIBUNA_ARGUMENT_ERROR_ZERO_OR_LESS      = 3,
+	LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM   = 4,
+	LIBUNA_ARGUMENT_ERROR_TOO_SMALL         = 5,
+	LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE = 6,
+	LIBUNA_ARGUMENT_ERROR_OUT_OF_BOUNDS     = 7
 };
 
 /* The conversion error codes
  */
 enum LIBUNA_CONVERSION_ERROR
 {
-	LIBUNA_CONVERSION_ERROR_INVALID_INPUT   = 0,
-	LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT  = 1
+	LIBUNA_CONVERSION_ERROR_GENERIC         = 0,
+	LIBUNA_CONVERSION_ERROR_INVALID_INPUT   = 1,
+	LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT  = 2
 };
 
 #endif

@@ -737,7 +737,7 @@ int libuna_utf16_string_size_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size < 2 ) 
+	if( ( utf16_stream_size < 2 )
 	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
 		libuna_error_set(
@@ -932,7 +932,7 @@ int libuna_utf16_string_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size < 2 ) 
+	if( ( utf16_stream_size < 2 )
 	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
 		libuna_error_set(
