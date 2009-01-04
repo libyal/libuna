@@ -31,7 +31,7 @@
 
 #include <libuna/inline.h>
 
-#elif defined( HAVE_WINDOWS_INLINE )
+#elif defined( WINAPI )
 #define LIBUNA_INLINE _inline
 
 #else

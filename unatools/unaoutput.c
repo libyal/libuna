@@ -21,7 +21,6 @@
  */
 
 #include <common.h>
-#include <date_time.h>
 #include <memory.h>
 #include <types.h>
 

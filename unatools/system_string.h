@@ -33,10 +33,10 @@ extern "C" {
 #endif
 
 #if defined( HAVE_WIDE_CHARACTER_TYPE ) && defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-#define HAVE_WIDE_SYSTEM_CHARACTER	1
+#define HAVE_WIDE_SYSTEM_CHARACTER_T	1
 #endif
 
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
 
 typedef wchar_t system_character_t;
 typedef wint_t system_integer_t;
@@ -126,31 +126,16 @@ typedef int system_integer_t;
 
 #endif
 
-system_character_t *system_string_duplicate(
-                     system_character_t *string,
-                     size_t size );
-
-#define system_string_duplicate( string, size ) \
-	system_string_duplicate( string, size )
-
 #if defined( system_string_to_signed_long_long )
-
 int64_t system_string_to_int64(
          const system_character_t *string,
          size_t size );
-
-#define system_string_to_int64( string, size ) \
-	 system_string_to_int64( string, size )
 #endif
 
 #if defined( system_string_to_unsigned_long_long )
-
 uint64_t system_string_to_uint64(
           const system_character_t *string,
           size_t size );
-
-#define system_string_to_uint64( string, size ) \
-	 system_string_to_uint64( string, size )
 #endif
 
 #if defined( __cplusplus )

@@ -21,10 +21,8 @@
  */
 
 #include <common.h>
-#include <file_io.h>
 #include <memory.h>
 #include <narrow_string.h>
-#include <notify.h>
 #include <types.h>
 
 #include <errno.h>
@@ -49,7 +47,9 @@
 #include <libuna.h>
 
 #include "character_string.h"
+#include "file_io.h"
 #include "glob.h"
+#include "notify.h"
 #include "process_status.h"
 #include "safe_types.h"
 #include "system_string.h"

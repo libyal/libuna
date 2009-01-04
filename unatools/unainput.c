@@ -21,7 +21,6 @@
  */
 
 #include <common.h>
-#include <notify.h>
 #include <types.h>
 
 /* If libtool DLL support is enabled set LIBUNA_DLL_IMPORT
@@ -33,8 +32,8 @@
 
 #include <libuna.h>
 
+#include "notify.h"
 #include "system_string.h"
-
 #include "unacommon.h"
 #include "unainput.h"
 

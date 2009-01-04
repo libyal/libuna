@@ -21,12 +21,13 @@
  */
 
 #include <common.h>
-#include <notify.h>
+#include <types.h>
 
 #if defined( HAVE_STDLIB_H )
 #include <stdlib.h>
 #endif
 
+#include "notify.h"
 #include "system_string.h"
 #include "unagetopt.h"
 

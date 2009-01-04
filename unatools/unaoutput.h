@@ -24,7 +24,6 @@
 #define _UNAOUTPUT_H
 
 #include <common.h>
-#include <date_time.h>
 #include <types.h>
 
 #include <stdio.h>

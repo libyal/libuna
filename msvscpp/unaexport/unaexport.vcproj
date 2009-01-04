@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="unaexport"
 	ProjectGUID="{6B758D1D-FE05-49C6-836B-9B8AC8DC4FCD}"
 	RootNamespace="unaexport"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -15,84 +16,6 @@
 	<ToolFiles>
 	</ToolFiles>
 	<Configurations>
-		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include;..\..\common"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;HAVE_WINDOWS_INLINE;LIBUCA_DLL_IMPORT;HAVE_WIDE_CHARACTER_TYPE"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="libuna.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\debug"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
@@ -119,11 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\include;..\..\common"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;HAVE_WINDOWS_INLINE;LIBUCA_DLL_IMPORT;HAVE_WIDE_CHARACTER_TYPE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_IMPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -144,6 +67,8 @@
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -165,9 +90,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -181,35 +103,43 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\common\character_string.c"
+				RelativePath="..\..\unatools\byte_size_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\date_time.c"
+				RelativePath="..\..\unatools\character_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\error_string.c"
+				RelativePath="..\..\unatools\date_time.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\file_io.c"
+				RelativePath="..\..\unatools\error_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\notify.c"
+				RelativePath="..\..\unatools\file_io.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\string_conversion.c"
+				RelativePath="..\..\unatools\glob.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\system_string.c"
+				RelativePath="..\..\unatools\notify.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unabyte_size_string.c"
+				RelativePath="..\..\unatools\process_status.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\string_conversion.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\system_string.c"
 				>
 			</File>
 			<File
@@ -218,10 +148,6 @@
 			</File>
 			<File
 				RelativePath="..\..\unatools\unagetopt.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\unatools\unaglob.c"
 				>
 			</File>
 			<File
@@ -239,71 +165,47 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\common\character_string.h"
+				RelativePath="..\..\unatools\byte_size_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\common.h"
+				RelativePath="..\..\unatools\character_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\config.h"
+				RelativePath="..\..\unatools\date_time.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\config_windows.h"
+				RelativePath="..\..\unatools\error_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\date_time.h"
+				RelativePath="..\..\unatools\file_io.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\directory_io.h"
+				RelativePath="..\..\unatools\glob.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\endian.h"
+				RelativePath="..\..\unatools\notify.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\error_string.h"
+				RelativePath="..\..\unatools\process_status.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\file_io.h"
+				RelativePath="..\..\unatools\safe_types.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\file_stream_io.h"
+				RelativePath="..\..\unatools\string_conversion.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\common\memory.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\narrow_string.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\notify.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\string_conversion.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\system_string.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\types.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\unatools\unabyte_size_string.h"
+				RelativePath="..\..\unatools\system_string.h"
 				>
 			</File>
 			<File
@@ -315,19 +217,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unaglob.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\unatools\unainput.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\unatools\unaoutput.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\common\wide_string.h"
 				>
 			</File>
 		</Filter>

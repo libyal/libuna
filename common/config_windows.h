@@ -48,6 +48,11 @@
 #undef HAVE_PRINTF_JD
 #undef HAVE_PRINTF_ZD
 
+/* Windows does not have <sys/time.h>
+ */
+#undef TIME_WITH_SYS_TIME
+#undef HAVE_SYS_TIME_H
+
 /* Windows does not have <unistd.h> but uses <io.h> and <share.h> instead
  */
 #undef HAVE_UNISTD_H
@@ -98,11 +103,9 @@
  * use the following defintions to control the function
  * definitions per source file in common
  */
-#undef HAVE_DATE_TIME
-#undef HAVE_DIRECTORY_IO
+#define HAVE_DATE_TIME		1
 #define HAVE_ERROR_STRING	1
 #define HAVE_FILE_IO		1
-#undef HAVE_FILE_STREAM_IO
 #define HAVE_NARROW_STRING	1
 
 #if defined( HAVE_WIDE_CHARACTER_TYPE )
@@ -111,7 +114,7 @@
 #undef HAVE_WIDE_STRING
 #endif
 
-/* Functions in common/date_time.h
+/* Functions in unatools/date_time.h
  */
 #if defined( HAVE_DATE_TIME )
 #if !defined( HAVE_CTIME_R )
@@ -147,23 +150,7 @@
 #undef HAVE_TIME
 #endif
 
-/* Functions in common/directory_io.h
- */
-#if defined( HAVE_DIRECTORY_IO )
-#if !defined( HAVE_MKDIR )
-#define HAVE_MKDIR		1
-#endif
-
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-#define HAVE_WMKDIR		1
-#endif
-
-#else
-#undef HAVE_MKDIR
-#undef HAVE_WMKDIR
-#endif
-
-/* Functions in common/error_string.h
+/* Functions in unatools/error_string.h
  */
 #if defined( HAVE_ERROR_STRING )
 #if !defined( HAVE_STRERROR_R )
@@ -179,7 +166,7 @@
 #undef HAVE_WCSERROR_R
 #endif
 
-/* Functions in common/file_io.h
+/* Functions in unatools/file_io.h
  */
 #if defined( HAVE_FILE_IO )
 #if !defined( HAVE_OPEN )
@@ -213,37 +200,6 @@
 #undef HAVE_LSEEK
 #undef HAVE_READ
 #undef HAVE_WRITE
-#endif
-
-/* Functions in common/file_stream_io.h
- */
-#if defined( HAVE_FILE_STREAM_IO )
-#if !defined( HAVE_FOPEN )
-#define HAVE_FOPEN		1
-#endif
-
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-#define HAVE_WFOPEN		1
-#endif
-
-#if !defined( HAVE_FCLOSE )
-#define HAVE_FCLOSE		1
-#endif
-
-#if !defined( HAVE_FREAD )
-#define HAVE_FREAD		1
-#endif
-
-#if !defined( HAVE_FWRITE )
-#define HAVE_FWRITE		1
-#endif
-
-#else
-#undef HAVE_FOPEN
-#undef HAVE_WFOPEN
-#undef HAVE_FCLOSE
-#undef HAVE_FREAD
-#undef HAVE_FWRITE
 #endif
 
 /* Functions in common/narrow_string.h
@@ -334,8 +290,5 @@
 #undef HAVE_WTOI64
 #endif
 
-/* Some functions are different within the Windows API
- */
-#define WINAPI	1
-
 #endif
+

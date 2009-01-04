@@ -22,12 +22,12 @@
 
 #include <common.h>
 #include <memory.h>
-#include <notify.h>
 #include <types.h>
 
 #include "byte_size_string.h"
 #include "character_string.h"
 #include "date_time.h"
+#include "notify.h"
 #include "process_status.h"
 #include "system_string.h"
 #include "safe_types.h"

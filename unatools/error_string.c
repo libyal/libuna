@@ -23,7 +23,6 @@
 #include <common.h>
 #include <memory.h>
 #include <narrow_string.h>
-#include <notify.h>
 #include <types.h>
 #include <wide_string.h>
 
@@ -38,6 +37,7 @@
 #endif
 
 #include "error_string.h"
+#include "notify.h"
 
 #if defined( error_string_strerror_r ) || defined( HAVE_STRERROR )
 

@@ -21,8 +21,9 @@
  */
 
 #include <common.h>
-#include <notify.h>
+#include <types.h>
 
+#include "notify.h"
 #include "unasignal.h"
 
 #if defined( HAVE_SIGNAL_H )

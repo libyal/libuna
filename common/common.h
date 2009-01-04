@@ -27,8 +27,14 @@
 #include <config.h>
 #endif
 
-#if defined( HAVE_CONFIG_WINDOWS_H )
+/* Check to see if we're dealing with the MSVS compiler
+ */
+#if defined( _MSC_VER )
 #include <config_windows.h>
+
+/* Make sure WINAPI is defined
+ */
+#include <windows.h>
 #endif
 
 #endif

@@ -25,7 +25,7 @@
 #if !defined( _LIBUNA_INLINE_H )
 #define _LIBUNA_INLINE_H
 
-#if defined( HAVE_WINDOWS_INLINE )
+#if defined( WINAPI )
 #define LIBUNA_INLINE _inline
 
 #else
