@@ -30,6 +30,7 @@
 #include "libuna_error.h"
 #include "libuna_extern.h"
 #include "libuna_inline.h"
+#include "libuna_types.h"
 
 #if defined( __cplusplus )
 extern "C" {

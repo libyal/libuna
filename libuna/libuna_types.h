@@ -24,17 +24,13 @@
 #define _LIBUNA_INTERNAL_TYPES_H
 
 #include <common.h>
+#include <types.h>
 
 /* Define HAVE_LOCAL_LIBUNA for local use of libuna
- */
-#if !defined( HAVE_LOCAL_LIBUNA )
-
-#include <libuna/typed.h>
-
-/* The definitions in <libuna/types.h> are copied here
+ * The definitions in <libuna/types.h> are copied here
  * for local use of libuna
  */
-#else
+#if defined( HAVE_LOCAL_LIBUNA )
 
 /* Unicode character definitions
  */

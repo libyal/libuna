@@ -23,10 +23,11 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_byte_stream.h"
 #include "libuna_definitions.h"
 #include "libuna_error.h"
+#include "libuna_types.h"
 #include "libuna_unicode_character.h"
-#include "libuna_byte_stream.h"
 
 /* Determines the size of a byte stream from a UTF-8 string
  * Returns 1 if successful or -1 on error

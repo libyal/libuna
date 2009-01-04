@@ -36,6 +36,7 @@
 #include "libuna_definitions.h"
 #include "libuna_error.h"
 #include "libuna_inline.h"
+#include "libuna_types.h"
 #include "libuna_unicode_character.h"
 
 /* Determines the size of a byte stream character to from a Unicode character

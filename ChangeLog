@@ -1,5 +1,8 @@
 TODO
 
+* only have common code in common
+  - move file io etc.
+
 * implement error
  - move notify to ucatools
 
@@ -52,6 +55,9 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20080910
+* worked on local types definition
 
 20080909
 * libuna already exists renamed to libuca
