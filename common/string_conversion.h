@@ -35,18 +35,18 @@ extern "C" {
 int libuca_string_copy_wchar_to_char(
      char *destination,
      const wchar_t *source,
-     size_t length );
+     size_t size );
 
-#define string_copy_wchar_to_char( destination, source, length ) \
-	libuca_string_copy_wchar_to_char( destination, source, length )
+#define string_copy_wchar_to_char( destination, source, size ) \
+	libuca_string_copy_wchar_to_char( destination, source, size )
 
 int libuca_string_copy_char_to_wchar(
      wchar_t *destination,
      const char *source,
-     size_t length );
+     size_t size );
 
-#define string_copy_char_to_wchar( destination, source, length ) \
-	libuca_string_copy_char_to_wchar( destination, source, length )
+#define string_copy_char_to_wchar( destination, source, size ) \
+	libuca_string_copy_char_to_wchar( destination, source, size )
 
 #endif
 

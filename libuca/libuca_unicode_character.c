@@ -312,7 +312,7 @@ int libuca_unicode_character_copy_from_utf8(
 	{
 		utf8_character_additional_bytes = 5;
 	}
-	if( ( *utf8_string_index + utf8_character_additional_bytes + 1 ) >= utf8_string_size )
+	if( ( *utf8_string_index + utf8_character_additional_bytes + 1 ) > utf8_string_size )
 	{
 		notify_warning_printf( "%s: missing UTF-8 character bytes.\n",
 		 function );

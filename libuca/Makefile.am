@@ -19,6 +19,7 @@ libuca_la_SOURCES = \
 	libuca_extern.h \
 	libuca_support.c libuca_support.h \
 	libuca_unicode_character.c libuca_unicode_character.h \
+	libuca_utf8_stream.c libuca_utf8_stream.h \
 	libuca_utf8_string.c libuca_utf8_string.h \
 	libuca_utf16_stream.c libuca_utf16_stream.h \
 	libuca_utf16_string.c libuca_utf16_string.h \

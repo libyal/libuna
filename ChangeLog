@@ -1,5 +1,10 @@
 TODO
 
+* implement byte stream size/copy from functions
+* implement utf8 stream functions
+* ucaexport implement process_status
+* ucaexport implement signal handling
+
 * add strict test
   libuca_utf16_string_size_from_utf16_stream
   libuca_utf16_string_copy_from_utf16_stream
