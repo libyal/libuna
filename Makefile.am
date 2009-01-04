@@ -7,6 +7,12 @@ SUBDIRS = \
 CONFIG_FILES = \
 	common/config.h
 
+DOCUMENT_FILES = \
+	docs/ascii.txt \
+	docs/windows-1250.txt \
+	docs/windows-1251.txt \
+	docs/windows-1252.txt
+
 INCLUDE_FILES = \
         include/libuca.h.in \
         include/libuca/definitions.h.in \
@@ -31,6 +37,7 @@ REDHAT_FILES = \
 
 EXTRA_DIST = \
         $(CONFIG_FILES) \
+        $(DOCUMENT_FILES) \
         $(HEADER_FILES) \
         $(MACOSX_FILES) \
         $(MANUAL_FILES) \
