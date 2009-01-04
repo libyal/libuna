@@ -34,6 +34,7 @@ libuna_la_SOURCES = \
 	libuna_utf32_string.c libuna_utf32_string.h
 
 libuna_la_LIBADD  = ../liberror/liberror.la
+libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0
 
 distclean: clean
 	/bin/rm -f libuna_definitions.h
