@@ -3,6 +3,8 @@ TODO
 * only have common code in common
   - move file io etc.
 
+* add source == destination check to functions?
+
 * implement error
  - move notify to ucatools
 

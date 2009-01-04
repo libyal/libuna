@@ -177,7 +177,7 @@ int libuna_utf16_stream_size_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8.\n",
 			 function );
 
@@ -193,7 +193,7 @@ int libuna_utf16_stream_size_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to determine size of Unicode character in UTF-16.\n",
 			 function );
 
@@ -289,7 +289,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -309,7 +309,7 @@ int libuna_utf16_stream_copy_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-8 string.\n",
 			 function );
 
@@ -328,7 +328,7 @@ int libuna_utf16_stream_copy_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-16 stream.\n",
 			 function );
 
@@ -476,7 +476,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -569,7 +569,7 @@ int libuna_utf16_stream_size_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32.\n",
 			 function );
 
@@ -585,7 +585,7 @@ int libuna_utf16_stream_size_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to determine size of Unicode character in UTF-16.\n",
 			 function );
 
@@ -681,7 +681,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -701,7 +701,7 @@ int libuna_utf16_stream_copy_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy Unicode character from UTF-32 string.\n",
 			 function );
 
@@ -720,7 +720,7 @@ int libuna_utf16_stream_copy_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
 			 "%s: unable to copy Unicode character to UTF-16 stream.\n",
 			 function );
 
