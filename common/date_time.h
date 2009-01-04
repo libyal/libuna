@@ -81,13 +81,10 @@ extern "C" {
 #endif
 
 #elif defined( HAVE_CTIME )
-char *libuca_date_time_ctime(
+char *date_time_ctime(
        const time_t *timestamp,
        char *string,
        size_t length );
-
-#define date_time_ctime( timestamp, string, size ) \
-	libuca_date_time_ctime( timestamp, string, size )
 #endif
 
 #if defined( HAVE_MKTIME )
@@ -102,19 +99,13 @@ char *libuca_date_time_ctime(
 #endif
 
 #if defined( date_time_localtime_r ) || defined( HAVE_LOCALTIME )
-struct tm *libuca_date_time_localtime(
+struct tm *date_time_localtime(
             const time_t *timestamp );
-
-#define date_time_localtime( timestamp ) \
-	libuca_date_time_localtime( timestamp )
 #endif
 
 #if defined( date_time_gmtime_r ) || defined( HAVE_GMTIME )
-struct tm *libuca_date_time_gmtime(
+struct tm *date_time_gmtime(
             const time_t *timestamp );
-
-#define date_time_gmtime( timestamp ) \
-	libuca_date_time_gmtime( timestamp )
 #endif
 
 #if defined( __cplusplus )

@@ -35,20 +35,20 @@
 #elif defined( HAVE_VARARGS_H )
 #include <varargs.h>
 #else
-#error No variable argument support available
+#error Missing headers stdarg.h and varargs.h
 #endif
 
-FILE *libuca_notify_stream = NULL;
-int libuca_notify_verbose  = 0;
+FILE *notify_stream = NULL;
+int notify_verbose  = 0;
 
 /* Set the notify values
  */
-void libuca_notify_set_values(
+void notify_set_values(
       FILE *stream,
       int verbose )
 {
-	libuca_notify_stream  = stream;
-	libuca_notify_verbose = verbose;
+	notify_stream  = stream;
+	notify_verbose = verbose;
 }
 
 #if defined( HAVE_STDARG_H )
@@ -72,13 +72,13 @@ void libuca_notify_set_values(
 /* Print a formatted string on the notify stream
  */
 void VARARGS(
-      libuca_notify_printf,
+      notify_printf,
       char *,
       format )
 {
 	va_list argument_list;
 
-	if( libuca_notify_stream != NULL )
+	if( notify_stream != NULL )
 	{
 		VASTART(
 		 argument_list,
@@ -86,7 +86,7 @@ void VARARGS(
 		 format );
 
 		vfprintf(
-		 libuca_notify_stream,
+		 notify_stream,
 		 format,
 		 argument_list );
 
@@ -101,14 +101,14 @@ void VARARGS(
 
 /* Prints a dump of data
  */
-void libuca_notify_dump_data(
+void notify_dump_data(
       void *data,
       size_t size )
 {
 	size_t byte_iterator = 0;
 	size_t size_iterator = 0;
 
-	if( libuca_notify_stream == NULL )
+	if( notify_stream == NULL )
 	{
 		return;
 	}
@@ -118,10 +118,13 @@ void libuca_notify_dump_data(
 		{
 			if( byte_iterator % 16 == 0 )
 			{
-				fprintf( libuca_notify_stream, "%.8" PRIzx ": ",
+				fprintf(
+				 notify_stream,
+				 "%.8" PRIzx ": ",
 				 byte_iterator );
 			}
-			fprintf( libuca_notify_stream, "%.2" PRIx8 " ",
+			fprintf(
+			 notify_stream, "%.2" PRIx8 " ",
 			 ( (unsigned char *) data )[ byte_iterator++ ] );
 
 			if( byte_iterator % 16 == 0 )
@@ -130,22 +133,30 @@ void libuca_notify_dump_data(
 			}
 			else if( byte_iterator % 8 == 0 )
 			{
-				fprintf( libuca_notify_stream, " " );
+				fprintf(
+				 notify_stream,
+				 " " );
 			}
 		}
 		while( byte_iterator % 16 != 0 )
 		{
 			byte_iterator++;
 
-			fprintf( libuca_notify_stream, "   " );
+			fprintf(
+			 notify_stream,
+			 "   " );
 
 			if( ( byte_iterator % 8 == 0 )
 			 && ( byte_iterator % 16 != 0 ) )
 			{
-				fprintf( libuca_notify_stream, " " );
+				fprintf(
+				 notify_stream,
+				 " " );
 			}
 		}
-		fprintf( libuca_notify_stream, "  " );
+		fprintf(
+		 notify_stream,
+		 "  " );
 
 		byte_iterator = size_iterator;
 
@@ -154,12 +165,15 @@ void libuca_notify_dump_data(
 			if( ( ( (char *) data )[ byte_iterator ] >= 0x20 )
 			 && ( ( (char *) data )[ byte_iterator ] <= 0x7e ) )
 			{
-				fprintf( libuca_notify_stream, "%c",
+				fprintf(
+				 notify_stream, "%c",
 				 ( (char *) data )[ byte_iterator ] );
 			}
 			else
 			{
-				fprintf( libuca_notify_stream, "." );
+				fprintf(
+				 notify_stream,
+				 "." );
 			}
 			byte_iterator++;
 
@@ -169,12 +183,18 @@ void libuca_notify_dump_data(
 			}
 			else if( byte_iterator % 8 == 0 )
 			{
-				fprintf( libuca_notify_stream, " " );
+				fprintf(
+				 notify_stream,
+				 " " );
 			}
 		}
-		fprintf( libuca_notify_stream, "\n" );
+		fprintf(
+		 notify_stream,
+		 "\n" );
 
 		size_iterator = byte_iterator;
 	}
-	fprintf( libuca_notify_stream, "\n" );
+	fprintf(
+	 notify_stream,
+	 "\n" );
 }

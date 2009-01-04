@@ -23,14 +23,10 @@
 #if !defined( _SYSTEM_STRING_H )
 #define _SYSTEM_STRING_H
 
-#include "common.h"
-#include "narrow_string.h"
-#include "types.h"
-#include "wide_string.h"
-
-#if defined( HAVE_STRING_H )
-#include <string.h>
-#endif
+#include <common.h>
+#include <narrow_string.h>
+#include <types.h>
+#include <wide_string.h>
 
 #if defined( __cplusplus )
 extern "C" {
@@ -130,31 +126,31 @@ typedef int system_integer_t;
 
 #endif
 
-system_character_t *libuca_system_string_duplicate(
+system_character_t *system_string_duplicate(
                      system_character_t *string,
                      size_t size );
 
 #define system_string_duplicate( string, size ) \
-	libuca_system_string_duplicate( string, size )
+	system_string_duplicate( string, size )
 
 #if defined( system_string_to_signed_long_long )
 
-int64_t libuca_system_string_to_int64(
+int64_t system_string_to_int64(
          const system_character_t *string,
          size_t size );
 
 #define system_string_to_int64( string, size ) \
-	 libuca_system_string_to_int64( string, size )
+	 system_string_to_int64( string, size )
 #endif
 
 #if defined( system_string_to_unsigned_long_long )
 
-uint64_t libuca_system_string_to_uint64(
+uint64_t system_string_to_uint64(
           const system_character_t *string,
           size_t size );
 
 #define system_string_to_uint64( string, size ) \
-	 libuca_system_string_to_uint64( string, size )
+	 system_string_to_uint64( string, size )
 #endif
 
 #if defined( __cplusplus )

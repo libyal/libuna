@@ -1,5 +1,5 @@
 /*
- * Byte size string functions for the ucatools
+ * Byte size string functions
  *
  * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -21,16 +21,17 @@
  */
 
 #include <common.h>
-#include <character_string.h>
 #include <notify.h>
 #include <types.h>
 
-#include "ucabyte_size_string.h"
+#include "byte_size_string.h"
+#include "character_string.h"
+#include "system_string.h"
 
 /* Determines the factor string of a certain factor value
  * Returns the string if successful or NULL on error
  */
-const character_t *ucabyte_size_string_get_factor_string(
+const character_t *byte_size_string_get_factor_string(
                     int8_t factor )
 {
 	switch( factor )
@@ -62,7 +63,7 @@ const character_t *ucabyte_size_string_get_factor_string(
 /* Determines the factor from a factor string
  * Returns the factor if successful or -1 on error
  */
-int8_t ucabyte_size_string_get_factor(
+int8_t byte_size_string_get_factor(
         character_t factor )
 {
 	switch( factor )
@@ -100,7 +101,7 @@ int8_t ucabyte_size_string_get_factor(
 /* Creates a human readable byte size string
  * Returns 1 if successful or -1 on error
  */
-int ucabyte_size_string_create(
+int byte_size_string_create(
      character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t size,
@@ -108,7 +109,7 @@ int ucabyte_size_string_create(
 {
 	const character_t *factor_string = NULL;
 	const character_t *units_string  = NULL;
-	static char *function            = "ucabyte_size_string_create";
+	static char *function            = "byte_size_string_create";
 	ssize_t print_count              = 0;
 	uint64_t factored_size           = 0;
 	uint64_t last_factored_size      = 0;
@@ -122,7 +123,7 @@ int ucabyte_size_string_create(
 
 		return( -1 );
 	}
-	/* Minimum of 4 digits and seperator, space, 3 letter unit, end of string
+	/* Minimum of 4 digits and separator, space, 3 letter unit, end of string
 	 */
 	if( byte_size_string_length < 9 )
 	{
@@ -132,11 +133,11 @@ int ucabyte_size_string_create(
 		return( -1 );
 	}
 	if( ( size < 1024 )
-	 || ( units == UCABYTE_SIZE_STRING_UNIT_MEGABYTE ) )
+	 || ( units == BYTE_SIZE_STRING_UNIT_MEGABYTE ) )
 	{
 		units_string = _CHARACTER_T_STRING( "B" );
 	}
-	else if( units == UCABYTE_SIZE_STRING_UNIT_MEBIBYTE )
+	else if( units == BYTE_SIZE_STRING_UNIT_MEBIBYTE )
 	{
 		units_string = _CHARACTER_T_STRING( "iB" );
 	}
@@ -164,7 +165,7 @@ int ucabyte_size_string_create(
 			return( -1 );
 		}
 	}
-	factor_string = ucabyte_size_string_get_factor_string(
+	factor_string = byte_size_string_get_factor_string(
 	                 factor );
 
 	if( factor_string == NULL )
@@ -217,12 +218,12 @@ int ucabyte_size_string_create(
 /* Converts a human readable byte size string into a value
  * Returns 1 if successful or -1 on error
  */
-int ucabyte_size_string_convert(
+int byte_size_string_convert(
      character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t *size )
 {
-	static char *function            = "ucabyte_size_string_convert";
+	static char *function            = "byte_size_string_convert";
 	size_t byte_size_string_iterator = 0;
 	uint64_t byte_size               = 0;
 	int8_t factor                    = 0;
@@ -266,15 +267,16 @@ int ucabyte_size_string_convert(
 
 			byte_size_string_iterator++;
 		}
+		remainder *= 10;
+
 		if( ( byte_size_string[ byte_size_string_iterator ] >= '0' )
 		 && ( byte_size_string[ byte_size_string_iterator ] <= '9' ) )
 		{
-			remainder *= 10;
 			remainder += ( byte_size_string[ byte_size_string_iterator ] - '0' );
 
 			byte_size_string_iterator++;
 		}
-		/* Ignore more than 2 digits after seperator
+		/* Ignore more than 2 digits after separator
 		 */
 		while( byte_size_string_iterator < byte_size_string_length )
 		{
@@ -290,7 +292,7 @@ int ucabyte_size_string_convert(
 	{
 		byte_size_string_iterator++;
 	}
-	factor = ucabyte_size_string_get_factor(
+	factor = byte_size_string_get_factor(
 	          byte_size_string[ byte_size_string_iterator ] );
 
 	if( factor < 0 )
@@ -305,13 +307,13 @@ int ucabyte_size_string_convert(
 	if( ( byte_size_string[ byte_size_string_iterator ] == 'i' )
 	 && ( byte_size_string[ byte_size_string_iterator + 1 ] == 'B' ) )
 	{
-		units = UCABYTE_SIZE_STRING_UNIT_MEBIBYTE;
+		units = BYTE_SIZE_STRING_UNIT_MEBIBYTE;
 
 		byte_size_string_iterator += 2;
 	}
 	else if( byte_size_string[ byte_size_string_iterator ] == 'B' )
 	{
-		units = UCABYTE_SIZE_STRING_UNIT_MEGABYTE;
+		units = BYTE_SIZE_STRING_UNIT_MEGABYTE;
 
 		byte_size_string_iterator++;
 	}
@@ -330,7 +332,7 @@ int ucabyte_size_string_convert(
 
 			factor--;
 
-			byte_size += ( remainder * 100 );
+			byte_size += ( remainder * 10 );
 		}
 		for( ; factor > 0; factor-- )
 		{
@@ -354,3 +356,179 @@ int ucabyte_size_string_convert(
 	return( 1 );
 }
 
+/* Determines the factor from a factor string
+ * Returns the factor if successful or -1 on error
+ */
+int8_t byte_size_string_get_factor_system_character(
+        system_character_t factor )
+{
+	switch( factor )
+	{
+		case 'k':
+		case 'K':
+			return( 1 );
+		case 'm':
+		case 'M':
+			return( 2 );
+		case 'g':
+		case 'G':
+			return( 3 );
+		case 't':
+		case 'T':
+			return( 4 );
+		case 'p':
+		case 'P':
+			return( 5 );
+		case 'e':
+		case 'E':
+			return( 6 );
+		case 'z':
+		case 'Z':
+			return( 7 );
+		case 'y':
+		case 'Y':
+			return( 8 );
+		default :
+			break;
+	}
+	return( -1 );
+}
+
+/* Converts a human readable byte size string into a value
+ * Returns 1 if successful or -1 on error
+ */
+int byte_size_string_convert_system_character(
+     system_character_t *byte_size_string,
+     size_t byte_size_string_length,
+     uint64_t *size )
+{
+	static char *function            = "byte_size_string_convert_system_character";
+	size_t byte_size_string_iterator = 0;
+	uint64_t byte_size               = 0;
+	int8_t factor                    = 0;
+	int8_t remainder                 = -1;
+	int units                        = 0;
+
+	if( byte_size_string == NULL )
+	{
+		notify_warning_printf( "%s: invalid byte size string.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( size == NULL )
+	{
+		notify_warning_printf( "%s: invalid size.\n",
+		 function );
+
+		return( -1 );
+	}
+	while( byte_size_string_iterator < byte_size_string_length )
+	{
+		if( ( byte_size_string[ byte_size_string_iterator ] < '0' )
+		 || ( byte_size_string[ byte_size_string_iterator ] > '9' ) )
+		{
+			break;
+		}
+		byte_size *= 10;
+		byte_size += ( byte_size_string[ byte_size_string_iterator ] - '0' );
+
+		byte_size_string_iterator++;
+	}
+	if( byte_size_string[ byte_size_string_iterator ] == '.' )
+	{
+		byte_size_string_iterator++;
+
+		if( ( byte_size_string[ byte_size_string_iterator ] >= '0' )
+		 && ( byte_size_string[ byte_size_string_iterator ] <= '9' ) )
+		{
+			remainder = ( byte_size_string[ byte_size_string_iterator ] - '0' );
+
+			byte_size_string_iterator++;
+		}
+		remainder *= 10;
+
+		if( ( byte_size_string[ byte_size_string_iterator ] >= '0' )
+		 && ( byte_size_string[ byte_size_string_iterator ] <= '9' ) )
+		{
+			remainder += ( byte_size_string[ byte_size_string_iterator ] - '0' );
+
+			byte_size_string_iterator++;
+		}
+		/* Ignore more than 2 digits after separator
+		 */
+		while( byte_size_string_iterator < byte_size_string_length )
+		{
+			if( ( byte_size_string[ byte_size_string_iterator ] < '0' )
+			 || ( byte_size_string[ byte_size_string_iterator ] > '9' ) )
+			{
+				break;
+			}
+			byte_size_string_iterator++;
+		}
+	}
+	if( byte_size_string[ byte_size_string_iterator ] == ' ' )
+	{
+		byte_size_string_iterator++;
+	}
+	factor = byte_size_string_get_factor_system_character(
+	          byte_size_string[ byte_size_string_iterator ] );
+
+	if( factor < 0 )
+	{
+		notify_warning_printf( "%s: invalid factor.\n",
+		 function );
+
+		return( -1 );
+	}
+	byte_size_string_iterator++;
+
+	if( ( byte_size_string[ byte_size_string_iterator ] == 'i' )
+	 && ( byte_size_string[ byte_size_string_iterator + 1 ] == 'B' ) )
+	{
+		units = BYTE_SIZE_STRING_UNIT_MEBIBYTE;
+
+		byte_size_string_iterator += 2;
+	}
+	else if( byte_size_string[ byte_size_string_iterator ] == 'B' )
+	{
+		units = BYTE_SIZE_STRING_UNIT_MEGABYTE;
+
+		byte_size_string_iterator++;
+	}
+	else
+	{
+		notify_warning_printf( "%s: invalid units.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( factor > 0 )
+	{
+		if( remainder > 0 )
+		{
+			byte_size *= units;
+
+			factor--;
+
+			byte_size += ( remainder * 10 );
+		}
+		for( ; factor > 0; factor-- )
+		{
+			byte_size *= units;
+		}
+	}
+	else if( remainder >= 0 )
+	{
+		notify_warning_printf( "%s: ignoring byte value remainder.\n",
+		 function );
+	}
+	if( byte_size_string[ byte_size_string_iterator ] != '\0' )
+	{
+		notify_warning_printf( "%s: trailing data in byte size string.\n",
+		 function );
+	}
+	*size = byte_size;
+
+	return( 1 );
+}

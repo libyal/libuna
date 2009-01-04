@@ -31,34 +31,31 @@
 extern "C" {
 #endif
 
-extern int libuca_notify_verbose;
+extern int notify_verbose;
 
-void libuca_notify_set_values(
+void notify_set_values(
       FILE *stream,
       int verbose );
 
 #define notify_set_values \
-        libuca_notify_set_values
+        notify_set_values
 
-void libuca_notify_printf(
+void notify_printf(
       char *format,
       ... );
 
-#define notify_printf \
-	libuca_notify_printf
-
 #define notify_verbose_printf \
-	if( libuca_notify_verbose != 0 ) libuca_notify_printf
+	if( notify_verbose != 0 ) notify_printf
 
 #define notify_warning_printf \
-	if( libuca_notify_verbose != 0 ) libuca_notify_printf
+	if( notify_verbose != 0 ) notify_printf
 
-void libuca_notify_dump_data(
+void notify_dump_data(
       void *data,
       size_t size );
 
-#define notify_dump_data( data, size ) \
-	if( libuca_notify_verbose != 0 ) libuca_notify_dump_data( data, size )
+#define notify_verbose_dump_data( data, size ) \
+	if( notify_verbose != 0 ) notify_dump_data( data, size )
 
 #if defined( __cplusplus )
 }

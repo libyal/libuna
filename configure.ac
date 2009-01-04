@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuca],
-  [20080904],
+  [20080908],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuca],
- [20080904])
+ [20080908])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -102,8 +102,15 @@ dnl Headers included in common/memory.h
 AC_CHECK_HEADERS([stdlib.h])
 
 dnl Headers included in common/notify.c
-AC_CHECK_HEADERS([stdarg.h])
-AC_CHECK_HEADERS([varargs.h])
+AC_CHECK_HEADERS(
+ [stdarg.h],
+ []
+ [AC_CHECK_HEADERS(
+  [varargs.h],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing headers: stdarg.h and varargs.h],
+   [1]) ]) ])
 
 dnl Other headers
 AC_CHECK_HEADERS([glob.h])
@@ -207,40 +214,48 @@ AC_CHECK_FUNCS(
   [Missing function: realloc],
   [1]) ])
 
+dnl File input/output functions used in common/notify.h
+AC_CHECK_FUNCS(
+ [vfprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vfprintf],
+  [1]) ])
+
 dnl File input/output functions used in common/file_io.h
 AC_CHECK_FUNCS(
  [close],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: close],
+  [Missing function: close],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [lseek],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: lseek],
+  [Missing function: lseek],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [open],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: open],
+  [Missing function: open],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [read],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: read],
+  [Missing function: read],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [write],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: write],
+  [Missing function: write],
   [1]) ])
 
 dnl Date and time functions used in common/date_time.h
@@ -268,7 +283,7 @@ AC_CHECK_FUNCS(
  [fgets],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: fgets],
+  [Missing function: fgets],
   [1]) ])
 
 AC_CHECK_FUNCS(
@@ -353,7 +368,15 @@ AC_CHECK_FUNCS(
    [Missing functions: strtoull and atoll],
    [1]) ]) ])
 
-dnl Check for error string functions used in common/error_string.h
+dnl File input/output functions used in libuca/libuca_error.h
+AC_CHECK_FUNCS(
+ [vsnprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vsnprintf],
+  [1]) ])
+
+dnl Check for error string functions used in ucatools/error_string.h
 AC_FUNC_STRERROR_R(
  [],
  [AC_CHECK_FUNCS(
@@ -363,7 +386,7 @@ AC_FUNC_STRERROR_R(
    [Missing functions: strerror_r and strerror],
    [1]) ]) ])
 
-dnl Commandline argument/option parsing functions
+dnl Commandline argument/option parsing functions used in ucatools/ucagetopt.h
 AC_CHECK_FUNCS([getopt])
 
 dnl Check for printf conversion specifier support
@@ -396,14 +419,14 @@ AS_IF(
 	 [btowc],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: btowc],
+	  [Missing function: btowc],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [wctob],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wctob],
+	  [Missing function: wctob],
 	  [1]) ])
 
 	dnl Wide character string functions used in common/wide_string.h
@@ -411,14 +434,14 @@ AS_IF(
 	 [fgetws],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: fgetws],
+	  [Missing function: fgetws],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [swprintf],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: swprintf],
+	  [Missing function: swprintf],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
@@ -461,7 +484,7 @@ AS_IF(
 	 [wcslen],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcslen],
+	  [Missing function: wcslen],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
@@ -478,14 +501,14 @@ AS_IF(
 	 [wcstoll],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoll],
+	  [Missing function: wcstoll],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [wcstoull],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoull],
+	  [Missing function: wcstoull],
 	  [1]) ])
 
 	dnl Make the necessary definitions
@@ -521,7 +544,6 @@ AC_CONFIG_FILES([manuals/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuca.h])
 AC_CONFIG_FILES([include/libuca/definitions.h])
-AC_CONFIG_FILES([include/libuca/features.h])
 AC_CONFIG_FILES([include/libuca/types.h])
 AC_CONFIG_FILES([libuca/libuca_definitions.h])
 dnl Have configure make distribution specific files

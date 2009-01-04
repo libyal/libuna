@@ -1,7 +1,7 @@
 /*
- * String conversion functions
+ * Error functions
  *
- * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
@@ -20,35 +20,52 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _STRING_CONVERSION_H )
-#define _STRING_CONVERSION_H
+#if !defined( _LIBUCA_ERROR_H )
+#define _LIBUCA_ERROR_H
 
-#include "common.h"
-#include "types.h"
+#include <common.h>
+#include <types.h>
+
+#include <stdio.h>
+
+#include <libuca/error.h>
+
+#include "libuca_extern.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#if defined( HAVE_WIDE_CHARACTER_TYPE )
+typedef struct libuca_internal_error libuca_internal_error_t;
 
-int libuca_string_copy_wchar_to_char(
-     char *destination,
-     const wchar_t *source,
-     size_t size );
+struct libuca_internal_error
+{
+	/* The error code
+	 */
+	int code;
 
-#define string_copy_wchar_to_char( destination, source, size ) \
-	libuca_string_copy_wchar_to_char( destination, source, size )
+	/* The amount of messages
+	 */
+	int amount_of_messages;
 
-int libuca_string_copy_char_to_wchar(
-     wchar_t *destination,
-     const char *source,
-     size_t size );
+	/* The error messages
+	 */
+	char **message;
+};
 
-#define string_copy_char_to_wchar( destination, source, size ) \
-	libuca_string_copy_char_to_wchar( destination, source, size )
+void libuca_error_set(
+      libuca_error_t **error,
+      int error_code,
+      const char *format,
+      ... );
 
-#endif
+void libuca_error_add_message(
+      libuca_error_t *error,
+      const char *format,
+      ... );
+
+LIBUCA_EXTERN void libuca_error_free(
+                    libuca_error_t **error );
 
 #if defined( __cplusplus )
 }

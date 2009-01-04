@@ -24,7 +24,6 @@
 #define _LIBUCA_SUPPORT_H
 
 #include <common.h>
-#include <character_string.h>
 #include <types.h>
 
 #include <stdio.h>
@@ -35,8 +34,11 @@
 extern "C" {
 #endif
 
-LIBUCA_EXTERN const character_t *libuca_get_version(
-                                  void );
+LIBUCA_EXTERN const char *libuca_get_version(
+                           void );
+
+LIBUCA_EXTERN const char *libuca_get_error_string(
+                           int error code );
 
 LIBUCA_EXTERN void libuca_set_notify_values(
                     FILE *stream,

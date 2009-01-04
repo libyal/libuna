@@ -24,7 +24,8 @@
 #define _FILE_STREAM_IO_H
 
 #include "common.h"
-#include "system_string.h"
+#include "narrow_string.h"
+#include "wide_string.h"
 
 #include <stdio.h>
 

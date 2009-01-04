@@ -1,4 +1,4 @@
-.Dd September 3, 2008
+.Dd September 8, 2008
 .Dt libuca 3
 .Os libuca
 .Sh NAME
@@ -9,182 +9,176 @@
 .Sh SYNOPSIS
 .In libuca.h
 .Pp
+.Ft const char *
+.Fn libuca_get_version "void"
 .Ft void
 .Fn libuca_set_notify_values "FILE *stream, uint8_t verbose"
 .Pp
 Unicode character functions
 .Ft int
-.Fn libuca_unicode_character_copy_from_byte_stream "libuca_unicode_character_t *unicode_character, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, int codepage"
+.Fn libuca_unicode_character_copy_from_byte_stream "libuca_unicode_character_t *unicode_character, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_byte_stream "libuca_unicode_character_t unicode_character, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, int codepage"
+.Fn libuca_unicode_character_copy_to_byte_stream "libuca_unicode_character_t unicode_character, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_from_utf8 "libuca_unicode_character_t *unicode_character, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index"
+.Fn libuca_unicode_character_copy_from_utf8 "libuca_unicode_character_t *unicode_character, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_utf8 "libuca_unicode_character_t unicode_character, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index"
+.Fn libuca_unicode_character_copy_to_utf8 "libuca_unicode_character_t unicode_character, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_from_utf16 "libuca_unicode_character_t *unicode_character, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index"
+.Fn libuca_unicode_character_copy_from_utf16 "libuca_unicode_character_t *unicode_character, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_utf16 "libuca_unicode_character_t unicode_character, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index"
+.Fn libuca_unicode_character_copy_to_utf16 "libuca_unicode_character_t unicode_character, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_from_utf16_stream "libuca_unicode_character_t *unicode_character, uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order"
+.Fn libuca_unicode_character_copy_from_utf16_stream "libuca_unicode_character_t *unicode_character, uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_utf16_stream "libuca_unicode_character_t unicode_character, uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order"
+.Fn libuca_unicode_character_copy_to_utf16_stream "libuca_unicode_character_t unicode_character, uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_from_utf32 "libuca_unicode_character_t *unicode_character, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index"
+.Fn libuca_unicode_character_copy_from_utf32 "libuca_unicode_character_t *unicode_character, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_utf32 "libuca_unicode_character_t unicode_character, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index"
+.Fn libuca_unicode_character_copy_to_utf32 "libuca_unicode_character_t unicode_character, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_from_utf32_stream "libuca_unicode_character_t *unicode_character, uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order"
+.Fn libuca_unicode_character_copy_from_utf32_stream "libuca_unicode_character_t *unicode_character, uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_unicode_character_copy_to_utf32_stream "libuca_unicode_character_t unicode_character, uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order"
+.Fn libuca_unicode_character_copy_to_utf32_stream "libuca_unicode_character_t unicode_character, uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Pp
 Byte stream functions
 .Ft ssize_t
-.Fn libuca_byte_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, int codepage"
+.Fn libuca_byte_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_byte_stream_copy_from_utf8 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_byte_stream_copy_from_utf8 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_byte_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, int codepage"
+.Fn libuca_byte_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_byte_stream_copy_from_utf16 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_byte_stream_copy_from_utf16 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_byte_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, int codepage"
+.Fn libuca_byte_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_byte_stream_copy_from_utf32 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_byte_stream_copy_from_utf32 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Pp
 UTF-8 stream functions
 .Ft int
-.Fn libuca_utf8_stream_copy_byte_order_mark "uint8_t *utf8_stream, size_t utf8_stream_size, size_t *utf8_stream_index"
+.Fn libuca_utf8_stream_copy_byte_order_mark "uint8_t *utf8_stream, size_t utf8_stream_size, size_t *utf8_stream_index, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf8_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_stream_copy_from_utf8 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf8_stream_copy_from_utf8 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf8_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_stream_copy_from_utf16 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf8_stream_copy_from_utf16 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf8_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_stream_copy_from_utf32 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf8_stream_copy_from_utf32 "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Pp
 UTF-8 string functions
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf8_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_byte_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf8_string_copy_from_byte_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf8_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_utf8_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf8_string_copy_from_utf8_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf8_string_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_utf16 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf8_string_copy_from_utf16 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf8_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_utf16_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf8_string_copy_from_utf16_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf8_string_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_utf32 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf8_string_copy_from_utf32 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf8_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
+.Fn libuca_utf8_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf8_string_copy_from_utf32_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
+.Fn libuca_utf8_string_copy_from_utf32_stream "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Pp
 UTF-16 stream functions
 .Ft int
-.Fn libuca_utf16_stream_copy_byte_order_mark "uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order"
+.Fn libuca_utf16_stream_copy_byte_order_mark "uint8_t *utf16_stream, size_t utf16_stream_size, size_t *utf16_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf16_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_stream_copy_from_utf8 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf16_stream_copy_from_utf8 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf16_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_stream_copy_from_utf16 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf16_stream_copy_from_utf16 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf16_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_stream_copy_from_utf32 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf16_stream_copy_from_utf32 "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Pp
 UTF-16 string functions
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf16_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_byte_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf16_string_copy_from_byte_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf16_string_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_utf8 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf16_string_copy_from_utf8 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf16_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_utf8_stream "libuca_utf8_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf16_string_copy_from_utf8_stream "libuca_utf8_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf16_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_utf16_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf16_string_copy_from_utf16_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf16_string_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_utf32 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf16_string_copy_from_utf32 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf16_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
+.Fn libuca_utf16_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf16_string_copy_from_utf32_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
+.Fn libuca_utf16_string_copy_from_utf32_stream "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Pp
 UTF-32 stream functions
 .Ft int
-.Fn libuca_utf32_stream_copy_byte_order_mark "uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order"
+.Fn libuca_utf32_stream_copy_byte_order_mark "uint8_t *utf32_stream, size_t utf32_stream_size, size_t *utf32_stream_index, uint8_t byte_order, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf32_stream_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_stream_copy_from_utf8 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf32_stream_copy_from_utf8 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf32_stream_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_stream_copy_from_utf16 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf32_stream_copy_from_utf16 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf32_stream_size_from_utf32 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_stream_copy_from_utf32 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf32_character_t *utf32_string, size_t utf32_string_size"
+.Fn libuca_utf32_stream_copy_from_utf32 "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_error_t **error"
 .Pp
 UTF-32 string functions
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf32_string_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_byte_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage"
+.Fn libuca_utf32_string_copy_from_byte_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf32_string_size_from_utf8 "libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_utf8 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size"
+.Fn libuca_utf32_string_copy_from_utf8 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_utf8_character_t *utf8_string, size_t utf8_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf32_string_size_from_utf8_stream "uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_utf8_stream "libuca_utf8_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf8_stream, size_t utf8_stream_size"
+.Fn libuca_utf32_string_copy_from_utf8_stream "libuca_utf8_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf8_stream, size_t utf8_stream_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf32_string_size_from_utf16 "libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_utf16 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size"
+.Fn libuca_utf32_string_copy_from_utf16 "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, libuca_utf16_character_t *utf16_string, size_t utf16_string_size, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf32_string_size_from_utf16_stream "uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_utf16_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order"
+.Fn libuca_utf32_string_copy_from_utf16_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft ssize_t
-.Fn libuca_utf32_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
+.Fn libuca_utf32_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Ft int
-.Fn libuca_utf32_string_copy_from_utf32_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order"
-.Pp
-When the library was compiled with narrow character support (default) the following functions are available
-.Ft const char *
-.Fn libuca_get_version "void"
-.Pp
-When the library was compiled with wide character support the following functions are available instead of the narrow character functions
-.Ft const wchar_t *
-.Fn libuca_get_version "void"
+.Fn libuca_utf32_string_copy_from_utf32_stream "libuca_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuca_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libuca_get_version

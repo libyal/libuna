@@ -21,18 +21,28 @@
  */
 
 #include <common.h>
-#include <character_string.h>
 #include <notify.h>
 
 #include "libuca_definitions.h"
 #include "libuca_support.h"
 
-/* Returns the library version
+const char libuca_error_strings[] = {
+};
+
+/* Returns the library version as a string
  */
-const character_t *libuca_get_version(
-                    void )
+const char *libuca_get_version(
+             void )
 {
-	return( (const character_t *) LIBUCA_VERSION_STRING );
+	return( (const char *) LIBUCA_VERSION_STRING );
+}
+
+/* Returns the error code as a string
+ */
+const char *libuca_get_error_string(
+             int error_code )
+{
+	return( (const char *) LIBUCA_VERSION_STRING );
 }
 
 /* Set the notify values

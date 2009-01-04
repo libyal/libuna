@@ -24,17 +24,18 @@
 #define _UCAGETOPT_H
 
 #include <common.h>
-#include <system_string.h>
+
+#include "system_string.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#if defined( HAVE_GETOPT ) && !defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+#if defined( HAVE_GETOPT )
 #define ucagetopt( argument_count, argument_values, options_string ) \
-	getopt( argument_count, argument_values, options_string )
-#else
+        getopt( argument_count, argument_values, options_string )
 
+#else
 /* The current option argument
  */
 extern system_character_t *optarg;

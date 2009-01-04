@@ -20,23 +20,26 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "common.h"
-#include "date_time.h"
+#include <common.h>
+#include <date_time.h>
+#include <narrow_string.h>
+#include <memory.h>
+#include <notify.h>
+#include <types.h>
+#include <wide_string.h>
+
 #include "character_string.h"
-#include "memory.h"
-#include "notify.h"
-#include "types.h"
 
 /* Duplicates a string
  * Size should include the size of the end of string character
  * Returns the pointer to the duplicate string, or NULL on error
  */
-character_t *libuca_string_duplicate(
+character_t *string_duplicate(
               character_t *string,
               size_t size )
 {
 	character_t *duplicate = NULL;
-	static char *function  = "libuca_string_duplicate";
+	static char *function  = "string_duplicate";
 
 	if( string == NULL )
 	{
@@ -87,13 +90,13 @@ character_t *libuca_string_duplicate(
  * Size should include the size of the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libuca_string_to_int64(
+int string_to_int64(
      const character_t *string,
      size_t size,
      int64_t *value )
 {
 	character_t *end_of_string = NULL;
-	static char *function      = "libuca_string_to_int64";
+	static char *function      = "string_to_int64";
 
 	if( string == NULL )
 	{
@@ -148,13 +151,13 @@ int libuca_string_to_int64(
  * Size should include the size of the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libuca_string_to_uint64(
+int string_to_uint64(
      const character_t *string,
      size_t size,
      uint64_t *value )
 {
 	character_t *end_of_string = NULL;
-	static char *function      = "libuca_string_to_uint64";
+	static char *function      = "string_to_uint64";
 
 	if( string == NULL )
 	{
@@ -209,14 +212,14 @@ int libuca_string_to_uint64(
  * The string must be at least 32 characters of size
  * Returns the pointer to the string if successful or NULL on error
  */
-character_t *libuca_string_ctime(
+character_t *string_ctime(
               const time_t *timestamp,
               character_t *string,
               size_t size )
 {
 	char ctime_string[ 32 ];
 
-	static char *function = "libuca_string_ctime";
+	static char *function = "string_ctime";
 
 	if( timestamp == NULL )
 	{

@@ -1,5 +1,8 @@
 TODO
 
+* implement error
+* rewrite size functions to return int instead of ssize_t
+
 * ucaexport implement signal handling
 
 * speed test between index based and pointer based iteration
@@ -46,6 +49,14 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20080908
+* Worked on initial version
+* Moved wide character specific code to ucatools no longer used in libuca
+* Fixed ucabyte_size for conversion error in 2 digit after separator
+* Separated common code in to common code for tools and both libary and tools
+* Worked on improved error handling
+* Worked on rewriting size functions
 
 20080904
 * Worked on initial version

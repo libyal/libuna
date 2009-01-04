@@ -21,7 +21,9 @@
  */
 
 #include "common.h"
+#include "narrow_string.h"
 #include "file_io.h"
+#include "wide_string.h"
 #include "notify.h"
 
 #if defined( HAVE_OPEN ) && defined( HAVE_CLOSE )
@@ -29,10 +31,10 @@
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
  */
-int libuca_file_io_exists(
+int file_io_exists(
      const char *filename )
 {
-	static char *function = "libuca_file_io_exists";
+	static char *function = "file_io_exists";
 	int file_descriptor   = 0;
 
 	if( filename == NULL )
@@ -72,10 +74,10 @@ int libuca_file_io_exists(
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
  */
-int libuca_file_io_wexists(
+int file_io_wexists(
      const wchar_t *filename )
 {
-	static char *function = "libuca_file_io_wexists";
+	static char *function = "file_io_wexists";
 	int file_descriptor   = 0;
 
 	if( filename == NULL )
@@ -107,11 +109,11 @@ int libuca_file_io_wexists(
 
 /* Function to wrap open()
  */
-int libuca_file_io_open(
+int file_io_open(
      const char *filename,
      int flags )
 {
-	static char *function = "libuca_file_io_open";
+	static char *function = "file_io_open";
 	int file_descriptor   = 0;
 
 	if( filename == NULL )
@@ -152,11 +154,11 @@ int libuca_file_io_open(
 
 /* Function to wrap wopen() which is the wide character equivalent of open()
  */
-int libuca_file_io_wopen(
+int file_io_wopen(
      const wchar_t *filename,
      int flags )
 {
-	static char *function = "libuca_file_io_wopen";
+	static char *function = "file_io_wopen";
 	int file_descriptor   = 0;
 
 	if( filename == NULL )

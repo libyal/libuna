@@ -1,5 +1,5 @@
 /*
- * Features of libuca
+ * The error code definitions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,19 +20,13 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUCA_FEATURES_H )
-#define _LIBUCA_FEATURES_H
+#if !defined( _LIBUCA_ERROR_H )
+#define _LIBUCA_ERROR_H
 
-/* The libuca type support features
- */
-#if @HAVE_WIDE_CHARACTER_TYPE@ || defined( HAVE_WIDE_CHARACTER_TYPE )
-#define LIBUCA_WIDE_CHARACTER_TYPE      1
-
-#if @HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS@ || defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-#define LIBUCA_WIDE_CHARACTER_FILE_FUNCTIONS    1
-#endif
-
-#endif
+#define LIBUCA_ERROR_INVALID_ARGUMENT			1
+#define LIBUCA_ERROR_ARGUMENT_TOO_SMALL			2
+#define LIBUCA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM		3
+#define LIBUCA_ERROR_ARGUMENT_UNSUPPORTED_VALUE		4
 
 #endif
 

@@ -21,12 +21,10 @@
  */
 
 #include <common.h>
-#include <character_string.h>
 #include <file_io.h>
 #include <memory.h>
 #include <narrow_string.h>
 #include <notify.h>
-#include <system_string.h>
 #include <types.h>
 
 #include <errno.h>
@@ -50,9 +48,13 @@
 
 #include <libuca.h>
 
+#include "character_string.h"
+#include "glob.h"
+#include "safe_types.h"
+#include "system_string.h"
+
 #include "ucacommon.h"
 #include "ucagetopt.h"
-#include "ucaglob.h"
 #include "ucainput.h"
 #include "ucaoutput.h"
 #include "ucaprocess_status.h"

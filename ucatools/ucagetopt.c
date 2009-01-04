@@ -1,5 +1,5 @@
 /*
- * GetOpt functions for the ucatools
+ * GetOpt functions
  *
  * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -22,12 +22,12 @@
 
 #include <common.h>
 #include <notify.h>
-#include <system_string.h>
 
 #if defined( HAVE_STDLIB_H )
 #include <stdlib.h>
 #endif
 
+#include "system_string.h"
 #include "ucagetopt.h"
 
 #if !defined( HAVE_GETOPT )

@@ -1,7 +1,7 @@
 /*
- * Common input functions for the ucatools
+ * String conversion functions
  *
- * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
@@ -20,29 +20,31 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCAINPUT_H )
-#define _UCAINPUT_H
+#if !defined( _STRING_CONVERSION_H )
+#define _STRING_CONVERSION_H
 
 #include <common.h>
+#include <narrow_string.h>
 #include <types.h>
-
-#include "system_string.h"
+#include <wide_string.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-int ucainput_determine_byte_stream_codepage(
-     const system_character_t *argument,
-     int *byte_stream_codepage );
+#if defined( HAVE_WIDE_CHARACTER_TYPE )
 
-int ucainput_determine_format(
-     const system_character_t *argument,
-     int *format );
+int string_copy_wchar_to_char(
+     char *destination,
+     const wchar_t *source,
+     size_t size );
 
-int ucainput_determine_newline_conversion(
-     const system_character_t *argument,
-     int *newline_conversion );
+int string_copy_char_to_wchar(
+     wchar_t *destination,
+     const char *source,
+     size_t size );
+
+#endif
 
 #if defined( __cplusplus )
 }

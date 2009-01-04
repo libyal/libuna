@@ -24,8 +24,9 @@
 #define _FILE_IO_H
 
 #include "common.h"
-#include "system_string.h"
+#include "narrow_string.h"
 #include "types.h"
+#include "wide_string.h"
 
 #if defined( HAVE_IO_H )
 #include <io.h>
@@ -68,38 +69,25 @@ extern "C" {
 #endif
 
 #if defined( HAVE_OPEN ) && defined( HAVE_CLOSE )
-int libuca_file_io_exists(
+int file_io_exists(
      const char *filename );
-
-#define file_io_exists( filename ) \
-	libuca_file_io_exists( filename )
 #endif
 
 #if defined( HAVE_WOPEN ) && defined( HAVE_CLOSE )
-int libuca_file_io_wexists(
+int file_io_wexists(
      const wchar_t *filename );
-
-#define file_io_wexists( filename, flags ) \
-	libuca_file_io_wexists( filename )
 #endif
 
 #if defined( HAVE_OPEN )
-int libuca_file_io_open(
+int file_io_open(
      const char *filename,
      int flags );
-
-#define file_io_open( filename, flags ) \
-	libuca_file_io_open( filename, flags )
 #endif
 
 #if defined( HAVE_WOPEN )
-int libuca_file_io_wopen(
+int file_io_wopen(
      const wchar_t *filename,
      int flags );
-
-#define file_io_wopen( filename, flags ) \
-	libuca_file_io_wopen( filename, flags )
-
 #endif
 
 #if defined( HAVE_READ )

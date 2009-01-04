@@ -24,8 +24,9 @@
 #define _DIRECTORY_IO_H
 
 #include "common.h"
-#include "system_string.h"
+#include "narrow_string.h"
 #include "types.h"
+#include "wide_string.h"
 
 #if defined( HAVE_SYS_STAT_H )
 #include <sys/stat.h>

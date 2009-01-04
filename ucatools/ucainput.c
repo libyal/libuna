@@ -22,7 +22,7 @@
 
 #include <common.h>
 #include <notify.h>
-#include <system_string.h>
+#include <types.h>
 
 /* If libtool DLL support is enabled set LIBUCA_DLL_IMPORT
  * before including libuca.h
@@ -32,6 +32,8 @@
 #endif
 
 #include <libuca.h>
+
+#include "system_string.h"
 
 #include "ucacommon.h"
 #include "ucainput.h"
