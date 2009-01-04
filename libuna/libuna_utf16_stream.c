@@ -37,7 +37,8 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
                    uint8_t *utf16_stream,
                    size_t utf16_stream_size,
                    size_t *utf16_stream_index,
-                   uint8_t byte_order )
+                   uint8_t byte_order,
+                   libuna_error_t **error )
 {
 	static char *function = "libuna_utf16_stream_copy_byte_order_mark";
 
@@ -115,13 +116,14 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 /* Determines the size of a UTF-16 stream from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-ssize_t libuna_utf16_stream_size_from_utf8(
-         libuna_utf8_character_t *utf8_string,
-         size_t utf8_string_size )
+int libuna_utf16_stream_size_from_utf8(
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf16_stream_size,
+     libuna_error_t **error )
 {
 	static char *function                        = "libuna_utf16_stream_size_from_utf8";
 	size_t utf8_string_iterator                  = 0;
-	ssize_t utf16_stream_size                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 
 	if( utf8_string == NULL )
@@ -146,9 +148,20 @@ ssize_t libuna_utf16_stream_size_from_utf8(
 
 		return( -1 );
 	}
+	if( utf16_stream_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
+		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 "%s: invalid UTF-16 stream size.\n",
+		 function );
+
+		return( -1 );
+	}
 	/* Add the byte order mark
 	 */
-	utf16_stream_size = 1;
+	*utf16_stream_size = 1;
 
 	while( utf8_string_iterator < utf8_string_size )
 	{
@@ -171,14 +184,25 @@ ssize_t libuna_utf16_stream_size_from_utf8(
 		}
 		/* Determine how many UTF-16 character bytes are required
 		 */
-		utf16_stream_size += libuna_unicode_character_size_to_utf16(
-		                      unicode_character );
+		if( libuna_unicode_character_size_to_utf16(
+		     unicode_character,
+		     utf16_stream_size ) != 1 )
+		{
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_DOMAIN_CONVERSION,
+			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 "%s: unable to determine size of Unicode character in UTF-16.\n",
+			 function );
+
+			return( -1 );
+		}
 	}
 	/* Convert the amount of characters into bytes
 	 */
-	utf16_stream_size *= 2;
+	*utf16_stream_size *= 2;
 
-	return( utf16_stream_size );
+	return( 1 );
 }
 
 /* Copies an UTF-16 stream from an UTF-8 string
@@ -189,7 +213,8 @@ int libuna_utf16_stream_copy_from_utf8(
      size_t utf16_stream_size,
      uint8_t byte_order,
      libuna_utf8_character_t *utf8_string,
-     size_t utf8_string_size )
+     size_t utf8_string_size,
+     libuna_error_t **error )
 {
 	static char *function                        = "libuna_utf16_stream_copy_from_utf8";
 	size_t utf8_string_iterator                  = 0;
@@ -311,12 +336,13 @@ int libuna_utf16_stream_copy_from_utf8(
 /* Determines the size of a UTF-16 stream from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-ssize_t libuna_utf16_stream_size_from_utf16(
-         libuna_utf16_character_t *utf16_string,
-         size_t utf16_string_size )
+int libuna_utf16_stream_size_from_utf16(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_stream_size,
+     libuna_error_t **error )
 {
-	static char *function     = "libuna_utf16_stream_size_from_utf16";
-	ssize_t utf16_stream_size = 0;
+	static char *function = "libuna_utf16_stream_size_from_utf16";
 
 	if( utf16_string == NULL )
 	{
@@ -340,14 +366,25 @@ ssize_t libuna_utf16_stream_size_from_utf16(
 
 		return( -1 );
 	}
+	if( utf16_stream_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
+		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 "%s: invalid UTF-16 stream size.\n",
+		 function );
+
+		return( -1 );
+	}
 	/* Add the byte order mark
 	 * Assumes the UTF-16 string is santized
 	 */
-	utf16_stream_size = 1 + (ssize_t) utf16_string_size;
+	*utf16_stream_size = 1 + utf16_string_size;
 
 	/* Convert the amount of characters into bytes
 	 */
-	utf16_stream_size *= 2;
+	*utf16_stream_size *= 2;
 
 	return( utf16_stream_size );
 }
@@ -360,7 +397,8 @@ int libuna_utf16_stream_copy_from_utf16(
      size_t utf16_stream_size,
      uint8_t byte_order,
      libuna_utf16_character_t *utf16_string,
-     size_t utf16_string_size )
+     size_t utf16_string_size,
+     libuna_error_t **error )
 {
 	static char *function                    = "libuna_utf16_stream_copy_from_utf16";
 	size_t utf16_string_iterator             = 0;
@@ -464,13 +502,14 @@ int libuna_utf16_stream_copy_from_utf16(
 /* Determines the size of a UTF-16 stream from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-ssize_t libuna_utf16_stream_size_from_utf32(
-         libuna_utf32_character_t *utf32_string,
-         size_t utf32_string_size )
+int libuna_utf16_stream_size_from_utf32(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf16_stream_size,
+     libuna_error_t **error )
 {
 	static char *function                        = "libuna_utf16_stream_size_from_utf32";
 	size_t utf32_string_iterator                 = 0;
-	ssize_t utf16_stream_size                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 
 	if( utf32_string == NULL )
@@ -495,9 +534,20 @@ ssize_t libuna_utf16_stream_size_from_utf32(
 
 		return( -1 );
 	}
+	if( utf16_stream_size == NULL )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
+		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 "%s: invalid UTF-16 stream size.\n",
+		 function );
+
+		return( -1 );
+	}
 	/* Add the byte order mark
 	 */
-	utf16_stream_size += 1;
+	*utf16_stream_size += 1;
 
 	while( utf32_string_iterator < utf32_string_size )
 	{
@@ -520,14 +570,25 @@ ssize_t libuna_utf16_stream_size_from_utf32(
 		}
 		/* Determine how many UTF-16 character bytes are required
 		 */
-		utf16_stream_size += libuna_unicode_character_size_to_utf16(
-		                      unicode_character );
+		if( libuna_unicode_character_size_to_utf16(
+		     unicode_character,
+		     utf16_stream_size ) != 1 )
+		{
+			libuna_error_set(
+			 error,
+			 LIBUNA_ERROR_DOMAIN_CONVERSION,
+			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 "%s: unable to determine size of Unicode character in UTF-16.\n",
+			 function );
+
+			return( -1 );
+		}
 	}
 	/* Convert the amount of characters into bytes
 	 */
-	utf16_stream_size *= 2;
+	*utf16_stream_size *= 2;
 
-	return( utf16_stream_size );
+	return( 1 );
 }
 
 /* Copies an UTF-16 stream from an UTF-32 string
@@ -538,7 +599,8 @@ int libuna_utf16_stream_copy_from_utf32(
      size_t utf16_stream_size,
      uint8_t byte_order,
      libuna_utf32_character_t *utf32_string,
-     size_t utf32_string_size )
+     size_t utf32_string_size,
+     libuna_error_t **error )
 {
 	static char *function                        = "libuna_utf16_stream_copy_from_utf32";
 	size_t utf32_string_iterator                 = 0;

@@ -40,6 +40,7 @@
 #include "libuna_unicode_character.h"
 
 /* Determines the size of a byte stream character to from a Unicode character
+ * Adds the size to the byte stream character size value
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_size_to_byte_stream(
@@ -73,7 +74,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_WINDOWS_1256:
 		case LIBUNA_CODEPAGE_WINDOWS_1257:
 		case LIBUNA_CODEPAGE_WINDOWS_1258:
-			*byte_stream_character_size = 1;
+			*byte_stream_character_size += 1;
 			break;
 
 		default:
@@ -349,6 +350,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 }
 
 /* Determines the size of a UTF-8 character to from a Unicode character
+ * Adds the size to the UTF-8 character size value
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
@@ -369,44 +371,47 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
 	}
 	if( unicode_character < 0x080 )
 	{
-		*utf8_character_size = 1;
+		*utf8_character_size += 1;
 	}
 	else if( unicode_character < 0x0800 )
 	{
-		*utf8_character_size = 2;
+		*utf8_character_size += 2;
 	}
 	else if( unicode_character < 0x010000 )
 	{
-		*utf8_character_size = 3;
+		*utf8_character_size += 3;
 	}
 	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
-		*utf8_character_size = 3;
+		*utf8_character_size += 3;
 	}
 	else
 	{
-		*utf8_character_size = 4;
+		*utf8_character_size += 4;
 	}
-/* UTF-8 USC support ?
+
+/* If UTF-8 USC support is needed it should be implemented in
+ * utf8_usc or something, but for now leave this here as a reminder
+
 	else if( unicode_character < 0x010000 )
 	{
-		*utf8_character_size = 3;
+		*utf8_character_size += 3;
 	}
 	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
-		*utf8_character_size = 2;
+		*utf8_character_size += 2;
 	}
 	else if( unicode_character < 0x0200000 )
 	{
-		*utf8_character_size = 4;
+		*utf8_character_size += 4;
 	}
 	else if( unicode_character < 0x0400000 )
 	{
-		*utf8_character_size = 5;
+		*utf8_character_size += 5;
 	}
 	else
 	{
-		*utf8_character_size = 6;
+		*utf8_character_size += 6;
 	}
 */
 	return( 1 );
@@ -846,7 +851,8 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 }
 
 /* Determines the size of a UTF-16 character to from a Unicode character
- * Returns the size of the byte stream
+ * Adds the size to the UTF-16 character size value
+ * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
                    libuna_unicode_character_t unicode_character,
@@ -867,11 +873,11 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
 	if( ( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
          && ( unicode_character <= LIBUNA_UTF16_CHARACTER_MAX ) )
 	{
-		*utf16_character_size = 2;
+		*utf16_character_size += 2;
 	}
 	else
 	{
-		*utf16_character_size = 1;
+		*utf16_character_size += 1;
 	}
 	return( 1 );
 }
@@ -883,7 +889,8 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
                    libuna_unicode_character_t *unicode_character,
                    libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   size_t *utf16_string_index )
+                   size_t *utf16_string_index,
+                   libuna_error_t **error )
 {
 	static char *function                    = "libuna_unicode_character_copy_from_utf16";
 	libuna_utf16_character_t utf16_surrogate = 0;
@@ -1373,7 +1380,8 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 }
 
 /* Determines the size of a UTF-32 character to from a Unicode character
- * Returns the size of the byte stream
+ * Adds the size to the UTF-32 character size value
+ * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
                    libuna_unicode_character_t unicode_character,
@@ -1391,7 +1399,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
 
 		return( -1 );
 	}
-	*utf32_character_size = 1;
+	*utf32_character_size += 1;
 
 	return( 1 );
 }
