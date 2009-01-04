@@ -1,5 +1,5 @@
 /*
- * The internal definitions
+ * The internal extern definition
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,27 +20,19 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUCA_DEFINITIONS_H )
-#define _LIBUCA_DEFINITIONS_H
+#if !defined( _LIBUCA_INTERNAL_EXTERN_H )
+#define _LIBUCA_INTERNAL_EXTERN_H
 
 #include <common.h>
 
-#include <libuca/definitions.h>
-
-/* Character definitions
+/* If libtool DLL support is enabled set LIBUCA_DLL_EXPORT
+ * before including libuca/extern.h
  */
-#define LIBUCA_UNICODE_REPLACEMENT_CHARACTER		0x0000fffd
-#define LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX	0x0000ffff
-#define LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START	0x0000dc00
-#define LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END		0x0000dfff
-#define LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START	0x0000d800
-#define LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_END		0x0000dbff
-#define LIBUCA_UNICODE_CHARACTER_MAX			0x0010ffff
+#if defined( _WIN32 ) && defined( DLL_EXPORT )
+#define LIBUCA_DLL_EXPORT
+#endif
 
-#define LIBUCA_UTF16_CHARACTER_MAX			0x0010ffff
-#define LIBUCA_UTF32_CHARACTER_MAX			0x7fffffff
-
-#define LIBUCA_ASCII_REPLACEMENT_CHARACTER		0x1a
+#include <libuca/extern.h>
 
 #endif
 

@@ -25,17 +25,11 @@
 
 #include <common.h>
 #include <character_string.h>
+#include <types.h>
 
 #include <stdio.h>
 
-/* If libtool DLL support is enabled set LIBUCA_DLL_EXPORT
- * before including libuca/extern.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBUCA_DLL_EXPORT
-#endif
-
-#include <libuca/extern.h>
+#include "libuca_extern.h"
 
 #if defined( __cplusplus )
 extern "C" {

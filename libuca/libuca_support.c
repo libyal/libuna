@@ -41,7 +41,7 @@ void libuca_set_notify_values(
       FILE *stream,
       uint8_t verbose )
 {
-	libuca_notify_set_values(
+	notify_set_values(
 	 stream,
 	 verbose );
 }

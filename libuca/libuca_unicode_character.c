@@ -1192,8 +1192,7 @@ int libuca_unicode_character_copy_from_utf32_stream(
      uint8_t byte_order,
      uint8_t strict_mode )
 {
-	static char *function                    = "libuca_unicode_character_copy_from_utf32_stream";
-	libuca_utf32_character_t utf32_surrogate = 0;
+	static char *function = "libuca_unicode_character_copy_from_utf32_stream";
 
 	if( unicode_character == NULL )
 	{
@@ -1287,8 +1286,7 @@ int libuca_unicode_character_copy_to_utf32_stream(
      uint8_t byte_order,
      uint8_t strict_mode )
 {
-	static char *function                    = "libuca_unicode_character_copy_to_utf32_stream";
-	libuca_utf32_character_t utf32_surrogate = 0;
+	static char *function = "libuca_unicode_character_copy_to_utf32_stream";
 
 	if( utf32_stream == NULL )
 	{
