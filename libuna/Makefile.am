@@ -40,3 +40,7 @@ distclean: clean
 	/bin/rm -f libuna_definitions.h
 	/bin/rm -f Makefile
 
+splint:
+	@echo "Running splint on libuna ..." 
+	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libuna_la_SOURCES) 
+

@@ -52,6 +52,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20081019
+* Added splint to makefiles
+* Updated liberror
+
 20081011
 * Updated MSVSCPP solution file for 2008 express version
 * Several changes for MSVSCPP build
