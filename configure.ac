@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuca],
-  [20080830],
+  [20080831],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuca],
- [20080830])
+ [20080831])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -44,6 +44,7 @@ dnl Checks for libraries and library functions
 dnl ac_libuca_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
 
 dnl Check for headers
+dnl Headers included in libuca/types.h
 AC_CHECK_HEADER(
  [sys/types.h],
  [AC_DEFINE(
@@ -83,22 +84,78 @@ AC_CHECK_HEADER(
   [HAVE_STDINT_H],
   [0])])
 
-AC_CHECK_HEADERS([fcntl.h])
-AC_CHECK_HEADERS([glob.h])
+dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
-AC_CHECK_HEADERS([signal.h])
-AC_CHECK_HEADERS([stdarg.h])
-AC_CHECK_HEADERS([stdlib.h])
-AC_CHECK_HEADERS([string.h])
+
+dnl Headers included in common/directory_io.h and common/file_io.h
 AC_CHECK_HEADERS([sys/stat.h])
+
+dnl Headers included in common/file_io.h
+AC_CHECK_HEADERS([fcntl.h])
 AC_CHECK_HEADERS([unistd.h])
+
+dnl Headers included in common/narrow_string.h
+AC_CHECK_HEADERS([string.h])
+
+dnl Headers included in common/memory.h
+AC_CHECK_HEADERS([stdlib.h])
+
+dnl Headers included in common/notify.c
+AC_CHECK_HEADERS([stdarg.h])
 AC_CHECK_HEADERS([varargs.h])
 
-AC_HEADER_STDC
+dnl Other headers
+AC_CHECK_HEADERS([glob.h])
+AC_CHECK_HEADERS([signal.h])
 
 dnl Check for declarations and type definitions
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
+
+AC_CHECK_TYPE(
+ [size32_t],
+ [AC_SUBST(
+  [HAVE_SIZE32_T],
+  [1])],
+ [AC_SUBST(
+  [HAVE_SIZE32_T],
+  [0])])
+
+AC_CHECK_TYPE(
+ [ssize32_t],
+ [AC_SUBST(
+  [HAVE_SSIZE32_T],
+  [1])],
+ [AC_SUBST(
+  [HAVE_SSIZE32_T],
+  [0])])
+
+AC_CHECK_TYPE(
+ [size64_t],
+ [AC_SUBST(
+  [HAVE_SIZE64_T],
+  [1])],
+ [AC_SUBST(
+  [HAVE_SIZE64_T],
+  [0])])
+
+AC_CHECK_TYPE(
+ [ssize64_t],
+ [AC_SUBST(
+  [HAVE_SSIZE64_T],
+  [1])],
+ [AC_SUBST(
+  [HAVE_SSIZE64_T],
+  [0])])
+
+AC_CHECK_TYPE(
+ [off64_t],
+ [AC_SUBST(
+  [HAVE_OFF64_T],
+  [1])],
+ [AC_SUBST(
+  [HAVE_OFF64_T],
+  [0])])
 
 AC_CHECK_TYPE([ssize_t])
 
@@ -183,43 +240,6 @@ AC_CHECK_FUNCS(
  [],
  [AC_MSG_FAILURE(
   [Missing functions: write],
-  [1]) ])
-
-dnl File input/output functions used in common/file_stream_io.h
-AC_CHECK_FUNCS(
- [fclose],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: fclose],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [fopen],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: fopen],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [fread],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: fread],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [fwrite],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: fwrite],
-  [1]) ])
-
-dnl Directory functions used in common/directory_io.h
-AC_CHECK_FUNCS(
- [mkdir],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: mkdir],
   [1]) ])
 
 dnl Narrow character string functions used in common/narrow_string.h

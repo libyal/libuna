@@ -39,11 +39,11 @@
 /* Determines the codepage from an argument string
  * Returns 1 if successful or -1 on error
  */
-int ucainput_determine_sbc_codepage(
+int ucainput_determine_byte_stream_codepage(
      const system_character_t *argument,
-     int *sbc_codepage )
+     int *byte_stream_codepage )
 {
-	static char *function = "ucainput_determine_sbc_codepage";
+	static char *function = "ucainput_determine_byte_stream_codepage";
 	int result            = -1;
 
 	if( argument == NULL )
@@ -53,9 +53,9 @@ int ucainput_determine_sbc_codepage(
 
 		return( -1 );
 	}
-	if( sbc_codepage == NULL )
+	if( byte_stream_codepage == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte character codepage.\n",
+		notify_warning_printf( "%s: invalid byte stream codepage.\n",
 		 function );
 
 		return( -1 );
@@ -65,7 +65,7 @@ int ucainput_determine_sbc_codepage(
 	     _SYSTEM_CHARACTER_T_STRING( "ascii" ),
 	          4 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_ASCII;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_ASCII;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -73,7 +73,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1250" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1250;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1250;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -81,7 +81,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1251" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1251;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1251;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -89,7 +89,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1252" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1252;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1252;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -97,7 +97,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1253" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1253;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1253;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -105,7 +105,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1254" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1254;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1254;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -113,7 +113,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1255" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1255;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1255;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -121,7 +121,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1256" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1256;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1256;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -129,7 +129,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1257" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1257;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1257;
 		result        = 1;
 	}
 	else if( system_string_compare(
@@ -137,7 +137,7 @@ int ucainput_determine_sbc_codepage(
 	          _SYSTEM_CHARACTER_T_STRING( "windows-1258" ),
 	          12 ) == 0 )
 	{
-		*sbc_codepage = LIBUCA_CODEPAGE_WINDOWS_1258;
+		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1258;
 		result        = 1;
 	}
 	return( result );
@@ -169,10 +169,10 @@ int ucainput_determine_format(
 	}
 	if( system_string_compare(
 	     argument,
-	     _SYSTEM_CHARACTER_T_STRING( "sbc" ),
+	     _SYSTEM_CHARACTER_T_STRING( "byte_stream" ),
 	     3 ) == 0 )
 	{
-		*format = UCACOMMON_FORMAT_SBC;
+		*format = UCACOMMON_FORMAT_BYTE_STREAM;
 		result  = 1;
 	}
 	else if( system_string_compare(
@@ -185,18 +185,34 @@ int ucainput_determine_format(
 	}
 	else if( system_string_compare(
 	          argument,
-	          _SYSTEM_CHARACTER_T_STRING( "utf16" ),
-	          5 ) == 0 )
+	          _SYSTEM_CHARACTER_T_STRING( "utf16be" ),
+	          7 ) == 0 )
 	{
-		*format = UCACOMMON_FORMAT_UTF16;
+		*format = UCACOMMON_FORMAT_UTF16BE;
 		result  = 1;
 	}
 	else if( system_string_compare(
 	          argument,
-	          _SYSTEM_CHARACTER_T_STRING( "utf32" ),
-	          5 ) == 0 )
+	          _SYSTEM_CHARACTER_T_STRING( "utf16le" ),
+	          7 ) == 0 )
 	{
-		*format = UCACOMMON_FORMAT_UTF32;
+		*format = UCACOMMON_FORMAT_UTF16LE;
+		result  = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "utf32be" ),
+	          7 ) == 0 )
+	{
+		*format = UCACOMMON_FORMAT_UTF32BE;
+		result  = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "utf32le" ),
+	          7 ) == 0 )
+	{
+		*format = UCACOMMON_FORMAT_UTF32LE;
 		result  = 1;
 	}
 	return( result );

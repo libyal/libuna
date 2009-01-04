@@ -34,31 +34,30 @@
 #endif
 
 #include <libuca/extern.h>
-#include <libuca/types.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_sbc(
-                       uint8_t *sbc_string,
-                       size_t sbc_string_size,
+LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_byte_stream(
+                       uint8_t *byte_stream,
+                       size_t byte_stream_size,
                        int code_page,
                        uint8_t strict_mode );
 
-LIBUCA_EXTERN int libuca_utf8_string_copy_from_sbc(
+LIBUCA_EXTERN int libuca_utf8_string_copy_from_byte_stream(
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
-LIBUCA_EXTERN int libuca_utf8_string_copy_to_sbc(
+LIBUCA_EXTERN int libuca_utf8_string_copy_to_byte_stream(
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 

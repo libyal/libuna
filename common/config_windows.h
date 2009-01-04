@@ -37,6 +37,12 @@
 #undef HAVE_INTTYPES_H
 #undef HAVE_STDINT_H
 
+#define HAVE_SIZE32_T   0
+#define HAVE_SSIZE32_T  0
+#define HAVE_SIZE64_T   0
+#define HAVE_SSIZE64_T  0
+#define HAVE_OFF64_T    0
+
 /* Windows does not have %jd and %zd printf conversion specifiers
  */
 #undef HAVE_PRINTF_JD
@@ -89,9 +95,9 @@
  * definitions per source file in common
  */
 #undef HAVE_DATE_TIME
-#undef HAVE_DIRECTORY_IO	1
+#undef HAVE_DIRECTORY_IO
 #define HAVE_ERROR_STRING	1
-#define HAVE_FILE_IO		1
+#undef HAVE_FILE_IO
 #define HAVE_FILE_STREAM_IO	1
 #define HAVE_NARROW_STRING	1
 

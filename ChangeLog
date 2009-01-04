@@ -1,18 +1,20 @@
 TODO
 
-* fix ucaexport
+* implement from/to _utf8_stream and utf32_stream functions
 
 * fix current codepages
 * add more code pages?
 
 * copy functions should return amount of bytes successfully processed?
 
-Supported code pages to convert extended ASCII strings into Unicode:
-* Windows 1250, 1251, 1252, 1253, 1254, 1256 and 1257
-
 Tools:
 * ucaexport
   tool to convert text files between string format types
+  - add auto detection of input format
+* ucainfo
+  tool to determine the encoding type using the BOM
+  perhaps some other tricks
+  useful for automated conversion
 
 Deployment:
 * write man pages
@@ -21,23 +23,36 @@ Deployment:
 * fix AUTHORS
 * update macosx package files
 
+Other Windows codepages (SBC)
+* 874 (Thai)
+Other Windows codepages (MBC)
+* 932 (Japanese Shift-JIS)
+* 936 (Simplified Chinese GBK)
+* 949 (Korean)
+* 950 (Traditional Chinese Big5)
+
+20080831
+* Worked on initial version
+* Worked on codepages
+
 20080830
 * Worked on initial version
 * Worked on stand alone library
 * Renamed ascii to sbc (single byte character)
+* Worked on codepages
 
 20080829
 * Worked on initial version
-* Worked on support for converting extended ASCII stream into UTF
+* Worked on support for converting SBC stream into UTF
 * Change code into stand alone ibrary
 
 20080828
 * Worked on initial version
-* Worked on support for converting extended ASCII stream into UTF
+* Worked on support for converting SBC stream into UTF
 
 20080827
 * Worked on initial version
-* Worked on support for converting extended ASCII stream into UTF
+* Worked on support for converting SBC stream into UTF
 
 20080826
 * Worked on initial version
@@ -47,7 +62,7 @@ Deployment:
 * Worked on initial version
 * Worked on Unicode conversion routines
 * Added maximum allowed UTF 0x110000 in strict mode
-* Worked on support for converting extended ASCII stream into UTF
+* Worked on support for converting SBC stream into UTF
 
 20080824
 * Worked on initial version

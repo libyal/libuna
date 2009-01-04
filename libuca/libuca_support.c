@@ -1,5 +1,5 @@
 /*
- * Common functions for the ucatools
+ * Support functions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,25 +20,29 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCACOMMON_H )
-#define _UCACOMMON_H
-
 #include <common.h>
+#include <character_string.h>
+#include <notify.h>
 
-#if defined( __cplusplus )
-extern "C" {
-#endif
+#include "libuca_definitions.h"
+#include "libuca_support.h"
 
-#define UCACOMMON_FORMAT_BYTE_STREAM	1
-#define UCACOMMON_FORMAT_UTF8		8
-#define UCACOMMON_FORMAT_UTF16BE	16
-#define UCACOMMON_FORMAT_UTF16LE	61
-#define UCACOMMON_FORMAT_UTF32BE	32
-#define UCACOMMON_FORMAT_UTF32LE	23
-
-#if defined( __cplusplus )
+/* Returns the library version
+ */
+const character_t *libuca_get_version(
+                    void )
+{
+	return( (const character_t *) LIBUCA_VERSION_STRING );
 }
-#endif
 
-#endif
+/* Set the notify values
+ */
+void libuca_set_notify_values(
+      FILE *stream,
+      uint8_t verbose )
+{
+	libuca_notify_set_values(
+	 stream,
+	 verbose );
+}
 

@@ -25,13 +25,10 @@
 
 #include "common.h"
 #include "system_string.h"
+#include "types.h"
 
 #if defined( HAVE_SYS_STAT_H )
 #include <sys/stat.h>
-#endif
-
-#if defined( HAVE_SYS_TYPES_H )
-#include <sys/types.h>
 #endif
 
 #if defined( __cplusplus )

@@ -24,6 +24,7 @@
 #include <notify.h>
 #include <types.h>
 
+#include "libuca_codepage_ascii.h"
 #include "libuca_codepage_windows_1250.h"
 #include "libuca_codepage_windows_1251.h"
 #include "libuca_codepage_windows_1252.h"
@@ -34,18 +35,18 @@
 #include "libuca_definitions.h"
 #include "libuca_unicode_character.h"
 
-/* Copies a Unicode character from a single byte character (SBC) string
+/* Copies a Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_sbc(
+int libuca_unicode_character_copy_from_byte_stream(
      libuca_unicode_character_t *unicode_character,
-     uint8_t *sbc_string,
-     size_t sbc_string_size,
-     size_t *sbc_string_index,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
      int code_page,
      uint8_t strict_mode )
 {
-	static char *function = "libuca_unicode_character_copy_from_sbc";
+	static char *function = "libuca_unicode_character_copy_from_byte_stream";
 
 	if( unicode_character == NULL )
 	{
@@ -54,130 +55,129 @@ int libuca_unicode_character_copy_from_sbc(
 
 		return( -1 );
 	}
-	if( sbc_string == NULL )
+	if( byte_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte string.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_size > (size_t) SSIZE_MAX )
+	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid single byte string size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream  size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_index == NULL )
+	if( byte_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte string index.\n",
+		notify_warning_printf( "%s: invalid byte stream index.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( *sbc_string_index >= sbc_string_size )
+	if( *byte_stream_index >= byte_stream_size )
 	{
-		notify_warning_printf( "%s: single byte string too small.\n",
+		notify_warning_printf( "%s: byte stream too small.\n",
 		 function );
 
 		return( -1 );
 	}
-	*unicode_character = sbc_string[ *sbc_string_index ];
+	*unicode_character = byte_stream[ *byte_stream_index ];
 
 	switch( code_page )
 	{
 		case LIBUCA_CODEPAGE_WINDOWS_1250:
-			*unicode_character = libuca_codepage_windows_1250_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1250_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1251:
-			*unicode_character = libuca_codepage_windows_1251_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1251_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1252:
-			*unicode_character = libuca_codepage_windows_1252_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1252_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1253:
-			*unicode_character = libuca_codepage_windows_1253_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1253_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1254:
-			*unicode_character = libuca_codepage_windows_1254_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1254_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1256:
-			*unicode_character = libuca_codepage_windows_1256_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1256_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1257:
-			*unicode_character = libuca_codepage_windows_1257_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_windows_1257_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 
 		case LIBUCA_CODEPAGE_ASCII:
 		default:
-			*unicode_character = libuca_codepage_ascii_sbc_to_unicode(
-			                      sbc_string[ *sbc_string_index ] );
+			*unicode_character = libuca_codepage_ascii_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
 			break;
 	}
-
 	if( ( strict_mode != 0 )
 	 && ( *unicode_character == LIBUCA_UNICODE_REPLACEMENT_CHARACTER ) )
 	{
-		notify_warning_printf( "%s: unable to convert single byte character into Unicode.\n",
+		notify_warning_printf( "%s: unable to convert byte stream into Unicode.\n",
 		 function );
 
 		return( -1 );
 	}
-	*sbc_string_index += 1;
+	*byte_stream_index += 1;
 
 	return( 1 );
 }
 
-/* Copies a Unicode character to a single byte character (SBC) string
+/* Copies a Unicode character to a byte stream string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_sbc(
+int libuca_unicode_character_copy_to_byte_stream(
      libuca_unicode_character_t unicode_character,
-     uint8_t *sbc_string,
-     size_t sbc_string_size,
-     size_t *sbc_string_index,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
      int code_page,
      uint8_t strict_mode )
 {
-	static char *function = "libuca_unicode_character_copy_to_sbc";
+	static char *function = "libuca_unicode_character_copy_to_byte_stream";
 
-	if( sbc_string == NULL )
+	if( byte_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte string.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_size > (size_t) SSIZE_MAX )
+	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid single byte string size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_index == NULL )
+	if( byte_stream_index == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte string index.\n",
+		notify_warning_printf( "%s: invalid byte stream index.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( *sbc_string_index >= sbc_string_size )
+	if( *byte_stream_index >= byte_stream_size )
 	{
-		notify_warning_printf( "%s: single byte string too small.\n",
+		notify_warning_printf( "%s: byte stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -185,55 +185,55 @@ int libuca_unicode_character_copy_to_sbc(
 	switch( code_page )
 	{
 		case LIBUCA_CODEPAGE_WINDOWS_1250:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1250_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1250_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1251:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1251_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1251_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1252:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1252_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1252_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1253:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1253_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1253_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1254:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1254_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1254_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1256:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1256_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1256_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_WINDOWS_1257:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_windows_1257_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1257_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 
 		case LIBUCA_CODEPAGE_ASCII:
 		default:
-			sbc_string[ *sbc_string_index ] = libuca_codepage_ascii_unicode_to_sbc(
-			                                   unicode_character );
+			byte_stream[ *byte_stream_index ] = libuca_codepage_ascii_unicode_to_byte_stream(
+			                                     unicode_character );
 			break;
 	}
 	if( ( strict_mode != 0 )
-	 && ( sbc_string[ *sbc_string_index ] == LIBUCA_ASCII_REPLACEMENT_CHARACTER ) )
+	 && ( byte_stream[ *byte_stream_index ] == LIBUCA_ASCII_REPLACEMENT_CHARACTER ) )
 	{
-		notify_warning_printf( "%s: unable to convert Unicode character into single byte.\n",
+		notify_warning_printf( "%s: unable to convert Unicode character into byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	*sbc_string_index += 1;
+	*byte_stream_index += 1;
 
 	return( 1 );
 }
@@ -777,7 +777,7 @@ int libuca_unicode_character_copy_from_utf16_stream(
      uint8_t byte_order,
      uint8_t strict_mode )
 {
-	static char *function                          = "libuca_unicode_character_copy_from_utf16_stream";
+	static char *function                    = "libuca_unicode_character_copy_from_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
 
 	if( unicode_character == NULL )
@@ -815,8 +815,7 @@ int libuca_unicode_character_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUCA_ENDIAN_BIG )
+	if( ( byte_order != LIBUCA_ENDIAN_BIG )
 	 && ( byte_order != LIBUCA_ENDIAN_LITTLE ) )
 	{
 		notify_warning_printf( "%s: unsupported byte order.\n",
@@ -907,7 +906,7 @@ int libuca_unicode_character_copy_to_utf16_stream(
      uint8_t byte_order,
      uint8_t strict_mode )
 {
-	static char *function                          = "libuca_unicode_character_copy_to_utf16_stream";
+	static char *function                    = "libuca_unicode_character_copy_to_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
 
 	if( utf16_stream == NULL )
@@ -938,8 +937,7 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUCA_ENDIAN_BIG )
+	if( ( byte_order != LIBUCA_ENDIAN_BIG )
 	 && ( byte_order != LIBUCA_ENDIAN_LITTLE ) )
 	{
 		notify_warning_printf( "%s: unsupported byte order.\n",
@@ -947,8 +945,6 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		return( -1 );
 	}
-	*utf16_stream_index += 2;
-
 	if( unicode_character <= LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 	{
 		if( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
@@ -965,13 +961,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 		}
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index     ] = ( unicode_character >> 8 ) & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			unicode_character                       >>= 8;
+			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ] = unicode_character & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = ( unicode_character >> 8 ) & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			unicode_character                       >>= 8;
+			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
 		}
 		*utf16_stream_index += 2;
 	}
@@ -988,13 +986,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index     ] = ( unicode_character >> 8 ) & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			unicode_character                       >>= 8;
+			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ] = unicode_character & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = ( unicode_character >> 8 ) & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			unicode_character                       >>= 8;
+			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
 		}
 		*utf16_stream_index += 2;
 	}
@@ -1013,13 +1013,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index     ] = ( utf16_surrogate >> 8 ) & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_surrogate                         >>= 8;
+			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ] = utf16_surrogate & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = ( utf16_surrogate >> 8 ) & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_surrogate                         >>= 8;
+			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
 		}
 		*utf16_stream_index += 2;
 
@@ -1027,13 +1029,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index     ] = ( utf16_surrogate >> 8 ) & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_surrogate                         >>= 8;
+			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ] = utf16_surrogate & 0x0ff;
-			utf16_stream[ *utf16_stream_index + 1 ] = ( utf16_surrogate >> 8 ) & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_surrogate                         >>= 8;
+			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
 		}
 		*utf16_stream_index += 2;
 	}
@@ -1173,6 +1177,199 @@ int libuca_unicode_character_copy_to_utf32(
 	utf32_string[ *utf32_string_index ] = (libuca_utf32_character_t) unicode_character;
 
 	*utf32_string_index += 1;
+
+	return( 1 );
+}
+
+/* Copies a Unicode character from a UTF-32 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuca_unicode_character_copy_from_utf32_stream(
+     libuca_unicode_character_t *unicode_character,
+     uint8_t *utf32_stream,
+     size_t utf32_stream_size,
+     size_t *utf32_stream_index,
+     uint8_t byte_order,
+     uint8_t strict_mode )
+{
+	static char *function                    = "libuca_unicode_character_copy_from_utf32_stream";
+	libuca_utf32_character_t utf32_surrogate = 0;
+
+	if( unicode_character == NULL )
+	{
+		notify_warning_printf( "%s: invalid Unicode character.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_stream == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_stream_size > (size_t) SSIZE_MAX )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream size value exceeds maximum.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_stream_index == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream index.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( *utf32_stream_index >= utf32_stream_size )
+	{
+		notify_warning_printf( "%s: UTF-32 stream too small.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( ( byte_order != LIBUCA_ENDIAN_BIG )
+	 && ( byte_order != LIBUCA_ENDIAN_LITTLE ) )
+	{
+		notify_warning_printf( "%s: unsupported byte order.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_order == LIBUCA_ENDIAN_BIG )
+	{
+		*unicode_character   = utf32_stream[ *utf32_stream_index ];
+		*unicode_character <<= 8;
+		*unicode_character  += utf32_stream[ *utf32_stream_index + 1 ];
+		*unicode_character <<= 8;
+		*unicode_character  += utf32_stream[ *utf32_stream_index + 2 ];
+		*unicode_character <<= 8;
+		*unicode_character  += utf32_stream[ *utf32_stream_index + 3 ];
+	}
+	else if( byte_order == LIBUCA_ENDIAN_LITTLE )
+	{
+		*unicode_character   = utf32_stream[ *utf32_stream_index + 3 ];
+		*unicode_character <<= 8;
+		*unicode_character   = utf32_stream[ *utf32_stream_index + 2 ];
+		*unicode_character <<= 8;
+		*unicode_character   = utf32_stream[ *utf32_stream_index + 1 ];
+		*unicode_character <<= 8;
+		*unicode_character  += utf32_stream[ *utf32_stream_index ];
+	}
+	*utf32_stream_index += 4;
+
+	if( strict_mode != 0 )
+	{
+		/* Determine if the UTF-32 character is within the high surrogate range
+		 */
+		if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
+		 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+		{
+			notify_warning_printf( "%s: invalid UTF-32 character value in low surrogate range.\n",
+			 function );
+
+			return( -1 );
+		}
+	}
+	return( 1 );
+}
+
+/* Copies a Unicode character to an UTF-32 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuca_unicode_character_copy_to_utf32_stream(
+     libuca_unicode_character_t unicode_character,
+     uint8_t *utf32_stream,
+     size_t utf32_stream_size,
+     size_t *utf32_stream_index,
+     uint8_t byte_order,
+     uint8_t strict_mode )
+{
+	static char *function                    = "libuca_unicode_character_copy_to_utf32_stream";
+	libuca_utf32_character_t utf32_surrogate = 0;
+
+	if( utf32_stream == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_stream_size > (size_t) SSIZE_MAX )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream size value exceeds maximum.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_stream_index == NULL )
+	{
+		notify_warning_printf( "%s: invalid UTF-32 stream index.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( ( *utf32_stream_index + 1 ) >= utf32_stream_size )
+	{
+		notify_warning_printf( "%s: UTF-32 stream too small.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( ( byte_order != LIBUCA_ENDIAN_BIG )
+	 && ( byte_order != LIBUCA_ENDIAN_LITTLE ) )
+	{
+		notify_warning_printf( "%s: unsupported byte order.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character > LIBUCA_UTF32_CHARACTER_MAX )
+	{
+		if( strict_mode != 0 )
+		{
+			notify_warning_printf( "%s: invalid Unicode character value exceeds UTF-32 maximum.\n",
+			 function );
+
+			return( -1 );
+		}
+		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	else if( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
+	      && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	{
+		if( strict_mode != 0 )
+		{
+			notify_warning_printf( "%s: invalid Unicode character value in surrogate range.\n",
+			 function );
+
+			return( -1 );
+		}
+		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	if( byte_order == LIBUCA_ENDIAN_BIG )
+	{
+		utf32_stream[ *utf32_stream_index + 3 ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index + 2 ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index + 1 ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index     ]   = unicode_character & 0x0ff;
+	}
+	else if( byte_order == LIBUCA_ENDIAN_LITTLE )
+	{
+		utf32_stream[ *utf32_stream_index     ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index + 1 ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index + 2 ]   = unicode_character & 0x0ff;
+		unicode_character                       >>= 8;
+		utf32_stream[ *utf32_stream_index + 3 ]   = unicode_character & 0x0ff;
+	}
+	*utf32_stream_index += 4;
 
 	return( 1 );
 }

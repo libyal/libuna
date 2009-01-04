@@ -13,6 +13,7 @@ libuca_la_SOURCES = \
 	libuca_codepage_windows_1256.c libuca_codepage_windows_1256.h \
 	libuca_codepage_windows_1257.c libuca_codepage_windows_1257.h \
 	libuca_definitions.h \
+	libuca_support.c libuca_support.h \
 	libuca_unicode_character.c libuca_unicode_character.h \
 	libuca_utf8_string.c libuca_utf8_string.h \
 	libuca_utf16_string.c libuca_utf16_string.h \

@@ -53,6 +53,9 @@ typedef __int16			int16_t;
 typedef unsigned __int16	uint16_t;
 typedef __int32			int32_t;
 typedef unsigned __int32	uint32_t;
+typedef __int64                 int64_t;
+typedef unsigned __int64        uint64_t;
+typedef int                     ssize_t;
 
 #ifdef __cplusplus
 }
@@ -110,20 +113,40 @@ typedef unsigned __int32	uint32_t;
 extern "C" {
 #endif
 
+#if ! 0 || ! HAVE_SIZE32_T
+typedef uint32_t size32_t;
+#endif
+
+#if ! 0 || ! HAVE_SSIZE32_T
+typedef int32_t ssize32_t;
+#endif
+
+#if ! 0 || ! HAVE_SIZE64_T
+typedef uint64_t size64_t;
+#endif
+
+#if ! 0 || ! HAVE_SSIZE64_T
+typedef int64_t ssize64_t;
+#endif
+
+#if ! 0 || ! HAVE_OFF64_T
+typedef int64_t off64_t;
+#endif
+
 /* Unicode character definitions
- *  */
+ */
 typedef uint32_t libuca_unicode_character_t;
 
 /* UTF-8 character definitions
- *  */
+ */
 typedef uint8_t libuca_utf8_character_t;
 
 /* UTF-16 character definitions
- *  */
+ */
 typedef uint16_t libuca_utf16_character_t;
 
 /* UTF-32 character definitions
- *  */
+ */
 typedef uint32_t libuca_utf32_character_t;
 
 #ifdef __cplusplus

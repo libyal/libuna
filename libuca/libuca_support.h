@@ -1,5 +1,5 @@
 /*
- * Common functions for the ucatools
+ * Support functions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,21 +20,33 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCACOMMON_H )
-#define _UCACOMMON_H
+#if !defined( _LIBUCA_SUPPORT_H )
+#define _LIBUCA_SUPPORT_H
 
 #include <common.h>
+#include <character_string.h>
+
+#include <stdio.h>
+
+/* If libtool DLL support is enabled set LIBUCA_DLL_EXPORT
+ * before including libuca/extern.h
+ */
+#if defined( _WIN32 ) && defined( DLL_EXPORT )
+#define LIBUCA_DLL_EXPORT
+#endif
+
+#include <libuca/extern.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#define UCACOMMON_FORMAT_BYTE_STREAM	1
-#define UCACOMMON_FORMAT_UTF8		8
-#define UCACOMMON_FORMAT_UTF16BE	16
-#define UCACOMMON_FORMAT_UTF16LE	61
-#define UCACOMMON_FORMAT_UTF32BE	32
-#define UCACOMMON_FORMAT_UTF32LE	23
+LIBUCA_EXTERN const character_t *libuca_get_version(
+                                  void );
+
+LIBUCA_EXTERN void libuca_set_notify_values(
+                    FILE *stream,
+                    uint8_t verbose );
 
 #if defined( __cplusplus )
 }

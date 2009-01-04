@@ -1,5 +1,5 @@
 /*
- * Library to support Unicode and ASCII (single byte character) conversions
+ * Library to support Unicode and ASCII (byte character) conversions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.

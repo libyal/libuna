@@ -30,9 +30,9 @@
 extern "C" {
 #endif
 
-int ucainput_determine_ascii_codepage(
+int ucainput_determine_byte_stream_codepage(
      const system_character_t *argument,
-     int *ascii_codepage );
+     int *byte_stream_codepage );
 
 int ucainput_determine_format(
      const system_character_t *argument,

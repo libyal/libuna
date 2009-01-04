@@ -28,53 +28,53 @@
 #include "libuca_unicode_character.h"
 #include "libuca_utf16_string.h"
 
-/* Determines the size of a UTF-16 string from a single byte character (SBC) string
+/* Determines the size of a UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-ssize_t libuca_utf16_string_size_from_sbc(
-         uint8_t *sbc_string,
-         size_t sbc_string_size,
+ssize_t libuca_utf16_string_size_from_byte_stream(
+         uint8_t *byte_stream,
+         size_t byte_stream_size,
          int code_page,
          uint8_t strict_mode )
 {
-	static char *function                        = "libuca_utf16_string_size_from_sbc";
-	size_t sbc_string_iterator                   = 0;
+	static char *function                        = "libuca_utf16_string_size_from_byte_stream";
+	size_t byte_stream_iterator                  = 0;
 	ssize_t utf16_string_size                    = 0;
 	libuca_unicode_character_t unicode_character = 0;
 
-	if( sbc_string == NULL )
+	if( byte_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte character string.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_size > (size_t) SSIZE_MAX )
+	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid single byte character string size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
-	/* Check if the single byte character string is terminated with a zero byte
+	/* Check if the byte stream is terminated with a zero byte
 	 */
-	if( sbc_string[ sbc_string_size - 1 ] != 0 )
+	if( byte_stream[ byte_stream_size - 1 ] != 0 )
 	{
 		utf16_string_size += 1;
 	}
-	while( sbc_string_iterator < sbc_string_size )
+	while( byte_stream_iterator < byte_stream_size )
 	{
-		/* Convert the single byte character string bytes into a Unicode character
+		/* Convert the byte stream bytes into a Unicode character
 		 */
-		if( libuca_unicode_character_copy_from_sbc(
+		if( libuca_unicode_character_copy_from_byte_stream(
 		     &unicode_character,
-		     sbc_string,
-		     sbc_string_size,
-		     &sbc_string_iterator,
+		     byte_stream,
+		     byte_stream_size,
+		     &byte_stream_iterator,
 		     code_page,
 		     strict_mode ) != 1 )
 		{
-			notify_warning_printf( "%s: unable to copy Unicode character from single byte character string.\n",
+			notify_warning_printf( "%s: unable to copy Unicode character from byte stream.\n",
 			 function );
 
 			return( -1 );
@@ -88,20 +88,20 @@ ssize_t libuca_utf16_string_size_from_sbc(
 	return( utf16_string_size );
 }
 
-/* Copies an UTF-16 string from a single byte character (SBC) string
+/* Copies an UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_utf16_string_copy_from_sbc(
+int libuca_utf16_string_copy_from_byte_stream(
      libuca_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *sbc_string,
-     size_t sbc_string_size,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
      int code_page,
      uint8_t strict_mode )
 {
-	static char *function                        = "libuca_utf16_string_copy_from_sbc";
+	static char *function                        = "libuca_utf16_string_copy_from_byte_stream";
 	size_t utf16_string_iterator                 = 0;
-	size_t sbc_string_iterator                   = 0;
+	size_t byte_stream_iterator                  = 0;
 	libuca_unicode_character_t unicode_character = 0;
 	uint8_t zero_byte                            = 0;
 
@@ -119,39 +119,39 @@ int libuca_utf16_string_copy_from_sbc(
 
 		return( -1 );
 	}
-	if( sbc_string == NULL )
+	if( byte_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte character string.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_size > (size_t) SSIZE_MAX )
+	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid single byte character string size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
-	/* Check if the single byte character string is terminated with zero bytes
+	/* Check if the byte stream is terminated with zero bytes
 	 */
-	if( sbc_string[ sbc_string_size - 1 ] != 0 )
+	if( byte_stream[ byte_stream_size - 1 ] != 0 )
 	{
 		zero_byte = 1;
 	}
-	while( sbc_string_iterator < sbc_string_size )
+	while( byte_stream_iterator < byte_stream_size )
 	{
-		/* Convert the single byte character string bytes into a Unicode character
+		/* Convert the byte stream bytes into a Unicode character
 		 */
-		if( libuca_unicode_character_copy_from_sbc(
+		if( libuca_unicode_character_copy_from_byte_stream(
 		     &unicode_character,
-		     sbc_string,
-		     sbc_string_size,
-		     &sbc_string_iterator,
+		     byte_stream,
+		     byte_stream_size,
+		     &byte_stream_iterator,
 		     code_page,
 		     strict_mode ) != 1 )
 		{
-			notify_warning_printf( "%s: unable to copy Unicode character from single byte character string.\n",
+			notify_warning_printf( "%s: unable to copy Unicode character from byte stream.\n",
 			 function );
 
 			return( -1 );
@@ -185,32 +185,32 @@ int libuca_utf16_string_copy_from_sbc(
 	return( 1 );
 }
 
-/* Copies an UTF-16 string to a single byte character (SBC) string
+/* Copies an UTF-16 string to a byte stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_utf16_string_copy_to_sbc(
+int libuca_utf16_string_copy_to_byte_stream(
      libuca_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *sbc_string,
-     size_t sbc_string_size,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
      int code_page,
      uint8_t strict_mode )
 {
-	static char *function                        = "libuca_utf16_string_copy_to_sbc";
+	static char *function                        = "libuca_utf16_string_copy_to_byte_stream";
 	size_t utf16_string_iterator                 = 0;
-	size_t sbc_string_iterator                   = 0;
+	size_t byte_stream_iterator                  = 0;
 	libuca_unicode_character_t unicode_character = 0;
 
-	if( sbc_string == NULL )
+	if( byte_stream == NULL )
 	{
-		notify_warning_printf( "%s: invalid single byte character string.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
-	if( sbc_string_size > (size_t) SSIZE_MAX )
+	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		notify_warning_printf( "%s: invalid single byte character string size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
@@ -245,17 +245,17 @@ int libuca_utf16_string_copy_to_sbc(
 
 			return( -1 );
 		}
-		/* Convert the Unicode character into single byte character character bytes
+		/* Convert the Unicode character into a byte stream
 		 */
-		if( libuca_unicode_character_copy_to_sbc(
+		if( libuca_unicode_character_copy_to_byte_stream(
 		     unicode_character,
-		     sbc_string,
-		     sbc_string_size,
-		     &sbc_string_iterator,
+		     byte_stream,
+		     byte_stream_size,
+		     &byte_stream_iterator,
 		     code_page,
 		     strict_mode ) != 1 )
 		{
-			notify_warning_printf( "%s: unable to copy Unicode character to single byte character.\n",
+			notify_warning_printf( "%s: unable to copy Unicode character to byte stream.\n",
 			 function );
 
 			return( -1 );

@@ -1,5 +1,5 @@
 /*
- * Library to support Unicode and ASCII (single byte character) conversions
+ * Library to support Unicode and ASCII (byte character) conversions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -34,7 +34,7 @@
 extern "C" {
 #endif
 
-/* Returns the library version as a UTF-8 string
+/* Returns the library version as a string
  */
 #if defined( LIBUCA_WIDE_CHARACTER_TYPE )
 LIBUCA_EXTERN const wchar_t *libuca_get_version(
@@ -44,38 +44,174 @@ LIBUCA_EXTERN const char *libuca_get_version(
                            void );
 #endif
 
+/* Set the notify values
+ */
+LIBUCA_EXTERN void libuca_set_notify_values(
+                    FILE *stream,
+                    uint8_t verbose );
+
+/* -------------------------------------------------------------------------
+ * Unicode character functions
+ * ------------------------------------------------------------------------- */
+
+/* Copies a Unicode character from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_byte_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   size_t *byte_stream_index,
+                   int code_page,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character to a byte stream string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_byte_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   size_t *byte_stream_index,
+                   int code_page,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character from a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_utf8(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t *utf8_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character into a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf8(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t *utf8_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character from a UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_utf16(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf16_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character into a UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf16(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf16_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character from a UTF-16 stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_utf16_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character to an UTF-16 stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf16_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character from a UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_utf32(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf32_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character into a UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf32(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf32_string_index,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character from a UTF-32 stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_from_utf32_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   size_t *utf32_stream_index,
+                   uint8_t byte_order,
+                   uint8_t strict_mode );
+
+/* Copies a Unicode character to an UTF-32 stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf32_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   size_t *utf32_stream_index,
+                   uint8_t byte_order,
+                   uint8_t strict_mode );
+
 /* -------------------------------------------------------------------------
  * UTF-8 string functions
  * ------------------------------------------------------------------------- */
 
-/* Determines the size of a UTF-8 string from a single byte character (SBC) string
+/* Determines the size of a UTF-8 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_sbc(
-                       uint8_t *sbc_string,
-                       size_t sbc_string_size,
+LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_byte_stream(
+                       uint8_t *byte_stream,
+                       size_t byte_stream_size,
                        int code_page,
                        uint8_t strict_mode );
 
-/* Copies an UTF-8 string from a single byte character (SBC) string
+/* Copies an UTF-8 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf8_string_copy_from_sbc(
+LIBUCA_EXTERN int libuca_utf8_string_copy_from_byte_stream(
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
-/* Copies an UTF-8 string to a single byte character (SBC) string
+/* Copies an UTF-8 string to a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf8_string_copy_to_sbc(
+LIBUCA_EXTERN int libuca_utf8_string_copy_to_byte_stream(
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
@@ -142,34 +278,34 @@ LIBUCA_EXTERN int libuca_utf8_string_copy_from_utf32(
  * UTF-16 string functions
  * ------------------------------------------------------------------------- */
 
-/* Determines the size of a UTF-16 string from a single byte character (SBC) string
+/* Determines the size of a UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf16_string_size_from_sbc(
-                       uint8_t *sbc_string,
-                       size_t sbc_string_size,
+LIBUCA_EXTERN ssize_t libuca_utf16_string_size_from_byte_stream(
+                       uint8_t *byte_stream,
+                       size_t byte_stream_size,
                        int code_page,
                        uint8_t strict_mode );
 
-/* Copies an UTF-16 string from a single byte character (SBC) string
+/* Copies an UTF-16 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf16_string_copy_from_sbc(
+LIBUCA_EXTERN int libuca_utf16_string_copy_from_byte_stream(
                    libuca_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
-/* Copies an UTF-16 string to a single byte character (SBC) string
+/* Copies an UTF-16 string to a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf16_string_copy_to_sbc(
+LIBUCA_EXTERN int libuca_utf16_string_copy_to_byte_stream(
                    libuca_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
@@ -228,34 +364,34 @@ LIBUCA_EXTERN int libuca_utf16_string_copy_from_utf32(
  * UTF-32 string functions
  * ------------------------------------------------------------------------- */
 
-/* Determines the size of a UTF-32 string from a single byte character (SBC) string
+/* Determines the size of a UTF-32 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN ssize_t libuca_utf32_string_size_from_sbc(
-                       uint8_t *sbc_string,
-                       size_t sbc_string_size,
+LIBUCA_EXTERN ssize_t libuca_utf32_string_size_from_byte_stream(
+                       uint8_t *byte_stream,
+                       size_t byte_stream_size,
                        int code_page,
                        uint8_t strict_mode );
 
-/* Copies an UTF-32 string from a single byte character (SBC) string
+/* Copies an UTF-32 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf32_string_copy_from_sbc(
+LIBUCA_EXTERN int libuca_utf32_string_copy_from_byte_stream(
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 
-/* Copies an UTF-32 string to a single byte character (SBC) string
+/* Copies an UTF-32 string to a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUCA_EXTERN int libuca_utf32_string_copy_to_sbc(
+LIBUCA_EXTERN int libuca_utf32_string_copy_to_byte_stream(
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
-                   uint8_t *sbc_string,
-                   size_t sbc_string_size,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
                    int code_page,
                    uint8_t strict_mode );
 

@@ -1,5 +1,5 @@
 Name: libuca
-Version: 20080830
+Version: 20080831
 Release: 1
 Summary: Library to support Unicode and ASCII conversions
 Group: System Environment/Libraries
