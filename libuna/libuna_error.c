@@ -65,6 +65,10 @@ void VARARGS(
 {
 	va_list argument_list;
 
+	void *reallocation  = NULL;
+	size_t message_size = 64;
+	int print_count     = 0;
+
 	if( error == NULL )
 	{
 		return;
@@ -83,78 +87,55 @@ void VARARGS(
 		( (libuna_internal_error_t *) *error )->domain             = error_domain;
 		( (libuna_internal_error_t *) *error )->code               = error_code;
 	}
-	VASTART(
-	 argument_list,
-	 const char *,
-	 format );
-
-	libuna_error_add_message(
-	 *error,
-	 format,
-	 argument_list );
-
-	VAEND(
-	 argument_list );
-}
-
-#undef VARARGS
-#undef VASTART
-#undef VAEND
-
-/* Adds a message to an error
- */
-void libuna_error_add_message(
-      libuna_error_t *error,
-      const char *format,
-      va_list argument_list )
-{
-	void *reallocation  = NULL;
-	size_t message_size = 64;
-	int print_count     = 0;
-
-	if( error == NULL )
-	{
-		return;
-	}
 	reallocation = memory_reallocate(
-	                ( (libuna_internal_error_t *) error )->message,
-	                sizeof( char * ) * ( ( (libuna_internal_error_t *) error )->amount_of_messages + 1 ) );
+	                ( (libuna_internal_error_t *) *error )->message,
+	                sizeof( char * ) * ( ( (libuna_internal_error_t *) *error )->amount_of_messages + 1 ) );
 
 	if( reallocation == NULL )
 	{
 		return;
 	}
-	( (libuna_internal_error_t *) error )->amount_of_messages                                                      += 1;
-	( (libuna_internal_error_t *) error )->message                                                                  = (char **) reallocation;
-	( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ] = NULL;
+	( (libuna_internal_error_t *) *error )->amount_of_messages                                                       += 1;
+	( (libuna_internal_error_t *) *error )->message                                                                   = (char **) reallocation;
+	( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ] = NULL;
 
 	do
 	{
 		reallocation = memory_reallocate(
-		                ( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ],
+		                ( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ],
 		                sizeof( char ) * message_size );
 
 		if( reallocation == NULL )
 		{
 			memory_free(
-			 ( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ] );
+			 ( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ] );
 
-			( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ] = NULL;
+			( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ] = NULL;
+
+			return;
 		}
-		( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ] = reallocation;
+		( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ] = reallocation;
+
+		VASTART(
+		 argument_list,
+		 const char *,
+		 format );
 
 		print_count = vsnprintf(
-		               ( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ],
+		               ( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ],
 		               message_size,
 		               format,
 		               argument_list );
+
+		VAEND(
+		 argument_list );
 
 		if( print_count <= -1 )
 		{
 			message_size += 64;
 		}
 		else if( ( (size_t) print_count > message_size )
-		      || ( ( (libuna_internal_error_t *) error )->message[ ( (libuna_internal_error_t *) error )->amount_of_messages - 1 ][ print_count ] != 0 ) )
+		      || ( ( (libuna_internal_error_t *) *error )->message[ ( (libuna_internal_error_t *) *error )->amount_of_messages - 1 ][ print_count ] != 0 ) )
 		{
 			message_size = (size_t) ( print_count + 1 );
 			print_count  = -1;
@@ -162,6 +143,10 @@ void libuna_error_add_message(
 	}
 	while( print_count <= -1 );
 }
+
+#undef VARARGS
+#undef VASTART
+#undef VAEND
 
 /* Free an error and its elements
  */

@@ -58,6 +58,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080916
+* Worked on initial version
+* Fixed issue in error
+
 20080914
 * Worked on initial version
 * Added compare functions

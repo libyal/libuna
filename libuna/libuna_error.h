@@ -120,11 +120,6 @@ void libuna_error_set(
       const char *format,
       ... );
 
-void libuna_error_add_message(
-      libuna_error_t *error,
-      const char *format,
-      va_list argument_list );
-
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );
 
