@@ -68,6 +68,7 @@ include_HEADERS = \
 
 pkginclude_HEADERS = \
 	include/libuna/definitions.h \
+	include/libuna/error.h \
 	include/libuna/extern.h \
 	include/libuna/inline.h \
 	include/libuna/types.h
