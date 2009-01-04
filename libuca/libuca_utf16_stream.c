@@ -199,15 +199,15 @@ int libuca_utf16_stream_copy_from_utf16(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ utf16_stream_iterator + 1 ]   = utf16_character & 0x0ff;
+			utf16_stream[ utf16_stream_iterator + 1 ]   = (uint8_t) ( utf16_character & 0xff );
 			utf16_character                           >>= 8;
-			utf16_stream[ utf16_stream_iterator     ]   = utf16_character & 0x0ff;
+			utf16_stream[ utf16_stream_iterator     ]   = (uint8_t) ( utf16_character & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ utf16_stream_iterator     ]   = utf16_character & 0x0ff;
+			utf16_stream[ utf16_stream_iterator     ]   = (uint8_t) ( utf16_character & 0xff );
 			utf16_character                           >>= 8;
-			utf16_stream[ utf16_stream_iterator + 1 ]   = utf16_character & 0x0ff;
+			utf16_stream[ utf16_stream_iterator + 1 ]   = (uint8_t) ( utf16_character & 0xff );
 		}
 		utf16_stream_iterator += 2;
 	}

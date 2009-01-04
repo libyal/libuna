@@ -5,7 +5,8 @@ SUBDIRS = \
 	manuals
 
 CONFIG_FILES = \
-	common/config.h
+	common/config.h \
+	common/config_windows.h
 
 DOCUMENT_FILES = \
 	docs/ascii.txt \
@@ -29,8 +30,14 @@ MACOSX_FILES = \
 
 MANUAL_FILES = \
 	manuals/ucaexport.1 \
-	manuals/ucainfo.1 \
 	manuals/libuca.3
+
+MSVCPP_FILES = \
+        msvscpp/ucaexport \
+        msvscpp/ucaexport/ucaexport.vcproj \
+        msvscpp/libuca_dll \
+        msvscpp/libuca_dll/libuca_dll.vcproj \
+        msvscpp/libuca.sln
 
 REDHAT_FILES = \
 	libuca.spec \
@@ -42,6 +49,7 @@ EXTRA_DIST = \
         $(HEADER_FILES) \
         $(MACOSX_FILES) \
         $(MANUAL_FILES) \
+        $(MSVCPP_FILES) \
         $(REDHAT_FILES) \
 	libuca.pc.in
 

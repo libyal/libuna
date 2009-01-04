@@ -15,18 +15,25 @@ TODO
 
 * refactor to use separate utf8/16/32 copy_byte_order_mark functions?
 
+* find and replace uitwisselplatform.nl
+
 Tools:
 * ucaexport
-  tool to convert text files between string format types
-  - add auto detection of input format
+  - add conversion summary (converting from x to y with codepage z) +/-
+  - show bytes per second?
+  - update man page
+  - allow for both input and output codepage?
 * ucainfo
   tool to determine the encoding type using the byte order mark
   perhaps some other tricks
   useful for automated conversion
+  - write man page
+  - update ucaexport manpage 
+    .Sh SEE ALSO
+    .Xr ucainfo 1
+  - update spec.in file
 
 Deployment:
-* write man pages
-* modify rpm package files
 * create debian package files
 * fix AUTHORS
 * update macosx package files

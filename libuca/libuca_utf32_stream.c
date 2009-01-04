@@ -310,23 +310,23 @@ int libuca_utf32_stream_copy_from_utf32(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf32_stream[ utf32_stream_iterator + 2 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 2 ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator + 3 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 3 ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator + 1 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 1 ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator     ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator     ]   = (uint8_t) ( utf32_character & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf32_stream[ utf32_stream_iterator     ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator     ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator + 1 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 1 ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator + 2 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 2 ]   = (uint8_t) ( utf32_character & 0xff );
 			utf32_character                           >>= 8;
-			utf32_stream[ utf32_stream_iterator + 3 ]   = utf32_character & 0x0ff;
+			utf32_stream[ utf32_stream_iterator + 3 ]   = (uint8_t) ( utf32_character & 0xff );
 		}
 		utf32_stream_iterator += 4;
 	}

@@ -73,7 +73,7 @@ typedef int                     ssize_t;
 #error Missing integer type definitions (inttypes.h, stdint.h)
 #endif
 
-#if defined( LIBPFF_WIDE_CHARACTER_TYPE )
+#if defined( LIBUCA_WIDE_CHARACTER_TYPE )
 
 #if 0 || defined( HAVE_WCHAR_H )
 
@@ -81,26 +81,26 @@ typedef int                     ssize_t;
  *  */
 #if !defined( __USE_UNIX98 )
 #define __USE_UNIX98
-#define LIBPFF_DEFINITION_UNIX98
+#define LIBUCA_DEFINITION_UNIX98
 #endif
 
 /* __USE_ISOC99 is required to add wcstoll and wcstuoll definition
  *  */
 #if !defined( __USE_ISOC99 )
 #define __USE_ISOC99
-#define LIBPFF_DEFINITION_ISOC99
+#define LIBUCA_DEFINITION_ISOC99
 #endif
 
 #include <wchar.h>
 
-#if defined( LIBPFF_DEFINITION_UNIX98 )
+#if defined( LIBUCA_DEFINITION_UNIX98 )
 #undef __USE_UNIX98
-#undef LIBPFF_DEFINITION_UNIX98
+#undef LIBUCA_DEFINITION_UNIX98
 #endif
 
-#if defined( LIBPFF_DEFINITION_ISOC99 )
+#if defined( LIBUCA_DEFINITION_ISOC99 )
 #undef __USE_ISOC99
-#undef LIBPFF_DEFINITION_ISOC99
+#undef LIBUCA_DEFINITION_ISOC99
 #endif
 
 #else

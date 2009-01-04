@@ -772,7 +772,7 @@ ssize_t libuca_utf32_string_size_from_utf32_stream(
 
 		return( -1 );
 	}
-	utf32_string_size = utf32_stream_size / 4;
+	utf32_string_size = (ssize_t) utf32_stream_size / 4;
 
 	/* Check if UTF-32 stream starts with a byte order mark (BOM)
 	 */

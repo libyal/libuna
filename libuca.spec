@@ -1,17 +1,15 @@
 Name: libuca
 Version: 20080901
 Release: 1
-Summary: Library to support Unicode and ASCII conversions
+Summary: Library to support Unicode and ASCII (byte stream) conversions
 Group: System Environment/Libraries
 License: LGPL
 Source: %{name}-%{version}.tar.gz
 URL: https://www.uitwisselplatform.nl/projects/libuca
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: sg3_utils-devel
-Requires: sg3_utils-libs
 
 %description
-libuca is a library to support Unicode and ASCII conversions
+libuca is a library to support Unicode and ASCII (byte stream) conversions
 
 %package devel
 Summary: Header files and libraries for developing applications for libuca
@@ -22,12 +20,12 @@ Requires: libuca = %{version}-%{release}
 Header files and libraries for developing applications for libuca.
 
 %package tools
-Summary: Several tools for converting Unicode and ASCII based text
+Summary: Several tools for converting Unicode and ASCII (byte stream) based text
 Group: Applications/System
 Requires: libuca = %{version}-%{release}
 
 %description tools
-Several tools for converting Unicode and ASCII based text
+Several tools for converting Unicode and ASCII (byte stream) based text
 
 %prep
 %setup -q
@@ -69,6 +67,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
+* Mon Sep 1 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080901-1
+- Small adjustments to text
+- Removed old requires and build requires
+
 * Fri Aug 29 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080829-1
 - Initial version based on libpff spec file
 

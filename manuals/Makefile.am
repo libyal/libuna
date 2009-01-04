@@ -1,6 +1,6 @@
 man_MANS = \
-	libpff.3 \
-	pffinfo.1
+	libuca.3 \
+	ucaexport.1
 
 distclean: clean
 	/bin/rm -f Makefile

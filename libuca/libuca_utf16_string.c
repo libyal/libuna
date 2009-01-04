@@ -364,7 +364,7 @@ ssize_t libuca_utf16_string_size_from_utf16_stream(
 
 		return( -1 );
 	}
-	utf16_string_size = utf16_stream_size / 2;
+	utf16_string_size = (ssize_t) utf16_stream_size / 2;
 
 	/* Check if UTF-16 stream starts with a byte order mark (BOM)
 	 */

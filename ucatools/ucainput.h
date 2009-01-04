@@ -38,6 +38,10 @@ int ucainput_determine_format(
      const system_character_t *argument,
      int *format );
 
+int ucainput_determine_newline_conversion(
+     const system_character_t *argument,
+     int *newline_conversion );
+
 #if defined( __cplusplus )
 }
 #endif

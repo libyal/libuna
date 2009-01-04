@@ -66,7 +66,7 @@ int ucainput_determine_byte_stream_codepage(
 	          4 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_ASCII;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -74,7 +74,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1250;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -82,7 +82,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1251;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -90,7 +90,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1252;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -98,7 +98,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1253;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -106,7 +106,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1254;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -114,7 +114,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1255;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -122,7 +122,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1256;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -130,7 +130,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1257;
-		result        = 1;
+		result                = 1;
 	}
 	else if( system_string_compare(
 	          argument,
@@ -138,7 +138,7 @@ int ucainput_determine_byte_stream_codepage(
 	          12 ) == 0 )
 	{
 		*byte_stream_codepage = LIBUCA_CODEPAGE_WINDOWS_1258;
-		result        = 1;
+		result                = 1;
 	}
 	return( result );
 }
@@ -151,7 +151,7 @@ int ucainput_determine_format(
      int *format )
 {
 	static char *function = "ucainput_determine_format";
-	int result            = 1;
+	int result            = -1;
 
 	if( argument == NULL )
 	{
@@ -169,8 +169,8 @@ int ucainput_determine_format(
 	}
 	if( system_string_compare(
 	     argument,
-	     _SYSTEM_CHARACTER_T_STRING( "byte_stream" ),
-	     3 ) == 0 )
+	     _SYSTEM_CHARACTER_T_STRING( "byte-stream" ),
+	     11 ) == 0 )
 	{
 		*format = UCACOMMON_FORMAT_BYTE_STREAM;
 		result  = 1;
@@ -214,6 +214,65 @@ int ucainput_determine_format(
 	{
 		*format = UCACOMMON_FORMAT_UTF32LE;
 		result  = 1;
+	}
+	return( result );
+}
+
+/* Determines the newline conversion from an argument string
+ * Returns 1 if successful or -1 on error
+ */
+int ucainput_determine_newline_conversion(
+     const system_character_t *argument,
+     int *newline_conversion )
+{
+	static char *function = "ucainput_determine_newline_conversion";
+	int result            = -1;
+
+	if( argument == NULL )
+	{
+		notify_warning_printf( "%s: invalid argument string.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( newline_conversion == NULL )
+	{
+		notify_warning_printf( "%s: invalid newline conversion.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( system_string_compare(
+	     argument,
+	     _SYSTEM_CHARACTER_T_STRING( "none" ),
+	     4 ) == 0 )
+	{
+		*newline_conversion = UCACOMMON_NEWLINE_CONVERSION_NONE;
+		result              = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "crlf" ),
+	          4 ) == 0 )
+	{
+		*newline_conversion = UCACOMMON_NEWLINE_CONVERSION_CRLF;
+		result              = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "cr" ),
+	          2 ) == 0 )
+	{
+		*newline_conversion = UCACOMMON_NEWLINE_CONVERSION_CR;
+		result              = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "lf" ),
+	          2 ) == 0 )
+	{
+		*newline_conversion = UCACOMMON_NEWLINE_CONVERSION_LF;
+		result              = 1;
 	}
 	return( result );
 }

@@ -961,15 +961,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 		}
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 		}
 		*utf16_stream_index += 2;
 	}
@@ -986,15 +986,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index + 1 ]   = unicode_character & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 		}
 		*utf16_stream_index += 2;
 	}
@@ -1013,15 +1013,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( utf16_surrogate & 0xff );
 			utf16_surrogate                         >>= 8;
-			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( utf16_surrogate & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( utf16_surrogate & 0xff );
 			utf16_surrogate                         >>= 8;
-			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( utf16_surrogate & 0xff );
 		}
 		*utf16_stream_index += 2;
 
@@ -1029,15 +1029,15 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
-			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( utf16_surrogate & 0xff );
 			utf16_surrogate                         >>= 8;
-			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( utf16_surrogate & 0xff );
 		}
 		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 		{
-			utf16_stream[ *utf16_stream_index     ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( utf16_surrogate & 0xff );
 			utf16_surrogate                         >>= 8;
-			utf16_stream[ *utf16_stream_index + 1 ]   = utf16_surrogate & 0x0ff;
+			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( utf16_surrogate & 0xff );
 		}
 		*utf16_stream_index += 2;
 	}
@@ -1349,23 +1349,23 @@ int libuca_unicode_character_copy_to_utf32_stream(
 	}
 	if( byte_order == LIBUCA_ENDIAN_BIG )
 	{
-		utf32_stream[ *utf32_stream_index + 3 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 3 ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index + 2 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 2 ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index + 1 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index     ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 	}
 	else if( byte_order == LIBUCA_ENDIAN_LITTLE )
 	{
-		utf32_stream[ *utf32_stream_index     ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index + 1 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index + 2 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 2 ]   = (uint8_t) ( unicode_character & 0xff );
 		unicode_character                       >>= 8;
-		utf32_stream[ *utf32_stream_index + 3 ]   = unicode_character & 0x0ff;
+		utf32_stream[ *utf32_stream_index + 3 ]   = (uint8_t) ( unicode_character & 0xff );
 	}
 	*utf32_stream_index += 4;
 
