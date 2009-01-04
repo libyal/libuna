@@ -42,6 +42,12 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080904
+* Worked on initial version
+* Added fixed dimension to arrays in codepages header files
+* Fixed issue with small UTF streams
+* Fixed multiple issues in UTF-8 stream handling
+
 20080903
 * Worked on initial version
 * Worked on strict mode

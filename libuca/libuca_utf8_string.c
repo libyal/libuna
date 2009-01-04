@@ -205,7 +205,7 @@ ssize_t libuca_utf8_string_size_from_utf8_stream(
 
 		return( -1 );
 	}
-	if( ( utf8_stream_size % 2 ) != 0 )
+	if( utf8_stream_size < 1 )
 	{
 		notify_warning_printf( "%s: missing UTF-8 stream bytes.\n",
 		 function );
@@ -214,11 +214,14 @@ ssize_t libuca_utf8_string_size_from_utf8_stream(
 	}
 	/* Check if UTF-8 stream starts with a byte order mark (BOM)
 	 */
-	if( ( utf8_stream[ 0 ] == 0x0ef )
-	 && ( utf8_stream[ 1 ] == 0x0bb )
-	 && ( utf8_stream[ 2 ] == 0x0bf ) )
+	if( utf8_stream_size >= 3 )
 	{
-		utf8_stream_iterator += 3;
+		if( ( utf8_stream[ 0 ] == 0x0ef )
+		 && ( utf8_stream[ 1 ] == 0x0bb )
+		 && ( utf8_stream[ 2 ] == 0x0bf ) )
+		{
+			utf8_stream_iterator += 3;
+		}
 	}
 	/* Check if the UTF-8 stream is terminated with a zero byte
 	 */
@@ -226,7 +229,7 @@ ssize_t libuca_utf8_string_size_from_utf8_stream(
 	{
 		utf8_string_size += 1;
 	}
-	while( ( utf8_stream_iterator + 1 ) < utf8_stream_size )
+	while( utf8_stream_iterator < utf8_stream_size )
 	{
 		/* Convert the UTF-8 stream bytes into a Unicode character
 		 */
@@ -292,7 +295,7 @@ int libuca_utf8_string_copy_from_utf8_stream(
 
 		return( -1 );
 	}
-	if( ( utf8_stream_size % 2 ) != 0 )
+	if( utf8_stream_size < 1 )
 	{
 		notify_warning_printf( "%s: missing UTF-8 stream bytes.\n",
 		 function );
@@ -301,11 +304,14 @@ int libuca_utf8_string_copy_from_utf8_stream(
 	}
 	/* Check if UTF-8 stream starts with a byte order mark (BOM)
 	 */
-	if( ( utf8_stream[ 0 ] == 0x0ef )
-	 && ( utf8_stream[ 1 ] == 0x0bb )
-	 && ( utf8_stream[ 2 ] == 0x0bf ) )
+	if( utf8_stream_size >= 3 )
 	{
-		utf8_stream_iterator += 3;
+		if( ( utf8_stream[ 0 ] == 0x0ef )
+		 && ( utf8_stream[ 1 ] == 0x0bb )
+		 && ( utf8_stream[ 2 ] == 0x0bf ) )
+		{
+			utf8_stream_iterator += 3;
+		}
 	}
 	/* Check if the UTF-8 stream is terminated with zero bytes
 	 */
@@ -313,7 +319,7 @@ int libuca_utf8_string_copy_from_utf8_stream(
 	{
 		zero_byte = 1;
 	}
-	while( ( utf8_stream_iterator + 1 ) < utf8_stream_size )
+	while( utf8_stream_iterator < utf8_stream_size )
 	{
 		/* Convert the UTF-8 stream bytes into a Unicode character
 		 */
@@ -507,7 +513,8 @@ ssize_t libuca_utf8_string_size_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size % 2 ) != 0 )
+	if( ( utf16_stream_size <= 2 )
+	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
 		notify_warning_printf( "%s: missing UTF-16 stream bytes.\n",
 		 function );
@@ -642,7 +649,8 @@ int libuca_utf8_string_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size % 2 ) != 0 )
+	if( ( utf16_stream_size <= 2 )
+	 || ( ( utf16_stream_size % 2 ) != 0 ) )
 	{
 		notify_warning_printf( "%s: missing UTF-16 stream bytes.\n",
 		 function );
@@ -903,7 +911,8 @@ ssize_t libuca_utf8_string_size_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( utf32_stream_size % 4 ) != 0 )
+	if( ( utf32_stream_size < 4 )
+	 || ( ( utf32_stream_size % 4 ) != 0 ) )
 	{
 		notify_warning_printf( "%s: missing UTF-32 stream bytes.\n",
 		 function );
@@ -1048,7 +1057,8 @@ int libuca_utf8_string_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( utf32_stream_size % 4 ) != 0 )
+	if( ( utf32_stream_size < 4 )
+	 || ( ( utf32_stream_size % 4 ) != 0 ) )
 	{
 		notify_warning_printf( "%s: missing UTF-32 stream bytes.\n",
 		 function );

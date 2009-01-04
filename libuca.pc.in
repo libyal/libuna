@@ -4,7 +4,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: libuca
-Description: Library to support Unicode and ASCII conversions
+Description: Library to support Unicode and ASCII (byte stream) conversions
 Version: @VERSION@
 Libs: -L${libdir} -luca
 Cflags: -I${includedir}

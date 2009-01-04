@@ -30,18 +30,18 @@
 extern "C" {
 #endif
 
-extern const uint16_t libuca_codepage_windows_1256_byte_stream_to_unicode_base_0x80[];
+extern const uint16_t libuca_codepage_windows_1256_byte_stream_to_unicode_base_0x80[ 128 ];
 
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00a0[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00d0[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00e0[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0150[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0618[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0678[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06a8[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06b8[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2008[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2038[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00a0[ 32 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00d0[ 8 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00e0[ 32 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0150[ 8 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0618[ 64 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0678[ 40 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06a8[ 8 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06b8[ 16 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2008[ 32 ];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2038[ 8 ];
 
 #define libuca_codepage_windows_1256_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuca_codepage_windows_1256_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]

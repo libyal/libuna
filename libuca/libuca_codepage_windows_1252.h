@@ -30,13 +30,13 @@
 extern "C" {
 #endif
 
-extern const uint16_t libuca_codepage_windows_1252_byte_stream_to_unicode_base_0x80[];
+extern const uint16_t libuca_codepage_windows_1252_byte_stream_to_unicode_base_0x80[ 32 ];
 
-extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0150[];
-extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0160[];
-extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0178[];
-extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x2010[];
-extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x2030[];
+extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0150[ 8 ];
+extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0160[ 8 ];
+extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x0178[ 8 ];
+extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x2010[ 24 ];
+extern const uint8_t libuca_codepage_windows_1252_unicode_to_byte_stream_base_0x2030[ 16 ];
 
 #define libuca_codepage_windows_1252_byte_stream_to_unicode( byte_stream_character ) \
 	( ( byte_stream_character < 0x80 ) || ( byte_stream_character >= 0xa0 ) ) ? byte_stream_character : libuca_codepage_windows_1252_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
