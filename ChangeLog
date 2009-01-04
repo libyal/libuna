@@ -60,7 +60,8 @@ Other Windows codepages (MBC)
 
 20080914
 * Worked on initial version
-* Worked on compare functions
+* Added compare functions
+* Added const pointers
 
 20080912
 * Worked on initial version

@@ -38,9 +38,9 @@ extern "C" {
  * Returns 1 if the strings are equal, 0 if not or -1 on error
  */
 LIBUNA_EXTERN int libuna_compare_utf8_with_utf16(
-                   libuna_utf8_character_t *utf8_string,
+                   const libuna_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   libuna_utf16_character_t *utf16_string,
+                   const libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
                    libuna_error_t **error );
 
@@ -48,9 +48,9 @@ LIBUNA_EXTERN int libuna_compare_utf8_with_utf16(
  * Returns 1 if the strings are equal, 0 if not or -1 on error
  */
 LIBUNA_EXTERN int libuna_compare_utf8_with_utf32(
-                   libuna_utf8_character_t *utf8_string,
+                   const libuna_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   libuna_utf32_character_t *utf32_string,
+                   const libuna_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    libuna_error_t **error );
 
@@ -62,9 +62,9 @@ LIBUNA_EXTERN int libuna_compare_utf8_with_utf32(
  * Returns 1 if the strings are equal, 0 if not or -1 on error
  */
 LIBUNA_EXTERN int libuna_compare_utf16_with_utf32(
-                   libuna_utf16_character_t *utf16_string,
+                   const libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   libuna_utf32_character_t *utf32_string,
+                   const libuna_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    libuna_error_t **error );
 

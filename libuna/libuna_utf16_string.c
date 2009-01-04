@@ -33,7 +33,7 @@
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_byte_stream(
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      int codepage,
      size_t *utf16_string_size,
@@ -131,7 +131,7 @@ int libuna_utf16_string_size_from_byte_stream(
 int libuna_utf16_string_copy_from_byte_stream(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      int codepage,
      libuna_error_t **error )
@@ -254,7 +254,7 @@ int libuna_utf16_string_copy_from_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_utf8(
-     libuna_utf8_character_t *utf8_string,
+     const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf16_string_size,
      libuna_error_t **error )
@@ -344,7 +344,7 @@ int libuna_utf16_string_size_from_utf8(
 int libuna_utf16_string_copy_from_utf8(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     libuna_utf8_character_t *utf8_string,
+     const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      libuna_error_t **error )
 {
@@ -443,7 +443,7 @@ int libuna_utf16_string_copy_from_utf8(
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_utf8_stream(
-     uint8_t *utf8_stream,
+     const uint8_t *utf8_stream,
      size_t utf8_stream_size,
      size_t *utf16_string_size,
      libuna_error_t **error )
@@ -561,7 +561,7 @@ int libuna_utf16_string_size_from_utf8_stream(
 int libuna_utf16_string_copy_from_utf8_stream(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *utf8_stream,
+     const uint8_t *utf8_stream,
      size_t utf8_stream_size,
      libuna_error_t **error )
 {
@@ -704,7 +704,7 @@ int libuna_utf16_string_copy_from_utf8_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_utf16_stream(
-     uint8_t *utf16_stream,
+     const uint8_t *utf16_stream,
      size_t utf16_stream_size,
      uint8_t byte_order,
      size_t *utf16_string_size,
@@ -876,7 +876,7 @@ int libuna_utf16_string_size_from_utf16_stream(
 int libuna_utf16_string_copy_from_utf16_stream(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *utf16_stream,
+     const uint8_t *utf16_stream,
      size_t utf16_stream_size,
      uint8_t byte_order,
      libuna_error_t **error )
@@ -1073,7 +1073,7 @@ int libuna_utf16_string_copy_from_utf16_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_utf32(
-     libuna_utf32_character_t *utf32_string,
+     const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf16_string_size,
      libuna_error_t **error )
@@ -1163,7 +1163,7 @@ int libuna_utf16_string_size_from_utf32(
 int libuna_utf16_string_copy_from_utf32(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     libuna_utf32_character_t *utf32_string,
+     const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
      libuna_error_t **error )
 {
@@ -1262,7 +1262,7 @@ int libuna_utf16_string_copy_from_utf32(
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_string_size_from_utf32_stream(
-     uint8_t *utf32_stream,
+     const uint8_t *utf32_stream,
      size_t utf32_stream_size,
      uint8_t byte_order,
      size_t *utf16_string_size,
@@ -1444,7 +1444,7 @@ int libuna_utf16_string_size_from_utf32_stream(
 int libuna_utf16_string_copy_from_utf32_stream(
      libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t *utf32_stream,
+     const uint8_t *utf32_stream,
      size_t utf32_stream_size,
      uint8_t byte_order,
      libuna_error_t **error )

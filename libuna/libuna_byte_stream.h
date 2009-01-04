@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 LIBUNA_EXTERN int libuna_byte_stream_size_from_utf8(
-                   libuna_utf8_character_t *utf8_string,
+                   const libuna_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
                    int codepage,
                    size_t *byte_stream_size,
@@ -45,7 +45,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
-                   libuna_utf8_character_t *utf8_string,
+                   const libuna_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
                    libuna_error_t **error );
 
@@ -54,7 +54,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf8(
  */
 
 LIBUNA_EXTERN int libuna_byte_stream_size_from_utf16(
-                   libuna_utf16_character_t *utf16_string,
+                   const libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
                    int codepage,
                    size_t *byte_stream_size,
@@ -64,7 +64,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
-                   libuna_utf16_character_t *utf16_string,
+                   const libuna_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
                    libuna_error_t **error );
 
@@ -73,7 +73,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf16(
  */
 
 LIBUNA_EXTERN int libuna_byte_stream_size_from_utf32(
-                   libuna_utf32_character_t *utf32_string,
+                   const libuna_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    int codepage,
                    size_t *byte_stream_size,
@@ -83,7 +83,7 @@ LIBUNA_EXTERN int libuna_byte_stream_copy_from_utf32(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    int codepage,
-                   libuna_utf32_character_t *utf32_string,
+                   const libuna_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    libuna_error_t **error );
 
