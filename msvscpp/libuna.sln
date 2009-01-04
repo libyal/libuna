@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual C++ Express 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libuca_dll", "libuca_dll\libuca_dll.vcproj", "{B5225323-AC67-411D-8FBA-199E9467FAB5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libuna_dll", "libuna_dll\libuna_dll.vcproj", "{B5225323-AC67-411D-8FBA-199E9467FAB5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ucaexport", "ucaexport\ucaexport.vcproj", "{6B758D1D-FE05-49C6-836B-9B8AC8DC4FCD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unaexport", "unaexport\unaexport.vcproj", "{6B758D1D-FE05-49C6-836B-9B8AC8DC4FCD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B5225323-AC67-411D-8FBA-199E9467FAB5} = {B5225323-AC67-411D-8FBA-199E9467FAB5}
 	EndProjectSection

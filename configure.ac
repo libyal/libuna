@@ -18,13 +18,6 @@ AC_CANONICAL_HOST
 dnl Check for large file support
 AC_SYS_LARGEFILE
 
-dnl Check for configure arguments
-LIBUNA_TEST_ENABLE(
- [wide-character-type],
- [wide_character_type],
- [enable wide character type support],
- [no])
-
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
 
@@ -394,156 +387,20 @@ dnl Check for printf conversion specifier support
 LIBUNA_CHECK_PRINTF_JD
 LIBUNA_CHECK_PRINTF_ZD
 
-dnl Check if libuna should be build with wide character type support
-AS_IF(
-	[test "x$ac_libuna_enable_wide_character_type" != xno ],
-	[dnl Check for the wide character header
-	AC_CHECK_HEADERS(
-	 [wchar.h],
-	 [AC_DEFINE(
-	  [HAVE_WCHAR_H],
-	  [1],
-	  [Define to 1 if you have the <wchar.h> header file.])
-	 AC_SUBST(
-	  [HAVE_WCHAR_H],
-	  [1]) ],
-	 [AC_MSG_FAILURE(
-	  [Missing header: wchar.h],
-	  [1]) ])
-
-	dnl Determine wide character byte size
-	AC_CHECK_SIZEOF([wchar_t])
-
-	dnl Check for wide character string functions
-	dnl Wide character string functions used in common/string_conversion.h
-	AC_CHECK_FUNCS(
-	 [btowc],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: btowc],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wctob],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: wctob],
-	  [1]) ])
-
-	dnl Wide character string functions used in common/wide_string.h
-	AC_CHECK_FUNCS(
-	 [fgetws],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: fgetws],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [swprintf],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: swprintf],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcschr],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemchr],
-	  [],
-	  [AC_MSG_FAILURE(
-	   [Missing functions: wcschr and wmemchr],
-	   [1]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsncmp],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemcmp],
-	  [],
-	  [AC_CHECK_FUNCS(
-	   [wcscmp],
-	   [],
-	   [AC_MSG_FAILURE(
-	    [Missing functions: wcsncmp, wmemcmp and wcscmp],
-	    [1]) ]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsncpy],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemcpy],
-	  [],
-	  [AC_CHECK_FUNCS(
-	   [wcscpy],
-	   [],
-	   [AC_MSG_FAILURE(
-	    [Missing functions: wcsncpy, wmemcpy and wcscpy],
-	    [1]) ]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcslen],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: wcslen],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsrchr],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemrchr],
-	  [],
-	  [AC_MSG_FAILURE(
-	   [Missing functions: wcsrchr and wmemrchr],
-	   [1]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcstoll],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: wcstoll],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcstoull],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: wcstoull],
-	  [1]) ])
-
-	dnl Make the necessary definitions
-	AC_DEFINE(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [1],
-	 [Defines if wide character type should be used])
-	AC_SUBST(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [1])
-	ac_libuna_enable_wide_character_type=yes],
-
-	[AC_SUBST(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [0])
-	AC_SUBST(
-	 [HAVE_WCHAR_H],
-	 [0]) ])
-
-AC_SUBST(
- [HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS],
- [0])
-
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
 
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
+AC_CONFIG_FILES([macosx/Makefile])
+AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuna.h])
 AC_CONFIG_FILES([include/libuna/definitions.h])
@@ -557,10 +414,4 @@ dnl Have configure write its configuration
 AC_CONFIG_HEADERS([common/config.h])
 
 AC_OUTPUT
-
-dnl Print a summary
-AC_MSG_NOTICE([
-Features:
-   Wide character type support: $ac_libuna_enable_wide_character_type
-]);
 

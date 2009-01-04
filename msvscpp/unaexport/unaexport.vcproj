@@ -2,9 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="libuca_dll"
-	ProjectGUID="{B5225323-AC67-411D-8FBA-199E9467FAB5}"
-	RootNamespace="libuca"
+	Name="unaexport"
+	ProjectGUID="{6B758D1D-FE05-49C6-836B-9B8AC8DC4FCD}"
+	RootNamespace="unaexport"
+	Keyword="Win32Proj"
 	>
 	<Platforms>
 		<Platform
@@ -18,7 +19,8 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="1"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -38,14 +40,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libuca"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUCA_DLL_EXPORT;HAVE_WINDOWS_INLINE;HAVE_WIDE_CHARACTER_TYPE"
-				SmallerTypeCheck="true"
+				AdditionalIncludeDirectories="..\..\include;..\..\common"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;HAVE_WINDOWS_INLINE;LIBUCA_DLL_IMPORT;HAVE_WIDE_CHARACTER_TYPE"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				WarningLevel="4"
-				WarnAsError="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				ForcedIncludeFiles=""
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -58,14 +61,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				UseLibraryDependencyInputs="true"
-				OutputFile="$(OutDir)\libuca.dll"
-				Version=""
-				LinkIncremental="0"
-				AdditionalLibraryDirectories=""
+				AdditionalDependencies="libuna.lib"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\debug"
 				GenerateDebugInformation="true"
-				SubSystem="2"
-				ImportLibrary="$(OutDir)/libuca.lib"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -97,7 +97,9 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -116,9 +118,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libuca"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;HAVE_WINDOWS_INLINE;LIBUCA_DLL_EXPORT;HAVE_WIDE_CHARACTER_TYPE"
+				AdditionalIncludeDirectories="..\..\include;..\..\common"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;HAVE_WINDOWS_INLINE;LIBUCA_DLL_IMPORT;HAVE_WIDE_CHARACTER_TYPE"
 				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -131,8 +137,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\libuca.dll"
-				AdditionalLibraryDirectories=""
+				AdditionalDependencies="libuna.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\release"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -169,83 +181,55 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\libuca\libuca.c"
+				RelativePath="..\..\common\character_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_byte_stream.c"
+				RelativePath="..\..\common\date_time.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1250.c"
+				RelativePath="..\..\common\error_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1251.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1252.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1253.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1254.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1255.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1256.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1257.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1258.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_support.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_unicode_character.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf16_stream.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf16_string.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf32_stream.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf32_string.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf8_stream.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf8_string.c"
+				RelativePath="..\..\common\file_io.c"
 				>
 			</File>
 			<File
 				RelativePath="..\..\common\notify.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\common\string_conversion.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\common\system_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unabyte_size_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unaexport.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unagetopt.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unaglob.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unainput.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unaoutput.c"
 				>
 			</File>
 		</Filter>
@@ -254,6 +238,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\common\character_string.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\common\common.h"
 				>
@@ -267,95 +255,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\common\date_time.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\common\directory_io.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\common\endian.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_byte_stream.h"
+				RelativePath="..\..\common\error_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_codepage_ascii.h"
+				RelativePath="..\..\common\file_io.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1250.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1251.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1252.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1253.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1254.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1255.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1256.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1257.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_codepage_windows_1258.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_definitions.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_extern.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_inline.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_support.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_unicode_character.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf16_stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf16_string.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf32_stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf32_string.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf8_stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuca\libuca_utf8_string.h"
+				RelativePath="..\..\common\file_stream_io.h"
 				>
 			</File>
 			<File
@@ -363,11 +283,51 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\common\narrow_string.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\common\notify.h"
 				>
 			</File>
 			<File
+				RelativePath="..\..\common\string_conversion.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\common\system_string.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\common\types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unabyte_size_string.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unacommon.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unagetopt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unaglob.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unainput.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\unaoutput.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\common\wide_string.h"
 				>
 			</File>
 		</Filter>

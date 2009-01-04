@@ -17,8 +17,7 @@ unaexport_SOURCES = \
 	unaexport.c \
 	unagetopt.c unagetopt.h \
 	unainput.c unainput.h \
-	unaoutput.c unaoutput.h \
-	unatypes.h
+	unaoutput.c unaoutput.h
 
 unaexport_LDADD   = ../libuna/libuna.la
 

@@ -1,30 +1,17 @@
 TODO
+* libuna
+  - add source == destination check to functions?
+  - handle combining characters in windows 1255 and 1258 ?
+  - add more code pages?
+  - speed test between index based and pointer based iteration
+  - change libuna_codepage_ macros into inline functions ?
+  - copy from/to functions should set/return amount of bytes successfully processed?
+    most of the time not needed because the size of the string was already
+    determined
 
-* only have common code in common
-  - move file io etc.
-
-* add source == destination check to functions?
-
-* implement error
- - move notify to ucatools
-
-* ucaexport:
+* unaexport
   - what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
   - implement signal handling
-
-* speed test between index based and pointer based iteration
-
-* handle combining characters in windows 1255 and 1258 ?
-* add more code pages?
-
-* change libuna_codepage_ macros into inline functions
-
-* copy from/to functions should set/return amount of bytes successfully processed?
-  most of the time not needed because the size of the string was already
-  determined
-
-Tools:
-* unaexport
   - add conversion summary (converting from x to y with codepage z) +/-
   - update man page
   - allow for different input and output codepage?
@@ -32,10 +19,11 @@ Tools:
   - determine total source file size for process status
   - add option to set buffer size?
   - check if input file is output file?
+
 * unainfo
-  tool to determine the encoding type using the byte order mark
-  perhaps some other tricks
-  useful for automated conversion
+  - create a tool to determine the encoding type using the byte order mark
+    perhaps some other tricks
+    might be useful for automated conversion
   - write man page
   - update unaexport manpage 
     .Sh SEE ALSO
@@ -47,8 +35,11 @@ Deployment:
 * create debian package files
 * fix AUTHORS
 * update MSVSCPP solution file
+  - add liberror
   - add unaprocess_status to unaexport project
+  - and more
 * update MacOS-X project file
+  - change libuca to libuna
 
 Other Windows codepages (SBC)
 * 874 (Thai)
@@ -63,6 +54,7 @@ Other Windows codepages (MBC)
 * Clean up of common
 * replaces HAVE_WINDOWS_API by WINAPI
 * moved error into liberror this make maintenace easier
+* removed wide character support from configure
 
 20080916
 * Worked on initial version
@@ -87,7 +79,7 @@ Other Windows codepages (MBC)
 
 20080909
 * Worked on initial version
-* libuna already exists renamed to libuca
+* libuca already exists renamed to libuua
 * Worked on improved error handling
 * Worked on rewriting size functions
 

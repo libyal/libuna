@@ -1,5 +1,8 @@
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror
 
+EXTRA_DIST = \
+	libuna_definitions.h.in
+
 lib_LTLIBRARIES = libuna.la
 
 libuna_la_SOURCES = \
@@ -33,5 +36,6 @@ libuna_la_SOURCES = \
 libuna_la_LIBADD  = ../liberror/liberror.la
 
 distclean: clean
+	/bin/rm -f libuna_definitions.h
 	/bin/rm -f Makefile
 
