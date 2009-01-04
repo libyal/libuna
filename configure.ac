@@ -489,6 +489,7 @@ AC_SUBST(
  [HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS],
  [0])
 
+dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
 
 dnl Have configure make the Makefiles

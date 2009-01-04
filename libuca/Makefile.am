@@ -17,6 +17,7 @@ libuca_la_SOURCES = \
 	libuca_codepage_windows_1258.c libuca_codepage_windows_1258.h \
 	libuca_definitions.h \
 	libuca_extern.h \
+	libuca_inline.h \
 	libuca_support.c libuca_support.h \
 	libuca_unicode_character.c libuca_unicode_character.h \
 	libuca_utf8_stream.c libuca_utf8_stream.h \
@@ -25,8 +26,6 @@ libuca_la_SOURCES = \
 	libuca_utf16_string.c libuca_utf16_string.h \
 	libuca_utf32_stream.c libuca_utf32_stream.h \
 	libuca_utf32_string.c libuca_utf32_string.h
-
-libuca_la_LIBADD  = ../common/libcommon.la
 
 distclean: clean
 	/bin/rm -f Makefile

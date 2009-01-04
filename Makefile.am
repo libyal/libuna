@@ -71,6 +71,7 @@ pkginclude_HEADERS = \
 	include/libuca/definitions.h \
 	include/libuca/extern.h \
 	include/libuca/features.h \
+	include/libuca/inline.h \
 	include/libuca/types.h
 
 libtool: @LIBTOOL_DEPS@

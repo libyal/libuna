@@ -35,16 +35,17 @@
 #include "libuca_codepage_windows_1257.h"
 #include "libuca_codepage_windows_1258.h"
 #include "libuca_definitions.h"
+#include "libuca_inline.h"
 #include "libuca_unicode_character.h"
 
 /* Determines the size of a byte stream character to from a Unicode character
  * Returns the size of the byte stream
  */
-inline size_t libuca_unicode_character_size_to_byte_stream(
-               libuca_unicode_character_t unicode_character,
-               int codepage )
+LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_byte_stream(
+                       libuca_unicode_character_t unicode_character,
+                       int codepage )
 {
-	size_t byte_stream_character_size = 0;
+	ssize_t byte_stream_character_size = 0;
 
 	/* TODO handle multi byte characters
 	 */
@@ -72,12 +73,12 @@ inline size_t libuca_unicode_character_size_to_byte_stream(
 /* Copies a Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_byte_stream(
-            libuca_unicode_character_t *unicode_character,
-            uint8_t *byte_stream,
-            size_t byte_stream_size,
-            size_t *byte_stream_index,
-            int codepage )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_byte_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   size_t *byte_stream_index,
+                   int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_from_byte_stream";
 
@@ -179,12 +180,12 @@ inline int libuca_unicode_character_copy_from_byte_stream(
 /* Copies a Unicode character to a byte stream string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_byte_stream(
-            libuca_unicode_character_t unicode_character,
-            uint8_t *byte_stream,
-            size_t byte_stream_size,
-            size_t *byte_stream_index,
-            int codepage )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_byte_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *byte_stream,
+                   size_t byte_stream_size,
+                   size_t *byte_stream_index,
+                   int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_to_byte_stream";
 
@@ -277,10 +278,10 @@ inline int libuca_unicode_character_copy_to_byte_stream(
 /* Determines the size of a UTF-8 character to from a Unicode character
  * Returns the size of the byte stream
  */
-inline size_t libuca_unicode_character_size_to_utf8(
-               libuca_unicode_character_t unicode_character )
+LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf8(
+                       libuca_unicode_character_t unicode_character )
 {
-	size_t utf8_character_size = 0;
+	ssize_t utf8_character_size = 0;
 
 	if( unicode_character < 0x080 )
 	{
@@ -330,11 +331,11 @@ inline size_t libuca_unicode_character_size_to_utf8(
 /* Copies a Unicode character from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_utf8(
-            libuca_unicode_character_t *unicode_character,
-            libuca_utf8_character_t *utf8_string,
-            size_t utf8_string_size,
-            size_t *utf8_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_utf8(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_from_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -569,11 +570,11 @@ inline int libuca_unicode_character_copy_from_utf8(
 /* Copies a Unicode character into a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_utf8(
-            libuca_unicode_character_t unicode_character,
-            libuca_utf8_character_t *utf8_string,
-            size_t utf8_string_size,
-            size_t *utf8_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_utf8(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_to_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -671,10 +672,10 @@ inline int libuca_unicode_character_copy_to_utf8(
 /* Determines the size of a UTF-16 character to from a Unicode character
  * Returns the size of the byte stream
  */
-inline size_t libuca_unicode_character_size_to_utf16(
-               libuca_unicode_character_t unicode_character )
+LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf16(
+                       libuca_unicode_character_t unicode_character )
 {
-	size_t utf16_character_size = 1;
+	ssize_t utf16_character_size = 1;
 
 	if( ( unicode_character > LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
          && ( unicode_character <= LIBUCA_UTF16_CHARACTER_MAX ) )
@@ -687,11 +688,11 @@ inline size_t libuca_unicode_character_size_to_utf16(
 /* Copies a Unicode character from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_utf16(
-            libuca_unicode_character_t *unicode_character,
-            libuca_utf16_character_t *utf16_string,
-            size_t utf16_string_size,
-            size_t *utf16_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_utf16(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf16_string_index )
 {
 	static char *function                    = "libuca_unicode_character_copy_from_utf16";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -777,11 +778,11 @@ inline int libuca_unicode_character_copy_from_utf16(
 /* Copies a Unicode character into a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_utf16(
-            libuca_unicode_character_t unicode_character,
-            libuca_utf16_character_t *utf16_string,
-            size_t utf16_string_size,
-            size_t *utf16_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_utf16(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf16_character_t *utf16_string,
+                   size_t utf16_string_size,
+                   size_t *utf16_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf16";
 
@@ -848,12 +849,12 @@ inline int libuca_unicode_character_copy_to_utf16(
 /* Copies a Unicode character from a UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_utf16_stream(
-            libuca_unicode_character_t *unicode_character,
-            uint8_t *utf16_stream,
-            size_t utf16_stream_size,
-            size_t *utf16_stream_index,
-            uint8_t byte_order )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_utf16_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_from_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -969,12 +970,12 @@ inline int libuca_unicode_character_copy_from_utf16_stream(
 /* Copies a Unicode character to an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_utf16_stream(
-            libuca_unicode_character_t unicode_character,
-            uint8_t *utf16_stream,
-            size_t utf16_stream_size,
-            size_t *utf16_stream_index,
-            uint8_t byte_order )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_utf16_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *utf16_stream,
+                   size_t utf16_stream_size,
+                   size_t *utf16_stream_index,
+                   uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_to_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -1017,8 +1018,8 @@ inline int libuca_unicode_character_copy_to_utf16_stream(
 	}
 	/* Determine if the UTF-16 character is valid
 	 */
-	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	if( ( ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  && ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	 || ( unicode_character > LIBUCA_UTF16_CHARACTER_MAX ) )
 	{
 		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
@@ -1088,8 +1089,8 @@ inline int libuca_unicode_character_copy_to_utf16_stream(
 /* Determines the size of a UTF-32 character to from a Unicode character
  * Returns the size of the byte stream
  */
-inline size_t libuca_unicode_character_size_to_utf32(
-               libuca_unicode_character_t unicode_character )
+LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf32(
+                       libuca_unicode_character_t unicode_character )
 {
 	return( 1 );
 }
@@ -1097,11 +1098,11 @@ inline size_t libuca_unicode_character_size_to_utf32(
 /* Copies a Unicode character from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_utf32(
-            libuca_unicode_character_t *unicode_character,
-            libuca_utf32_character_t *utf32_string,
-            size_t utf32_string_size,
-            size_t *utf32_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_utf32(
+                   libuca_unicode_character_t *unicode_character,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32";
 
@@ -1143,7 +1144,7 @@ inline int libuca_unicode_character_copy_from_utf32(
 	/* Determine if the Unicode character is valid
 	 */
 	if( ( utf32_string[ *utf32_string_index ] >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-	  && ( utf32_string[ *utf32_string_index ] <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 && ( utf32_string[ *utf32_string_index ] <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	{
 		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
@@ -1159,11 +1160,11 @@ inline int libuca_unicode_character_copy_from_utf32(
 /* Copies a Unicode character into a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_utf32(
-            libuca_unicode_character_t unicode_character,
-            libuca_utf32_character_t *utf32_string,
-            size_t utf32_string_size,
-            size_t *utf32_string_index )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_utf32(
+                   libuca_unicode_character_t unicode_character,
+                   libuca_utf32_character_t *utf32_string,
+                   size_t utf32_string_size,
+                   size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32";
 
@@ -1197,9 +1198,9 @@ inline int libuca_unicode_character_copy_to_utf32(
 	}
 	/* Determine if the UTF-32 character is valid
 	 */
-	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
-	 || ( utf32_string[ *utf32_string_index ] > LIBUCA_UTF32_CHARACTER_MAX ) )
+	if( ( ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  && ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUCA_UTF32_CHARACTER_MAX ) )
 	{
 		utf32_string[ *utf32_string_index ] = (libuca_utf32_character_t) LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
@@ -1215,12 +1216,12 @@ inline int libuca_unicode_character_copy_to_utf32(
 /* Copies a Unicode character from a UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_from_utf32_stream(
-            libuca_unicode_character_t *unicode_character,
-            uint8_t *utf32_stream,
-            size_t utf32_stream_size,
-            size_t *utf32_stream_index,
-            uint8_t byte_order )
+LIBUCA_INLINE int libuca_unicode_character_copy_from_utf32_stream(
+                   libuca_unicode_character_t *unicode_character,
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   size_t *utf32_stream_index,
+                   uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32_stream";
 
@@ -1290,7 +1291,7 @@ inline int libuca_unicode_character_copy_from_utf32_stream(
 	/* Determine if the Unicode character is valid
 	 */
 	if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-	  && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	{
 		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
@@ -1302,12 +1303,12 @@ inline int libuca_unicode_character_copy_from_utf32_stream(
 /* Copies a Unicode character to an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_unicode_character_copy_to_utf32_stream(
-            libuca_unicode_character_t unicode_character,
-            uint8_t *utf32_stream,
-            size_t utf32_stream_size,
-            size_t *utf32_stream_index,
-            uint8_t byte_order )
+LIBUCA_INLINE int libuca_unicode_character_copy_to_utf32_stream(
+                   libuca_unicode_character_t unicode_character,
+                   uint8_t *utf32_stream,
+                   size_t utf32_stream_size,
+                   size_t *utf32_stream_index,
+                   uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32_stream";
 
@@ -1349,8 +1350,8 @@ inline int libuca_unicode_character_copy_to_utf32_stream(
 	}
 	/* Determine if the UTF-32 character is valid
 	 */
-	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	if( ( ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  && ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	 || ( unicode_character > LIBUCA_UTF32_CHARACTER_MAX ) )
 	{
 		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;

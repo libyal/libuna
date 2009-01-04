@@ -33,7 +33,6 @@ Tools:
 Deployment:
 * create debian package files
 * fix AUTHORS
-* update macosx package files
 
 Other Windows codepages (SBC)
 * 874 (Thai)
@@ -47,6 +46,7 @@ Other Windows codepages (MBC)
 * Worked on initial version
 * Worked on strict mode
 * Worked on uTF-8 stream functions
+* Worked on MacOS-X package files
 
 20080902
 * Worked on initial version

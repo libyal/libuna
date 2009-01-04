@@ -291,10 +291,10 @@ character_t *libuca_string_ctime(
 
 #else
 #define string_size_from_utf8_stream( stream, size_stream ) \
-	libuca_utf8_string_size_from_utf8( stream, size_stream )
+	libuca_utf8_string_size_from_utf8_stream( stream, size_stream )
 
 #define string_copy_from_utf8_stream( string, string_size, stream, size_stream ) \
-	libuca_utf8_string_copy_from_utf8( (libuca_utf8_character_t *) string, string_size, stream, size_stream )
+	libuca_utf8_string_copy_from_utf8_stream( (libuca_utf8_character_t *) string, string_size, stream, size_stream )
 
 #define utf8_stream_size_from_string( string, size_string ) \
 	libuca_utf8_stream_size_from_utf8( (libuca_utf8_character_t *) string, size_string )

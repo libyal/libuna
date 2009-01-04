@@ -26,16 +26,17 @@
 #include <types.h>
 
 #include "libuca_definitions.h"
+#include "libuca_inline.h"
 #include "libuca_unicode_character.h"
 #include "libuca_utf8_stream.h"
 
 /* Copies an UTF-8 stream byte order mark (BOM)
  * Returns 1 if successful or -1 on error
  */
-inline int libuca_utf8_stream_copy_byte_order_mark(
-            uint8_t *utf8_stream,
-            size_t utf8_stream_size,
-            size_t *utf8_stream_index )
+LIBUCA_INLINE int libuca_utf8_stream_copy_byte_order_mark(
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size,
+                   size_t *utf8_stream_index )
 {
 	static char *function = "libuca_utf8_stream_copy_byte_order_mark";
 
@@ -103,7 +104,7 @@ ssize_t libuca_utf8_stream_size_from_utf8(
 	/* Add the byte order mark
 	 * Assumes the UTF-8 string is santized
 	 */
-	utf8_stream_size = 3 + utf8_string_size;
+	utf8_stream_size = 3 + (ssize_t) utf8_string_size;
 
 	return( utf8_stream_size );
 }
