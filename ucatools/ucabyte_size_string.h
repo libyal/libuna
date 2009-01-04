@@ -1,5 +1,5 @@
 /*
- * Globbing functions for the ucatools
+ * Byte size string functions for the ucatools
  *
  * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,50 +20,36 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCAGLOB_H )
-#define _UCAGLOB_H
+#if !defined( _UCABYTE_SIZE_STRING_H )
+#define _UCABYTE_SIZE_STRING_H
 
 #include <common.h>
-#include <system_string.h>
+#include <character_string.h>
 #include <types.h>
-
-#include "ucacommon.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#if !defined( HAVE_GLOB_H )
+#define UCABYTE_SIZE_STRING_UNIT_MEGABYTE		1000
+#define UCABYTE_SIZE_STRING_UNIT_MEBIBYTE		1024
 
-typedef struct ucaglob ucaglob_t;
+const character_t *ucabyte_size_string_get_factor_string(
+                    int8_t factor );
 
-struct ucaglob
-{
-	/* The amount of globs resolved
-	 */
-	int amount_of_results;
+int8_t ucabyte_size_string_get_factor(
+        character_t factor );
 
-	/* The resolved globs
-	 */
-	system_character_t **result;
-};
+int ucabyte_size_string_create(
+     character_t *byte_size_string,
+     size_t byte_size_string_length,
+     uint64_t size,
+     int units );
 
-int ucaglob_initialize(
-     ucaglob_t **glob );
-
-int ucaglob_free(
-     ucaglob_t **glob );
-
-int ucaglob_resize(
-     ucaglob_t *glob,
-     int new_amount_of_results );
-
-int ucaglob_resolve(
-     ucaglob_t *glob,
-     system_character_t * const patterns[],
-     int amount_of_patterns );
-
-#endif
+int ucabyte_size_string_convert(
+     character_t *byte_size_string,
+     size_t byte_size_string_length,
+     uint64_t *size );
 
 #if defined( __cplusplus )
 }

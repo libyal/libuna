@@ -48,6 +48,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080902
+* Worked on initial version
+* Worked on ucaexport summary
+
 20080901
 * Worked on initial version
 * Integrated local use of libuca using HAVE_LOCAL_LIBUCA for maintenance
