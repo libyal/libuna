@@ -104,7 +104,7 @@ AC_CHECK_HEADERS([stdlib.h])
 dnl Headers included in common/notify.c
 AC_CHECK_HEADERS(
  [stdarg.h],
- []
+ [],
  [AC_CHECK_HEADERS(
   [varargs.h],
   [],

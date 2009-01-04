@@ -26,6 +26,7 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_error.h"
 #include "libuna_extern.h"
 #include "libuna_inline.h"
 

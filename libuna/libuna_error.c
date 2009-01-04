@@ -35,7 +35,7 @@
 #include "libuna_error.h"
 
 #if defined( HAVE_STDARG_H )
-#define VARARGS( function, error, error_code, type, argument ) \
+#define VARARGS( function, error, error_domain, error_code, type, argument ) \
         function( type argument, ... )
 #define VASTART( argument_list, type, name ) \
         va_start( argument_list, name )
@@ -43,7 +43,7 @@
         va_end( argument_list )
 
 #elif defined( HAVE_VARARGS_H )
-#define VARARGS( function, error, error_code, type, argument ) \
+#define VARARGS( function, error, error_domain, error_code, type, argument ) \
         function( va_alist ) va_dcl
 #define VASTART( argument_list, type, name ) \
         { type name; va_start( argument_list ); name = va_arg( argument_list, type )
@@ -52,12 +52,13 @@
 
 #endif
 
-/* Set an error initializes the error structure with the error code if necessary
+/* Set an error initializes the error structure with the error domain and code if necessary
  * Otherwise it will just append the error message for back tracing
  */
 void VARARGS(
       libuna_error_set,
       libuna_error_t **error,
+      int error_domain,
       int error_code,
       char *,
       format )
@@ -75,6 +76,7 @@ void VARARGS(
 		{
 			return;
 		}
+		( (libuna_internal_error_t *) *error )->domain             = error_domain;
 		( (libuna_internal_error_t *) *error )->code               = error_code;
 		( (libuna_internal_error_t *) *error )->amount_of_messages = 0;
 		( (libuna_internal_error_t *) *error )->message            = NULL;

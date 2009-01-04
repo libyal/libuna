@@ -20,8 +20,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNA_ERROR_H )
-#define _LIBUNA_ERROR_H
+#if !defined( _LIBUNA_INTERNAL_ERROR_H )
+#define _LIBUNA_INTERNAL_ERROR_H
 
 #include <common.h>
 #include <types.h>
@@ -40,6 +40,10 @@ typedef struct libuna_internal_error libuna_internal_error_t;
 
 struct libuna_internal_error
 {
+	/* The error domain
+	 */
+	int domain;
+
 	/* The error code
 	 */
 	int code;
@@ -55,6 +59,7 @@ struct libuna_internal_error
 
 void libuna_error_set(
       libuna_error_t **error,
+      int error_domain,
       int error_code,
       const char *format,
       ... );
@@ -66,6 +71,9 @@ void libuna_error_add_message(
 
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );
+
+LIBUNA_EXTERN int libuna_error_get_errno(
+                    libuna_error_t *error );
 
 #if defined( __cplusplus )
 }

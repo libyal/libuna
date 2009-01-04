@@ -23,10 +23,59 @@
 #if !defined( _LIBUNA_ERROR_H )
 #define _LIBUNA_ERROR_H
 
-#define LIBUNA_ERROR_INVALID_ARGUMENT			1
-#define LIBUNA_ERROR_ARGUMENT_TOO_SMALL			2
-#define LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM		3
+/* The error domains
+ */
+#define LIBUNA_ERROR_DOMAIN_ARGUMENTS			(int) 'a'
+#define LIBUNA_ERROR_DOMAIN_CONVERSION			(int) 'c'
+#define LIBUNA_ERROR_DOMAIN_IO				(int) 'i'
+#define LIBUNA_ERROR_DOMAIN_MEMORY			(int) 'm'
+
+/* Argument error codes
+ */
+#define LIBUNA_ERROR_ARGUMENT_INVALID			1
+#define LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM		2
+#define LIBUNA_ERROR_ARGUMENT_TOO_SMALL			3
 #define LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE		4
+
+/* Libuna error codes
+ */
+#define LIBUNA_ERROR_CONVERSION_INVALID_INPUT		5
+#define LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT		6
+
+/* The error domains
+ */
+typedef enum libuna_error_domain libuna_error_domain_t;
+
+enum libuna_error_domain
+{
+	arguments  = (int) 'a',
+	conversion = (int) 'c',
+	input      = (int) 'i',
+	memory     = (int) 'm',
+	output     = (int) 'o'
+};
+
+/* The argument error codes
+ */
+typedef enum libuna_argument_error libuca_argument_error_t;
+
+enum libuna_argument_error
+{
+	invalid           = 0,
+	exceeds_maximum   = 1,
+	too_small         = 2,
+	unsupported_value = 3
+};
+
+/* The conversion error codes
+ */
+typedef enum libuna_conversion_error libuca_conversion_error_t;
+
+enum libuna_conversion_error
+{
+	invalid_input  = 0,
+	invalid_output = 1
+};
 
 #endif
 
