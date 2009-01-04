@@ -21,7 +21,6 @@
  */
 
 #include <common.h>
-#include <notify.h>
 #include <types.h>
 
 #include "libuna_codepage_ascii.h"

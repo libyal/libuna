@@ -21,13 +21,9 @@
  */
 
 #include <common.h>
-#include <notify.h>
 
 #include "libuna_definitions.h"
 #include "libuna_support.h"
-
-const char libuna_error_strings[] = {
-};
 
 /* Returns the library version as a string
  */
@@ -35,16 +31,5 @@ const char *libuna_get_version(
              void )
 {
 	return( (const char *) LIBUNA_VERSION_STRING );
-}
-
-/* Set the notify values
- */
-void libuna_set_notify_values(
-      FILE *stream,
-      uint8_t verbose )
-{
-	notify_set_values(
-	 stream,
-	 verbose );
 }
 

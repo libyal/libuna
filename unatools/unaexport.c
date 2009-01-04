@@ -50,6 +50,7 @@
 
 #include "character_string.h"
 #include "glob.h"
+#include "process_status.h"
 #include "safe_types.h"
 #include "system_string.h"
 
@@ -57,7 +58,6 @@
 #include "unagetopt.h"
 #include "unainput.h"
 #include "unaoutput.h"
-#include "unaprocess_status.h"
 
 /* Prints the executable usage information
  */
@@ -234,10 +234,11 @@ ssize64_t unaexport(
            int byte_stream_codepage,
            int export_byte_order_mark,
            int newline_conversion,
-           void (*callback)( unaprocess_status_t *process_status, size64_t bytes_read, size64_t bytes_total ) )
+           void (*callback)( process_status_t *process_status, size64_t bytes_read, size64_t bytes_total ) )
 {
 	libuna_unicode_character_t unicode_character[ 2 ];
 
+	libuna_error_t *error                     = NULL;
 	uint8_t *destination_string_buffer        = NULL;
 	uint8_t *source_string_buffer             = NULL;
 	static char *function                     = "unaexport";
@@ -371,7 +372,8 @@ ssize64_t unaexport(
 				result = libuna_utf8_stream_copy_byte_order_mark(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator );
+				          &destination_string_buffer_iterator,
+				          &error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF16BE:
@@ -379,7 +381,8 @@ ssize64_t unaexport(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG );
+				          LIBUNA_ENDIAN_BIG,
+				          &error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF16LE:
@@ -387,7 +390,8 @@ ssize64_t unaexport(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE );
+				          LIBUNA_ENDIAN_LITTLE,
+				          &error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF32BE:
@@ -395,7 +399,8 @@ ssize64_t unaexport(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG );
+				          LIBUNA_ENDIAN_BIG,
+				          &error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF32LE:
@@ -403,7 +408,8 @@ ssize64_t unaexport(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE );
+				          LIBUNA_ENDIAN_LITTLE,
+				          &error );
 				break;
 
 			default:
@@ -414,6 +420,10 @@ ssize64_t unaexport(
 		{
 			notify_warning_printf( "%s: unable to set byte order mark.\n",
 			 function );
+
+			/* TODO print error */
+			libuna_error_free(
+			 &error );
 
 			file_io_close(
 			 source_file_descriptor );
@@ -426,6 +436,14 @@ ssize64_t unaexport(
 			 destination_string_buffer );
 
 			return( -1 );
+		}
+		if( error != NULL )
+		{
+			notify_warning_printf( "%s: error was set but return code was: %d.\n",
+			 function, result );
+
+			libuna_error_free(
+			 &error );
 		}
 	}
 	while( 1 )
@@ -555,7 +573,8 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  byte_stream_codepage );
+						  byte_stream_codepage,
+					          &error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF8:
@@ -563,7 +582,8 @@ ssize64_t unaexport(
 						  &unicode_character[ unicode_character_iterator ],
 						  source_string_buffer,
 						  source_string_buffer_size,
-						  &source_string_buffer_iterator );
+						  &source_string_buffer_iterator,
+					          &error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF16BE:
@@ -572,7 +592,8 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG );
+						  LIBUNA_ENDIAN_BIG,
+					          &error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF16LE:
@@ -581,7 +602,8 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE );
+						  LIBUNA_ENDIAN_LITTLE,
+					          &error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF32BE:
@@ -590,7 +612,8 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG );
+						  LIBUNA_ENDIAN_BIG,
+					          &error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF32LE:
@@ -599,7 +622,8 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE );
+						  LIBUNA_ENDIAN_LITTLE,
+					          &error );
 					break;
 
 				default:
@@ -611,9 +635,21 @@ ssize64_t unaexport(
 				notify_warning_printf( "%s: unable to convert input character.\n",
 				 function );
 
+				/* TODO print error */
+				libuna_error_free(
+				 &error );
+
 				export_count = -1;
 
 				break;
+			}
+			if( error != NULL )
+			{
+				notify_warning_printf( "%s: error was set but return code was: %d.\n",
+				 function, result );
+
+				libuna_error_free(
+				 &error );
 			}
 			amount_of_unicode_characters++;
 
@@ -677,7 +713,8 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  byte_stream_codepage );
+							  byte_stream_codepage,
+						          &error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF8:
@@ -685,7 +722,8 @@ ssize64_t unaexport(
 							  unicode_character[ unicode_character_iterator ],
 							  destination_string_buffer,
 							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator );
+							  &destination_string_buffer_iterator,
+						          &error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF16BE:
@@ -694,7 +732,8 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG );
+							  LIBUNA_ENDIAN_BIG,
+						          &error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF16LE:
@@ -703,7 +742,8 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE );
+							  LIBUNA_ENDIAN_LITTLE,
+						          &error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF32BE:
@@ -712,7 +752,8 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG );
+							  LIBUNA_ENDIAN_BIG,
+						          &error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF32LE:
@@ -721,7 +762,8 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE );
+							  LIBUNA_ENDIAN_LITTLE,
+						          &error );
 						break;
 
 					default:
@@ -733,10 +775,22 @@ ssize64_t unaexport(
 					notify_warning_printf( "%s: unable to convert output character.\n",
 					 function );
 
+					/* TODO print error */
+					libuna_error_free(
+					 &error );
+
 					export_count = -1;
 
 					break;
 				}
+			}
+			if( error != NULL )
+			{
+				notify_warning_printf( "%s: error was set but return code was: %d.\n",
+				 function, result );
+
+				libuna_error_free(
+				 &error );
 			}
 			if( export_count <= -1 )
 			{
@@ -824,7 +878,7 @@ int main( int argc, char * const argv[] )
 	character_t *program                     = _CHARACTER_T_STRING( "unaexport" );
 	system_character_t *destination_filename = NULL;
 	system_character_t *source_filename      = NULL;
-	void *callback                           = &unaprocess_status_update_unknown_total;
+	void *callback                           = &process_status_update_unknown_total;
 	ssize64_t export_count                   = 0;
 	system_integer_t option                  = 0;
 	int byte_stream_codepage                 = LIBUNA_CODEPAGE_ASCII;
@@ -963,7 +1017,7 @@ int main( int argc, char * const argv[] )
 	}
 	destination_filename = argv[ optind++ ];
 
-	libuna_set_notify_values(
+	notify_set_values(
 	 stderr,
 	 verbose );
 
@@ -977,7 +1031,7 @@ int main( int argc, char * const argv[] )
 	 export_byte_order_mark,
 	 newline_conversion );
 
-	if( unaprocess_status_initialize(
+	if( process_status_initialize(
 	     &process_status,
 	     _CHARACTER_T_STRING( "Export" ),
 	     _CHARACTER_T_STRING( "exported" ),
@@ -988,12 +1042,12 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	if( unaprocess_status_start(
+	if( process_status_start(
 	     process_status ) != 1 )
 	{
 		fprintf( stderr, "Unable to start process status.\n" );
 
-		unaprocess_status_free(
+		process_status_free(
 		 &process_status );
 
 		return( EXIT_FAILURE );
@@ -1010,32 +1064,32 @@ int main( int argc, char * const argv[] )
 
 	if( export_count <= -1 )
 	{
-		status = UNAPROCESS_STATUS_FAILED;
+		status = PROCESS_STATUS_FAILED;
 	}
 	else
 	{
-		status = UNAPROCESS_STATUS_COMPLETED;
+		status = PROCESS_STATUS_COMPLETED;
 	}
-	if( unaprocess_status_stop(
+	if( process_status_stop(
 	     process_status,
 	     (size64_t) export_count,
 	     status ) != 1 )
 	{
 		fprintf( stderr, "Unable to stop process status.\n" );
 
-		unaprocess_status_free(
+		process_status_free(
 		 &process_status );
 
 		return( EXIT_FAILURE );
 	}
-	if( unaprocess_status_free(
+	if( process_status_free(
 	     &process_status ) != 1 )
 	{
 		fprintf( stderr, "Unable to free process status.\n" );
 
 		return( EXIT_FAILURE );
 	}
-	if( status != UNAPROCESS_STATUS_COMPLETED )
+	if( status != PROCESS_STATUS_COMPLETED )
 	{
 		return( EXIT_FAILURE );
 	}

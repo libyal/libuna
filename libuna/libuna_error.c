@@ -52,7 +52,7 @@
 
 #endif
 
-/* Set an error initializes the error structure with the error domain and code if necessary
+/* Set an error initializes the error with the error domain and code if necessary
  * Otherwise it will just append the error message for back tracing
  */
 void VARARGS(
@@ -90,7 +90,7 @@ void VARARGS(
 	 format );
 
 	libuna_error_add_message(
-	 error,
+	 *error,
 	 format,
 	 argument_list );
 
@@ -120,7 +120,7 @@ void VARARGS(
 
 #endif
 
-/* Adds a message to an error structure
+/* Adds a message to an error
  */
 void VARARGS(
       libuna_error_add_message,
@@ -196,7 +196,7 @@ void VARARGS(
 #undef VASTART
 #undef VAEND
 
-/* Free an error structure and its elements
+/* Free an error and its elements
  */
 void libuna_error_free(
       libuna_error_t **error )
@@ -224,5 +224,14 @@ void libuna_error_free(
 
 		*error = NULL;
 	}
+}
+
+/* Converts the error to an equivalent errno
+ */
+int libuna_error_get_errno(
+     libuna_error_t *error )
+{
+	/* TODO */
+	return( -1 );
 }
 

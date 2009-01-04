@@ -21,7 +21,6 @@
  */
 
 #include <common.h>
-#include <notify.h>
 #include <types.h>
 
 #include "libuna_definitions.h"
@@ -93,7 +92,8 @@ int libuna_utf16_string_size_from_byte_stream(
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_iterator,
-		     codepage ) != 1 )
+		     codepage,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -108,7 +108,8 @@ int libuna_utf16_string_size_from_byte_stream(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -199,7 +200,8 @@ int libuna_utf16_string_copy_from_byte_stream(
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_iterator,
-		     codepage ) != 1 )
+		     codepage,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -216,7 +218,8 @@ int libuna_utf16_string_copy_from_byte_stream(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -302,7 +305,8 @@ int libuna_utf16_string_size_from_utf8(
 		     &unicode_character,
 		     utf8_string,
 		     utf8_string_size,
-		     &utf8_string_iterator ) != 1 )
+		     &utf8_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -317,7 +321,8 @@ int libuna_utf16_string_size_from_utf8(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -399,7 +404,8 @@ int libuna_utf16_string_copy_from_utf8(
 		     &unicode_character,
 		     utf8_string,
 		     utf8_string_size,
-		     &utf8_string_iterator ) != 1 )
+		     &utf8_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -416,7 +422,8 @@ int libuna_utf16_string_copy_from_utf8(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -515,7 +522,8 @@ int libuna_utf16_string_size_from_utf8_stream(
 		     &unicode_character,
 		     utf8_stream,
 		     utf8_stream_size,
-		     &utf8_stream_iterator ) != 1 )
+		     &utf8_stream_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -530,7 +538,8 @@ int libuna_utf16_string_size_from_utf8_stream(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -641,7 +650,8 @@ int libuna_utf16_string_copy_from_utf8_stream(
 		     &unicode_character,
 		     utf8_stream,
 		     utf8_stream_size,
-		     &utf8_stream_iterator ) != 1 )
+		     &utf8_stream_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -658,7 +668,8 @@ int libuna_utf16_string_copy_from_utf8_stream(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -815,7 +826,8 @@ int libuna_utf16_string_size_from_utf16_stream(
 		     utf16_stream,
 		     utf16_stream_size,
 		     &utf16_stream_iterator,
-		     read_byte_order ) != 1 )
+		     read_byte_order,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -830,7 +842,8 @@ int libuna_utf16_string_size_from_utf16_stream(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -995,7 +1008,8 @@ int libuna_utf16_string_copy_from_utf16_stream(
 		     utf16_stream,
 		     utf16_stream_size,
 		     &utf16_stream_iterator,
-		     read_byte_order ) != 1 )
+		     read_byte_order,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1012,7 +1026,8 @@ int libuna_utf16_string_copy_from_utf16_stream(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1109,7 +1124,8 @@ int libuna_utf16_string_size_from_utf32(
 		     &unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_iterator ) != 1 )
+		     &utf32_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1124,7 +1140,8 @@ int libuna_utf16_string_size_from_utf32(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1206,7 +1223,8 @@ int libuna_utf16_string_copy_from_utf32(
 		     &unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_iterator ) != 1 )
+		     &utf32_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1223,7 +1241,8 @@ int libuna_utf16_string_copy_from_utf32(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1375,7 +1394,8 @@ int libuna_utf16_string_size_from_utf32_stream(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     read_byte_order ) != 1 )
+		     read_byte_order,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1390,7 +1410,8 @@ int libuna_utf16_string_size_from_utf32_stream(
 		 */
 		if( libuna_unicode_character_size_to_utf16(
 		    unicode_character,
-		    utf16_string_size ) != 1 )
+		    utf16_string_size,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1565,7 +1586,8 @@ int libuna_utf16_string_copy_from_utf32_stream(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     read_byte_order ) != 1 )
+		     read_byte_order,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -1582,7 +1604,8 @@ int libuna_utf16_string_copy_from_utf32_stream(
 		     unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,

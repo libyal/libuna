@@ -37,10 +37,6 @@ extern "C" {
 LIBUNA_EXTERN const char *libuna_get_version(
                            void );
 
-LIBUNA_EXTERN void libuna_set_notify_values(
-                    FILE *stream,
-                    uint8_t verbose );
-
 #if defined( __cplusplus )
 }
 #endif

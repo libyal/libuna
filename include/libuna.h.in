@@ -39,10 +39,14 @@ extern "C" {
 LIBUNA_EXTERN const char *libuna_get_version(
                            void );
 
-/* Returns the error code as a string
+/* -------------------------------------------------------------------------
+ * Error handling functions
+ * ------------------------------------------------------------------------- */
+
+/* Free an error and its elements
  */
-LIBUNA_EXTERN const char *libuna_get_error_string(
-                           int error code );
+LIBUNA_EXTERN void libuna_error_free(
+                    libuna_error_t **error );
 
 /* -------------------------------------------------------------------------
  * Unicode character functions

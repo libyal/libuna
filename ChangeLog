@@ -1,9 +1,12 @@
 TODO
 
 * implement error
+ - error backtrace function
+ - error to errno function
+ - error print function
  - move notify to ucatools
- - remove libuna_set_notify_values no use of notify_verbose
-* rewrite size functions to return int instead of ssize_t
+
+* what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
 
 * unaexport implement signal handling
 

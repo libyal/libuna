@@ -22,7 +22,6 @@
 
 #include <common.h>
 #include <memory.h>
-#include <notify.h>
 #include <types.h>
 
 #include "libuna_definitions.h"
@@ -218,7 +217,8 @@ int libuna_utf8_stream_copy_from_utf8(
 	if( libuna_utf8_stream_copy_byte_order_mark(
 	     utf8_stream,
 	     utf8_stream_size,
-	     &utf8_stream_iterator ) != 1 )
+	     &utf8_stream_iterator,
+	     error ) != 1 )
 	{
 		libuna_error_set(
 		 error,
@@ -400,7 +400,8 @@ int libuna_utf8_stream_copy_from_utf16(
 	if( libuna_utf8_stream_copy_byte_order_mark(
 	     utf8_stream,
 	     utf8_stream_size,
-	     &utf8_stream_iterator ) != 1 )
+	     &utf8_stream_iterator,
+	     error ) != 1 )
 	{
 		libuna_error_set(
 		 error,
@@ -419,7 +420,8 @@ int libuna_utf8_stream_copy_from_utf16(
 		     &unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator ) != 1 )
+		     &utf16_string_iterator,
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -436,7 +438,8 @@ int libuna_utf8_stream_copy_from_utf16(
 		     unicode_character,
 		     utf8_stream,
 		     utf8_stream_size,
-		     &utf8_stream_iterator ) != 1 )
+		     &utf8_stream_iterator,
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -509,7 +512,8 @@ int libuna_utf8_stream_size_from_utf32(
 		     &unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_iterator ) != 1 )
+		     &utf32_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -524,7 +528,8 @@ int libuna_utf8_stream_size_from_utf32(
 		 */
 		if( libuna_unicode_character_size_to_utf8(
 		     unicode_character,
-		     utf8_stream_size ) != 1 )
+		     utf8_stream_size,
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -598,6 +603,21 @@ int libuna_utf8_stream_copy_from_utf32(
 
 		return( -1 );
 	}
+	if( libuna_utf8_stream_copy_byte_order_mark(
+	     utf8_stream,
+	     utf8_stream_size,
+	     &utf8_stream_iterator,
+	     error ) != 1 )
+	{
+		libuna_error_set(
+		 error,
+		 LIBUNA_ERROR_DOMAIN_CONVERSION,
+		 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+		 "%s: unable to copy UTF-8 byte order mark.\n",
+		 function );
+
+		return( -1 );
+	}
 	while( utf32_string_iterator < utf32_string_size )
 	{
 		/* Convert the UTF-32 character bytes into a Unicode character
@@ -606,7 +626,8 @@ int libuna_utf8_stream_copy_from_utf32(
 		     &unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_iterator ) != 1 )
+		     &utf32_string_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -623,7 +644,8 @@ int libuna_utf8_stream_copy_from_utf32(
 		     unicode_character,
 		     utf8_stream,
 		     utf8_stream_size,
-		     &utf8_stream_iterator ) != 1 )
+		     &utf8_stream_iterator,
+                    error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
