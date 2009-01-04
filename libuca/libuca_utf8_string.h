@@ -48,6 +48,20 @@ LIBUCA_EXTERN int libuca_utf8_string_copy_from_byte_stream(
  * libuca_byte_stream_copy_from_utf8
  */
 
+LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_utf8_stream(
+                       uint8_t *utf8_stream,
+                       size_t utf8_stream_size );
+
+LIBUCA_EXTERN int libuca_utf8_string_copy_from_utf8_stream(
+                   libuca_utf8_character_t *utf8_string,
+                   size_t utf8_string_size,
+                   uint8_t *utf8_stream,
+                   size_t utf8_stream_size );
+
+/* The functionality for libuca_utf8_string_copy_to_utf8_stream is implemented by
+ * libuca_utf8_stream_copy_from_utf8
+ */
+
 LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_utf16(
                        libuca_utf16_character_t *utf16_string,
                        size_t utf16_string_size );

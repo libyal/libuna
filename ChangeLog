@@ -3,20 +3,10 @@ TODO
 * ucaexport implement process_status
 * ucaexport implement signal handling
 
-* add strict test
-  libuca_utf8_stream_size_from_utf8
-  libuca_utf8_stream_copy_from_utf8
-  libuca_utf16_string_size_from_utf16_stream
-  libuca_utf16_string_copy_from_utf16_stream
-  libuca_utf16_stream_size_from_utf16
-  libuca_utf16_stream_copy_from_utf16
-  libuca_utf32_string_size_from_utf32_stream
-  libuca_utf32_string_copy_from_utf32_stream
-  libuca_utf32_stream_size_from_utf32
-  libuca_utf32_stream_copy_from_utf32
-
 * handle combining characters in windows 1255 and 1258 ?
 * add more code pages?
+
+* change libuca_codepage_ macros into inline functions
 
 * copy from/to functions should set/return amount of bytes successfully processed?
   most of the time not needed because the size of the string was already
@@ -56,6 +46,7 @@ Other Windows codepages (MBC)
 20080903
 * Worked on initial version
 * Worked on strict mode
+* Worked on uTF-8 stream functions
 
 20080902
 * Worked on initial version

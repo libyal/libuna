@@ -30,8 +30,10 @@
 #include "libuca_codepage_windows_1252.h"
 #include "libuca_codepage_windows_1253.h"
 #include "libuca_codepage_windows_1254.h"
+#include "libuca_codepage_windows_1255.h"
 #include "libuca_codepage_windows_1256.h"
 #include "libuca_codepage_windows_1257.h"
+#include "libuca_codepage_windows_1258.h"
 #include "libuca_definitions.h"
 #include "libuca_unicode_character.h"
 
@@ -143,6 +145,11 @@ inline int libuca_unicode_character_copy_from_byte_stream(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
 
+		case LIBUCA_CODEPAGE_WINDOWS_1255:
+			*unicode_character = libuca_codepage_windows_1255_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUCA_CODEPAGE_WINDOWS_1256:
 			*unicode_character = libuca_codepage_windows_1256_byte_stream_to_unicode(
 			                      byte_stream[ *byte_stream_index ] );
@@ -150,6 +157,11 @@ inline int libuca_unicode_character_copy_from_byte_stream(
 
 		case LIBUCA_CODEPAGE_WINDOWS_1257:
 			*unicode_character = libuca_codepage_windows_1257_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
+		case LIBUCA_CODEPAGE_WINDOWS_1258:
+			*unicode_character = libuca_codepage_windows_1258_byte_stream_to_unicode(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
 
@@ -231,6 +243,11 @@ inline int libuca_unicode_character_copy_to_byte_stream(
 			                                     unicode_character );
 			break;
 
+		case LIBUCA_CODEPAGE_WINDOWS_1255:
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1255_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
 		case LIBUCA_CODEPAGE_WINDOWS_1256:
 			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1256_unicode_to_byte_stream(
 			                                     unicode_character );
@@ -238,6 +255,11 @@ inline int libuca_unicode_character_copy_to_byte_stream(
 
 		case LIBUCA_CODEPAGE_WINDOWS_1257:
 			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1257_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUCA_CODEPAGE_WINDOWS_1258:
+			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1258_unicode_to_byte_stream(
 			                                     unicode_character );
 			break;
 
