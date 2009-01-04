@@ -1,5 +1,5 @@
 /*
- * Process status functions
+ * Process status functions for the ucatools
  *
  * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,8 +20,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _PROCESS_STATUS_H )
-#define _PROCESS_STATUS_H
+#if !defined( _UCAPROCESS_STATUS_H )
+#define _UCAPROCESS_STATUS_H
 
 #include <common.h>
 #include <date_time.h>
@@ -30,29 +30,29 @@
 #include <stdio.h>
 
 #include "character_string.h"
-#include "safe_types.h"
+#include "ucatypes.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#define PROCESS_STATUS_ABORTED		(int) 'a'
-#define PROCESS_STATUS_COMPLETED	(int) 'c'
-#define PROCESS_STATUS_FAILED		(int) 'f'
+#define UCAPROCESS_STATUS_ABORTED	(int) 'a'
+#define UCAPROCESS_STATUS_COMPLETED	(int) 'c'
+#define UCAPROCESS_STATUS_FAILED	(int) 'f'
 
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
-#define process_status_ctime( timestamp, string, length ) \
+#define ucaprocess_status_ctime( timestamp, string, length ) \
         date_time_wctime( timestamp, string, length )
 
 #else
-#define process_status_ctime( timestamp, string, length ) \
+#define ucaprocess_status_ctime( timestamp, string, length ) \
         date_time_ctime( timestamp, string, length )
 
 #endif
 
-typedef struct process_status process_status_t;
+typedef struct ucaprocess_status ucaprocess_status_t;
 
-struct process_status
+struct ucaprocess_status
 {
 	/* The status process string
 	 */
@@ -87,46 +87,33 @@ struct process_status
 	int8_t last_percentage;
 };
 
-extern process_status_t *process_status;
+extern ucaprocess_status_t *process_status;
 
-void process_status_timestamp_fprint(
-      FILE *stream,
-      time_t timestamp );
-
-void process_status_bytes_per_second_fprint(
-      FILE *stream,
-      size64_t bytes,
-      time_t seconds );
-
-void process_status_bytes_fprint(
-      FILE *stream,
-      size64_t bytes );
-
-int process_status_initialize(
-     process_status_t **process_status,
+int ucaprocess_status_initialize(
+     ucaprocess_status_t **process_status,
      const character_t *status_process_string,
      const character_t *status_update_string,
      const character_t *status_summary_string,
      FILE *output_stream );
 
-int process_status_free(
-     process_status_t **process_status );
+int ucaprocess_status_free(
+     ucaprocess_status_t **process_status );
 
-int process_status_start(
-     process_status_t *process_status );
+int ucaprocess_status_start(
+     ucaprocess_status_t *process_status );
 
-int process_status_update(
-     process_status_t *process_status,
+int ucaprocess_status_update(
+     ucaprocess_status_t *process_status,
      size64_t bytes_read,
      size64_t bytes_total );
 
-int process_status_update_unknown_total(
-     process_status_t *process_status,
+int ucaprocess_status_update_unknown_total(
+     ucaprocess_status_t *process_status,
      size64_t bytes_read,
      size64_t bytes_total );
 
-int process_status_stop(
-     process_status_t *process_status,
+int ucaprocess_status_stop(
+     ucaprocess_status_t *process_status,
      size64_t bytes_total,
      int status );
 

@@ -35,7 +35,7 @@
 #elif defined( HAVE_VARARGS_H )
 #include <varargs.h>
 #else
-#error Missing headers stdarg.h and varargs.h
+#error No variable argument support available
 #endif
 
 FILE *notify_stream = NULL;

@@ -1,5 +1,5 @@
 /*
- * Error functions
+ * Type definitions for the ucatools
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,52 +20,38 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUCA_ERROR_H )
-#define _LIBUCA_ERROR_H
+#if !defined( _UCATYPES_H )
+#define _UCATYPES_H
 
 #include <common.h>
-#include <types.h>
-
-#include <stdio.h>
-
-#include <libuca/error.h>
-
-#include "libuca_extern.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-typedef struct libuca_internal_error libuca_internal_error_t;
+/* These definitions make sure the size and offset types
+ * are consistent for multiple platforms
+ */
 
-struct libuca_internal_error
-{
-	/* The error code
-	 */
-	int code;
+#if ! HAVE_SIZE32_T
+typedef uint32_t size32_t;
+#endif
 
-	/* The amount of messages
-	 */
-	int amount_of_messages;
+#if ! HAVE_SSIZE32_T
+typedef int32_t ssize32_t;
+#endif
 
-	/* The error messages
-	 */
-	char **message;
-};
+#if ! HAVE_SIZE64_T
+typedef uint64_t size64_t;
+#endif
 
-void libuca_error_set(
-      libuca_error_t **error,
-      int error_code,
-      const char *format,
-      ... );
+#if ! HAVE_SSIZE64_T
+typedef int64_t ssize64_t;
+#endif
 
-void libuca_error_add_message(
-      libuca_error_t *error,
-      const char *format,
-      ... );
-
-LIBUCA_EXTERN void libuca_error_free(
-                    libuca_error_t **error );
+#if ! HAVE_OFF64_T
+typedef int64_t off64_t;
+#endif
 
 #if defined( __cplusplus )
 }

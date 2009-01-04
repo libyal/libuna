@@ -75,10 +75,6 @@ typedef int                     ssize_t;
 extern "C" {
 #endif
 
-/* External error type definition hides internal structure
- */
-typedef intptr_t libuca_error_t;
-
 /* Unicode character definitions
  */
 typedef uint32_t libuca_unicode_character_t;

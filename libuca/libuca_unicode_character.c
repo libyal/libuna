@@ -35,29 +35,18 @@
 #include "libuca_codepage_windows_1257.h"
 #include "libuca_codepage_windows_1258.h"
 #include "libuca_definitions.h"
-#include "libuca_error.h"
 #include "libuca_inline.h"
 #include "libuca_unicode_character.h"
 
 /* Determines the size of a byte stream character to from a Unicode character
- * Returns 1 if successful or -1 on error
+ * Returns the size of the byte stream
  */
-LIBUCA_INLINE int libuca_unicode_character_size_to_byte_stream(
-                   libuca_unicode_character_t unicode_character,
-                   int codepage,
-                   size_t *byte_stream_character_size,
-                   libuca_error_t **error )
+LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_byte_stream(
+                       libuca_unicode_character_t unicode_character,
+                       int codepage )
 {
-	if( byte_stream_character_size == NULL )
-	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid byte stream character size.\n",
-		 function );
+	ssize_t byte_stream_character_size = 0;
 
-		return( -1 );
-	}
 	/* TODO handle multi byte characters
 	 */
 	switch( codepage )
@@ -72,19 +61,13 @@ LIBUCA_INLINE int libuca_unicode_character_size_to_byte_stream(
 		case LIBUCA_CODEPAGE_WINDOWS_1256:
 		case LIBUCA_CODEPAGE_WINDOWS_1257:
 		case LIBUCA_CODEPAGE_WINDOWS_1258:
-			*byte_stream_character_size = 1;
+			byte_stream_character_size = 1;
 			break;
 
 		default:
-			libuca_error_set(
-			 error,
-			 LIBUCA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
-			 "%s: unsupported codepage.\n",
-			 function );
-
-			return( -1 );
+			break;
 	}
-	return( 1 );
+	return( byte_stream_character_size );
 }
 
 /* Copies a Unicode character from a byte stream
@@ -95,57 +78,41 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_byte_stream(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int codepage,
-                   libuca_error_t **error )
+                   int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_from_byte_stream";
 
 	if( unicode_character == NULL )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid Unicode character.\n",
+		notify_warning_printf( "%s: invalid Unicode character.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( byte_stream == NULL )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid byte stream.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
-		 "%s: invalid byte stream size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream  size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( byte_stream_index == NULL )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid byte stream index.\n",
+		notify_warning_printf( "%s: invalid byte stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *byte_stream_index >= byte_stream_size )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_ARGUMENT_TOO_SMALL,
-		 "%s: byte stream too small.\n",
+		notify_warning_printf( "%s: byte stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -200,18 +167,10 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_byte_stream(
 			break;
 
 		case LIBUCA_CODEPAGE_ASCII:
+		default:
 			*unicode_character = libuca_codepage_ascii_byte_stream_to_unicode(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
-
-		default:
-			libuca_error_set(
-			 error,
-			 LIBUCA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
-			"%s: unsupported codepage.\n",
-			 function );
-
-			return( -1 );
 	}
 	*byte_stream_index += 1;
 
@@ -226,47 +185,34 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_byte_stream(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int codepage,
-                   libuca_error_t **error )
+                   int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_to_byte_stream";
 
 	if( byte_stream == NULL )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid byte stream.\n",
+		notify_warning_printf( "%s: invalid byte stream.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
-		 "%s: invalid byte stream size value exceeds maximum.\n",
+		notify_warning_printf( "%s: invalid byte stream size value exceeds maximum.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( byte_stream_index == NULL )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_INVALID_ARGUMENT,
-		 "%s: invalid byte stream index.\n",
+		notify_warning_printf( "%s: invalid byte stream index.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( *byte_stream_index >= byte_stream_size )
 	{
-		libuca_error_set(
-		 error,
-		 LIBUCA_ERROR_ARGUMENT_TOO_SMALL,
-		 "%s: byte stream too small.\n",
+		notify_warning_printf( "%s: byte stream too small.\n",
 		 function );
 
 		return( -1 );
@@ -319,18 +265,10 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_byte_stream(
 			break;
 
 		case LIBUCA_CODEPAGE_ASCII:
+		default:
 			byte_stream[ *byte_stream_index ] = libuca_codepage_ascii_unicode_to_byte_stream(
 			                                     unicode_character );
 			break;
-
-		default:
-			libuca_error_set(
-			 error,
-			 LIBUCA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
-			"%s: unsupported codepage.\n",
-			 function );
-
-			return( -1 );
 	}
 	*byte_stream_index += 1;
 
@@ -341,8 +279,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_byte_stream(
  * Returns the size of the byte stream
  */
 LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf8(
-                       libuca_unicode_character_t unicode_character,
-                       libuca_error_t **error )
+                       libuca_unicode_character_t unicode_character )
 {
 	ssize_t utf8_character_size = 0;
 
@@ -398,8 +335,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_utf8(
                    libuca_unicode_character_t *unicode_character,
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   size_t *utf8_string_index,
-                   libuca_error_t **error )
+                   size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_from_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -638,8 +574,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf8(
                    libuca_unicode_character_t unicode_character,
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
-                   size_t *utf8_string_index,
-                   libuca_error_t **error )
+                   size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_to_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -738,8 +673,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf8(
  * Returns the size of the byte stream
  */
 LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf16(
-                       libuca_unicode_character_t unicode_character,
-                       libuca_error_t **error )
+                       libuca_unicode_character_t unicode_character )
 {
 	ssize_t utf16_character_size = 1;
 
@@ -848,8 +782,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf16(
                    libuca_unicode_character_t unicode_character,
                    libuca_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
-                   size_t *utf16_string_index,
-                   libuca_error_t **error )
+                   size_t *utf16_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf16";
 
@@ -921,8 +854,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_utf16_stream(
                    uint8_t *utf16_stream,
                    size_t utf16_stream_size,
                    size_t *utf16_stream_index,
-                   uint8_t byte_order,
-                   libuca_error_t **error )
+                   uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_from_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -1043,8 +975,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf16_stream(
                    uint8_t *utf16_stream,
                    size_t utf16_stream_size,
                    size_t *utf16_stream_index,
-                   uint8_t byte_order,
-                   libuca_error_t **error )
+                   uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_to_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -1159,8 +1090,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf16_stream(
  * Returns the size of the byte stream
  */
 LIBUCA_INLINE ssize_t libuca_unicode_character_size_to_utf32(
-                       libuca_unicode_character_t unicode_character,
-                       libuca_error_t **error )
+                       libuca_unicode_character_t unicode_character )
 {
 	return( 1 );
 }
@@ -1172,8 +1102,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_utf32(
                    libuca_unicode_character_t *unicode_character,
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
-                   size_t *utf32_string_index,
-                   libuca_error_t **error )
+                   size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32";
 
@@ -1235,8 +1164,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf32(
                    libuca_unicode_character_t unicode_character,
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
-                   size_t *utf32_string_index,
-                   libuca_error_t **error )
+                   size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32";
 
@@ -1293,8 +1221,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_from_utf32_stream(
                    uint8_t *utf32_stream,
                    size_t utf32_stream_size,
                    size_t *utf32_stream_index,
-                   uint8_t byte_order,
-                   libuca_error_t **error )
+                   uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32_stream";
 
@@ -1381,8 +1308,7 @@ LIBUCA_INLINE int libuca_unicode_character_copy_to_utf32_stream(
                    uint8_t *utf32_stream,
                    size_t utf32_stream_size,
                    size_t *utf32_stream_index,
-                   uint8_t byte_order,
-                   libuca_error_t **error )
+                   uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32_stream";
 

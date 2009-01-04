@@ -36,9 +36,11 @@
 
 #include <libuca.h>
 
+#include "byte_size_string.h"
 #include "character_string.h"
 
 #include "ucaoutput.h"
+#include "ucatypes.h"
 
 /* Prints the copyright information
  */
@@ -73,6 +75,152 @@ void ucaoutput_version_fprint(
          program, LIBUCA_VERSION_STRING, LIBUCA_VERSION_STRING );
 
         fprintf( stream, ")\n\n" );
+}
+
+/* Prints a time stamp (with a leading space) to a stream
+ */
+void ucaoutput_timestamp_fprint(
+      FILE *stream,
+      time_t timestamp )
+{
+	struct tm *time_elements = NULL;
+
+	if( stream == NULL )
+	{
+		return;
+	}
+	time_elements = date_time_gmtime(
+	                 &timestamp );
+
+	if( time_elements != NULL )
+	{
+		fprintf( stream, " in" );
+
+		if( time_elements->tm_isdst != 0 )
+		{
+			time_elements->tm_hour -= 1;
+			time_elements->tm_isdst = 0;	
+		}
+		if( time_elements->tm_yday > 0 )
+		{
+			fprintf(
+			 stream,
+			 " %i day(s), %i hour(s), %i minute(s) and",
+			 time_elements->tm_yday,
+			 time_elements->tm_hour,
+			 time_elements->tm_min );
+		}
+		else if( time_elements->tm_hour > 0 )
+		{
+			fprintf(
+			 stream,
+			 " %i hour(s), %i minute(s) and",
+			 time_elements->tm_hour,
+			 time_elements->tm_min );
+		}
+		else if( time_elements->tm_min > 0 )
+		{
+			fprintf(
+			 stream,
+			 " %i minute(s) and",
+			 time_elements->tm_min );
+		}
+		fprintf(
+		 stream,
+		 " %i second(s)",
+		 time_elements->tm_sec );
+
+		memory_free(
+		 time_elements );
+	}
+}
+
+/* Prints the amount of bytes per second (with a leading space) to a stream
+ */
+void ucaoutput_bytes_per_second_fprint(
+      FILE *stream,
+      size64_t bytes,
+      time_t seconds )
+{
+	character_t bytes_per_second_string[ 16 ];
+
+	size64_t bytes_per_second = 0;
+	int result                = 0;
+
+	if( stream == NULL )
+	{
+		return;
+	}
+	if( seconds > 0 )
+	{
+		bytes_per_second = bytes / seconds;
+
+		if( bytes_per_second > 1024 )
+		{
+			result = byte_size_string_create(
+			          bytes_per_second_string,
+			          10,
+			          bytes_per_second,
+			          BYTE_SIZE_STRING_UNIT_MEBIBYTE );
+		}
+		fprintf(
+		 stream,
+		 " with" );
+
+		if( result == 1 )
+		{
+			fprintf(
+			 stream,
+			 " %" PRIs "/s (%" PRIu64 " bytes/second)",
+			 bytes_per_second_string, bytes_per_second );
+		}
+		else
+		{
+			fprintf(
+			 stream,
+			 " %" PRIu64 " bytes/second",
+			 bytes_per_second );
+		}
+	}
+}
+
+/* Prints the amount of bytes (with a leading space) to a stream
+ * Creates a human readable version of the amount of bytes if possible
+ */
+void ucaoutput_bytes_fprint(
+      FILE *stream,
+      size64_t bytes )
+{
+	character_t bytes_string[ 16 ];
+
+	int result = 0;
+
+	if( stream == NULL )
+	{
+		return;
+	}
+	if( bytes > 1024 )
+	{
+		result = byte_size_string_create(
+		          bytes_string,
+		          10,
+		          bytes,
+		          BYTE_SIZE_STRING_UNIT_MEBIBYTE );
+	}
+	if( result == 1 )
+	{
+		fprintf(
+		 stream,
+		 " %" PRIs " (%" PRIi64 " bytes)",
+		 bytes_string, bytes );
+	}
+	else
+	{
+		fprintf(
+		 stream,
+		 " %" PRIi64 " bytes",
+		 bytes );
+	}
 }
 
 /* Prints the codepages information

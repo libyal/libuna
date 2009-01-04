@@ -29,6 +29,8 @@
 
 #include <stdio.h>
 
+#include "ucatypes.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
@@ -39,6 +41,19 @@ void ucaoutput_copyright_fprint(
 void ucaoutput_version_fprint(
       FILE *stream,
       const character_t *program );
+
+void ucaoutput_timestamp_fprint(
+      FILE *stream,
+      time_t timestamp );
+
+void ucaoutput_bytes_per_second_fprint(
+      FILE *stream,
+      size64_t bytes,
+      time_t seconds );
+
+void ucaoutput_bytes_fprint(
+      FILE *stream,
+      size64_t bytes );
 
 void ucaoutput_codepages_fprint(
       FILE *stream );

@@ -50,7 +50,6 @@
 
 #include "character_string.h"
 #include "glob.h"
-#include "safe_types.h"
 #include "system_string.h"
 
 #include "ucacommon.h"
@@ -58,6 +57,7 @@
 #include "ucainput.h"
 #include "ucaoutput.h"
 #include "ucaprocess_status.h"
+#include "ucatypes.h"
 
 /* Prints the executable usage information
  */

@@ -7,7 +7,6 @@ ucaexport_SOURCES = \
 	character_string.c character_string.h \
 	error_string.c error_string.h \
 	glob.c glob.h \
-	process_status.c process_status.h \
 	string_conversion.c string_conversion.h \
 	system_string.c system_string.h \
 	ucacommon.h \
@@ -15,6 +14,7 @@ ucaexport_SOURCES = \
 	ucagetopt.c ucagetopt.h \
 	ucainput.c ucainput.h \
 	ucaoutput.c ucaoutput.h \
+	ucaprocess_status.c ucaprocess_status.h \
 	ucatypes.h
 
 ucaexport_LDADD   = ../common/libcommon.la ../libuca/libuca.la

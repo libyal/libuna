@@ -26,21 +26,10 @@
 #include "libuca_definitions.h"
 #include "libuca_support.h"
 
-const char libuca_error_strings[] = {
-};
-
-/* Returns the library version as a string
+/* Returns the library version
  */
 const char *libuca_get_version(
              void )
-{
-	return( (const char *) LIBUCA_VERSION_STRING );
-}
-
-/* Returns the error code as a string
- */
-const char *libuca_get_error_string(
-             int error_code )
 {
 	return( (const char *) LIBUCA_VERSION_STRING );
 }
