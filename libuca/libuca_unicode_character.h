@@ -33,12 +33,24 @@
 extern "C" {
 #endif
 
+#define libuca_unicode_character_size_to_byte_stream( unicode_character, codepage ) \
+	( codepage == LIBUCA_CODEPAGE_ASCII ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1250 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1251 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1252 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1253 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1254 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1255 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1256 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1257 ) ? 1 : \
+	( codepage == LIBUCA_CODEPAGE_WINDOWS_1258 ) ? 1 : 0
+
 LIBUCA_EXTERN int libuca_unicode_character_copy_from_byte_stream(
                    libuca_unicode_character_t *unicode_character,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 LIBUCA_EXTERN int libuca_unicode_character_copy_to_byte_stream(
@@ -46,7 +58,7 @@ LIBUCA_EXTERN int libuca_unicode_character_copy_to_byte_stream(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 #define libuca_unicode_character_size_to_utf8( unicode_character, strict_mode ) \

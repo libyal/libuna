@@ -34,7 +34,7 @@
 ssize_t libuca_utf32_string_size_from_byte_stream(
          uint8_t *byte_stream,
          size_t byte_stream_size,
-         int code_page,
+         int codepage,
          uint8_t strict_mode )
 {
 	static char *function                        = "libuca_utf32_string_size_from_byte_stream";
@@ -71,7 +71,7 @@ ssize_t libuca_utf32_string_size_from_byte_stream(
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_iterator,
-		     code_page,
+		     codepage,
 		     strict_mode ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from byte stream.\n",
@@ -96,7 +96,7 @@ int libuca_utf32_string_copy_from_byte_stream(
      size_t utf32_string_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     int code_page,
+     int codepage,
      uint8_t strict_mode )
 {
 	static char *function                        = "libuca_utf32_string_copy_from_byte_stream";
@@ -148,7 +148,7 @@ int libuca_utf32_string_copy_from_byte_stream(
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_iterator,
-		     code_page,
+		     codepage,
 		     strict_mode ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from byte stream.\n",

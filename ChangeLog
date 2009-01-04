@@ -1,6 +1,5 @@
 TODO
 
-* implement byte stream size/copy from functions
 * ucaexport implement process_status
 * ucaexport implement signal handling
 
@@ -61,6 +60,7 @@ Other Windows codepages (MBC)
 * Worked on UTF-32 stream functions
 * Refactored to use separate UTF-8/16/32 copy_byte_order_mark functions
 * Worked on uTF-8 stream functions
+* Worked on byte stream size/copy from functions
 
 20080901
 * Worked on initial version

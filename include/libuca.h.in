@@ -62,7 +62,7 @@ LIBUCA_EXTERN int libuca_unicode_character_copy_from_byte_stream(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* Copies a Unicode character to a byte stream string
@@ -73,7 +73,7 @@ LIBUCA_EXTERN int libuca_unicode_character_copy_to_byte_stream(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* Copies a Unicode character from a UTF-8 string
@@ -184,16 +184,38 @@ LIBUCA_EXTERN int libuca_unicode_character_copy_to_utf32_stream(
  * Byte stream functions
  * ------------------------------------------------------------------------- */
 
+/* Determines the size of a byte stream from a UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_byte_stream_size_from_utf8(
+                       libuca_utf8_character_t *utf8_string,
+                       size_t utf8_string_size,
+                       int codepage,
+                       uint8_t strict_mode );
+
 /* Copies a byte stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf8(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    libuca_utf8_character_t *utf8_string,
                    size_t utf8_string_size,
                    uint8_t strict_mode );
+
+/* The functionality for libuca_byte_stream_copy_to_utf8 is implemented by
+ * libuca_utf8_string_copy_from_byte_stream
+ */
+
+/* Determines the size of a byte stream from a UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_byte_stream_size_from_utf16(
+                       libuca_utf16_character_t *utf16_string,
+                       size_t utf16_string_size,
+                       int codepage,
+                       uint8_t strict_mode );
 
 /* Copies a byte stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
@@ -201,10 +223,23 @@ LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf8(
 LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf16(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    libuca_utf16_character_t *utf16_string,
                    size_t utf16_string_size,
                    uint8_t strict_mode );
+
+/* The functionality for libuca_byte_stream_copy_to_utf16 is implemented by
+ * libuca_utf16_string_copy_from_byte_stream
+ */
+
+/* Determines the size of a byte stream from a UTF-32 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUCA_EXTERN ssize_t libuca_byte_stream_size_from_utf32(
+                       libuca_utf32_character_t *utf32_string,
+                       size_t utf32_string_size,
+                       int codepage,
+                       uint8_t strict_mode );
 
 /* Copies a byte stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
@@ -212,10 +247,14 @@ LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf16(
 LIBUCA_EXTERN int libuca_byte_stream_copy_from_utf32(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    libuca_utf32_character_t *utf32_string,
                    size_t utf32_string_size,
                    uint8_t strict_mode );
+
+/* The functionality for libuca_byte_stream_copy_to_utf32 is implemented by
+ * libuca_utf32_string_copy_from_byte_stream
+ */
 
 /* -------------------------------------------------------------------------
  * UTF-8 stream functions
@@ -305,7 +344,7 @@ LIBUCA_EXTERN int libuca_utf8_stream_copy_from_utf32(
 LIBUCA_EXTERN ssize_t libuca_utf8_string_size_from_byte_stream(
                        uint8_t *byte_stream,
                        size_t byte_stream_size,
-                       int code_page,
+                       int codepage,
                        uint8_t strict_mode );
 
 /* Copies an UTF-8 string from a byte stream
@@ -316,7 +355,7 @@ LIBUCA_EXTERN int libuca_utf8_string_copy_from_byte_stream(
                    size_t utf8_string_size,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* The functionality for libuca_utf8_string_copy_to_byte_stream is implemented by
@@ -507,7 +546,7 @@ LIBUCA_EXTERN int libuca_utf16_stream_copy_from_utf32(
 LIBUCA_EXTERN ssize_t libuca_utf16_string_size_from_byte_stream(
                        uint8_t *byte_stream,
                        size_t byte_stream_size,
-                       int code_page,
+                       int codepage,
                        uint8_t strict_mode );
 
 /* Copies an UTF-16 string from a byte stream
@@ -518,7 +557,7 @@ LIBUCA_EXTERN int libuca_utf16_string_copy_from_byte_stream(
                    size_t utf16_string_size,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* The functionality for libuca_utf16_string_copy_to_byte_stream is implemented by
@@ -709,7 +748,7 @@ LIBUCA_EXTERN int libuca_utf32_stream_copy_from_utf32(
 LIBUCA_EXTERN ssize_t libuca_utf32_string_size_from_byte_stream(
                        uint8_t *byte_stream,
                        size_t byte_stream_size,
-                       int code_page,
+                       int codepage,
                        uint8_t strict_mode );
 
 /* Copies an UTF-32 string from a byte stream
@@ -720,7 +759,7 @@ LIBUCA_EXTERN int libuca_utf32_string_copy_from_byte_stream(
                    size_t utf32_string_size,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* The functionality for libuca_utf16_string_copy_to_byte_stream is implemented by

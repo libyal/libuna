@@ -43,7 +43,7 @@ int libuca_unicode_character_copy_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *byte_stream_index,
-     int code_page,
+     int codepage,
      uint8_t strict_mode )
 {
 	static char *function = "libuca_unicode_character_copy_from_byte_stream";
@@ -85,7 +85,7 @@ int libuca_unicode_character_copy_from_byte_stream(
 	}
 	*unicode_character = byte_stream[ *byte_stream_index ];
 
-	switch( code_page )
+	switch( codepage )
 	{
 		case LIBUCA_CODEPAGE_WINDOWS_1250:
 			*unicode_character = libuca_codepage_windows_1250_byte_stream_to_unicode(
@@ -149,7 +149,7 @@ int libuca_unicode_character_copy_to_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *byte_stream_index,
-     int code_page,
+     int codepage,
      uint8_t strict_mode )
 {
 	static char *function = "libuca_unicode_character_copy_to_byte_stream";
@@ -182,7 +182,7 @@ int libuca_unicode_character_copy_to_byte_stream(
 
 		return( -1 );
 	}
-	switch( code_page )
+	switch( codepage )
 	{
 		case LIBUCA_CODEPAGE_WINDOWS_1250:
 			byte_stream[ *byte_stream_index ] = libuca_codepage_windows_1250_unicode_to_byte_stream(

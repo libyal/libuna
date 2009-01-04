@@ -220,7 +220,10 @@ character_t *libuca_string_ctime(
 #define string_copy_from_byte_stream( string, string_size, stream, size_stream, codepage ) \
 	libuca_utf32_string_copy_from_byte_stream( (libuca_utf32_character_t *) string, string_size, stream, size_stream, codepage, 0 )
 
-#define string_copy_to_byte_stream( string, string_size, stream, size_stream, codepage ) \
+#define byte_stream_size_from_utf32( stream, size_stream, codepage, string, string_size ) \
+	libuca_byte_stream_copy_from_utf32( stream, size_stream, codepage, (libuca_utf32_character_t *) string, string_size, 0 )
+
+#define byte_stream_copy_from_utf32( stream, size_stream, codepage, string, string_size ) \
 	libuca_byte_stream_copy_from_utf32( stream, size_stream, codepage, (libuca_utf32_character_t *) string, string_size, 0 )
 
 #elif SIZEOF_WCHAR_T == 2
@@ -230,7 +233,10 @@ character_t *libuca_string_ctime(
 #define string_copy_from_byte_stream( string, string_size, stream, size_stream, codepage ) \
 	libuca_utf16_string_copy_from_byte_stream( (libuca_utf16_character_t *) string, string_size, stream, size_stream, codepage, 0 )
 
-#define string_copy_to_byte_stream( string, string_size, stream, size_stream, codepage ) \
+#define byte_stream_size_from_utf16( stream, size_stream, codepage, string, string_size ) \
+	libuca_byte_stream_copy_from_utf16( stream, size_stream, codepage, (libuca_utf16_character_t *) string, string_size, 0 )
+
+#define byte_stream_copy_from_utf16( stream, size_stream, codepage, string, string_size ) \
 	libuca_byte_stream_copy_from_utf16( stream, size_stream, codepage, (libuca_utf16_character_t *) string, string_size, 0 )
 
 #else
@@ -244,7 +250,10 @@ character_t *libuca_string_ctime(
 #define string_copy_from_byte_stream( string, string_size, stream, size_stream, codepage ) \
 	libuca_utf8_string_copy_from_byte_stream( (libuca_utf8_character_t *) string, string_size, stream, size_stream, codepage, 0 )
 
-#define string_copy_to_byte_stream( string, string_size, stream, size_stream, codepage ) \
+#define byte_stream_size_from_utf8( stream, size_stream, codepage, string, string_size ) \
+	libuca_byte_stream_copy_from_utf8( stream, size_stream, codepage, (libuca_utf8_character_t *) string, string_size, 0 )
+
+#define byte_stream_copy_from_utf8( stream, size_stream, codepage, string, string_size ) \
 	libuca_byte_stream_copy_from_utf8( stream, size_stream, codepage, (libuca_utf8_character_t *) string, string_size, 0 )
 
 #endif

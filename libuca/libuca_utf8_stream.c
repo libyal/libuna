@@ -110,14 +110,14 @@ ssize_t libuca_utf8_stream_size_from_utf8(
 /* Copies an UTF-8 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_utf8_stream_copy_to_utf8(
+int libuca_utf8_stream_copy_from_utf8(
      uint8_t *utf8_stream,
      size_t utf8_stream_size,
      libuca_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      uint8_t strict_mode )
 {
-	static char *function       = "libuca_utf8_stream_copy_to_utf8";
+	static char *function       = "libuca_utf8_stream_copy_from_utf8";
 	size_t utf8_string_iterator = 0;
 	size_t utf8_stream_iterator = 0;
 

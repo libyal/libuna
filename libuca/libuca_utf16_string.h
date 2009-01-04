@@ -35,7 +35,7 @@ extern "C" {
 LIBUCA_EXTERN ssize_t libuca_utf16_string_size_from_byte_stream(
                        uint8_t *byte_stream,
                        size_t byte_stream_size,
-                       int code_page,
+                       int codepage,
                        uint8_t strict_mode );
 
 LIBUCA_EXTERN int libuca_utf16_string_copy_from_byte_stream(
@@ -43,7 +43,7 @@ LIBUCA_EXTERN int libuca_utf16_string_copy_from_byte_stream(
                    size_t utf16_string_size,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
-                   int code_page,
+                   int codepage,
                    uint8_t strict_mode );
 
 /* The functionality for libuca_utf16_string_copy_to_byte_stream is implemented by
