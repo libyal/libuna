@@ -1,14 +1,11 @@
 TODO
 
 * implement error
- - error backtrace function
- - error to errno function
- - error print function
  - move notify to ucatools
 
-* what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
-
-* unaexport implement signal handling
+* ucaexport:
+  - what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
+  - implement signal handling
 
 * speed test between index based and pointer based iteration
 

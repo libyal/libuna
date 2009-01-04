@@ -1,5 +1,5 @@
 /*
- * The error code definitions
+ * The error code definitions for libuna
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -23,58 +23,34 @@
 #if !defined( _LIBUNA_ERROR_H )
 #define _LIBUNA_ERROR_H
 
-/* The error domains
+/* External error type definition hides internal structure
  */
-#define LIBUNA_ERROR_DOMAIN_ARGUMENTS			(int) 'a'
-#define LIBUNA_ERROR_DOMAIN_CONVERSION			(int) 'c'
-#define LIBUNA_ERROR_DOMAIN_IO				(int) 'i'
-#define LIBUNA_ERROR_DOMAIN_MEMORY			(int) 'm'
-
-/* Argument error codes
- */
-#define LIBUNA_ERROR_ARGUMENT_INVALID			1
-#define LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM		2
-#define LIBUNA_ERROR_ARGUMENT_TOO_SMALL			3
-#define LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE		4
-
-/* Libuna error codes
- */
-#define LIBUNA_ERROR_CONVERSION_INVALID_INPUT		5
-#define LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT		6
+typedef intptr_t libuna_error_t;
 
 /* The error domains
  */
-typedef enum libuna_error_domain libuna_error_domain_t;
-
-enum libuna_error_domain
+enum LIBUNA_ERROR_DOMAINS
 {
-	arguments  = (int) 'a',
-	conversion = (int) 'c',
-	input      = (int) 'i',
-	memory     = (int) 'm',
-	output     = (int) 'o'
+	LIBUNA_ERROR_DOMAIN_ARGUMENTS           = (int) 'a',
+	LIBUNA_ERROR_DOMAIN_CONVERSION          = (int) 'c',
 };
 
 /* The argument error codes
  */
-typedef enum libuna_argument_error libuca_argument_error_t;
-
-enum libuna_argument_error
+enum LIBUNA_ARGUMENT_ERROR
 {
-	invalid           = 0,
-	exceeds_maximum   = 1,
-	too_small         = 2,
-	unsupported_value = 3
+	LIBUNA_ARGUMENT_ERROR_INVALID           = 0,
+	LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM   = 1,
+	LIBUNA_ARGUMENT_ERROR_TOO_SMALL         = 2,
+	LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE = 3
 };
 
 /* The conversion error codes
  */
-typedef enum libuna_conversion_error libuca_conversion_error_t;
-
-enum libuna_conversion_error
+enum LIBUNA_CONVERSION_ERROR
 {
-	invalid_input  = 0,
-	invalid_output = 1
+	LIBUNA_CONVERSION_ERROR_INVALID_INPUT   = 0,
+	LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT  = 1
 };
 
 #endif

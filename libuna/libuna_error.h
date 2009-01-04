@@ -28,12 +28,53 @@
 
 #include <stdio.h>
 
+/* Define HAVE_LOCAL_LIBUNA for local use of libuna
+ */
+#if !defined( HAVE_LOCAL_LIBUNA )
 #include <libuna/error.h>
+#endif
 
 #include "libuna_extern.h"
 
 #if defined( __cplusplus )
 extern "C" {
+#endif
+
+/* The definitions in <libuna/error.h> are copied here
+ * for local use of libuna
+ */
+#if defined( HAVE_LOCAL_LIBUNA )
+
+/* External error type definition hides internal structure
+ */
+typedef intptr_t libuna_error_t;
+
+/* The error domains
+ */
+enum LIBUNA_ERROR_DOMAINS
+{
+	LIBUNA_ERROR_DOMAIN_ARGUMENTS           = (int) 'a',
+	LIBUNA_ERROR_DOMAIN_CONVERSION          = (int) 'c',
+};
+
+/* The argument error codes
+ */
+enum LIBUNA_ARGUMENT_ERROR
+{
+	LIBUNA_ARGUMENT_ERROR_INVALID           = 0,
+	LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM   = 1,
+	LIBUNA_ARGUMENT_ERROR_TOO_SMALL         = 2,
+	LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE = 3
+};
+
+/* The conversion error codes
+ */
+enum LIBUNA_CONVERSION_ERROR
+{
+	LIBUNA_CONVERSION_ERROR_INVALID_INPUT   = 0,
+	LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT  = 1
+};
+
 #endif
 
 typedef struct libuna_internal_error libuna_internal_error_t;
@@ -72,8 +113,13 @@ void libuna_error_add_message(
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );
 
-LIBUNA_EXTERN int libuna_error_get_errno(
-                    libuna_error_t *error );
+LIBUNA_EXTERN void libuna_error_fprint(
+                    libuna_error_t *error,
+                    FILE *stream );
+
+LIBUNA_EXTERN void libuna_error_backtrace_fprint(
+                    libuna_error_t *error,
+                    FILE *stream );
 
 #if defined( __cplusplus )
 }

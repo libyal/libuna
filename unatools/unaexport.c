@@ -421,7 +421,9 @@ ssize64_t unaexport(
 			notify_warning_printf( "%s: unable to set byte order mark.\n",
 			 function );
 
-			/* TODO print error */
+			libuna_error_backtrace_fprint(
+			 error,
+			 stderr );
 			libuna_error_free(
 			 &error );
 
@@ -442,6 +444,9 @@ ssize64_t unaexport(
 			notify_warning_printf( "%s: error was set but return code was: %d.\n",
 			 function, result );
 
+			libuna_error_backtrace_fprint(
+			 error,
+			 stderr );
 			libuna_error_free(
 			 &error );
 		}
@@ -635,7 +640,9 @@ ssize64_t unaexport(
 				notify_warning_printf( "%s: unable to convert input character.\n",
 				 function );
 
-				/* TODO print error */
+				libuna_error_backtrace_fprint(
+				 error,
+				 stderr );
 				libuna_error_free(
 				 &error );
 
@@ -648,6 +655,9 @@ ssize64_t unaexport(
 				notify_warning_printf( "%s: error was set but return code was: %d.\n",
 				 function, result );
 
+				libuna_error_backtrace_fprint(
+				 error,
+				 stderr );
 				libuna_error_free(
 				 &error );
 			}
@@ -775,7 +785,9 @@ ssize64_t unaexport(
 					notify_warning_printf( "%s: unable to convert output character.\n",
 					 function );
 
-					/* TODO print error */
+					libuna_error_backtrace_fprint(
+					 error,
+					 stderr );
 					libuna_error_free(
 					 &error );
 
@@ -789,6 +801,9 @@ ssize64_t unaexport(
 				notify_warning_printf( "%s: error was set but return code was: %d.\n",
 				 function, result );
 
+				libuna_error_backtrace_fprint(
+				 error,
+				 stderr );
 				libuna_error_free(
 				 &error );
 			}

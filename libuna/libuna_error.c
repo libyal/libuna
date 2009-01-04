@@ -209,16 +209,19 @@ void libuna_error_free(
 	}
 	if( *error != NULL )
 	{
-		for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) error )->amount_of_messages; message_iterator++ )
+		if( ( (libuna_internal_error_t *) *error )->message != NULL )
 		{
-			if( ( (libuna_internal_error_t *) error )->message[ message_iterator ] != NULL )
+			for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) error )->amount_of_messages; message_iterator++ )
 			{
-				memory_free(
-				 ( (libuna_internal_error_t *) error )->message[ message_iterator ] );
+				if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
+				{
+					memory_free(
+					 ( (libuna_internal_error_t *) *error )->message[ message_iterator ] );
+				}
 			}
+			memory_free(
+			 ( (libuna_internal_error_t *) *error )->message );
 		}
-		memory_free(
-		 ( (libuna_internal_error_t *) error )->message );
 		memory_free(
 		 *error );
 
@@ -226,12 +229,78 @@ void libuna_error_free(
 	}
 }
 
-/* Converts the error to an equivalent errno
+/* Prints a descriptive string of the error to the stream
  */
-int libuna_error_get_errno(
-     libuna_error_t *error )
+void libuna_error_fprint(
+     libuna_error_t *error,
+     FILE *stream )
 {
-	/* TODO */
-	return( -1 );
+	int message_iterator = 0;
+
+	if( stream == NULL )
+	{
+		return;
+	}
+	if( error == NULL )
+	{
+		return;
+	}
+	if( ( (libuna_internal_error_t *) *error )->message == NULL )
+	{
+		return;
+	}
+	message_iterator = ( (libuna_internal_error_t *) error )->amount_of_messages - 1;
+
+	if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
+	{
+		fprintf(
+		 stream,
+		 "%s\n",
+		 ( (libuna_internal_error_t *) *error )->message[ message_iterator ] );
+	}
+	else
+	{
+		fprintf(
+		 stream,
+		 "<missing>" );
+	}
+}
+
+/* Prints a backtrace of the error to the stream
+ */
+void libuna_error_backtrace_fprint(
+     libuna_error_t *error,
+     FILE *stream )
+{
+	int message_iterator = 0;
+
+	if( stream == NULL )
+	{
+		return;
+	}
+	if( error == NULL )
+	{
+		return;
+	}
+	if( ( (libuna_internal_error_t *) *error )->message == NULL )
+	{
+		return;
+	}
+	for( message_iterator = 0; message_iterator < ( (libuna_internal_error_t *) error )->amount_of_messages; message_iterator++ )
+	{
+		if( ( (libuna_internal_error_t *) *error )->message[ message_iterator ] != NULL )
+		{
+			fprintf(
+			 stream,
+			 "%s\n",
+			 ( (libuna_internal_error_t *) *error )->message[ message_iterator ] );
+		}
+		else
+		{
+			fprintf(
+			 stream,
+			 "<missing>" );
+		}
+	}
 }
 

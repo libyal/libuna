@@ -24,6 +24,7 @@
 #define _LIBUNA_H
 
 #include <libuna/definitions.h>
+#include <libuna/error.h>
 #include <libuna/extern.h>
 #include <libuna/inline.h>
 #include <libuna/types.h>
@@ -47,6 +48,18 @@ LIBUNA_EXTERN const char *libuna_get_version(
  */
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );
+
+/* Prints a descriptive string of the error to the stream
+ */
+LIBUNA_EXTERN void libuna_error_fprint(
+                    libuna_error_t *error,
+                    FILE *stream );
+
+/* Prints a backtrace of the error to the stream
+ *  */
+LIBUNA_EXTERN void libuna_error_backtrace_fprint(
+                    libuna_error_t *error,
+                    FILE *stream );
 
 /* -------------------------------------------------------------------------
  * Unicode character functions

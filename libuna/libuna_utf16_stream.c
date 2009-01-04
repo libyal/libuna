@@ -46,7 +46,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
@@ -57,7 +57,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
@@ -68,7 +68,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream index.\n",
 		 function );
 
@@ -79,7 +79,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_TOO_SMALL,
+		 LIBUNA_ARGUMENT_ERROR_TOO_SMALL,
 		 "%s: UTF-16 stream too small.\n",
 		 function );
 
@@ -91,7 +91,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.\n",
 		 function );
 
@@ -130,7 +130,7 @@ int libuna_utf16_stream_size_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-8 string.\n",
 		 function );
 
@@ -141,7 +141,7 @@ int libuna_utf16_stream_size_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
 		 function );
 
@@ -152,7 +152,7 @@ int libuna_utf16_stream_size_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream size.\n",
 		 function );
 
@@ -176,7 +176,7 @@ int libuna_utf16_stream_size_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
 			 "%s: unable to copy Unicode character from UTF-8.\n",
 			 function );
 
@@ -192,7 +192,7 @@ int libuna_utf16_stream_size_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 			 "%s: unable to determine size of Unicode character in UTF-16.\n",
 			 function );
 
@@ -227,7 +227,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
@@ -238,7 +238,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
@@ -250,7 +250,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.\n",
 		 function );
 
@@ -261,7 +261,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-8 string.\n",
 		 function );
 
@@ -272,7 +272,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
 		 function );
 
@@ -288,7 +288,7 @@ int libuna_utf16_stream_copy_from_utf8(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -308,7 +308,7 @@ int libuna_utf16_stream_copy_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
 			 "%s: unable to copy Unicode character from UTF-8 string.\n",
 			 function );
 
@@ -327,7 +327,7 @@ int libuna_utf16_stream_copy_from_utf8(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 			 "%s: unable to copy Unicode character to UTF-16 stream.\n",
 			 function );
 
@@ -353,7 +353,7 @@ int libuna_utf16_stream_size_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 string.\n",
 		 function );
 
@@ -364,7 +364,7 @@ int libuna_utf16_stream_size_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
 		 function );
 
@@ -375,7 +375,7 @@ int libuna_utf16_stream_size_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream size.\n",
 		 function );
 
@@ -414,7 +414,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
@@ -425,7 +425,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
@@ -437,7 +437,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.\n",
 		 function );
 
@@ -448,7 +448,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 string.\n",
 		 function );
 
@@ -459,7 +459,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
 		 function );
 
@@ -475,7 +475,7 @@ int libuna_utf16_stream_copy_from_utf16(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -522,7 +522,7 @@ int libuna_utf16_stream_size_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-32 string.\n",
 		 function );
 
@@ -533,7 +533,7 @@ int libuna_utf16_stream_size_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
 		 function );
 
@@ -544,7 +544,7 @@ int libuna_utf16_stream_size_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream size.\n",
 		 function );
 
@@ -568,7 +568,7 @@ int libuna_utf16_stream_size_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
 			 "%s: unable to copy Unicode character from UTF-32.\n",
 			 function );
 
@@ -584,7 +584,7 @@ int libuna_utf16_stream_size_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 			 "%s: unable to determine size of Unicode character in UTF-16.\n",
 			 function );
 
@@ -619,7 +619,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-16 stream.\n",
 		 function );
 
@@ -630,7 +630,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 stream size value exceeds maximum.\n",
 		 function );
 
@@ -642,7 +642,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_UNSUPPORTED_VALUE,
+		 LIBUNA_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.\n",
 		 function );
 
@@ -653,7 +653,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_INVALID,
+		 LIBUNA_ARGUMENT_ERROR_INVALID,
 		 "%s: invalid UTF-32 string.\n",
 		 function );
 
@@ -664,7 +664,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
-		 LIBUNA_ERROR_ARGUMENT_EXCEEDS_MAXIMUM,
+		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
 		 function );
 
@@ -680,7 +680,7 @@ int libuna_utf16_stream_copy_from_utf32(
 		libuna_error_set(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_CONVERSION,
-		 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+		 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 		 "%s: unable to copy UTF-16 byte order mark.\n",
 		 function );
 
@@ -700,7 +700,7 @@ int libuna_utf16_stream_copy_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_INPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_INPUT,
 			 "%s: unable to copy Unicode character from UTF-32 string.\n",
 			 function );
 
@@ -719,7 +719,7 @@ int libuna_utf16_stream_copy_from_utf32(
 			libuna_error_set(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
-			 LIBUNA_ERROR_CONVERSION_INVALID_OUTPUT,
+			 LIBUNA_CONVERSION_ERROR_INVALID_OUTPUT,
 			 "%s: unable to copy Unicode character to UTF-16 stream.\n",
 			 function );
 

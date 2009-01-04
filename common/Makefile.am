@@ -5,7 +5,6 @@ noinst_LTLIBRARIES = libcommon.la
 libcommon_la_SOURCES = \
 	common.h \
 	date_time.c date_time.h \
-	endian.h \
 	file_io.c file_io.h \
 	file_stream_io.h \
 	memory.h \
