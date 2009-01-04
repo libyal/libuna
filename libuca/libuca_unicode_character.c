@@ -35,16 +35,47 @@
 #include "libuca_definitions.h"
 #include "libuca_unicode_character.h"
 
+/* Determines the size of a byte stream character to from a Unicode character
+ * Returns the size of the byte stream
+ */
+inline size_t libuca_unicode_character_size_to_byte_stream(
+               libuca_unicode_character_t unicode_character,
+               int codepage )
+{
+	size_t byte_stream_character_size = 0;
+
+	/* TODO handle multi byte characters
+	 */
+	switch( codepage )
+	{
+		case LIBUCA_CODEPAGE_ASCII:
+		case LIBUCA_CODEPAGE_WINDOWS_1250:
+		case LIBUCA_CODEPAGE_WINDOWS_1251:
+		case LIBUCA_CODEPAGE_WINDOWS_1252:
+		case LIBUCA_CODEPAGE_WINDOWS_1253:
+		case LIBUCA_CODEPAGE_WINDOWS_1254:
+		case LIBUCA_CODEPAGE_WINDOWS_1255:
+		case LIBUCA_CODEPAGE_WINDOWS_1256:
+		case LIBUCA_CODEPAGE_WINDOWS_1257:
+		case LIBUCA_CODEPAGE_WINDOWS_1258:
+			byte_stream_character_size = 1;
+			break;
+
+		default:
+			break;
+	}
+	return( byte_stream_character_size );
+}
+
 /* Copies a Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_byte_stream(
-     libuca_unicode_character_t *unicode_character,
-     uint8_t *byte_stream,
-     size_t byte_stream_size,
-     size_t *byte_stream_index,
-     int codepage,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_byte_stream(
+            libuca_unicode_character_t *unicode_character,
+            uint8_t *byte_stream,
+            size_t byte_stream_size,
+            size_t *byte_stream_index,
+            int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_from_byte_stream";
 
@@ -128,14 +159,6 @@ int libuca_unicode_character_copy_from_byte_stream(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
 	}
-	if( ( strict_mode != 0 )
-	 && ( *unicode_character == LIBUCA_UNICODE_REPLACEMENT_CHARACTER ) )
-	{
-		notify_warning_printf( "%s: unable to convert byte stream into Unicode.\n",
-		 function );
-
-		return( -1 );
-	}
 	*byte_stream_index += 1;
 
 	return( 1 );
@@ -144,13 +167,12 @@ int libuca_unicode_character_copy_from_byte_stream(
 /* Copies a Unicode character to a byte stream string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_byte_stream(
-     libuca_unicode_character_t unicode_character,
-     uint8_t *byte_stream,
-     size_t byte_stream_size,
-     size_t *byte_stream_index,
-     int codepage,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_byte_stream(
+            libuca_unicode_character_t unicode_character,
+            uint8_t *byte_stream,
+            size_t byte_stream_size,
+            size_t *byte_stream_index,
+            int codepage )
 {
 	static char *function = "libuca_unicode_character_copy_to_byte_stream";
 
@@ -225,28 +247,72 @@ int libuca_unicode_character_copy_to_byte_stream(
 			                                     unicode_character );
 			break;
 	}
-	if( ( strict_mode != 0 )
-	 && ( byte_stream[ *byte_stream_index ] == LIBUCA_ASCII_REPLACEMENT_CHARACTER ) )
-	{
-		notify_warning_printf( "%s: unable to convert Unicode character into byte stream.\n",
-		 function );
-
-		return( -1 );
-	}
 	*byte_stream_index += 1;
 
 	return( 1 );
 }
 
+/* Determines the size of a UTF-8 character to from a Unicode character
+ * Returns the size of the byte stream
+ */
+inline size_t libuca_unicode_character_size_to_utf8(
+               libuca_unicode_character_t unicode_character )
+{
+	size_t utf8_character_size = 0;
+
+	if( unicode_character < 0x080 )
+	{
+		utf8_character_size = 1;
+	}
+	else if( unicode_character < 0x0800 )
+	{
+		utf8_character_size = 2;
+	}
+	else if( unicode_character < 0x010000 )
+	{
+		utf8_character_size = 3;
+	}
+	else if( unicode_character > LIBUCA_UNICODE_CHARACTER_MAX )
+	{
+		utf8_character_size = 3;
+	}
+	else
+	{
+		utf8_character_size = 4;
+	}
+/* UTF-8 USC support ?
+	else if( unicode_character < 0x010000 )
+	{
+		utf8_character_size = 3;
+	}
+	else if( unicode_character > LIBUCA_UNICODE_CHARACTER_MAX )
+	{
+		utf8_character_size = 2;
+	}
+	else if( unicode_character < 0x0200000 )
+	{
+		utf8_character_size = 4;
+	}
+	else if( unicode_character < 0x0400000 )
+	{
+		utf8_character_size = 5;
+	}
+	else
+	{
+		utf8_character_size = 6;
+	}
+*/
+	return( utf8_character_size );
+}
+
 /* Copies a Unicode character from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_utf8(
-     libuca_unicode_character_t *unicode_character,
-     libuca_utf8_character_t *utf8_string,
-     size_t utf8_string_size,
-     size_t *utf8_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_utf8(
+            libuca_unicode_character_t *unicode_character,
+            libuca_utf8_character_t *utf8_string,
+            size_t utf8_string_size,
+            size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_from_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -467,8 +533,9 @@ int libuca_unicode_character_copy_from_utf8(
 		*unicode_character += utf8_string[ *utf8_string_index + 5 ];
 		*unicode_character -= 0x082082080;
 	}
-	if( ( strict_mode != 0 )
-	 && ( *unicode_character > LIBUCA_UNICODE_CHARACTER_MAX ) )
+	/* Determine if the Unicode character is valid
+	 */
+	if( *unicode_character > LIBUCA_UNICODE_CHARACTER_MAX )
 	{
 		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
@@ -480,12 +547,11 @@ int libuca_unicode_character_copy_from_utf8(
 /* Copies a Unicode character into a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_utf8(
-     libuca_unicode_character_t unicode_character,
-     libuca_utf8_character_t *utf8_string,
-     size_t utf8_string_size,
-     size_t *utf8_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_utf8(
+            libuca_unicode_character_t unicode_character,
+            libuca_utf8_character_t *utf8_string,
+            size_t utf8_string_size,
+            size_t *utf8_string_index )
 {
 	static char *function                   = "libuca_unicode_character_copy_to_utf8";
 	uint8_t utf8_character_additional_bytes = 0;
@@ -520,8 +586,9 @@ int libuca_unicode_character_copy_to_utf8(
 
 		return( -1 );
 	}
-	if( ( strict_mode != 0 )
-	 && ( unicode_character > LIBUCA_UNICODE_CHARACTER_MAX ) )
+	/* Determine if the UTF-8 character is valid
+	 */
+	if( unicode_character > LIBUCA_UNICODE_CHARACTER_MAX )
 	{
 		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
@@ -579,17 +646,32 @@ int libuca_unicode_character_copy_to_utf8(
 	return( 1 );
 }
 
+/* Determines the size of a UTF-16 character to from a Unicode character
+ * Returns the size of the byte stream
+ */
+inline size_t libuca_unicode_character_size_to_utf16(
+               libuca_unicode_character_t unicode_character )
+{
+	size_t utf16_character_size = 1;
+
+	if( ( unicode_character > LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
+         && ( unicode_character <= LIBUCA_UTF16_CHARACTER_MAX ) )
+	{
+		utf16_character_size = 2;
+	}
+	return( utf16_character_size );
+}
+
 /* Copies a Unicode character from a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_utf16(
-     libuca_unicode_character_t *unicode_character,
-     libuca_utf16_character_t *utf16_string,
-     size_t utf16_string_size,
-     size_t *utf16_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_utf16(
+            libuca_unicode_character_t *unicode_character,
+            libuca_utf16_character_t *utf16_string,
+            size_t utf16_string_size,
+            size_t *utf16_string_index )
 {
-	static char *function                          = "libuca_unicode_character_copy_from_utf16";
+	static char *function                    = "libuca_unicode_character_copy_from_utf16";
 	libuca_utf16_character_t utf16_surrogate = 0;
 
 	if( unicode_character == NULL )
@@ -657,22 +739,15 @@ int libuca_unicode_character_copy_from_utf16(
 		}
 		else
 		{
-			notify_warning_printf( "%s: invalid surrogate UTF-16 character bytes.\n",
-			 function );
-
-			return( -1 );
+			*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 		}
 	}
-	else if( strict_mode != 0 )
+	/* Determine if the Unicode character is valid
+	 */
+	else if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
+	      && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	{
-		if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-		 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-		{
-			notify_warning_printf( "%s: invalid UTF-16 character value in low surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
+		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
 	return( 1 );
 }
@@ -680,12 +755,11 @@ int libuca_unicode_character_copy_from_utf16(
 /* Copies a Unicode character into a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_utf16(
-     libuca_unicode_character_t unicode_character,
-     libuca_utf16_character_t *utf16_string,
-     size_t utf16_string_size,
-     size_t *utf16_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_utf16(
+            libuca_unicode_character_t unicode_character,
+            libuca_utf16_character_t *utf16_string,
+            size_t utf16_string_size,
+            size_t *utf16_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf16";
 
@@ -717,34 +791,17 @@ int libuca_unicode_character_copy_to_utf16(
 
 		return( -1 );
 	}
+	/* Determine if the UTF-16 character is valid
+	 */
+	if( ( ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  && ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUCA_UTF16_CHARACTER_MAX ) )
+	{
+		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
 	if( unicode_character <= LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 	{
-		if( ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START )
-		 && ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-		{
-			if( strict_mode != 0 )
-			{
-				notify_warning_printf( "%s: invalid Unicode character value in surrogate range.\n",
-				 function );
-
-				return( -1 );
-			}
-			unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
-		}
 		utf16_string[ *utf16_string_index ] = (libuca_utf16_character_t) unicode_character;
-
-		*utf16_string_index += 1;
-	}
-	else if( unicode_character > LIBUCA_UTF16_CHARACTER_MAX )
-	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value exceeds UTF-16 maximum.\n",
-			 function );
-
-			return( -1 );
-		}
-		utf16_string[ *utf16_string_index ] = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 
 		*utf16_string_index += 1;
 	}
@@ -769,13 +826,12 @@ int libuca_unicode_character_copy_to_utf16(
 /* Copies a Unicode character from a UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_utf16_stream(
-     libuca_unicode_character_t *unicode_character,
-     uint8_t *utf16_stream,
-     size_t utf16_stream_size,
-     size_t *utf16_stream_index,
-     uint8_t byte_order,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_utf16_stream(
+            libuca_unicode_character_t *unicode_character,
+            uint8_t *utf16_stream,
+            size_t utf16_stream_size,
+            size_t *utf16_stream_index,
+            uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_from_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -875,22 +931,15 @@ int libuca_unicode_character_copy_from_utf16_stream(
 		}
 		else
 		{
-			notify_warning_printf( "%s: invalid surrogate UTF-16 character bytes.\n",
-			 function );
-
-			return( -1 );
+			*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 		}
 	}
-	else if( strict_mode != 0 )
+	/* Determine if the Unicode character is valid
+	 */
+	else if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
+	      && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	{
-		if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-		 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-		{
-			notify_warning_printf( "%s: invalid UTF-16 character value in low surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
+		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
 	return( 1 );
 }
@@ -898,13 +947,12 @@ int libuca_unicode_character_copy_from_utf16_stream(
 /* Copies a Unicode character to an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_utf16_stream(
-     libuca_unicode_character_t unicode_character,
-     uint8_t *utf16_stream,
-     size_t utf16_stream_size,
-     size_t *utf16_stream_index,
-     uint8_t byte_order,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_utf16_stream(
+            libuca_unicode_character_t unicode_character,
+            uint8_t *utf16_stream,
+            size_t utf16_stream_size,
+            size_t *utf16_stream_index,
+            uint8_t byte_order )
 {
 	static char *function                    = "libuca_unicode_character_copy_to_utf16_stream";
 	libuca_utf16_character_t utf16_surrogate = 0;
@@ -945,45 +993,16 @@ int libuca_unicode_character_copy_to_utf16_stream(
 
 		return( -1 );
 	}
+	/* Determine if the UTF-16 character is valid
+	 */
+	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
+	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	 || ( unicode_character > LIBUCA_UTF16_CHARACTER_MAX ) )
+	{
+		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
 	if( unicode_character <= LIBUCA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 	{
-		if( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-		 && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
-		{
-			if( strict_mode != 0 )
-			{
-				notify_warning_printf( "%s: invalid Unicode character value in surrogate range.\n",
-				 function );
-
-				return( -1 );
-			}
-			unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
-		}
-		if( byte_order == LIBUCA_ENDIAN_BIG )
-		{
-			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
-			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
-		}
-		else if( byte_order == LIBUCA_ENDIAN_LITTLE )
-		{
-			utf16_stream[ *utf16_stream_index     ]   = (uint8_t) ( unicode_character & 0xff );
-			unicode_character                       >>= 8;
-			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
-		}
-		*utf16_stream_index += 2;
-	}
-	else if( unicode_character > LIBUCA_UTF16_CHARACTER_MAX )
-	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value exceeds UTF-16 maximum.\n",
-			 function );
-
-			return( -1 );
-		}
-		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
-
 		if( byte_order == LIBUCA_ENDIAN_BIG )
 		{
 			utf16_stream[ *utf16_stream_index + 1 ]   = (uint8_t) ( unicode_character & 0xff );
@@ -1044,15 +1063,23 @@ int libuca_unicode_character_copy_to_utf16_stream(
 	return( 1 );
 }
 
+/* Determines the size of a UTF-32 character to from a Unicode character
+ * Returns the size of the byte stream
+ */
+inline size_t libuca_unicode_character_size_to_utf32(
+               libuca_unicode_character_t unicode_character )
+{
+	return( 1 );
+}
+
 /* Copies a Unicode character from a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_utf32(
-     libuca_unicode_character_t *unicode_character,
-     libuca_utf32_character_t *utf32_string,
-     size_t utf32_string_size,
-     size_t *utf32_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_utf32(
+            libuca_unicode_character_t *unicode_character,
+            libuca_utf32_character_t *utf32_string,
+            size_t utf32_string_size,
+            size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32";
 
@@ -1091,20 +1118,16 @@ int libuca_unicode_character_copy_from_utf32(
 
 		return( -1 );
 	}
-	*unicode_character = utf32_string[ *utf32_string_index ];
-
-	if( strict_mode != 0 )
+	/* Determine if the Unicode character is valid
+	 */
+	if( ( utf32_string[ *utf32_string_index ] >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
+	  && ( utf32_string[ *utf32_string_index ] <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
 	{
-		/* Determine if the UTF-32 character is within the high surrogate range
-		 */
-		if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-		 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-		{
-			notify_warning_printf( "%s: invalid UTF-32 character value in low surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
+		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	else
+	{
+		*unicode_character = utf32_string[ *utf32_string_index ];
 	}
 	*utf32_string_index += 1;
 
@@ -1114,12 +1137,11 @@ int libuca_unicode_character_copy_from_utf32(
 /* Copies a Unicode character into a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_utf32(
-     libuca_unicode_character_t unicode_character,
-     libuca_utf32_character_t *utf32_string,
-     size_t utf32_string_size,
-     size_t *utf32_string_index,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_utf32(
+            libuca_unicode_character_t unicode_character,
+            libuca_utf32_character_t *utf32_string,
+            size_t utf32_string_size,
+            size_t *utf32_string_index )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32";
 
@@ -1151,31 +1173,18 @@ int libuca_unicode_character_copy_to_utf32(
 
 		return( -1 );
 	}
-	if( unicode_character > LIBUCA_UTF32_CHARACTER_MAX )
+	/* Determine if the UTF-32 character is valid
+	 */
+	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
+	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	 || ( utf32_string[ *utf32_string_index ] > LIBUCA_UTF32_CHARACTER_MAX ) )
 	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value exceeds UTF-32 maximum.\n",
-			 function );
-
-			return( -1 );
-		}
-		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+		utf32_string[ *utf32_string_index ] = (libuca_utf32_character_t) LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
-	else if( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-	      && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	else
 	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value in surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
-		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+		utf32_string[ *utf32_string_index ] = (libuca_utf32_character_t) unicode_character;
 	}
-	utf32_string[ *utf32_string_index ] = (libuca_utf32_character_t) unicode_character;
-
 	*utf32_string_index += 1;
 
 	return( 1 );
@@ -1184,13 +1193,12 @@ int libuca_unicode_character_copy_to_utf32(
 /* Copies a Unicode character from a UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_from_utf32_stream(
-     libuca_unicode_character_t *unicode_character,
-     uint8_t *utf32_stream,
-     size_t utf32_stream_size,
-     size_t *utf32_stream_index,
-     uint8_t byte_order,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_from_utf32_stream(
+            libuca_unicode_character_t *unicode_character,
+            uint8_t *utf32_stream,
+            size_t utf32_stream_size,
+            size_t *utf32_stream_index,
+            uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_from_utf32_stream";
 
@@ -1257,34 +1265,27 @@ int libuca_unicode_character_copy_from_utf32_stream(
 		*unicode_character <<= 8;
 		*unicode_character  += utf32_stream[ *utf32_stream_index ];
 	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
+	  && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	{
+		*unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
+	}
 	*utf32_stream_index += 4;
 
-	if( strict_mode != 0 )
-	{
-		/* Determine if the UTF-32 character is within the high surrogate range
-		 */
-		if( ( *unicode_character >= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_START )
-		 && ( *unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-		{
-			notify_warning_printf( "%s: invalid UTF-32 character value in low surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
-	}
 	return( 1 );
 }
 
 /* Copies a Unicode character to an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
-int libuca_unicode_character_copy_to_utf32_stream(
-     libuca_unicode_character_t unicode_character,
-     uint8_t *utf32_stream,
-     size_t utf32_stream_size,
-     size_t *utf32_stream_index,
-     uint8_t byte_order,
-     uint8_t strict_mode )
+inline int libuca_unicode_character_copy_to_utf32_stream(
+            libuca_unicode_character_t unicode_character,
+            uint8_t *utf32_stream,
+            size_t utf32_stream_size,
+            size_t *utf32_stream_index,
+            uint8_t byte_order )
 {
 	static char *function = "libuca_unicode_character_copy_to_utf32_stream";
 
@@ -1324,27 +1325,12 @@ int libuca_unicode_character_copy_to_utf32_stream(
 
 		return( -1 );
 	}
-	if( unicode_character > LIBUCA_UTF32_CHARACTER_MAX )
+	/* Determine if the UTF-32 character is valid
+	 */
+	if( ( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
+	  && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
+	 || ( unicode_character > LIBUCA_UTF32_CHARACTER_MAX ) )
 	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value exceeds UTF-32 maximum.\n",
-			 function );
-
-			return( -1 );
-		}
-		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
-	}
-	else if( ( unicode_character <= LIBUCA_UNICODE_SURROGATE_LOW_RANGE_END )
-	      && ( unicode_character >= LIBUCA_UNICODE_SURROGATE_HIGH_RANGE_START ) )
-	{
-		if( strict_mode != 0 )
-		{
-			notify_warning_printf( "%s: invalid Unicode character value in surrogate range.\n",
-			 function );
-
-			return( -1 );
-		}
 		unicode_character = LIBUCA_UNICODE_REPLACEMENT_CHARACTER;
 	}
 	if( byte_order == LIBUCA_ENDIAN_BIG )

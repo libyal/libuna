@@ -66,7 +66,7 @@ void usage_fprint(
 		return;
 	}
 	fprintf( stream, "Usage: ucaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ]\n" );
-	fprintf( stream, "       [ -o output_format ] [ -BhlsvV ] source destination\n\n" );
+	fprintf( stream, "       [ -o output_format ] [ -BhlvV ] source destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
@@ -84,7 +84,6 @@ void usage_fprint(
 	fprintf( stream, "\t             crlf or lf\n" );
 	fprintf( stream, "\t-o:          output format, options: byte-stream, utf8 (default),\n" );
 	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
-	fprintf( stream, "\t-s:          enable strict conversion mode\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
 	fprintf( stream, "\t-V:          print version\n" );
 }
@@ -147,7 +146,6 @@ int main( int argc, char * const argv[] )
 	int result                                = 1;
 	uint8_t amount_of_unicode_characters      = 0;
 	uint8_t unicode_character_iterator        = 0;
-	uint8_t strict_mode                       = 0;
 
 	ucaoutput_version_fprint(
 	 stdout,
@@ -156,7 +154,7 @@ int main( int argc, char * const argv[] )
 	while( ( option = ucagetopt(
 	                   argc,
 	                   argv,
-	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:svV" ) ) ) != (system_integer_t) -1 )
+	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:vV" ) ) ) != (system_integer_t) -1 )
 	{
 		switch( option )
 		{
@@ -236,11 +234,6 @@ int main( int argc, char * const argv[] )
 
 					output_format = UCACOMMON_FORMAT_UTF8;
 				}
-				break;
-
-			case (system_integer_t) 's':
-				strict_mode = 1;
-
 				break;
 
 			case (system_integer_t) 'v':
@@ -586,8 +579,7 @@ int main( int argc, char * const argv[] )
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  byte_stream_codepage,
-						  strict_mode );
+						  byte_stream_codepage );
 					break;
 
 				case UCACOMMON_FORMAT_UTF8:
@@ -595,8 +587,7 @@ int main( int argc, char * const argv[] )
 						  &unicode_character[ unicode_character_iterator ],
 						  source_string_buffer,
 						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  strict_mode );
+						  &source_string_buffer_iterator );
 					break;
 
 				case UCACOMMON_FORMAT_UTF16BE:
@@ -605,8 +596,7 @@ int main( int argc, char * const argv[] )
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUCA_ENDIAN_BIG,
-						  strict_mode );
+						  LIBUCA_ENDIAN_BIG );
 					break;
 
 				case UCACOMMON_FORMAT_UTF16LE:
@@ -615,8 +605,7 @@ int main( int argc, char * const argv[] )
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUCA_ENDIAN_LITTLE,
-						  strict_mode );
+						  LIBUCA_ENDIAN_LITTLE );
 					break;
 
 				case UCACOMMON_FORMAT_UTF32BE:
@@ -625,8 +614,7 @@ int main( int argc, char * const argv[] )
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUCA_ENDIAN_BIG,
-						  strict_mode );
+						  LIBUCA_ENDIAN_BIG );
 					break;
 
 				case UCACOMMON_FORMAT_UTF32LE:
@@ -635,8 +623,7 @@ int main( int argc, char * const argv[] )
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  LIBUCA_ENDIAN_LITTLE,
-						  strict_mode );
+						  LIBUCA_ENDIAN_LITTLE );
 					break;
 
 				default:
@@ -714,8 +701,7 @@ int main( int argc, char * const argv[] )
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  byte_stream_codepage,
-							  strict_mode );
+							  byte_stream_codepage );
 						break;
 
 					case UCACOMMON_FORMAT_UTF8:
@@ -723,8 +709,7 @@ int main( int argc, char * const argv[] )
 							  unicode_character[ unicode_character_iterator ],
 							  destination_string_buffer,
 							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  strict_mode );
+							  &destination_string_buffer_iterator );
 						break;
 
 					case UCACOMMON_FORMAT_UTF16BE:
@@ -733,8 +718,7 @@ int main( int argc, char * const argv[] )
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUCA_ENDIAN_BIG,
-							  strict_mode );
+							  LIBUCA_ENDIAN_BIG );
 						break;
 
 					case UCACOMMON_FORMAT_UTF16LE:
@@ -743,8 +727,7 @@ int main( int argc, char * const argv[] )
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUCA_ENDIAN_LITTLE,
-							  strict_mode );
+							  LIBUCA_ENDIAN_LITTLE );
 						break;
 
 					case UCACOMMON_FORMAT_UTF32BE:
@@ -753,8 +736,7 @@ int main( int argc, char * const argv[] )
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUCA_ENDIAN_BIG,
-							  strict_mode );
+							  LIBUCA_ENDIAN_BIG );
 						break;
 
 					case UCACOMMON_FORMAT_UTF32LE:
@@ -763,8 +745,7 @@ int main( int argc, char * const argv[] )
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  LIBUCA_ENDIAN_LITTLE,
-							  strict_mode );
+							  LIBUCA_ENDIAN_LITTLE );
 						break;
 
 					default:

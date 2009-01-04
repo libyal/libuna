@@ -53,6 +53,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080903
+* Worked on initial version
+* Worked on strict mode
+
 20080902
 * Worked on initial version
 * Worked on ucaexport summary

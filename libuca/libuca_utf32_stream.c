@@ -31,11 +31,11 @@
 /* Copies an UTF-32 stream byte order mark (BOM)
  * Returns 1 if successful or -1 on error
  */
-int libuca_utf32_stream_copy_byte_order_mark(
-     uint8_t *utf32_stream,
-     size_t utf32_stream_size,
-     size_t *utf32_stream_index,
-     uint8_t byte_order )
+inline int libuca_utf32_stream_copy_byte_order_mark(
+            uint8_t *utf32_stream,
+            size_t utf32_stream_size,
+            size_t *utf32_stream_index,
+            uint8_t byte_order )
 {
 	static char *function = "libuca_utf32_stream_copy_byte_order_mark";
 
@@ -99,8 +99,7 @@ int libuca_utf32_stream_copy_byte_order_mark(
  */
 ssize_t libuca_utf32_stream_size_from_utf8(
          libuca_utf8_character_t *utf8_string,
-         size_t utf8_string_size,
-         uint8_t strict_mode )
+         size_t utf8_string_size )
 {
 	static char *function                        = "libuca_utf32_stream_size_from_utf8";
 	size_t utf8_string_iterator                  = 0;
@@ -133,8 +132,7 @@ ssize_t libuca_utf32_stream_size_from_utf8(
 		     &unicode_character,
 		     utf8_string,
 		     utf8_string_size,
-		     &utf8_string_iterator,
-		     strict_mode ) != 1 )
+		     &utf8_string_iterator ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from UTF-8.\n",
 			 function );
@@ -144,8 +142,7 @@ ssize_t libuca_utf32_stream_size_from_utf8(
 		/* Determine how many UTF-32 character bytes are required
 		 */
 		utf32_stream_size += libuca_unicode_character_size_to_utf32(
-		                      unicode_character,
-		                      strict_mode );
+		                      unicode_character );
 	}
 	/* Convert the amount of characters into bytes
 	 */
@@ -162,8 +159,7 @@ int libuca_utf32_stream_copy_to_utf8(
      size_t utf32_stream_size,
      uint8_t byte_order,
      libuca_utf8_character_t *utf8_string,
-     size_t utf8_string_size,
-     uint8_t strict_mode )
+     size_t utf8_string_size )
 {
 	static char *function                        = "libuca_utf32_stream_copy_to_utf8";
 	size_t utf8_string_iterator                  = 0;
@@ -225,8 +221,7 @@ int libuca_utf32_stream_copy_to_utf8(
 		     &unicode_character,
 		     utf8_string,
 		     utf8_string_size,
-		     &utf8_string_iterator,
-		     strict_mode ) != 1 )
+		     &utf8_string_iterator ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from UTF-8 string.\n",
 			 function );
@@ -240,8 +235,7 @@ int libuca_utf32_stream_copy_to_utf8(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     byte_order,
-		     strict_mode ) != 1 )
+		     byte_order ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character to UTF-32 stream.\n",
 			 function );
@@ -257,8 +251,7 @@ int libuca_utf32_stream_copy_to_utf8(
  */
 ssize_t libuca_utf32_stream_size_from_utf16(
          libuca_utf16_character_t *utf16_string,
-         size_t utf16_string_size,
-         uint8_t strict_mode )
+         size_t utf16_string_size )
 {
 	static char *function                        = "libuca_utf32_stream_size_from_utf16";
 	size_t utf16_string_iterator                 = 0;
@@ -291,8 +284,7 @@ ssize_t libuca_utf32_stream_size_from_utf16(
 		     &unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator,
-		     strict_mode ) != 1 )
+		     &utf16_string_iterator ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from UTF-16.\n",
 			 function );
@@ -302,8 +294,7 @@ ssize_t libuca_utf32_stream_size_from_utf16(
 		/* Determine how many UTF-32 character bytes are required
 		 */
 		utf32_stream_size += libuca_unicode_character_size_to_utf32(
-		                      unicode_character,
-		                      strict_mode );
+		                      unicode_character );
 	}
 	/* Convert the amount of characters into bytes
 	 */
@@ -320,8 +311,7 @@ int libuca_utf32_stream_copy_from_utf16(
      size_t utf32_stream_size,
      uint8_t byte_order,
      libuca_utf16_character_t *utf16_string,
-     size_t utf16_string_size,
-     uint8_t strict_mode )
+     size_t utf16_string_size )
 {
 	static char *function                        = "libuca_utf32_stream_copy_from_utf16";
 	size_t utf16_string_iterator                 = 0;
@@ -383,8 +373,7 @@ int libuca_utf32_stream_copy_from_utf16(
 		     &unicode_character,
 		     utf16_string,
 		     utf16_string_size,
-		     &utf16_string_iterator,
-		     strict_mode ) != 1 )
+		     &utf16_string_iterator ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character from UTF-16 string.\n",
 			 function );
@@ -398,8 +387,7 @@ int libuca_utf32_stream_copy_from_utf16(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     byte_order,
-		     strict_mode ) != 1 )
+		     byte_order ) != 1 )
 		{
 			notify_warning_printf( "%s: unable to copy Unicode character to UTF-32 stream.\n",
 			 function );
@@ -415,8 +403,7 @@ int libuca_utf32_stream_copy_from_utf16(
  */
 ssize_t libuca_utf32_stream_size_from_utf32(
          libuca_utf32_character_t *utf32_string,
-         size_t utf32_string_size,
-         uint8_t strict_mode )
+         size_t utf32_string_size )
 {
 	static char *function     = "libuca_utf32_stream_size_from_utf32";
 	ssize_t utf32_stream_size = 0;
@@ -436,6 +423,7 @@ ssize_t libuca_utf32_stream_size_from_utf32(
 		return( -1 );
 	}
 	/* Add the byte order mark
+	 * Assumes the UTF-32 string is santized
 	 */
 	utf32_stream_size = 1 + utf32_string_size;
 
@@ -454,8 +442,7 @@ int libuca_utf32_stream_copy_from_utf32(
      size_t utf32_stream_size,
      uint8_t byte_order,
      libuca_utf32_character_t *utf32_string,
-     size_t utf32_string_size,
-     uint8_t strict_mode )
+     size_t utf32_string_size )
 {
 	static char *function                    = "libuca_utf32_stream_copy_from_utf32";
 	size_t utf32_string_iterator             = 0;
@@ -509,10 +496,10 @@ int libuca_utf32_stream_copy_from_utf32(
 
 		return( -1 );
 	}
+	/* Assumes the UTF-32 string is santized
+	 */
 	while( utf32_string_iterator < utf32_string_size )
 	{
-		/* TODO add strict test ?
-		 */
 		utf32_character = utf32_string[ utf32_string_iterator++ ];
 
 		if( byte_order == LIBUCA_ENDIAN_BIG )

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuca],
-  [20080902],
+  [20080903],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuca],
- [20080902])
+ [20080903])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -38,6 +38,7 @@ AC_SUBST(LIBTOOL_DEPS)
 
 dnl Check for compiler language support
 AC_C_CONST
+AC_C_INLINE
 AC_C_VOLATILE
 
 dnl Checks for libraries and library functions
