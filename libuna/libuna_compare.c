@@ -50,7 +50,7 @@ int libuna_compare_utf8_with_utf16(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-8 string.\n",
+		 "%s: invalid UTF-8 string.",
 		 function );
 
 		return( -1 );
@@ -61,7 +61,7 @@ int libuna_compare_utf8_with_utf16(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -72,7 +72,7 @@ int libuna_compare_utf8_with_utf16(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-16 string.\n",
+		 "%s: invalid UTF-16 string.",
 		 function );
 
 		return( -1 );
@@ -83,7 +83,7 @@ int libuna_compare_utf8_with_utf16(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -104,7 +104,7 @@ int libuna_compare_utf8_with_utf16(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-8.\n",
+			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
 			return( -1 );
@@ -122,7 +122,7 @@ int libuna_compare_utf8_with_utf16(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-16.\n",
+			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
 			return( -1 );
@@ -164,7 +164,7 @@ int libuna_compare_utf8_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-8 string.\n",
+		 "%s: invalid UTF-8 string.",
 		 function );
 
 		return( -1 );
@@ -175,7 +175,7 @@ int libuna_compare_utf8_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-8 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -186,7 +186,7 @@ int libuna_compare_utf8_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-32 string.\n",
+		 "%s: invalid UTF-32 string.",
 		 function );
 
 		return( -1 );
@@ -197,7 +197,7 @@ int libuna_compare_utf8_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -218,7 +218,7 @@ int libuna_compare_utf8_with_utf32(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-8.\n",
+			 "%s: unable to copy Unicode character from UTF-8.",
 			 function );
 
 			return( -1 );
@@ -236,7 +236,7 @@ int libuna_compare_utf8_with_utf32(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-32.\n",
+			 "%s: unable to copy Unicode character from UTF-32.",
 			 function );
 
 			return( -1 );
@@ -278,7 +278,7 @@ int libuna_compare_utf16_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-16 string.\n",
+		 "%s: invalid UTF-16 string.",
 		 function );
 
 		return( -1 );
@@ -289,7 +289,7 @@ int libuna_compare_utf16_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-16 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -300,7 +300,7 @@ int libuna_compare_utf16_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_INVALID,
-		 "%s: invalid UTF-32 string.\n",
+		 "%s: invalid UTF-32 string.",
 		 function );
 
 		return( -1 );
@@ -311,7 +311,7 @@ int libuna_compare_utf16_with_utf32(
 		 error,
 		 LIBUNA_ERROR_DOMAIN_ARGUMENTS,
 		 LIBUNA_ARGUMENT_ERROR_EXCEEDS_MAXIMUM,
-		 "%s: invalid UTF-32 string size value exceeds maximum.\n",
+		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -332,7 +332,7 @@ int libuna_compare_utf16_with_utf32(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_OUTPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-16.\n",
+			 "%s: unable to copy Unicode character from UTF-16.",
 			 function );
 
 			return( -1 );
@@ -350,7 +350,7 @@ int libuna_compare_utf16_with_utf32(
 			 error,
 			 LIBUNA_ERROR_DOMAIN_CONVERSION,
 			 LIBUNA_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: unable to copy Unicode character from UTF-32.\n",
+			 "%s: unable to copy Unicode character from UTF-32.",
 			 function );
 
 			return( -1 );

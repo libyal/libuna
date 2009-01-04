@@ -222,14 +222,14 @@ void libuna_error_fprint(
 	{
 		fprintf(
 		 stream,
-		 "%s",
+		 "%s\n",
 		 ( (libuna_internal_error_t *) error )->message[ message_iterator ] );
 	}
 	else
 	{
 		fprintf(
 		 stream,
-		 "<missing>\n" );
+		 "<missing error message>\n" );
 	}
 }
 
@@ -259,14 +259,14 @@ void libuna_error_backtrace_fprint(
 		{
 			fprintf(
 			 stream,
-			 "%s",
+			 "%s\n",
 			 ( (libuna_internal_error_t *) error )->message[ message_iterator ] );
 		}
 		else
 		{
 			fprintf(
 			 stream,
-			 "<missing>\n" );
+			 "<missing error message>\n" );
 		}
 	}
 }
