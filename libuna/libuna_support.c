@@ -37,14 +37,6 @@ const char *libuna_get_version(
 	return( (const char *) LIBUNA_VERSION_STRING );
 }
 
-/* Returns the error code as a string
- */
-const char *libuna_get_error_string(
-             int error_code )
-{
-	return( (const char *) LIBUNA_VERSION_STRING );
-}
-
 /* Set the notify values
  */
 void libuna_set_notify_values(

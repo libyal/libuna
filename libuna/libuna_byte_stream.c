@@ -502,7 +502,7 @@ int libuna_byte_stream_size_from_utf32(
 			return( -1 );
 		}
 	}
-	return( byte_stream_size );
+	return( 1 );
 }
 
 /* Copies a byte stream from an UTF-32 string

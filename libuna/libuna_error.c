@@ -21,7 +21,7 @@
  */
 
 #include <common.h>
-#include <notify.h>
+#include <memory.h>
 
 #if defined( HAVE_STDARG_H )
 #include <stdarg.h>
@@ -36,7 +36,7 @@
 
 #if defined( HAVE_STDARG_H )
 #define VARARGS( function, error, error_domain, error_code, type, argument ) \
-        function( type argument, ... )
+        function( error, error_domain, error_code, type argument, ... )
 #define VASTART( argument_list, type, name ) \
         va_start( argument_list, name )
 #define VAEND( argument_list ) \
@@ -44,7 +44,7 @@
 
 #elif defined( HAVE_VARARGS_H )
 #define VARARGS( function, error, error_domain, error_code, type, argument ) \
-        function( va_alist ) va_dcl
+        function( error, error_domain, error_code, va_alist ) va_dcl
 #define VASTART( argument_list, type, name ) \
         { type name; va_start( argument_list ); name = va_arg( argument_list, type )
 #define VAEND( argument_list ) \
@@ -60,9 +60,11 @@ void VARARGS(
       libuna_error_t **error,
       int error_domain,
       int error_code,
-      char *,
+      const char *,
       format )
 {
+	va_list argument_list;
+
 	if( error == NULL )
 	{
 		return;
@@ -84,7 +86,7 @@ void VARARGS(
 	}
 	VASTART(
 	 argument_list,
-	 char *,
+	 const char *,
 	 format );
 
 	libuna_error_add_message(
@@ -102,14 +104,14 @@ void VARARGS(
 
 #if defined( HAVE_STDARG_H )
 #define VARARGS( function, error, type, argument ) \
-        function( type argument, ... )
+        function( error, type argument, ... )
 #define VASTART( argument_list, type, name ) \
         va_start( argument_list, name )
 #define VAEND( argument_list ) \
         va_end( argument_list )
 
 #elif defined( HAVE_VARARGS_H )
-#define VARARGS( function, error, type, argument ) \
+#define VARARGS( error, function, error, type, argument ) \
         function( va_alist ) va_dcl
 #define VASTART( argument_list, type, name ) \
         { type name; va_start( argument_list ); name = va_arg( argument_list, type )
@@ -123,9 +125,11 @@ void VARARGS(
 void VARARGS(
       libuna_error_add_message,
       libuna_error_t *error,
-      char *,
+      const char *,
       format )
 {
+	va_list argument_list;
+
 	void *reallocation  = NULL;
 	size_t message_size = 64;
 	int print_count     = 0;
@@ -147,7 +151,7 @@ void VARARGS(
 
 	VASTART(
 	 argument_list,
-	 char *,
+	 const char *,
 	 format );
 
 	do

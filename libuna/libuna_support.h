@@ -35,17 +35,11 @@ extern "C" {
 #endif
 
 LIBUNA_EXTERN const char *libuna_get_version(
-                           void,
-                           libuna_error_t **error );
-
-LIBUNA_EXTERN const char *libuna_get_error_string(
-                           int error code,
-                           libuna_error_t **error );
+                           void );
 
 LIBUNA_EXTERN void libuna_set_notify_values(
                     FILE *stream,
-                    uint8_t verbose,
-                    libuna_error_t **error );
+                    uint8_t verbose );
 
 #if defined( __cplusplus )
 }
