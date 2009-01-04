@@ -514,7 +514,7 @@ int libuna_utf8_stream_size_from_utf32(
 		     utf32_string,
 		     utf32_string_size,
 		     &utf32_string_iterator,
-                    error ) != 1 )
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -628,7 +628,7 @@ int libuna_utf8_stream_copy_from_utf32(
 		     utf32_string,
 		     utf32_string_size,
 		     &utf32_string_iterator,
-                    error ) != 1 )
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,
@@ -646,7 +646,7 @@ int libuna_utf8_stream_copy_from_utf32(
 		     utf8_stream,
 		     utf8_stream_size,
 		     &utf8_stream_iterator,
-                    error ) != 1 )
+		     error ) != 1 )
 		{
 			libuna_error_set(
 			 error,

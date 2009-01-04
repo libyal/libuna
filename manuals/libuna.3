@@ -1,4 +1,4 @@
-.Dd September 9, 2008
+.Dd September 14, 2008
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -177,6 +177,14 @@ UTF-32 string functions
 .Fn libuna_utf32_string_size_from_utf32_stream "uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, size_t *utf32_string_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf32_string_copy_from_utf32_stream "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuna_error_t **error"
+.Pp
+Compare functions
+.Ft int
+.Fn libuna_compare_utf8_with_utf16 "libuna_utf8_character_t *utf8_string, size_t utf8_string_size, libuna_utf16_character_t *utf16_string, size_t utf16_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_compare_utf8_with_utf32 "libuna_utf8_character_t *utf8_string, size_t utf8_string_size, libuna_utf32_character_t *utf32_string, size_t utf32_string_size, libuna_error_t **error :
+.Ft int
+.Fn libuna_compare_utf16_with_utf32 "libuna_utf16_character_t *utf16_string, size_t utf16_string_size, libuna_utf32_character_t *utf32_string, size_t utf32_string_size, libuna_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libuna_get_version

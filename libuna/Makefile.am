@@ -5,6 +5,7 @@ lib_LTLIBRARIES = libuna.la
 libuna_la_SOURCES = \
 	libuna.c \
 	libuna_byte_stream.c libuna_byte_stream.h \
+	libuna_compare.c libuna_compare.h \
 	libuna_codepage_ascii.h \
 	libuna_codepage_windows_1250.c libuna_codepage_windows_1250.h \
 	libuna_codepage_windows_1251.c libuna_codepage_windows_1251.h \
