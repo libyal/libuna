@@ -20,8 +20,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNA_DEFINIONS_H )
-#define _LIBUNA_DEFINIONS_H
+#if !defined( _LIBUNA_DEFINITIONS_H )
+#define _LIBUNA_DEFINITIONS_H
 
 #include <libuna/types.h>
 

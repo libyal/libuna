@@ -52,6 +52,9 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080922
+* Fixed typo in definitions and internal definitions
+
 20080921
 * first alpha release
 * fixed error in distclean
