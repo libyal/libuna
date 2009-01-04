@@ -1,0 +1,56 @@
+.Dd September 2, 2008
+.Dt unaexport
+.Os libuna
+.Sh NAME
+.Nm unaexport
+.Nd exports Unicode and ASCII (byte stream) text
+.Sh SYNOPSIS
+.Nm unaexport
+.Op Fl hvV
+.Va Ar source
+.Sh DESCRIPTION
+.Nm unaexport
+is a utility to export Unicode and ASCII (byte stream) text
+.Pp
+.Nm unaexport
+is part of the
+.Nm libuna
+package.
+.Nm libuna
+is a library to read from the Tableau (TM) forenisc bridge (write blocker)
+.Pp
+.Ar source
+is the source device to read from.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl h
+shows this help
+.It Fl v
+verbose output to stderr
+.It Fl V
+print version
+.El
+.Sh ENVIRONMENT
+None
+.Sh FILES
+None
+.Sh EXAMPLES
+.Bd -literal
+# unaexport -c windows-1250 -i byte_stream -o utf8 source.txt destination.txt
+unaexport 20080405 (libuna 20080405)
+
+TODO
+
+.Ed
+.Sh DIAGNOSTICS
+Errors, verbose and debug output are printed to stderr when verbose output \-v is enabled.
+Verbose and debug output are only printed when enabled at compilation.
+.Sh BUGS
+Please report bugs of any kind to <forensics@hoffmannbv.nl> or on the project website:
+http://libuna.sourceforge.net
+.Sh AUTHOR
+These man pages were written by Joachim Metz.
+.Sh COPYRIGHT
+Copyright 2008 Joachim Metz, Hoffmann Investigations <forensics@hoffmannbv.nl> and contributors.
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

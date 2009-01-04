@@ -1,5 +1,8 @@
 TODO
 
+* implement error
+* rewrite size functions to return int instead of ssize_t
+
 * ucaexport implement signal handling
 
 * speed test between index based and pointer based iteration
@@ -7,7 +10,7 @@ TODO
 * handle combining characters in windows 1255 and 1258 ?
 * add more code pages?
 
-* change libuca_codepage_ macros into inline functions
+* change libuna_codepage_ macros into inline functions
 
 * copy from/to functions should set/return amount of bytes successfully processed?
   most of the time not needed because the size of the string was already
@@ -38,6 +41,7 @@ Deployment:
 * fix AUTHORS
 * update MSVSCPP solution file
   - add ucaprocess_status to ucaexport project
+* update MacOS-X project file
 
 Other Windows codepages (SBC)
 * 874 (Thai)
@@ -47,10 +51,16 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20080909
+* libuna already exists renamed to libuna
+
 20080908
 * Worked on initial version
-* Moved wide character specific code to ucatools no longer used in libuca
+* Moved wide character specific code to ucatools no longer used in libuna
 * Fixed ucabyte_size for conversion error in 2 digit after separator
+* Separated common code in to common code for tools and both libary and tools
+* Worked on improved error handling
+* Worked on rewriting size functions
 
 20080904
 * Worked on initial version
@@ -78,13 +88,13 @@ Other Windows codepages (MBC)
 
 20080901
 * Worked on initial version
-* Integrated local use of libuca using HAVE_LOCAL_LIBUCA for maintenance
+* Integrated local use of libuna using HAVE_LOCAL_LIBUNA for maintenance
 * implemented UTF-8/16 to/from UTF-32_stream functions
 * detection of endian defaults to big if no endianess could be determined
 * added detection of UTF-8 byte order mark
 * Worked on refactoring _streams to separate files change copy_to_ functions into copy_from
-* Implemented libuca_utf16_string_size_from_utf8, libuca_utf32_string_size_from_utf8
-* Implemented libuca_utf16_string_size_from_utf32, libuca_utf32_string_size_from_utf32
+* Implemented libuna_utf16_string_size_from_utf8, libuna_utf32_string_size_from_utf8
+* Implemented libuna_utf16_string_size_from_utf32, libuna_utf32_string_size_from_utf32
 * Worked on codepages
 
 20080831

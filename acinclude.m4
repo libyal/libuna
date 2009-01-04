@@ -1,20 +1,20 @@
 dnl Function to test if a certain feature was enabled
-AC_DEFUN([LIBUCA_TEST_ENABLE],
+AC_DEFUN([LIBUNA_TEST_ENABLE],
 	[AC_ARG_ENABLE(
 	 [$1],
 	 [AS_HELP_STRING(
 	  [--enable-$1],
 	  [$3 (default is $4)])],
-	 [ac_libuca_enable_$2=$enableval],
-	 [ac_libuca_enable_$2=$4])dnl
+	 [ac_libuna_enable_$2=$enableval],
+	 [ac_libuna_enable_$2=$4])dnl
 	 AC_CACHE_CHECK(
 	  [whether to enable $3],
-	  [ac_libuca_enable_$2],
-	  [ac_libuca_enable_$2=$4])dnl
+	  [ac_libuna_enable_$2],
+	  [ac_libuna_enable_$2=$4])dnl
 ])
 
 dnl Function to detect if printf conversion specifier "%jd" is available
-AC_DEFUN([LIBUCA_CHECK_PRINTF_JD],
+AC_DEFUN([LIBUNA_CHECK_PRINTF_JD],
 	[SAVE_CFLAGS="$CFLAGS"
 	CFLAGS="$CFLAGS -Wall -Werror"
 	AC_LANG_PUSH(C)
@@ -57,7 +57,7 @@ if( ( string[ 0 ] != '1' ) || ( string[ 1 ] != '0' ) ) return( 1 ); ]] )],
 	CFLAGS="$SAVE_CFLAGS"])
 
 dnl Function to detect if printf conversion specifier "%zd" is available
-AC_DEFUN([LIBUCA_CHECK_PRINTF_ZD],
+AC_DEFUN([LIBUNA_CHECK_PRINTF_ZD],
 	[SAVE_CFLAGS="$CFLAGS"
 	 CFLAGS="$CFLAGS -Wall -Werror"
 	 AC_LANG_PUSH(C)
@@ -101,7 +101,7 @@ if( ( string[ 0 ] != '1' ) || ( string[ 1 ] != '0' ) ) return( 1 ); ]] )],
 
 dnl Function to detect if ctime_r or ctime is available
 dnl Also checks if ctime_t is defined according to the POSIX standard
-AC_DEFUN([LIBUCA_CHECK_FUNC_CTIME],
+AC_DEFUN([LIBUNA_CHECK_FUNC_CTIME],
 	[AC_CHECK_FUNC(
 	 [ctime_r],
 	 [AC_LANG_PUSH(C)

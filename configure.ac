@@ -1,16 +1,16 @@
 AC_PREREQ( 2.59 )
 
 AC_INIT(
- [libuca],
-  [20080908],
+ [libuna],
+  [20080909],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
- [include/libuca.h.in])
+ [include/libuna.h.in])
 
 AM_INIT_AUTOMAKE(
- [libuca],
- [20080908])
+ [libuna],
+ [20080909])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -19,7 +19,7 @@ dnl Check for large file support
 AC_SYS_LARGEFILE
 
 dnl Check for configure arguments
-LIBUCA_TEST_ENABLE(
+LIBUNA_TEST_ENABLE(
  [wide-character-type],
  [wide_character_type],
  [enable wide character type support],
@@ -42,10 +42,10 @@ AC_C_INLINE
 AC_C_VOLATILE
 
 dnl Checks for libraries and library functions
-dnl ac_libuca_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
+dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
 
 dnl Check for headers
-dnl Headers included in libuca/types.h
+dnl Headers included in libuna/types.h
 AC_CHECK_HEADER(
  [sys/types.h],
  [AC_DEFINE(
@@ -102,8 +102,15 @@ dnl Headers included in common/memory.h
 AC_CHECK_HEADERS([stdlib.h])
 
 dnl Headers included in common/notify.c
-AC_CHECK_HEADERS([stdarg.h])
-AC_CHECK_HEADERS([varargs.h])
+AC_CHECK_HEADERS(
+ [stdarg.h],
+ []
+ [AC_CHECK_HEADERS(
+  [varargs.h],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing headers: stdarg.h and varargs.h],
+   [1]) ]) ])
 
 dnl Other headers
 AC_CHECK_HEADERS([glob.h])
@@ -207,44 +214,52 @@ AC_CHECK_FUNCS(
   [Missing function: realloc],
   [1]) ])
 
+dnl File input/output functions used in common/notify.h
+AC_CHECK_FUNCS(
+ [vfprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vfprintf],
+  [1]) ])
+
 dnl File input/output functions used in common/file_io.h
 AC_CHECK_FUNCS(
  [close],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: close],
+  [Missing function: close],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [lseek],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: lseek],
+  [Missing function: lseek],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [open],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: open],
+  [Missing function: open],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [read],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: read],
+  [Missing function: read],
   [1]) ])
 
 AC_CHECK_FUNCS(
  [write],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: write],
+  [Missing function: write],
   [1]) ])
 
 dnl Date and time functions used in common/date_time.h
-LIBUCA_CHECK_FUNC_CTIME
+LIBUNA_CHECK_FUNC_CTIME
 
 AC_CHECK_FUNCS(
  [gmtime_r],
@@ -268,7 +283,7 @@ AC_CHECK_FUNCS(
  [fgets],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: fgets],
+  [Missing function: fgets],
   [1]) ])
 
 AC_CHECK_FUNCS(
@@ -353,7 +368,15 @@ AC_CHECK_FUNCS(
    [Missing functions: strtoull and atoll],
    [1]) ]) ])
 
-dnl Check for error string functions used in common/error_string.h
+dnl File input/output functions used in libuna/libuna_error.h
+AC_CHECK_FUNCS(
+ [vsnprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vsnprintf],
+  [1]) ])
+
+dnl Check for error string functions used in unatools/error_string.h
 AC_FUNC_STRERROR_R(
  [],
  [AC_CHECK_FUNCS(
@@ -363,16 +386,16 @@ AC_FUNC_STRERROR_R(
    [Missing functions: strerror_r and strerror],
    [1]) ]) ])
 
-dnl Commandline argument/option parsing functions
+dnl Commandline argument/option parsing functions used in unatools/unagetopt.h
 AC_CHECK_FUNCS([getopt])
 
 dnl Check for printf conversion specifier support
-LIBUCA_CHECK_PRINTF_JD
-LIBUCA_CHECK_PRINTF_ZD
+LIBUNA_CHECK_PRINTF_JD
+LIBUNA_CHECK_PRINTF_ZD
 
-dnl Check if libuca should be build with wide character type support
+dnl Check if libuna should be build with wide character type support
 AS_IF(
-	[test "x$ac_libuca_enable_wide_character_type" != xno ],
+	[test "x$ac_libuna_enable_wide_character_type" != xno ],
 	[dnl Check for the wide character header
 	AC_CHECK_HEADERS(
 	 [wchar.h],
@@ -396,14 +419,14 @@ AS_IF(
 	 [btowc],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: btowc],
+	  [Missing function: btowc],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [wctob],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wctob],
+	  [Missing function: wctob],
 	  [1]) ])
 
 	dnl Wide character string functions used in common/wide_string.h
@@ -411,14 +434,14 @@ AS_IF(
 	 [fgetws],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: fgetws],
+	  [Missing function: fgetws],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [swprintf],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: swprintf],
+	  [Missing function: swprintf],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
@@ -461,7 +484,7 @@ AS_IF(
 	 [wcslen],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcslen],
+	  [Missing function: wcslen],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
@@ -478,14 +501,14 @@ AS_IF(
 	 [wcstoll],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoll],
+	  [Missing function: wcstoll],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
 	 [wcstoull],
 	 [],
 	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoull],
+	  [Missing function: wcstoull],
 	  [1]) ])
 
 	dnl Make the necessary definitions
@@ -496,7 +519,7 @@ AS_IF(
 	AC_SUBST(
 	 [HAVE_WIDE_CHARACTER_TYPE],
 	 [1])
-	ac_libuca_enable_wide_character_type=yes],
+	ac_libuna_enable_wide_character_type=yes],
 
 	[AC_SUBST(
 	 [HAVE_WIDE_CHARACTER_TYPE],
@@ -515,18 +538,18 @@ CFLAGS="$CFLAGS -Wall";
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([common/Makefile])
-AC_CONFIG_FILES([libuca/Makefile])
-AC_CONFIG_FILES([ucatools/Makefile])
+AC_CONFIG_FILES([libuna/Makefile])
+AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 dnl Have configure make the include files
-AC_CONFIG_FILES([include/libuca.h])
-AC_CONFIG_FILES([include/libuca/definitions.h])
-AC_CONFIG_FILES([include/libuca/types.h])
-AC_CONFIG_FILES([libuca/libuca_definitions.h])
+AC_CONFIG_FILES([include/libuna.h])
+AC_CONFIG_FILES([include/libuna/definitions.h])
+AC_CONFIG_FILES([include/libuna/types.h])
+AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([macosx/Introduction.rtf])
-AC_CONFIG_FILES([libuca.pc])
-AC_CONFIG_FILES([libuca.spec])
+AC_CONFIG_FILES([libuna.pc])
+AC_CONFIG_FILES([libuna.spec])
 dnl Have configure write its configuration
 AC_CONFIG_HEADERS([common/config.h])
 
@@ -535,6 +558,6 @@ AC_OUTPUT
 dnl Print a summary
 AC_MSG_NOTICE([
 Features:
-   Wide character type support: $ac_libuca_enable_wide_character_type
+   Wide character type support: $ac_libuna_enable_wide_character_type
 ]);
 

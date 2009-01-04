@@ -1,7 +1,7 @@
 SUBDIRS = \
 	common \
-	libuca \
-	ucatools \
+	libuna \
+	unatools \
 	manuals
 
 CONFIG_FILES = \
@@ -21,32 +21,32 @@ DOCUMENT_FILES = \
 	docs/windows-1258.txt
 
 INCLUDE_FILES = \
-        include/libuca.h.in \
-        include/libuca/definitions.h.in \
-        include/libuca/types.h.in \
-        libuca/libuca_definitions.h.in
+        include/libuna.h.in \
+        include/libuna/definitions.h.in \
+        include/libuna/types.h.in \
+        libuna/libuna_definitions.h.in
 
 MACOSX_FILES = \
 	macosx/Introduction.rtf \
 	macosx/Introduction.rtf.in \
-	macosx/libuca.pmproj \
+	macosx/libuna.pmproj \
 	macosx/License.rtf \
 	macosx/Readme.rtf
 
 MANUAL_FILES = \
-	manuals/ucaexport.1 \
-	manuals/libuca.3
+	manuals/unaexport.1 \
+	manuals/libuna.3
 
 MSVCPP_FILES = \
-        msvscpp/ucaexport \
-        msvscpp/ucaexport/ucaexport.vcproj \
-        msvscpp/libuca_dll \
-        msvscpp/libuca_dll/libuca_dll.vcproj \
-        msvscpp/libuca.sln
+        msvscpp/unaexport \
+        msvscpp/unaexport/unaexport.vcproj \
+        msvscpp/libuna_dll \
+        msvscpp/libuna_dll/libuna_dll.vcproj \
+        msvscpp/libuna.sln
 
 REDHAT_FILES = \
-	libuca.spec \
-	libuca.spec.in
+	libuna.spec \
+	libuna.spec.in
 
 EXTRA_DIST = \
         $(CONFIG_FILES) \
@@ -56,21 +56,21 @@ EXTRA_DIST = \
         $(MANUAL_FILES) \
         $(MSVCPP_FILES) \
         $(REDHAT_FILES) \
-	libuca.pc.in
+	libuna.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
 
 pkgconfig_DATA = \
-	libuca.pc
+	libuna.pc
 
 include_HEADERS = \
-	include/libuca.h
+	include/libuna.h
 
 pkginclude_HEADERS = \
-	include/libuca/definitions.h \
-	include/libuca/extern.h \
-	include/libuca/inline.h \
-	include/libuca/types.h
+	include/libuna/definitions.h \
+	include/libuna/extern.h \
+	include/libuna/inline.h \
+	include/libuna/types.h
 
 libtool: @LIBTOOL_DEPS@
 	cd $(srcdir) && $(SHELL) ./config.status --recheck
@@ -79,18 +79,18 @@ lib: library
 
 library:
 	cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS)
-	cd $(srcdir)/libuca && $(MAKE) $(AM_MAKEFLAGS)
+	cd $(srcdir)/libuna && $(MAKE) $(AM_MAKEFLAGS)
 
 distclean: clean
 	/bin/rm -f Makefile
 	/bin/rm -f config.status config.cache config.log
 	/bin/rm -f common/config.h
-	/bin/rm -f include/libuca.h
-	/bin/rm -f include/libuca/definitions.h
-	/bin/rm -f include/libuca/types.h
-	/bin/rm -f libuca/libuac_definitions.h
-	/bin/rm -f libuca.pc
-	/bin/rm -f libuca.spec
+	/bin/rm -f include/libuna.h
+	/bin/rm -f include/libuna/definitions.h
+	/bin/rm -f include/libuna/types.h
+	/bin/rm -f libuna/libuac_definitions.h
+	/bin/rm -f libuna.pc
+	/bin/rm -f libuna.spec
 	/bin/rm -f macosx/Introduction.rtf
 	@for dir in ${subdirs}; do \
 		(cd $$dir && $(MAKE) distclean) \

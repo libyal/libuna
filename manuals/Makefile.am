@@ -1,6 +1,6 @@
 man_MANS = \
-	libuca.3 \
-	ucaexport.1
+	libuna.3 \
+	unaexport.1
 
 distclean: clean
 	/bin/rm -f Makefile
