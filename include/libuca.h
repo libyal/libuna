@@ -25,7 +25,6 @@
 
 #include <libuca/definitions.h>
 #include <libuca/extern.h>
-#include <libuca/features.h>
 #include <libuca/inline.h>
 #include <libuca/types.h>
 
@@ -37,13 +36,8 @@ extern "C" {
 
 /* Returns the library version as a string
  */
-#if defined( LIBUCA_WIDE_CHARACTER_TYPE )
-LIBUCA_EXTERN const wchar_t *libuca_get_version(
-                              void );
-#else
 LIBUCA_EXTERN const char *libuca_get_version(
                            void );
-#endif
 
 /* Set the notify values
  */

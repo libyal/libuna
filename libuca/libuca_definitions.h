@@ -30,16 +30,15 @@
 #if !defined( HAVE_LOCAL_LIBUCA )
 #include <libuca/definitions.h>
 
+/* The definitions in <libuca/definitions.h> are copied here for local use of
+ * libuca
+ */
 #else
-#define LIBUCA_VERSION					20080904
+#define LIBUCA_VERSION					20080908
 
 /* The libuca version string
  */
-#if defined( LIBUCA_WIDE_CHARACTER_TYPE )
-#define LIBUCA_VERSION_STRING				L"20080904"
-#else
-#define LIBUCA_VERSION_STRING				"20080904"
-#endif
+#define LIBUCA_VERSION_STRING				"20080908"
 
 /* The endian definitions
  */

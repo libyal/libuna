@@ -266,10 +266,11 @@ int ucabyte_size_string_convert(
 
 			byte_size_string_iterator++;
 		}
+		remainder *= 10;
+
 		if( ( byte_size_string[ byte_size_string_iterator ] >= '0' )
 		 && ( byte_size_string[ byte_size_string_iterator ] <= '9' ) )
 		{
-			remainder *= 10;
 			remainder += ( byte_size_string[ byte_size_string_iterator ] - '0' );
 
 			byte_size_string_iterator++;
@@ -330,7 +331,7 @@ int ucabyte_size_string_convert(
 
 			factor--;
 
-			byte_size += ( remainder * 100 );
+			byte_size += ( remainder * 10 );
 		}
 		for( ; factor > 0; factor-- )
 		{

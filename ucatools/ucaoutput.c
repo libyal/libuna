@@ -39,6 +39,7 @@
 
 #include "ucabyte_size_string.h"
 #include "ucaoutput.h"
+#include "ucatypes.h"
 
 /* Prints the copyright information
  */

@@ -29,6 +29,8 @@
 
 #include <stdio.h>
 
+#include "ucatypes.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif

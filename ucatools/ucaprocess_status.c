@@ -30,6 +30,7 @@
 
 #include "ucaprocess_status.h"
 #include "ucaoutput.h"
+#include "ucatypes.h"
 
 ucaprocess_status_t *process_status = NULL;
 

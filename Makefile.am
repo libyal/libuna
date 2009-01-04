@@ -23,7 +23,6 @@ DOCUMENT_FILES = \
 INCLUDE_FILES = \
         include/libuca.h.in \
         include/libuca/definitions.h.in \
-	include/libuca/features.h.in \
         include/libuca/types.h.in \
         libuca/libuca_definitions.h.in
 
@@ -70,7 +69,6 @@ include_HEADERS = \
 pkginclude_HEADERS = \
 	include/libuca/definitions.h \
 	include/libuca/extern.h \
-	include/libuca/features.h \
 	include/libuca/inline.h \
 	include/libuca/types.h
 
@@ -89,7 +87,6 @@ distclean: clean
 	/bin/rm -f common/config.h
 	/bin/rm -f include/libuca.h
 	/bin/rm -f include/libuca/definitions.h
-	/bin/rm -f include/libuca/features.h
 	/bin/rm -f include/libuca/types.h
 	/bin/rm -f libuca/libuac_definitions.h
 	/bin/rm -f libuca.pc

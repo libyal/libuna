@@ -68,37 +68,37 @@ extern "C" {
 #endif
 
 #if defined( HAVE_OPEN ) && defined( HAVE_CLOSE )
-int libuca_file_io_exists(
+int file_io_exists(
      const char *filename );
 
 #define file_io_exists( filename ) \
-	libuca_file_io_exists( filename )
+	file_io_exists( filename )
 #endif
 
 #if defined( HAVE_WOPEN ) && defined( HAVE_CLOSE )
-int libuca_file_io_wexists(
+int file_io_wexists(
      const wchar_t *filename );
 
 #define file_io_wexists( filename, flags ) \
-	libuca_file_io_wexists( filename )
+	file_io_wexists( filename )
 #endif
 
 #if defined( HAVE_OPEN )
-int libuca_file_io_open(
+int file_io_open(
      const char *filename,
      int flags );
 
 #define file_io_open( filename, flags ) \
-	libuca_file_io_open( filename, flags )
+	file_io_open( filename, flags )
 #endif
 
 #if defined( HAVE_WOPEN )
-int libuca_file_io_wopen(
+int file_io_wopen(
      const wchar_t *filename,
      int flags );
 
 #define file_io_wopen( filename, flags ) \
-	libuca_file_io_wopen( filename, flags )
+	file_io_wopen( filename, flags )
 
 #endif
 
