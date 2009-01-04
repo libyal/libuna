@@ -243,6 +243,26 @@ AC_CHECK_FUNCS(
   [Missing functions: write],
   [1]) ])
 
+dnl Date and time functions used in common/date_time.h
+LIBUCA_CHECK_FUNC_CTIME
+
+AC_CHECK_FUNCS(
+ [gmtime_r],
+ [],
+ [AC_CHECK_FUNCS(
+  [gmtime],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: gmtime_r and gmtime],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [time],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: time],
+  [1]) ])
+
 dnl Narrow character string functions used in common/narrow_string.h
 AC_CHECK_FUNCS(
  [fgets],
@@ -347,8 +367,8 @@ dnl Commandline argument/option parsing functions
 AC_CHECK_FUNCS([getopt])
 
 dnl Check for printf conversion specifier support
-LIBUCA_PRINTF_JD
-LIBUCA_PRINTF_ZD
+LIBUCA_CHECK_PRINTF_JD
+LIBUCA_CHECK_PRINTF_ZD
 
 dnl Check if libuca should be build with wide character type support
 AS_IF(

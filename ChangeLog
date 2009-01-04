@@ -1,6 +1,5 @@
 TODO
 
-* ucaexport implement process_status
 * ucaexport implement signal handling
 
 * handle combining characters in windows 1255 and 1258 ?
@@ -15,10 +14,12 @@ TODO
 Tools:
 * ucaexport
   - add conversion summary (converting from x to y with codepage z) +/-
-  - add completion summary, show bytes per second?
   - update man page
   - allow for different input and output codepage?
   - implement basic globbing support for Windows?
+  - determine total source file size for process status
+  - add option to set buffer size?
+  - check if input file is output file?
 * ucainfo
   tool to determine the encoding type using the byte order mark
   perhaps some other tricks
@@ -33,6 +34,8 @@ Tools:
 Deployment:
 * create debian package files
 * fix AUTHORS
+* update MSVSCPP solution file
+  - add ucaprocess_status to ucaexport project
 
 Other Windows codepages (SBC)
 * 874 (Thai)
@@ -47,6 +50,9 @@ Other Windows codepages (MBC)
 * Added fixed dimension to arrays in codepages header files
 * Fixed issue with small UTF streams
 * Fixed multiple issues in UTF-8 stream handling
+* implemented process_status in ucaexport
+* implemented that command line argument option can be written with - and _
+* Fixed continue on error issue
 
 20080903
 * Worked on initial version

@@ -4,7 +4,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: libuca
-Description: Library to support Unicode and ASCII conversions
+Description: Library to support Unicode and ASCII (byte stream) conversions
 Version: 20080904
 Libs: -L${libdir} -luca
 Cflags: -I${includedir}

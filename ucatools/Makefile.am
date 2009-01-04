@@ -9,7 +9,8 @@ ucaexport_SOURCES = \
 	ucagetopt.c ucagetopt.h \
 	ucaglob.c ucaglob.h \
 	ucainput.c ucainput.h \
-	ucaoutput.c ucaoutput.h
+	ucaoutput.c ucaoutput.h \
+	ucaprocess_status.c ucaprocess_status.h
 
 ucaexport_LDADD   = ../common/libcommon.la ../libuca/libuca.la
 

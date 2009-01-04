@@ -14,12 +14,12 @@ AC_DEFUN([LIBUCA_TEST_ENABLE],
 ])
 
 dnl Function to detect if printf conversion specifier "%jd" is available
-AC_DEFUN([LIBUCA_PRINTF_JD],
+AC_DEFUN([LIBUCA_CHECK_PRINTF_JD],
 	[SAVE_CFLAGS="$CFLAGS"
 	CFLAGS="$CFLAGS -Wall -Werror"
 	AC_LANG_PUSH(C)
 	AC_MSG_CHECKING(
-	 [if printf supports the conversion specifier "%jd"])
+	 [whether printf supports the conversion specifier "%jd"])
 	dnl First try to see if compilation and linkage without a parameter succeeds
 	AC_LINK_IFELSE(
 		[AC_LANG_PROGRAM(
@@ -57,12 +57,12 @@ if( ( string[ 0 ] != '1' ) || ( string[ 1 ] != '0' ) ) return( 1 ); ]] )],
 	CFLAGS="$SAVE_CFLAGS"])
 
 dnl Function to detect if printf conversion specifier "%zd" is available
-AC_DEFUN([LIBUCA_PRINTF_ZD],
+AC_DEFUN([LIBUCA_CHECK_PRINTF_ZD],
 	[SAVE_CFLAGS="$CFLAGS"
 	 CFLAGS="$CFLAGS -Wall -Werror"
 	 AC_LANG_PUSH(C)
 	 AC_MSG_CHECKING(
-	  [if printf supports the conversion specifier "%zd"])
+	  [whether printf supports the conversion specifier "%zd"])
 	dnl First try to see if compilation and linkage without a parameter succeeds
 	AC_LINK_IFELSE(
 		[AC_LANG_PROGRAM(
@@ -98,4 +98,66 @@ if( ( string[ 0 ] != '1' ) || ( string[ 1 ] != '0' ) ) return( 1 ); ]] )],
 			 [no])] )] )
 	AC_LANG_POP(C)
 	CFLAGS="$SAVE_CFLAGS"])
+
+dnl Function to detect if ctime_r or ctime is available
+dnl Also checks if ctime_t is defined according to the POSIX standard
+AC_DEFUN([LIBUCA_CHECK_FUNC_CTIME],
+	[AC_CHECK_FUNC(
+	 [ctime_r],
+	 [AC_LANG_PUSH(C)
+	 AC_MSG_CHECKING(
+	  [if ctime_r is defined according to the POSIX definition])
+	 AC_LINK_IFELSE(
+		AC_LANG_PROGRAM(
+		 [[#include <time.h>]],
+		 [[ctime_r(NULL,NULL,0)]]),
+		[AC_MSG_RESULT(
+		 [ctime_r with additional size argument detected])
+	 	AC_DEFINE(
+		 [HAVE_CTIME_R],
+		 [1],
+		 [Define to 1 if you have the ctime_r function.] )
+		AC_DEFINE(
+		 [HAVE_CTIME_R_SIZE],
+		 [1],
+		 [Define to 1 if you have the ctime_r function with a third size argument.] )],
+		[AC_LINK_IFELSE(
+			AC_LANG_PROGRAM(
+			 [[#include <time.h>]],
+			 [[ctime_r(NULL,NULL)]]),
+			 [AC_MSG_RESULT(
+			  [yes])
+	 		 AC_DEFINE(
+			  [HAVE_CTIME_R],
+			  [1],
+			  [Define to 1 if you have the ctime_r function.] )],
+			 [CPPFLAGS="$CPPFLAGS -D_POSIX_PTHREAD_SEMANTICS"
+			 AC_LINK_IFELSE(
+				AC_LANG_PROGRAM(
+				 [[#include <time.h>]],
+				 [[ctime_r(NULL,NULL)]] ),
+				[AC_MSG_RESULT(
+				 [ctime_r requires additional compile flags])
+		 		 AC_DEFINE(
+				  [HAVE_CTIME_R],
+				  [1],
+				  [Define to 1 if you have the ctime_r function.] )],
+				[AC_MSG_WARN(
+				 [Unable to determine how to compile ctime_r])
+				AC_CHECK_FUNCS(
+				 [ctime],
+				 [],
+				 [AC_MSG_FAILURE(
+				  [Missing function: ctime_r and ctime],
+				  [1]) ]) ])
+			])
+		])
+	AC_LANG_POP(C) ]) ],
+	[AC_CHECK_FUNCS(
+	 [ctime],
+	 [],
+	 [AC_MSG_FAILURE(
+	  [Missing function: ctime_r and ctime],
+	  [1]) ])
+])
 

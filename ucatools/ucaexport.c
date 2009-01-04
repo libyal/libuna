@@ -55,6 +55,7 @@
 #include "ucaglob.h"
 #include "ucainput.h"
 #include "ucaoutput.h"
+#include "ucaprocess_status.h"
 
 /* Prints the executable usage information
  */
@@ -66,9 +67,9 @@ void usage_fprint(
 		return;
 	}
 	fprintf( stream, "Usage: ucaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ]\n" );
-	fprintf( stream, "       [ -o output_format ] [ -BhlvV ] source destination\n\n" );
+	fprintf( stream, "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
 
-	fprintf( stream, "\tsource:      the source file\n\n" );
+	fprintf( stream, "\tsource:      the source file\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
 	fprintf( stream, "\t-B:          do not export a byte order mark\n" );
@@ -84,241 +85,271 @@ void usage_fprint(
 	fprintf( stream, "\t             crlf or lf\n" );
 	fprintf( stream, "\t-o:          output format, options: byte-stream, utf8 (default),\n" );
 	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
+	fprintf( stream, "\t-q:          quiet shows no status information\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
 	fprintf( stream, "\t-V:          print version\n" );
 }
 
-/* Prints the codepages information
+/* Prints the export information
  */
-void codepages_fprint(
-      FILE *stream )
+void export_fprint(
+      FILE *stream,
+      const system_character_t *source_filename,
+      int input_format,
+      const system_character_t *destination_filename,
+      int output_format,
+      int byte_stream_codepage,
+      int export_byte_order_mark,
+      int newline_conversion )
 {
 	if( stream == NULL )
 	{
 		return;
 	}
-	fprintf( stream, "\tCodepage:     Description:\n" );
-	fprintf( stream, "\tascii:        Support 7-bit ASCII character set\n" );
-	fprintf( stream, "\twindows-1250: Supports the Windows 1250 (Central European) character set\n" );
-	fprintf( stream, "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n" );
-	fprintf( stream, "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n" );
-	fprintf( stream, "\t              character set\n" );
-	fprintf( stream, "\twindows-1253: Supports the Windows 1253 (Greek) character set\n" );
-	fprintf( stream, "\twindows-1254: Supports the Windows 1254 (Turkish) character set\n" );
-	fprintf( stream, "\twindows-1255: Supports the Windows 1255 (Hebrew) character set\n" );
-	fprintf( stream, "\twindows-1256: Supports the Windows 1256 (Arabic) character set\n" );
-	fprintf( stream, "\twindows-1257: Supports the Windows 1257 (Baltic) character set\n" );
-	fprintf( stream, "\twindows-1258: Supports the Windows 1258 (Vietnamese) character set\n" );
+	fprintf( stream, "Exporting:\n" );
+	fprintf( stream, "\tsource:\t\t\t%s\n",
+	 source_filename );
+	fprintf( stream, "\tof format:\t\t" );
+
+	if( input_format == UCACOMMON_FORMAT_BYTE_STREAM )
+	{
+		fprintf( stream, "auto detect" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_BYTE_STREAM )
+	{
+		fprintf( stream, "byte stream" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_UTF8 )
+	{
+		fprintf( stream, "UTF-8" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_UTF16BE )
+	{
+		fprintf( stream, "UTF-16 big endian" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_UTF16LE )
+	{
+		fprintf( stream, "UTF-16 little endian" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_UTF32BE )
+	{
+		fprintf( stream, "UTF-32 big endian" );
+	}
+	else if( input_format == UCACOMMON_FORMAT_UTF32LE )
+	{
+		fprintf( stream, "UTF-32 little endian" );
+	}
+	else
+	{
+		fprintf( stream, "unsupported" );
+	}
+	fprintf( stream, "\n" );
+
+	fprintf( stream, "\tdestination:\t\t%s\n",
+	 destination_filename );
+	fprintf( stream, "\tof format:\t\t" );
+
+	if( output_format == UCACOMMON_FORMAT_BYTE_STREAM )
+	{
+		fprintf( stream, "byte stream" );
+	}
+	else if( output_format == UCACOMMON_FORMAT_UTF8 )
+	{
+		fprintf( stream, "UTF-8" );
+	}
+	else if( output_format == UCACOMMON_FORMAT_UTF16BE )
+	{
+		fprintf( stream, "UTF-16 big endian" );
+	}
+	else if( output_format == UCACOMMON_FORMAT_UTF16LE )
+	{
+		fprintf( stream, "UTF-16 little endian" );
+	}
+	else if( output_format == UCACOMMON_FORMAT_UTF32BE )
+	{
+		fprintf( stream, "UTF-32 big endian" );
+	}
+	else if( output_format == UCACOMMON_FORMAT_UTF32LE )
+	{
+		fprintf( stream, "UTF-32 little endian" );
+	}
+	else
+	{
+		fprintf( stream, "unsupported" );
+	}
+	fprintf( stream, "\n" );
+
+	/* TODO print codepage
+	 */
+
+	fprintf( stream, "\texport byte order mark:\t" );
+
+	if( export_byte_order_mark == 0 )
+	{
+		fprintf( stream, "no" );
+	}
+	else
+	{
+		fprintf( stream, "yes" );
+	}
+	fprintf( stream, "\n" );
+
+	fprintf( stream, "\tnewline conversion:\t" );
+	
+	if( newline_conversion == UCACOMMON_NEWLINE_CONVERSION_NONE )
+	{
+		fprintf( stream, "none" );
+	}
+	else if( newline_conversion == UCACOMMON_NEWLINE_CONVERSION_CRLF )
+	{
+		fprintf( stream, "carriage return and line feed (crlf)" );
+	}
+	else if( newline_conversion == UCACOMMON_NEWLINE_CONVERSION_CR )
+	{
+		fprintf( stream, "carriage return (cr)" );
+	}
+	else if( newline_conversion == UCACOMMON_NEWLINE_CONVERSION_LF )
+	{
+		fprintf( stream, "line feed (lf)" );
+	}
+	else
+	{
+		fprintf( stream, "unsupported" );
+	}
+	fprintf( stream, "\n" );
+
+	fprintf( stream, "\n" );
 }
 
-/* The main program
+/* Exports the source file to the destination file
+ * Returns the amount of bytes of the source processed or -1 on error
  */
-#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
-int wmain( int argc, wchar_t * const argv[] )
-#else
-int main( int argc, char * const argv[] )
-#endif
+ssize64_t ucaexport(
+           const system_character_t *source_filename,
+           int input_format,
+           const system_character_t *destination_filename,
+           int output_format,
+           int byte_stream_codepage,
+           int export_byte_order_mark,
+           int newline_conversion,
+           void (*callback)( ucaprocess_status_t *process_status, size64_t bytes_read, size64_t bytes_total ) )
 {
 	libuca_unicode_character_t unicode_character[ 2 ];
 
-	character_t *program                      = _CHARACTER_T_STRING( "ucaexport" );
-	system_character_t *destination           = NULL;
-	system_character_t *source                = NULL;
 	uint8_t *destination_string_buffer        = NULL;
 	uint8_t *source_string_buffer             = NULL;
+	static char *function                     = "ucaexport";
+	ssize64_t export_count                    = 0;
 	size_t destination_string_buffer_iterator = 0;
-	size_t destination_string_buffer_size     = 1024;
+	size_t destination_string_buffer_size     = 8 * 1024 * 1024;
 	size_t source_string_buffer_iterator      = 0;
 	size_t realignment_iterator               = 0;
-	size_t source_string_buffer_size          = 1024;
+	size_t source_string_buffer_size          = 8 * 1024 * 1024;
 	ssize_t read_count                        = 0;
 	ssize_t write_count                       = 0;
-	system_integer_t option                   = 0;
-	int analyze_first_character               = 1;
 	int destination_file_descriptor           = 0;
-	int source_file_descriptor                = 0;
-	int byte_stream_codepage                  = LIBUCA_CODEPAGE_ASCII;
-	int export_byte_order_mark                = 1;
-	int input_format                          = UCACOMMON_FORMAT_AUTO_DETECT;
-	int newline_conversion                    = UCACOMMON_NEWLINE_CONVERSION_NONE;
-	int output_format                         = UCACOMMON_FORMAT_UTF8;
-	int verbose                               = 0;
 	int result                                = 1;
+	int source_file_descriptor                = 0;
 	uint8_t amount_of_unicode_characters      = 0;
+	uint8_t analyze_first_character           = 1;
 	uint8_t unicode_character_iterator        = 0;
 
-	ucaoutput_version_fprint(
-	 stdout,
-	 program );
-
-	while( ( option = ucagetopt(
-	                   argc,
-	                   argv,
-	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:vV" ) ) ) != (system_integer_t) -1 )
+	if( source_filename == NULL )
 	{
-		switch( option )
-		{
-			case (system_integer_t) '?':
-			default:
-				fprintf( stderr, "Invalid argument: %s\n",
-				 argv[ optind ] );
+		notify_warning_printf( "%s: invalid source filename.\n",
+		 function );
 
-				usage_fprint(
-				 stdout );
-
-				return( EXIT_FAILURE );
-
-			case (system_integer_t) 'B':
-				export_byte_order_mark = 0;
-
-				break;
-
-			case (system_integer_t) 'c':
-				if( ucainput_determine_byte_stream_codepage(
-				     optarg,
-				     &byte_stream_codepage ) != 1 )
-				{
-					fprintf( stderr, "Unsupported byte stream codepage defaulting to: ascii.\n" );
-
-					byte_stream_codepage = LIBUCA_CODEPAGE_ASCII;
-				}
-				break;
-
-			case (system_integer_t) 'h':
-				usage_fprint(
-				 stdout );
-
-				return( EXIT_SUCCESS );
-
-			case (system_integer_t) 'i':
-				if( system_string_compare(
-				 optarg,
-				 _SYSTEM_CHARACTER_T_STRING( "auto-detect" ),
-				 11 ) == 0 )
-				{
-					input_format = UCACOMMON_FORMAT_AUTO_DETECT;
-				}
-				else if( ucainput_determine_format(
-				          optarg,
-				          &input_format ) != 1 )
-				{
-					fprintf( stderr, "Unsupported input format defaulting to: auto-detect.\n" );
-
-					input_format = UCACOMMON_FORMAT_AUTO_DETECT;
-				}
-				break;
-
-			case (system_integer_t) 'l':
-				codepages_fprint(
-				 stdout );
-
-				return( EXIT_SUCCESS );
-
-			case (system_integer_t) 'n':
-				if( ucainput_determine_newline_conversion(
-				     optarg,
-				     &newline_conversion ) != 1 )
-				{
-					fprintf( stderr, "Unsupported newline conversion defaulting to: none.\n" );
-
-					newline_conversion = UCACOMMON_NEWLINE_CONVERSION_NONE;
-				}
-				break;
-
-			case (system_integer_t) 'o':
-				if( ucainput_determine_format(
-				     optarg,
-				     &output_format ) != 1 )
-				{
-					fprintf( stderr, "Unsupported output format defaulting to: utf8.\n" );
-
-					output_format = UCACOMMON_FORMAT_UTF8;
-				}
-				break;
-
-			case (system_integer_t) 'v':
-				verbose = 1;
-
-				break;
-
-			case (system_integer_t) 'V':
-				ucaoutput_copyright_fprint(
-				 stdout );
-
-				return( EXIT_SUCCESS );
-		}
+		return( -1 );
 	}
-	if( optind == argc )
+	if( destination_filename == NULL )
 	{
-		fprintf( stderr, "Missing source.\n" );
+		notify_warning_printf( "%s: invalid destination filename.\n",
+		 function );
 
-		usage_fprint(
-		 stdout );
-
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
-	source = argv[ optind++ ];
-
-	if( optind == argc )
+	if( ( input_format != UCACOMMON_FORMAT_AUTO_DETECT )
+	 && ( input_format != UCACOMMON_FORMAT_BYTE_STREAM )
+	 && ( input_format != UCACOMMON_FORMAT_UTF8 )
+	 && ( input_format != UCACOMMON_FORMAT_UTF16BE )
+	 && ( input_format != UCACOMMON_FORMAT_UTF16LE )
+	 && ( input_format != UCACOMMON_FORMAT_UTF32BE )
+	 && ( input_format != UCACOMMON_FORMAT_UTF32LE ) )
 	{
-		fprintf( stderr, "Missing destination.\n" );
+		notify_warning_printf( "%s: unsupported input format.\n",
+		 function );
 
-		usage_fprint(
-		 stdout );
-
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
-	destination = argv[ optind++ ];
+	if( ( output_format != UCACOMMON_FORMAT_BYTE_STREAM )
+	 && ( output_format != UCACOMMON_FORMAT_UTF8 )
+	 && ( output_format != UCACOMMON_FORMAT_UTF16BE )
+	 && ( output_format != UCACOMMON_FORMAT_UTF16LE )
+	 && ( output_format != UCACOMMON_FORMAT_UTF32BE )
+	 && ( output_format != UCACOMMON_FORMAT_UTF32LE ) )
+	{
+		notify_warning_printf( "%s: unsupported output format.\n",
+		 function );
 
-	libuca_set_notify_values(
-	 stderr,
-	 verbose );
+		return( -1 );
+	}
+	if( ( newline_conversion != UCACOMMON_NEWLINE_CONVERSION_NONE )
+	 && ( newline_conversion != UCACOMMON_NEWLINE_CONVERSION_CRLF )
+	 && ( newline_conversion != UCACOMMON_NEWLINE_CONVERSION_CR )
+	 && ( newline_conversion != UCACOMMON_NEWLINE_CONVERSION_LF ) )
+	{
+		notify_warning_printf( "%s: unsupported newline conversion.\n",
+		 function );
 
+		return( -1 );
+	}
 	source_file_descriptor = ucacommon_open(
-	                          source,
+	                          source_filename,
 	                          FILE_IO_O_RDONLY );
 
 	if( source_file_descriptor == -1 )
 	{
-		fprintf( stderr, "Unable to open source: %" PRIs_SYSTEM ".\n",
-		 source );
+		notify_warning_printf( "%s: unable to open source: %" PRIs_SYSTEM ".\n",
+		 function, source_filename );
 
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
 	destination_file_descriptor = ucacommon_open(
-	                               destination,
+	                               destination_filename,
 	                               ( FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC ) );
 
 	if( destination_file_descriptor == -1 )
 	{
-		fprintf( stderr, "Unable to open destination: %" PRIs_SYSTEM ".\n",
-		 destination );
+		notify_warning_printf( "%s: unable to open destination: %" PRIs_SYSTEM ".\n",
+		 function, destination_filename );
 
 		file_io_close(
 		 source_file_descriptor );
 
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
 	source_string_buffer = (uint8_t *) memory_allocate(
 	                                    sizeof( uint8_t ) * source_string_buffer_size );
 
 	if( source_string_buffer == NULL )
 	{
-		fprintf( stderr, "Unable to create source string buffer.\n" );
+		notify_warning_printf( "%s: unable to create source string buffer.\n",
+		 function );
 
 		file_io_close(
 		 source_file_descriptor );
 		file_io_close(
 		 destination_file_descriptor );
 
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
 	destination_string_buffer = (uint8_t *) memory_allocate(
 	                                         sizeof( uint8_t ) * destination_string_buffer_size );
 
 	if( destination_string_buffer == NULL )
 	{
-		fprintf( stderr, "Unable to create destination string buffer.\n" );
+		notify_warning_printf( "%s: unable to create destination string buffer.\n",
+		 function );
 
 		file_io_close(
 		 source_file_descriptor );
@@ -328,7 +359,7 @@ int main( int argc, char * const argv[] )
 		memory_free(
 		 source_string_buffer );
 
-		return( EXIT_FAILURE );
+		return( -1 );
 	}
 	if( export_byte_order_mark != 0 )
 	{
@@ -379,7 +410,8 @@ int main( int argc, char * const argv[] )
 		}
 		if( result != 1 )
 		{
-			fprintf( stderr, "Unable to set byte order mark.\n" );
+			notify_warning_printf( "%s: unable to set byte order mark.\n",
+			 function );
 
 			file_io_close(
 			 source_file_descriptor );
@@ -391,7 +423,7 @@ int main( int argc, char * const argv[] )
 			memory_free(
 			 destination_string_buffer );
 
-			return( EXIT_FAILURE );
+			return( -1 );
 		}
 	}
 	while( 1 )
@@ -403,12 +435,14 @@ int main( int argc, char * const argv[] )
 
 		if( read_count < 0 )
 		{
-			fprintf( stderr, "Unable to read from source file.\n" );
+			notify_warning_printf( "%s: unable to read from source.\n",
+			 function );
 
-			result = -1;
+			export_count = -1;
 
 			break;
 		}
+		export_count                  += read_count;
 		read_count                    += (ssize_t) source_string_buffer_iterator;
 		source_string_buffer_iterator  = 0;
 
@@ -418,7 +452,8 @@ int main( int argc, char * const argv[] )
 		}
 		if( analyze_first_character != 0 )
 		{
-			if( ( source_string_buffer[ 0 ] == 0xef )
+			if( ( read_count >= 3 )
+			 && ( source_string_buffer[ 0 ] == 0xef )
 			 && ( source_string_buffer[ 1 ] == 0xbb )
 			 && ( source_string_buffer[ 2 ] == 0xbf ) )
 			{
@@ -431,7 +466,8 @@ int main( int argc, char * const argv[] )
 					source_string_buffer_iterator += 3;
 				}
 			}
-			else if( ( source_string_buffer[ 0 ] == 0xfe )
+			else if( ( read_count >= 2 )
+			      && ( source_string_buffer[ 0 ] == 0xfe )
 			      && ( source_string_buffer[ 1 ] == 0xff ) )
 			{
 				if( input_format == UCACOMMON_FORMAT_AUTO_DETECT )
@@ -443,10 +479,12 @@ int main( int argc, char * const argv[] )
 					source_string_buffer_iterator += 2;
 				}
 			}
-			else if( ( source_string_buffer[ 0 ] == 0xff )
+			else if( ( read_count >= 2 )
+			      && ( source_string_buffer[ 0 ] == 0xff )
 			      && ( source_string_buffer[ 1 ] == 0xfe ) )
 			{
-				if( ( source_string_buffer[ 2 ] == 0x00 )
+				if( ( read_count >= 4 )
+				 && ( source_string_buffer[ 2 ] == 0x00 )
 			         && ( source_string_buffer[ 3 ] == 0x00 ) )
 				{
 					if( input_format == UCACOMMON_FORMAT_AUTO_DETECT )
@@ -470,7 +508,8 @@ int main( int argc, char * const argv[] )
 					}
 				}
 			}
-			else if( ( source_string_buffer[ 0 ] == 0x00 )
+			else if( ( read_count >= 4 )
+			      && ( source_string_buffer[ 0 ] == 0x00 )
 			      && ( source_string_buffer[ 1 ] == 0x00 )
 			      && ( source_string_buffer[ 1 ] == 0xfe )
 			      && ( source_string_buffer[ 1 ] == 0xff ) )
@@ -491,71 +530,6 @@ int main( int argc, char * const argv[] )
 			read_count -= (ssize_t) source_string_buffer_iterator;
 
 			analyze_first_character = 0;
-
-			fprintf( stdout, "Exporting:\n" );
-			fprintf( stdout, "\tSource:\t\t: %s\n",
-			 source );
-			fprintf( stdout, "\tof format:\t: " );
-
-			if( input_format == UCACOMMON_FORMAT_BYTE_STREAM )
-			{
-				fprintf( stdout, "byte stream" );
-			}
-			else if( input_format == UCACOMMON_FORMAT_UTF8 )
-			{
-				fprintf( stdout, "UTF-8" );
-			}
-			else if( input_format == UCACOMMON_FORMAT_UTF16BE )
-			{
-				fprintf( stdout, "UTF-16 big endian" );
-			}
-			else if( input_format == UCACOMMON_FORMAT_UTF16LE )
-			{
-				fprintf( stdout, "UTF-16 little endian" );
-			}
-			else if( input_format == UCACOMMON_FORMAT_UTF32BE )
-			{
-				fprintf( stdout, "UTF-32 big endian" );
-			}
-			else if( input_format == UCACOMMON_FORMAT_UTF32LE )
-			{
-				fprintf( stdout, "UTF-32 little endian" );
-			}
-			fprintf( stdout, "\n" );
-
-			fprintf( stdout, "\tDestination:\t: %s\n",
-			 destination );
-			fprintf( stdout, "\tof format:\t: " );
-
-			if( output_format == UCACOMMON_FORMAT_BYTE_STREAM )
-			{
-				fprintf( stdout, "byte stream" );
-			}
-			else if( output_format == UCACOMMON_FORMAT_UTF8 )
-			{
-				fprintf( stdout, "UTF-8" );
-			}
-			else if( output_format == UCACOMMON_FORMAT_UTF16BE )
-			{
-				fprintf( stdout, "UTF-16 big endian" );
-			}
-			else if( output_format == UCACOMMON_FORMAT_UTF16LE )
-			{
-				fprintf( stdout, "UTF-16 little endian" );
-			}
-			else if( output_format == UCACOMMON_FORMAT_UTF32BE )
-			{
-				fprintf( stdout, "UTF-32 big endian" );
-			}
-			else if( output_format == UCACOMMON_FORMAT_UTF32LE )
-			{
-				fprintf( stdout, "UTF-32 little endian" );
-			}
-			fprintf( stdout, "\n" );
-			fprintf( stdout, "\n" );
-
-			/* TODO print codepage
-			 */
 		}
 		for( ; read_count > 0; read_count-- )
 		{
@@ -627,15 +601,15 @@ int main( int argc, char * const argv[] )
 					break;
 
 				default:
-					fprintf( stderr, "Unsupported input format.\n" );
-
 					result = -1;
-
 					break;
 			}
 			if( result != 1 )
 			{
-				fprintf( stderr, "Unable to convert input character.\n" );
+				notify_warning_printf( "%s: unable to convert input character.\n",
+				 function );
+
+				export_count = -1;
 
 				break;
 			}
@@ -749,21 +723,29 @@ int main( int argc, char * const argv[] )
 						break;
 
 					default:
-						fprintf( stderr, "Unsupported output format.\n" );
-
 						result = -1;
-
 						break;
 				}
 				if( result != 1 )
 				{
-					fprintf( stderr, "Unable to convert output character.\n" );
+					notify_warning_printf( "%s: unable to convert output character.\n",
+					 function );
+
+					export_count = -1;
 
 					break;
 				}
 			}
+			if( export_count <= -1 )
+			{
+				break;
+			}
 			amount_of_unicode_characters = 0;
 			unicode_character_iterator   = 0;
+		}
+		if( export_count <= -1 )
+		{
+			break;
 		}
 		if( destination_string_buffer_iterator > 0 )
 		{
@@ -774,9 +756,10 @@ int main( int argc, char * const argv[] )
 
 			if( write_count < 0 )
 			{
-				fprintf( stderr, "Unable to write to destination file.\n" );
+				notify_warning_printf( "%s: unable to write to destination.\n",
+				 function );
 
-				result = -1;
+				export_count = -1;
 
 				break;
 			}
@@ -791,6 +774,15 @@ int main( int argc, char * const argv[] )
 		{
 			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
 		}
+		/* Provide for a process status update
+		 */
+		if( callback != NULL )
+		{
+			callback(
+			 process_status,
+			 (size64_t) export_count,
+			 0 );
+		}
 	}
 	memory_free(
 	 source_string_buffer );
@@ -800,21 +792,251 @@ int main( int argc, char * const argv[] )
 	if( file_io_close(
 	     source_file_descriptor ) != 0 )
 	{
-		fprintf( stderr, "Unable to close source: %" PRIs_SYSTEM ".\n",
-		 source );
+		notify_warning_printf( "%s: unable to close source: %" PRIs_SYSTEM ".\n",
+		 function, source_filename );
+
+		file_io_close(
+		 destination_file_descriptor );
+
+		return( -1 );
 	}
 	if( file_io_close(
 	     destination_file_descriptor ) != 0 )
 	{
-		fprintf( stderr, "Unable to close destination: %" PRIs_SYSTEM ".\n",
-		 destination );
+		notify_warning_printf( "%s: unable to close destination: %" PRIs_SYSTEM ".\n",
+		 function, destination_filename );
+
+		return( -1 );
 	}
-	if( result != 1 )
+	return( export_count );
+}
+
+/* The main program
+ */
+#if defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+int wmain( int argc, wchar_t * const argv[] )
+#else
+int main( int argc, char * const argv[] )
+#endif
+{
+	character_t *program                     = _CHARACTER_T_STRING( "ucaexport" );
+	system_character_t *destination_filename = NULL;
+	system_character_t *source_filename      = NULL;
+	void *callback                           = &ucaprocess_status_update_unknown_total;
+	ssize64_t export_count                   = 0;
+	system_integer_t option                  = 0;
+	int byte_stream_codepage                 = LIBUCA_CODEPAGE_ASCII;
+	int export_byte_order_mark               = 1;
+	int input_format                         = UCACOMMON_FORMAT_AUTO_DETECT;
+	int newline_conversion                   = UCACOMMON_NEWLINE_CONVERSION_NONE;
+	int output_format                        = UCACOMMON_FORMAT_UTF8;
+	int verbose                              = 0;
+	int status                               = 0;
+
+	ucaoutput_version_fprint(
+	 stdout,
+	 program );
+
+	while( ( option = ucagetopt(
+	                   argc,
+	                   argv,
+	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:qvV" ) ) ) != (system_integer_t) -1 )
+	{
+		switch( option )
+		{
+			case (system_integer_t) '?':
+			default:
+				fprintf( stderr, "Invalid argument: %s\n",
+				 argv[ optind ] );
+
+				usage_fprint(
+				 stdout );
+
+				return( EXIT_FAILURE );
+
+			case (system_integer_t) 'B':
+				export_byte_order_mark = 0;
+
+				break;
+
+			case (system_integer_t) 'c':
+				if( ucainput_determine_byte_stream_codepage(
+				     optarg,
+				     &byte_stream_codepage ) != 1 )
+				{
+					fprintf( stderr, "Unsupported byte stream codepage defaulting to: ascii.\n" );
+
+					byte_stream_codepage = LIBUCA_CODEPAGE_ASCII;
+				}
+				break;
+
+			case (system_integer_t) 'h':
+				usage_fprint(
+				 stdout );
+
+				return( EXIT_SUCCESS );
+
+			case (system_integer_t) 'i':
+				if( system_string_compare(
+				 optarg,
+				 _SYSTEM_CHARACTER_T_STRING( "auto-detect" ),
+				 11 ) == 0 )
+				{
+					input_format = UCACOMMON_FORMAT_AUTO_DETECT;
+				}
+				else if( ucainput_determine_format(
+				          optarg,
+				          &input_format ) != 1 )
+				{
+					fprintf( stderr, "Unsupported input format defaulting to: auto-detect.\n" );
+
+					input_format = UCACOMMON_FORMAT_AUTO_DETECT;
+				}
+				break;
+
+			case (system_integer_t) 'l':
+				ucaoutput_codepages_fprint(
+				 stdout );
+
+				return( EXIT_SUCCESS );
+
+			case (system_integer_t) 'n':
+				if( ucainput_determine_newline_conversion(
+				     optarg,
+				     &newline_conversion ) != 1 )
+				{
+					fprintf( stderr, "Unsupported newline conversion defaulting to: none.\n" );
+
+					newline_conversion = UCACOMMON_NEWLINE_CONVERSION_NONE;
+				}
+				break;
+
+			case (system_integer_t) 'o':
+				if( ucainput_determine_format(
+				     optarg,
+				     &output_format ) != 1 )
+				{
+					fprintf( stderr, "Unsupported output format defaulting to: utf8.\n" );
+
+					output_format = UCACOMMON_FORMAT_UTF8;
+				}
+				break;
+
+			case (system_integer_t) 'q':
+				callback = NULL;
+
+				break;
+
+			case (system_integer_t) 'v':
+				verbose = 1;
+
+				break;
+
+			case (system_integer_t) 'V':
+				ucaoutput_copyright_fprint(
+				 stdout );
+
+				return( EXIT_SUCCESS );
+		}
+	}
+	if( optind == argc )
+	{
+		fprintf( stderr, "Missing source.\n" );
+
+		usage_fprint(
+		 stdout );
+
+		return( EXIT_FAILURE );
+	}
+	source_filename = argv[ optind++ ];
+
+	if( optind == argc )
+	{
+		fprintf( stderr, "Missing destination.\n" );
+
+		usage_fprint(
+		 stdout );
+
+		return( EXIT_FAILURE );
+	}
+	destination_filename = argv[ optind++ ];
+
+	libuca_set_notify_values(
+	 stderr,
+	 verbose );
+
+	export_fprint(
+	 stdout,
+	 source_filename,
+	 input_format,
+	 destination_filename,
+	 output_format,
+	 byte_stream_codepage,
+	 export_byte_order_mark,
+	 newline_conversion );
+
+	if( ucaprocess_status_initialize(
+	     &process_status,
+	     _CHARACTER_T_STRING( "Export" ),
+	     _CHARACTER_T_STRING( "exported" ),
+	     _CHARACTER_T_STRING( "Exported" ),
+	     stdout ) != 1 )
+	{
+		fprintf( stderr, "Unable to create process status.\n" );
+
+		return( EXIT_FAILURE );
+	}
+	if( ucaprocess_status_start(
+	     process_status ) != 1 )
+	{
+		fprintf( stderr, "Unable to start process status.\n" );
+
+		ucaprocess_status_free(
+		 &process_status );
+
+		return( EXIT_FAILURE );
+	}
+	export_count = ucaexport(
+	                source_filename,
+	                input_format,
+	                destination_filename,
+	                output_format,
+	                byte_stream_codepage,
+	                export_byte_order_mark,
+	                newline_conversion,
+	                callback );
+
+	if( export_count <= -1 )
+	{
+		status = UCAPROCESS_STATUS_FAILED;
+	}
+	else
+	{
+		status = UCAPROCESS_STATUS_COMPLETED;
+	}
+	if( ucaprocess_status_stop(
+	     process_status,
+	     (size64_t) export_count,
+	     status ) != 1 )
+	{
+		fprintf( stderr, "Unable to stop process status.\n" );
+
+		ucaprocess_status_free(
+		 &process_status );
+
+		return( EXIT_FAILURE );
+	}
+	if( ucaprocess_status_free(
+	     &process_status ) != 1 )
+	{
+		fprintf( stderr, "Unable to free process status.\n" );
+
+		return( EXIT_FAILURE );
+	}
+	if( status != UCAPROCESS_STATUS_COMPLETED )
 	{
 		return( EXIT_FAILURE );
 	}
-	fprintf( stdout, "Export completed.\n" );
-
 	return( EXIT_SUCCESS );
 }
 

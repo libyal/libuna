@@ -1,7 +1,7 @@
 /*
- * Common output functions for the ucatools
+ * Signal handling functions for the ucatools
  *
- * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
@@ -20,41 +20,48 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _PFFOUTPUT_H )
-#define _PFFOUTPUT_H
+#if !defined( _UCASIGNAL_H )
+#define _UCASIGNAL_H
 
 #include <common.h>
-#include <date_time.h>
-#include <types.h>
 
-#include <stdio.h>
+#if defined( HAVE_WINDOWS_API )
+#include <windows.h>
+#endif
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-void ucaoutput_copyright_fprint(
-      FILE *stream );
+#if defined( HAVE_SIGNAL_H )
+typedef int ucasignal_t;
 
-void ucaoutput_version_fprint(
-      FILE *stream,
-      const character_t *program );
+int ucasignal_attach(
+     void (*signal_handler)( ucasignal_t ) );
 
-void ucaoutput_timestamp_fprint(
-      FILE *stream,
-      time_t timestamp );
+int ucasignal_detach(
+     void );
 
-void ucaoutput_bytes_per_second_fprint(
-      FILE *stream,
-      size64_t bytes,
-      time_t seconds );
+#elif defined( HAVE_WINDOWS_API )
+typedef unsigned long ucasignal_t;
 
-void ucaoutput_bytes_fprint(
-      FILE *stream,
-      size64_t bytes );
+BOOL WINAPI ucasignal_handler(
+             ucasignal_t signal );
 
-void ucaoutput_codepages_fprint(
-      FILE *stream );
+void ucasignal_initialize_memory_debug(
+      void );
+
+int ucasignal_attach(
+     void (*signal_handler)( ucasignal_t ) );
+
+int ucasignal_detach(
+     void );
+
+#else
+
+#error missing signal function
+#endif
+
 
 #if defined( __cplusplus )
 }
