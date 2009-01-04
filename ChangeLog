@@ -8,7 +8,7 @@ TODO
   libuca_utf32_string_copy_from_utf32_stream
   libuca_utf32_stream_copy_from_utf32
 
-* check current codepages
+* handle combining characters in windows 1255 and 1258 ?
 * add more code pages?
 
 * copy from/to functions should return amount of bytes successfully processed?
@@ -20,9 +20,9 @@ TODO
 Tools:
 * ucaexport
   - add conversion summary (converting from x to y with codepage z) +/-
-  - show bytes per second?
+  - add completion summary, show bytes per second?
   - update man page
-  - allow for both input and output codepage?
+  - allow for different input and output codepage?
   - implement basic globbing support for Windows?
 * ucainfo
   tool to determine the encoding type using the byte order mark
@@ -33,6 +33,7 @@ Tools:
     .Sh SEE ALSO
     .Xr ucainfo 1
   - update spec.in file
+  - update msvscpp project files
 
 Deployment:
 * create debian package files
@@ -56,6 +57,7 @@ Other Windows codepages (MBC)
 * Worked on refactoring _streams to separate files change copy_to_ functions into copy_from
 * Implemented libuca_utf16_string_size_from_utf8, libuca_utf32_string_size_from_utf8
 * Implemented libuca_utf16_string_size_from_utf32, libuca_utf32_string_size_from_utf32
+* Worked on codepages
 
 20080831
 * Worked on initial version

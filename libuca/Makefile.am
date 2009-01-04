@@ -11,8 +11,10 @@ libuca_la_SOURCES = \
 	libuca_codepage_windows_1252.c libuca_codepage_windows_1252.h \
 	libuca_codepage_windows_1253.c libuca_codepage_windows_1253.h \
 	libuca_codepage_windows_1254.c libuca_codepage_windows_1254.h \
+	libuca_codepage_windows_1255.c libuca_codepage_windows_1255.h \
 	libuca_codepage_windows_1256.c libuca_codepage_windows_1256.h \
 	libuca_codepage_windows_1257.c libuca_codepage_windows_1257.h \
+	libuca_codepage_windows_1258.c libuca_codepage_windows_1258.h \
 	libuca_definitions.h \
 	libuca_extern.h \
 	libuca_support.c libuca_support.h \

@@ -1,5 +1,5 @@
 /*
- * Windows 1254 codepage functions
+ * Windows 1254 codepage (Turkish) functions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.

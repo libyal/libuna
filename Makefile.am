@@ -12,7 +12,13 @@ DOCUMENT_FILES = \
 	docs/ascii.txt \
 	docs/windows-1250.txt \
 	docs/windows-1251.txt \
-	docs/windows-1252.txt
+	docs/windows-1252.txt \
+	docs/windows-1253.txt \
+	docs/windows-1254.txt \
+	docs/windows-1255.txt \
+	docs/windows-1256.txt \
+	docs/windows-1257.txt \
+	docs/windows-1258.txt
 
 INCLUDE_FILES = \
         include/libuca.h.in \

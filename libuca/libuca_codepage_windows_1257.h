@@ -1,5 +1,5 @@
 /*
- * Windows 1257 codepage functions
+ * Windows 1257 codepage (Baltic) functions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -33,20 +33,23 @@ extern "C" {
 extern const uint16_t libuca_codepage_windows_1257_byte_stream_to_unicode_base_0x80[];
 
 extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x00a0[];
-extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x0100[];
 extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x02c0[];
+extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x02d8[];
 extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x2010[];
+extern const uint8_t libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x2038[];
 
 #define libuca_codepage_windows_1257_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuca_codepage_windows_1257_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
 
 #define libuca_codepage_windows_1257_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x0100 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
-	( ( unicode_character >= 0x0100 ) && ( unicode_character < 0x0180 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x0100[ unicode_character - 0x0100 ] : \
-	( ( unicode_character >= 0x02c0 ) && ( unicode_character < 0x02e0 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x02c0[ unicode_character - 0x02c0 ] : \
-	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2040 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
-	( unicode_character == 0x2010 ) ? 0x80 : \
+	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x0180 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
+	( ( unicode_character >= 0x02c0 ) && ( unicode_character < 0x02c8 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x02c0[ unicode_character - 0x02c0 ] : \
+	( ( unicode_character >= 0x02d8 ) && ( unicode_character < 0x02e0 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x02d8[ unicode_character - 0x02d8 ] : \
+	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2028 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
+	( unicode_character == 0x2030 ) ? 0x89 : \
+	( ( unicode_character >= 0x2038 ) && ( unicode_character < 0x2040 ) ) ? libuca_codepage_windows_1257_unicode_to_byte_stream_base_0x2038[ unicode_character - 0x2038 ] : \
+	( unicode_character == 0x20ac ) ? 0x80 : \
 	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
 
 #if defined( __cplusplus )

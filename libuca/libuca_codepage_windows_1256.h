@@ -1,5 +1,5 @@
 /*
- * Windows 1256 codepage functions
+ * Windows 1256 codepage (Arabic) functions
  *
  * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -33,20 +33,37 @@ extern "C" {
 extern const uint16_t libuca_codepage_windows_1256_byte_stream_to_unicode_base_0x80[];
 
 extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00a0[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00d0[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00e0[];
 extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0150[];
-extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0608[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0618[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0678[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06a8[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06b8[];
 extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2008[];
+extern const uint8_t libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2038[];
 
 #define libuca_codepage_windows_1256_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuca_codepage_windows_1256_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
 
 #define libuca_codepage_windows_1256_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x0100 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
-	( ( unicode_character >= 0x0150 ) && ( unicode_character < 0x0198 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0150[ unicode_character - 0x0150 ] : \
-	( ( unicode_character >= 0x0608 ) && ( unicode_character < 0x06d8 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0608[ unicode_character - 0x0608 ] : \
-	( ( unicode_character >= 0x2008 ) && ( unicode_character < 0x2040 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2008[ unicode_character - 0x2008 ] : \
-	( unicode_character == 0x2010 ) ? 0x80 : \
+	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x00c0 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
+	( ( unicode_character >= 0x00d0 ) && ( unicode_character < 0x00d8 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00d0[ unicode_character - 0x00d0 ] : \
+	( ( unicode_character >= 0x00e0 ) && ( unicode_character < 0x0100 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x00e0[ unicode_character - 0x00e0 ] : \
+	( ( unicode_character >= 0x0150 ) && ( unicode_character < 0x0158 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0150[ unicode_character - 0x0150 ] : \
+	( unicode_character == 0x0192 ) ? 0x83 : \
+	( unicode_character == 0x02c6 ) ? 0x88 : \
+	( unicode_character == 0x060c ) ? 0xa1 : \
+	( ( unicode_character >= 0x0618 ) && ( unicode_character < 0x0658 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0618[ unicode_character - 0x0618 ] : \
+	( ( unicode_character >= 0x0678 ) && ( unicode_character < 0x06a0 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x0678[ unicode_character - 0x0678 ] : \
+	( ( unicode_character >= 0x06a8 ) && ( unicode_character < 0x06b0 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06a8[ unicode_character - 0x06a8 ] : \
+	( ( unicode_character >= 0x06b8 ) && ( unicode_character < 0x06c8 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x06b8[ unicode_character - 0x06b8 ] : \
+	( unicode_character == 0x06d2 ) ? 0xff : \
+	( ( unicode_character >= 0x2008 ) && ( unicode_character < 0x2028 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2008[ unicode_character - 0x2008 ] : \
+	( unicode_character == 0x2030 ) ? 0x89 : \
+	( ( unicode_character >= 0x2038 ) && ( unicode_character < 0x2040 ) ) ? libuca_codepage_windows_1256_unicode_to_byte_stream_base_0x2038[ unicode_character - 0x2038 ] : \
+	( unicode_character == 0x20ac ) ? 0x80 : \
 	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
 
 #if defined( __cplusplus )
