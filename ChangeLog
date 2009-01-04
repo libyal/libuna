@@ -23,6 +23,7 @@ Tools:
   - show bytes per second?
   - update man page
   - allow for both input and output codepage?
+  - implement basic globbing support for Windows?
 * ucainfo
   tool to determine the encoding type using the byte order mark
   perhaps some other tricks

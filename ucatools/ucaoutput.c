@@ -55,7 +55,7 @@ void ucaoutput_copyright_fprint(
  */
 void ucaoutput_version_fprint(
       FILE *stream,
-      const char *program )
+      const character_t *program )
 {
 	if( stream == NULL )
 	{

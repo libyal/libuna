@@ -5,6 +5,8 @@ bin_PROGRAMS = ucaexport
 ucaexport_SOURCES = \
 	ucacommon.h \
 	ucaexport.c \
+	ucagetopt.c ucagetopt.h \
+	ucaglob.c ucaglob.h \
 	ucainput.c ucainput.h \
 	ucaoutput.c ucaoutput.h
 

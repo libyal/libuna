@@ -1,7 +1,7 @@
 /*
- * Common functions for the ucatools
+ * GetOpt functions for the ucatools
  *
- * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
@@ -20,36 +20,37 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCACOMMON_H )
-#define _UCACOMMON_H
+#if !defined( _UCAGETOPT_H )
+#define _UCAGETOPT_H
 
 #include <common.h>
-#include <file_io.h>
+#include <system_string.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#define UCACOMMON_FORMAT_AUTO_DETECT		0
-#define UCACOMMON_FORMAT_BYTE_STREAM		1
-#define UCACOMMON_FORMAT_UTF8			8
-#define UCACOMMON_FORMAT_UTF16BE		16
-#define UCACOMMON_FORMAT_UTF16LE		61
-#define UCACOMMON_FORMAT_UTF32BE		32
-#define UCACOMMON_FORMAT_UTF32LE		23
-
-#define UCACOMMON_NEWLINE_CONVERSION_NONE	0
-#define UCACOMMON_NEWLINE_CONVERSION_CR  	1
-#define UCACOMMON_NEWLINE_CONVERSION_CRLF	2
-#define UCACOMMON_NEWLINE_CONVERSION_LF		3
-
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
-#define ucacommon_open( filename, mode ) \
-        file_io_wopen( filename, mode )
-
+#if defined( HAVE_GETOPT ) && !defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+#define ucagetopt( argument_count, argument_values, options_string ) \
+	getopt( argument_count, argument_values, options_string )
 #else
-#define ucacommon_open( filename, mode ) \
-        file_io_open( filename, mode )
+
+/* The current option argument
+ */
+extern system_character_t *optarg;
+
+/* The option index
+ */
+extern int optind;
+
+/* Value to indicate the current option
+ */
+extern system_integer_t optopt;
+
+system_integer_t ucagetopt(
+                  int argument_count,
+                  system_character_t * const argument_values[],
+                  const system_character_t *options_string );
 
 #endif
 

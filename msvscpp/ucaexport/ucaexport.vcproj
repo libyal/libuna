@@ -213,6 +213,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\ucatools\ucagetopt.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ucatools\ucaglob.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ucatools\ucainput.c"
 				>
 			</File>
@@ -312,6 +320,14 @@
 			</File>
 			<File
 				RelativePath="..\..\ucatools\ucacommon.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ucatools\ucagetopt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ucatools\ucaglob.h"
 				>
 			</File>
 			<File

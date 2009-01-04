@@ -1,7 +1,7 @@
 /*
- * Common functions for the ucatools
+ * Globbing functions for the ucatools
  *
- * Copyright (c) 2008, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2006-2008, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
@@ -20,36 +20,49 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UCACOMMON_H )
-#define _UCACOMMON_H
+#if !defined( _UCAGLOB_H )
+#define _UCAGLOB_H
 
 #include <common.h>
-#include <file_io.h>
+#include <system_string.h>
+
+#include <libuca/types.h>
+
+#include "ucacommon.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#define UCACOMMON_FORMAT_AUTO_DETECT		0
-#define UCACOMMON_FORMAT_BYTE_STREAM		1
-#define UCACOMMON_FORMAT_UTF8			8
-#define UCACOMMON_FORMAT_UTF16BE		16
-#define UCACOMMON_FORMAT_UTF16LE		61
-#define UCACOMMON_FORMAT_UTF32BE		32
-#define UCACOMMON_FORMAT_UTF32LE		23
+#if !defined( HAVE_GLOB_H )
 
-#define UCACOMMON_NEWLINE_CONVERSION_NONE	0
-#define UCACOMMON_NEWLINE_CONVERSION_CR  	1
-#define UCACOMMON_NEWLINE_CONVERSION_CRLF	2
-#define UCACOMMON_NEWLINE_CONVERSION_LF		3
+typedef struct ucaglob ucaglob_t;
 
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
-#define ucacommon_open( filename, mode ) \
-        file_io_wopen( filename, mode )
+struct ucaglob
+{
+	/* The amount of globs resolved
+	 */
+	int amount_of_results;
 
-#else
-#define ucacommon_open( filename, mode ) \
-        file_io_open( filename, mode )
+	/* The resolved globs
+	 */
+	system_character_t **result;
+};
+
+int ucaglob_initialize(
+     ucaglob_t **glob );
+
+int ucaglob_free(
+     ucaglob_t **glob );
+
+int ucaglob_resize(
+     ucaglob_t *glob,
+     int new_amount_of_results );
+
+int ucaglob_resolve(
+     ucaglob_t *glob,
+     system_character_t * const patterns[],
+     int amount_of_patterns );
 
 #endif
 

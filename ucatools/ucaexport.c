@@ -51,6 +51,8 @@
 #include <libuca.h>
 
 #include "ucacommon.h"
+#include "ucagetopt.h"
+#include "ucaglob.h"
 #include "ucainput.h"
 #include "ucaoutput.h"
 
@@ -63,19 +65,25 @@ void usage_fprint(
 	{
 		return;
 	}
-	fprintf( stream, "Usage: ucaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ] [ -o output_format ] [ -BhlsvV ] source destination\n\n" );
+	fprintf( stream, "Usage: ucaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ]\n" );
+	fprintf( stream, "       [ -o output_format ] [ -BhlsvV ] source destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
 	fprintf( stream, "\t-B:          do not export a byte order mark\n" );
-	fprintf( stream, "\t-c:          codepage of byte stream, options: ascii (default), windows-1250, windows-1251, windows-1252,\n" );
-	fprintf( stream, "\t             windows-1253, windows-1254, windows-1255, windows-1256, windows-1257 or windows-1258\n" );
+	fprintf( stream, "\t-c:          codepage of byte stream, options: ascii (default),\n" );
+	fprintf( stream, "\t             windows-1250, windows-1251, windows-1252, windows-1253,\n" );
+	fprintf( stream, "\t             windows-1254, windows-1255, windows-1256, windows-1257\n" );
+	fprintf( stream, "\t             or windows-1258\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
-	fprintf( stream, "\t-i:          input format, options: auto-detect (default), byte-stream, utf8, utf16le, utf16be\n" );
+	fprintf( stream, "\t-i:          input format, options: auto-detect (default), byte-stream,\n" );
+	fprintf( stream, "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-l:          list information about the codepages\n" );
-	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr, crlf, lf\n" );
-	fprintf( stream, "\t-o:          output format, options: byte-stream, utf8 (default), utf16le, utf16be\n" );
+	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n" );
+	fprintf( stream, "\t             crlf or lf\n" );
+	fprintf( stream, "\t-o:          output format, options: byte-stream, utf8 (default),\n" );
+	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-s:          enable strict conversion mode\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
 	fprintf( stream, "\t-V:          print version\n" );
@@ -94,7 +102,8 @@ void codepages_fprint(
 	fprintf( stream, "\tascii:        Support 7-bit ASCII character set\n" );
 	fprintf( stream, "\twindows-1250: Supports the Windows 1250 (Central European) character set\n" );
 	fprintf( stream, "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n" );
-	fprintf( stream, "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1) character set\n" );
+	fprintf( stream, "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n" );
+	fprintf( stream, "\t              character set\n" );
 	fprintf( stream, "\twindows-1253: Supports the Windows 1253 (Greek) character set\n" );
 	fprintf( stream, "\twindows-1254: Supports the Windows 1254 (Turkish) character set\n" );
 	fprintf( stream, "\twindows-1255: Supports the Windows 1255 (Hebrew) character set\n" );
@@ -144,7 +153,7 @@ int main( int argc, char * const argv[] )
 	 stdout,
 	 program );
 
-	while( ( option = getopt(
+	while( ( option = ucagetopt(
 	                   argc,
 	                   argv,
 	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:svV" ) ) ) != (system_integer_t) -1 )
@@ -272,7 +281,7 @@ int main( int argc, char * const argv[] )
 	 stderr,
 	 verbose );
 
-	source_file_descriptor = file_io_open(
+	source_file_descriptor = ucacommon_open(
 	                          source,
 	                          FILE_IO_O_RDONLY );
 
@@ -283,7 +292,7 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	destination_file_descriptor = file_io_open(
+	destination_file_descriptor = ucacommon_open(
 	                               destination,
 	                               ( FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC ) );
 
@@ -381,7 +390,7 @@ int main( int argc, char * const argv[] )
 
 			break;
 		}
-		read_count                    += source_string_buffer_iterator;
+		read_count                    += (ssize_t) source_string_buffer_iterator;
 		source_string_buffer_iterator  = 0;
 
 		if( read_count == 0 )
@@ -460,7 +469,7 @@ int main( int argc, char * const argv[] )
 			{
 				input_format = UCACOMMON_FORMAT_BYTE_STREAM;
 			}
-			read_count -= source_string_buffer_iterator;
+			read_count -= (ssize_t) source_string_buffer_iterator;
 
 			analyze_first_character = 0;
 
