@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20081019],
+  [20090124],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20081019])
+ [20090124])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -386,6 +386,22 @@ AC_CHECK_FUNCS([getopt])
 dnl Check for printf conversion specifier support
 LIBUNA_CHECK_PRINTF_JD
 LIBUNA_CHECK_PRINTF_ZD
+
+dnl Set memwatch support
+ac_libewf_have_memwatch=yes
+
+AS_IF(
+	[test "x$ac_libewf_have_memwatch" != xno ],
+	[AC_SUBST(
+	 [MEMWATCH_CPPFLAGS],
+	 ["-DMEMWATCH -DMEMWATCH_STDIO"])
+	AC_SUBST(
+	 [MEMWATCH_LIBADD],
+	 [../common/libmemwatch.la]) ])
+
+AM_CONDITIONAL(
+ [HAVE_MEMWATCH],
+ [test "x$ac_libewf_have_memwatch" != xno])
 
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";

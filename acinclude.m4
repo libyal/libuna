@@ -5,12 +5,12 @@ AC_DEFUN([LIBUNA_TEST_ENABLE],
 	 [AS_HELP_STRING(
 	  [--enable-$1],
 	  [$3 (default is $4)])],
-	 [ac_libuna_enable_$2=$enableval],
-	 [ac_libuna_enable_$2=$4])dnl
+	 [ac_cv_libuna_enable_$2=$enableval],
+	 [ac_cv_libuna_enable_$2=$4])dnl
 	 AC_CACHE_CHECK(
 	  [whether to enable $3],
-	  [ac_libuna_enable_$2],
-	  [ac_libuna_enable_$2=$4])dnl
+	  [ac_cv_libuna_enable_$2],
+	  [ac_cv_libuna_enable_$2=$4])dnl
 ])
 
 dnl Function to detect if printf conversion specifier "%jd" is available

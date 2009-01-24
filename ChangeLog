@@ -52,6 +52,12 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20090124
+* Updated headers
+* Updated configure.ac to conform to cache value naming schema
+* Updated autoconf/make to use flags and library definitions
+* Updated unaexport man page
+
 20081019
 * Added splint to makefiles
 * Updated liberror
