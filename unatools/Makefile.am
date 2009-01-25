@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common @MEMWATCH_CPPFLAGS@
 
 bin_PROGRAMS = unaexport
 
@@ -20,7 +20,7 @@ unaexport_SOURCES = \
 	unainput.c unainput.h \
 	unaoutput.c unaoutput.h
 
-unaexport_LDADD   = ../libuna/libuna.la
+unaexport_LDADD   = ../libuna/libuna.la @MEMWATCH_LIBADD@
 
 distclean: clean
 	/bin/rm -f Makefile
