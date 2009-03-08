@@ -1,5 +1,5 @@
 /*
- * UTF-32 stream functions
+ * UTF-8 stream functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
