@@ -52,6 +52,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20090416
+* fixed missing memwatch
+* fixed too large output in unaexport
+
 20090124
 * Updated headers
 * Updated configure.ac to conform to cache value naming schema

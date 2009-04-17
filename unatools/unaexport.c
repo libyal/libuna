@@ -59,6 +59,8 @@
 #include "unainput.h"
 #include "unaoutput.h"
 
+#define UNAEXPORT_BUFFER_SIZE	8 * 1024 * 1024
+
 /* Prints the executable usage information
  */
 void usage_fprint(
@@ -108,119 +110,187 @@ void export_fprint(
 	{
 		return;
 	}
-	fprintf( stream, "Exporting:\n" );
-	fprintf( stream, "\tsource:\t\t\t%s\n",
+	fprintf(
+	 stream,
+	 "Exporting:\n" );
+	fprintf(
+	 stream,
+	 "\tsource:\t\t\t%s\n",
 	 source_filename );
-	fprintf( stream, "\tof format:\t\t" );
+	fprintf(
+	 stream,
+	 "\tof format:\t\t" );
 
 	if( input_format == UNACOMMON_FORMAT_BYTE_STREAM )
 	{
-		fprintf( stream, "auto detect" );
+		fprintf(
+		 stream,
+		 "auto detect" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_BYTE_STREAM )
 	{
-		fprintf( stream, "byte stream" );
+		fprintf(
+		 stream,
+		 "byte stream" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_UTF8 )
 	{
-		fprintf( stream, "UTF-8" );
+		fprintf(
+		 stream,
+		 "UTF-8" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_UTF16BE )
 	{
-		fprintf( stream, "UTF-16 big endian" );
+		fprintf(
+		 stream,
+		 "UTF-16 big endian" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_UTF16LE )
 	{
-		fprintf( stream, "UTF-16 little endian" );
+		fprintf(
+		 stream,
+		 "UTF-16 little endian" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_UTF32BE )
 	{
-		fprintf( stream, "UTF-32 big endian" );
+		fprintf(
+		 stream,
+		 "UTF-32 big endian" );
 	}
 	else if( input_format == UNACOMMON_FORMAT_UTF32LE )
 	{
-		fprintf( stream, "UTF-32 little endian" );
+		fprintf(
+		 stream,
+		 "UTF-32 little endian" );
 	}
 	else
 	{
-		fprintf( stream, "unsupported" );
+		fprintf(
+		 stream,
+		 "unsupported" );
 	}
-	fprintf( stream, "\n" );
+	fprintf(
+	 stream,
+	 "\n" );
 
-	fprintf( stream, "\tdestination:\t\t%s\n",
+	fprintf(
+	 stream,
+	 "\tdestination:\t\t%s\n",
 	 destination_filename );
-	fprintf( stream, "\tof format:\t\t" );
+	fprintf(
+	 stream,
+	 "\tof format:\t\t" );
 
 	if( output_format == UNACOMMON_FORMAT_BYTE_STREAM )
 	{
-		fprintf( stream, "byte stream" );
+		fprintf(
+		 stream,
+		 "byte stream" );
 	}
 	else if( output_format == UNACOMMON_FORMAT_UTF8 )
 	{
-		fprintf( stream, "UTF-8" );
+		fprintf(
+		 stream,
+		 "UTF-8" );
 	}
 	else if( output_format == UNACOMMON_FORMAT_UTF16BE )
 	{
-		fprintf( stream, "UTF-16 big endian" );
+		fprintf(
+		 stream,
+		 "UTF-16 big endian" );
 	}
 	else if( output_format == UNACOMMON_FORMAT_UTF16LE )
 	{
-		fprintf( stream, "UTF-16 little endian" );
+		fprintf(
+		 stream,
+		 "UTF-16 little endian" );
 	}
 	else if( output_format == UNACOMMON_FORMAT_UTF32BE )
 	{
-		fprintf( stream, "UTF-32 big endian" );
+		fprintf(
+		 stream,
+		 "UTF-32 big endian" );
 	}
 	else if( output_format == UNACOMMON_FORMAT_UTF32LE )
 	{
-		fprintf( stream, "UTF-32 little endian" );
+		fprintf(
+		 stream,
+		 "UTF-32 little endian" );
 	}
 	else
 	{
-		fprintf( stream, "unsupported" );
+		fprintf(
+		 stream,
+		 "unsupported" );
 	}
-	fprintf( stream, "\n" );
+	fprintf(
+	 stream,
+	 "\n" );
 
 	/* TODO print codepage
 	 */
 
-	fprintf( stream, "\texport byte order mark:\t" );
+	fprintf(
+	 stream,
+	 "\texport byte order mark:\t" );
 
 	if( export_byte_order_mark == 0 )
 	{
-		fprintf( stream, "no" );
+		fprintf(
+		 stream,
+		 "no" );
 	}
 	else
 	{
-		fprintf( stream, "yes" );
+		fprintf(
+		 stream,
+		 "yes" );
 	}
-	fprintf( stream, "\n" );
+	fprintf(
+	 stream,
+	 "\n" );
 
-	fprintf( stream, "\tnewline conversion:\t" );
+	fprintf(
+	 stream,
+	 "\tnewline conversion:\t" );
 	
 	if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
 	{
-		fprintf( stream, "none" );
+		fprintf(
+		 stream,
+		 "none" );
 	}
 	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
 	{
-		fprintf( stream, "carriage return and line feed (crlf)" );
+		fprintf(
+		 stream,
+		 "carriage return and line feed (crlf)" );
 	}
 	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
 	{
-		fprintf( stream, "carriage return (cr)" );
+		fprintf(
+		 stream,
+		 "carriage return (cr)" );
 	}
 	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
 	{
-		fprintf( stream, "line feed (lf)" );
+		fprintf(
+		 stream,
+		 "line feed (lf)" );
 	}
 	else
 	{
-		fprintf( stream, "unsupported" );
+		fprintf(
+		 stream,
+		 "unsupported" );
 	}
-	fprintf( stream, "\n" );
+	fprintf(
+	 stream,
+	 "\n" );
 
-	fprintf( stream, "\n" );
+	fprintf(
+	 stream,
+	 "\n" );
 }
 
 /* Exports the source file to the destination file
@@ -244,10 +314,11 @@ ssize64_t unaexport(
 	static char *function                     = "unaexport";
 	ssize64_t export_count                    = 0;
 	size_t destination_string_buffer_iterator = 0;
-	size_t destination_string_buffer_size     = 8 * 1024 * 1024;
+	size_t destination_string_buffer_size     = UNAEXPORT_BUFFER_SIZE;
+	size_t last_source_string_buffer_iterator = 0;
 	size_t source_string_buffer_iterator      = 0;
 	size_t realignment_iterator               = 0;
-	size_t source_string_buffer_size          = 8 * 1024 * 1024;
+	size_t source_string_buffer_size          = UNAEXPORT_BUFFER_SIZE;
 	ssize_t read_count                        = 0;
 	ssize_t write_count                       = 0;
 	int destination_file_descriptor           = 0;
@@ -259,14 +330,16 @@ ssize64_t unaexport(
 
 	if( source_filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid source filename.\n",
+		notify_warning_printf(
+		 "%s: invalid source filename.\n",
 		 function );
 
 		return( -1 );
 	}
 	if( destination_filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid destination filename.\n",
+		notify_warning_printf(
+		 "%s: invalid destination filename.\n",
 		 function );
 
 		return( -1 );
@@ -279,7 +352,8 @@ ssize64_t unaexport(
 	 && ( input_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( input_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		notify_warning_printf( "%s: unsupported input format.\n",
+		notify_warning_printf(
+		 "%s: unsupported input format.\n",
 		 function );
 
 		return( -1 );
@@ -291,7 +365,8 @@ ssize64_t unaexport(
 	 && ( output_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( output_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		notify_warning_printf( "%s: unsupported output format.\n",
+		notify_warning_printf(
+		 "%s: unsupported output format.\n",
 		 function );
 
 		return( -1 );
@@ -301,7 +376,8 @@ ssize64_t unaexport(
 	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
 	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
 	{
-		notify_warning_printf( "%s: unsupported newline conversion.\n",
+		notify_warning_printf(
+		 "%s: unsupported newline conversion.\n",
 		 function );
 
 		return( -1 );
@@ -312,19 +388,23 @@ ssize64_t unaexport(
 
 	if( source_file_descriptor == -1 )
 	{
-		notify_warning_printf( "%s: unable to open source: %" PRIs_SYSTEM ".\n",
-		 function, source_filename );
+		notify_warning_printf(
+		 "%s: unable to open source: %" PRIs_SYSTEM ".\n",
+		 function,
+		 source_filename );
 
 		return( -1 );
 	}
 	destination_file_descriptor = unacommon_open(
 	                               destination_filename,
-	                               ( FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC ) );
+	                               FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC );
 
 	if( destination_file_descriptor == -1 )
 	{
-		notify_warning_printf( "%s: unable to open destination: %" PRIs_SYSTEM ".\n",
-		 function, destination_filename );
+		notify_warning_printf(
+		 "%s: unable to open destination: %" PRIs_SYSTEM ".\n",
+		 function,
+		 destination_filename );
 
 		file_io_close(
 		 source_file_descriptor );
@@ -336,7 +416,8 @@ ssize64_t unaexport(
 
 	if( source_string_buffer == NULL )
 	{
-		notify_warning_printf( "%s: unable to create source string buffer.\n",
+		notify_warning_printf(
+		 "%s: unable to create source string buffer.\n",
 		 function );
 
 		file_io_close(
@@ -351,7 +432,8 @@ ssize64_t unaexport(
 
 	if( destination_string_buffer == NULL )
 	{
-		notify_warning_printf( "%s: unable to create destination string buffer.\n",
+		notify_warning_printf(
+		 "%s: unable to create destination string buffer.\n",
 		 function );
 
 		file_io_close(
@@ -418,7 +500,8 @@ ssize64_t unaexport(
 		}
 		if( result != 1 )
 		{
-			notify_warning_printf( "%s: unable to set byte order mark.\n",
+			notify_warning_printf(
+			 "%s: unable to set byte order mark.\n",
 			 function );
 
 			libuna_error_backtrace_fprint(
@@ -441,8 +524,10 @@ ssize64_t unaexport(
 		}
 		if( error != NULL )
 		{
-			notify_warning_printf( "%s: error was set but return code was: %d.\n",
-			 function, result );
+			notify_warning_printf(
+			 "%s: error was set but return code was: %d.\n",
+			 function,
+			 result );
 
 			libuna_error_backtrace_fprint(
 			 error,
@@ -455,21 +540,22 @@ ssize64_t unaexport(
 	{
 		read_count = file_io_read(
 		              source_file_descriptor,
-		              &source_string_buffer[ source_string_buffer_iterator ],
+		              &( source_string_buffer[ source_string_buffer_iterator ] ),
 		              source_string_buffer_size - source_string_buffer_iterator );
 
 		if( read_count < 0 )
 		{
-			notify_warning_printf( "%s: unable to read from source.\n",
+			notify_warning_printf(
+			 "%s: unable to read from source.\n",
 			 function );
 
 			export_count = -1;
 
 			break;
 		}
-		export_count                  += read_count;
-		read_count                    += (ssize_t) source_string_buffer_iterator;
-		source_string_buffer_iterator  = 0;
+		export_count                 += read_count;
+		read_count                   += (ssize_t) source_string_buffer_iterator;
+		source_string_buffer_iterator = 0;
 
 		if( read_count == 0 )
 		{
@@ -556,7 +642,9 @@ ssize64_t unaexport(
 
 			analyze_first_character = 0;
 		}
-		for( ; read_count > 0; read_count-- )
+		last_source_string_buffer_iterator = source_string_buffer_iterator;
+
+		while( read_count > 0 )
 		{
 			/* Sanity check
 			 */
@@ -637,7 +725,8 @@ ssize64_t unaexport(
 			}
 			if( result != 1 )
 			{
-				notify_warning_printf( "%s: unable to convert input character.\n",
+				notify_warning_printf(
+				 "%s: unable to convert input character.\n",
 				 function );
 
 				libuna_error_backtrace_fprint(
@@ -652,8 +741,10 @@ ssize64_t unaexport(
 			}
 			if( error != NULL )
 			{
-				notify_warning_printf( "%s: error was set but return code was: %d.\n",
-				 function, result );
+				notify_warning_printf(
+				 "%s: error was set but return code was: %d.\n",
+				 function,
+				 result );
 
 				libuna_error_backtrace_fprint(
 				 error,
@@ -662,6 +753,10 @@ ssize64_t unaexport(
 				 &error );
 			}
 			amount_of_unicode_characters++;
+
+			read_count -= source_string_buffer_iterator - last_source_string_buffer_iterator;
+
+			last_source_string_buffer_iterator = source_string_buffer_iterator;
 
 			if( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
 			{
@@ -713,7 +808,9 @@ ssize64_t unaexport(
 			}
 			/* Write all unicode characters
 			 */
-			for( unicode_character_iterator = 0; unicode_character_iterator < amount_of_unicode_characters; unicode_character_iterator++ )
+			for( unicode_character_iterator = 0;
+			     unicode_character_iterator < amount_of_unicode_characters;
+			     unicode_character_iterator++ )
 			{
 				switch( output_format )
 				{
@@ -782,7 +879,8 @@ ssize64_t unaexport(
 				}
 				if( result != 1 )
 				{
-					notify_warning_printf( "%s: unable to convert output character.\n",
+					notify_warning_printf(
+					 "%s: unable to convert output character.\n",
 					 function );
 
 					libuna_error_backtrace_fprint(
@@ -798,8 +896,10 @@ ssize64_t unaexport(
 			}
 			if( error != NULL )
 			{
-				notify_warning_printf( "%s: error was set but return code was: %d.\n",
-				 function, result );
+				notify_warning_printf(
+				 "%s: error was set but return code was: %d.\n",
+				 function,
+				 result );
 
 				libuna_error_backtrace_fprint(
 				 error,
@@ -827,7 +927,8 @@ ssize64_t unaexport(
 
 			if( write_count < 0 )
 			{
-				notify_warning_printf( "%s: unable to write to destination.\n",
+				notify_warning_printf(
+				 "%s: unable to write to destination.\n",
 				 function );
 
 				export_count = -1;
@@ -863,8 +964,10 @@ ssize64_t unaexport(
 	if( file_io_close(
 	     source_file_descriptor ) != 0 )
 	{
-		notify_warning_printf( "%s: unable to close source: %" PRIs_SYSTEM ".\n",
-		 function, source_filename );
+		notify_warning_printf(
+		 "%s: unable to close source: %" PRIs_SYSTEM ".\n",
+		 function,
+		 source_filename );
 
 		file_io_close(
 		 destination_file_descriptor );
@@ -874,8 +977,10 @@ ssize64_t unaexport(
 	if( file_io_close(
 	     destination_file_descriptor ) != 0 )
 	{
-		notify_warning_printf( "%s: unable to close destination: %" PRIs_SYSTEM ".\n",
-		 function, destination_filename );
+		notify_warning_printf(
+		 "%s: unable to close destination: %" PRIs_SYSTEM ".\n",
+		 function,
+		 destination_filename );
 
 		return( -1 );
 	}
@@ -917,7 +1022,9 @@ int main( int argc, char * const argv[] )
 		{
 			case (system_integer_t) '?':
 			default:
-				fprintf( stderr, "Invalid argument: %s\n",
+				fprintf(
+				 stderr,
+				 "Invalid argument: %s\n",
 				 argv[ optind ] );
 
 				usage_fprint(
@@ -935,7 +1042,9 @@ int main( int argc, char * const argv[] )
 				     optarg,
 				     &byte_stream_codepage ) != 1 )
 				{
-					fprintf( stderr, "Unsupported byte stream codepage defaulting to: ascii.\n" );
+					fprintf(
+					 stderr,
+					 "Unsupported byte stream codepage defaulting to: ascii.\n" );
 
 					byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
 				}
@@ -959,7 +1068,9 @@ int main( int argc, char * const argv[] )
 				          optarg,
 				          &input_format ) != 1 )
 				{
-					fprintf( stderr, "Unsupported input format defaulting to: auto-detect.\n" );
+					fprintf(
+					 stderr,
+					 "Unsupported input format defaulting to: auto-detect.\n" );
 
 					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 				}
@@ -976,7 +1087,9 @@ int main( int argc, char * const argv[] )
 				     optarg,
 				     &newline_conversion ) != 1 )
 				{
-					fprintf( stderr, "Unsupported newline conversion defaulting to: none.\n" );
+					fprintf(
+					 stderr,
+					 "Unsupported newline conversion defaulting to: none.\n" );
 
 					newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
 				}
@@ -987,7 +1100,9 @@ int main( int argc, char * const argv[] )
 				     optarg,
 				     &output_format ) != 1 )
 				{
-					fprintf( stderr, "Unsupported output format defaulting to: utf8.\n" );
+					fprintf(
+					 stderr,
+					 "Unsupported output format defaulting to: utf8.\n" );
 
 					output_format = UNACOMMON_FORMAT_UTF8;
 				}
@@ -1012,7 +1127,9 @@ int main( int argc, char * const argv[] )
 	}
 	if( optind == argc )
 	{
-		fprintf( stderr, "Missing source.\n" );
+		fprintf(
+		 stderr,
+		 "Missing source.\n" );
 
 		usage_fprint(
 		 stdout );
@@ -1023,7 +1140,9 @@ int main( int argc, char * const argv[] )
 
 	if( optind == argc )
 	{
-		fprintf( stderr, "Missing destination.\n" );
+		fprintf(
+		 stderr,
+		 "Missing destination.\n" );
 
 		usage_fprint(
 		 stdout );
@@ -1053,14 +1172,18 @@ int main( int argc, char * const argv[] )
 	     _CHARACTER_T_STRING( "Exported" ),
 	     stdout ) != 1 )
 	{
-		fprintf( stderr, "Unable to create process status.\n" );
+		fprintf(
+		 stderr,
+		 "Unable to create process status.\n" );
 
 		return( EXIT_FAILURE );
 	}
 	if( process_status_start(
 	     process_status ) != 1 )
 	{
-		fprintf( stderr, "Unable to start process status.\n" );
+		fprintf(
+		 stderr,
+		 "Unable to start process status.\n" );
 
 		process_status_free(
 		 &process_status );
@@ -1090,7 +1213,9 @@ int main( int argc, char * const argv[] )
 	     (size64_t) export_count,
 	     status ) != 1 )
 	{
-		fprintf( stderr, "Unable to stop process status.\n" );
+		fprintf(
+		 stderr,
+		 "Unable to stop process status.\n" );
 
 		process_status_free(
 		 &process_status );
@@ -1100,7 +1225,9 @@ int main( int argc, char * const argv[] )
 	if( process_status_free(
 	     &process_status ) != 1 )
 	{
-		fprintf( stderr, "Unable to free process status.\n" );
+		fprintf(
+		 stderr,
+		 "Unable to free process status.\n" );
 
 		return( EXIT_FAILURE );
 	}
