@@ -1,5 +1,5 @@
 /*
- * Notification functions
+ * Notification function
  *
  * Copyright (c) 2006-2009, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -24,6 +24,9 @@
 #define _NOTIFY_H
 
 #include <common.h>
+#include <types.h>
+
+#include <liberror.h>
 
 #include <stdio.h>
 
@@ -37,9 +40,6 @@ void notify_set_values(
       FILE *stream,
       int verbose );
 
-#define notify_set_values \
-        notify_set_values
-
 void notify_printf(
       char *format,
       ... );
@@ -50,12 +50,8 @@ void notify_printf(
 #define notify_warning_printf \
 	if( notify_verbose != 0 ) notify_printf
 
-void notify_dump_data(
-      void *data,
-      size_t size );
-
-#define notify_verbose_dump_data( data, size ) \
-	if( notify_verbose != 0 ) notify_dump_data( data, size )
+void notify_error_backtrace(
+      liberror_error_t *error );
 
 #if defined( __cplusplus )
 }

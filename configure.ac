@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090416],
+  [20090418],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090416])
+ [20090418])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -106,9 +106,19 @@ AC_CHECK_HEADERS([sys/stat.h])
 AC_CHECK_HEADERS([fcntl.h])
 AC_CHECK_HEADERS([unistd.h])
 
-dnl Other headers
+dnl Headers included in and unatools/glob.h
 AC_CHECK_HEADERS([glob.h])
+
+dnl Headers included in and unatools/unasignal.h
 AC_CHECK_HEADERS([signal.h])
+AC_CHECK_HEADERS([sys/signal.h])
+
+dnl Headers included in and unatools/system_string.h
+AC_CHECK_HEADERS([langinfo.h])
+AC_CHECK_HEADERS([locale.h])
+
+dnl Other headers
+AC_CHECK_HEADERS([errno.h])
 
 dnl Check for declarations and type definitions
 AC_TYPE_OFF_T

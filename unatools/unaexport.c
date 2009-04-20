@@ -25,6 +25,8 @@
 #include <narrow_string.h>
 #include <types.h>
 
+#include <liberror.h>
+
 #include <errno.h>
 
 #include <stdio.h>
@@ -46,12 +48,10 @@
 
 #include <libuna.h>
 
-#include "character_string.h"
 #include "file_io.h"
 #include "glob.h"
 #include "notify.h"
 #include "process_status.h"
-#include "safe_types.h"
 #include "system_string.h"
 
 #include "unacommon.h"
@@ -304,11 +304,11 @@ ssize64_t unaexport(
            int byte_stream_codepage,
            int export_byte_order_mark,
            int newline_conversion,
-           void (*callback)( process_status_t *process_status, size64_t bytes_read, size64_t bytes_total ) )
+           process_status_t *process_status,
+           liberror_error_t **error )
 {
 	libuna_unicode_character_t unicode_character[ 2 ];
 
-	libuna_error_t *error                     = NULL;
 	uint8_t *destination_string_buffer        = NULL;
 	uint8_t *source_string_buffer             = NULL;
 	static char *function                     = "unaexport";
@@ -330,16 +330,22 @@ ssize64_t unaexport(
 
 	if( source_filename == NULL )
 	{
-		notify_warning_printf(
-		 "%s: invalid source filename.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid source filename.",
 		 function );
 
 		return( -1 );
 	}
 	if( destination_filename == NULL )
 	{
-		notify_warning_printf(
-		 "%s: invalid destination filename.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid destination filename.",
 		 function );
 
 		return( -1 );
@@ -352,8 +358,11 @@ ssize64_t unaexport(
 	 && ( input_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( input_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		notify_warning_printf(
-		 "%s: unsupported input format.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported input format.",
 		 function );
 
 		return( -1 );
@@ -365,8 +374,11 @@ ssize64_t unaexport(
 	 && ( output_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( output_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		notify_warning_printf(
-		 "%s: unsupported output format.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported output format.",
 		 function );
 
 		return( -1 );
@@ -376,8 +388,11 @@ ssize64_t unaexport(
 	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
 	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
 	{
-		notify_warning_printf(
-		 "%s: unsupported newline conversion.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported newline conversion.",
 		 function );
 
 		return( -1 );
@@ -388,8 +403,11 @@ ssize64_t unaexport(
 
 	if( source_file_descriptor == -1 )
 	{
-		notify_warning_printf(
-		 "%s: unable to open source: %" PRIs_SYSTEM ".\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_IO,
+		 LIBERROR_IO_ERROR_OPEN_FAILED,
+		 "%s: unable to open source: %" PRIs_SYSTEM ".",
 		 function,
 		 source_filename );
 
@@ -401,8 +419,11 @@ ssize64_t unaexport(
 
 	if( destination_file_descriptor == -1 )
 	{
-		notify_warning_printf(
-		 "%s: unable to open destination: %" PRIs_SYSTEM ".\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_IO,
+		 LIBERROR_IO_ERROR_OPEN_FAILED,
+		 "%s: unable to open destination: %" PRIs_SYSTEM ".",
 		 function,
 		 destination_filename );
 
@@ -416,8 +437,11 @@ ssize64_t unaexport(
 
 	if( source_string_buffer == NULL )
 	{
-		notify_warning_printf(
-		 "%s: unable to create source string buffer.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create source string buffer.",
 		 function );
 
 		file_io_close(
@@ -432,8 +456,11 @@ ssize64_t unaexport(
 
 	if( destination_string_buffer == NULL )
 	{
-		notify_warning_printf(
-		 "%s: unable to create destination string buffer.\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create destination string buffer.",
 		 function );
 
 		file_io_close(
@@ -455,7 +482,7 @@ ssize64_t unaexport(
 				          destination_string_buffer,
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
-				          &error );
+				          error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF16BE:
@@ -464,7 +491,7 @@ ssize64_t unaexport(
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
 				          LIBUNA_ENDIAN_BIG,
-				          &error );
+				          error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF16LE:
@@ -473,7 +500,7 @@ ssize64_t unaexport(
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
 				          LIBUNA_ENDIAN_LITTLE,
-				          &error );
+				          error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF32BE:
@@ -482,7 +509,7 @@ ssize64_t unaexport(
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
 				          LIBUNA_ENDIAN_BIG,
-				          &error );
+				          error );
 				break;
 
 			case UNACOMMON_FORMAT_UTF32LE:
@@ -491,7 +518,7 @@ ssize64_t unaexport(
 				          destination_string_buffer_size,
 				          &destination_string_buffer_iterator,
 				          LIBUNA_ENDIAN_LITTLE,
-				          &error );
+				          error );
 				break;
 
 			default:
@@ -500,15 +527,12 @@ ssize64_t unaexport(
 		}
 		if( result != 1 )
 		{
-			notify_warning_printf(
-			 "%s: unable to set byte order mark.\n",
-			 function );
-
-			libuna_error_backtrace_fprint(
+			liberror_error_set(
 			 error,
-			 stderr );
-			libuna_error_free(
-			 &error );
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to set byte order mark.",
+			 function );
 
 			file_io_close(
 			 source_file_descriptor );
@@ -522,19 +546,6 @@ ssize64_t unaexport(
 
 			return( -1 );
 		}
-		if( error != NULL )
-		{
-			notify_warning_printf(
-			 "%s: error was set but return code was: %d.\n",
-			 function,
-			 result );
-
-			libuna_error_backtrace_fprint(
-			 error,
-			 stderr );
-			libuna_error_free(
-			 &error );
-		}
 	}
 	while( 1 )
 	{
@@ -545,8 +556,11 @@ ssize64_t unaexport(
 
 		if( read_count < 0 )
 		{
-			notify_warning_printf(
-			 "%s: unable to read from source.\n",
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_IO,
+			 LIBERROR_IO_ERROR_READ_FAILED,
+			 "%s: unable to read from source.",
 			 function );
 
 			export_count = -1;
@@ -667,7 +681,7 @@ ssize64_t unaexport(
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
 						  byte_stream_codepage,
-					          &error );
+					          error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF8:
@@ -676,7 +690,7 @@ ssize64_t unaexport(
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-					          &error );
+					          error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF16BE:
@@ -686,7 +700,7 @@ ssize64_t unaexport(
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
 						  LIBUNA_ENDIAN_BIG,
-					          &error );
+					          error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF16LE:
@@ -696,7 +710,7 @@ ssize64_t unaexport(
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
 						  LIBUNA_ENDIAN_LITTLE,
-					          &error );
+					          error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF32BE:
@@ -706,7 +720,7 @@ ssize64_t unaexport(
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
 						  LIBUNA_ENDIAN_BIG,
-					          &error );
+					          error );
 					break;
 
 				case UNACOMMON_FORMAT_UTF32LE:
@@ -716,7 +730,7 @@ ssize64_t unaexport(
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
 						  LIBUNA_ENDIAN_LITTLE,
-					          &error );
+					          error );
 					break;
 
 				default:
@@ -725,32 +739,16 @@ ssize64_t unaexport(
 			}
 			if( result != 1 )
 			{
-				notify_warning_printf(
-				 "%s: unable to convert input character.\n",
-				 function );
-
-				libuna_error_backtrace_fprint(
+				liberror_error_set(
 				 error,
-				 stderr );
-				libuna_error_free(
-				 &error );
+				 LIBERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 "%s: unable to convert input character.",
+				 function );
 
 				export_count = -1;
 
 				break;
-			}
-			if( error != NULL )
-			{
-				notify_warning_printf(
-				 "%s: error was set but return code was: %d.\n",
-				 function,
-				 result );
-
-				libuna_error_backtrace_fprint(
-				 error,
-				 stderr );
-				libuna_error_free(
-				 &error );
 			}
 			amount_of_unicode_characters++;
 
@@ -821,7 +819,7 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  byte_stream_codepage,
-						          &error );
+						          error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF8:
@@ -830,7 +828,7 @@ ssize64_t unaexport(
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-						          &error );
+						          error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF16BE:
@@ -840,7 +838,7 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  LIBUNA_ENDIAN_BIG,
-						          &error );
+						          error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF16LE:
@@ -850,7 +848,7 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  LIBUNA_ENDIAN_LITTLE,
-						          &error );
+						          error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF32BE:
@@ -860,7 +858,7 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  LIBUNA_ENDIAN_BIG,
-						          &error );
+						          error );
 						break;
 
 					case UNACOMMON_FORMAT_UTF32LE:
@@ -870,7 +868,7 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  LIBUNA_ENDIAN_LITTLE,
-						          &error );
+						          error );
 						break;
 
 					default:
@@ -879,33 +877,17 @@ ssize64_t unaexport(
 				}
 				if( result != 1 )
 				{
-					notify_warning_printf(
-					 "%s: unable to convert output character.\n",
-					 function );
-
-					libuna_error_backtrace_fprint(
+					liberror_error_set(
 					 error,
-					 stderr );
-					libuna_error_free(
-					 &error );
+					 LIBERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+					 "%s: unable to convert output character.",
+					 function );
 
 					export_count = -1;
 
 					break;
 				}
-			}
-			if( error != NULL )
-			{
-				notify_warning_printf(
-				 "%s: error was set but return code was: %d.\n",
-				 function,
-				 result );
-
-				libuna_error_backtrace_fprint(
-				 error,
-				 stderr );
-				libuna_error_free(
-				 &error );
 			}
 			if( export_count <= -1 )
 			{
@@ -927,8 +909,11 @@ ssize64_t unaexport(
 
 			if( write_count < 0 )
 			{
-				notify_warning_printf(
-				 "%s: unable to write to destination.\n",
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_IO,
+				 LIBERROR_IO_ERROR_WRITE_FAILED,
+				 "%s: unable to write to destination.",
 				 function );
 
 				export_count = -1;
@@ -946,14 +931,20 @@ ssize64_t unaexport(
 		{
 			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
 		}
-		/* Provide for a process status update
-		 */
-		if( callback != NULL )
+		 if( process_status_update_unknown_total(
+		      process_status,
+		      (size64_t) export_count,
+		      0,
+		      error ) != 1 )
 		{
-			callback(
-			 process_status,
-			 (size64_t) export_count,
-			 0 );
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to update process status.",
+			 function );
+
+			return( -1 );
 		}
 	}
 	memory_free(
@@ -964,8 +955,11 @@ ssize64_t unaexport(
 	if( file_io_close(
 	     source_file_descriptor ) != 0 )
 	{
-		notify_warning_printf(
-		 "%s: unable to close source: %" PRIs_SYSTEM ".\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_IO,
+		 LIBERROR_IO_ERROR_CLOSE_FAILED,
+		 "%s: unable to close source: %" PRIs_SYSTEM ".",
 		 function,
 		 source_filename );
 
@@ -977,8 +971,11 @@ ssize64_t unaexport(
 	if( file_io_close(
 	     destination_file_descriptor ) != 0 )
 	{
-		notify_warning_printf(
-		 "%s: unable to close destination: %" PRIs_SYSTEM ".\n",
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_IO,
+		 LIBERROR_IO_ERROR_CLOSE_FAILED,
+		 "%s: unable to close destination: %" PRIs_SYSTEM ".",
 		 function,
 		 destination_filename );
 
@@ -995,12 +992,14 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-	character_t *program                     = _CHARACTER_T_STRING( "unaexport" );
+	liberror_error_t *error                  = NULL;
+	process_status_t *process_status         = NULL;
 	system_character_t *destination_filename = NULL;
+	system_character_t *program              = _SYSTEM_CHARACTER_T_STRING( "unaexport" );
 	system_character_t *source_filename      = NULL;
-	void *callback                           = &process_status_update_unknown_total;
 	ssize64_t export_count                   = 0;
 	system_integer_t option                  = 0;
+	uint8_t print_status_information         = 1;
 	int byte_stream_codepage                 = LIBUNA_CODEPAGE_ASCII;
 	int export_byte_order_mark               = 1;
 	int input_format                         = UNACOMMON_FORMAT_AUTO_DETECT;
@@ -1009,6 +1008,20 @@ int main( int argc, char * const argv[] )
 	int verbose                              = 0;
 	int status                               = 0;
 
+	if( system_string_initialize(
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to initialize system string.\n" );
+
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+
+		return( EXIT_FAILURE );
+	}
 	unaoutput_version_fprint(
 	 stdout,
 	 program );
@@ -1109,7 +1122,7 @@ int main( int argc, char * const argv[] )
 				break;
 
 			case (system_integer_t) 'q':
-				callback = NULL;
+				print_status_information = 0;
 
 				break;
 
@@ -1167,26 +1180,40 @@ int main( int argc, char * const argv[] )
 
 	if( process_status_initialize(
 	     &process_status,
-	     _CHARACTER_T_STRING( "Export" ),
-	     _CHARACTER_T_STRING( "exported" ),
-	     _CHARACTER_T_STRING( "Exported" ),
-	     stdout ) != 1 )
+	     _SYSTEM_CHARACTER_T_STRING( "Export" ),
+	     _SYSTEM_CHARACTER_T_STRING( "exported" ),
+	     _SYSTEM_CHARACTER_T_STRING( "Exported" ),
+	     stdout,
+	     print_status_information,
+	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
 		 "Unable to create process status.\n" );
 
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+
 		return( EXIT_FAILURE );
 	}
 	if( process_status_start(
-	     process_status ) != 1 )
+	     process_status,
+	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
 		 "Unable to start process status.\n" );
 
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+
 		process_status_free(
-		 &process_status );
+		 &process_status,
+		 NULL );
 
 		return( EXIT_FAILURE );
 	}
@@ -1198,10 +1225,16 @@ int main( int argc, char * const argv[] )
 	                byte_stream_codepage,
 	                export_byte_order_mark,
 	                newline_conversion,
-	                callback );
+	                process_status,
+	                &error );
 
 	if( export_count <= -1 )
 	{
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+
 		status = PROCESS_STATUS_FAILED;
 	}
 	else
@@ -1211,23 +1244,36 @@ int main( int argc, char * const argv[] )
 	if( process_status_stop(
 	     process_status,
 	     (size64_t) export_count,
-	     status ) != 1 )
+	     status,
+	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
 		 "Unable to stop process status.\n" );
 
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+
 		process_status_free(
-		 &process_status );
+		 &process_status,
+		 NULL );
 
 		return( EXIT_FAILURE );
 	}
 	if( process_status_free(
-	     &process_status ) != 1 )
+	     &process_status,
+	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
 		 "Unable to free process status.\n" );
+
+		notify_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
 
 		return( EXIT_FAILURE );
 	}

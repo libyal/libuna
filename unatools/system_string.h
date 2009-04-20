@@ -28,11 +28,18 @@
 #include <types.h>
 #include <wide_string.h>
 
+#include <liberror.h>
+
+#include "error_string.h"
+#include "file_io.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#if defined( HAVE_WIDE_CHARACTER_TYPE ) && defined( HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS )
+/* Detect if the code is being compiled with Windows Unicode support
+ */
+#if defined( WINAPI ) && ( defined( _UNICODE ) || defined( UNICODE ) )
 #define HAVE_WIDE_SYSTEM_CHARACTER_T	1
 #endif
 
@@ -74,15 +81,23 @@ typedef wint_t system_integer_t;
 #define system_string_snprintf( target, size, format, ... ) \
 	wide_string_snprintf( target, size, format, __VA_ARGS__ )
 
-#define system_string_get_from_stream( string, size, stream ) \
-	wide_string_get_from_stream( string, size, stream )
-
 #define system_string_to_signed_long_long( string, end_of_string, base ) \
 	wide_string_to_signed_long_long( string, end_of_string, base )
 
 #define system_string_to_unsigned_long_long( string, end_of_string, base ) \
 	wide_string_to_unsigned_long_long( string, end_of_string, base )
 
+#define system_string_open( filename, mode ) \
+        file_io_wopen( filename, mode )
+
+#define system_string_file_exists( filename ) \
+        file_io_wexists( filename )
+
+#define system_string_strerror( error_number ) \
+        error_string_wcserror( error_number )
+
+/* The system string type contains UTF-8 or ASCII with or without a codepage
+ */
 #else
 
 typedef char system_character_t;
@@ -115,28 +130,67 @@ typedef int system_integer_t;
 #define system_string_snprintf( target, size, format, ... ) \
 	narrow_string_snprintf( target, size, format, __VA_ARGS__ )
 
-#define system_string_get_from_stream( string, size, stream ) \
-	narrow_string_get_from_stream( string, size, stream )
-
 #define system_string_to_signed_long_long( string, end_of_string, base ) \
 	narrow_string_to_signed_long_long( string, end_of_string, base )
 
 #define system_string_to_unsigned_long_long( string, end_of_string, base ) \
 	narrow_string_to_unsigned_long_long( string, end_of_string, base )
 
+#define system_string_open( filename, mode ) \
+        file_io_open( filename, mode )
+
+#define system_string_file_exists( filename ) \
+        file_io_exists( filename )
+
+#define system_string_strerror( error_number ) \
+        error_string_strerror( error_number )
+
 #endif
 
+int system_string_initialize(
+     liberror_error_t **error );
+
 #if defined( system_string_to_signed_long_long )
-int64_t system_string_to_int64(
-         const system_character_t *string,
-         size_t size );
+int system_string_to_int64(
+     const system_character_t *string,
+     size_t string_size,
+     int64_t *value,
+     liberror_error_t **error );
 #endif
 
 #if defined( system_string_to_unsigned_long_long )
-uint64_t system_string_to_uint64(
-          const system_character_t *string,
-          size_t size );
+int system_string_to_uint64(
+     const system_character_t *string,
+     size_t string_size,
+     uint64_t *value,
+     liberror_error_t **error );
 #endif
+
+int system_string_size_from_utf8_string(
+     const uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *string_size,
+     liberror_error_t **error );
+
+int system_string_copy_from_utf8_string(
+     system_character_t *string,
+     size_t string_size,
+     const uint8_t *utf8_string,
+     size_t utf8_string_size,
+     liberror_error_t **error );
+
+int utf8_string_size_from_system_string(
+     const system_character_t *string,
+     size_t string_size,
+     size_t *utf8_string_size,
+     liberror_error_t **error );
+
+int utf8_string_copy_from_system_string(
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     const system_character_t *string,
+     size_t string_size,
+     liberror_error_t **error );
 
 #if defined( __cplusplus )
 }

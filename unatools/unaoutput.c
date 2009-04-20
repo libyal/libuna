@@ -35,7 +35,7 @@
 
 #include <libuna.h>
 
-#include "character_string.h"
+#include "system_string.h"
 
 #include "unaoutput.h"
 
@@ -48,17 +48,19 @@ void unaoutput_copyright_fprint(
 	{
 		return;
 	}
-	fprintf( stream, "Copyright (c) 2008-2009, Joachim Metz, Hoffmann Investigations <%s> and contributors.\n",
+	fprintf(
+	 stream,
+	 "Copyright (c) 2008-2009, Joachim Metz, Hoffmann Investigations <%s> and contributors.\n"
+	 "This is free software; see the source for copying conditions. There is NO\n"
+	 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
 	 PACKAGE_BUGREPORT );
-	fprintf( stream, "This is free software; see the source for copying conditions. There is NO\n" );
-	fprintf( stream, "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n" );
 }
 
 /* Prints the version information
  */
 void unaoutput_version_fprint(
       FILE *stream,
-      const character_t *program )
+      const system_character_t *program )
 {
 	if( stream == NULL )
 	{
@@ -68,10 +70,12 @@ void unaoutput_version_fprint(
 	{
 		return;
 	}
-        fprintf( stream, "%" PRIs " %s (libuna %s",
-         program, LIBUNA_VERSION_STRING, LIBUNA_VERSION_STRING );
-
-        fprintf( stream, ")\n\n" );
+        fprintf(
+	 stream,
+	 "%" PRIs_SYSTEM " %s (libuna %s)\n\n",
+         program,
+	 LIBUNA_VERSION_STRING,
+	 LIBUNA_VERSION_STRING );
 }
 
 /* Prints the codepages information
@@ -83,17 +87,19 @@ void unaoutput_codepages_fprint(
 	{
 		return;
 	}
-	fprintf( stream, "\tCodepage:     Description:\n" );
-	fprintf( stream, "\tascii:        Support 7-bit ASCII character set\n" );
-	fprintf( stream, "\twindows-1250: Supports the Windows 1250 (Central European) character set\n" );
-	fprintf( stream, "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n" );
-	fprintf( stream, "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n" );
-	fprintf( stream, "\t              character set\n" );
-	fprintf( stream, "\twindows-1253: Supports the Windows 1253 (Greek) character set\n" );
-	fprintf( stream, "\twindows-1254: Supports the Windows 1254 (Turkish) character set\n" );
-	fprintf( stream, "\twindows-1255: Supports the Windows 1255 (Hebrew) character set\n" );
-	fprintf( stream, "\twindows-1256: Supports the Windows 1256 (Arabic) character set\n" );
-	fprintf( stream, "\twindows-1257: Supports the Windows 1257 (Baltic) character set\n" );
-	fprintf( stream, "\twindows-1258: Supports the Windows 1258 (Vietnamese) character set\n" );
+	fprintf(
+	 stream,
+	 "\tCodepage:     Description:\n"
+	 "\tascii:        Support 7-bit ASCII character set\n"
+	 "\twindows-1250: Supports the Windows 1250 (Central European) character set\n"
+	 "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n"
+	 "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n"
+	 "\t              character set\n"
+	 "\twindows-1253: Supports the Windows 1253 (Greek) character set\n"
+	 "\twindows-1254: Supports the Windows 1254 (Turkish) character set\n"
+	 "\twindows-1255: Supports the Windows 1255 (Hebrew) character set\n"
+	 "\twindows-1256: Supports the Windows 1256 (Arabic) character set\n"
+	 "\twindows-1257: Supports the Windows 1257 (Baltic) character set\n"
+	 "\twindows-1258: Supports the Windows 1258 (Vietnamese) character set\n" );
 }
 

@@ -28,6 +28,8 @@
 
 #include <stdio.h>
 
+#include "system_string.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
@@ -37,7 +39,7 @@ void unaoutput_copyright_fprint(
 
 void unaoutput_version_fprint(
       FILE *stream,
-      const character_t *program );
+      const system_character_t *program );
 
 void unaoutput_codepages_fprint(
       FILE *stream );

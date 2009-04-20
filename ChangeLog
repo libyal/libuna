@@ -9,10 +9,9 @@ TODO
     most of the time not needed because the size of the string was already
     determined
 
-* unatools
-  - update system string
-
+Tools:
 * unaexport
+  - implement export_handle
   - what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
   - implement signal handling
   - add conversion summary (converting from x to y with codepage z) +/-
@@ -22,7 +21,6 @@ TODO
   - determine total source file size for process status
   - add option to set buffer size?
   - check if input file is output file?
-
 * unainfo
   - create a tool to determine the encoding type using the byte order mark
     perhaps some other tricks
@@ -51,6 +49,12 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20090418
+* updated glob, process_status, date_time, system string, notify
+  with libewf >= 20090418 version
+* updated common code
+* added safe size types to library headers
 
 20090416
 * fixed missing memwatch
