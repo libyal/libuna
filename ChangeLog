@@ -50,6 +50,9 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20090427
+* fix for UTF-16 stream <= 2 should be < 2
+
 20090418
 * updated glob, process_status, date_time, system string, notify
   with libewf >= 20090418 version
