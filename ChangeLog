@@ -50,6 +50,10 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20090512
+* removed rogue code in libuna_error.h 
+* updated memwatch suppport
+
 20090427
 * fix for UTF-16 stream <= 2 should be < 2
 

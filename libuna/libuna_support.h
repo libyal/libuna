@@ -36,6 +36,7 @@ extern "C" {
 #endif
 
 #if !defined( HAVE_LOCAL_LIBUNA )
+
 LIBUNA_EXTERN const char *libuna_get_version(
                            void );
 
@@ -49,6 +50,7 @@ LIBUNA_EXTERN void libuna_error_fprint(
 LIBUNA_EXTERN void libuna_error_backtrace_fprint(
                     libuna_error_t *error,
                     FILE *stream );
+
 #endif
 
 #if defined( __cplusplus )

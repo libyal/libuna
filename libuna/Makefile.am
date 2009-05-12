@@ -36,9 +36,6 @@ libuna_la_SOURCES = \
 libuna_la_LIBADD  = ../liberror/liberror.la
 libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0
 
-EXTRA_DIST = \
-	libuna_definitions.h.in
-
 distclean: clean
 	/bin/rm -f libuna_definitions.h
 	/bin/rm -f Makefile

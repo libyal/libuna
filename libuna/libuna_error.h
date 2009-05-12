@@ -29,9 +29,5 @@
 #include <libuna/error.h>
 #endif
 
-#if defined( __cplusplus )
-}
-#endif
-
 #endif
 
