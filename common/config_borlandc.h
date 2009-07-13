@@ -1,5 +1,5 @@
 /*
- * Globbing functions
+ * Configuration file for Borland/CodeGear C++ Builder compiler
  *
  * Copyright (c) 2006-2009, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,59 +20,37 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _GLOB_H )
-#define _GLOB_H
+#if !defined( _CONFIG_BORLANDC_H )
+#define _CONFIG_BORLANDC_H
 
-#include <common.h>
-#include <types.h>
+/* Use the safe size and offset types
+ */
+#define HAVE_SIZE32_T   0
+#define HAVE_SSIZE32_T  0
+#define HAVE_SIZE64_T   0
+#define HAVE_SSIZE64_T  0
+#define HAVE_OFF64_T    0
 
-#include <liberror.h>
-
-#include "system_string.h"
-
-#if defined( __cplusplus )
-extern "C" {
+/* If wide character support was enabled
+ * make use of the wide character support functions
+ */
+#if !defined( HAVE_WIDE_CHARACTER_TYPE )
+#define HAVE_WIDE_CHARACTER_TYPE
 #endif
 
-#if !defined( HAVE_GLOB_H )
-
-typedef struct glob glob_t;
-
-struct glob
-{
-	/* The amount of globs resolved
-	 */
-	int amount_of_results;
-
-	/* The resolved globs
-	 */
-	system_character_t **result;
-};
-
-int glob_initialize(
-     glob_t **glob,
-     liberror_error_t **error );
-
-int glob_free(
-     glob_t **glob,
-     liberror_error_t **error );
-
-int glob_resize(
-     glob_t *glob,
-     int new_amount_of_results,
-     liberror_error_t **error );
-
-int glob_resolve(
-     glob_t *glob,
-     system_character_t * const patterns[],
-     int amount_of_patterns,
-     liberror_error_t **error );
-
+#if !defined( HAVE_WCHAR_H )
+#define HAVE_WCHAR_H		1
 #endif
 
-#if defined( __cplusplus )
-}
+#if defined( SIZEOF_WCHAR_T )
+#undef SIZEOF_WCHAR_T
 #endif
+
+#define SIZEOF_WCHAR_T		2
+
+/* Use the native WINAPI functions instead of the POSIX like functions
+#define USE_NATIVE_WINAPI_FUNCTIONS	1
+ */
 
 #endif
 

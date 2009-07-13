@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090512],
+  [20090630],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090512])
+ [20090630])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -308,6 +308,13 @@ AC_CHECK_FUNCS(
    [Missing functions: strtoull and atoll],
    [1]) ]) ])
 
+AC_CHECK_FUNCS(
+ [vsnprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vsnprintf],
+  [1]) ])
+
 dnl Check for error string functions used in unatools/error_string.h
 AC_FUNC_STRERROR_R(
  [],
@@ -317,14 +324,6 @@ AC_FUNC_STRERROR_R(
   [AC_MSG_FAILURE(
    [Missing functions: strerror_r and strerror],
    [1]) ]) ])
-
-dnl File input/output functions used in liberror/liberror_error.h
-AC_CHECK_FUNCS(
- [vsnprintf],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: vsnprintf],
-  [1]) ])
 
 dnl Date and time functions used in unatools/date_time.h
 LIBUNA_CHECK_FUNC_CTIME
@@ -398,7 +397,7 @@ LIBUNA_CHECK_PRINTF_JD
 LIBUNA_CHECK_PRINTF_ZD
 
 dnl Set memwatch support
-ac_libewf_have_memwatch=yes
+ac_libewf_have_memwatch=no
 
 AS_IF(
 	[test "x$ac_libewf_have_memwatch" != xno ],

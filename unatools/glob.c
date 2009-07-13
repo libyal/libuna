@@ -28,11 +28,11 @@
 
 #include <errno.h>
 
-#if defined( HAVE_STDLIB_H )
+#if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
-#if defined( HAVE_IO_H )
+#if defined( WINAPI )
 #include <io.h>
 #endif
 
@@ -41,6 +41,26 @@
 #include "system_string.h"
 
 #if !defined( HAVE_GLOB_H )
+
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
+
+#define glob_finddata_t	_wfinddata_t
+#define glob_makepath	_wmakepath_s
+#define glob_findfirst	_wfindfirst
+#define glob_findnext	_wfindnext
+#define glob_splitpath	_wsplitpath_s
+
+#else
+
+#define glob_finddata_t	_finddata_t
+#define glob_makepath	_makepath_s
+#define glob_findfirst	_findfirst
+#define glob_findnext	_findnext
+#define glob_splitpath	_splitpath_s
+
+#endif
+
+#define glob_findclose	_findclose
 
 /* Initializes a new glob
  * Returns 1 if successful or -1 on error

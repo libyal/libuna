@@ -30,20 +30,21 @@
 #error Missing system type definitions (sys/types.h)
 #endif
 
-#if defined( WINAPI ) && !defined( HAVE_INTTYPES_H ) && !defined( HAVE_STDINT_H )
+#if defined( _MSC_VER )
 
-/* Define LIBUNA_DEFINITION_INTEGER_TYPES to avoid conflict if types are already defined
+/* Define LIBUNA_DEFINITION_INTEGER_TYPES to avoid conflict
+ * if types are already defined
  */
 #if !defined( LIBUNA_DEFINITION_INTEGER_TYPES )
-
 #define LIBUNA_DEFINITION_INTEGER_TYPES
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Windows does not have <inttypes.h> or <stdint.h> and therefore does not support the
- * (u)int#_t type definitions it has __int# defintions instead
+/* The Microsoft Visual Studio C++ compiler does not have <inttypes.h> or <stdint.h>
+ * and therefore does not support the * (u)int#_t type definitions
+ * it has __int# defintions instead
  */
 typedef __int8			int8_t;
 typedef unsigned __int8		uint8_t;
@@ -53,13 +54,52 @@ typedef __int32			int32_t;
 typedef unsigned __int32	uint32_t;
 typedef __int64			int64_t;
 typedef unsigned __int64	uint64_t;
-typedef int			ssize_t;
+
+#if defined( _WIN64 )
+typedef __int64			ssize_t;
+#else
+typedef __int32			ssize_t;
+#endif
 
 #ifdef __cplusplus
 }
 #endif
 
+#endif /* LIBUNA_DEFINITION_INTEGER_TYPES */
+
+#elif defined( __BORLANDC__ )
+
+#if __BORLANDC__ >= 0x0560
+#include <stdint.h>
+
+#else
+
+/* Define LIBUNA_DEFINITION_INTEGER_TYPES to avoid conflict
+ * if types are already defined
+ */
+#if !defined( LIBUNA_DEFINITION_INTEGER_TYPES )
+#define LIBUNA_DEFINITION_INTEGER_TYPES
+
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+/* Earlier versions of the Borland/CodeGear C++ Builder compiler
+ * do not have the intptr_t
+ */
+#if defined( _WIN64 )
+typedef unsigned __int64	intptr_t;
+#else
+typedef unsigned __int32	intptr_t;
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LIBUNA_DEFINITION_INTEGER_TYPES */
+
+#endif /* __BORLANDC__ >= 0x0560 */
 
 #elif @HAVE_INTTYPES_H@ || defined( HAVE_INTTYPES_H )
 #include <inttypes.h>

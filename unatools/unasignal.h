@@ -24,25 +24,13 @@
 #define _UNASIGNAL_H
 
 #include <common.h>
-
-#if defined( WINAPI )
-#include <windows.h>
-#endif
+#include <types.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-#if defined( HAVE_SIGNAL_H )
-typedef int unasignal_t;
-
-int unasignal_attach(
-     void (*signal_handler)( unasignal_t ) );
-
-int unasignal_detach(
-     void );
-
-#elif defined( WINAPI )
+#if defined( WINAPI )
 typedef unsigned long unasignal_t;
 
 BOOL WINAPI unasignal_handler(
@@ -50,6 +38,15 @@ BOOL WINAPI unasignal_handler(
 
 void unasignal_initialize_memory_debug(
       void );
+
+int unasignal_attach(
+     void (*signal_handler)( unasignal_t ) );
+
+int unasignal_detach(
+     void );
+
+#elif defined( HAVE_SIGNAL_H )
+typedef int unasignal_t;
 
 int unasignal_attach(
      void (*signal_handler)( unasignal_t ) );

@@ -27,13 +27,21 @@
 #include <config.h>
 #endif
 
-/* Check to see if we're dealing with the MSVS compiler
+/* Check to see if the Microsoft Visual Studio C++ compiler is used
  */
 #if defined( _MSC_VER )
-#include <config_windows.h>
+#include <config_msc.h>
+#endif
+
+/* Check to see if the Borland/CodeGear C++ Builder compiler is used
+ */
+#if defined( _MSC_VER )
+#include <config_borlandc.h>
+#endif
 
 /* Make sure WINAPI is defined
  */
+#if defined( _MSC_VER )
 #include <windows.h>
 #endif
 

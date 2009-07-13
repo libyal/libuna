@@ -37,14 +37,14 @@ extern "C" {
 
 /* String length
  */
-#if defined( HAVE_WCSLEN )
+#if defined( HAVE_WCSLEN ) || defined( WINAPI )
 #define wide_string_length( string ) \
 	wcslen( string )
 #endif
 
 /* String compare
  */
-#if defined( HAVE_WCSNCMP )
+#if defined( HAVE_WCSNCMP ) || defined( WINAPI )
 #define wide_string_compare( string1, string2, size ) \
 	wcsncmp( string1, string2, size )
 
@@ -59,11 +59,11 @@ extern "C" {
 
 /* Caseless string compare
  */
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define wide_string_compare_no_case( string1, string2, size ) \
 	_wcsnicmp( string1, string2, size )
 
-#elif defined( HAVE_WCSNCASECMP )
+#elif defined( HAVE_WCSNCASECMP ) || defined( WINAPI )
 #define wide_string_compare_no_case( string1, string2, size ) \
 	wcsncasecmp( string1, string2, size )
 
@@ -74,7 +74,7 @@ extern "C" {
 
 /* String copy
  */
-#if defined( HAVE_WCSNCPY )
+#if defined( HAVE_WCSNCPY ) || defined( WINAPI )
 #define wide_string_copy( destination, source, size ) \
 	wcsncpy( destination, source, size )
 
@@ -89,7 +89,7 @@ extern "C" {
 
 /* String search
  */
-#if defined( HAVE_WCSCHR )
+#if defined( HAVE_WCSCHR ) || defined( WINAPI )
 #define wide_string_search( string, character, size ) \
 	wcschr( string, (wchar_t) character )
 
@@ -100,7 +100,7 @@ extern "C" {
 
 /* String reverse search
  */
-#if defined( HAVE_WCSRCHR )
+#if defined( HAVE_WCSRCHR ) || defined( WINAPI )
 #define wide_string_search_reverse( string, character, size ) \
 	wcsrchr( string, (wchar_t) character )
 
@@ -111,40 +111,40 @@ extern "C" {
 
 /* String formatted print (snprinf)
  */
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define wide_string_snprintf( target, size, format, ... ) \
 	swprintf_s( target, size, format, __VA_ARGS__ )
 
-#elif defined( HAVE_SWPRINTF )
+#elif defined( HAVE_SWPRINTF ) || defined( WINAPI )
 #define wide_string_snprintf( target, size, format, ... ) \
 	swprintf( target, size, format, __VA_ARGS__ )
 #endif
 
 /* String retrieve from stream (fgets)
  */
-#if defined( HAVE_FGETWS )
+#if defined( HAVE_FGETWS ) || defined( WINAPI )
 #define wide_string_get_from_stream( string, size, stream ) \
 	fgetws( string, size, stream )
 #endif
 
 /* String to singed long long (int64)
  */
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define wide_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) _wtoi64( string )
 
-#elif defined( HAVE_WCSTOLL )
+#elif defined( HAVE_WCSTOLL ) || defined( WINAPI )
 #define wide_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) wcstoll( string, end_of_string, base )
 #endif
 
 /* String to unsinged long long (uint64)
  */
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define wide_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) _wtoi64( string )
 
-#elif defined( HAVE_WCSTOULL )
+#elif defined( HAVE_WCSTOULL ) || defined( WINAPI )
 #define wide_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) wcstoull( string, end_of_string, base )
 #endif

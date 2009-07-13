@@ -26,11 +26,11 @@
 #include "notify.h"
 #include "types.h"
 
-#if defined( HAVE_STRING_H )
+#if defined( HAVE_STRING_H ) || defined( WINAPI )
 #include <string.h>
 #endif
 
-#if !defined( HAVE_CTIME_R )
+#if defined( HAVE_CTIME )
 
 /* Sets ctime in the string
  * The string must be at least 32 characters of length

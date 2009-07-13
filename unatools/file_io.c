@@ -27,7 +27,7 @@
 #include "file_io.h"
 #include "notify.h"
 
-#if defined( HAVE_OPEN ) && defined( HAVE_CLOSE )
+#if ( defined( HAVE_OPEN ) && defined( HAVE_CLOSE ) ) || defined( WINAPI )
 
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
@@ -70,7 +70,7 @@ int file_io_exists(
 }
 #endif
 
-#if defined( HAVE_WOPEN ) && defined( HAVE_CLOSE )
+#if defined( WINAPI )
 
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
@@ -106,7 +106,7 @@ int file_io_wexists(
 }
 #endif
 
-#if defined( HAVE_OPEN )
+#if defined( HAVE_OPEN ) || defined( WINAPI )
 
 /* Function to wrap open()
  */
@@ -151,7 +151,7 @@ int file_io_open(
 }
 #endif
 
-#if defined( HAVE_WOPEN )
+#if defined( WINAPI )
 
 /* Function to wrap wopen() which is the wide character equivalent of open()
  */
