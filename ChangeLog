@@ -50,6 +50,9 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
+20090710
+* several fixes for the msvscpp build
+
 20090630
 * implemented WIN64 ssize_t fix
 * worked on Borland/CodeGear C++ Builder support

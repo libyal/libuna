@@ -41,7 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include;..\..\common"
+				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\liberror"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_IMPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libuna.lib"
+				AdditionalDependencies="liberror.lib libuna.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\release"
 				GenerateDebugInformation="true"
@@ -107,10 +107,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\character_string.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\unatools\date_time.c"
 				>
 			</File>
@@ -132,10 +128,6 @@
 			</File>
 			<File
 				RelativePath="..\..\unatools\process_status.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\unatools\string_conversion.c"
 				>
 			</File>
 			<File
@@ -169,10 +161,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\character_string.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\unatools\date_time.h"
 				>
 			</File>
@@ -198,10 +186,6 @@
 			</File>
 			<File
 				RelativePath="..\..\unatools\safe_types.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\unatools\string_conversion.h"
 				>
 			</File>
 			<File

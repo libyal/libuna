@@ -62,7 +62,7 @@ system_integer_t unagetopt(
 
 	if( optind >= argument_count )
 	{
-		return( -1 );
+		return( (system_integer_t) -1 );
 	}
 	argument_value = argument_values[ optind ];
 
@@ -70,13 +70,13 @@ system_integer_t unagetopt(
 	 */
 	if( *argument_value == (system_character_t) '\0' )
 	{
-		return( -1 );
+		return( (system_integer_t) -1 );
 	}
 	/* Check if the first character is a option marker '-'
 	 */
 	if( *argument_value != (system_character_t) '-' )
 	{
-		return( -1 );
+		return( (system_integer_t) -1 );
 	}
 	argument_value++;
 
@@ -86,7 +86,7 @@ system_integer_t unagetopt(
 	{
 		optind++;
 
-		return( -1 );
+		return( (system_integer_t) -1 );
 	}
 	optopt       = *argument_value;
 	option_value = system_string_search(

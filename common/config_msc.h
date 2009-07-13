@@ -23,6 +23,10 @@
 #if !defined( _CONFIG_MSC_H )
 #define _CONFIG_MSC_H
 
+/* Define to the address where bug reports for this package should be sent.
+ */
+#define PACKAGE_BUGREPORT "forensics@hoffmannbv.nl"
+
 /* Use the safe size and offset types
  */
 #define HAVE_SIZE32_T   0

@@ -51,7 +51,7 @@ enum UNACOMMON_NEWLINE_CONVERSIONS
 	UNACOMMON_NEWLINE_CONVERSION_LF		= 3
 };
 
-#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
 #define unacommon_open( filename, mode ) \
         file_io_wopen( filename, mode )
 
