@@ -1,4 +1,6 @@
 TODO
+* complete iso-8859-3 codepage
+
 * libuna
   - add source == destination check to functions?
   - handle combining characters in windows 1255 and 1258 ?
@@ -49,6 +51,9 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+20090725
+* worked on ISO 8859 codepages support
 
 20090702
 * worked on Borland/CodeGear C++ Builder support

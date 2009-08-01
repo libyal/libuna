@@ -10,6 +10,8 @@ libuna_la_SOURCES = \
 	libuna_byte_stream.c libuna_byte_stream.h \
 	libuna_compare.c libuna_compare.h \
 	libuna_codepage_ascii.h \
+	libuna_codepage_iso_8859_1.h \
+	libuna_codepage_iso_8859_2.c libuna_codepage_iso_8859_2.h \
 	libuna_codepage_windows_1250.c libuna_codepage_windows_1250.h \
 	libuna_codepage_windows_1251.c libuna_codepage_windows_1251.h \
 	libuna_codepage_windows_1252.c libuna_codepage_windows_1252.h \
