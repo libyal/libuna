@@ -32,14 +32,14 @@
 extern "C" {
 #endif
 
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define error_string_wcserror_r( error_number, string, size ) \
 	_wcserror_s( string, size, error_number )
 
 #define ERROR_STRING_WCSTRERROR_R_RETURN_ERROR	0
 #endif
 
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define error_string_strerror_r( error_number, string, size ) \
 	strerror_s( string, size, error_number )
 

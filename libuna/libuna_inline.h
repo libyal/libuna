@@ -31,7 +31,7 @@
 
 #include <libuna/inline.h>
 
-#elif defined( WINAPI )
+#elif defined( _MSC_VER )
 #define LIBUNA_INLINE _inline
 
 #else

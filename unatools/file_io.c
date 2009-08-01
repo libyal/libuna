@@ -45,7 +45,7 @@ int file_io_exists(
 
 		return( -1 );
 	}
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 	if( _sopen_s(
 	     &file_descriptor,
 	     filename,
@@ -70,13 +70,13 @@ int file_io_exists(
 }
 #endif
 
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
  */
 int file_io_wexists(
-     const wchar_t *filename )
+	 const wchar_t *filename )
 {
 	static char *function = "file_io_wexists";
 	int file_descriptor   = 0;
@@ -88,13 +88,13 @@ int file_io_wexists(
 
 		return( -1 );
 	}
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 	if( _wsopen_s(
-	     &file_descriptor,
-	     filename,
-	     ( _O_RDONLY | _O_BINARY ),
-	     _SH_DENYRW,
-	     ( _S_IREAD | _S_IWRITE ) ) != 0 )
+		 &file_descriptor,
+		 filename,
+		 ( _O_RDONLY | _O_BINARY ),
+		 _SH_DENYRW,
+		 ( _S_IREAD | _S_IWRITE ) ) != 0 )
 	{
 		return( 0 );
 	}
@@ -124,7 +124,7 @@ int file_io_open(
 
 		return( -1 );
 	}
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 	if( _sopen_s(
 	     &file_descriptor,
 	     filename,
@@ -151,7 +151,7 @@ int file_io_open(
 }
 #endif
 
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 
 /* Function to wrap wopen() which is the wide character equivalent of open()
  */
@@ -169,7 +169,7 @@ int file_io_wopen(
 
 		return( -1 );
 	}
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 	if( _wsopen_s(
 	     &file_descriptor,
 	     filename,

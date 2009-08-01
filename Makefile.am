@@ -7,6 +7,7 @@ SUBDIRS = \
 	documents \
 	manuals \
 	macosx \
+	borland \
 	msvscpp
 
 REDHAT_FILES = \

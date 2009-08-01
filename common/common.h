@@ -35,13 +35,13 @@
 
 /* Check to see if the Borland/CodeGear C++ Builder compiler is used
  */
-#if defined( _MSC_VER )
+#if defined( __BORLANDC__ )
 #include <config_borlandc.h>
 #endif
 
 /* Make sure WINAPI is defined
  */
-#if defined( _MSC_VER )
+#if defined( _MSC_VER ) || defined( __BORLANDC__ )
 #include <windows.h>
 #endif
 

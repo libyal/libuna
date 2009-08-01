@@ -25,8 +25,11 @@
 #if !defined( _LIBUNA_INLINE_H )
 #define _LIBUNA_INLINE_H
 
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 #define LIBUNA_INLINE _inline
+
+#elif defined( __BORLANDC__ )
+#define LIBUNA_INLINE /* inline */
 
 #else
 #define LIBUNA_INLINE inline

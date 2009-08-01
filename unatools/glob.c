@@ -43,24 +43,58 @@
 #if !defined( HAVE_GLOB_H )
 
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
-
 #define glob_finddata_t	_wfinddata_t
-#define glob_makepath	_wmakepath_s
-#define glob_findfirst	_wfindfirst
-#define glob_findnext	_wfindnext
-#define glob_splitpath	_wsplitpath_s
+
+#define glob_findfirst( filter, fileinfo ) \
+	_wfindfirst( filter, fileinfo )
+
+#define glob_findnext( handle, fileinfo ) \
+	_wfindnext( handle, fileinfo )
+
+#if defined( _MSC_VER )
+#define glob_makepath( path, path_size, drive, directory, filename, extension ) \
+	_wmakepath_s( path, path_size, drive, directory, filename, extension )
+
+#define glob_splitpath( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size ) \
+	_wsplitpath_s( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size )
 
 #else
+#define glob_makepath( path, path_size, drive, directory, filename, extension ) \
+	_wmakepath( path, drive, directory, filename, extension )
 
-#define glob_finddata_t	_finddata_t
-#define glob_makepath	_makepath_s
-#define glob_findfirst	_findfirst
-#define glob_findnext	_findnext
-#define glob_splitpath	_splitpath_s
+#define glob_splitpath( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size ) \
+	_wsplitpath( path, drive, directory, filename, extension )
 
 #endif
 
-#define glob_findclose	_findclose
+#else
+#define glob_finddata_t	_finddata_t
+
+#define glob_findfirst( filter, fileinfo ) \
+	_findfirst( filter, fileinfo )
+
+#define glob_findnext( handle, fileinfo ) \
+	_findnext( handle, fileinfo )
+
+#if defined( _MSC_VER )
+#define glob_makepath( path, path_size, drive, directory, filename, extension ) \
+	_makepath_s( path, path_size, drive, directory, filename, extension )
+
+#define glob_splitpath( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size ) \
+	_splitpath_s( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size )
+
+#else
+#define glob_makepath( path, path_size, drive, directory, filename, extension ) \
+	_makepath( path, drive, directory, filename, extension )
+
+#define glob_splitpath( path, drive, drive_size, directory, directory_size, filename, filename_size, extension, extension_size ) \
+	_splitpath( path, drive, directory, filename, extension )
+
+#endif
+#endif
+
+#define glob_findclose( handle ) \
+	_findclose( handle )
 
 /* Initializes a new glob
  * Returns 1 if successful or -1 on error
@@ -302,17 +336,17 @@ int glob_resolve(
 
 			return( -1 );
 		}
-#if defined( WINAPI )
+#if defined( _MSC_VER )
 		if( glob_splitpath(
-		     patterns[ iterator ],
-		     find_drive,
-		     _MAX_DRIVE,
-		     find_directory,
-		     _MAX_DIR,
-		     find_name,
-		     _MAX_FNAME,
-		     find_extension,
-		     _MAX_EXT ) != 0 )
+			 patterns[ iterator ],
+			 find_drive,
+			 _MAX_DRIVE,
+			 find_directory,
+			 _MAX_DIR,
+			 find_name,
+			 _MAX_FNAME,
+			 find_extension,
+			 _MAX_EXT ) != 0 )
 		{
 			liberror_error_set(
 			 error,
@@ -323,18 +357,30 @@ int glob_resolve(
 
 			return( -1 );
 		}
+ #elif defined( __BORLANDC__ )
+		glob_splitpath(
+		 patterns[ iterator ],
+		 find_drive,
+		 _MAX_DRIVE,
+		 find_directory,
+		 _MAX_DIR,
+		 find_name,
+		 _MAX_FNAME,
+		 find_extension,
+		 _MAX_EXT );
+ #endif
 		find_handle = glob_findfirst(
-		               patterns[ iterator ],
-		               &find_data );
+					   patterns[ iterator ],
+					   &find_data );
 
 		if( find_handle != -1 )
 		{
 			do
 			{
 				if( glob_resize(
-				     glob,
-				     glob->amount_of_results + 1,
-				     error ) != 1 )
+					 glob,
+					 glob->amount_of_results + 1,
+					 error ) != 1 )
 				{
 					liberror_error_set(
 					 error,
@@ -345,13 +391,14 @@ int glob_resolve(
 
 					return( -1 );
 				}
+ #if defined( _MSC_VER )
 				if( glob_makepath(
-				     find_path,
-				     _MAX_PATH,
-				     find_drive,
-				     find_directory,
-				     find_data.name,
-				     _SYSTEM_CHARACTER_T_STRING( "" )  ) != 0 )
+					 find_path,
+					 _MAX_PATH,
+					 find_drive,
+					 find_directory,
+					 find_data.name,
+					 _SYSTEM_CHARACTER_T_STRING( "" )  ) != 0 )
 				{
 					liberror_error_set(
 					 error,
@@ -362,11 +409,21 @@ int glob_resolve(
 
 					return( -1 );
 				}
+#elif defined( __BORLANDC__ )
+				glob_makepath(
+				 find_path,
+				 _MAX_PATH,
+				 find_drive,
+				 find_directory,
+				 find_data.name,
+				 _SYSTEM_CHARACTER_T_STRING( "" ) );
+
+#endif
 				find_path_length = system_string_length(
-				                    find_path );
+									find_path );
 
 				glob->result[ glob->amount_of_results - 1 ] = (system_character_t *) memory_allocate(
-				                                                                      sizeof( system_character_t ) * ( find_path_length + 1 ) );
+																					  sizeof( system_character_t ) * ( find_path_length + 1 ) );
 
 				if( glob->result[ glob->amount_of_results - 1 ] == NULL )
 				{
@@ -453,7 +510,6 @@ int glob_resolve(
 
 			return( -1 );
 		}
-#endif
 	}
 	return( globs_found );
 }

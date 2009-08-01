@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090701],
+  [20090702],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090701])
+ [20090702])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -425,6 +425,7 @@ AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([documents/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 AC_CONFIG_FILES([macosx/Makefile])
+AC_CONFIG_FILES([borland/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuna.h])

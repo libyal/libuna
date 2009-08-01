@@ -25,8 +25,6 @@
 
 #include <liberror.h>
 
-#include <stdlib.h>
-
 #include "libuna_compare.h"
 #include "libuna_unicode_character.h"
 #include "libuna_types.h"

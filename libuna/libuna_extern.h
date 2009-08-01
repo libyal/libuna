@@ -40,7 +40,7 @@
 
 #else
 
-#define LIBUNA_EXTERN	extern
+#define LIBUNA_EXTERN	/* extern */
 
 #endif
 
