@@ -1,6 +1,4 @@
 TODO
-* complete iso-8859-3 codepage
-
 * libuna
   - add source == destination check to functions?
   - handle combining characters in windows 1255 and 1258 ?
@@ -10,6 +8,21 @@ TODO
   - copy from/to functions should set/return amount of bytes successfully processed?
     most of the time not needed because the size of the string was already
     determined
+  - implement iso-8859-5
+  - implement iso-8859-6
+  - implement iso-8859-7
+  - implement iso-8859-8
+  - implement iso-8859-9
+  - implement iso-8859-10
+  - implement iso-8859-11
+  - implement iso-8859-12
+  - implement iso-8859-13
+  - implement iso-8859-14
+  - implement iso-8859-15
+  - implement iso-8859-16
+  - implement windows-874
+  - implement windows-923
+  - implement utf-7
 
 Tools:
 * unaexport
@@ -34,6 +47,9 @@ Tools:
   - update spec.in file
   - update msvscpp project files
 
+Test
+* create automated tests and test files
+
 Deployment:
 * create debian package files
 * fix AUTHORS
@@ -51,6 +67,13 @@ Other Windows codepages (MBC)
 * 936 (Simplified Chinese GBK)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
+
+Note:
+* iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
+
+20090726
+* worked on ISO 8859 codepages support
+* added m4 directory support to autoconf/make files for libtool
 
 20090725
 * worked on ISO 8859 codepages support
