@@ -62,7 +62,7 @@ extern const uint8_t libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x1
 	( unicode_character == 0x1e1f ) ? 0xb1 : \
 	( unicode_character == 0x1e40 ) ? 0xb4 : \
 	( unicode_character == 0x1e41 ) ? 0xb5 : \
-	( unicode_character == 0x1e56 ) ? 0xb5 : \
+	( unicode_character == 0x1e56 ) ? 0xb7 : \
 	( unicode_character == 0x1e57 ) ? 0xb9 : \
 	( unicode_character == 0x1e60 ) ? 0xbb : \
 	( unicode_character == 0x1e61 ) ? 0xbf : \

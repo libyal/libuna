@@ -39,6 +39,8 @@
 #include "libuna_codepage_iso_8859_11.h"
 #include "libuna_codepage_iso_8859_13.h"
 #include "libuna_codepage_iso_8859_14.h"
+#include "libuna_codepage_iso_8859_15.h"
+#include "libuna_codepage_iso_8859_16.h"
 #include "libuna_codepage_windows_1250.h"
 #include "libuna_codepage_windows_1251.h"
 #include "libuna_codepage_windows_1252.h"
@@ -264,10 +266,15 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_byte_stream(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
 
-/* TODO
 		case LIBUNA_CODEPAGE_ISO_8859_15:
+			*unicode_character = libuna_codepage_iso_8859_15_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_16:
-*/
+			*unicode_character = libuna_codepage_iso_8859_16_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 			*unicode_character = libuna_codepage_windows_1250_byte_stream_to_unicode(
@@ -459,10 +466,15 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 			                                     unicode_character );
 			break;
 
-		/*
 		case LIBUNA_CODEPAGE_ISO_8859_15:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_15_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_16:
-		*/
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1250_unicode_to_byte_stream(

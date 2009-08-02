@@ -15,8 +15,6 @@ TODO
 
   - implement support for utf-7 (for libpff)
   - implement support for codepages:
-  - iso-8859-15
-  - iso-8859-16
   - windows-874
   - windows-923
 
@@ -45,7 +43,6 @@ Tools:
 
 Test
 * create automated tests and test files
-* checked upto iconv_iso-8859-5
 
 Deployment:
 * create debian package files
@@ -69,6 +66,11 @@ Other Windows codepages (MBC)
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
+
+20090802
+* worked on ISO 8859 codepages support
+* worked on automated tests
+* fixed several small issues
 
 20090801
 * worked on Borland/CodeGear C++ Builder support
