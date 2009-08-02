@@ -6,4 +6,5 @@ Hoffmann Investigations. All rights reserved.
 This code is derived from information and software contributed by:
 * Unicode string conversion from unicode.org
 * libiconv [add reference]
+* codepage documentation from MSDN and ISO/ECMA
 

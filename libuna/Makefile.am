@@ -14,6 +14,15 @@ libuna_la_SOURCES = \
 	libuna_codepage_iso_8859_2.c libuna_codepage_iso_8859_2.h \
 	libuna_codepage_iso_8859_3.c libuna_codepage_iso_8859_3.h \
 	libuna_codepage_iso_8859_4.c libuna_codepage_iso_8859_4.h \
+	libuna_codepage_iso_8859_5.c libuna_codepage_iso_8859_5.h \
+	libuna_codepage_iso_8859_6.c libuna_codepage_iso_8859_6.h \
+	libuna_codepage_iso_8859_7.c libuna_codepage_iso_8859_7.h \
+	libuna_codepage_iso_8859_8.c libuna_codepage_iso_8859_8.h \
+	libuna_codepage_iso_8859_9.c libuna_codepage_iso_8859_9.h \
+	libuna_codepage_iso_8859_10.c libuna_codepage_iso_8859_10.h \
+	libuna_codepage_iso_8859_11.h \
+	libuna_codepage_iso_8859_13.c libuna_codepage_iso_8859_13.h \
+	libuna_codepage_iso_8859_14.c libuna_codepage_iso_8859_14.h \
 	libuna_codepage_windows_1250.c libuna_codepage_windows_1250.h \
 	libuna_codepage_windows_1251.c libuna_codepage_windows_1251.h \
 	libuna_codepage_windows_1252.c libuna_codepage_windows_1252.h \

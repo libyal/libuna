@@ -2,27 +2,23 @@ TODO
 * libuna
   - add source == destination check to functions?
   - handle combining characters in windows 1255 and 1258 ?
-  - add more code pages?
   - speed test between index based and pointer based iteration
   - change libuna_codepage_ macros into inline functions ?
   - copy from/to functions should set/return amount of bytes successfully processed?
     most of the time not needed because the size of the string was already
     determined
-  - implement iso-8859-5
-  - implement iso-8859-6
-  - implement iso-8859-7
-  - implement iso-8859-8
-  - implement iso-8859-9
-  - implement iso-8859-10
-  - implement iso-8859-11
-  - implement iso-8859-12
-  - implement iso-8859-13
-  - implement iso-8859-14
-  - implement iso-8859-15
-  - implement iso-8859-16
-  - implement windows-874
-  - implement windows-923
-  - implement utf-7
+  - implement support for utf-1 ?
+  - implement support for utf-ebcdic ?
+  - implement support for bocu-1 ?
+  - implement support for scsu ?
+  - implement support for usc-1, ucs-2, usc-4 ?
+
+  - implement support for utf-7 (for libpff)
+  - implement support for codepages:
+  - iso-8859-15
+  - iso-8859-16
+  - windows-874
+  - windows-923
 
 Tools:
 * unaexport
@@ -49,6 +45,7 @@ Tools:
 
 Test
 * create automated tests and test files
+* checked upto iconv_iso-8859-5
 
 Deployment:
 * create debian package files
@@ -77,6 +74,11 @@ Note:
 * worked on Borland/CodeGear C++ Builder support
 * updated system string to always default to ASCII
 * added generation of common/types.h
+* worked on ISO 8859 codepages support
+* fixed error in 1254 codepage
+* reduced overhead in 125# codepages
+* worked on automated tests
+* fixed several small issues
 
 20090726
 * worked on ISO 8859 codepages support

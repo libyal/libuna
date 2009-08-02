@@ -1,5 +1,5 @@
 /*
- * ISO 8859-1 codepage (Western European) functions
+ * ISO 8859-11 codepage (Thai) functions
  *
  * Copyright (c) 2009, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -20,8 +20,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNA_CODEPAGE_ISO_8859_1_H )
-#define _LIBUNA_CODEPAGE_ISO_8859_1_H
+#if !defined( _LIBUNA_CODEPAGE_ISO_8859_11_H )
+#define _LIBUNA_CODEPAGE_ISO_8859_11_H
 
 #include <common.h>
 #include <types.h>
@@ -30,11 +30,17 @@
 extern "C" {
 #endif
 
-#define libuna_codepage_iso_8859_1_byte_stream_to_unicode( byte_stream_character ) \
-	byte_stream_character
+#define libuna_codepage_iso_8859_11_byte_stream_to_unicode( byte_stream_character ) \
+	( byte_stream_character < 0xa1 ) ? byte_stream_character : \
+	( byte_stream_character < 0xdb ) ? byte_stream_character + 0x0d60 : \
+	( byte_stream_character < 0xdf ) ? 0xfffd : \
+	( byte_stream_character < 0xfc ) ? byte_stream_character + 0x0d60 : \
+	0xfffd
 
-#define libuna_codepage_iso_8859_1_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x0100 ) ? (uint8_t) unicode_character : \
+#define libuna_codepage_iso_8859_11_unicode_to_byte_stream( unicode_character ) \
+	( unicode_character < 0x00a1 ) ? (uint8_t) unicode_character : \
+	( ( unicode_character >= 0x0e01 ) && ( unicode_character < 0x0e3b ) ) ? unicode_character - 0x0d60 : \
+	( ( unicode_character >= 0x0e3f ) && ( unicode_character < 0x0e5c ) ) ? unicode_character - 0x0d60 : \
 	0x1a
 
 #if defined( __cplusplus )

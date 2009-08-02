@@ -265,7 +265,7 @@
 #define SSIZE_MAX INT64_MAX
 #else
 #define SSIZE_MAX INT32_MAX
-#endif
+#endif /* _WIN64 */
 
 #else
 
@@ -273,9 +273,11 @@
 #define SSIZE_MAX INT64_MAX
 #else
 #define SSIZE_MAX INT32_MAX
-#endif
+#endif /* __WORDSIZE == 64 */
 
-#endif
+#endif /* WINAPI */
+
+#endif /* SSIZE_MAX */
 
 #endif
 

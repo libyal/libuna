@@ -33,15 +33,9 @@ extern "C" {
 extern const uint16_t libuna_codepage_windows_1255_byte_stream_to_unicode_base_0x80[ 128 ];
 
 extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00a0[ 32 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00d0[ 8 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00f0[ 8 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x02c0[ 8 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x02d8[ 8 ];
 extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x05b0[ 24 ];
 extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x05d0[ 40 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2008[ 32 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2030[ 16 ];
-extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x20a8[ 8 ];
+extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2010[ 24 ];
 
 #define libuna_codepage_windows_1255_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuna_codepage_windows_1255_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
@@ -49,17 +43,23 @@ extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x
 #define libuna_codepage_windows_1255_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? (uint8_t) unicode_character : \
 	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x00c0 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
-	( ( unicode_character >= 0x00d0 ) && ( unicode_character < 0x00d8 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00d0[ unicode_character - 0x00d0 ] : \
-	( ( unicode_character >= 0x00f0 ) && ( unicode_character < 0x00f8 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x00f0[ unicode_character - 0x00f0 ] : \
+	( unicode_character == 0x00d7 ) ? 0xaa : \
+	( unicode_character == 0x0077 ) ? 0xba : \
 	( unicode_character == 0x0192 ) ? 0x83 : \
-	( ( unicode_character >= 0x02c0 ) && ( unicode_character < 0x02c8 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x02c0[ unicode_character - 0x02c0 ] : \
-	( ( unicode_character >= 0x02d8 ) && ( unicode_character < 0x02e0 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x02d8[ unicode_character - 0x02d8 ] : \
+	( unicode_character == 0x02c6 ) ? 0x88 : \
+	( unicode_character == 0x02dc ) ? 0x98 : \
 	( ( unicode_character >= 0x05b0 ) && ( unicode_character < 0x05c8 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x05b0[ unicode_character - 0x05b0 ] : \
 	( ( unicode_character >= 0x05d0 ) && ( unicode_character < 0x05f8 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x05d0[ unicode_character - 0x05d0 ] : \
-	( ( unicode_character >= 0x2008 ) && ( unicode_character < 0x2028 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2008[ unicode_character - 0x2008 ] : \
-	( ( unicode_character >= 0x2030 ) && ( unicode_character < 0x2040 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2030[ unicode_character - 0x2030 ] : \
-	( ( unicode_character >= 0x20a8 ) && ( unicode_character < 0x20b0 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x20a8[ unicode_character - 0x20a8 ] : \
-	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
+	( unicode_character == 0x200e ) ? 0xfd : \
+	( unicode_character == 0x200f ) ? 0xfe : \
+	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2028 ) ) ? libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
+	( unicode_character == 0x2030 ) ? 0x89 : \
+	( unicode_character == 0x2039 ) ? 0x8b : \
+	( unicode_character == 0x203a ) ? 0x9b : \
+	( unicode_character == 0x20aa ) ? 0xa4 : \
+	( unicode_character == 0x20ac ) ? 0x80 : \
+	( unicode_character == 0x2122 ) ? 0x99 : \
+	0x1a
 
 #if defined( __cplusplus )
 }

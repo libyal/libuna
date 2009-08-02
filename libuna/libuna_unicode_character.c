@@ -30,6 +30,15 @@
 #include "libuna_codepage_iso_8859_2.h"
 #include "libuna_codepage_iso_8859_3.h"
 #include "libuna_codepage_iso_8859_4.h"
+#include "libuna_codepage_iso_8859_5.h"
+#include "libuna_codepage_iso_8859_6.h"
+#include "libuna_codepage_iso_8859_7.h"
+#include "libuna_codepage_iso_8859_8.h"
+#include "libuna_codepage_iso_8859_9.h"
+#include "libuna_codepage_iso_8859_10.h"
+#include "libuna_codepage_iso_8859_11.h"
+#include "libuna_codepage_iso_8859_13.h"
+#include "libuna_codepage_iso_8859_14.h"
 #include "libuna_codepage_windows_1250.h"
 #include "libuna_codepage_windows_1251.h"
 #include "libuna_codepage_windows_1252.h"
@@ -209,16 +218,53 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_byte_stream(
 			*unicode_character = libuna_codepage_iso_8859_4_byte_stream_to_unicode(
 			                      byte_stream[ *byte_stream_index ] );
 			break;
-/* TODO
+
 		case LIBUNA_CODEPAGE_ISO_8859_5:
+			*unicode_character = libuna_codepage_iso_8859_5_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_6:
+			*unicode_character = libuna_codepage_iso_8859_6_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_7:
+			*unicode_character = libuna_codepage_iso_8859_7_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_8:
+			*unicode_character = libuna_codepage_iso_8859_8_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_9:
+			*unicode_character = libuna_codepage_iso_8859_9_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_10:
+			*unicode_character = libuna_codepage_iso_8859_10_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_11:
+			*unicode_character = libuna_codepage_iso_8859_11_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_13:
+			*unicode_character = libuna_codepage_iso_8859_13_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
 		case LIBUNA_CODEPAGE_ISO_8859_14:
+			*unicode_character = libuna_codepage_iso_8859_14_byte_stream_to_unicode(
+			                      byte_stream[ *byte_stream_index ] );
+			break;
+
+/* TODO
 		case LIBUNA_CODEPAGE_ISO_8859_15:
 		case LIBUNA_CODEPAGE_ISO_8859_16:
 */
@@ -368,17 +414,52 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 			                                     unicode_character );
 			break;
 
+		case LIBUNA_CODEPAGE_ISO_8859_5:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_5_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_6:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_6_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_7:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_8:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_9:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_9_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_10:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_10_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_11:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_11_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_13:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_13_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_14:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
 
 		/*
-		case LIBUNA_CODEPAGE_ISO_8859_5:
-		case LIBUNA_CODEPAGE_ISO_8859_6:
-		case LIBUNA_CODEPAGE_ISO_8859_7:
-		case LIBUNA_CODEPAGE_ISO_8859_8:
-		case LIBUNA_CODEPAGE_ISO_8859_9:
-		case LIBUNA_CODEPAGE_ISO_8859_10:
-		case LIBUNA_CODEPAGE_ISO_8859_11:
-		case LIBUNA_CODEPAGE_ISO_8859_13:
-		case LIBUNA_CODEPAGE_ISO_8859_14:
 		case LIBUNA_CODEPAGE_ISO_8859_15:
 		case LIBUNA_CODEPAGE_ISO_8859_16:
 		*/

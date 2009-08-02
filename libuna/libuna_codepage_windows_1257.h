@@ -33,10 +33,7 @@ extern "C" {
 extern const uint16_t libuna_codepage_windows_1257_byte_stream_to_unicode_base_0x80[ 128 ];
 
 extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x00a0[ 224 ];
-extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x02c0[ 8 ];
-extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x02d8[ 8 ];
 extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x2010[ 24 ];
-extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x2038[ 8 ];
 
 #define libuna_codepage_windows_1257_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuna_codepage_windows_1257_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
@@ -44,13 +41,16 @@ extern const uint8_t libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x
 #define libuna_codepage_windows_1257_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? (uint8_t) unicode_character : \
 	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x0180 ) ) ? libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
-	( ( unicode_character >= 0x02c0 ) && ( unicode_character < 0x02c8 ) ) ? libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x02c0[ unicode_character - 0x02c0 ] : \
-	( ( unicode_character >= 0x02d8 ) && ( unicode_character < 0x02e0 ) ) ? libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x02d8[ unicode_character - 0x02d8 ] : \
+	( unicode_character == 0x02c7 ) ? 0x8e : \
+	( unicode_character == 0x02d9 ) ? 0xff : \
+	( unicode_character == 0x02db ) ? 0x9e : \
 	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2028 ) ) ? libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
 	( unicode_character == 0x2030 ) ? 0x89 : \
-	( ( unicode_character >= 0x2038 ) && ( unicode_character < 0x2040 ) ) ? libuna_codepage_windows_1257_unicode_to_byte_stream_base_0x2038[ unicode_character - 0x2038 ] : \
+	( unicode_character == 0x2039 ) ? 0x8b : \
+	( unicode_character == 0x203a ) ? 0x9b : \
 	( unicode_character == 0x20ac ) ? 0x80 : \
-	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
+	( unicode_character == 0x2122 ) ? 0x99 : \
+	0x1a
 
 #if defined( __cplusplus )
 }

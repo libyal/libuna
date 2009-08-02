@@ -35,7 +35,6 @@ extern const uint16_t libuna_codepage_windows_1253_byte_stream_to_unicode_base_0
 extern const uint8_t libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x00a0[ 32 ];
 extern const uint8_t libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x0380[ 80 ];
 extern const uint8_t libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x2010[ 24 ];
-extern const uint8_t libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x2038[ 8 ];
 
 #define libuna_codepage_windows_1253_byte_stream_to_unicode( byte_stream_character ) \
 	( byte_stream_character < 0x80 ) ? byte_stream_character : libuna_codepage_windows_1253_byte_stream_to_unicode_base_0x80[ byte_stream_character - 0x80 ]
@@ -47,9 +46,11 @@ extern const uint8_t libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x
 	( ( unicode_character >= 0x0380 ) && ( unicode_character < 0x03d0 ) ) ? libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x0380[ unicode_character - 0x0380 ] : \
 	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2028 ) ) ? libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
 	( unicode_character == 0x2030 ) ? 0x89 : \
-	( ( unicode_character >= 0x2038 ) && ( unicode_character < 0x2040 ) ) ? libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x2038[ unicode_character - 0x2038 ] : \
+	( unicode_character == 0x2039 ) ? 0x8b : \
+	( unicode_character == 0x203a ) ? 0x9b : \
 	( unicode_character == 0x20ac ) ? 0x80 : \
-	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
+	( unicode_character == 0x2122 ) ? 0x99 : \
+	0x1a
 
 #if defined( __cplusplus )
 }

@@ -50,7 +50,8 @@ extern const uint8_t libuna_codepage_windows_1250_unicode_to_byte_stream_base_0x
 	( ( unicode_character >= 0x2010 ) && ( unicode_character < 0x2028 ) ) ? libuna_codepage_windows_1250_unicode_to_byte_stream_base_0x2010[ unicode_character - 0x2010 ] : \
 	( ( unicode_character >= 0x2030 ) && ( unicode_character < 0x2040 ) ) ? libuna_codepage_windows_1250_unicode_to_byte_stream_base_0x2030[ unicode_character - 0x2030 ] : \
 	( unicode_character == 0x20ac ) ? 0x80 : \
-	( unicode_character == 0x2122 ) ? 0x99 : 0x1a
+	( unicode_character == 0x2122 ) ? 0x99 : \
+	0x1a
 
 #if defined( __cplusplus )
 }

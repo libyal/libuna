@@ -70,6 +70,8 @@ void usage_fprint(
 	{
 		return;
 	}
+	fprintf( stream, "Use unaexport to export text in one encoding to another.\n\n" );
+
 	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ]\n" );
 	fprintf( stream, "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
 
@@ -77,7 +79,10 @@ void usage_fprint(
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
 	fprintf( stream, "\t-B:          do not export a byte order mark\n" );
-	fprintf( stream, "\t-c:          codepage of byte stream, options: ascii (default),\n" );
+	fprintf( stream, "\t-c:          codepage of byte stream, options: ascii (default), iso-8559-1,\n" );
+	fprintf( stream, "\t             iso-8559-2, iso-8559-3, iso-8559-4, iso-8559-5, iso-8559-6,\n" );
+	fprintf( stream, "\t             iso-8559-7, iso-8559-8, iso-8559-9, iso-8559-10, iso-8559-11,\n" );
+	fprintf( stream, "\t             iso-8559-13, iso-8559-14, iso-8559-15, iso-8559-16,\n" );
 	fprintf( stream, "\t             windows-1250, windows-1251, windows-1252, windows-1253,\n" );
 	fprintf( stream, "\t             windows-1254, windows-1255, windows-1256, windows-1257\n" );
 	fprintf( stream, "\t             or windows-1258\n" );
@@ -121,7 +126,7 @@ void export_fprint(
 	 stream,
 	 "\tof format:\t\t" );
 
-	if( input_format == UNACOMMON_FORMAT_BYTE_STREAM )
+	if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 	{
 		fprintf(
 		 stream,
