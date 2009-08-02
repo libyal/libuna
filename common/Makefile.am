@@ -9,6 +9,7 @@ EXTRA_DIST = \
 	memory.h \
 	narrow_string.h \
 	types.h \
+	types.h.in \
 	wide_string.h
 
 if HAVE_MEMWATCH
@@ -20,5 +21,6 @@ endif
 
 distclean: clean
 	/bin/rm -f common/config.h
+	/bin/rm -f common/types.h
 	/bin/rm -f Makefile
 

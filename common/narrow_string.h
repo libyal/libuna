@@ -139,11 +139,11 @@ extern "C" {
 
 /* String to singed long long (int64)
  */
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 #define narrow_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) _atoi64( string )
 
-#elif defined( HAVE_STRTOLL ) || defined( WINAPI )
+#elif defined( HAVE_STRTOLL )
 #define narrow_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) strtoll( string, end_of_string, base )
 
@@ -154,11 +154,11 @@ extern "C" {
 
 /* String to unsigned long long (uint64)
  */
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 #define narrow_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) _atoi64( string )
 
-#elif defined( HAVE_STRTOULL ) || defined( WINAPI )
+#elif defined( HAVE_STRTOULL )
 #define narrow_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) strtoull( string, end_of_string, base )
 

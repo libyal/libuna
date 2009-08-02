@@ -45,11 +45,21 @@
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER_T )
 #define glob_finddata_t	_wfinddata_t
 
+#if defined( __BORLANDC__ )
+#define glob_findfirst( filter, fileinfo ) \
+	__wfindfirst( filter, fileinfo )
+
+#define glob_findnext( handle, fileinfo ) \
+	__wfindnext( handle, fileinfo )
+
+#else
 #define glob_findfirst( filter, fileinfo ) \
 	_wfindfirst( filter, fileinfo )
 
 #define glob_findnext( handle, fileinfo ) \
 	_wfindnext( handle, fileinfo )
+
+#endif
 
 #if defined( _MSC_VER )
 #define glob_makepath( path, path_size, drive, directory, filename, extension ) \

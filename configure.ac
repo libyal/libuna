@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090726],
+  [20090801],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090726])
+ [20090801])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -19,6 +19,13 @@ AC_CANONICAL_HOST
 
 dnl Check for large file support
 AC_SYS_LARGEFILE
+
+dnl Check for configure arguments
+LIBUNA_TEST_ENABLE(
+ [static-executables],
+ [static_executables],
+ [build the unatools as static executables],
+ [no])
 
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
@@ -108,14 +115,14 @@ AC_CHECK_HEADERS([sys/stat.h])
 AC_CHECK_HEADERS([fcntl.h])
 AC_CHECK_HEADERS([unistd.h])
 
-dnl Headers included in and unatools/glob.h
+dnl Headers included in unatools/glob.h
 AC_CHECK_HEADERS([glob.h])
 
-dnl Headers included in and unatools/unasignal.h
+dnl Headers included in unatools/unasignal.h
 AC_CHECK_HEADERS([signal.h])
 AC_CHECK_HEADERS([sys/signal.h])
 
-dnl Headers included in and unatools/system_string.h
+dnl Headers included in unatools/system_string.h
 AC_CHECK_HEADERS([langinfo.h])
 AC_CHECK_HEADERS([locale.h])
 
@@ -394,9 +401,29 @@ AC_CHECK_FUNCS(
 dnl Commandline argument/option parsing functions used in unatools/unagetopt.h
 AC_CHECK_FUNCS([getopt])
 
+dnl Check for locale functions
+AC_CHECK_FUNCS(
+ [setlocale],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: setlocale],
+  [1]) ])
+
+LIBUNA_LANGINFO_CODESET
+
+dnl System functions
+
 dnl Check for printf conversion specifier support
 LIBUNA_CHECK_PRINTF_JD
 LIBUNA_CHECK_PRINTF_ZD
+
+dnl Check if unatools should be build as static executables
+AS_IF(
+	[test "x$ac_cv_libuna_enable_static_executables" != xno],
+	[STATIC_LDFLAGS="-all-static";
+	AC_SUBST(
+	 [STATIC_LDFLAGS])
+	ac_cv_libuna_enable_static_executables=yes])
 
 dnl Set memwatch support
 ac_libewf_have_memwatch=no
@@ -417,6 +444,18 @@ AM_CONDITIONAL(
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
 
+dnl Check if DLL support is needed in unatools
+AS_IF(
+	[test x"$enable_shared" = xyes],
+	[AS_CASE(
+		[$host],
+		[*cygwin* | *mingw*],
+		[AC_SUBST(
+		 [LIBUNA_DLL_IMPORT],
+		 ["-DLIBUNA_DLL_IMPORT"])
+		])
+	])
+
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
@@ -435,6 +474,7 @@ AC_CONFIG_FILES([include/libuna/definitions.h])
 AC_CONFIG_FILES([include/libuna/types.h])
 AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
+AC_CONFIG_FILES([common/types.h])
 AC_CONFIG_FILES([macosx/Introduction.rtf])
 AC_CONFIG_FILES([libuna.pc])
 AC_CONFIG_FILES([libuna.spec])
@@ -442,4 +482,10 @@ dnl Have configure write its configuration
 AC_CONFIG_HEADERS([common/config.h])
 
 AC_OUTPUT
+
+dnl Print a summary
+AC_MSG_NOTICE([
+Features:
+   unatools are build as static executables: $ac_cv_libuna_enable_static_executables
+]);
 

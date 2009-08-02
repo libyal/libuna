@@ -59,6 +59,7 @@ Deployment:
   - and more
 * update MacOS-X project file
   - change libuca to libuna
+* Borland C++ 5.5 support
 
 Other Windows codepages (SBC)
 * 874 (Thai)
@@ -70,10 +71,20 @@ Other Windows codepages (MBC)
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
+* Borland CodeGear uses numeric codepage e.g. 850
+
+20090801
+* worked on Borland/CodeGear C++ Builder support
+* updated system string to always default to ASCII
+* added generation of common/types.h
 
 20090726
 * worked on ISO 8859 codepages support
 * added m4 directory support to autoconf/make files for libtool
+* updated configure.ac
+  - added langinfo support
+  - added cygwin dll import support
+  - added static executable support
 
 20090725
 * worked on ISO 8859 codepages support

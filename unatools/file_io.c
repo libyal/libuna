@@ -40,7 +40,8 @@ int file_io_exists(
 
 	if( filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid filename.\n",
+		notify_warning_printf(
+		 "%s: invalid filename.\n",
 		 function );
 
 		return( -1 );
@@ -49,9 +50,16 @@ int file_io_exists(
 	if( _sopen_s(
 	     &file_descriptor,
 	     filename,
-	     ( _O_RDONLY | _O_BINARY ),
-	     _SH_DENYRW,
-	     ( _S_IREAD | _S_IWRITE ) ) != 0 )
+	     _O_RDONLY | _O_BINARY,
+	     _SH_DENYWR,
+	     _S_IREAD | _S_IWRITE ) != 0 )
+#elif defined( WINAPI )
+	file_descriptor = _sopen(
+	                   filename,
+	                   _O_RDONLY | _O_BINARY,
+	                   _S_IREAD | _S_IWRITE );
+
+	if( file_descriptor == -1 )
 #else
 	file_descriptor = open(
 	                   filename,
@@ -70,7 +78,7 @@ int file_io_exists(
 }
 #endif
 
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 
 /* Function to determine if a file exists
  * Return 1 if file exists, 0 if not or -1 on error
@@ -83,7 +91,8 @@ int file_io_wexists(
 
 	if( filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid filename.\n",
+		notify_warning_printf(
+		 "%s: invalid filename.\n",
 		 function );
 
 		return( -1 );
@@ -92,9 +101,17 @@ int file_io_wexists(
 	if( _wsopen_s(
 		 &file_descriptor,
 		 filename,
-		 ( _O_RDONLY | _O_BINARY ),
-		 _SH_DENYRW,
-		 ( _S_IREAD | _S_IWRITE ) ) != 0 )
+		 _O_RDONLY | _O_BINARY,
+		 _SH_DENYWR,
+		 _S_IREAD | _S_IWRITE ) != 0 )
+#else
+	file_descriptor = _wsopen(
+	                   filename,
+	                   _O_RDONLY | _O_BINARY,
+	                   _S_IREAD | _S_IWRITE );
+
+	if( file_descriptor == -1 )
+#endif
 	{
 		return( 0 );
 	}
@@ -102,7 +119,6 @@ int file_io_wexists(
 	 file_descriptor );
 
 	return( 1 );
-#endif
 }
 #endif
 
@@ -119,7 +135,8 @@ int file_io_open(
 
 	if( filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid filename.\n",
+		notify_warning_printf(
+		 "%s: invalid filename.\n",
 		 function );
 
 		return( -1 );
@@ -129,8 +146,15 @@ int file_io_open(
 	     &file_descriptor,
 	     filename,
 	     ( flags | _O_BINARY ),
-	     _SH_DENYRW,
+	     _SH_DENYWR,
 	     ( _S_IREAD | _S_IWRITE ) ) != 0 )
+#elif defined( WINAPI )
+	file_descriptor = _sopen(
+	                   filename,
+	                   _O_RDONLY | _O_BINARY,
+	                   _S_IREAD | _S_IWRITE );
+
+	if( file_descriptor == -1 )
 #else
 	file_descriptor = open(
 	                   filename,
@@ -141,8 +165,10 @@ int file_io_open(
 #endif
 	{
 #if defined( HAVE_DEBUG_OUTPUT )
-		notify_warning_printf( "%s: error opening file: %s.\n",
-		 function, filename );
+		notify_warning_printf(
+		 "%s: error opening file: %s.\n",
+		 function,
+		 filename );
 #endif
 
 		return( -1 );
@@ -151,7 +177,7 @@ int file_io_open(
 }
 #endif
 
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 
 /* Function to wrap wopen() which is the wide character equivalent of open()
  */
@@ -164,7 +190,8 @@ int file_io_wopen(
 
 	if( filename == NULL )
 	{
-		notify_warning_printf( "%s: invalid filename.\n",
+		notify_warning_printf(
+		 "%s: invalid filename.\n",
 		 function );
 
 		return( -1 );
@@ -173,19 +200,28 @@ int file_io_wopen(
 	if( _wsopen_s(
 	     &file_descriptor,
 	     filename,
-	     ( flags | _O_BINARY ),
-	     _SH_DENYRW,
-	     ( _S_IREAD | _S_IWRITE ) ) != 0 )
+	     flags | _O_BINARY,
+	     _SH_DENYWR,
+	     _S_IREAD | _S_IWRITE ) != 0 )
+#else
+	file_descriptor = _wsopen(
+	                   filename,
+	                   _O_RDONLY | _O_BINARY,
+	                   _S_IREAD | _S_IWRITE );
+
+	if( file_descriptor == -1 )
+#endif
 	{
 #if defined( HAVE_DEBUG_OUTPUT )
-		notify_warning_printf( "%s: error opening file: %s.\n",
-		 function, filename );
+		notify_warning_printf(
+		 "%s: error opening file: %s.\n",
+		 function,
+		 filename );
 #endif
 
 		return( -1 );
 	}
 	return( file_descriptor );
-#endif
 }
 #endif
 

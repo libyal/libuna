@@ -35,13 +35,8 @@
 #define HAVE_SSIZE64_T  0
 #define HAVE_OFF64_T    0
 
-/* If wide character support was enabled
- * make use of the wide character support functions
+/* Define the wide character type
  */
-#if !defined( HAVE_WIDE_CHARACTER_TYPE )
-#define HAVE_WIDE_CHARACTER_TYPE
-#endif
-
 #if !defined( HAVE_WCHAR_H )
 #define HAVE_WCHAR_H		1
 #endif

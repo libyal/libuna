@@ -37,11 +37,32 @@ extern "C" {
 	time( timestamp )
 #endif
 
+#if defined( HAVE_MKTIME ) || defined( WINAPI )
+#define date_time_mktime( time_elements ) \
+	mktime( time_elements )
+#endif
+
+/* Wide character ctime
+ */
 #if defined( _MSC_VER )
 #define date_time_wctime( timestamp, string, size ) \
 	( _wctime_s( string, size, timestamp ) != 0 ? NULL : string )
+
+#elif defined( WINAPI )
+
+#define HAVE_LOCAL_WCTIME
+
+wchar_t *_date_time_wctime(
+		  const time_t *timestamp,
+		  wchar_t *string,
+		  size_t length );
+
+#define date_time_wctime( timestamp, string, size ) \
+	_date_time_wctime( timestamp, string, size )
 #endif
 
+/* Narrow character ctime
+ */
 #if defined( _MSC_VER )
 #define date_time_ctime( timestamp, string, size ) \
 	( ctime_s( string, size, timestamp ) != 0 ? NULL : string )
@@ -54,7 +75,10 @@ extern "C" {
 #define date_time_ctime( timestamp, string, size ) \
 	ctime_r( timestamp, string )
 
-#elif defined( HAVE_CTIME )
+#elif defined( HAVE_CTIME ) || defined( WINAPI )
+
+#define HAVE_LOCAL_CTIME
+
 char *_date_time_ctime(
 	   const time_t *timestamp,
 	   char *string,
@@ -64,11 +88,8 @@ char *_date_time_ctime(
 	_date_time_ctime( timestamp, string, size )
 #endif
 
-#if defined( HAVE_MKTIME ) || defined( WINAPI )
-#define date_time_mktime( time_elements ) \
-	mktime( time_elements )
-#endif
-
+/* Local time function
+ */
 #if defined( _MSC_VER )
 #define date_time_localtime_r( timestamp, time_elements ) \
 	localtime_s( time_elements, timestamp )
@@ -78,7 +99,7 @@ char *_date_time_ctime(
 	localtime_r( timestamp, time_elements )
 #endif
 
-#if defined( date_time_localtime_r ) || defined( HAVE_LOCALTIME )
+#if defined( date_time_localtime_r ) || defined( HAVE_LOCALTIME ) || defined( WINAPI )
 struct tm *_date_time_localtime(
 			const time_t *timestamp );
 
@@ -86,6 +107,8 @@ struct tm *_date_time_localtime(
 	_date_time_localtime( timestamp )
 #endif
 
+/* GMT/UTC time function
+ */
 #if defined( _MSC_VER )
 #define date_time_gmtime_r( timestamp, time_elements ) \
 	gmtime_s( time_elements, timestamp )
@@ -95,7 +118,7 @@ struct tm *_date_time_localtime(
 	gmtime_r( timestamp, time_elements )
 #endif
 
-#if defined( date_time_gmtime_r ) || defined( HAVE_GMTIME )
+#if defined( date_time_gmtime_r ) || defined( HAVE_GMTIME ) || defined( WINAPI )
 struct tm *_date_time_gmtime(
 			const time_t *timestamp );
 

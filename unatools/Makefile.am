@@ -1,4 +1,5 @@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror @MEMWATCH_CPPFLAGS@
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror @MEMWATCH_CPPFLAGS@ @LIBUNA_DLL_IMPORT@
+AM_LDFLAGS  = @STATIC_LDFLAGS@
 
 bin_PROGRAMS = unaexport
 

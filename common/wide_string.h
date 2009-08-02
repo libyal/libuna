@@ -115,6 +115,10 @@ extern "C" {
 #define wide_string_snprintf( target, size, format, ... ) \
 	swprintf_s( target, size, format, __VA_ARGS__ )
 
+#elif defined( __BORLANDC__ )
+#define wide_string_snprintf( target, size, format, ... ) \
+	swprintf( target, format, __VA_ARGS__ )
+
 #elif defined( HAVE_SWPRINTF ) || defined( WINAPI )
 #define wide_string_snprintf( target, size, format, ... ) \
 	swprintf( target, size, format, __VA_ARGS__ )
@@ -129,22 +133,22 @@ extern "C" {
 
 /* String to singed long long (int64)
  */
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 #define wide_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) _wtoi64( string )
 
-#elif defined( HAVE_WCSTOLL ) || defined( WINAPI )
+#elif defined( HAVE_WCSTOLL )
 #define wide_string_to_signed_long_long( string, end_of_string, base ) \
 	(int64_t) wcstoll( string, end_of_string, base )
 #endif
 
 /* String to unsinged long long (uint64)
  */
-#if defined( _MSC_VER )
+#if defined( WINAPI )
 #define wide_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) _wtoi64( string )
 
-#elif defined( HAVE_WCSTOULL ) || defined( WINAPI )
+#elif defined( HAVE_WCSTOULL )
 #define wide_string_to_unsigned_long_long( string, end_of_string, base ) \
 	(uint64_t) wcstoull( string, end_of_string, base )
 #endif
