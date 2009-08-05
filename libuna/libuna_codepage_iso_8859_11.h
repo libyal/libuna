@@ -39,8 +39,8 @@ extern "C" {
 
 #define libuna_codepage_iso_8859_11_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x00a1 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x0e01 ) && ( unicode_character < 0x0e3b ) ) ? unicode_character - 0x0d60 : \
-	( ( unicode_character >= 0x0e3f ) && ( unicode_character < 0x0e5c ) ) ? unicode_character - 0x0d60 : \
+	( ( unicode_character >= 0x0e01 ) && ( unicode_character < 0x0e3b ) ) ? (uint8_t) ( unicode_character - 0x0d60 ) : \
+	( ( unicode_character >= 0x0e3f ) && ( unicode_character < 0x0e5c ) ) ? (uint8_t) ( unicode_character - 0x0d60 ) : \
 	0x1a
 
 #if defined( __cplusplus )

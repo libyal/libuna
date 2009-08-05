@@ -192,7 +192,9 @@ int glob_free(
 	{
 		if( ( *glob )->result != NULL )
 		{
-			for( result_iterator = 0; result_iterator < ( *glob )->amount_of_results; result_iterator++ )
+			for( result_iterator = 0;
+			     result_iterator < ( *glob )->amount_of_results;
+			     result_iterator++ )
 			{
 				if( ( *glob )->result[ result_iterator ] != NULL )
 				{
@@ -401,7 +403,7 @@ int glob_resolve(
 
 					return( -1 );
 				}
- #if defined( _MSC_VER )
+#if defined( _MSC_VER )
 				if( glob_makepath(
 					 find_path,
 					 _MAX_PATH,
@@ -427,13 +429,13 @@ int glob_resolve(
 				 find_directory,
 				 find_data.name,
 				 _SYSTEM_CHARACTER_T_STRING( "" ) );
-
 #endif
+
 				find_path_length = system_string_length(
-									find_path );
+				                    find_path );
 
 				glob->result[ glob->amount_of_results - 1 ] = (system_character_t *) memory_allocate(
-																					  sizeof( system_character_t ) * ( find_path_length + 1 ) );
+				                                                                      sizeof( system_character_t ) * ( find_path_length + 1 ) );
 
 				if( glob->result[ glob->amount_of_results - 1 ] == NULL )
 				{

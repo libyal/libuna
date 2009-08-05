@@ -20,7 +20,7 @@ libmemwatch_la_SOURCES = \
 endif
 
 distclean: clean
-	/bin/rm -f common/config.h
-	/bin/rm -f common/types.h
+	/bin/rm -f config.h
+	/bin/rm -f types.h
 	/bin/rm -f Makefile
 

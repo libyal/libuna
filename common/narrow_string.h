@@ -60,7 +60,7 @@ extern "C" {
  */
 #if defined( _MSC_VER )
 #define narrow_string_compare_no_case( string1, string2, size ) \
-        _strnicmp( string1, string2, size )
+	_strnicmp( string1, string2, size )
 
 #elif defined( HAVE_STRNCASECMP ) || defined( WINAPI )
 #define narrow_string_compare_no_case( string1, string2, size ) \
