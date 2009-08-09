@@ -83,9 +83,9 @@ void usage_fprint(
 	fprintf( stream, "\t             iso-8559-2, iso-8559-3, iso-8559-4, iso-8559-5, iso-8559-6,\n" );
 	fprintf( stream, "\t             iso-8559-7, iso-8559-8, iso-8559-9, iso-8559-10, iso-8559-11,\n" );
 	fprintf( stream, "\t             iso-8559-13, iso-8559-14, iso-8559-15, iso-8559-16,\n" );
-	fprintf( stream, "\t             windows-1250, windows-1251, windows-1252, windows-1253,\n" );
-	fprintf( stream, "\t             windows-1254, windows-1255, windows-1256, windows-1257\n" );
-	fprintf( stream, "\t             or windows-1258\n" );
+	fprintf( stream, "\t             windows-874, windows-1250, windows-1251, windows-1252,\n" );
+	fprintf( stream, "\t             windows-1253, windows-1254, windows-1255, windows-1256\n" );
+	fprintf( stream, "\t             windows-1257 or windows-1258\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
 	fprintf( stream, "\t-i:          input format, options: auto-detect (default), utf7,\n" );
 	fprintf( stream, "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );

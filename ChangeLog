@@ -19,8 +19,20 @@ TODO
   - implement support for base64url
   - implement support for utf-7 (for libpff)
   - implement support for codepages:
-  - windows-874
-  - windows-923
+    - 923 iso-2022-jp Japanese (Shift-JIS)
+    - 936 gb2312 Chinese Simplified (GB2312)
+    - 949 ks_c_5601-1987 Korean
+    - 950 big5 Chinese Traditional (Big5)
+    - 20866 koi8-r Cyrillic (KOI8-R)
+    - 21866 koi8-u Cyrillic (KOI8-U)
+    - 50220 iso-2022-jp Japanese (JIS)
+    - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
+    - 51932 euc-jp Japanese (EUC)
+    - 51949 euc-kr Korean (EUC)
+    - 52936 hz-gb-2312 Chinese Simplified (HZ)
+
+Test
+* codepage windows-874
 
 Tools:
 * unaexport
@@ -59,8 +71,6 @@ Deployment:
   - change libuca to libuna
 * Borland C++ 5.5 support
 
-Other Windows codepages (SBC)
-* 874 (Thai)
 Other Windows codepages (MBC)
 * 932 (Japanese Shift-JIS)
 * 936 (Simplified Chinese GBK)
@@ -73,6 +83,7 @@ Note:
 
 20090808
 * fix for handling extern in MSC for local use of libuna
+* worked on windows-874 codepage support
 
 20090806
 * worked on base64 sidn base64url upport

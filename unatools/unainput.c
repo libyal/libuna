@@ -220,6 +220,14 @@ int unainput_determine_byte_stream_codepage(
 		}
 		else if( system_string_compare(
 		          &( argument[ 8 ] ),
+		          _SYSTEM_CHARACTER_T_STRING( "874" ),
+		          3 ) == 0 )
+		{
+			*byte_stream_codepage = LIBUNA_CODEPAGE_WINDOWS_874;
+			result                = 1;
+		}
+		else if( system_string_compare(
+		          &( argument[ 8 ] ),
 		          _SYSTEM_CHARACTER_T_STRING( "1250" ),
 		          4 ) == 0 )
 		{

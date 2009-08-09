@@ -26,6 +26,7 @@ libuna_la_SOURCES = \
 	libuna_codepage_iso_8859_14.c libuna_codepage_iso_8859_14.h \
 	libuna_codepage_iso_8859_15.c libuna_codepage_iso_8859_15.h \
 	libuna_codepage_iso_8859_16.c libuna_codepage_iso_8859_16.h \
+	libuna_codepage_windows_874.c libuna_codepage_windows_874.h \
 	libuna_codepage_windows_1250.c libuna_codepage_windows_1250.h \
 	libuna_codepage_windows_1251.c libuna_codepage_windows_1251.h \
 	libuna_codepage_windows_1252.c libuna_codepage_windows_1252.h \

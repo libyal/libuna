@@ -48,10 +48,6 @@ void unaoutput_codepage_fprint(
 void unaoutput_codepages_fprint(
       FILE *stream );
 
-void unaoutput_encoding_fprint(
-      FILE *stream,
-      int encoding );
-
 void unaoutput_format_fprint(
       FILE *stream,
       int format );

@@ -187,6 +187,12 @@ void unaoutput_codepage_fprint(
 			 "ISO 8859-16 (Lating-10)" );
 			break;
 
+		case LIBUNA_CODEPAGE_WINDOWS_874:
+			fprintf(
+			 stream,
+			 "Windows 874 (Thai)" );
+			break;
+
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 			fprintf(
 			 stream,
@@ -277,6 +283,7 @@ void unaoutput_codepages_fprint(
 	 "\tiso-8859-14:  Support ISO 8859-14 () character set\n"
 	 "\tiso-8859-15:  Support ISO 8859-14 (Latin-9) character set\n"
 	 "\tiso-8859-16:  Support ISO 8859-16 (Latin-10) character set\n"
+	 "\twindows-874:  Supports the Windows 874 (Thai) character set\n"
 	 "\twindows-1250: Supports the Windows 1250 (Central European) character set\n"
 	 "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n"
 	 "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n"
@@ -287,55 +294,6 @@ void unaoutput_codepages_fprint(
 	 "\twindows-1256: Supports the Windows 1256 (Arabic) character set\n"
 	 "\twindows-1257: Supports the Windows 1257 (Baltic) character set\n"
 	 "\twindows-1258: Supports the Windows 1258 (Vietnamese) character set\n" );
-}
-
-/* Prints the encoding information
- */
-void unaoutput_encoding_fprint(
-      FILE *stream,
-      int encoding )
-{
-	if( stream == NULL )
-	{
-		return;
-	}
-	switch( encoding )
-	{
-		case UNACOMMON_FORMAT_BASE16:
-			fprintf(
-			 stream,
-			 "Base 16 (hexadecimal)" );
-			break;
-
-		case UNACOMMON_FORMAT_BASE32:
-			fprintf(
-			 stream,
-			 "Base 32" );
-			break;
-
-		case UNACOMMON_FORMAT_BASE32HEX:
-			fprintf(
-			 stream,
-			 "Base 32 extended hexadecimal" );
-			break;
-
-		case UNACOMMON_FORMAT_BASE64:
-			fprintf(
-			 stream,
-			 "Base 64" );
-
-		case UNACOMMON_FORMAT_BASE64URL:
-			fprintf(
-			 stream,
-			 "Base 64 URL and filename safe" );
-			break;
-
-		default:
-			fprintf(
-			 stream,
-			 "unsupported" );
-			break;
-	}
 }
 
 /* Prints the format (encoding) information
