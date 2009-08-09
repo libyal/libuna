@@ -78,8 +78,8 @@ void usage_fprint(
 	fprintf( stream, "\tsource:      the source file\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
-	fprintf( stream, "\t-B:          do not export a byte order mark\n" );
-	fprintf( stream, "\t-c:          codepage of byte stream, options: ascii (default), iso-8559-1,\n" );
+	fprintf( stream, "\t-B:          do not export a byte order mark (BOM)\n" );
+	fprintf( stream, "\t-c:          codepage of byte-stream, options: ascii (default), iso-8559-1,\n" );
 	fprintf( stream, "\t             iso-8559-2, iso-8559-3, iso-8559-4, iso-8559-5, iso-8559-6,\n" );
 	fprintf( stream, "\t             iso-8559-7, iso-8559-8, iso-8559-9, iso-8559-10, iso-8559-11,\n" );
 	fprintf( stream, "\t             iso-8559-13, iso-8559-14, iso-8559-15, iso-8559-16,\n" );
@@ -87,12 +87,12 @@ void usage_fprint(
 	fprintf( stream, "\t             windows-1254, windows-1255, windows-1256, windows-1257\n" );
 	fprintf( stream, "\t             or windows-1258\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
-	fprintf( stream, "\t-i:          input format, options: auto-detect (default), byte-stream,\n" );
+	fprintf( stream, "\t-i:          input format, options: auto-detect (default), utf7,\n" );
 	fprintf( stream, "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-l:          list information about the codepages\n" );
 	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n" );
 	fprintf( stream, "\t             crlf or lf\n" );
-	fprintf( stream, "\t-o:          output format, options: byte-stream, utf8 (default),\n" );
+	fprintf( stream, "\t-o:          output format, options: byte-stream,  utf7, utf8 (default),\n" );
 	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-q:          quiet shows no status information\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
@@ -125,55 +125,9 @@ void export_fprint(
 	fprintf(
 	 stream,
 	 "\tof format:\t\t" );
-
-	if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-	{
-		fprintf(
-		 stream,
-		 "auto detect" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_BYTE_STREAM )
-	{
-		fprintf(
-		 stream,
-		 "byte stream" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_UTF8 )
-	{
-		fprintf(
-		 stream,
-		 "UTF-8" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_UTF16BE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-16 big endian" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_UTF16LE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-16 little endian" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_UTF32BE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-32 big endian" );
-	}
-	else if( input_format == UNACOMMON_FORMAT_UTF32LE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-32 little endian" );
-	}
-	else
-	{
-		fprintf(
-		 stream,
-		 "unsupported" );
-	}
+	unaoutput_format_fprint(
+	 stream,
+	 input_format );
 	fprintf(
 	 stream,
 	 "\n" );
@@ -185,55 +139,22 @@ void export_fprint(
 	fprintf(
 	 stream,
 	 "\tof format:\t\t" );
-
-	if( output_format == UNACOMMON_FORMAT_BYTE_STREAM )
-	{
-		fprintf(
-		 stream,
-		 "byte stream" );
-	}
-	else if( output_format == UNACOMMON_FORMAT_UTF8 )
-	{
-		fprintf(
-		 stream,
-		 "UTF-8" );
-	}
-	else if( output_format == UNACOMMON_FORMAT_UTF16BE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-16 big endian" );
-	}
-	else if( output_format == UNACOMMON_FORMAT_UTF16LE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-16 little endian" );
-	}
-	else if( output_format == UNACOMMON_FORMAT_UTF32BE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-32 big endian" );
-	}
-	else if( output_format == UNACOMMON_FORMAT_UTF32LE )
-	{
-		fprintf(
-		 stream,
-		 "UTF-32 little endian" );
-	}
-	else
-	{
-		fprintf(
-		 stream,
-		 "unsupported" );
-	}
+	unaoutput_format_fprint(
+	 stream,
+	 output_format );
 	fprintf(
 	 stream,
 	 "\n" );
 
-	/* TODO print codepage
-	 */
+	fprintf(
+	 stream,
+	 "\tbyte-stream codepage:\t" );
+	unaoutput_codepage_fprint(
+	 stream,
+	 byte_stream_codepage );
+	fprintf(
+	 stream,
+	 "\n" );
 
 	fprintf(
 	 stream,
@@ -357,6 +278,7 @@ ssize64_t unaexport(
 	}
 	if( ( input_format != UNACOMMON_FORMAT_AUTO_DETECT )
 	 && ( input_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( input_format != UNACOMMON_FORMAT_UTF7 )
 	 && ( input_format != UNACOMMON_FORMAT_UTF8 )
 	 && ( input_format != UNACOMMON_FORMAT_UTF16BE )
 	 && ( input_format != UNACOMMON_FORMAT_UTF16LE )
@@ -373,6 +295,7 @@ ssize64_t unaexport(
 		return( -1 );
 	}
 	if( ( output_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( output_format != UNACOMMON_FORMAT_UTF7 )
 	 && ( output_format != UNACOMMON_FORMAT_UTF8 )
 	 && ( output_format != UNACOMMON_FORMAT_UTF16BE )
 	 && ( output_format != UNACOMMON_FORMAT_UTF16LE )
@@ -402,7 +325,7 @@ ssize64_t unaexport(
 
 		return( -1 );
 	}
-	source_file_descriptor = unacommon_open(
+	source_file_descriptor = system_string_open(
 	                          source_filename,
 	                          FILE_IO_O_RDONLY );
 
@@ -418,7 +341,7 @@ ssize64_t unaexport(
 
 		return( -1 );
 	}
-	destination_file_descriptor = unacommon_open(
+	destination_file_descriptor = system_string_open(
 	                               destination_filename,
 	                               FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC );
 

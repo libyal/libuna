@@ -841,6 +841,31 @@ int libuna_base64_stream_decode(
 	 */
 	calculated_byte_stream_size = ( base64_stream_size / 4 ) * 3;
 
+	if( ( base64_stream_size % 4 ) != 0 )
+	{
+		calculated_byte_stream_size += 1;
+	}
+	calculated_byte_stream_size *= 3;
+
+	if( base64_stream[ base64_stream_size - 1 ] == (uint8_t) '=' )
+	{
+		calculated_byte_stream_size -= 1;
+	}
+	if( base64_stream[ base64_stream_size - 2 ] == (uint8_t) '=' )
+	{
+		calculated_byte_stream_size -= 1;
+	}
+	if( base64_stream[ base64_stream_size - 3 ] == (uint8_t) '=' )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+		 "%s: invalid amount of padding.",
+		 function );
+
+		return( -1 );
+	}
 	if( byte_stream_size < calculated_byte_stream_size )
 	{
 		liberror_error_set(

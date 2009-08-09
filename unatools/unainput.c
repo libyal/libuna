@@ -302,7 +302,74 @@ int unainput_determine_byte_stream_codepage(
 	return( result );
 }
 
-/* Determines the export format from an argument string
+/* Determines the encoding from an argument string
+ * Returns 1 if successful or -1 on error
+ */
+int unainput_determine_encoding(
+     const system_character_t *argument,
+     int *encoding )
+{
+	static char *function = "unainput_determine_encoding";
+	int result            = -1;
+
+	if( argument == NULL )
+	{
+		notify_warning_printf( "%s: invalid argument string.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( encoding == NULL )
+	{
+		notify_warning_printf( "%s: invalid encoding.\n",
+		 function );
+
+		return( -1 );
+	}
+	if( system_string_compare(
+	     argument,
+	     _SYSTEM_CHARACTER_T_STRING( "base16" ),
+	     6 ) == 0 )
+	{
+		*encoding = UNACOMMON_ENCODING_BASE16;
+		result    = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "base32" ),
+	          6 ) == 0 )
+	{
+		*encoding = UNACOMMON_ENCODING_BASE32;
+		result    = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "base32hex" ),
+	          9 ) == 0 )
+	{
+		*encoding = UNACOMMON_ENCODING_BASE32HEX;
+		result    = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "base64" ),
+	          6 ) == 0 )
+	{
+		*encoding = UNACOMMON_ENCODING_BASE64;
+		result    = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "base64url" ),
+	          9 ) == 0 )
+	{
+		*encoding = UNACOMMON_ENCODING_BASE64URL;
+		result    = 1;
+	}
+	return( result );
+}
+
+/* Determines the format from an argument string
  * Returns 1 if successful or -1 on error
  */
 int unainput_determine_format(
@@ -340,6 +407,14 @@ int unainput_determine_format(
 	          11 ) == 0 )
 	{
 		*format = UNACOMMON_FORMAT_BYTE_STREAM;
+		result  = 1;
+	}
+	else if( system_string_compare(
+	          argument,
+	          _SYSTEM_CHARACTER_T_STRING( "utf7" ),
+	          4 ) == 0 )
+	{
+		*format = UNACOMMON_FORMAT_UTF7;
 		result  = 1;
 	}
 	else if( system_string_compare(

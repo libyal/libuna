@@ -37,6 +37,7 @@
 
 #include "system_string.h"
 
+#include "unacommon.h"
 #include "unaoutput.h"
 
 /* Prints the copyright information
@@ -78,6 +79,176 @@ void unaoutput_version_fprint(
 	 LIBUNA_VERSION_STRING );
 }
 
+/* Prints the codepage information
+ */
+void unaoutput_codepage_fprint(
+      FILE *stream,
+      int codepage )
+{
+	if( stream == NULL )
+	{
+		return;
+	}
+	switch( codepage )
+	{
+		case LIBUNA_CODEPAGE_ASCII:
+			fprintf(
+			 stream,
+			 "ASCII (US-ASCII)" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_1:
+			fprintf(
+			 stream,
+			 "ISO 8859-1 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_2:
+			fprintf(
+			 stream,
+			 "ISO 8859-2 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_3:
+			fprintf(
+			 stream,
+			 "ISO 8859-3 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_4:
+			fprintf(
+			 stream,
+			 "ISO 8859-4 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_5:
+			fprintf(
+			 stream,
+			 "ISO 8859-5 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_6:
+			fprintf(
+			 stream,
+			 "ISO 8859-6 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_7:
+			fprintf(
+			 stream,
+			 "ISO 8859-7 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_8:
+			fprintf(
+			 stream,
+			 "ISO 8859-8 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_9:
+			fprintf(
+			 stream,
+			 "ISO 8859-9 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_10:
+			fprintf(
+			 stream,
+			 "ISO 8859-10 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_11:
+			fprintf(
+			 stream,
+			 "ISO 8859-11 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_13:
+			fprintf(
+			 stream,
+			 "ISO 8859-13 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_14:
+			fprintf(
+			 stream,
+			 "ISO 8859-14 ()" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_15:
+			fprintf(
+			 stream,
+			 "ISO 8859-15 (Latin-9)" );
+			break;
+
+		case LIBUNA_CODEPAGE_ISO_8859_16:
+			fprintf(
+			 stream,
+			 "ISO 8859-16 (Lating-10)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1250:
+			fprintf(
+			 stream,
+			 "Windows 1250 (Central European)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1251:
+			fprintf(
+			 stream,
+			 "Windows 1251 (Cyrillic)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1252:
+			fprintf(
+			 stream,
+			 "Windows 1252 (Western European/Latin 1)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1253:
+			fprintf(
+			 stream,
+			 "Windows 1253 (Greek)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1254:
+			fprintf(
+			 stream,
+			 "Windows 1254 (Turkish)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1255:
+			fprintf(
+			 stream,
+			 "Windows 1255 (Hebrew)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1256:
+			fprintf(
+			 stream,
+			 "Windows 1256 (Arabic)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1257:
+			fprintf(
+			 stream,
+			 "Windows 1257 (Baltic)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_1258:
+			fprintf(
+			 stream,
+			 "Windows 1258 (Vietnamese)" );
+			break;
+
+		default:
+			fprintf(
+			 stream,
+			 "unsupported" );
+			break;
+	}
+}
+
 /* Prints the codepages information
  */
 void unaoutput_codepages_fprint(
@@ -90,7 +261,22 @@ void unaoutput_codepages_fprint(
 	fprintf(
 	 stream,
 	 "\tCodepage:     Description:\n"
-	 "\tascii:        Support 7-bit ASCII character set\n"
+	 "\tascii:        Support 7-bit ASCII (US-ASCII) character set\n"
+	 "\tiso-8859-1:   Support ISO 8859-1 () character set\n"
+	 "\tiso-8859-2:   Support ISO 8859-2 () character set\n"
+	 "\tiso-8859-3:   Support ISO 8859-3 () character set\n"
+	 "\tiso-8859-4:   Support ISO 8859-4 () character set\n"
+	 "\tiso-8859-5:   Support ISO 8859-5 () character set\n"
+	 "\tiso-8859-6:   Support ISO 8859-6 () character set\n"
+	 "\tiso-8859-7:   Support ISO 8859-7 () character set\n"
+	 "\tiso-8859-8:   Support ISO 8859-8 () character set\n"
+	 "\tiso-8859-9:   Support ISO 8859-9 () character set\n"
+	 "\tiso-8859-10:  Support ISO 8859-10 () character set\n"
+	 "\tiso-8859-11:  Support ISO 8859-11 () character set\n"
+	 "\tiso-8859-13:  Support ISO 8859-13 () character set\n"
+	 "\tiso-8859-14:  Support ISO 8859-14 () character set\n"
+	 "\tiso-8859-15:  Support ISO 8859-14 (Latin-9) character set\n"
+	 "\tiso-8859-16:  Support ISO 8859-16 (Latin-10) character set\n"
 	 "\twindows-1250: Supports the Windows 1250 (Central European) character set\n"
 	 "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n"
 	 "\twindows-1252: Supports the Windows 1250 (Western European/Latin 1)\n"
@@ -101,5 +287,122 @@ void unaoutput_codepages_fprint(
 	 "\twindows-1256: Supports the Windows 1256 (Arabic) character set\n"
 	 "\twindows-1257: Supports the Windows 1257 (Baltic) character set\n"
 	 "\twindows-1258: Supports the Windows 1258 (Vietnamese) character set\n" );
+}
+
+/* Prints the encoding information
+ */
+void unaoutput_encoding_fprint(
+      FILE *stream,
+      int encoding )
+{
+	if( stream == NULL )
+	{
+		return;
+	}
+	switch( encoding )
+	{
+		case UNACOMMON_FORMAT_BASE16:
+			fprintf(
+			 stream,
+			 "Base 16 (hexadecimal)" );
+			break;
+
+		case UNACOMMON_FORMAT_BASE32:
+			fprintf(
+			 stream,
+			 "Base 32" );
+			break;
+
+		case UNACOMMON_FORMAT_BASE32HEX:
+			fprintf(
+			 stream,
+			 "Base 32 extended hexadecimal" );
+			break;
+
+		case UNACOMMON_FORMAT_BASE64:
+			fprintf(
+			 stream,
+			 "Base 64" );
+
+		case UNACOMMON_FORMAT_BASE64URL:
+			fprintf(
+			 stream,
+			 "Base 64 URL and filename safe" );
+			break;
+
+		default:
+			fprintf(
+			 stream,
+			 "unsupported" );
+			break;
+	}
+}
+
+/* Prints the format (encoding) information
+ */
+void unaoutput_format_fprint(
+      FILE *stream,
+      int format )
+{
+	if( stream == NULL )
+	{
+		return;
+	}
+	switch( format )
+	{
+		case UNACOMMON_FORMAT_AUTO_DETECT:
+			fprintf(
+			 stream,
+			 "auto detect" );
+			break;
+
+		case UNACOMMON_FORMAT_BYTE_STREAM:
+			fprintf(
+			 stream,
+			 "byte stream" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF7:
+			fprintf(
+			 stream,
+			 "UTF-7" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF8:
+			fprintf(
+			 stream,
+			 "UTF-8" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF16BE:
+			fprintf(
+			 stream,
+			 "UTF-16 big endian" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF16LE:
+			fprintf(
+			 stream,
+			 "UTF-16 little endian" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF32BE:
+			fprintf(
+			 stream,
+			 "UTF-32 big endian" );
+			break;
+
+		case UNACOMMON_FORMAT_UTF32LE:
+			fprintf(
+			 stream,
+			 "UTF-32 little endian" );
+			break;
+
+		default:
+			fprintf(
+			 stream,
+			 "unsupported" );
+			break;
+	}
 }
 

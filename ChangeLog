@@ -71,8 +71,14 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20090806
+* worked on base64 sidn base64url upport
+* moved unacommon_open to system_string
+* updated unaoutput_codepages_fprint
+* added unaoutput_codepage_fprint
+
 20090805
-* worked on base64 support
+* worked on base64 sidn base64url upport
 
 20090802
 20090804
