@@ -14,6 +14,7 @@ TODO
   - implement support for usc-1, ucs-2, usc-4 ?
 
   - implement support for base16
+  - implement support for base32hex
   - implement support for base32
   - implement support for base64url
   - implement support for utf-7 (for libpff)
@@ -70,6 +71,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20090805
+* worked on base64 support
+
+20090802
 20090804
 * worked on base64 support
 

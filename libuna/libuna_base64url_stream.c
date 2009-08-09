@@ -1,5 +1,5 @@
 /*
- * Base64 stream functions
+ * Base64 URL stream functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations. All rights reserved.
@@ -25,27 +25,27 @@
 
 #include <liberror.h>
 
-#include "libuna_base64_stream.h"
+#include "libuna_base64url_stream.h"
 #include "libuna_definitions.h"
 #include "libuna_inline.h"
 #include "libuna_types.h"
 
-static uint8_t libuna_base64_sixtet_to_character_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static uint8_t libuna_base64url_sixtet_to_character_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
-#define libuna_base64_character_from_sixtet( sixtet ) \
-	libuna_base64_sixtet_to_character_table[ sixtet ]
+#define libuna_base64url_character_from_sixtet( sixtet ) \
+	libuna_base64url_sixtet_to_character_table[ sixtet ]
 
 /* Copies a base64 character to a base64 sixtet
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
-                   uint8_t base64_character,
-                   uint8_t *base64_sixtet,
+LIBUNA_INLINE int libuna_base64url_character_copy_to_sixtet(
+                   uint8_t base64url_character,
+                   uint8_t *base64url_sixtet,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_character_copy_to_sixtet";
+	static char *function = "libuna_base64url_character_copy_to_sixtet";
 
-	if( base64_sixtet == NULL )
+	if( base64url_sixtet == NULL )
 	{
 		liberror_error_set(
 		 error,
@@ -59,51 +59,51 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 	/* A-Z is not a continous range on a EBCDIC based system
 	 * it consists of the ranges: A-I, J-R, S-Z
 	 */
-	if( ( base64_character >= (uint8_t) 'A' )
-	 && ( base64_character <= (uint8_t) 'I' ) )
+	if( ( base64url_character >= (uint8_t) 'A' )
+	 && ( base64url_character <= (uint8_t) 'I' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'A';
+		*base64url_sixtet = base64url_character - (uint8_t) 'A';
 	}
-	else if( ( base64_character >= (uint8_t) 'J' )
-	      && ( base64_character <= (uint8_t) 'R' ) )
+	else if( ( base64url_character >= (uint8_t) 'J' )
+	      && ( base64url_character <= (uint8_t) 'R' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'J' + 9;
+		*base64url_sixtet = base64url_character - (uint8_t) 'J' + 9;
 	}
-	else if( ( base64_character >= (uint8_t) 'S' )
-	      && ( base64_character <= (uint8_t) 'Z' ) )
+	else if( ( base64url_character >= (uint8_t) 'S' )
+	      && ( base64url_character <= (uint8_t) 'Z' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'S' + 18;
+		*base64url_sixtet = base64url_character - (uint8_t) 'S' + 18;
 	}
 	/* a-z is not a continous range on a EBCDIC based system
 	 * it consists of the ranges: a-i, j-r, s-z
 	 */
-	else if( ( base64_character >= (uint8_t) 'a' )
-	      && ( base64_character <= (uint8_t) 'i' ) )
+	else if( ( base64url_character >= (uint8_t) 'a' )
+	      && ( base64url_character <= (uint8_t) 'i' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'a' + 26;
+		*base64url_sixtet = base64url_character - (uint8_t) 'a' + 26;
 	}
-	else if( ( base64_character >= (uint8_t) 'j' )
-	      && ( base64_character <= (uint8_t) 'r' ) )
+	else if( ( base64url_character >= (uint8_t) 'j' )
+	      && ( base64url_character <= (uint8_t) 'r' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'j' + 32;
+		*base64url_sixtet = base64url_character - (uint8_t) 'j' + 32;
 	}
-	else if( ( base64_character >= (uint8_t) 's' )
-	      && ( base64_character <= (uint8_t) 'z' ) )
+	else if( ( base64url_character >= (uint8_t) 's' )
+	      && ( base64url_character <= (uint8_t) 'z' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 's' + 44;
+		*base64url_sixtet = base64url_character - (uint8_t) 's' + 44;
 	}
-	else if( ( base64_character >= (uint8_t) '0' )
-	      && ( base64_character <= (uint8_t) '9' ) )
+	else if( ( base64url_character >= (uint8_t) '0' )
+	      && ( base64url_character <= (uint8_t) '9' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) '0' + 52;
+		*base64url_sixtet = base64url_character - (uint8_t) '0' + 52;
 	}
-	else if( base64_character == (uint8_t) '+' )
+	else if( base64url_character == (uint8_t) '-' )
 	{
-		*base64_sixtet = 62;
+		*base64url_sixtet = 62;
 	}
-	else if( base64_character == (uint8_t) '/' )
+	else if( base64url_character == (uint8_t) '_' )
 	{
-		*base64_sixtet = 63;
+		*base64url_sixtet = 63;
 	}
 	else
 	{
@@ -119,25 +119,23 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 	return( 1 );
 }
 
-/* Copies a base64 triplet from a base64 stream
+/* Copies a base64 triplet from a base64 URL stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
-                   uint32_t *base64_triplet,
-                   const uint8_t *base64_stream,
-                   size_t base64_stream_size,
-                   size_t *base64_stream_index,
-                   uint8_t padding_character,
-                   uint8_t *padding_size,
+LIBUNA_INLINE int libuna_base64url_triplet_copy_from_base64url_stream(
+                   uint32_t *base64url_triplet,
+                   const uint8_t *base64url_stream,
+                   size_t base64url_stream_size,
+                   size_t *base64url_stream_index,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_triplet_copy_from_base64_stream";
+	static char *function = "libuna_base64url_triplet_copy_from_base64url_stream";
 	uint8_t sixtet1       = 0;
 	uint8_t sixtet2       = 0;
 	uint8_t sixtet3       = 0;
 	uint8_t sixtet4       = 0;
 
-	if( base64_triplet == NULL )
+	if( base64url_triplet == NULL )
 	{
 		liberror_error_set(
 		 error,
@@ -148,65 +146,52 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( base64_stream == NULL )
+	if( base64url_stream == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream.",
+		 "%s: invalid base64 URL stream.",
 		 function );
 
 		return( -1 );
 	}
-	if( base64_stream_size > (size_t) SSIZE_MAX )
+	if( base64url_stream_size > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid base64 stream size value exceeds maximum.",
+		 "%s: invalid base64 URL stream size value exceeds maximum.",
 		 function );
 
 		return( -1 );
 	}
-	if( base64_stream_index == NULL )
+	if( base64url_stream_index == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream index.",
+		 "%s: invalid base64 URL stream index.",
 		 function );
 
 		return( -1 );
 	}
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream string too small.",
+		 "%s: base64 URL stream string too small.",
 		 function );
 
 		return( -1 );
 	}
-	if( padding_size == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid padding size.",
-		 function );
-
-		return( -1 );
-	}
-	*padding_size = 0;
-
-	if( libuna_base64_character_copy_to_sixtet(
-	     base64_stream[ *base64_stream_index ],
+	if( libuna_base64url_character_copy_to_sixtet(
+	     base64url_stream[ *base64url_stream_index ],
 	     &sixtet1,
 	     error ) != 1 )
 	{
@@ -219,10 +204,10 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( ( *base64_stream_index + 1 ) < base64_stream_size )
+	if( ( *base64url_stream_index + 1 ) < base64url_stream_size )
 	{
-		if( libuna_base64_character_copy_to_sixtet(
-		     base64_stream[ *base64_stream_index + 1 ],
+		if( libuna_base64url_character_copy_to_sixtet(
+		     base64url_stream[ *base64url_stream_index + 1 ],
 		     &sixtet2,
 		     error ) != 1 )
 		{
@@ -247,30 +232,21 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( ( *base64_stream_index + 2 ) < base64_stream_size )
+	if( ( *base64url_stream_index + 2 ) < base64url_stream_size )
 	{
-		if( base64_stream[ *base64_stream_index + 2 ] == padding_character )
+		if( libuna_base64url_character_copy_to_sixtet(
+		     base64url_stream[ *base64url_stream_index + 2 ],
+		     &sixtet3,
+		     error ) != 1 )
 		{
-			sixtet3 = 0;
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 3rd base64 sixtet.",
+			 function );
 
-			*padding_size += 1;
-		}
-		else
-		{
-			if( libuna_base64_character_copy_to_sixtet(
-			     base64_stream[ *base64_stream_index + 2 ],
-			     &sixtet3,
-			     error ) != 1 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 3rd base64 sixtet.",
-				 function );
-
-				return( -1 );
-			}
+			return( -1 );
 		}
 	}
 	else
@@ -284,41 +260,21 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( ( *base64_stream_index + 3 ) < base64_stream_size )
+	if( ( *base64url_stream_index + 3 ) < base64url_stream_size )
 	{
-		if( base64_stream[ *base64_stream_index + 3 ] == padding_character )
+		if( libuna_base64url_character_copy_to_sixtet(
+		     base64url_stream[ *base64url_stream_index + 3 ],
+		     &sixtet4,
+		     error ) != 1 )
 		{
-			sixtet4 = 0;
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 4th base64 sixtet.",
+			 function );
 
-			*padding_size += 1;
-		}
-		else
-		{
-			if( *padding_size > 0 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 4th base64 sixtet.",
-				 function );
-
-				return( -1 );
-			}
-			if( libuna_base64_character_copy_to_sixtet(
-			     base64_stream[ *base64_stream_index + 3 ],
-			     &sixtet4,
-			     error ) != 1 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 4th base64 sixtet.",
-				 function );
-
-				return( -1 );
-			}
+			return( -1 );
 		}
 	}
 	else
@@ -332,132 +288,130 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	*base64_triplet   = sixtet1;
-	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet2;
-	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet3;
-	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet4;
+	*base64url_triplet   = sixtet1;
+	*base64url_triplet <<= 6;
+	*base64url_triplet  += sixtet2;
+	*base64url_triplet <<= 6;
+	*base64url_triplet  += sixtet3;
+	*base64url_triplet <<= 6;
+	*base64url_triplet  += sixtet4;
 
-	*base64_stream_index += 4;
+	*base64url_stream_index += 4;
 
 	return( 1 );
 }
 
-/* Copies a base64 triplet to a base64 stream
+/* Copies a base64 triplet to a base64 URL stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
-                   uint32_t base64_triplet,
-                   uint8_t *base64_stream,
-                   size_t base64_stream_size,
-                   size_t *base64_stream_index,
-                   uint8_t padding_character,
-                   uint8_t padding_size,
+LIBUNA_INLINE int libuna_base64url_triplet_copy_to_base64url_stream(
+                   uint32_t base64url_triplet,
+                   uint8_t *base64url_stream,
+                   size_t base64url_stream_size,
+                   size_t *base64url_stream_index,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
+	static char *function = "libuna_base64url_triplet_copy_to_byte_stream";
 	uint8_t sixtet1       = 0;
 	uint8_t sixtet2       = 0;
 	uint8_t sixtet3       = 0;
 	uint8_t sixtet4       = 0;
 
-	if( base64_stream == NULL )
+	if( base64url_stream == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream.",
+		 "%s: invalid base64 URL stream.",
 		 function );
 
 		return( -1 );
 	}
-	if( base64_stream_size > (size_t) SSIZE_MAX )
+	if( base64url_stream_size > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid base64 stream size value exceeds maximum.",
+		 "%s: invalid base64 URL stream size value exceeds maximum.",
 		 function );
 
 		return( -1 );
 	}
-	if( base64_stream_index == NULL )
+	if( base64url_stream_index == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream index.",
+		 "%s: invalid base64 URL stream index.",
 		 function );
 
 		return( -1 );
 	}
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream string too small.",
+		 "%s: base64 URL stream string too small.",
 		 function );
 
 		return( -1 );
 	}
 	/* Separate the 3 bytes value into 4 x 6 bit values
 	 */
-	sixtet4          = (uint8_t) ( base64_triplet & 0x3f );
-	base64_triplet >>= 6;
-	sixtet3          = (uint8_t) ( base64_triplet & 0x3f );
-	base64_triplet >>= 6;
-	sixtet2          = (uint8_t) ( base64_triplet & 0x3f );
-	base64_triplet >>= 6;
-	sixtet1          = (uint8_t) ( base64_triplet & 0x3f );
+	sixtet4          = (uint8_t) ( base64url_triplet & 0x3f );
+	base64url_triplet >>= 6;
+	sixtet3          = (uint8_t) ( base64url_triplet & 0x3f );
+	base64url_triplet >>= 6;
+	sixtet2          = (uint8_t) ( base64url_triplet & 0x3f );
+	base64url_triplet >>= 6;
+	sixtet1          = (uint8_t) ( base64url_triplet & 0x3f );
 
 	/* Spread the encoding over 2 characters if 1 byte is available
 	 */
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream is too small.",
+		 "%s: base64 URL stream is too small.",
 		 function );
 
 		return( -1 );
 	}
-	base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
-	                                         sixtet1 );
+	base64url_stream[ *base64url_stream_index ] = libuna_base64url_character_from_sixtet(
+	                                               sixtet1 );
 
-	*base64_stream_index += 1;
+	*base64url_stream_index += 1;
 
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream is too small.",
+		 "%s: base64 URL stream is too small.",
 		 function );
 
 		return( -1 );
 	}
-	base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
-	                                         sixtet2 );
+	base64url_stream[ *base64url_stream_index ] = libuna_base64url_character_from_sixtet(
+	                                               sixtet2 );
 
-	*base64_stream_index += 1;
+	*base64url_stream_index += 1;
 
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream is too small.",
+		 "%s: base64 URL stream is too small.",
 		 function );
 
 		return( -1 );
@@ -465,24 +419,22 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 	/* Spread the encoding over 3 characters if 2 bytes are available
 	 * Otherwise pad the remaining bytes
 	 */
+
+	/* TODO fix */
 	if( padding_size < 2 )
 	{
-		base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
-		                                         sixtet3 );
+		base64url_stream[ *base64url_stream_index ] = libuna_base64url_character_from_sixtet(
+		                                               sixtet3 );
 	}
-	else
-	{
-		base64_stream[ *base64_stream_index ] = padding_character;
-	}
-	*base64_stream_index += 1;
+	*base64url_stream_index += 1;
 
-	if( *base64_stream_index >= base64_stream_size )
+	if( *base64url_stream_index >= base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream is too small.",
+		 "%s: base64 URL stream is too small.",
 		 function );
 
 		return( -1 );
@@ -492,14 +444,10 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 	 */
 	if( padding_size >= 1 )
 	{
-		base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
-		                                         sixtet4 );
+		base64url_stream[ *base64url_stream_index ] = libuna_base64url_character_from_sixtet(
+		                                               sixtet4 );
 	}
-	else
-	{
-		base64_stream[ *base64_stream_index ] = padding_character;
-	}
-	*base64_stream_index += 1;
+	*base64url_stream_index += 1;
 
 	return( 1 );
 }
@@ -507,17 +455,17 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 /* Copies a base64 triplet from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
-                   uint32_t *base64_triplet,
+LIBUNA_INLINE int libuna_base64url_triplet_copy_from_byte_stream(
+                   uint32_t *base64url_triplet,
                    const uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
                    uint8_t *padding_size,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
+	static char *function = "libuna_base64url_triplet_copy_to_byte_stream";
 
-	if( base64_triplet == NULL )
+	if( base64url_triplet == NULL )
 	{
 		liberror_error_set(
 		 error,
@@ -575,13 +523,13 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
 	}
 	/* Determine the value of 3 bytes (24 bits)
 	 */
-	*base64_triplet      = byte_stream[ *byte_stream_index ] << 16;
+	*base64url_triplet      = byte_stream[ *byte_stream_index ] << 16;
 	*byte_stream_index += 1;
 	*padding_size       = 0;
 
 	if( *byte_stream_index <= byte_stream_size )
 	{
-		*base64_triplet    += byte_stream[ *byte_stream_index ] << 8;
+		*base64url_triplet    += byte_stream[ *byte_stream_index ] << 8;
 		*byte_stream_index += 1;
 	}
 	else
@@ -590,7 +538,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
 	}
 	if( *byte_stream_index <= byte_stream_size )
 	{
-		*base64_triplet    += byte_stream[ *byte_stream_index ];
+		*base64url_triplet    += byte_stream[ *byte_stream_index ];
 		*byte_stream_index += 1;
 	}
 	else
@@ -603,15 +551,15 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
 /* Copies a base64 triplet to a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_to_byte_stream(
-                   uint32_t base64_triplet,
+LIBUNA_INLINE int libuna_base64url_triplet_copy_to_byte_stream(
+                   uint32_t base64url_triplet,
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    size_t *byte_stream_index,
                    uint8_t padding_size,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
+	static char *function = "libuna_base64url_triplet_copy_to_byte_stream";
 
 	if( byte_stream == NULL )
 	{
@@ -657,7 +605,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_byte_stream(
 
 		return( -1 );
 	}
-	byte_stream[ *byte_stream_index ] = (uint8_t) ( ( base64_triplet >> 16 ) & 0xff );
+	byte_stream[ *byte_stream_index ] = (uint8_t) ( ( base64url_triplet >> 16 ) & 0xff );
 
 	*byte_stream_index += 1;
 
@@ -674,7 +622,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_byte_stream(
 
 			return( -1 );
 		}
-		byte_stream[ *byte_stream_index ] = (uint8_t) ( ( base64_triplet >> 8 ) & 0xff );
+		byte_stream[ *byte_stream_index ] = (uint8_t) ( ( base64url_triplet >> 8 ) & 0xff );
 
 		*byte_stream_index += 1;
 	}
@@ -691,125 +639,56 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_byte_stream(
 
 			return( -1 );
 		}
-		byte_stream[ *byte_stream_index ] = (uint8_t) ( base64_triplet & 0xff );
+		byte_stream[ *byte_stream_index ] = (uint8_t) ( base64url_triplet & 0xff );
 
 		*byte_stream_index += 1;
 	}
 	return( 1 );
 }
 
-/* Determines the size of a byte stream from a base64 stream
+/* Determines the size of a byte stream from a base64 URL stream
  * Returns 1 if successful or -1 on error
  */
-int libuna_base64_stream_decode_size(
-     uint8_t *base64_stream,
-     size_t base64_stream_size,
+int libuna_base64url_stream_decode_size(
+     uint8_t *base64url_stream,
+     size_t base64url_stream_size,
      size_t *byte_stream_size,
-     liberror_error_t **error )
-{
-	static char *function = "libuna_base64_stream_decode_size";
+     liberror_error_t **error );
 
-	if( base64_stream == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( base64_stream_size > (size_t) SSIZE_MAX )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid base64 stream size value exceeds maximum.",
-		 function );
-
-		return( -1 );
-	}
-	if( byte_stream_size == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid byte stream size.",
-		 function );
-
-		return( -1 );
-	}
-	/* Make sure the base64 stream is able to hold
-	 * at least 3 bytes for each 4 bytes
-	 */
-	*byte_stream_size = base64_stream_size / 4;
-
-	if( ( base64_stream_size % 4 ) != 0 )
-	{
-		*byte_stream_size += 1;
-	}
-	*byte_stream_size *= 3;
-
-	if( base64_stream[ base64_stream_size - 1 ] == (uint8_t) '=' )
-	{
-		*byte_stream_size -= 1;
-	}
-	if( base64_stream[ base64_stream_size - 2 ] == (uint8_t) '=' )
-	{
-		*byte_stream_size -= 1;
-	}
-	if( base64_stream[ base64_stream_size - 3 ] == (uint8_t) '=' )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-		 "%s: invalid amount of padding.",
-		 function );
-
-		return( -1 );
-	}
-	return( 1 );
-}
-
-/* Copies a byte stream from a base64 stream
+/* Copies a byte stream from a base64 URL stream
  * Returns 1 if successful or -1 on error
  */
-int libuna_base64_stream_decode(
-     uint8_t *base64_stream,
-     size_t base64_stream_size,
+int libuna_base64url_stream_decode(
+     uint8_t *base64url_stream,
+     size_t base64url_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
      liberror_error_t **error )
 {
-	static char *function              = "libuna_base64_stream_decode";
-	size_t base64_stream_index         = 0;
-	size_t byte_stream_index           = 0;
-	size_t calculated_byte_stream_size = 0;
-	uint32_t base64_triplet            = 0;
-	uint8_t padding_size               = 0;
+	static char *function      = "libuna_base64url_stream_decode";
+	size_t base64url_stream_index = 0;
+	size_t byte_stream_index   = 0;
+	uint32_t base64url_triplet    = 0;
+	uint8_t padding_size       = 0;
 
-	if( base64_stream == NULL )
+	if( base64url_stream == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream.",
+		 "%s: invalid base64 URL stream.",
 		 function );
 
 		return( -1 );
 	}
-	if( base64_stream_size > (size_t) SSIZE_MAX )
+	if( base64url_stream_size > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid base64 stream size value exceeds maximum.",
+		 "%s: invalid base64 URL stream size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -839,9 +718,7 @@ int libuna_base64_stream_decode(
 	/* Make sure the byte stream is able to hold
 	 * at least 3 bytes for each 4 bytes
 	 */
-	calculated_byte_stream_size = ( base64_stream_size / 4 ) * 3;
-
-	if( byte_stream_size < calculated_byte_stream_size )
+	if( ( ( base64url_stream_size * 3 ) / 4 ) < byte_stream_size )
 	{
 		liberror_error_set(
 		 error,
@@ -852,7 +729,7 @@ int libuna_base64_stream_decode(
 
 		return( -1 );
 	}
-	while( base64_stream_index < base64_stream_size )
+	while( base64url_stream_index < base64url_stream_size )
 	{
 		if( padding_size > 0 )
 		{
@@ -865,13 +742,13 @@ int libuna_base64_stream_decode(
 
 			return( -1 );
 		}
-		/* Convert the base64 stream into a base64 triplet
+		/* Convert the base64 URL stream into a base64 triplet
 		 */
-		if( libuna_base64_triplet_copy_from_base64_stream(
-		     &base64_triplet,
-		     base64_stream,
-		     base64_stream_size,
-		     &base64_stream_index,
+		if( libuna_base64url_triplet_copy_from_base64url_stream(
+		     &base64url_triplet,
+		     base64url_stream,
+		     base64url_stream_size,
+		     &base64url_stream_index,
 		     (uint8_t ) '=',
 		     &padding_size,
 		     error ) != 1 )
@@ -880,15 +757,15 @@ int libuna_base64_stream_decode(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: unable to copy base64 triplet from base64 stream.",
+			 "%s: unable to copy base64 triplet from base64 URL stream.",
 			 function );
 
 			return( -1 );
 		}
 		/* Convert the base64 triplet into a byte stream
 		 */
-		if( libuna_base64_triplet_copy_to_byte_stream(
-		     base64_triplet,
+		if( libuna_base64url_triplet_copy_to_byte_stream(
+		     base64url_triplet,
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_index,
@@ -908,99 +785,49 @@ int libuna_base64_stream_decode(
 	return( 1 );
 }
 
-/* Determines the size of a base64 stream from a byte stream
+/* Determines the size of a base64 URL stream from a byte stream
  * Returns 1 if successful or -1 on error
  */
-int libuna_base64_stream_encode_size(
+int libuna_base64url_stream_encode_size(
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t *base64_stream_size,
+     size_t *base64url_stream_size,
+     liberror_error_t **error );
+
+/* Copies a base64 URL stream from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_base64url_stream_encode(
+     uint8_t *base64url_stream,
+     size_t base64url_stream_size,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
      liberror_error_t **error )
 {
-	static char *function = "libuna_base64_stream_encode_size";
+	static char *function      = "libuna_base64url_stream_encode";
+	size_t base64url_stream_index = 0;
+	size_t byte_stream_index   = 0;
+	uint32_t base64url_triplet    = 0;
+	uint8_t padding_size       = 0;
 
-	if( byte_stream == NULL )
+	if( base64url_stream == NULL )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid byte stream.",
+		 "%s: invalid base64 URL stream.",
 		 function );
 
 		return( -1 );
 	}
-	if( byte_stream_size > (size_t) SSIZE_MAX )
+	if( base64url_stream_size > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid byte stream size value exceeds maximum.",
-		 function );
-
-		return( -1 );
-	}
-	if( base64_stream_size == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream size.",
-		 function );
-
-		return( -1 );
-	}
-	/* Make sure the base64 stream is able to hold
-	 * at least 4 bytes for each 3 bytes
-	 */
-	*base64_stream_size = byte_stream_size / 3;
-
-	if( ( byte_stream_size % 3 ) != 0 )
-	{
-		*base64_stream_size += 1;
-	}
-	*base64_stream_size *= 4;
-
-	return( 1 );
-}
-
-/* Copies a base64 stream from a byte stream
- * Returns 1 if successful or -1 on error
- */
-int libuna_base64_stream_encode(
-     uint8_t *base64_stream,
-     size_t base64_stream_size,
-     uint8_t *byte_stream,
-     size_t byte_stream_size,
-     liberror_error_t **error )
-{
-	static char *function                = "libuna_base64_stream_encode";
-	size_t calculated_base64_stream_size = 0;
-	size_t base64_stream_index           = 0;
-	size_t byte_stream_index             = 0;
-	uint32_t base64_triplet              = 0;
-	uint8_t padding_size                 = 0;
-
-	if( base64_stream == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid base64 stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( base64_stream_size > (size_t) SSIZE_MAX )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-		 "%s: invalid base64 stream size value exceeds maximum.",
+		 "%s: invalid base64 URL stream size value exceeds maximum.",
 		 function );
 
 		return( -1 );
@@ -1027,24 +854,16 @@ int libuna_base64_stream_encode(
 
 		return( -1 );
 	}
-	/* Make sure the base64 stream is able to hold
+	/* Make sure the base64 URL stream is able to hold
 	 * at least 4 bytes for each 3 bytes
 	 */
-	calculated_base64_stream_size = byte_stream_size / 3;
-
-	if( ( byte_stream_size % 3 ) != 0 )
-	{
-		calculated_base64_stream_size += 1;
-	}
-	calculated_base64_stream_size *= 4;
-
-	if( base64_stream_size < calculated_base64_stream_size )
+	if( ( ( byte_stream_size * 4 ) / 3 ) < base64url_stream_size )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream is too small.",
+		 "%s: base64 URL stream is too small.",
 		 function );
 
 		return( -1 );
@@ -1053,8 +872,8 @@ int libuna_base64_stream_encode(
 	{
 		/* Convert the byte stream into a base64 triplet
 		 */
-		if( libuna_base64_triplet_copy_from_byte_stream(
-		     &base64_triplet,
+		if( libuna_base64url_triplet_copy_from_byte_stream(
+		     &base64url_triplet,
 		     byte_stream,
 		     byte_stream_size,
 		     &byte_stream_index,
@@ -1070,13 +889,13 @@ int libuna_base64_stream_encode(
 
 			return( -1 );
 		}
-		/* Convert the base64 triplet into a base64 stream
+		/* Convert the base64 triplet into a base64 URL stream
 		 */
-		if( libuna_base64_triplet_copy_to_base64_stream(
-		     base64_triplet,
-		     base64_stream,
-		     base64_stream_size,
-		     &base64_stream_index,
+		if( libuna_base64url_triplet_copy_to_base64url_stream(
+		     base64url_triplet,
+		     base64url_stream,
+		     base64url_stream_size,
+		     &base64url_stream_index,
 		     (uint8_t) '=',
 		     padding_size,
 		     error ) != 1 )
@@ -1085,7 +904,7 @@ int libuna_base64_stream_encode(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: unable to copy base64 triplet to base64 stream.",
+			 "%s: unable to copy base64 triplet to base64 URL stream.",
 			 function );
 
 			return( -1 );

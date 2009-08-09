@@ -337,7 +337,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_byte_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character to a byte stream string
+/* Copies a Unicode character to a byte stream
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
