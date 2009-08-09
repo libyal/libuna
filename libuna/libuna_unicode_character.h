@@ -59,6 +59,16 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
                                  int codepage,
                                  liberror_error_t **error );
 
+/* TODO
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
+                                 libuna_unicode_character_t *unicode_character,
+                                 const uint8_t *utf7_stream,
+                                 size_t utf7_stream_size,
+                                 size_t *utf7_stream_index,
+                                 uint8_t *inside_base64_encoding,
+                                 liberror_error_t **error );
+*/
+
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
                                  libuna_unicode_character_t unicode_character,
                                  size_t *utf8_character_size,

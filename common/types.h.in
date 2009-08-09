@@ -255,6 +255,18 @@
 #define INT64_MAX (0x7fffffffffffffffLL)
 #endif
 
+/* The maximum signed integer
+ */
+#if !defined( INT_MAX )
+#define INT_MAX INT32_MAX
+#endif
+
+/* The maximum unsigned integer
+ */
+#if !defined( UINT_MAX )
+#define UINT_MAX UINT32_MAX
+#endif
+
 /* The maximum signed size type is platform dependent
  */
 #if !defined( SSIZE_MAX )

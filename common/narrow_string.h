@@ -62,7 +62,11 @@ extern "C" {
 #define narrow_string_compare_no_case( string1, string2, size ) \
 	_strnicmp( string1, string2, size )
 
-#elif defined( HAVE_STRNCASECMP ) || defined( WINAPI )
+#elif defined( WINAPI )
+#define narrow_string_compare_no_case( string1, string2, size ) \
+	strnicmp( string1, string2, size )
+
+#elif defined( HAVE_STRNCASECMP )
 #define narrow_string_compare_no_case( string1, string2, size ) \
 	strncasecmp( string1, string2, size )
 

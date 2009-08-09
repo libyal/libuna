@@ -51,5 +51,13 @@
 #define USE_NATIVE_WINAPI_FUNCTIONS	1
  */
 
+/* Enable verbose output
+#define HAVE_VERBOSE_OUTPUT	1
+ */
+
+/* Enable debug output
+#define HAVE_DEBUG_OUTPUT	1
+ */
+
 #endif
 

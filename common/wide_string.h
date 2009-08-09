@@ -63,7 +63,11 @@ extern "C" {
 #define wide_string_compare_no_case( string1, string2, size ) \
 	_wcsnicmp( string1, string2, size )
 
-#elif defined( HAVE_WCSNCASECMP ) || defined( WINAPI )
+#elif defined( WINAPI )
+#define wide_string_compare_no_case( string1, string2, size ) \
+	wcsnicmp( string1, string2, size )
+
+#elif defined( HAVE_WCSNCASECMP )
 #define wide_string_compare_no_case( string1, string2, size ) \
 	wcsncasecmp( string1, string2, size )
 

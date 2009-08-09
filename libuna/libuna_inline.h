@@ -34,6 +34,9 @@
 #elif defined( _MSC_VER )
 #define LIBUNA_INLINE _inline
 
+#elif defined( __BORLANDC__ )
+#define LIBUNA_INLINE /* inline */
+
 #else
 #define LIBUNA_INLINE inline
 

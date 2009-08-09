@@ -38,8 +38,10 @@
 
 #include <libuna/extern.h>
 
-#else
+#elif defined( _MSC_VER )
+#define LIBUNA_EXTERN	extern
 
+#else
 #define LIBUNA_EXTERN	/* extern */
 
 #endif
