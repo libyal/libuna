@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090808],
+  [20090809],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090808])
+ [20090809])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -426,10 +426,10 @@ AS_IF(
 	ac_cv_libuna_enable_static_executables=yes])
 
 dnl Set memwatch support
-ac_libewf_have_memwatch=no
+ac_libuna_have_memwatch=no
 
 AS_IF(
-	[test "x$ac_libewf_have_memwatch" != xno ],
+	[test "x$ac_libuna_have_memwatch" != xno ],
 	[AC_SUBST(
 	 [MEMWATCH_CPPFLAGS],
 	 ["-DMEMWATCH -DMEMWATCH_STDIO"])
@@ -439,7 +439,7 @@ AS_IF(
 
 AM_CONDITIONAL(
  [HAVE_MEMWATCH],
- [test "x$ac_libewf_have_memwatch" != xno])
+ [test "x$ac_libuna_have_memwatch" != xno])
 
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
