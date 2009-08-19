@@ -11,7 +11,7 @@ unaexport_SOURCES = \
 	unainput.c unainput.h \
 	unaoutput.c unaoutput.h
 
-unaexport_LDADD   = ../liberror/liberror.la ../libuna/libuna.la ../libuna/libsystem.la @MEMWATCH_LIBADD@
+unaexport_LDADD   = ../liberror/liberror.la ../libsystem/libsystem.la @MEMWATCH_LIBADD@
 
 distclean: clean
 	/bin/rm -f Makefile

@@ -402,7 +402,8 @@ int unainput_determine_encoding(
  */
 int unainput_determine_format(
      const libsystem_character_t *argument,
-     int *format )
+     int *format,
+     liberror_error_t **error )
 {
 	static char *function = "unainput_determine_format";
 	int result            = -1;

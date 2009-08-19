@@ -868,7 +868,6 @@ ssize64_t unaexport(
 		 if( process_status_update_unknown_total(
 		      process_status,
 		      (size64_t) export_count,
-		      0,
 		      error ) != 1 )
 		{
 			liberror_error_set(
