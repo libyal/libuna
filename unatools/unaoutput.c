@@ -35,7 +35,7 @@
 
 #include <libuna.h>
 
-#include "system_string.h"
+#include <libsystem.h>
 
 #include "unacommon.h"
 #include "unaoutput.h"
@@ -61,7 +61,7 @@ void unaoutput_copyright_fprint(
  */
 void unaoutput_version_fprint(
       FILE *stream,
-      const system_character_t *program )
+      const libsystem_character_t *program )
 {
 	if( stream == NULL )
 	{
@@ -73,7 +73,7 @@ void unaoutput_version_fprint(
 	}
         fprintf(
 	 stream,
-	 "%" PRIs_SYSTEM " %s (libuna %s)\n\n",
+	 "%" PRIs_LIBSYSTEM " %s (libuna %s)\n\n",
          program,
 	 LIBUNA_VERSION_STRING,
 	 LIBUNA_VERSION_STRING );

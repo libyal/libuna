@@ -48,14 +48,11 @@
 
 #include <libuna.h>
 
-#include "file_io.h"
-#include "glob.h"
-#include "notify.h"
-#include "process_status.h"
-#include "system_string.h"
+#include <libsystem.h>
 
+#include "byte_size_string.h"
+#include "process_status.h"
 #include "unacommon.h"
-#include "unagetopt.h"
 #include "unainput.h"
 #include "unaoutput.h"
 
@@ -103,9 +100,9 @@ void usage_fprint(
  */
 void export_fprint(
       FILE *stream,
-      const system_character_t *source_filename,
+      const libsystem_character_t *source_filename,
       int input_format,
-      const system_character_t *destination_filename,
+      const libsystem_character_t *destination_filename,
       int output_format,
       int byte_stream_codepage,
       int export_byte_order_mark,
@@ -223,9 +220,9 @@ void export_fprint(
  * Returns the amount of bytes of the source processed or -1 on error
  */
 ssize64_t unaexport(
-           const system_character_t *source_filename,
+           const libsystem_character_t *source_filename,
            int input_format,
-           const system_character_t *destination_filename,
+           const libsystem_character_t *destination_filename,
            int output_format,
            int byte_stream_codepage,
            int export_byte_order_mark,
@@ -235,24 +232,24 @@ ssize64_t unaexport(
 {
 	libuna_unicode_character_t unicode_character[ 2 ];
 
-	uint8_t *destination_string_buffer        = NULL;
-	uint8_t *source_string_buffer             = NULL;
-	static char *function                     = "unaexport";
-	ssize64_t export_count                    = 0;
-	size_t destination_string_buffer_iterator = 0;
-	size_t destination_string_buffer_size     = UNAEXPORT_BUFFER_SIZE;
-	size_t last_source_string_buffer_iterator = 0;
-	size_t source_string_buffer_iterator      = 0;
-	size_t realignment_iterator               = 0;
-	size_t source_string_buffer_size          = UNAEXPORT_BUFFER_SIZE;
-	ssize_t read_count                        = 0;
-	ssize_t write_count                       = 0;
-	int destination_file_descriptor           = 0;
-	int result                                = 1;
-	int source_file_descriptor                = 0;
-	uint8_t amount_of_unicode_characters      = 0;
-	uint8_t analyze_first_character           = 1;
-	uint8_t unicode_character_iterator        = 0;
+	uint8_t *destination_string_buffer              = NULL;
+	uint8_t *source_string_buffer                   = NULL;
+	static char *function                           = "unaexport";
+	libsystem_file_handle_t destination_file_handle = LIBSYSTEM_FILE_HANDLE_EMPTY;
+	libsystem_file_handle_t source_file_handle      = LIBSYSTEM_FILE_HANDLE_EMPTY;
+	ssize64_t export_count                          = 0;
+	size_t destination_string_buffer_iterator       = 0;
+	size_t destination_string_buffer_size           = UNAEXPORT_BUFFER_SIZE;
+	size_t last_source_string_buffer_iterator       = 0;
+	size_t source_string_buffer_iterator            = 0;
+	size_t realignment_iterator                     = 0;
+	size_t source_string_buffer_size                = UNAEXPORT_BUFFER_SIZE;
+	ssize_t read_count                              = 0;
+	ssize_t write_count                             = 0;
+	int result                                      = 1;
+	uint8_t amount_of_unicode_characters            = 0;
+	uint8_t analyze_first_character                 = 1;
+	uint8_t unicode_character_iterator              = 0;
 
 	if( source_filename == NULL )
 	{
@@ -325,38 +322,39 @@ ssize64_t unaexport(
 
 		return( -1 );
 	}
-	source_file_descriptor = system_string_open(
-	                          source_filename,
-	                          FILE_IO_O_RDONLY );
-
-	if( source_file_descriptor == -1 )
+	if( libsystem_file_open(
+	     &source_file_handle,
+	     source_filename,
+	     LIBSYSTEM_FILE_OPEN_READ,
+	     error ) != 1 )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open source: %" PRIs_SYSTEM ".",
+		 "%s: unable to open source: %" PRIs_LIBSYSTEM ".",
 		 function,
 		 source_filename );
 
 		return( -1 );
 	}
-	destination_file_descriptor = system_string_open(
-	                               destination_filename,
-	                               FILE_IO_O_WRONLY | FILE_IO_O_CREAT | FILE_IO_O_TRUNC );
-
-	if( destination_file_descriptor == -1 )
+	if( libsystem_file_open(
+	     &destination_file_handle,
+	     destination_filename,
+	     LIBSYSTEM_FILE_OPEN_WRITE_TRUNCATE,
+	     error ) != 1 )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open destination: %" PRIs_SYSTEM ".",
+		 "%s: unable to open destination: %" PRIs_LIBSYSTEM ".",
 		 function,
 		 destination_filename );
 
-		file_io_close(
-		 source_file_descriptor );
+		libsystem_file_close(
+		 &source_file_handle,
+		 NULL );
 
 		return( -1 );
 	}
@@ -372,10 +370,12 @@ ssize64_t unaexport(
 		 "%s: unable to create source string buffer.",
 		 function );
 
-		file_io_close(
-		 source_file_descriptor );
-		file_io_close(
-		 destination_file_descriptor );
+		libsystem_file_close(
+		 &destination_file_handle,
+		 NULL );
+		libsystem_file_close(
+		 &source_file_handle,
+		 NULL );
 
 		return( -1 );
 	}
@@ -391,13 +391,15 @@ ssize64_t unaexport(
 		 "%s: unable to create destination string buffer.",
 		 function );
 
-		file_io_close(
-		 source_file_descriptor );
-		file_io_close(
-		 destination_file_descriptor );
-
 		memory_free(
 		 source_string_buffer );
+
+		libsystem_file_close(
+		 &destination_file_handle,
+		 NULL );
+		libsystem_file_close(
+		 &source_file_handle,
+		 NULL );
 
 		return( -1 );
 	}
@@ -462,25 +464,28 @@ ssize64_t unaexport(
 			 "%s: unable to set byte order mark.",
 			 function );
 
-			file_io_close(
-			 source_file_descriptor );
-			file_io_close(
-			 destination_file_descriptor );
-
-			memory_free(
-			 source_string_buffer );
 			memory_free(
 			 destination_string_buffer );
+			memory_free(
+			 source_string_buffer );
+
+			libsystem_file_close(
+			 &destination_file_handle,
+			 NULL );
+			libsystem_file_close(
+			 &source_file_handle,
+			 NULL );
 
 			return( -1 );
 		}
 	}
 	while( 1 )
 	{
-		read_count = file_io_read(
-		              source_file_descriptor,
+		read_count = libsystem_file_read(
+		              source_file_handle,
 		              &( source_string_buffer[ source_string_buffer_iterator ] ),
-		              source_string_buffer_size - source_string_buffer_iterator );
+		              source_string_buffer_size - source_string_buffer_iterator,
+		              error );
 
 		if( read_count < 0 )
 		{
@@ -830,10 +835,11 @@ ssize64_t unaexport(
 		}
 		if( destination_string_buffer_iterator > 0 )
 		{
-			write_count = file_io_write(
-			               destination_file_descriptor,
+			write_count = libsystem_file_write(
+			               destination_file_handle,
 			               destination_string_buffer,
-		        	       destination_string_buffer_iterator );
+		        	       destination_string_buffer_iterator,
+			               error );
 
 			if( write_count < 0 )
 			{
@@ -872,6 +878,18 @@ ssize64_t unaexport(
 			 "%s: unable to update process status.",
 			 function );
 
+			memory_free(
+			 destination_string_buffer );
+			memory_free(
+			 source_string_buffer );
+
+			libsystem_file_close(
+			 &destination_file_handle,
+			 NULL );
+			libsystem_file_close(
+			 &source_file_handle,
+			 NULL );
+
 			return( -1 );
 		}
 	}
@@ -880,30 +898,33 @@ ssize64_t unaexport(
 	memory_free(
 	 destination_string_buffer );
 
-	if( file_io_close(
-	     source_file_descriptor ) != 0 )
+	if( libsystem_file_close(
+	     &source_file_handle,
+	     error ) != 0 )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close source: %" PRIs_SYSTEM ".",
+		 "%s: unable to close source: %" PRIs_LIBSYSTEM ".",
 		 function,
 		 source_filename );
 
-		file_io_close(
-		 destination_file_descriptor );
+		libsystem_file_close(
+		 &destination_file_handle,
+		 NULL );
 
 		return( -1 );
 	}
-	if( file_io_close(
-	     destination_file_descriptor ) != 0 )
+	if( libsystem_file_close(
+	     &destination_file_handle,
+	     error ) != 0 )
 	{
 		liberror_error_set(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close destination: %" PRIs_SYSTEM ".",
+		 "%s: unable to close destination: %" PRIs_LIBSYSTEM ".",
 		 function,
 		 destination_filename );
 
@@ -920,30 +941,36 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-	liberror_error_t *error                  = NULL;
-	process_status_t *process_status         = NULL;
-	system_character_t *destination_filename = NULL;
-	system_character_t *program              = _SYSTEM_CHARACTER_T_STRING( "unaexport" );
-	system_character_t *source_filename      = NULL;
-	ssize64_t export_count                   = 0;
-	system_integer_t option                  = 0;
-	uint8_t print_status_information         = 1;
-	int byte_stream_codepage                 = LIBUNA_CODEPAGE_ASCII;
-	int export_byte_order_mark               = 1;
-	int input_format                         = UNACOMMON_FORMAT_AUTO_DETECT;
-	int newline_conversion                   = UNACOMMON_NEWLINE_CONVERSION_NONE;
-	int output_format                        = UNACOMMON_FORMAT_UTF8;
-	int verbose                              = 0;
-	int status                               = 0;
+	liberror_error_t *error                     = NULL;
+	process_status_t *process_status            = NULL;
+	libsystem_character_t *destination_filename = NULL;
+	libsystem_character_t *program              = _LIBSYSTEM_CHARACTER_T_STRING( "unaexport" );
+	libsystem_character_t *source_filename      = NULL;
+	ssize64_t export_count                      = 0;
+	libsystem_integer_t option                  = 0;
+	uint8_t print_status_information            = 1;
+	int byte_stream_codepage                    = LIBUNA_CODEPAGE_ASCII;
+	int export_byte_order_mark                  = 1;
+	int input_format                            = UNACOMMON_FORMAT_AUTO_DETECT;
+	int newline_conversion                      = UNACOMMON_NEWLINE_CONVERSION_NONE;
+	int output_format                           = UNACOMMON_FORMAT_UTF8;
+	int verbose                                 = 0;
+	int status                                  = 0;
 
-	if( system_string_initialize(
+	libsystem_notify_set_stream(
+	 stderr,
+	 NULL );
+	libsystem_notify_set_verbose(
+	 1 );
+
+	if( libsystem_initialize(
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to initialize system string.\n" );
+		 "Unable to initialize system values.\n" );
 
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
@@ -954,14 +981,14 @@ int main( int argc, char * const argv[] )
 	 stdout,
 	 program );
 
-	while( ( option = unagetopt(
+	while( ( option = libsystem_getopt(
 	                   argc,
 	                   argv,
-	                   _SYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:qvV" ) ) ) != (system_integer_t) -1 )
+	                   _LIBSYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:qvV" ) ) ) != (libsystem_integer_t) -1 )
 	{
 		switch( option )
 		{
-			case (system_integer_t) '?':
+			case (libsystem_integer_t) '?':
 			default:
 				fprintf(
 				 stderr,
@@ -973,93 +1000,117 @@ int main( int argc, char * const argv[] )
 
 				return( EXIT_FAILURE );
 
-			case (system_integer_t) 'B':
+			case (libsystem_integer_t) 'B':
 				export_byte_order_mark = 0;
 
 				break;
 
-			case (system_integer_t) 'c':
+			case (libsystem_integer_t) 'c':
 				if( unainput_determine_byte_stream_codepage(
 				     optarg,
-				     &byte_stream_codepage ) != 1 )
+				     &byte_stream_codepage,
+				     &error ) != 1 )
 				{
+					libsystem_notify_print_error_backtrace(
+					 error );
+					liberror_error_free(
+					 &error );
+
+					byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
+
 					fprintf(
 					 stderr,
 					 "Unsupported byte stream codepage defaulting to: ascii.\n" );
-
-					byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
 				}
 				break;
 
-			case (system_integer_t) 'h':
+			case (libsystem_integer_t) 'h':
 				usage_fprint(
 				 stdout );
 
 				return( EXIT_SUCCESS );
 
-			case (system_integer_t) 'i':
-				if( system_string_compare(
+			case (libsystem_integer_t) 'i':
+				if( libsystem_string_compare(
 				 optarg,
-				 _SYSTEM_CHARACTER_T_STRING( "auto-detect" ),
+				 _LIBSYSTEM_CHARACTER_T_STRING( "auto-detect" ),
 				 11 ) == 0 )
 				{
 					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 				}
 				else if( unainput_determine_format(
 				          optarg,
-				          &input_format ) != 1 )
+				          &input_format,
+				          &error ) != 1 )
 				{
+					libsystem_notify_print_error_backtrace(
+					 error );
+					liberror_error_free(
+					 &error );
+
+					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
+
 					fprintf(
 					 stderr,
 					 "Unsupported input format defaulting to: auto-detect.\n" );
-
-					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 				}
 				break;
 
-			case (system_integer_t) 'l':
+			case (libsystem_integer_t) 'l':
 				unaoutput_codepages_fprint(
 				 stdout );
 
 				return( EXIT_SUCCESS );
 
-			case (system_integer_t) 'n':
+			case (libsystem_integer_t) 'n':
 				if( unainput_determine_newline_conversion(
 				     optarg,
-				     &newline_conversion ) != 1 )
+				     &newline_conversion,
+				     &error ) != 1 )
 				{
+					libsystem_notify_print_error_backtrace(
+					 error );
+					liberror_error_free(
+					 &error );
+
+					newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
+
 					fprintf(
 					 stderr,
 					 "Unsupported newline conversion defaulting to: none.\n" );
-
-					newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
 				}
 				break;
 
-			case (system_integer_t) 'o':
+			case (libsystem_integer_t) 'o':
 				if( unainput_determine_format(
 				     optarg,
-				     &output_format ) != 1 )
+				     &output_format,
+				     &error ) != 1 )
 				{
+					libsystem_notify_print_error_backtrace(
+					 error );
+					liberror_error_free(
+					 &error );
+
+					output_format = UNACOMMON_FORMAT_UTF8;
+
 					fprintf(
 					 stderr,
 					 "Unsupported output format defaulting to: utf8.\n" );
-
-					output_format = UNACOMMON_FORMAT_UTF8;
 				}
 				break;
 
-			case (system_integer_t) 'q':
+			case (libsystem_integer_t) 'q':
 				print_status_information = 0;
 
 				break;
 
-			case (system_integer_t) 'v':
+			case (libsystem_integer_t) 'v':
 				verbose = 1;
 
 				break;
 
-			case (system_integer_t) 'V':
+			case (libsystem_integer_t) 'V':
 				unaoutput_copyright_fprint(
 				 stdout );
 
@@ -1092,8 +1143,7 @@ int main( int argc, char * const argv[] )
 	}
 	destination_filename = argv[ optind++ ];
 
-	notify_set_values(
-	 stderr,
+	libsystem_notify_set_verbose(
 	 verbose );
 
 	export_fprint(
@@ -1108,9 +1158,9 @@ int main( int argc, char * const argv[] )
 
 	if( process_status_initialize(
 	     &process_status,
-	     _SYSTEM_CHARACTER_T_STRING( "Export" ),
-	     _SYSTEM_CHARACTER_T_STRING( "exported" ),
-	     _SYSTEM_CHARACTER_T_STRING( "Exported" ),
+	     _LIBSYSTEM_CHARACTER_T_STRING( "Export" ),
+	     _LIBSYSTEM_CHARACTER_T_STRING( "exported" ),
+	     _LIBSYSTEM_CHARACTER_T_STRING( "Exported" ),
 	     stdout,
 	     print_status_information,
 	     &error ) != 1 )
@@ -1119,7 +1169,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to create process status.\n" );
 
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
@@ -1134,7 +1184,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to start process status.\n" );
 
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
@@ -1158,7 +1208,7 @@ int main( int argc, char * const argv[] )
 
 	if( export_count <= -1 )
 	{
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
@@ -1179,7 +1229,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to stop process status.\n" );
 
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
@@ -1198,7 +1248,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to free process status.\n" );
 
-		notify_error_backtrace(
+		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );

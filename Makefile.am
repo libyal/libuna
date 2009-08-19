@@ -5,6 +5,7 @@ SUBDIRS = \
 	common \
 	liberror \
 	libuna \
+	libsystem \
 	unatools \
 	documents \
 	manuals \
@@ -50,5 +51,6 @@ distclean: clean
 splint:
 	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
 

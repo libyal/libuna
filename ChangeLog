@@ -81,6 +81,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20090819
+* added libsystem
+* updated byte_size_string and process_status
+
 20090809
 * small fix in configure.ac
 

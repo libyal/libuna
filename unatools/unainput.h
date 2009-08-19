@@ -26,23 +26,28 @@
 #include <common.h>
 #include <types.h>
 
-#include "system_string.h"
+#include <liberror.h>
+
+#include <libsystem.h>
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
 int unainput_determine_byte_stream_codepage(
-     const system_character_t *argument,
-     int *byte_stream_codepage );
+     const libsystem_character_t *argument,
+     int *byte_stream_codepage,
+     liberror_error_t **error );
 
 int unainput_determine_format(
-     const system_character_t *argument,
-     int *format );
+     const libsystem_character_t *argument,
+     int *format,
+     liberror_error_t **error );
 
 int unainput_determine_newline_conversion(
-     const system_character_t *argument,
-     int *newline_conversion );
+     const libsystem_character_t *argument,
+     int *newline_conversion,
+     liberror_error_t **error );
 
 #if defined( __cplusplus )
 }
