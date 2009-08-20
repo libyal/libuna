@@ -9,8 +9,11 @@
 			<Projects Include="libuna\libuna.cbproj">
 				<Dependencies>liberror\liberror.cbproj</Dependencies>
 			</Projects>
-			<Projects Include="unaexport\unaexport.cbproj">
+			<Projects Include="libsystem\libsystem.cbproj">
 				<Dependencies>liberror\liberror.cbproj;libuna\libuna.cbproj</Dependencies>
+			</Projects>
+			<Projects Include="unaexport\unaexport.cbproj">
+				<Dependencies>liberror\liberror.cbproj;libuna\libuna.cbproj;libsystem\libsystem.cbproj</Dependencies>
 			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
@@ -38,23 +41,32 @@
 		<Target DependsOnTargets="liberror:Make" Name="libuna:Make">
 			<MSBuild Targets="Make" Projects="libuna\libuna.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror;libuna" Name="unaexport">
+		<Target DependsOnTargets="liberror;libuna" Name="libsystem">
+			<MSBuild Projects="libsystem\libsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="liberror:Clean;libuna:Clean" Name="libsystem:Clean">
+			<MSBuild Targets="Clean" Projects="libsystem\libsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="liberror:Make;libuna:Make" Name="libsystem:Make">
+			<MSBuild Targets="Make" Projects="libsystem\libsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="liberror;libuna;libsystem" Name="unaexport">
 			<MSBuild Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Clean;libuna:Clean" Name="unaexport:Clean">
+		<Target DependsOnTargets="liberror:Clean;libuna:Clean;libsystem:Clean" Name="unaexport:Clean">
 			<MSBuild Targets="Clean" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Make;libuna:Make" Name="unaexport:Make">
+		<Target DependsOnTargets="liberror:Make;libuna:Make;libsystem:Make" Name="unaexport:Make">
 			<MSBuild Targets="Make" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="liberror;libuna;unaexport"/>
+			<CallTarget Targets="liberror;libuna;libsystem;unaexport"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="liberror:Clean;libuna:Clean;unaexport:Clean"/>
+			<CallTarget Targets="liberror:Clean;libuna:Clean;libsystem:Clean;unaexport:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="liberror:Make;libuna:Make;unaexport:Make"/>
+			<CallTarget Targets="liberror:Make;libuna:Make;libsystem:Make;unaexport:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

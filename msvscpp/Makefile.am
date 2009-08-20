@@ -1,5 +1,6 @@
 EXTRA_DIST = \
 	liberror/liberror.vcproj \
+	libsystem/libsystem.vcproj \
 	libuna_dll/libuna_dll.vcproj \
 	unaexport/unaexport.vcproj \
 	libuna.sln
