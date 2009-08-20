@@ -30,10 +30,11 @@
 #error Missing system type definitions (sys/types.h)
 #endif
 
+/* Type definitions for the Microsoft Visual Studio C++ compiler
+ */
 #if defined( _MSC_VER )
 
 /* Define LIBUNA_DEFINITION_INTEGER_TYPES to avoid conflict
- * if types are already defined
  */
 #if !defined( LIBUNA_DEFINITION_INTEGER_TYPES )
 #define LIBUNA_DEFINITION_INTEGER_TYPES
@@ -43,7 +44,7 @@ extern "C" {
 #endif
 
 /* The Microsoft Visual Studio C++ compiler does not have <inttypes.h> or <stdint.h>
- * and therefore does not support the * (u)int#_t type definitions
+ * therefore it does not support the (u)int#_t type definitions
  * it has __int# defintions instead
  */
 typedef __int8			int8_t;
@@ -75,7 +76,6 @@ typedef __int32			ssize_t;
 #else
 
 /* Define LIBUNA_DEFINITION_INTEGER_TYPES to avoid conflict
- * if types are already defined
  */
 #if !defined( LIBUNA_DEFINITION_INTEGER_TYPES )
 #define LIBUNA_DEFINITION_INTEGER_TYPES
@@ -101,6 +101,9 @@ typedef unsigned __int32	intptr_t;
 
 #endif /* __BORLANDC__ >= 0x0560 */
 
+/* Type definitions for compilers that have access to
+ * <inttypes.h> or <stdint.h>
+ */
 #elif @HAVE_INTTYPES_H@ || defined( HAVE_INTTYPES_H )
 #include <inttypes.h>
 
@@ -134,6 +137,9 @@ typedef int64_t ssize64_t;
 #if ! @HAVE_OFF64_T@ || ! HAVE_OFF64_T
 typedef int64_t off64_t;
 #endif
+
+/* The following type definitions hide internal data structures
+ */
 
 /* Unicode character definition
  */
