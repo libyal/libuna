@@ -83,6 +83,7 @@ Note:
 
 20090820
 * small corrections in include/libuna/types.h.in
+* fixed libsystem_file_io open mode
 
 20090819
 * added libsystem
