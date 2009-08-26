@@ -69,7 +69,7 @@ void usage_fprint(
 	}
 	fprintf( stream, "Use unaexport to export text in one encoding to another.\n\n" );
 
-	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_converion ]\n" );
+	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_conversion ]\n" );
 	fprintf( stream, "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n" );
