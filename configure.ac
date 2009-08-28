@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20090826],
+  [20090828],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20090826])
+ [20090828])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -184,6 +184,63 @@ AC_CHECK_SIZEOF([off_t])
 AC_CHECK_SIZEOF([size_t])
 
 dnl Check for functions
+dnl File stream functions used in common/file_stream.h
+AC_CHECK_FUNCS(
+ [fclose],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fclose],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [feof],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: feof],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [fgets],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fgets],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [fopen],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fopen],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [fread],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fread],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [fseeko],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fseeko],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [fwrite],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: fwrite],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [vfprintf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: vfprintf],
+  [1]) ])
+
 dnl Memory functions used in common/memory.h
 AC_CHECK_FUNCS(
  [free],
