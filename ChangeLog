@@ -81,6 +81,9 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20090901
+* updated common/file_stream.h
+
 20090828
 * updated common
 
