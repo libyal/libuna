@@ -35,8 +35,8 @@
  */
 enum LIBUNA_ENDIAN
 {
-	LIBUNA_ENDIAN_BIG                               = (int) 'b',
-	LIBUNA_ENDIAN_LITTLE                            = (int) 'l'
+	LIBUNA_ENDIAN_BIG				= (int) 'b',
+	LIBUNA_ENDIAN_LITTLE				= (int) 'l'
 };
 
 /* The codepage definitions
