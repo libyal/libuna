@@ -734,8 +734,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid 1st UTF-8 character byte.",
-		 function );
+		 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
+		 function,
+		 utf8_string[ *utf8_string_index ] );
 
 		return( -1 );
 	}
@@ -750,8 +751,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 1st UTF-8 character byte.",
-			 function );
+			 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index ] );
 
 			return( -1 );
 		}
@@ -764,8 +766,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -776,8 +779,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -788,8 +792,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -800,8 +805,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -812,8 +818,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -823,8 +830,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 1 ] );
 
 			return( -1 );
 		}
@@ -845,8 +853,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 3rd UTF-8 character byte.",
-			 function );
+			 "%s: invalid 3rd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 2 ] );
 
 			return( -1 );
 		}
@@ -867,8 +876,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 4th UTF-8 character byte.",
-			 function );
+			 "%s: invalid 4th UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 3 ] );
 
 			return( -1 );
 		}
@@ -889,8 +899,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 5th UTF-8 character byte.",
-			 function );
+			 "%s: invalid 5th UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 4 ] );
 
 			return( -1 );
 		}
@@ -911,8 +922,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 6th UTF-8 character byte.",
-			 function );
+			 "%s: invalid 6th UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 utf8_string[ *utf8_string_index + 5 ] );
 
 			return( -1 );
 		}
