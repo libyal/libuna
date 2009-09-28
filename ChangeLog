@@ -23,8 +23,6 @@ TODO
     - 936 gb2312 Chinese Simplified (GB2312)
     - 949 ks_c_5601-1987 Korean
     - 950 big5 Chinese Traditional (Big5)
-    - 20866 koi8-r Cyrillic (KOI8-R)
-    - 21866 koi8-u Cyrillic (KOI8-U)
     - 50220 iso-2022-jp Japanese (JIS)
     - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
     - 51932 euc-jp Japanese (EUC)
@@ -33,6 +31,8 @@ TODO
 
 Test
 * codepage windows-874
+* codepage koi8-r
+* codepage koi8-u
 
 Tools:
 * unaexport
@@ -80,6 +80,12 @@ Other Windows codepages (MBC)
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
+
+20090928
+* updated libsystem
+* worked on codepage support for:
+  - 20866 koi8-r Cyrillic (KOI8-R)
+  - 21866 koi8-u Cyrillic (KOI8-U)
 
 20090917
 * added more trouble shooting code

@@ -39,8 +39,6 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<None Include="..\..\..\libuna\libuna_utf32_string.h">
-			</None>
 			<CppCompile Include="..\..\..\libuna\libuna.c">
 			</CppCompile>
 			<CppCompile Include="..\..\..\libuna\libuna_byte_stream.c">
@@ -104,6 +102,14 @@
 			<CppCompile Include="..\..\..\libuna\libuna_codepage_iso_8859_16.c">
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_codepage_iso_8859_16.h">
+			</None>
+			<CppCompile Include="..\..\..\libuna\libuna_codepage_koi8_r.c">
+			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_codepage_koi8_r.h">
+			</None>
+			<CppCompile Include="..\..\..\libuna\libuna_codepage_koi8_u.c">
+			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_codepage_koi8_u.h">
 			</None>
 			<CppCompile Include="..\..\..\libuna\libuna_codepage_windows_874.c">
 			</CppCompile>
@@ -189,6 +195,8 @@
 			</None>
 			<CppCompile Include="..\..\..\libuna\libuna_utf32_string.c">
 			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_utf32_string.h">
+			</None>
 			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>

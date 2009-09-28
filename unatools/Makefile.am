@@ -1,5 +1,12 @@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror -I$(top_srcdir)/libsystem @MEMWATCH_CPPFLAGS@ @LIBUNA_DLL_IMPORT@
-AM_LDFLAGS  = @STATIC_LDFLAGS@
+AM_CPPFLAGS = \
+	-I$(top_srcdir)/include \
+	-I$(top_srcdir)/common \
+	-I$(top_srcdir)/liberror \
+	-I$(top_srcdir)/libsystem \
+	@MEMWATCH_CPPFLAGS@ \
+	@LIBUNA_DLL_IMPORT@
+
+AM_LDFLAGS = @STATIC_LDFLAGS@
 
 bin_PROGRAMS = unaexport
 
@@ -11,7 +18,10 @@ unaexport_SOURCES = \
 	unainput.c unainput.h \
 	unaoutput.c unaoutput.h
 
-unaexport_LDADD   = ../liberror/liberror.la ../libsystem/libsystem.la @MEMWATCH_LIBADD@
+unaexport_LDADD = \
+	../liberror/liberror.la \
+	../libsystem/libsystem.la \
+	@MEMWATCH_LIBADD@
 
 distclean: clean
 	/bin/rm -f Makefile
