@@ -25,6 +25,7 @@
 
 #include <liberror.h>
 
+#include "libuna_base64_stream.h"
 #include "libuna_codepage_ascii.h"
 #include "libuna_codepage_iso_8859_1.h"
 #include "libuna_codepage_iso_8859_2.h"
@@ -58,7 +59,7 @@
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
 
-/* Determines the size of a byte stream character to from a Unicode character
+/* Determines the size of a byte stream character from a Unicode character
  * Adds the size to the byte stream character size value
  * Returns 1 if successful or -1 on error
  */
@@ -573,7 +574,461 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-8 character to from a Unicode character
+/* Determines the size of a UTF-7 character from a Unicode character
+ * Adds the size to the UTF-7 character size value
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_INLINE int libuna_unicode_character_size_to_utf7(
+                   libuna_unicode_character_t unicode_character,
+                   size_t *utf7_character_size,
+                   liberror_error_t **error )
+{
+	static char *function = "libuna_unicode_character_size_to_utf7";
+
+	if( utf7_character_size == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 character size.",
+		 function );
+
+		return( -1 );
+	}
+	/* TODO */
+	return( -1 );
+}
+
+/* Copies a Unicode character from a UTF-7 string
+ * The bits of the base64 data contain:
+ *   0 - 23 the base64 triplet
+ *  24 - 25 the amount of sixtets in the triplet
+ *  26 - 27 unused
+ *  28 - 29 the current sixtet
+ *       30 unused
+ *       31 flag to indicate the current UTF-7 characters are (modified) base64 encoded
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7(
+                   libuna_unicode_character_t *unicode_character,
+                   const libuna_utf7_character_t *utf7_string,
+                   size_t utf7_string_size,
+                   size_t *utf7_string_index,
+                   uint32_t *utf7_base64_data,
+                   liberror_error_t **error )
+{
+	static char *function     = "libuna_unicode_character_copy_from_utf7";
+	uint32_t base64_triplet   = 0;
+	uint8_t amount_of_sixtets = 0;
+	uint8_t current_sixtet    = 0;
+	uint8_t padding_size      = 0;
+	uint8_t sixtet_bit_shift  = 0;
+
+	if( unicode_character == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_string == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_string_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-7 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_string_index == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( *utf7_string_index >= utf7_string_size )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-7 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_base64_data == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 base64 data.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( *utf7_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == LIBUNA_UTF7_IS_BASE64_ENCODED )
+	{
+		base64_triplet    = *utf7_base64_data & 0x00ffffff;
+		amount_of_sixtets = ( *utf7_base64_data >> 24 ) & 0x03;
+		current_sixtet    = ( *utf7_base64_data >> 28 ) & 0x03;
+
+		if( current_sixtet >= amount_of_sixtets )
+		{
+			if( utf7_string[ *utf7_string_index ] == (uint8_t) '-' )
+			{
+				*utf7_base64_data   = 0;
+				*utf7_string_index += 1;
+			}
+			/* A-Z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: A-I, J-R, S-Z
+			 */
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'A' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'I' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'J' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'R' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'S' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'Z' ) )
+			{
+			}
+			/* a-z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: a-i, j-r, s-z
+			 */
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'a' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'i' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'j' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'r' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 's' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'z' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) '0' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) '9' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] == (uint8_t) '+' )
+			      || ( utf7_string[ *utf7_string_index ] == (uint8_t) '/' ) )
+			{
+			}
+			/* Any character not in the modified base64 alphabet
+			 * terminates the base64 encoded sequence
+			 */
+			else
+			{
+				*utf7_base64_data = 0;
+			}
+		}
+	}
+	if( ( *utf7_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+	{
+		/* Determine if the character is modified base64 encoded
+		 * or a + character
+		 */
+		if( utf7_string[ *utf7_string_index ] == (uint8_t) '+' )
+		{
+			if( utf7_string[ *utf7_string_index + 1 ] != (uint8_t) '-' )
+			{
+				*utf7_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+			}
+			*utf7_string_index += 1;
+		}
+		/* Determine if the character is valid directly encoded character
+		 */
+		else
+		{
+			/* A-Z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: A-I, J-R, S-Z
+			 */
+			if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'A' )
+			 && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'I' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'J' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'R' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'S' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'Z' ) )
+			{
+			}
+			/* a-z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: a-i, j-r, s-z
+			 */
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'a' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'i' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 'j' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'r' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) 's' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) 'z' ) )
+			{
+			}
+			else if( ( utf7_string[ *utf7_string_index ] >= (uint8_t) '0' )
+			      && ( utf7_string[ *utf7_string_index ] <= (uint8_t) '9' ) )
+			{
+			}
+			else switch( utf7_string[ *utf7_string_index ] )
+			{
+				/* Valid directly encoded whitespace
+				 */
+				case '\t':
+				case '\n':
+				case '\r':
+				case ' ':
+				/* Valid directly encoded characters
+				 */
+				case '\'':
+				case '(':
+				case ')':
+				case ',':
+				case '-':
+				case '.':
+				case '/':
+				case ':':
+				case '?':
+
+				/* Valid optional directly encoded characters
+				 */
+				case '!':
+				case '"':
+				case '#':
+				case '$':
+				case '%':
+				case '&':
+				case '*':
+				case ';':
+				case '<':
+				case '=':
+				case '>':
+				case '@':
+				case '[':
+				case ']':
+				case '^':
+				case '_':
+				case '`':
+				case '{':
+				case '|':
+				case '}':
+					break;
+
+				default:
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+					 "%s: invalid directly encoded UTF-7 character byte: 0x%02" PRIx8 ".",
+					 function,
+					 utf7_string[ *utf7_string_index ] );
+
+					return( -1 );
+			}
+		}
+	}
+	if( ( *utf7_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+	{
+		*unicode_character  = utf7_string[ *utf7_string_index ];
+		*utf7_string_index += 1;
+	}
+	else if( ( amount_of_sixtets == 0 )
+	      || ( current_sixtet >= amount_of_sixtets ) )
+	{
+		if( libuna_base64_triplet_copy_from_base64_stream(
+		     &base64_triplet,
+		     utf7_string,
+		     utf7_string_size,
+		     utf7_string_index,
+		     0,
+		     &padding_size,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+			 "%s: unable to copy base64 encoded UTF-7 characters.",
+			 function );
+
+			return( -1 );
+		}
+		if( padding_size > 2 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported padding in base64 encoded UTF-7 characters.",
+			 function );
+
+			return( -1 );
+		}
+		amount_of_sixtets = 3 - padding_size;
+		current_sixtet    = 0;
+	}
+	if( ( *utf7_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == LIBUNA_UTF7_IS_BASE64_ENCODED )
+	{
+		sixtet_bit_shift   = 16 - ( current_sixtet * 8 );
+		*unicode_character = ( ( base64_triplet >> sixtet_bit_shift ) & 0x000000ffUL ) << 8;
+		current_sixtet    += 1;
+
+		if( current_sixtet >= amount_of_sixtets )
+		{
+			if( libuna_base64_triplet_copy_from_base64_stream(
+			     &base64_triplet,
+			     utf7_string,
+			     utf7_string_size,
+			     utf7_string_index,
+			     0,
+			     &padding_size,
+			     error ) != 1 )
+			{
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+				 "%s: unable to copy base64 encoded UTF-7 characters.",
+				 function );
+
+				return( -1 );
+			}
+			if( padding_size > 2 )
+			{
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 "%s: unsupported padding in base64 encoded UTF-7 characters.",
+				 function );
+
+				return( -1 );
+			}
+			amount_of_sixtets = 3 - padding_size;
+			current_sixtet    = 0;
+		}
+		sixtet_bit_shift    = 16 - ( current_sixtet * 8 );
+		*unicode_character += ( base64_triplet >> sixtet_bit_shift ) & 0x000000ffUL;
+		current_sixtet     += 1;
+
+		if( ( *unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+		 && ( *unicode_character <= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_END ) )
+		{
+			return( -1 );
+		}
+	}
+	if( ( *utf7_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == LIBUNA_UTF7_IS_BASE64_ENCODED )
+	{
+		*utf7_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		*utf7_base64_data |= (uint32_t) current_sixtet << 28;
+		*utf7_base64_data |= (uint32_t) amount_of_sixtets << 24;
+		*utf7_base64_data |= base64_triplet & 0x00ffffff;
+	}
+	return( 1 );
+}
+
+/* Copies a Unicode character into a UTF-7 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7(
+                   libuna_unicode_character_t unicode_character,
+                   libuna_utf7_character_t *utf7_string,
+                   size_t utf7_string_size,
+                   size_t *utf7_string_index,
+                   uint32_t *utf7_base64_data,
+                   liberror_error_t **error )
+{
+	static char *function = "libuna_unicode_character_copy_to_utf7";
+
+	if( utf7_string == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_string_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-7 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_string_index == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( *utf7_string_index >= utf7_string_size )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-7 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	{
+		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	/* Determine how many UTF-7 character bytes are required
+	 */
+	/* TODO */
+	return( -1 );
+}
+
+/* Determines the size of a UTF-8 character from a Unicode character
  * Adds the size to the UTF-8 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -1026,7 +1481,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 
 		return( -1 );
 	}
-	/* Determine if the UTF-8 character is valid
+	/* Determine if the Unicode character is valid
 	 */
 	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
@@ -1090,7 +1545,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-16 character to from a Unicode character
+/* Determines the size of a UTF-16 character from a Unicode character
  * Adds the size to the UTF-16 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -1295,7 +1750,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16(
 
 		return( -1 );
 	}
-	/* Determine if the UTF-16 character is valid
+	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
@@ -1551,7 +2006,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 
 		return( -1 );
 	}
-	/* Determine if the UTF-16 character is valid
+	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
@@ -1625,7 +2080,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 character to from a Unicode character
+/* Determines the size of a UTF-32 character from a Unicode character
  * Adds the size to the UTF-32 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -1791,7 +2246,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32(
 
 		return( -1 );
 	}
-	/* Determine if the UTF-32 character is valid
+	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
@@ -1989,7 +2444,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32_stream(
 
 		return( -1 );
 	}
-	/* Determine if the UTF-32 character is valid
+	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )

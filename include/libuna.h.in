@@ -87,6 +87,28 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
                                  int codepage,
                                  libuna_error_t **error );
 
+/* Copies a Unicode character from a UTF-7 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7(
+                                 libuna_unicode_character_t *unicode_character,
+                                 libuna_utf7_character_t *utf7_string,
+                                 size_t utf7_string_size,
+                                 size_t *utf7_string_index,
+                                 uint32_t *utf7_base64_data,
+                                 libuna_error_t **error );
+
+/* Copies a Unicode character into a UTF-7 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7(
+                                 libuna_unicode_character_t unicode_character,
+                                 libuna_utf7_character_t *utf7_string,
+                                 size_t utf7_string_size,
+                                 size_t *utf7_string_index,
+                                 uint32_t *utf7_base64_data,
+                                 libuna_error_t **error );
+
 /* Copies a Unicode character from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */

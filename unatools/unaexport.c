@@ -246,10 +246,12 @@ ssize64_t unaexport(
 	size_t source_string_buffer_size                = UNAEXPORT_BUFFER_SIZE;
 	ssize_t read_count                              = 0;
 	ssize_t write_count                             = 0;
-	int result                                      = 1;
+	uint32_t destination_utf7_base64_data           = 0;
+	uint32_t source_utf7_base64_data                = 0;
 	uint8_t amount_of_unicode_characters            = 0;
 	uint8_t analyze_first_character                 = 1;
 	uint8_t unicode_character_iterator              = 0;
+	int result                                      = 1;
 
 	if( source_filename == NULL )
 	{
@@ -617,6 +619,16 @@ ssize64_t unaexport(
 					          error );
 					break;
 
+				case UNACOMMON_FORMAT_UTF7:
+					result = libuna_unicode_character_copy_from_utf7(
+						  &unicode_character[ unicode_character_iterator ],
+						  source_string_buffer,
+						  source_string_buffer_size,
+						  &source_string_buffer_iterator,
+						  &source_utf7_base64_data,
+					          error );
+					break;
+
 				case UNACOMMON_FORMAT_UTF8:
 					result = libuna_unicode_character_copy_from_utf8(
 						  &unicode_character[ unicode_character_iterator ],
@@ -752,6 +764,16 @@ ssize64_t unaexport(
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
 							  byte_stream_codepage,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF7:
+						result = libuna_unicode_character_copy_to_utf7(
+							  unicode_character[ unicode_character_iterator ],
+							  destination_string_buffer,
+							  destination_string_buffer_size,
+							  &destination_string_buffer_iterator,
+							  &destination_utf7_base64_data,
 						          error );
 						break;
 

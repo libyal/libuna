@@ -85,7 +85,7 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 	else if( ( base64_character >= (uint8_t) 'j' )
 	      && ( base64_character <= (uint8_t) 'r' ) )
 	{
-		*base64_sixtet = base64_character - (uint8_t) 'j' + 32;
+		*base64_sixtet = base64_character - (uint8_t) 'j' + 35;
 	}
 	else if( ( base64_character >= (uint8_t) 's' )
 	      && ( base64_character <= (uint8_t) 'z' ) )
@@ -120,6 +120,9 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 }
 
 /* Copies a base64 triplet from a base64 stream
+ * A padding character value of 0 indicates the lack of padding characters
+ * Note that the padding size will still be set to indicate the amount of
+ * sixtets in the triplet
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
@@ -131,11 +134,12 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
                    uint8_t *padding_size,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_base64_triplet_copy_from_base64_stream";
-	uint8_t sixtet1       = 0;
-	uint8_t sixtet2       = 0;
-	uint8_t sixtet3       = 0;
-	uint8_t sixtet4       = 0;
+	static char *function               = "libuna_base64_triplet_copy_from_base64_stream";
+	uint8_t amount_of_base64_characters = 0;
+	uint8_t sixtet1                     = 0;
+	uint8_t sixtet2                     = 0;
+	uint8_t sixtet3                     = 0;
+	uint8_t sixtet4                     = 0;
 
 	if( base64_triplet == NULL )
 	{
@@ -247,13 +251,16 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
+	amount_of_base64_characters = 2;
+
 	if( ( *base64_stream_index + 2 ) < base64_stream_size )
 	{
-		if( base64_stream[ *base64_stream_index + 2 ] == padding_character )
+		if( ( padding_character != 0 )
+		 && ( base64_stream[ *base64_stream_index + 2 ] == padding_character ) )
 		{
-			sixtet3 = 0;
-
-			*padding_size += 1;
+			sixtet3                      = 0;
+			*padding_size               += 1;
+			amount_of_base64_characters += 1;
 		}
 		else
 		{
@@ -262,39 +269,56 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 			     &sixtet3,
 			     error ) != 1 )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 3rd base64 sixtet.",
-				 function );
+				if( padding_character != 0 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+					 "%s: invalid 3rd base64 sixtet.",
+					 function );
 
-				return( -1 );
+					return( -1 );
+				}
+				liberror_error_free(
+				 error );
+
+				*padding_size += 1;
+			}
+			else
+			{
+				amount_of_base64_characters += 1;
 			}
 		}
 	}
 	else
 	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 3rd base64 character.",
-		 function );
+		if( padding_character != 0 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: missing 3rd base64 character.",
+			 function );
 
-		return( -1 );
+			return( -1 );
+		}
+		*padding_size += 1;
 	}
 	if( ( *base64_stream_index + 3 ) < base64_stream_size )
 	{
-		if( base64_stream[ *base64_stream_index + 3 ] == padding_character )
+		if( ( padding_character != 0 )
+		 && ( base64_stream[ *base64_stream_index + 3 ] == padding_character ) )
 		{
-			sixtet4 = 0;
-
-			*padding_size += 1;
+			sixtet4                      = 0;
+			*padding_size               += 1;
+			amount_of_base64_characters += 1;
 		}
 		else
 		{
-			if( *padding_size > 0 )
+			if( ( padding_character != 0 )
+			 && ( *padding_size > 0 ) )
 			{
 				liberror_error_set(
 				 error,
@@ -310,27 +334,42 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 			     &sixtet4,
 			     error ) != 1 )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 4th base64 sixtet.",
-				 function );
+				if( padding_character != 0 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+					 "%s: invalid 4rd base64 sixtet.",
+					 function );
 
-				return( -1 );
+					return( -1 );
+				}
+				liberror_error_free(
+				 error );
+
+				*padding_size += 1;
+			}
+			else
+			{
+				amount_of_base64_characters += 1;
 			}
 		}
 	}
 	else
 	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 4th base64 character.",
-		 function );
+		if( padding_character != 0 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: missing 4th base64 character.",
+			 function );
 
-		return( -1 );
+			return( -1 );
+		}
+		*padding_size += 1;
 	}
 	*base64_triplet   = sixtet1;
 	*base64_triplet <<= 6;
@@ -340,12 +379,13 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 	*base64_triplet <<= 6;
 	*base64_triplet  += sixtet4;
 
-	*base64_stream_index += 4;
+	*base64_stream_index += amount_of_base64_characters;
 
 	return( 1 );
 }
 
 /* Copies a base64 triplet to a base64 stream
+ * A padding character value of 0 indicates the lack of padding characters
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
@@ -463,19 +503,21 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 		return( -1 );
 	}
 	/* Spread the encoding over 3 characters if 2 bytes are available
-	 * Otherwise pad the remaining bytes
+	 * Otherwise pad the remaining bytes if required
 	 */
 	if( padding_size < 2 )
 	{
 		base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
 		                                         sixtet3 );
+
+		*base64_stream_index += 1;
 	}
-	else
+	else if( padding_character != 0 )
 	{
 		base64_stream[ *base64_stream_index ] = padding_character;
-	}
-	*base64_stream_index += 1;
 
+		*base64_stream_index += 1;
+	}
 	if( *base64_stream_index >= base64_stream_size )
 	{
 		liberror_error_set(
@@ -488,19 +530,21 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 		return( -1 );
 	}
 	/* Spread the encoding over 4 characters if 3 bytes are available
-	 * Otherwise pad the remaining bytes
+	 * Otherwise pad the remaining bytes if required
 	 */
 	if( padding_size >= 1 )
 	{
 		base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
 		                                         sixtet4 );
+
+		*base64_stream_index += 1;
 	}
-	else
+	else if( padding_character != 0 )
 	{
 		base64_stream[ *base64_stream_index ] = padding_character;
-	}
-	*base64_stream_index += 1;
 
+		*base64_stream_index += 1;
+	}
 	return( 1 );
 }
 

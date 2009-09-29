@@ -81,6 +81,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20090929
+* updated narrow_string
+* worked on UTF-7 support
+
 20090928
 * updated libsystem
 * worked on codepage support for:
