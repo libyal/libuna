@@ -34,7 +34,7 @@
  * for local use of libuna
  */
 #else
-#include <endian.h>
+#include <byte_stream.h>
 
 #define LIBUNA_VERSION					@VERSION@
 
@@ -44,8 +44,8 @@
 
 /* The endian definitions
  */
-#define	LIBUNA_ENDIAN_BIG                               _ENDIAN_BIG
-#define	LIBUNA_ENDIAN_LITTLE                            _ENDIAN_LITTLE
+#define	LIBUNA_ENDIAN_BIG                               _BYTE_STREAM_ENDIAN_BIG
+#define	LIBUNA_ENDIAN_LITTLE                            _BYTE_STREAM_ENDIAN_LITTLE
 
 /* The codepage definitions
  */
