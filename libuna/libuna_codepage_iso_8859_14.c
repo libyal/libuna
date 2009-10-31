@@ -2,7 +2,7 @@
  * ISO 8859-14 codepage (Celtic) function
  *
  * Copyright (c) 2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *

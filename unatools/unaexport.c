@@ -2,7 +2,7 @@
  * Exports Unicode and ASCII (byte stream) text
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *

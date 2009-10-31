@@ -2,7 +2,7 @@
  * KOI8-R codepage (Russian Cyrillic) functions
  *
  * Copyright (c) 2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *

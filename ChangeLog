@@ -81,6 +81,9 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20091031
+* removed All Rights Reserved
+
 20091026
 * refactored endian.h to byte_stream.h
 

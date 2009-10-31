@@ -2,7 +2,7 @@
  * Library to support Unicode and ASCII (byte stream) conversions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *

@@ -2,7 +2,7 @@
  * Base64 URL stream functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -35,6 +35,8 @@
 #if defined( __cplusplus )
 extern "C" {
 #endif
+
+#ifdef TODO
 
 LIBUNA_INLINE int libuna_base64url_character_copy_to_sixtet(
                    uint8_t base64url_character,
@@ -94,6 +96,8 @@ LIBUNA_EXTERN int libuna_base64url_stream_encode(
                    uint8_t *byte_stream,
                    size_t byte_stream_size,
                    liberror_error_t **error );
+
+#endif /* TODO */
 
 #if defined( __cplusplus )
 }

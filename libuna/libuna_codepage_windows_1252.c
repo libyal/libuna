@@ -2,7 +2,7 @@
  * Windows 1252 codepage (Western European/Latin 1) functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *

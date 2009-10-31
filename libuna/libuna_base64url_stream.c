@@ -2,7 +2,7 @@
  * Base64 URL stream functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -29,6 +29,8 @@
 #include "libuna_definitions.h"
 #include "libuna_inline.h"
 #include "libuna_types.h"
+
+#ifdef TODO
 
 static uint8_t libuna_base64url_sixtet_to_character_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
@@ -912,4 +914,6 @@ int libuna_base64url_stream_encode(
 	}
 	return( 1 );
 }
+
+#endif /* TODO */
 
