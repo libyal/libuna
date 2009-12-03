@@ -7,13 +7,18 @@ TODO
   - copy from/to functions should set/return amount of bytes successfully processed?
     most of the time not needed because the size of the string was already
     determined
+  - implement base16 functions
+    - add base16 functions to api
+    - add error to base16
+    - add flag to set upper/lower case
+  - rename base64 functions like base16 functions?
+
   - implement support for utf-1 ?
   - implement support for utf-ebcdic ?
   - implement support for bocu-1 ?
   - implement support for scsu ?
   - implement support for usc-1, ucs-2, usc-4 ?
 
-  - implement support for base16
   - implement support for base32hex
   - implement support for base32
   - implement support for base64url
@@ -80,6 +85,10 @@ Other Windows codepages (MBC)
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
+
+20091203
+* updated common
+* worked on base16 for libfdatetime
 
 20091031
 * removed All Rights Reserved

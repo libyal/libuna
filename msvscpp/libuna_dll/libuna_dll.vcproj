@@ -95,7 +95,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_base16_stream.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_base64_stream.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_base64url_stream.c"
 				>
 			</File>
 			<File
@@ -245,7 +253,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\libuna\libuna_base16_stream.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_base64_stream.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_base64url_stream.h"
 				>
 			</File>
 			<File

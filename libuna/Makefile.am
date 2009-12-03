@@ -11,6 +11,7 @@ lib_LTLIBRARIES = libuna.la
 
 libuna_la_SOURCES = \
 	libuna.c \
+	libuna_base16_stream.c libuna_base16_stream.h \
 	libuna_base64_stream.c libuna_base64_stream.h \
 	libuna_base64url_stream.c libuna_base64url_stream.h \
 	libuna_byte_stream.c libuna_byte_stream.h \
