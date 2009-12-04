@@ -163,10 +163,6 @@
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_codepage_windows_1258.h">
 			</None>
-			<CppCompile Include="..\..\..\libuna\libuna_compare.c">
-			</CppCompile>
-			<None Include="..\..\..\libuna\libuna_compare.h">
-			</None>
 			<None Include="..\..\..\libuna\libuna_definitions.h">
 			</None>
 			<None Include="..\..\..\libuna\libuna_error.h">

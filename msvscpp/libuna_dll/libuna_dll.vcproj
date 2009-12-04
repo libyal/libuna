@@ -211,10 +211,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuna\libuna_compare.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libuna\libuna_support.c"
 				>
 			</File>
@@ -378,10 +374,6 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_1258.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_compare.h"
 				>
 			</File>
 			<File

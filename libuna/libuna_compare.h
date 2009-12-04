@@ -35,46 +35,12 @@
 extern "C" {
 #endif
 
-/* Compares an UTF-8 string with an UTF-16 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
- */
-LIBUNA_EXTERN int libuna_compare_utf8_with_utf16(
-                   const libuna_utf8_character_t *utf8_string,
-                   size_t utf8_string_size,
-                   const libuna_utf16_character_t *utf16_string,
-                   size_t utf16_string_size,
-                   liberror_error_t **error );
-
-/* Compares an UTF-8 string with an UTF-32 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
- */
-LIBUNA_EXTERN int libuna_compare_utf8_with_utf32(
-                   const libuna_utf8_character_t *utf8_string,
-                   size_t utf8_string_size,
-                   const libuna_utf32_character_t *utf32_string,
-                   size_t utf32_string_size,
-                   liberror_error_t **error );
-
-/* The functionality for libuna_compare_utf16_with_utf8 is implemented by
- * libuna_compare_utf8_with_utf16
+/* The functionality for libuna_utf32_string_compare_with_utf8 is implemented by
+ * libuna_utf8_string_compare_with_utf32
  */
 
-/* Compares an UTF-16 string with an UTF-32 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
- */
-LIBUNA_EXTERN int libuna_compare_utf16_with_utf32(
-                   const libuna_utf16_character_t *utf16_string,
-                   size_t utf16_string_size,
-                   const libuna_utf32_character_t *utf32_string,
-                   size_t utf32_string_size,
-                   liberror_error_t **error );
-
-/* The functionality for libuna_compare_utf32_with_utf8 is implemented by
- * libuna_compare_utf8_with_utf32
- */
-
-/* The functionality for libuna_compare_utf32_with_utf16 is implemented by
- * libuna_compare_utf16_with_utf32
+/* The functionality for libuna_utf32_string_compare_with_utf16 is implemented by
+ * libuna_utf16_string_compare_with_utf32
  */
 
 #if defined( __cplusplus )

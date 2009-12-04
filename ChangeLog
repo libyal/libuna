@@ -1,4 +1,15 @@
 TODO
+* add utf32 string compare functions
+* complete utf7
+* complete base16
+  - implement base16 functions
+    - add base16 functions to api
+    - add error to base16
+    - add flag to set upper/lower case
+* complete base64
+  - rename base64 functions like base16 functions?
+* complete base64url
+
 * libuna
   - add source == destination check to functions?
   - handle combining characters in windows 1255 and 1258 ?
@@ -7,11 +18,6 @@ TODO
   - copy from/to functions should set/return amount of bytes successfully processed?
     most of the time not needed because the size of the string was already
     determined
-  - implement base16 functions
-    - add base16 functions to api
-    - add error to base16
-    - add flag to set upper/lower case
-  - rename base64 functions like base16 functions?
 
   - implement support for utf-1 ?
   - implement support for utf-ebcdic ?
@@ -85,6 +91,9 @@ Other Windows codepages (MBC)
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
+
+20091204
+* worked on compare functions for libpff
 
 20091203
 * updated common
