@@ -73,6 +73,8 @@ int libuna_base16_stream_size_from_byte_stream(
 
 		return( -1 );
 	}
+	/* TODO what about end of string character */
+
 	/* The base16 stream contains 2 characters for every byte
 	 */
 	*base16_stream_size = byte_stream_size * 2;
@@ -150,6 +152,8 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 		return( -1 );
 	}
+	/* TODO what about end of string character */
+
 	while( byte_stream_index < byte_stream_size )
 	{
 		byte_value = byte_stream[ byte_stream_index ] >> 4;
@@ -232,6 +236,8 @@ int libuna_base16_stream_size_to_byte_stream(
 
 		return( -1 );
 	}
+	/* TODO what about end of string character */
+
 	/* The base16 stream contains 2 characters for every byte
 	 */
 	*byte_stream_size = base16_stream_size / 2;
@@ -320,41 +326,67 @@ int libuna_base16_stream_copy_to_byte_stream(
 
 		return( -1 );
 	}
+	/* TODO what about end of string character */
+
 	while( base16_stream_index < base16_stream_size )
 	{
 		byte_value = 0;
 
-		if( ( base16_stream[ base16_stream_index ] >= (uint8_t) '0' )
-		 && ( base16_stream[ base16_stream_index ] <= (uint8_t) '9' ) )
-		{
-			byte_value = base16_stream[ base16_stream_index ] - (uint8_t) '0';
-		}
-		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
-		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
+		if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
+		 && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
 		{
 			byte_value = base16_stream[ base16_stream_index ] - (uint8_t) 'A';
 		}
+		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'a' )
+		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'f' ) )
+		{
+			byte_value = base16_stream[ base16_stream_index ] - (uint8_t) 'a';
+		}
+		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) '0' )
+		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) '9' ) )
+		{
+			byte_value = base16_stream[ base16_stream_index ] - (uint8_t) '0';
+		}
 		else
 		{
-			/* TODO print error */
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid base16 character.",
+			 function );
+
+			return( -1 );
 		}
 		byte_value <<= 4;
 
 		base16_stream_index++;
 
-		if( ( base16_stream[ base16_stream_index ] >= (uint8_t) '0' )
-		 && ( base16_stream[ base16_stream_index ] <= (uint8_t) '9' ) )
-		{
-			byte_value += base16_stream[ base16_stream_index ] - (uint8_t) '0';
-		}
-		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
-		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
+		if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
+		 && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
 		{
 			byte_value += base16_stream[ base16_stream_index ] - (uint8_t) 'A';
 		}
+		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'a' )
+		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'f' ) )
+		{
+			byte_value += base16_stream[ base16_stream_index ] - (uint8_t) 'a';
+		}
+		else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) '0' )
+		      && ( base16_stream[ base16_stream_index ] <= (uint8_t) '9' ) )
+		{
+			byte_value += base16_stream[ base16_stream_index ] - (uint8_t) '0';
+		}
 		else
 		{
-			/* TODO print error */
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid base16 character.",
+			 function );
+
+			return( -1 );
 		}
 		base16_stream_index++;
 

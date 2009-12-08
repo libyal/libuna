@@ -181,13 +181,9 @@
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_unicode_character.h">
 			</None>
-			<CppCompile Include="..\..\..\libuna\libuna_utf8_stream.c">
+			<CppCompile Include="..\..\..\libuna\libuna_url_stream.c">
 			</CppCompile>
-			<None Include="..\..\..\libuna\libuna_utf8_stream.h">
-			</None>
-			<CppCompile Include="..\..\..\libuna\libuna_utf8_string.c">
-			</CppCompile>
-			<None Include="..\..\..\libuna\libuna_utf8_string.h">
+			<None Include="..\..\..\libuna\libuna_url_stream.h">
 			</None>
 			<CppCompile Include="..\..\..\libuna\libuna_utf16_stream.c">
 			</CppCompile>
@@ -204,6 +200,14 @@
 			<CppCompile Include="..\..\..\libuna\libuna_utf32_string.c">
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_utf32_string.h">
+			</None>
+			<CppCompile Include="..\..\..\libuna\libuna_utf8_stream.c">
+			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_utf8_stream.h">
+			</None>
+			<CppCompile Include="..\..\..\libuna\libuna_utf8_string.c">
+			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_utf8_string.h">
 			</None>
 			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
