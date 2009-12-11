@@ -50,12 +50,13 @@ libuna_la_SOURCES = \
 	libuna_support.c libuna_support.h \
 	libuna_types.h \
 	libuna_unicode_character.c libuna_unicode_character.h \
-	libuna_utf8_stream.c libuna_utf8_stream.h \
-	libuna_utf8_string.c libuna_utf8_string.h \
+	libuna_url_stream.c libuna_url_stream.h \
 	libuna_utf16_stream.c libuna_utf16_stream.h \
 	libuna_utf16_string.c libuna_utf16_string.h \
 	libuna_utf32_stream.c libuna_utf32_stream.h \
-	libuna_utf32_string.c libuna_utf32_string.h
+	libuna_utf32_string.c libuna_utf32_string.h \
+	libuna_utf8_stream.c libuna_utf8_stream.h \
+	libuna_utf8_string.c libuna_utf8_string.h
 
 libuna_la_LIBADD  = ../liberror/liberror.la
 libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0

@@ -312,11 +312,15 @@ int libuna_utf16_string_compare_with_byte_stream(
 
 		return( -1 );
 	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
 	/* Check if the byte stream is terminated with zero bytes
 	 */
 	if( byte_stream[ byte_stream_size - 1 ] != 0 )
 	{
-		utf16_string_size -= 1;
+		byte_stream_size -= 1;
 	}
 	while( ( utf16_string_iterator < utf16_string_size )
 	    && ( byte_stream_iterator < byte_stream_size ) )
@@ -905,11 +909,15 @@ int libuna_utf16_string_compare_with_utf8_stream(
 			utf8_stream_iterator += 3;
 		}
 	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
 	/* Check if the UTF-8 stream is terminated with zero bytes
 	 */
 	if( utf8_stream[ utf8_stream_size - 1 ] != 0 )
 	{
-		utf16_string_size -= 1;
+		utf8_stream_size -= 1;
 	}
 	while( ( utf16_string_iterator < utf16_string_size )
 	    && ( utf8_stream_iterator < utf8_stream_size ) )
@@ -1457,12 +1465,16 @@ int libuna_utf16_string_compare_with_utf16_stream(
 		}
 		utf16_stream_iterator = 0;
 	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
 	/* Check if the UTF-16 stream is terminated with zero bytes
 	 */
 	if( ( utf16_stream[ utf16_stream_size - 2 ] != 0 )
 	 || ( utf16_stream[ utf16_stream_size - 1 ] != 0 ) )
 	{
-		utf16_string_size -= 1;
+		utf16_stream_size -= 2;
 	}
 	while( ( utf16_string_iterator < utf16_string_size )
 	    && ( utf16_stream_iterator < utf16_stream_size ) )
@@ -1767,6 +1779,14 @@ int libuna_utf16_string_compare_with_utf32(
 		 function );
 
 		return( -1 );
+	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
+	if( utf32_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
 	}
 	while( ( utf16_string_iterator < utf16_string_size )
 	    && ( utf32_string_iterator < utf32_string_size ) )
@@ -2342,6 +2362,10 @@ int libuna_utf16_string_compare_with_utf32_stream(
 		}
 		utf32_stream_iterator = 0;
 	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
 	/* Check if the UTF-32 stream is terminated with zero bytes
 	 */
 	if( ( utf32_stream[ utf32_stream_size - 4 ] != 0 )
@@ -2349,7 +2373,7 @@ int libuna_utf16_string_compare_with_utf32_stream(
 	 || ( utf32_stream[ utf32_stream_size - 2 ] != 0 )
 	 || ( utf32_stream[ utf32_stream_size - 1 ] != 0 ) )
 	{
-		utf16_string_size -= 1;
+		utf32_stream_size -= 1;
 	}
 	while( ( utf16_string_iterator < utf16_string_size )
 	    && ( utf32_stream_iterator < utf32_stream_size ) )

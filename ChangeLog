@@ -92,6 +92,9 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20091211
+* worked on compare functions for libpff
+
 20091208
 * worked on percent encoding functions
 
