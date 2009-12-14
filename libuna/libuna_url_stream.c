@@ -418,6 +418,7 @@ int libuna_url_stream_size_to_byte_stream(
 
 				return( -1 );
 			}
+			url_stream_index++;
 		}
 		else
 		{
@@ -573,6 +574,8 @@ int libuna_url_stream_copy_to_byte_stream(
 
 				return( -1 );
 			}
+			url_stream_index++;
+
 			byte_stream[ byte_stream_index++ ] = byte_value;
 		}
 		else
