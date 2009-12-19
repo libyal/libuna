@@ -1,4 +1,4 @@
-.Dd December 4, 2009
+.Dd December 19, 2009
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -18,9 +18,9 @@ Unicode character functions
 .Ft int
 .Fn libuna_unicode_character_copy_to_byte_stream "libuna_unicode_character_t unicode_character, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, int codepage, libuna_error_t **error"
 .Ft int
-.Fn libuna_unicode_character_copy_from_utf7 "libuna_unicode_character_t *unicode_character, const libuna_utf7_character_t *utf7_string, size_t utf7_string_size, size_t *utf7_string_index, uint32_t *utf7_base64_data, libuna_error_t **error"
+.Fn libuna_unicode_character_copy_from_utf7_stream "libuna_unicode_character_t *unicode_character, const uint8_t *utf7_stream, size_t utf7_stream_size, size_t *utf7_stream_index, uint32_t *utf7_stream_base64_data, libuna_error_t **error"
 .Ft int
-.Fn libuna_unicode_character_copy_to_utf7 "libuna_unicode_character_t unicode_character, libuna_utf7_character_t *utf7_string, size_t utf7_string_size, size_t *utf7_string_index, uint32_t *utf7_base64_data, libuna_error_t **error"
+.Fn libuna_unicode_character_copy_to_utf7_stream "libuna_unicode_character_t unicode_character, uint8_t *utf7_stream, size_t utf7_stream_size, size_t *utf7_stream_index, uint32_t *utf7_stream_base64_data, libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_from_utf8 "libuna_unicode_character_t *unicode_character, const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, libuna_error_t **error"
 .Ft int
@@ -56,6 +56,20 @@ Byte stream functions
 .Ft int
 .Fn libuna_byte_stream_copy_from_utf32 "uint8_t *byte_stream, size_t byte_stream_size, int codepage, const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, libuna_error_t **error"
 .Pp
+UTF-7 stream functions
+.Ft int
+.Fn libuna_utf7_stream_size_from_utf8 "const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf7_stream_copy_from_utf8 "uint8_t *utf7_stream, size_t utf7_stream_size, const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf7_stream_size_from_utf16 "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf7_stream_copy_from_utf16 "uint8_t *utf7_stream, size_t utf7_stream_size, const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf7_stream_size_from_utf32 "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, size_t *utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf7_stream_copy_from_utf32 "uint8_t *utf7_stream, size_t utf7_stream_size, const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, libuna_error_t **error"
+.Pp
 UTF-8 stream functions
 .Ft int
 .Fn libuna_utf8_stream_copy_byte_order_mark "uint8_t *utf8_stream, size_t utf8_stream_size, size_t *utf8_stream_index, libuna_error_t **error"
@@ -79,6 +93,12 @@ UTF-8 string functions
 .Fn libuna_utf8_string_copy_from_byte_stream "libuna_utf8_character_t *utf8_string, size_t utf8_string_size, const uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf8_string_compare_with_byte_stream "const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, const uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf8_string_size_from_utf7_stream "const uint8_t *utf7_stream, size_t utf7_stream_size, size_t *utf8_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf8_string_copy_from_utf7_stream "libuna_utf8_character_t *utf8_string, size_t utf8_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf8_string_compare_with_utf7_stream "const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf8_string_size_from_utf8_stream "const uint8_t *utf8_stream, size_t utf8_stream_size, size_t *utf8_string_size, libuna_error_t **error"
 .Ft int
@@ -134,6 +154,12 @@ UTF-16 string functions
 .Ft int
 .Fn libuna_utf16_string_compare_with_byte_stream "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuna_error_t **error"
 .Ft int
+.Fn libuna_utf16_string_size_from_utf7_stream "const uint8_t *utf7_stream, size_t utf7_stream_size, size_t *utf16_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf16_string_copy_from_utf7_stream "libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf16_string_compare_with_utf7_stream "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
+.Ft int
 .Fn libuna_utf16_string_size_from_utf8 "const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf16_string_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf16_string_copy_from_utf8 "libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, libuna_error_t **error"
@@ -184,6 +210,14 @@ UTF-32 string functions
 .Ft int
 .Fn libuna_utf32_string_copy_from_byte_stream "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuna_error_t **error"
 .Ft int
+.Fn libuna_utf32_string_compare_with_byte_stream "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *byte_stream, size_t byte_stream_size, int codepage, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf32_string_size_from_utf7_stream "const uint8_t *utf7_stream, size_t utf7_stream_size, size_t *utf32_string_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf32_string_copy_from_utf7_stream "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf32_string_compare_with_utf7_stream "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf7_stream, size_t utf7_stream_size, libuna_error_t **error"
+.Ft int
 .Fn libuna_utf32_string_size_from_utf8 "const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, size_t *utf32_string_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf32_string_copy_from_utf8 "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const libuna_utf8_character_t *utf8_string, size_t utf8_string_size, libuna_error_t **error"
@@ -191,6 +225,8 @@ UTF-32 string functions
 .Fn libuna_utf32_string_size_from_utf8_stream "const uint8_t *utf8_stream, size_t utf8_stream_size, size_t *utf32_string_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf32_string_copy_from_utf8_stream "libuna_utf8_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf8_stream, size_t utf8_stream_size, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf32_string_compare_with_utf8_stream "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf8_stream, size_t utf8_stream_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf32_string_size_from_utf16 "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf32_string_size, libuna_error_t **error"
 .Ft int
@@ -200,9 +236,13 @@ UTF-32 string functions
 .Ft int
 .Fn libuna_utf32_string_copy_from_utf16_stream "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuna_error_t **error"
 .Ft int
+.Fn libuna_utf32_string_compare_with_utf16_stream "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf16_stream, size_t utf16_stream_size, uint8_t byte_order, libuna_error_t **error :
+.Ft int
 .Fn libuna_utf32_string_size_from_utf32_stream "const uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, size_t *utf32_string_size, libuna_error_t **error"
 .Ft int
 .Fn libuna_utf32_string_copy_from_utf32_stream "libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuna_error_t **error"
+.Ft int
+.Fn libuna_utf32_string_compare_with_utf32_stream "const libuna_utf32_character_t *utf32_string, size_t utf32_string_size, const uint8_t *utf32_stream, size_t utf32_stream_size, uint8_t byte_order, libuna_error_t **error :
 .Sh DESCRIPTION
 The
 .Fn libuna_get_version

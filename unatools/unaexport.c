@@ -89,7 +89,7 @@ void usage_fprint(
 	fprintf( stream, "\t-l:          list information about the codepages\n" );
 	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n" );
 	fprintf( stream, "\t             crlf or lf\n" );
-	fprintf( stream, "\t-o:          output format, options: byte-stream,  utf7, utf8 (default),\n" );
+	fprintf( stream, "\t-o:          output format, options: byte-stream, utf7, utf8 (default),\n" );
 	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-q:          quiet shows no status information\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
@@ -246,8 +246,8 @@ ssize64_t unaexport(
 	size_t source_string_buffer_size                = UNAEXPORT_BUFFER_SIZE;
 	ssize_t read_count                              = 0;
 	ssize_t write_count                             = 0;
-	uint32_t destination_utf7_base64_data           = 0;
-	uint32_t source_utf7_base64_data                = 0;
+	uint32_t destination_utf7_stream_base64_data    = 0;
+	uint32_t source_utf7_stream_base64_data         = 0;
 	uint8_t amount_of_unicode_characters            = 0;
 	uint8_t analyze_first_character                 = 1;
 	uint8_t unicode_character_iterator              = 0;
@@ -620,12 +620,12 @@ ssize64_t unaexport(
 					break;
 
 				case UNACOMMON_FORMAT_UTF7:
-					result = libuna_unicode_character_copy_from_utf7(
+					result = libuna_unicode_character_copy_from_utf7_stream(
 						  &unicode_character[ unicode_character_iterator ],
 						  source_string_buffer,
 						  source_string_buffer_size,
 						  &source_string_buffer_iterator,
-						  &source_utf7_base64_data,
+						  &source_utf7_stream_base64_data,
 					          error );
 					break;
 
@@ -768,12 +768,12 @@ ssize64_t unaexport(
 						break;
 
 					case UNACOMMON_FORMAT_UTF7:
-						result = libuna_unicode_character_copy_to_utf7(
+						result = libuna_unicode_character_copy_to_utf7_stream(
 							  unicode_character[ unicode_character_iterator ],
 							  destination_string_buffer,
 							  destination_string_buffer_size,
 							  &destination_string_buffer_iterator,
-							  &destination_utf7_base64_data,
+							  &destination_utf7_stream_base64_data,
 						          error );
 						break;
 

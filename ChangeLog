@@ -1,6 +1,5 @@
 TODO
-* add utf32 string compare functions
-* complete utf7
+* complete UTF-7
 * complete base16
   - implement base16 functions
     - add base16 functions to api
@@ -19,8 +18,8 @@ TODO
     most of the time not needed because the size of the string was already
     determined
 
-  - implement support for utf-1 ?
-  - implement support for utf-ebcdic ?
+  - implement support for UTF-1 ?
+  - implement support for UTF-ebcdic ?
   - implement support for bocu-1 ?
   - implement support for scsu ?
   - implement support for usc-1, ucs-2, usc-4 ?
@@ -28,7 +27,7 @@ TODO
   - implement support for base32hex
   - implement support for base32
   - implement support for base64url
-  - implement support for utf-7 (for libpff)
+  - implement support for UTF-7 (for libpff)
   - implement support for codepages:
     - 923 iso-2022-jp Japanese (Shift-JIS)
     - 936 gb2312 Chinese Simplified (GB2312)
@@ -92,17 +91,21 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
 
+20091219
+* worked on UTF-32 compare functions
+* worked on UTF-7 functions
+
 20091214
-* worked on compare functions for libpff
+* worked on compare functions
 
 20091211
-* worked on compare functions for libpff
+* worked on compare functions
 
 20091208
 * worked on percent encoding functions
 
 20091204
-* worked on compare functions for libpff
+* worked on compare functions
 
 20091203
 * updated common
@@ -238,7 +241,7 @@ Note:
 20081011
 * Updated MSVSCPP solution file for 2008 express version
 * Several changes for MSVSCPP build
-* fix in header file for utf16 and utf32 string size functions
+* fix in header file for UTF-16 and UTF-32 string size functions
 
 20080927
 * Fixed error in libuna.h
@@ -305,7 +308,7 @@ Note:
 20080903
 * Worked on initial version
 * Worked on strict mode
-* Worked on uTF-8 stream functions
+* Worked on UTF-8 stream functions
 * Worked on MacOS-X package files
 
 20080902
@@ -314,7 +317,7 @@ Note:
 * Worked on UTF-16 stream functions
 * Worked on UTF-32 stream functions
 * Refactored to use separate UTF-8/16/32 copy_byte_order_mark functions
-* Worked on uTF-8 stream functions
+* Worked on UTF-8 stream functions
 * Worked on byte stream size/copy from functions
 
 20080901

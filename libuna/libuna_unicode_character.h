@@ -59,9 +59,9 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
                                  int codepage,
                                  liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf7(
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
                                  libuna_unicode_character_t unicode_character,
-                                 size_t *utf7_character_size,
+                                 size_t *utf7_stream_character_size,
                                  liberror_error_t **error );
 
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
@@ -69,15 +69,15 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
                                  const uint8_t *utf7_stream,
                                  size_t utf7_stream_size,
                                  size_t *utf7_stream_index,
-                                 uint32_t *utf7_base64_data,
+                                 uint32_t *utf7_stream_base64_data,
                                  liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7(
+LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
                                  libuna_unicode_character_t unicode_character,
-                                 libuna_utf7_character_t *utf7_string,
-                                 size_t utf7_string_size,
-                                 size_t *utf7_string_index,
-                                 uint32_t *utf7_base64_data,
+                                 uint8_t *utf7_stream,
+                                 size_t utf7_stream_size,
+                                 size_t *utf7_stream_index,
+                                 uint32_t *utf7_stream_base64_data,
                                  liberror_error_t **error );
 
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(

@@ -145,10 +145,6 @@ typedef int64_t off64_t;
  */
 typedef uint32_t libuna_unicode_character_t;
 
-/* UTF-7 character definition
- */
-typedef uint8_t libuna_utf7_character_t;
-
 /* UTF-8 character definition
  */
 typedef uint8_t libuna_utf8_character_t;

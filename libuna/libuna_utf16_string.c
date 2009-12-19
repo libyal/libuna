@@ -377,6 +377,386 @@ int libuna_utf16_string_compare_with_byte_stream(
 	return( 1 );
 }
 
+/* Determines the size of a UTF-16 string from a UTF-7 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf16_string_size_from_utf7_stream(
+     const uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     size_t *utf16_string_size,
+     liberror_error_t **error )
+{
+	static char *function                        = "libuna_utf16_string_size_from_utf7_stream";
+	size_t utf7_stream_iterator                  = 0;
+	libuna_unicode_character_t unicode_character = 0;
+	uint32_t utf7_stream_base64_data             = 0;
+
+	if( utf7_stream == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-7 stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: missing UTF-7 stream bytes.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string_size == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string size.",
+		 function );
+
+		return( -1 );
+	}
+	*utf16_string_size = 0;
+
+	/* Check if the UTF-7 stream is terminated with a zero byte
+	 */
+	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
+	{
+		*utf16_string_size += 1;
+	}
+	while( utf7_stream_iterator < utf7_stream_size )
+	{
+		/* Convert the UTF-7 stream bytes into a Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf7_stream(
+		     &unicode_character,
+		     utf7_stream,
+		     utf7_stream_size,
+		     &utf7_stream_iterator,
+		     &utf7_stream_base64_data,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-7 stream.",
+			 function );
+
+			return( -1 );
+		}
+		/* Determine how many UTF-16 character bytes are required
+		 */
+		if( libuna_unicode_character_size_to_utf16(
+		     unicode_character,
+		     utf16_string_size,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to unable to determine size of Unicode character in UTF-16.",
+			 function );
+
+			return( -1 );
+		}
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-16 string from an UTF-7 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf16_string_copy_from_utf7_stream(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     const uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     liberror_error_t **error )
+{
+	static char *function                        = "libuna_utf16_string_copy_from_utf7_stream";
+	size_t utf16_string_iterator                 = 0;
+	size_t utf7_stream_iterator                  = 0;
+	libuna_unicode_character_t unicode_character = 0;
+	uint32_t utf7_stream_base64_data             = 0;
+	uint8_t zero_byte                            = 0;
+
+	if( utf16_string == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-7 stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: missing UTF-7 stream bytes.",
+		 function );
+
+		return( -1 );
+	}
+	/* Check if the UTF-7 stream is terminated with zero bytes
+	 */
+	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
+	{
+		zero_byte = 1;
+	}
+	while( utf7_stream_iterator < utf7_stream_size )
+	{
+		/* Convert the UTF-7 stream bytes into a Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf7_stream(
+		     &unicode_character,
+		     utf7_stream,
+		     utf7_stream_size,
+		     &utf7_stream_iterator,
+		     &utf7_stream_base64_data,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-7 stream.",
+			 function );
+
+			return( -1 );
+		}
+		/* Convert the Unicode character into UTF-16 character bytes
+		 */
+		if( libuna_unicode_character_copy_to_utf16(
+		     unicode_character,
+		     utf16_string,
+		     utf16_string_size,
+		     &utf16_string_iterator,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+			 "%s: unable to copy Unicode character to UTF-16.",
+			 function );
+
+			return( -1 );
+		}
+	}
+	if( zero_byte != 0 )
+	{
+		if( utf16_string_iterator >= utf16_string_size )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-16 string too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf16_string[ utf16_string_iterator++ ] = 0;
+	}
+	return( 1 );
+}
+
+/* Compares an UTF-16 string with an UTF-7 stream
+ * Returns 1 if the strings are equal, 0 if not or -1 on error
+ */
+int libuna_utf16_string_compare_with_utf7_stream(
+     const libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     const uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     liberror_error_t **error )
+{
+	static char *function                                    = "libuna_utf16_string_compare_with_utf7_stream";
+	size_t utf16_string_iterator                             = 0;
+	size_t utf7_stream_iterator                              = 0;
+	libuna_unicode_character_t utf16_unicode_character       = 0;
+	libuna_unicode_character_t utf7_stream_unicode_character = 0;
+	uint32_t utf7_stream_base64_data                         = 0;
+
+	if( utf16_string == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size > (size_t) SSIZE_MAX )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-7 stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf7_stream_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: missing UTF-7 stream bytes.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string[ utf16_string_size - 1 ] != 0 )
+	{
+		utf16_string_size -= 1;
+	}
+	/* Check if the UTF-7 stream is terminated with zero bytes
+	 */
+	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
+	{
+		utf7_stream_size -= 1;
+	}
+	while( ( utf16_string_iterator < utf16_string_size )
+	    && ( utf7_stream_iterator < utf7_stream_size ) )
+	{
+		/* Convert the UTF-16 character bytes into a Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf16(
+		     &utf16_unicode_character,
+		     utf16_string,
+		     utf16_string_size,
+		     &utf16_string_iterator,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-16.",
+			 function );
+
+			return( -1 );
+		}
+		/* Convert the UTF-7 character bytes into a Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf7_stream(
+		     &utf7_stream_unicode_character,
+		     utf7_stream,
+		     utf7_stream_size,
+		     &utf7_stream_iterator,
+		     &utf7_stream_base64_data,
+                     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-7 stream.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf16_unicode_character != utf7_stream_unicode_character )
+		{
+			break;
+		}
+	}
+	/* Check if both strings were entirely processed
+	 */
+	if( ( utf16_string_iterator != utf16_string_size )
+	 || ( utf7_stream_iterator != utf7_stream_size ) )
+	{
+		return( 0 );
+	}
+	return( 1 );
+}
+
 /* Determines the size of a UTF-16 string from a UTF-8 string
  * Returns 1 if successful or -1 on error
  */

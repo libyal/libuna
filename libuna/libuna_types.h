@@ -36,10 +36,6 @@
  */
 typedef uint32_t libuna_unicode_character_t;
 
-/* UTF-7 character definitions
- */
-typedef uint8_t libuna_utf7_character_t;
-
 /* UTF-8 character definitions
  */
 typedef uint8_t libuna_utf8_character_t;

@@ -201,6 +201,10 @@
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_utf32_string.h">
 			</None>
+			<CppCompile Include="..\..\..\libuna\libuna_utf7_stream.c">
+			</CppCompile>
+			<None Include="..\..\..\libuna\libuna_utf7_stream.h">
+			</None>
 			<CppCompile Include="..\..\..\libuna\libuna_utf8_stream.c">
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_utf8_stream.h">
