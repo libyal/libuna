@@ -532,7 +532,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 	/* Spread the encoding over 4 characters if 3 bytes are available
 	 * Otherwise pad the remaining bytes if required
 	 */
-	if( padding_size >= 1 )
+	if( padding_size < 1 )
 	{
 		base64_stream[ *base64_stream_index ] = libuna_base64_character_from_sixtet(
 		                                         sixtet4 );

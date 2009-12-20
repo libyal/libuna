@@ -1,5 +1,4 @@
 TODO
-* complete UTF-7
 * complete base16
   - implement base16 functions
     - add base16 functions to api
@@ -26,8 +25,7 @@ TODO
 
   - implement support for base32hex
   - implement support for base32
-  - implement support for base64url
-  - implement support for UTF-7 (for libpff)
+
   - implement support for codepages:
     - 923 iso-2022-jp Japanese (Shift-JIS)
     - 936 gb2312 Chinese Simplified (GB2312)
@@ -40,9 +38,11 @@ TODO
     - 52936 hz-gb-2312 Chinese Simplified (HZ)
 
 Test
-* codepage windows-874
-* codepage koi8-r
-* codepage koi8-u
+* create automated tests and test files
+  - UTF-7
+  - base16
+  - base64
+  - base64url
 
 Tools:
 * unaexport
@@ -67,9 +67,6 @@ Tools:
   - update spec.in file
   - update msvscpp project files
 
-Test
-* create automated tests and test files
-
 Deployment:
 * create debian package files
 * fix AUTHORS
@@ -90,6 +87,10 @@ Other Windows codepages (MBC)
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * Borland CodeGear uses numeric codepage e.g. 850
+
+20091220
+* worked on UTF-7 functions
+* fixed error in base64
 
 20091219
 * worked on UTF-32 compare functions

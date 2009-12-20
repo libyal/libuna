@@ -90,9 +90,9 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 /* Copies a Unicode character from a UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
- *  24 - 25 the amount of sixtets in the triplet
+ *  24 - 25 the amount of bytes in the triplet
  *  26 - 27 unused
- *  28 - 29 the current sixtet
+ *  28 - 29 the current byte
  *       30 unused
  *       31 flag to indicate the current UTF-7 characters are (modified) base64 encoded
  *
@@ -109,9 +109,9 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 /* Copies a Unicode character into a UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
- *  24 - 25 the amount of sixtets in the triplet
+ *  24 - 25 the amount of bytes in the triplet
  *  26 - 27 unused
- *  28 - 29 the current sixtet
+ *  28 - 29 the current byte
  *       30 unused
  *       31 flag to indicate the current UTF-7 characters are (modified) base64 encoded
  *

@@ -222,6 +222,26 @@ int unainput_determine_byte_stream_codepage(
 	}
 	else if( libsystem_string_compare(
 	          argument,
+	          _LIBSYSTEM_CHARACTER_T_STRING( "koi8" ),
+	          4 ) == 0 )
+	{
+		if( ( argument[ 4 ] != '-' )
+		 && ( argument[ 4 ] != '_' ) )
+		{
+		}
+		else if( argument[ 5 ] != 'r' )
+		{
+			*byte_stream_codepage = LIBUNA_CODEPAGE_KOI8_R;
+			result                = 1;
+		}
+		else if( argument[ 5 ] != 'u' )
+		{
+			*byte_stream_codepage = LIBUNA_CODEPAGE_KOI8_U;
+			result                = 1;
+		}
+	}
+	else if( libsystem_string_compare(
+	          argument,
 	          _LIBSYSTEM_CHARACTER_T_STRING( "windows" ),
 	          7 ) == 0 )
 	{
