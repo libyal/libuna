@@ -1,7 +1,7 @@
 /*
  * ISO 8859-9 codepage (Turkish) function
  *
- * Copyright (c) 2009, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Copyright (c) 2009-2010, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
