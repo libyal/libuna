@@ -231,7 +231,7 @@ extern "C" {
 	vsprintf
 
 #elif defined( HAVE_VSPRINTF ) || defined( WINAPI )
-#define narrow_vstring_vsprintf( string, format, ... ) \
+#define narrow_string_vsprintf( string, format, ... ) \
 	vsprintf( string, format, __VA_ARGS__ )
 #endif
 
