@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20100104],
+  [20100105],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20100104])
+ [20100105])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -295,12 +295,9 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [snprintf],
  [],
- [AC_CHECK_FUNCS(
-  [sprintf],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: snprintf and sprintf],
-   [1]) ]) ])
+ [AC_MSG_FAILURE(
+  [Missing function: snprintf],
+  [1]) ])
 
 AC_CHECK_FUNCS(
  [strlen],
@@ -377,12 +374,9 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [vsnprintf],
  [],
- [AC_CHECK_FUNCS(
-  [sprintf],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: vsnprintf and sprintf],
-   [1]) ]) ])
+ [AC_MSG_FAILURE(
+  [Missing function: vsnprintf],
+  [1]) ])
 
 dnl Check for error string functions used in unatools/error_string.h
 AC_FUNC_STRERROR_R(
