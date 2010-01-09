@@ -91,7 +91,6 @@ Note:
 20100106
 * updated common, libsystem
 * worked on Borland C++ 5 compiler support
-  now supports the free BCC 5.5 version (__BORLANDC__ = 0x0610)
 
 20100104
 * updated common, liberror, libsystem
