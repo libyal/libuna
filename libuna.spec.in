@@ -67,7 +67,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
-* Sun Sep 11 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080921-1
+* Sun Feb 21 2010 Joachim Metz <jbmetz@users.sourceforge.net> 20100221-1
+- Email address change
+
+* Sun Sep 11 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080911-1
 - Changed ucaexport into unaexport
 
 * Mon Sep 1 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080901-1

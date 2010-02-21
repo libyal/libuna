@@ -2,15 +2,15 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20100106],
-  [forensics@hoffmannbv.nl])
+  [20100221],
+  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
  [include/libuna.h.in])
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20100106])
+ [20100221])
 
 AC_CONFIG_MACRO_DIR([m4])
 
