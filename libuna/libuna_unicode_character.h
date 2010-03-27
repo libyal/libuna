@@ -63,6 +63,7 @@ LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
                                  libuna_unicode_character_t unicode_character,
                                  size_t *utf7_stream_character_size,
+                                 uint32_t *utf7_stream_base64_data,
                                  liberror_error_t **error );
 
 LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(

@@ -45,6 +45,7 @@ int libuna_utf7_stream_size_from_utf8(
 	static char *function                        = "libuna_utf7_stream_size_from_utf8";
 	size_t utf8_string_iterator                  = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -104,6 +105,7 @@ int libuna_utf7_stream_size_from_utf8(
 		if( libuna_unicode_character_size_to_utf7_stream(
 		     unicode_character,
 		     utf7_stream_size,
+		     &utf7_stream_base64_data,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -234,6 +236,7 @@ int libuna_utf7_stream_size_from_utf16(
 	static char *function                        = "libuna_utf7_stream_size_from_utf16";
 	size_t utf16_string_iterator                 = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf16_string == NULL )
 	{
@@ -293,6 +296,7 @@ int libuna_utf7_stream_size_from_utf16(
 		if( libuna_unicode_character_size_to_utf7_stream(
 		     unicode_character,
 		     utf7_stream_size,
+		     &utf7_stream_base64_data,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -423,6 +427,7 @@ int libuna_utf7_stream_size_from_utf32(
 	static char *function                        = "libuna_utf7_stream_size_from_utf32";
 	size_t utf32_string_iterator                 = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf32_string == NULL )
 	{
@@ -482,6 +487,7 @@ int libuna_utf7_stream_size_from_utf32(
 		if( libuna_unicode_character_size_to_utf7_stream(
 		     unicode_character,
 		     utf7_stream_size,
+		     &utf7_stream_base64_data,
 		     error ) != 1 )
 		{
 			liberror_error_set(

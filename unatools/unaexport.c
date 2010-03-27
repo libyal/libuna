@@ -882,7 +882,9 @@ ssize64_t unaexport(
 		realignment_iterator          = source_string_buffer_iterator;
 		source_string_buffer_iterator = 0;
 
-		for( ; read_count > 0; read_count-- )
+		for( ;
+		     read_count > 0;
+		     read_count-- )
 		{
 			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
 		}

@@ -582,9 +582,16 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
                    libuna_unicode_character_t unicode_character,
                    size_t *utf7_stream_character_size,
+                   uint32_t *utf7_stream_base64_data,
                    liberror_error_t **error )
 {
-	static char *function = "libuna_unicode_character_size_to_utf7_stream";
+	libuna_utf16_character_t utf16_surrogate = 0;
+	static char *function                    = "libuna_unicode_character_size_to_utf7_stream";
+	uint8_t base64_encode_character          = 0;
+	uint32_t base64_triplet                  = 0;
+	uint8_t amount_of_bytes                  = 0;
+	uint8_t current_byte                     = 0;
+	uint8_t byte_bit_shift                   = 0;
 
 	if( utf7_stream_character_size == NULL )
 	{
@@ -597,8 +604,233 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 
 		return( -1 );
 	}
-	/* TODO */
-	return( -1 );
+	if( utf7_stream_base64_data == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 stream base64 data.",
+		 function );
+
+		return( -1 );
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	{
+		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	/* A-Z is not a continous range on a EBCDIC based system
+	 * it consists of the ranges: A-I, J-R, S-Z
+	 */
+	if( ( unicode_character >= 0x41 )
+	 && ( unicode_character <= 0x49 ) )
+	{
+	}
+	else if( ( unicode_character >= 0x4a )
+	      && ( unicode_character <= 0x52 ) )
+	{
+	}
+	else if( ( unicode_character >= 0x53 )
+	      && ( unicode_character <= 0x5a ) )
+	{
+	}
+	/* a-z is not a continous range on a EBCDIC based system
+	 * it consists of the ranges: a-i, j-r, s-z
+	 */
+	else if( ( unicode_character >= 0x61 )
+	      && ( unicode_character <= 0x69 ) )
+	{
+	}
+	else if( ( unicode_character >= 0x6a )
+	      && ( unicode_character <= 0x72 ) )
+	{
+	}
+	else if( ( unicode_character >= 0x73 )
+	      && ( unicode_character <= 0x7a ) )
+	{
+	}
+	/* 0-9
+	 */
+	else if( ( unicode_character >= 0x30 )
+	      && ( unicode_character <= 0x39 ) )
+	{
+	}
+	/* Valid directly encoded whitespace
+	 */
+	else if( ( unicode_character == (libuna_unicode_character_t) '\t' )
+	      || ( unicode_character == (libuna_unicode_character_t) '\n' )
+	      || ( unicode_character == (libuna_unicode_character_t) '\r' )
+	      || ( unicode_character == (libuna_unicode_character_t) ' ' ) )
+	{
+	}
+	/* The + character must be escaped
+	 */
+	else if( unicode_character == (libuna_unicode_character_t) '+' )
+	{
+	}
+	/* Valid directly encoded characters
+	 */
+	else if( ( unicode_character == (libuna_unicode_character_t) '\'' )
+	      || ( unicode_character == (libuna_unicode_character_t) '(' )
+	      || ( unicode_character == (libuna_unicode_character_t) ')' )
+	      || ( unicode_character == (libuna_unicode_character_t) ',' )
+	      || ( unicode_character == (libuna_unicode_character_t) '-' )
+	      || ( unicode_character == (libuna_unicode_character_t) '.' )
+	      || ( unicode_character == (libuna_unicode_character_t) '/' )
+	      || ( unicode_character == (libuna_unicode_character_t) ':' )
+	      || ( unicode_character == (libuna_unicode_character_t) '?' ) )
+	{
+	}
+	/* Valid optional directly encoded characters
+	 */
+	else if( ( unicode_character == (libuna_unicode_character_t) '!' )
+	      || ( unicode_character == (libuna_unicode_character_t) '"' )
+	      || ( unicode_character == (libuna_unicode_character_t) '#' )
+	      || ( unicode_character == (libuna_unicode_character_t) '$' )
+	      || ( unicode_character == (libuna_unicode_character_t) '%' )
+	      || ( unicode_character == (libuna_unicode_character_t) '&' )
+	      || ( unicode_character == (libuna_unicode_character_t) '*' )
+	      || ( unicode_character == (libuna_unicode_character_t) ';' )
+	      || ( unicode_character == (libuna_unicode_character_t) '<' )
+	      || ( unicode_character == (libuna_unicode_character_t) '=' )
+	      || ( unicode_character == (libuna_unicode_character_t) '>' )
+	      || ( unicode_character == (libuna_unicode_character_t) '@' )
+	      || ( unicode_character == (libuna_unicode_character_t) '[' )
+	      || ( unicode_character == (libuna_unicode_character_t) ']' )
+	      || ( unicode_character == (libuna_unicode_character_t) '^' )
+	      || ( unicode_character == (libuna_unicode_character_t) '_' )
+	      || ( unicode_character == (libuna_unicode_character_t) '`' )
+	      || ( unicode_character == (libuna_unicode_character_t) '{' )
+	      || ( unicode_character == (libuna_unicode_character_t) '|' )
+	      || ( unicode_character == (libuna_unicode_character_t) '}' ) )
+	{
+	}
+	/* Allow for the end of string character
+	 */
+	else if( unicode_character == 0 )
+	{
+	}
+	else
+	{
+		base64_encode_character = 1;
+	}
+	if( base64_encode_character == 0 )
+	{
+		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == LIBUNA_UTF7_IS_BASE64_ENCODED )
+		{
+			*utf7_stream_base64_data = 0;
+		}
+		*utf7_stream_character_size += 1;
+
+		/* The + character must be escaped
+		 */
+		if( unicode_character == (libuna_unicode_character_t) '+' )
+		{
+			*utf7_stream_character_size += 1;
+		}
+	}
+	else
+	{
+		/* Escape the base64 encoded characters with a +
+		 */
+		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+		{
+			*utf7_stream_character_size += 1;
+		}
+		/* Otherwise continue the previously base64 encoded characters
+		 */
+		else
+		{
+			base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
+			amount_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
+			current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
+
+			if( amount_of_bytes > 0 )
+			{
+				/* Correct the size for the last partial base64 stream
+				 */
+				*utf7_stream_character_size -= amount_of_bytes + 1;
+			}
+			/* Correct the size for the base64 stream termination character
+			 */
+			*utf7_stream_character_size -= 1;
+		}
+		*utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+
+		if( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
+		{
+			unicode_character -= 0x010000;
+
+			utf16_surrogate = (libuna_utf16_character_t) ( ( unicode_character >> 10 ) + LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START );
+
+			byte_bit_shift   = 16 - ( current_byte * 8 );
+			base64_triplet  += (uint32_t) ( ( utf16_surrogate >> 8 ) & 0xff ) << byte_bit_shift;
+			current_byte    += 1;
+			amount_of_bytes += 1;
+
+			if( amount_of_bytes == 3 )
+			{
+				*utf7_stream_character_size += 4;
+				amount_of_bytes              = 0;
+				current_byte                 = 0;
+				base64_triplet               = 0;
+			}
+			byte_bit_shift   = 16 - ( current_byte * 8 );
+			base64_triplet  += (uint32_t) ( utf16_surrogate & 0xff ) << byte_bit_shift;
+			current_byte    += 1;
+			amount_of_bytes += 1;
+
+			if( amount_of_bytes == 3 )
+			{
+				*utf7_stream_character_size += 4;
+				amount_of_bytes              = 0;
+				current_byte                 = 0;
+				base64_triplet               = 0;
+			}
+			unicode_character = (libuna_utf16_character_t) ( ( unicode_character & 0x03ff ) + LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START );
+		}
+		byte_bit_shift   = 16 - ( current_byte * 8 );
+		base64_triplet  += (uint32_t) ( ( unicode_character >> 8 ) & 0xff ) << byte_bit_shift;
+		current_byte    += 1;
+		amount_of_bytes += 1;
+
+		if( amount_of_bytes == 3 )
+		{
+			*utf7_stream_character_size += 4;
+			amount_of_bytes              = 0;
+			current_byte                 = 0;
+			base64_triplet               = 0;
+		}
+		byte_bit_shift   = 16 - ( current_byte * 8 );
+		base64_triplet  += (uint32_t) ( unicode_character & 0xff ) << byte_bit_shift;
+		current_byte    += 1;
+		amount_of_bytes += 1;
+
+		if( amount_of_bytes == 3 )
+		{
+			*utf7_stream_character_size += 4;
+			amount_of_bytes              = 0;
+			current_byte                 = 0;
+			base64_triplet               = 0;
+		}
+		/* Terminate the base64 encoded characters
+		 */
+		if( amount_of_bytes > 0 )
+		{
+			*utf7_stream_character_size += amount_of_bytes + 1;
+		}
+		*utf7_stream_character_size += 1;
+	}
+	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == LIBUNA_UTF7_IS_BASE64_ENCODED )
+	{
+		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
+		*utf7_stream_base64_data |= (uint32_t) amount_of_bytes << 24;
+		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
+	}
+	return( 1 );
 }
 
 /* Copies a Unicode character from a UTF-7 stream
@@ -1132,6 +1364,17 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 		return( -1 );
 	}
+	if( utf7_stream_base64_data == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-7 stream base64 data.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine if the Unicode character is valid
 	 */
 	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
@@ -1207,6 +1450,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	      || ( unicode_character == (libuna_unicode_character_t) '?' ) )
 	{
 	}
+#ifdef X
 	/* Valid optional directly encoded characters
 	 */
 	else if( ( unicode_character == (libuna_unicode_character_t) '!' )
@@ -1231,6 +1475,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	      || ( unicode_character == (libuna_unicode_character_t) '}' ) )
 	{
 	}
+#endif
 	else
 	{
 		base64_encode_character = 1;
@@ -1278,7 +1523,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	}
 	else
 	{
-		/* Escape the base64 encoded data with a +
+		/* Escape the base64 encoded chracters with a +
 		 */
 		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
 		{
@@ -1297,7 +1542,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 			*utf7_stream_index += 1;
 		}
-		/* Otherwise continue the previously encoded data
+		/* Otherwise continue the previously base64 encoded characters
 		 */
 		else
 		{

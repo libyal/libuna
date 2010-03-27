@@ -112,8 +112,9 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid base64 character.",
-		 function );
+		 "%s: invalid base64 character: 0x%02" PRIx8 ".",
+		 function,
+		 base64_character );
 
 		return( -1 );
 	}
@@ -573,7 +574,6 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
 
 		return( -1 );
 	}
-
 	if( byte_stream == NULL )
 	{
 		liberror_error_set(

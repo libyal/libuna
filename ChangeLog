@@ -1,7 +1,7 @@
 TODO
-* utf-7
-  - complete: libuna_unicode_character_size_to_utf7_stream
-  - handle 0 byte in libuna_unicode_character_copy_from_utf7_stream ?
+* utf7
+  - is termination by space (0x20) allowed?
+  - protect against negative size
 * complete base16
   - implement base16 functions
     - add base16 functions to api
@@ -89,6 +89,7 @@ Note:
 * updated liberror
 * worked on libcstring support in libsystem and unatools
 * updated msvscpp, codegear and macosx files
+* worked on UTF-7 functions
 
 20100221
 * updated common, liberror, libsystem
