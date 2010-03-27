@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20100221],
+  [20100327],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20100221])
+ [20100327])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -90,10 +90,8 @@ AC_CHECK_HEADER(
 dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
 
-dnl Headers included in common/memory.h
+dnl Headers included in common/memory.h and libcstring/libcstring_narrow_string.h
 AC_CHECK_HEADERS([stdlib.h])
-
-dnl Headers included in common/narrow_string.h
 AC_CHECK_HEADERS([string.h])
 
 dnl Headers included in liberror/liberror_error.h and unatools/notify.h
@@ -284,7 +282,7 @@ AC_CHECK_FUNCS(
   [Missing function: realloc],
   [1]) ])
 
-dnl Narrow character string functions used in common/narrow_string.h
+dnl Narrow character string functions used in libcstring/libcstring_narrow_string.h
 AC_CHECK_FUNCS(
  [fgets],
  [],
@@ -293,10 +291,70 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 AC_CHECK_FUNCS(
+ [memchr],
+ [],
+ [AC_CHECK_FUNCS(
+  [strchr],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: memchr and strchr],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memcmp],
+ [],
+ [AC_CHECK_FUNCS(
+  [strncmp],
+  [],
+  [AC_CHECK_FUNCS(
+   [strcmp],
+   [],
+   [AC_MSG_FAILURE(
+    [Missing functions: memcmp, strncmp and strcmp],
+    [1]) ]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memcpy],
+ [],
+ [AC_CHECK_FUNCS(
+  [strncpy],
+  [],
+  [AC_CHECK_FUNCS(
+   [strcpy],
+   [],
+   [AC_MSG_FAILURE(
+    [Missing functions: memcpy, strncpy and strcpy],
+    [1]) ]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memrchr],
+ [AC_CHECK_DECLS(
+  [memrchr],
+  [ac_libuna_have_memrchr=yes],
+  [ac_libuna_have_memrchr=no]) ],
+ [ac_libuna_have_memrchr=no])
+
+AS_IF(
+	[test "x$ac_libuna_have_memrchr" = xno],
+	[AC_CHECK_FUNCS(
+	 [strrchr],
+	 [],
+	 [AC_MSG_FAILURE(
+	  [Missing functions: strrchr and memrchr],
+	  [1]) ]) ])
+
+AC_CHECK_FUNCS(
  [snprintf],
  [],
  [AC_MSG_FAILURE(
   [Missing function: snprintf],
+  [1]) ])
+
+AC_CHECK_FUNCS(
+ [sscanf],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: sscanf],
   [1]) ])
 
 AC_CHECK_FUNCS(
@@ -307,48 +365,13 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 AC_CHECK_FUNCS(
- [strchr],
+ [strncasecmp],
  [],
  [AC_CHECK_FUNCS(
-  [memchr],
+  [strcasecmp],
   [],
   [AC_MSG_FAILURE(
-   [Missing functions: strchr and memchr],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strncmp],
- [],
- [AC_CHECK_FUNCS(
-  [strcmp],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strncmp and strcmp],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strncpy],
- [],
- [AC_CHECK_FUNCS(
-  [strcpy],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strncpy and strcpy],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strrchr],
- [],
- [AC_CHECK_FUNCS(
-  [memrchr],
-  [AC_CHECK_DECLS(
-   [memrchr],
-   [],
-   [AC_MSG_FAILURE(
-    [Missing declaration for function memrchr],
-    [1]) ]) ],
-  [AC_MSG_FAILURE(
-   [Missing functions: strrchr and memrchr],
+   [Missing functions: strncasecmp and strcasecmp],
    [1]) ]) ])
 
 AC_CHECK_FUNCS(
@@ -514,6 +537,7 @@ dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
+AC_CONFIG_FILES([libcstring/Makefile])
 AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([libsystem/Makefile])

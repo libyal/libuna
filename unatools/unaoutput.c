@@ -52,7 +52,7 @@ void unaoutput_copyright_fprint(
 	}
 	fprintf(
 	 stream,
-	 "Copyright (c) 2008-2010, Joachim Metz, Hoffmann Investigations <%s> and contributors.\n"
+	 "Copyright (c) 2008-2010, Joachim Metz <%s> and contributors.\n"
 	 "This is free software; see the source for copying conditions. There is NO\n"
 	 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
 	 PACKAGE_BUGREPORT );
@@ -62,7 +62,7 @@ void unaoutput_copyright_fprint(
  */
 void unaoutput_version_fprint(
       FILE *stream,
-      const libsystem_character_t *program )
+      const char *program )
 {
 	if( stream == NULL )
 	{
@@ -74,7 +74,7 @@ void unaoutput_version_fprint(
 	}
         fprintf(
 	 stream,
-	 "%" PRIs_LIBSYSTEM " %s (libuna %s)\n\n",
+	 "%s %s (libuna %s)\n\n",
          program,
 	 LIBUNA_VERSION_STRING,
 	 LIBUNA_VERSION_STRING );
@@ -101,79 +101,79 @@ void unaoutput_codepage_fprint(
 		case LIBUNA_CODEPAGE_ISO_8859_1:
 			fprintf(
 			 stream,
-			 "ISO 8859-1 ()" );
+			 "ISO 8859-1 (Western European)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_2:
 			fprintf(
 			 stream,
-			 "ISO 8859-2 ()" );
+			 "ISO 8859-2 (Central European)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_3:
 			fprintf(
 			 stream,
-			 "ISO 8859-3 ()" );
+			 "ISO 8859-3 (South European)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_4:
 			fprintf(
 			 stream,
-			 "ISO 8859-4 ()" );
+			 "ISO 8859-4 (North European)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_5:
 			fprintf(
 			 stream,
-			 "ISO 8859-5 ()" );
+			 "ISO 8859-5 (Cyrillic)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_6:
 			fprintf(
 			 stream,
-			 "ISO 8859-6 ()" );
+			 "ISO 8859-6 (Arabic)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_7:
 			fprintf(
 			 stream,
-			 "ISO 8859-7 ()" );
+			 "ISO 8859-7 (Greek)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_8:
 			fprintf(
 			 stream,
-			 "ISO 8859-8 ()" );
+			 "ISO 8859-8 (Hebrew)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_9:
 			fprintf(
 			 stream,
-			 "ISO 8859-9 ()" );
+			 "ISO 8859-9 (Turkish)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_10:
 			fprintf(
 			 stream,
-			 "ISO 8859-10 ()" );
+			 "ISO 8859-10 (Nordic)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_11:
 			fprintf(
 			 stream,
-			 "ISO 8859-11 ()" );
+			 "ISO 8859-11 (Thai)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_13:
 			fprintf(
 			 stream,
-			 "ISO 8859-13 ()" );
+			 "ISO 8859-13 (Baltic)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_14:
 			fprintf(
 			 stream,
-			 "ISO 8859-14 ()" );
+			 "ISO 8859-14 (Celtic)" );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_15:
@@ -185,7 +185,19 @@ void unaoutput_codepage_fprint(
 		case LIBUNA_CODEPAGE_ISO_8859_16:
 			fprintf(
 			 stream,
-			 "ISO 8859-16 (Lating-10)" );
+			 "ISO 8859-16 (Latin-10)" );
+			break;
+
+		case LIBUNA_CODEPAGE_KOI8_R:
+			fprintf(
+			 stream,
+			 "koi8-r (Russian)" );
+			break;
+
+		case LIBUNA_CODEPAGE_KOI8_U:
+			fprintf(
+			 stream,
+			 "koi8-u (Ukrainian)" );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
@@ -269,21 +281,23 @@ void unaoutput_codepages_fprint(
 	 stream,
 	 "\tCodepage:     Description:\n"
 	 "\tascii:        Support 7-bit ASCII (US-ASCII) character set\n"
-	 "\tiso-8859-1:   Support ISO 8859-1 () character set\n"
-	 "\tiso-8859-2:   Support ISO 8859-2 () character set\n"
-	 "\tiso-8859-3:   Support ISO 8859-3 () character set\n"
-	 "\tiso-8859-4:   Support ISO 8859-4 () character set\n"
-	 "\tiso-8859-5:   Support ISO 8859-5 () character set\n"
-	 "\tiso-8859-6:   Support ISO 8859-6 () character set\n"
-	 "\tiso-8859-7:   Support ISO 8859-7 () character set\n"
-	 "\tiso-8859-8:   Support ISO 8859-8 () character set\n"
-	 "\tiso-8859-9:   Support ISO 8859-9 () character set\n"
-	 "\tiso-8859-10:  Support ISO 8859-10 () character set\n"
-	 "\tiso-8859-11:  Support ISO 8859-11 () character set\n"
-	 "\tiso-8859-13:  Support ISO 8859-13 () character set\n"
-	 "\tiso-8859-14:  Support ISO 8859-14 () character set\n"
+	 "\tiso-8859-1:   Support ISO 8859-1 (Western European) character set\n"
+	 "\tiso-8859-2:   Support ISO 8859-2 (Central European) character set\n"
+	 "\tiso-8859-3:   Support ISO 8859-3 (South European) character set\n"
+	 "\tiso-8859-4:   Support ISO 8859-4 (North European) character set\n"
+	 "\tiso-8859-5:   Support ISO 8859-5 (Cyrillic) character set\n"
+	 "\tiso-8859-6:   Support ISO 8859-6 (Arabic) character set\n"
+	 "\tiso-8859-7:   Support ISO 8859-7 (Greek) character set\n"
+	 "\tiso-8859-8:   Support ISO 8859-8 (Hebrew) character set\n"
+	 "\tiso-8859-9:   Support ISO 8859-9 (Turkish) character set\n"
+	 "\tiso-8859-10:  Support ISO 8859-10 (Nordic) character set\n"
+	 "\tiso-8859-11:  Support ISO 8859-11 (Thai) character set\n"
+	 "\tiso-8859-13:  Support ISO 8859-13 (Baltic) character set\n"
+	 "\tiso-8859-14:  Support ISO 8859-14 (Celtic) character set\n"
 	 "\tiso-8859-15:  Support ISO 8859-14 (Latin-9) character set\n"
 	 "\tiso-8859-16:  Support ISO 8859-16 (Latin-10) character set\n"
+	 "\tkoi8-r:       Support KOI8-R (Russian) character set\n"
+	 "\tkoi8-u:       Support KOI8-U (Ukrainian) character set\n"
 	 "\twindows-874:  Supports the Windows 874 (Thai) character set\n"
 	 "\twindows-1250: Supports the Windows 1250 (Central European) character set\n"
 	 "\twindows-1251: Supports the Windows 1251 (Cyrillic) character set\n"

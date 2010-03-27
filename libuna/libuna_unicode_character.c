@@ -620,7 +620,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
                    uint32_t *utf7_stream_base64_data,
                    liberror_error_t **error )
 {
-	static char *function                    = "libuna_unicode_character_copy_from_utf7";
+	static char *function                    = "libuna_unicode_character_copy_from_utf7_stream";
 	libuna_utf16_character_t utf16_surrogate = 0;
 	uint32_t base64_triplet                  = 0;
 	uint8_t amount_of_bytes                  = 0;

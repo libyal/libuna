@@ -1,6 +1,7 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
+	-I$(top_srcdir)/libcstring \
 	-I$(top_srcdir)/liberror \
 	-I$(top_srcdir)/libsystem \
 	@MEMWATCH_CPPFLAGS@ \
@@ -19,6 +20,7 @@ unaexport_SOURCES = \
 	unaoutput.c unaoutput.h
 
 unaexport_LDADD = \
+	../libcstring/libcstring.la \
 	../liberror/liberror.la \
 	../libsystem/libsystem.la \
 	@MEMWATCH_LIBADD@

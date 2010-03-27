@@ -24,9 +24,8 @@
 #include <common.h>
 #include <types.h>
 
+#include <libcstring.h>
 #include <liberror.h>
-
-#include <libsystem.h>
 
 #include "byte_size_string.h"
 
@@ -34,14 +33,14 @@
  * Returns 1 if successful or -1 on error
  */
 int byte_size_string_create(
-     libsystem_character_t *byte_size_string,
+     libcstring_system_character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t size,
      int units,
      liberror_error_t **error )
 {
-	const libsystem_character_t *factor_string = NULL;
-	const libsystem_character_t *units_string  = NULL;
+	const libcstring_system_character_t *factor_string = NULL;
+	const libcstring_system_character_t *units_string  = NULL;
 	static char *function                      = "byte_size_string_create";
 	ssize_t print_count                        = 0;
 	uint64_t factored_size                     = 0;
@@ -76,11 +75,11 @@ int byte_size_string_create(
 	if( ( size < 1024 )
 	 || ( units == BYTE_SIZE_STRING_UNIT_MEGABYTE ) )
 	{
-		units_string = _LIBSYSTEM_CHARACTER_T_STRING( "B" );
+		units_string = _LIBCSTRING_SYSTEM_STRING( "B" );
 	}
 	else if( units == BYTE_SIZE_STRING_UNIT_MEBIBYTE )
 	{
-		units_string = _LIBSYSTEM_CHARACTER_T_STRING( "iB" );
+		units_string = _LIBCSTRING_SYSTEM_STRING( "iB" );
 	}
 	factored_size = size;
 
@@ -113,31 +112,31 @@ int byte_size_string_create(
 	switch( factor )
 	{
 		case 0:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "" );
 			break;
 		case 1:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "K" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "K" );
 			break;
 		case 2:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "M" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "M" );
 			break;
 		case 3:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "G" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "G" );
 			break;
 		case 4:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "T" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "T" );
 			break;
 		case 5:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "P" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "P" );
 			break;
 		case 6:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "E" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "E" );
 			break;
 		case 7:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "Z" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "Z" );
 			break;
 		case 8:
-			factor_string = _LIBSYSTEM_CHARACTER_T_STRING( "Y" );
+			factor_string = _LIBCSTRING_SYSTEM_STRING( "Y" );
 			break;
 	}
 	if( remainder > 9 )
@@ -146,13 +145,15 @@ int byte_size_string_create(
 	}
 	if( remainder >= 0 )
 	{
-		print_count = libsystem_string_snprintf(
+		/* format string: "%d.%d %s %s"
+		 */
+		print_count = libcstring_system_string_sprintf(
 		               byte_size_string,
 		               byte_size_string_length,
-		               _LIBSYSTEM_CHARACTER_T_STRING( "%" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIu64 )
-		               _LIBSYSTEM_CHARACTER_T_STRING( ".%" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIu8 )
-		               _LIBSYSTEM_CHARACTER_T_STRING( " %" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIs_LIBSYSTEM )
-		               _LIBSYSTEM_CHARACTER_T_STRING( "%" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIs_LIBSYSTEM ),
+		               _LIBCSTRING_SYSTEM_STRING( "%" ) _LIBCSTRING_SYSTEM_STRING( PRIu64 )
+		               _LIBCSTRING_SYSTEM_STRING( ".%" ) _LIBCSTRING_SYSTEM_STRING( PRIu8 )
+		               _LIBCSTRING_SYSTEM_STRING( " %" ) _LIBCSTRING_SYSTEM_STRING( PRIs_LIBCSTRING_SYSTEM )
+		               _LIBCSTRING_SYSTEM_STRING( "%" ) _LIBCSTRING_SYSTEM_STRING( PRIs_LIBCSTRING_SYSTEM ),
 		               factored_size,
 		               remainder,
 		               factor_string,
@@ -160,12 +161,14 @@ int byte_size_string_create(
 	}
 	else
 	{
-		print_count = libsystem_string_snprintf(
+		/* format string: "%d %s %s"
+		 */
+		print_count = libcstring_system_string_sprintf(
 		               byte_size_string,
 		               byte_size_string_length,
-		               _LIBSYSTEM_CHARACTER_T_STRING( "%" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIu64 )
-		               _LIBSYSTEM_CHARACTER_T_STRING( " %" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIs_LIBSYSTEM )
-		               _LIBSYSTEM_CHARACTER_T_STRING( "%" ) _LIBSYSTEM_CHARACTER_T_STRING( PRIs_LIBSYSTEM ),
+		               _LIBCSTRING_SYSTEM_STRING( "%" ) _LIBCSTRING_SYSTEM_STRING( PRIu64 )
+		               _LIBCSTRING_SYSTEM_STRING( " %" ) _LIBCSTRING_SYSTEM_STRING( PRIs_LIBCSTRING_SYSTEM )
+		               _LIBCSTRING_SYSTEM_STRING( "%" ) _LIBCSTRING_SYSTEM_STRING( PRIs_LIBCSTRING_SYSTEM ),
 		               factored_size,
 		               factor_string,
 		               units_string );
@@ -189,7 +192,7 @@ int byte_size_string_create(
  * Returns 1 if successful or -1 on error
  */
 int byte_size_string_convert(
-     const libsystem_character_t *byte_size_string,
+     const libcstring_system_character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t *size,
      liberror_error_t **error )
@@ -225,33 +228,33 @@ int byte_size_string_convert(
 	}
 	while( byte_size_string_iterator < byte_size_string_length )
 	{
-		if( ( byte_size_string[ byte_size_string_iterator ] < (libsystem_character_t) '0' )
-		 || ( byte_size_string[ byte_size_string_iterator ] > (libsystem_character_t) '9' ) )
+		if( ( byte_size_string[ byte_size_string_iterator ] < (libcstring_system_character_t) '0' )
+		 || ( byte_size_string[ byte_size_string_iterator ] > (libcstring_system_character_t) '9' ) )
 		{
 			break;
 		}
 		byte_size *= 10;
-		byte_size += ( byte_size_string[ byte_size_string_iterator ] - (libsystem_character_t) '0' );
+		byte_size += ( byte_size_string[ byte_size_string_iterator ] - (libcstring_system_character_t) '0' );
 
 		byte_size_string_iterator++;
 	}
-	if( byte_size_string[ byte_size_string_iterator ] == (libsystem_character_t) '.' )
+	if( byte_size_string[ byte_size_string_iterator ] == (libcstring_system_character_t) '.' )
 	{
 		byte_size_string_iterator++;
 
-		if( ( byte_size_string[ byte_size_string_iterator ] >= (libsystem_character_t) '0' )
-		 && ( byte_size_string[ byte_size_string_iterator ] <= (libsystem_character_t) '9' ) )
+		if( ( byte_size_string[ byte_size_string_iterator ] >= (libcstring_system_character_t) '0' )
+		 && ( byte_size_string[ byte_size_string_iterator ] <= (libcstring_system_character_t) '9' ) )
 		{
-			remainder = (int8_t) ( byte_size_string[ byte_size_string_iterator ] - (libsystem_character_t) '0' );
+			remainder = (int8_t) ( byte_size_string[ byte_size_string_iterator ] - (libcstring_system_character_t) '0' );
 
 			byte_size_string_iterator++;
 		}
 		remainder *= 10;
 
-		if( ( byte_size_string[ byte_size_string_iterator ] >= (libsystem_character_t) '0' )
-		 && ( byte_size_string[ byte_size_string_iterator ] <= (libsystem_character_t) '9' ) )
+		if( ( byte_size_string[ byte_size_string_iterator ] >= (libcstring_system_character_t) '0' )
+		 && ( byte_size_string[ byte_size_string_iterator ] <= (libcstring_system_character_t) '9' ) )
 		{
-			remainder += (int8_t) ( byte_size_string[ byte_size_string_iterator ] - (libsystem_character_t) '0' );
+			remainder += (int8_t) ( byte_size_string[ byte_size_string_iterator ] - (libcstring_system_character_t) '0' );
 
 			byte_size_string_iterator++;
 		}
@@ -259,15 +262,15 @@ int byte_size_string_convert(
 		 */
 		while( byte_size_string_iterator < byte_size_string_length )
 		{
-			if( ( byte_size_string[ byte_size_string_iterator ] < (libsystem_character_t) '0' )
-			 || ( byte_size_string[ byte_size_string_iterator ] > (libsystem_character_t) '9' ) )
+			if( ( byte_size_string[ byte_size_string_iterator ] < (libcstring_system_character_t) '0' )
+			 || ( byte_size_string[ byte_size_string_iterator ] > (libcstring_system_character_t) '9' ) )
 			{
 				break;
 			}
 			byte_size_string_iterator++;
 		}
 	}
-	if( byte_size_string[ byte_size_string_iterator ] == (libsystem_character_t) ' ' )
+	if( byte_size_string[ byte_size_string_iterator ] == (libcstring_system_character_t) ' ' )
 	{
 		byte_size_string_iterator++;
 	}
@@ -325,14 +328,14 @@ int byte_size_string_convert(
 	{
 		units = BYTE_SIZE_STRING_UNIT_MEBIBYTE;
 	}
-	else if( ( byte_size_string[ byte_size_string_iterator ] == (libsystem_character_t) 'i' )
-	      && ( byte_size_string[ byte_size_string_iterator + 1 ] == (libsystem_character_t) 'B' ) )
+	else if( ( byte_size_string[ byte_size_string_iterator ] == (libcstring_system_character_t) 'i' )
+	      && ( byte_size_string[ byte_size_string_iterator + 1 ] == (libcstring_system_character_t) 'B' ) )
 	{
 		units = BYTE_SIZE_STRING_UNIT_MEBIBYTE;
 
 		byte_size_string_iterator += 2;
 	}
-	else if( byte_size_string[ byte_size_string_iterator ] == (libsystem_character_t) 'B' )
+	else if( byte_size_string[ byte_size_string_iterator ] == (libcstring_system_character_t) 'B' )
 	{
 		units = BYTE_SIZE_STRING_UNIT_MEGABYTE;
 

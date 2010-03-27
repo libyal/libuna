@@ -19,7 +19,7 @@
 			<AllPackageLibs>rtl.lib</AllPackageLibs>
 			<PackageImports>vcl.bpi;rtl.bpi;bcbie.bpi;vclx.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;dbrtl.bpi;vcldb.bpi;vcldbx.bpi;bdertl.bpi;dsnap.bpi;dsnapcon.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DataSnapServer.bpi;DbxClientDriver.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;dbxcds.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi</PackageImports>
 			<NoVCL>true</NoVCL>
-			<BCC_IncludePath>..\..\..\include;..\..\..\common;..\..\..\liberror;..\..\..\libuna;..\..\..\libsystem;$(BCC_IncludePath)</BCC_IncludePath>
+			<BCC_IncludePath>..\..\..\include;..\..\..\common;..\..\..\libcstring;..\..\..\liberror;..\..\..\libuna;..\..\..\libsystem;$(BCC_IncludePath)</BCC_IncludePath>
 			<ProjectType>CppConsoleApplication</ProjectType>
 			<Multithreaded>true</Multithreaded>
 			<BCC_waus>false</BCC_waus>
@@ -39,47 +39,51 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<None Include="..\..\..\unatools\unacommon.h">
-				<BuildOrder>16</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\unatools\unaexport.c">
-				<BuildOrder>17</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\unatools\process_status.c">
-				<BuildOrder>12</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\unatools\process_status.h">
-				<BuildOrder>13</BuildOrder>
-			</None>
-			<None Include="..\..\..\unatools\unainput.h">
-				<BuildOrder>21</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\unatools\unaoutput.c">
-				<BuildOrder>22</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\unatools\unaoutput.h">
-				<BuildOrder>23</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\unatools\unainput.c">
-				<BuildOrder>20</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\unatools\byte_size_string.c">
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
 			<None Include="..\..\..\unatools\byte_size_string.h">
 				<BuildOrder>1</BuildOrder>
 			</None>
-			<LibFiles Include="..\Release\liberror.lib">
+			<CppCompile Include="..\..\..\unatools\byte_size_string.c">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\unatools\unainput.c">
+				<BuildOrder>20</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\Release\libsystem.lib">
 				<IgnorePath>true</IgnorePath>
-				<BuildOrder>24</BuildOrder>
+				<BuildOrder>12</BuildOrder>
 			</LibFiles>
 			<LibFiles Include="..\Release\libuna.lib">
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>25</BuildOrder>
 			</LibFiles>
-			<LibFiles Include="..\Release\libsystem.lib">
+			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
+				<BuildOrder>24</BuildOrder>
+			</LibFiles>
+			<None Include="..\..\..\unatools\unaoutput.h">
+				<BuildOrder>23</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\unatools\process_status.c">
 				<BuildOrder>12</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\unatools\unaexport.c">
+				<BuildOrder>17</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\unatools\unacommon.h">
+				<BuildOrder>16</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\unatools\unaoutput.c">
+				<BuildOrder>22</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\unatools\unainput.h">
+				<BuildOrder>21</BuildOrder>
+			</None>
+			<None Include="..\..\..\unatools\process_status.h">
+				<BuildOrder>13</BuildOrder>
+			</None>
+			<LibFiles Include="..\Release\libcstring.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>13</BuildOrder>
 			</LibFiles>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

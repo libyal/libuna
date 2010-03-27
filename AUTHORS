@@ -6,6 +6,6 @@ Hoffmann Investigations.
 
 This code is derived from information and software contributed by:
 * Unicode string conversion from unicode.org
-* libiconv [add reference]
+* libiconv from http://www.gnu.org/software/libiconv/
 * codepage documentation from MSDN and ISO/ECMA
 

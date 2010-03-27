@@ -1,4 +1,7 @@
 TODO
+* utf-7
+  - complete: libuna_unicode_character_size_to_utf7_stream
+  - handle 0 byte in libuna_unicode_character_copy_from_utf7_stream ?
 * complete base16
   - implement base16 functions
     - add base16 functions to api
@@ -65,18 +68,11 @@ Tools:
     .Sh SEE ALSO
     .Xr unainfo 1
   - update spec.in file
-  - update msvscpp project files
+  - update msvscpp, codegear project files
 
 Deployment:
 * create debian package files
-* fix AUTHORS
-* update MSVSCPP solution file
-  - add liberror
-  - add unaprocess_status to unaexport project
-  - and more
-* update MacOS-X project file
-  - change libuca to libuna
-* Borland C++ 5.5 support
+* create Borland C++ 5.5 files
 
 Other Windows codepages (MBC)
 * 932 (Japanese Shift-JIS)
@@ -86,7 +82,13 @@ Other Windows codepages (MBC)
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
-* Borland CodeGear uses numeric codepage e.g. 850
+* CodeGear uses numeric codepage e.g. 850
+
+20100327
+* added libcstring
+* updated liberror
+* worked on libcstring support in libsystem and unatools
+* updated msvscpp, codegear and macosx files
 
 20100221
 * updated common, liberror, libsystem

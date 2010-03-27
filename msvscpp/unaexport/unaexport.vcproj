@@ -41,7 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\liberror;..\..\libsystem"
+				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\liberror;..\..\libsystem"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_IMPORT"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"

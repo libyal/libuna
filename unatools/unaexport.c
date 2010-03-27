@@ -23,12 +23,10 @@
 
 #include <common.h>
 #include <memory.h>
-#include <narrow_string.h>
 #include <types.h>
 
+#include <libcstring.h>
 #include <liberror.h>
-
-#include <errno.h>
 
 #include <stdio.h>
 
@@ -101,9 +99,9 @@ void usage_fprint(
  */
 void export_fprint(
       FILE *stream,
-      const libsystem_character_t *source_filename,
+      const libcstring_system_character_t *source_filename,
       int input_format,
-      const libsystem_character_t *destination_filename,
+      const libcstring_system_character_t *destination_filename,
       int output_format,
       int byte_stream_codepage,
       int export_byte_order_mark,
@@ -221,9 +219,9 @@ void export_fprint(
  * Returns the amount of bytes of the source processed or -1 on error
  */
 ssize64_t unaexport(
-           const libsystem_character_t *source_filename,
+           const libcstring_system_character_t *source_filename,
            int input_format,
-           const libsystem_character_t *destination_filename,
+           const libcstring_system_character_t *destination_filename,
            int output_format,
            int byte_stream_codepage,
            int export_byte_order_mark,
@@ -335,7 +333,7 @@ ssize64_t unaexport(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open source: %" PRIs_LIBSYSTEM ".",
+		 "%s: unable to open source: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 source_filename );
 
@@ -351,7 +349,7 @@ ssize64_t unaexport(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open destination: %" PRIs_LIBSYSTEM ".",
+		 "%s: unable to open destination: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 destination_filename );
 
@@ -928,7 +926,7 @@ ssize64_t unaexport(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close source: %" PRIs_LIBSYSTEM ".",
+		 "%s: unable to close source: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 source_filename );
 
@@ -946,7 +944,7 @@ ssize64_t unaexport(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_IO,
 		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close destination: %" PRIs_LIBSYSTEM ".",
+		 "%s: unable to close destination: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 destination_filename );
 
@@ -957,27 +955,27 @@ ssize64_t unaexport(
 
 /* The main program
  */
-#if defined( LIBSYSTEM_HAVE_WIDE_CHARACTER )
+#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain( int argc, wchar_t * const argv[] )
 #else
 int main( int argc, char * const argv[] )
 #endif
 {
-	liberror_error_t *error                     = NULL;
-	process_status_t *process_status            = NULL;
-	libsystem_character_t *destination_filename = NULL;
-	libsystem_character_t *program              = _LIBSYSTEM_CHARACTER_T_STRING( "unaexport" );
-	libsystem_character_t *source_filename      = NULL;
-	ssize64_t export_count                      = 0;
-	libsystem_integer_t option                  = 0;
-	uint8_t print_status_information            = 1;
-	int byte_stream_codepage                    = LIBUNA_CODEPAGE_ASCII;
-	int export_byte_order_mark                  = 1;
-	int input_format                            = UNACOMMON_FORMAT_AUTO_DETECT;
-	int newline_conversion                      = UNACOMMON_NEWLINE_CONVERSION_NONE;
-	int output_format                           = UNACOMMON_FORMAT_UTF8;
-	int verbose                                 = 0;
-	int status                                  = 0;
+	liberror_error_t *error                             = NULL;
+	process_status_t *process_status                    = NULL;
+	libcstring_system_character_t *destination_filename = NULL;
+	libcstring_system_character_t *source_filename      = NULL;
+	char *program                                       = "unaexport";
+	ssize64_t export_count                              = 0;
+	libcstring_system_integer_t option                  = 0;
+	uint8_t print_status_information                    = 1;
+	int byte_stream_codepage                            = LIBUNA_CODEPAGE_ASCII;
+	int export_byte_order_mark                          = 1;
+	int input_format                                    = UNACOMMON_FORMAT_AUTO_DETECT;
+	int newline_conversion                              = UNACOMMON_NEWLINE_CONVERSION_NONE;
+	int output_format                                   = UNACOMMON_FORMAT_UTF8;
+	int verbose                                         = 0;
+	int status                                          = 0;
 
 	libsystem_notify_set_stream(
 	 stderr,
@@ -1006,15 +1004,15 @@ int main( int argc, char * const argv[] )
 	while( ( option = libsystem_getopt(
 	                   argc,
 	                   argv,
-	                   _LIBSYSTEM_CHARACTER_T_STRING( "Bc:hi:ln:o:qvV" ) ) ) != (libsystem_integer_t) -1 )
+	                   _LIBCSTRING_SYSTEM_STRING( "Bc:hi:ln:o:qvV" ) ) ) != (libcstring_system_integer_t) -1 )
 	{
 		switch( option )
 		{
-			case (libsystem_integer_t) '?':
+			case (libcstring_system_integer_t) '?':
 			default:
 				fprintf(
 				 stderr,
-				 "Invalid argument: %s\n",
+				 "Invalid argument: %" PRIs_LIBCSTRING_SYSTEM "\n",
 				 argv[ optind ] );
 
 				usage_fprint(
@@ -1022,12 +1020,12 @@ int main( int argc, char * const argv[] )
 
 				return( EXIT_FAILURE );
 
-			case (libsystem_integer_t) 'B':
+			case (libcstring_system_integer_t) 'B':
 				export_byte_order_mark = 0;
 
 				break;
 
-			case (libsystem_integer_t) 'c':
+			case (libcstring_system_integer_t) 'c':
 				if( unainput_determine_byte_stream_codepage(
 				     optarg,
 				     &byte_stream_codepage,
@@ -1046,17 +1044,17 @@ int main( int argc, char * const argv[] )
 				}
 				break;
 
-			case (libsystem_integer_t) 'h':
+			case (libcstring_system_integer_t) 'h':
 				usage_fprint(
 				 stdout );
 
 				return( EXIT_SUCCESS );
 
-			case (libsystem_integer_t) 'i':
-				if( libsystem_string_compare(
-				 optarg,
-				 _LIBSYSTEM_CHARACTER_T_STRING( "auto-detect" ),
-				 11 ) == 0 )
+			case (libcstring_system_integer_t) 'i':
+				if( libcstring_system_string_compare(
+				     optarg,
+				     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
+				     11 ) == 0 )
 				{
 					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 				}
@@ -1078,13 +1076,13 @@ int main( int argc, char * const argv[] )
 				}
 				break;
 
-			case (libsystem_integer_t) 'l':
+			case (libcstring_system_integer_t) 'l':
 				unaoutput_codepages_fprint(
 				 stdout );
 
 				return( EXIT_SUCCESS );
 
-			case (libsystem_integer_t) 'n':
+			case (libcstring_system_integer_t) 'n':
 				if( unainput_determine_newline_conversion(
 				     optarg,
 				     &newline_conversion,
@@ -1103,7 +1101,7 @@ int main( int argc, char * const argv[] )
 				}
 				break;
 
-			case (libsystem_integer_t) 'o':
+			case (libcstring_system_integer_t) 'o':
 				if( unainput_determine_format(
 				     optarg,
 				     &output_format,
@@ -1122,17 +1120,17 @@ int main( int argc, char * const argv[] )
 				}
 				break;
 
-			case (libsystem_integer_t) 'q':
+			case (libcstring_system_integer_t) 'q':
 				print_status_information = 0;
 
 				break;
 
-			case (libsystem_integer_t) 'v':
+			case (libcstring_system_integer_t) 'v':
 				verbose = 1;
 
 				break;
 
-			case (libsystem_integer_t) 'V':
+			case (libcstring_system_integer_t) 'V':
 				unaoutput_copyright_fprint(
 				 stdout );
 
@@ -1180,9 +1178,9 @@ int main( int argc, char * const argv[] )
 
 	if( process_status_initialize(
 	     &process_status,
-	     _LIBSYSTEM_CHARACTER_T_STRING( "Export" ),
-	     _LIBSYSTEM_CHARACTER_T_STRING( "exported" ),
-	     _LIBSYSTEM_CHARACTER_T_STRING( "Exported" ),
+	     _LIBCSTRING_SYSTEM_STRING( "Export" ),
+	     _LIBCSTRING_SYSTEM_STRING( "exported" ),
+	     _LIBCSTRING_SYSTEM_STRING( "Exported" ),
 	     stdout,
 	     print_status_information,
 	     &error ) != 1 )

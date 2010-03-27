@@ -27,8 +27,6 @@
 #include <common.h>
 #include <types.h>
 
-#include <libsystem.h>
-
 #if defined( __cplusplus )
 extern "C" {
 #endif
@@ -38,7 +36,7 @@ void unaoutput_copyright_fprint(
 
 void unaoutput_version_fprint(
       FILE *stream,
-      const libsystem_character_t *program );
+      const char *program );
 
 void unaoutput_codepage_fprint(
       FILE *stream,
