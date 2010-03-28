@@ -114,10 +114,12 @@ enum LIBUNA_COMPRESSION_ERROR
 	 */
 	LIBUNA_COMPRESSION_ERROR_COMPRESS_FAILED     = 1,
 
-	/* The de/uncompression failed
+	/* The decompression failed
 	 */
-	LIBUNA_COMPRESSION_ERROR_UNCOMPRESS_FAILED   = 2
+	LIBUNA_COMPRESSION_ERROR_DECOMPRESS_FAILED   = 2
 };
+
+#define LIBUNA_COMPRESSION_ERROR_UNCOMPRESS_FAILED	LIBUNA_COMPRESSION_ERROR_DECOMPRESS_FAILED
 
 /* The input/output error codes
  * to signify errors regarding input/output

@@ -122,9 +122,13 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
 }
 
 /* Copies a base64 triplet from a base64 stream
+ *
  * A padding character value of 0 indicates the lack of padding characters
- * Note that the padding size will still be set to indicate the amount of
+ * 0 padding also allows for non base64 characters to terminate the triplet
+ *
+ * The padding size will still be set to indicate the amount of
  * sixtets in the triplet
+ *
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
@@ -319,22 +323,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 		}
 		else
 		{
-			if( ( padding_character != 0 )
-			 && ( *padding_size > 0 ) )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-				 "%s: invalid 4th base64 sixtet.",
-				 function );
-
-				return( -1 );
-			}
-			if( libuna_base64_character_copy_to_sixtet(
-			     base64_stream[ *base64_stream_index + 3 ],
-			     &sixtet4,
-			     error ) != 1 )
+			if( *padding_size > 0 )
 			{
 				if( padding_character != 0 )
 				{
@@ -342,19 +331,40 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 					 error,
 					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 					 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-					 "%s: invalid 4rd base64 sixtet.",
+					 "%s: invalid 4th base64 sixtet.",
 					 function );
 
 					return( -1 );
 				}
-				liberror_error_free(
-				 error );
-
 				*padding_size += 1;
 			}
 			else
 			{
-				amount_of_base64_characters += 1;
+				if( libuna_base64_character_copy_to_sixtet(
+				     base64_stream[ *base64_stream_index + 3 ],
+				     &sixtet4,
+				     error ) != 1 )
+				{
+					if( padding_character != 0 )
+					{
+						liberror_error_set(
+						 error,
+						 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+						 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+						 "%s: invalid 4rd base64 sixtet.",
+						 function );
+
+						return( -1 );
+					}
+					liberror_error_free(
+					 error );
+
+					*padding_size += 1;
+				}
+				else
+				{
+					amount_of_base64_characters += 1;
+				}
 			}
 		}
 	}
