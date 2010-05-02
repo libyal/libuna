@@ -216,7 +216,7 @@ void export_fprint(
 }
 
 /* Exports the source file to the destination file
- * Returns the amount of bytes of the source processed or -1 on error
+ * Returns the number of bytes of the source processed or -1 on error
  */
 ssize64_t unaexport(
            const libcstring_system_character_t *source_filename,
@@ -247,8 +247,8 @@ ssize64_t unaexport(
 	ssize_t write_count                             = 0;
 	uint32_t destination_utf7_stream_base64_data    = 0;
 	uint32_t source_utf7_stream_base64_data         = 0;
-	uint8_t amount_of_unicode_characters            = 0;
 	uint8_t analyze_first_character                 = 1;
+	uint8_t number_of_unicode_characters            = 0;
 	uint8_t unicode_character_iterator              = 0;
 	int result                                      = 1;
 
@@ -694,7 +694,7 @@ ssize64_t unaexport(
 
 				break;
 			}
-			amount_of_unicode_characters++;
+			number_of_unicode_characters++;
 
 			read_count -= source_string_buffer_iterator - last_source_string_buffer_iterator;
 
@@ -713,7 +713,7 @@ ssize64_t unaexport(
 							unicode_character[ unicode_character_iterator     ] = 0x000d;
 							unicode_character[ unicode_character_iterator + 1 ] = 0x000a;
 			
-							amount_of_unicode_characters++;
+							number_of_unicode_characters++;
 						}
 					}
 					else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
@@ -726,7 +726,7 @@ ssize64_t unaexport(
 						{
 							unicode_character[ unicode_character_iterator - 1 ] = 0x000d;
 
-							amount_of_unicode_characters--;
+							number_of_unicode_characters--;
 						}
 					}
 					else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
@@ -735,7 +735,7 @@ ssize64_t unaexport(
 						{
 							unicode_character[ unicode_character_iterator - 1 ] = 0x000a;
 
-							amount_of_unicode_characters--;
+							number_of_unicode_characters--;
 						}
 					}
 				}
@@ -751,7 +751,7 @@ ssize64_t unaexport(
 			/* Write all unicode characters
 			 */
 			for( unicode_character_iterator = 0;
-			     unicode_character_iterator < amount_of_unicode_characters;
+			     unicode_character_iterator < number_of_unicode_characters;
 			     unicode_character_iterator++ )
 			{
 				switch( output_format )
@@ -847,7 +847,7 @@ ssize64_t unaexport(
 			{
 				break;
 			}
-			amount_of_unicode_characters = 0;
+			number_of_unicode_characters = 0;
 			unicode_character_iterator   = 0;
 		}
 		if( export_count <= -1 )

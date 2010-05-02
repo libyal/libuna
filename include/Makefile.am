@@ -5,7 +5,6 @@ pkginclude_HEADERS = \
         libuna/definitions.h \
         libuna/error.h \
         libuna/extern.h \
-        libuna/inline.h \
         libuna/types.h
 
 EXTRA_DIST = \

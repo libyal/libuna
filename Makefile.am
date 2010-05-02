@@ -51,8 +51,8 @@ distclean: clean
 	done && test -z "$$fail"
 
 splint:
-	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))

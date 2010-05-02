@@ -589,7 +589,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 	static char *function                    = "libuna_unicode_character_size_to_utf7_stream";
 	uint8_t base64_encode_character          = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t amount_of_bytes                  = 0;
+	uint8_t number_of_bytes                  = 0;
 	uint8_t current_byte                     = 0;
 	uint8_t byte_bit_shift                   = 0;
 
@@ -744,12 +744,12 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 		else
 		{
 			base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-			amount_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
+			number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
 			current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
 
-			if( amount_of_bytes > 0 )
+			if( number_of_bytes > 0 )
 			{
-				if( *utf7_stream_character_size < (size_t) ( amount_of_bytes + 1 ) )
+				if( *utf7_stream_character_size < (size_t) ( number_of_bytes + 1 ) )
 				{
 					liberror_error_set(
 					 error,
@@ -762,7 +762,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 				}
 				/* Correct the size for the last partial base64 stream
 				 */
-				*utf7_stream_character_size -= amount_of_bytes + 1;
+				*utf7_stream_character_size -= number_of_bytes + 1;
 			}
 			if( *utf7_stream_character_size < 1 )
 			{
@@ -790,24 +790,24 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( ( utf16_surrogate >> 8 ) & 0xff ) << byte_bit_shift;
 			current_byte    += 1;
-			amount_of_bytes += 1;
+			number_of_bytes += 1;
 
-			if( amount_of_bytes == 3 )
+			if( number_of_bytes == 3 )
 			{
 				*utf7_stream_character_size += 4;
-				amount_of_bytes              = 0;
+				number_of_bytes              = 0;
 				current_byte                 = 0;
 				base64_triplet               = 0;
 			}
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( utf16_surrogate & 0xff ) << byte_bit_shift;
 			current_byte    += 1;
-			amount_of_bytes += 1;
+			number_of_bytes += 1;
 
-			if( amount_of_bytes == 3 )
+			if( number_of_bytes == 3 )
 			{
 				*utf7_stream_character_size += 4;
-				amount_of_bytes              = 0;
+				number_of_bytes              = 0;
 				current_byte                 = 0;
 				base64_triplet               = 0;
 			}
@@ -816,32 +816,32 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( ( unicode_character >> 8 ) & 0xff ) << byte_bit_shift;
 		current_byte    += 1;
-		amount_of_bytes += 1;
+		number_of_bytes += 1;
 
-		if( amount_of_bytes == 3 )
+		if( number_of_bytes == 3 )
 		{
 			*utf7_stream_character_size += 4;
-			amount_of_bytes              = 0;
+			number_of_bytes              = 0;
 			current_byte                 = 0;
 			base64_triplet               = 0;
 		}
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( unicode_character & 0xff ) << byte_bit_shift;
 		current_byte    += 1;
-		amount_of_bytes += 1;
+		number_of_bytes += 1;
 
-		if( amount_of_bytes == 3 )
+		if( number_of_bytes == 3 )
 		{
 			*utf7_stream_character_size += 4;
-			amount_of_bytes              = 0;
+			number_of_bytes              = 0;
 			current_byte                 = 0;
 			base64_triplet               = 0;
 		}
 		/* Terminate the base64 encoded characters
 		 */
-		if( amount_of_bytes > 0 )
+		if( number_of_bytes > 0 )
 		{
-			*utf7_stream_character_size += amount_of_bytes + 1;
+			*utf7_stream_character_size += number_of_bytes + 1;
 		}
 		*utf7_stream_character_size += 1;
 	}
@@ -849,7 +849,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 	{
 		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
 		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) amount_of_bytes << 24;
+		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
 		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
 	return( 1 );
@@ -858,7 +858,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 /* Copies a Unicode character from a UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
- *  24 - 25 the amount of bytes in the triplet
+ *  24 - 25 the number of bytes in the triplet
  *  26 - 27 unused
  *  28 - 29 the current byte
  *       30 unused
@@ -877,7 +877,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 	static char *function                    = "libuna_unicode_character_copy_from_utf7_stream";
 	libuna_utf16_character_t utf16_surrogate = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t amount_of_bytes                  = 0;
+	uint8_t number_of_bytes                  = 0;
 	uint8_t current_byte                     = 0;
 	uint8_t padding_size                     = 0;
 	uint8_t byte_bit_shift                   = 0;
@@ -951,10 +951,10 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
 		base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-		amount_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
+		number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
 		current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
 
-		if( current_byte >= amount_of_bytes )
+		if( current_byte >= number_of_bytes )
 		{
 			/* A-Z is not a continous range on a EBCDIC based system
 			 * it consists of the ranges: A-I, J-R, S-Z
@@ -1126,8 +1126,8 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 			*utf7_stream_index += 1;
 		}
 	}
-	else if( ( amount_of_bytes == 0 )
-	      || ( current_byte >= amount_of_bytes ) )
+	else if( ( number_of_bytes == 0 )
+	      || ( current_byte >= number_of_bytes ) )
 	{
 		if( libuna_base64_triplet_copy_from_base64_stream(
 		     &base64_triplet,
@@ -1158,7 +1158,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 
 			return( -1 );
 		}
-		amount_of_bytes = 3 - padding_size;
+		number_of_bytes = 3 - padding_size;
 		current_byte    = 0;
 	}
 	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
@@ -1167,7 +1167,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 		*unicode_character = ( ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL ) << 8;
 		current_byte      += 1;
 
-		if( current_byte >= amount_of_bytes )
+		if( current_byte >= number_of_bytes )
 		{
 			if( libuna_base64_triplet_copy_from_base64_stream(
 			     &base64_triplet,
@@ -1198,7 +1198,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 
 				return( -1 );
 			}
-			amount_of_bytes = 3 - padding_size;
+			number_of_bytes = 3 - padding_size;
 			current_byte    = 0;
 		}
 		byte_bit_shift      = 16 - ( current_byte * 8 );
@@ -1208,7 +1208,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 		if( ( *unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 		 && ( *unicode_character <= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_END ) )
 		{
-			if( current_byte >= amount_of_bytes )
+			if( current_byte >= number_of_bytes )
 			{
 				if( libuna_base64_triplet_copy_from_base64_stream(
 				     &base64_triplet,
@@ -1239,14 +1239,14 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 
 					return( -1 );
 				}
-				amount_of_bytes = 3 - padding_size;
+				number_of_bytes = 3 - padding_size;
 				current_byte    = 0;
 			}
 			byte_bit_shift  = 16 - ( current_byte * 8 );
 			utf16_surrogate = ( ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL ) << 8;
 			current_byte   += 1;
 
-			if( current_byte >= amount_of_bytes )
+			if( current_byte >= number_of_bytes )
 			{
 				if( libuna_base64_triplet_copy_from_base64_stream(
 				     &base64_triplet,
@@ -1277,7 +1277,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 
 					return( -1 );
 				}
-				amount_of_bytes = 3 - padding_size;
+				number_of_bytes = 3 - padding_size;
 				current_byte    = 0;
 			}
 			byte_bit_shift   = 16 - ( current_byte * 8 );
@@ -1310,7 +1310,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 
 			return( -1 );
 		}
-		if( ( current_byte >= amount_of_bytes )
+		if( ( current_byte >= number_of_bytes )
 		 && ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '-' ) )
 		{
 			*utf7_stream_base64_data = 0;
@@ -1321,7 +1321,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 	{
 		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
 		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) amount_of_bytes << 24;
+		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
 		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
 	return( 1 );
@@ -1330,7 +1330,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
 /* Copies a Unicode character into a UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
- *  24 - 25 the amount of bytes in the triplet
+ *  24 - 25 the number of bytes in the triplet
  *  26 - 27 unused
  *  28 - 29 the current byte
  *       30 unused
@@ -1349,7 +1349,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	static char *function                    = "libuna_unicode_character_copy_to_utf7_stream";
 	libuna_utf16_character_t utf16_surrogate = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t amount_of_bytes                  = 0;
+	uint8_t number_of_bytes                  = 0;
 	uint8_t base64_encode_character          = 0;
 	uint8_t current_byte                     = 0;
 	uint8_t byte_bit_shift                   = 0;
@@ -1570,14 +1570,14 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 		else
 		{
 			base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-			amount_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
+			number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
 			current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
 
-			if( amount_of_bytes > 0 )
+			if( number_of_bytes > 0 )
 			{
 				/* Correct the index for the last partial base64 stream
 				 */
-				*utf7_stream_index -= amount_of_bytes + 1;
+				*utf7_stream_index -= number_of_bytes + 1;
 			}
 			/* Correct the index for the base64 stream termination character
 			 */
@@ -1594,9 +1594,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( ( utf16_surrogate >> 8 ) & 0xff ) << byte_bit_shift;
 			current_byte    += 1;
-			amount_of_bytes += 1;
+			number_of_bytes += 1;
 
-			if( amount_of_bytes == 3 )
+			if( number_of_bytes == 3 )
 			{
 				if( libuna_base64_triplet_copy_to_base64_stream(
 				     base64_triplet,
@@ -1616,16 +1616,16 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 					return( -1 );
 				}
-				amount_of_bytes = 0;
+				number_of_bytes = 0;
 				current_byte    = 0;
 				base64_triplet  = 0;
 			}
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( utf16_surrogate & 0xff ) << byte_bit_shift;
 			current_byte    += 1;
-			amount_of_bytes += 1;
+			number_of_bytes += 1;
 
-			if( amount_of_bytes == 3 )
+			if( number_of_bytes == 3 )
 			{
 				if( libuna_base64_triplet_copy_to_base64_stream(
 				     base64_triplet,
@@ -1645,7 +1645,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 					return( -1 );
 				}
-				amount_of_bytes = 0;
+				number_of_bytes = 0;
 				current_byte    = 0;
 				base64_triplet  = 0;
 			}
@@ -1654,9 +1654,9 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( ( unicode_character >> 8 ) & 0xff ) << byte_bit_shift;
 		current_byte    += 1;
-		amount_of_bytes += 1;
+		number_of_bytes += 1;
 
-		if( amount_of_bytes == 3 )
+		if( number_of_bytes == 3 )
 		{
 			if( libuna_base64_triplet_copy_to_base64_stream(
 			     base64_triplet,
@@ -1676,16 +1676,16 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 				return( -1 );
 			}
-			amount_of_bytes = 0;
+			number_of_bytes = 0;
 			current_byte    = 0;
 			base64_triplet  = 0;
 		}
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( unicode_character & 0xff ) << byte_bit_shift;
 		current_byte    += 1;
-		amount_of_bytes += 1;
+		number_of_bytes += 1;
 
-		if( amount_of_bytes == 3 )
+		if( number_of_bytes == 3 )
 		{
 			if( libuna_base64_triplet_copy_to_base64_stream(
 			     base64_triplet,
@@ -1705,13 +1705,13 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 
 				return( -1 );
 			}
-			amount_of_bytes = 0;
+			number_of_bytes = 0;
 			current_byte    = 0;
 			base64_triplet  = 0;
 		}
 		/* Terminate the base64 encoded characters
 		 */
-		if( amount_of_bytes > 0 )
+		if( number_of_bytes > 0 )
 		{
 			if( libuna_base64_triplet_copy_to_base64_stream(
 			     base64_triplet,
@@ -1719,7 +1719,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 			     utf7_stream_size,
 			     utf7_stream_index,
 			     0,
-			     3 - amount_of_bytes,
+			     3 - number_of_bytes,
 			     error ) != 1 )
 			{
 				liberror_error_set(
@@ -1751,7 +1751,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	{
 		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
 		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) amount_of_bytes << 24;
+		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
 		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
 	return( 1 );
@@ -1895,7 +1895,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
 
 		return( -1 );
 	}
-	/* Determine the amount of additional bytes of the UTF-8 character
+	/* Determine the number of additional bytes of the UTF-8 character
 	 */
 	if( utf8_string[ *utf8_string_index ] < 0xc0 )
 	{

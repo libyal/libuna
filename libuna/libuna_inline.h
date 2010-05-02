@@ -26,13 +26,7 @@
 
 #include <common.h>
 
-/* Define HAVE_LOCAL_LIBUNA for local use of libuna
- */
-#if !defined( HAVE_LOCAL_LIBUNA )
-
-#include <libuna/inline.h>
-
-#elif defined( _MSC_VER )
+#if defined( _MSC_VER )
 #define LIBUNA_INLINE _inline
 
 #elif defined( __BORLANDC__ )

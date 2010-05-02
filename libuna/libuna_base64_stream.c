@@ -126,7 +126,7 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
  * A padding character value of 0 indicates the lack of padding characters
  * 0 padding also allows for non base64 characters to terminate the triplet
  *
- * The padding size will still be set to indicate the amount of
+ * The padding size will still be set to indicate the number of
  * sixtets in the triplet
  *
  * Returns 1 if successful or -1 on error
@@ -141,7 +141,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
                    liberror_error_t **error )
 {
 	static char *function               = "libuna_base64_triplet_copy_from_base64_stream";
-	uint8_t amount_of_base64_characters = 0;
+	uint8_t number_of_base64_characters = 0;
 	uint8_t sixtet1                     = 0;
 	uint8_t sixtet2                     = 0;
 	uint8_t sixtet3                     = 0;
@@ -257,7 +257,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	amount_of_base64_characters = 2;
+	number_of_base64_characters = 2;
 
 	if( ( *base64_stream_index + 2 ) < base64_stream_size )
 	{
@@ -266,7 +266,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 		{
 			sixtet3                      = 0;
 			*padding_size               += 1;
-			amount_of_base64_characters += 1;
+			number_of_base64_characters += 1;
 		}
 		else
 		{
@@ -293,7 +293,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 			}
 			else
 			{
-				amount_of_base64_characters += 1;
+				number_of_base64_characters += 1;
 			}
 		}
 	}
@@ -319,7 +319,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 		{
 			sixtet4                      = 0;
 			*padding_size               += 1;
-			amount_of_base64_characters += 1;
+			number_of_base64_characters += 1;
 		}
 		else
 		{
@@ -363,7 +363,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 				}
 				else
 				{
-					amount_of_base64_characters += 1;
+					number_of_base64_characters += 1;
 				}
 			}
 		}
@@ -391,7 +391,7 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
 	*base64_triplet <<= 6;
 	*base64_triplet  += sixtet4;
 
-	*base64_stream_index += amount_of_base64_characters;
+	*base64_stream_index += number_of_base64_characters;
 
 	return( 1 );
 }
@@ -822,7 +822,7 @@ int libuna_base64_stream_decode_size(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_CONVERSION,
 		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-		 "%s: invalid amount of padding.",
+		 "%s: invalid number of padding bytes.",
 		 function );
 
 		return( -1 );
@@ -916,7 +916,7 @@ int libuna_base64_stream_decode(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_CONVERSION,
 		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-		 "%s: invalid amount of padding.",
+		 "%s: invalid number of padding bytes.",
 		 function );
 
 		return( -1 );

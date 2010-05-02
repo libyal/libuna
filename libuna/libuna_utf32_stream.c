@@ -206,7 +206,7 @@ int libuna_utf32_stream_size_from_utf8(
 			return( -1 );
 		}
 	}
-	/* Convert the amount of characters into bytes
+	/* Convert the number of characters into bytes
 	 */
 	*utf32_stream_size *= 4;
 
@@ -431,7 +431,7 @@ int libuna_utf32_stream_size_from_utf16(
 			return( -1 );
 		}
 	}
-	/* Convert the amount of characters into bytes
+	/* Convert the number of characters into bytes
 	 */
 	*utf32_stream_size *= 4;
 
@@ -618,7 +618,7 @@ int libuna_utf32_stream_size_from_utf32(
 	 */
 	*utf32_stream_size = 1 + utf32_string_size;
 
-	/* Convert the amount of characters into bytes
+	/* Convert the number of characters into bytes
 	 */
 	*utf32_stream_size *= 4;
 

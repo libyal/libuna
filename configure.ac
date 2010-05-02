@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
-  [20100416],
+  [20100502],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libuna],
- [20100416])
+ [20100502])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -21,6 +21,11 @@ dnl Check for large file support
 AC_SYS_LARGEFILE
 
 dnl Check for configure arguments
+LIBUNA_TEST_ENABLE(
+ [winapi],
+ [winapi],
+ [enable WINAPI support for cross-compilation],
+ [no])
 LIBUNA_TEST_ENABLE(
  [static-executables],
  [static_executables],
@@ -87,45 +92,63 @@ AC_CHECK_HEADER(
   [HAVE_STDINT_H],
   [0])])
 
+dnl Headers included in common/common.h
+AS_IF(
+ [test "x$ac_cv_libuna_enable_winapi" = xyes],
+ [AC_CHECK_HEADERS([windows.h])
+
+ AS_IF(
+  [test "x$ac_cv_header_windows_h" = xno],
+  [AC_MSG_FAILURE(
+   [Missing header: windows.h header is required to compile with winapi support],
+   [1]) ])
+ ])
+
 dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
 
 dnl Headers included in common/memory.h and libcstring/libcstring_narrow_string.h
-AC_CHECK_HEADERS([stdlib.h])
-AC_CHECK_HEADERS([string.h])
+AC_CHECK_HEADERS([stdlib.h string.h])
 
 dnl Headers included in liberror/liberror_error.h and unatools/notify.h
-AC_CHECK_HEADERS(
- [stdarg.h],
- [],
- [AC_CHECK_HEADERS(
-  [varargs.h],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing headers: stdarg.h and varargs.h],
-   [1]) ]) ])
+AC_CHECK_HEADERS([stdarg.h])
+
+AS_IF(
+ [test "x$ac_cv_header_stdarg_h" != xyes],
+ [AC_CHECK_HEADERS([varargs.h]) ])
+
+AS_IF(
+ [test "x$ac_cv_header_stdarg_h" != xyes && test "x$ac_cv_header_varargs_h" != xyes],
+ [AC_MSG_FAILURE(
+  [Missing headers: stdarg.h and varargs.h],
+  [1]) ])
 
 dnl Headers included in unatools/date_time.h
 AC_HEADER_TIME
 
-dnl Headers included in unatools/file_io.h
-AC_CHECK_HEADERS([sys/stat.h])
-AC_CHECK_HEADERS([fcntl.h])
-AC_CHECK_HEADERS([unistd.h])
+dnl Headers included in libsystem/libsystem_file.h and libsystem/libsystem_string.h
+AC_CHECK_HEADERS([errno.h])
 
-dnl Headers included in unatools/glob.h
+dnl Headers included in libsystem/libsystem_directory_io.h and libsystem/libsystem_file_io.h
+AC_CHECK_HEADERS([sys/stat.h])
+
+dnl Headers included in libsystem/libsystem_file_io.h
+AC_CHECK_HEADERS([fcntl.h unistd.h])
+
+dnl Headers included in libsystem/libsystem_glob.h
 AC_CHECK_HEADERS([glob.h])
 
-dnl Headers included in unatools/unasignal.h
-AC_CHECK_HEADERS([signal.h])
-AC_CHECK_HEADERS([sys/signal.h])
+AS_IF(
+ [test "x$ac_cv_header_glob_h" = xno],
+ [AC_CHECK_HEADERS([io.h]) ])
 
-dnl Headers included in unatools/system_string.h
-AC_CHECK_HEADERS([langinfo.h])
-AC_CHECK_HEADERS([locale.h])
+dnl Headers included in libsytem/libsystem_support.c
+AC_CHECK_HEADERS([langinfo.h locale.h])
+
+dnl Headers included in libsystem/libsystem_signal.h
+AC_CHECK_HEADERS([signal.h sys/signal.h])
 
 dnl Other headers
-AC_CHECK_HEADERS([errno.h])
 
 dnl Check for declarations and type definitions
 AC_TYPE_OFF_T
@@ -221,9 +244,12 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [fseeko],
  [],
- [AC_MSG_FAILURE(
-  [Missing function: fseeko],
-  [1]) ])
+ [AC_CHECK_FUNCS(
+  [fseeko64],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing function: fseeko and fseeko64],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [fwrite],
@@ -335,13 +361,13 @@ AC_CHECK_FUNCS(
  [ac_libuna_have_memrchr=no])
 
 AS_IF(
-	[test "x$ac_libuna_have_memrchr" = xno],
-	[AC_CHECK_FUNCS(
-	 [strrchr],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: strrchr and memrchr],
-	  [1]) ]) ])
+ [test "x$ac_libuna_have_memrchr" = xno],
+ [AC_CHECK_FUNCS(
+  [strrchr],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: strrchr and memrchr],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [snprintf],
@@ -401,37 +427,7 @@ AC_CHECK_FUNCS(
   [Missing function: vsnprintf],
   [1]) ])
 
-dnl Check for error string functions used in unatools/error_string.h
-AC_FUNC_STRERROR_R(
- [],
- [AC_CHECK_FUNCS(
-  [strerror],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strerror_r and strerror],
-   [1]) ]) ])
-
-dnl Date and time functions used in unatools/date_time.h
-LIBUNA_CHECK_FUNC_CTIME
-
-AC_CHECK_FUNCS(
- [gmtime_r],
- [],
- [AC_CHECK_FUNCS(
-  [gmtime],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: gmtime_r and gmtime],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [time],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: time],
-  [1]) ])
-
-dnl File input/output functions used in unatools/file_io.h
+dnl File input/output functions used in libbfio/libbfio_file.h and libsystem/libsystem_file_io.h
 AC_CHECK_FUNCS(
  [close],
  [],
@@ -467,18 +463,77 @@ AC_CHECK_FUNCS(
   [Missing function: write],
   [1]) ])
 
-dnl File input/output functions used in unatools/notify.h
 AC_CHECK_FUNCS(
- [vfprintf],
+ [fstat],
  [],
  [AC_MSG_FAILURE(
-  [Missing function: vfprintf],
+  [Missing function: fstat],
   [1]) ])
 
-dnl Commandline argument/option parsing functions used in unatools/unagetopt.h
+dnl Date and time functions used in libuna/libuna_date_time.h and libsystem/libsystem_date_time.c
+AC_CHECK_FUNCS(
+ [localtime_r],
+ [],
+ [AC_CHECK_FUNCS(
+  [localtime],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: localtime_r and localtime],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [mktime],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: mktime],
+  [1]) ])
+
+dnl Date and time functions used in libsystem/libsystem_date_time.h
+LIBUNA_CHECK_FUNC_CTIME
+
+AC_CHECK_FUNCS(
+ [gmtime_r],
+ [],
+ [AC_CHECK_FUNCS(
+  [gmtime],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: gmtime_r and gmtime],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [time],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: time],
+  [1]) ])
+
+dnl Directory functions used in libsystem/libsystem_directory_io.h
+AC_CHECK_FUNCS(
+ [chdir],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing functions: chdir],
+  [1]) ])
+
+LIBUNA_CHECK_FUNC_MKDIR
+
+dnl Check for error string functions used in libbfio/libbfio_error_string.c and libsystem/libsystem_error.c
+AC_FUNC_STRERROR_R()
+
+AS_IF(
+ [test "x$ac_cv_have_decl_strerror_r" = xno],
+ [AC_CHECK_FUNCS(
+  [strerror],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: strerror_r and strerror],
+   [1]) ]) ])
+
+dnl Commandline argument/option parsing functions in libsystem/libsystem_getopt.h
 AC_CHECK_FUNCS([getopt])
 
-dnl Check for locale functions
+dnl Check for locale functions in libsystem/libsystem_support.h
 AC_CHECK_FUNCS(
  [setlocale],
  [],
@@ -486,33 +541,33 @@ AC_CHECK_FUNCS(
   [Missing function: setlocale],
   [1]) ])
 
-LIBUNA_LANGINFO_CODESET
+LIBUNA_CHECK_FUNC_LANGINFO_CODESET
 
-dnl System functions
+dnl Other functions
 
 dnl Check for printf conversion specifier support
-LIBUNA_CHECK_PRINTF_JD
-LIBUNA_CHECK_PRINTF_ZD
+LIBUNA_CHECK_FUNC_PRINTF_JD
+LIBUNA_CHECK_FUNC_PRINTF_ZD
 
 dnl Check if unatools should be build as static executables
 AS_IF(
-	[test "x$ac_cv_libuna_enable_static_executables" != xno],
-	[STATIC_LDFLAGS="-all-static";
-	AC_SUBST(
-	 [STATIC_LDFLAGS])
-	ac_cv_libuna_enable_static_executables=yes])
+ [test "x$ac_cv_libuna_enable_static_executables" != xno],
+ [STATIC_LDFLAGS="-all-static";
+ AC_SUBST(
+  [STATIC_LDFLAGS])
+ ac_cv_libuna_enable_static_executables=yes])
 
 dnl Set memwatch support
 ac_libuna_have_memwatch=no
 
 AS_IF(
-	[test "x$ac_libuna_have_memwatch" != xno ],
-	[AC_SUBST(
-	 [MEMWATCH_CPPFLAGS],
-	 ["-DMEMWATCH -DMEMWATCH_STDIO"])
-	AC_SUBST(
-	 [MEMWATCH_LIBADD],
-	 [../common/libmemwatch.la]) ])
+ [test "x$ac_libuna_have_memwatch" != xno ],
+ [AC_SUBST(
+  [MEMWATCH_CPPFLAGS],
+  ["-DMEMWATCH -DMEMWATCH_STDIO"])
+ AC_SUBST(
+  [MEMWATCH_LIBADD],
+  [../common/libmemwatch.la]) ])
 
 AM_CONDITIONAL(
  [HAVE_MEMWATCH],
@@ -523,15 +578,15 @@ CFLAGS="$CFLAGS -Wall";
 
 dnl Check if DLL support is needed in unatools
 AS_IF(
-	[test x"$enable_shared" = xyes],
-	[AS_CASE(
-		[$host],
-		[*cygwin* | *mingw*],
-		[AC_SUBST(
-		 [LIBUNA_DLL_IMPORT],
-		 ["-DLIBUNA_DLL_IMPORT"])
-		])
-	])
+ [test x"$enable_shared" = xyes],
+ [AS_CASE(
+  [$host],
+  [*cygwin* | *mingw*],
+  [AC_SUBST(
+   [LIBUNA_DLL_IMPORT],
+   ["-DLIBUNA_DLL_IMPORT"])
+  ])
+ ])
 
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
