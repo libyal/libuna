@@ -41,18 +41,7 @@ extern "C" {
 LIBUNA_EXTERN const char *libuna_get_version(
                            void );
 
-LIBUNA_EXTERN void libuna_error_free(
-                    libuna_error_t **error );
-
-LIBUNA_EXTERN void libuna_error_fprint(
-                    libuna_error_t *error,
-                    FILE *stream );
-
-LIBUNA_EXTERN void libuna_error_backtrace_fprint(
-                    libuna_error_t *error,
-                    FILE *stream );
-
-#endif
+#endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 
 #if defined( __cplusplus )
 }

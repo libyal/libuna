@@ -427,7 +427,7 @@ AC_CHECK_FUNCS(
   [Missing function: vsnprintf],
   [1]) ])
 
-dnl File input/output functions used in libbfio/libbfio_file.h and libsystem/libsystem_file_io.h
+dnl File input/output functions used in libsystem/libsystem_file_io.h
 AC_CHECK_FUNCS(
  [close],
  [],
@@ -518,7 +518,7 @@ AC_CHECK_FUNCS(
 
 LIBUNA_CHECK_FUNC_MKDIR
 
-dnl Check for error string functions used in libbfio/libbfio_error_string.c and libsystem/libsystem_error.c
+dnl Check for error string functions used in libsystem/libsystem_error.c
 AC_FUNC_STRERROR_R()
 
 AS_IF(

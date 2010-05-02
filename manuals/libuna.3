@@ -1,4 +1,4 @@
-.Dd February 21, 2010
+.Dd May 2, 2010
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -9,8 +9,21 @@
 .Sh SYNOPSIS
 .In libuna.h
 .Pp
+Support functions
 .Ft const char *
 .Fn libuna_get_version "void"
+.Pp
+Error functions
+.Ft void
+.Fn libuna_error_free "libuna_error_t **error"
+.Ft int
+.Fn libuna_error_fprint "libuna_error_t *error, FILE *stream"
+.Ft int
+.Fn libuna_error_sprint "libuna_error_t *error, char *string, size_t size"
+.Ft int
+.Fn libuna_error_backtrace_fprint "libuna_error_t *error, FILE *stream"
+.Ft int
+.Fn libuna_error_backtrace_sprint "libuna_error_t *error, char *string, size_t size"
 .Pp
 Unicode character functions
 .Ft int

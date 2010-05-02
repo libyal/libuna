@@ -35,31 +35,53 @@
 extern "C" {
 #endif
 
+/* -------------------------------------------------------------------------
+ * Support functions
+ * ------------------------------------------------------------------------- */
+
 /* Returns the library version as a string
  */
 LIBUNA_EXTERN const char *libuna_get_version(
                            void );
 
 /* -------------------------------------------------------------------------
- * Error handling functions
+ * Error functions
  * ------------------------------------------------------------------------- */
 
-/* Free an error and its elements
+/* Frees the error including elements
  */
 LIBUNA_EXTERN void libuna_error_free(
                     libuna_error_t **error );
 
 /* Prints a descriptive string of the error to the stream
+ * Returns the number of printed characters if successful or -1 on error
  */
-LIBUNA_EXTERN void libuna_error_fprint(
-                    libuna_error_t *error,
-                    FILE *stream );
+LIBUNA_EXTERN int libuna_error_fprint(
+                   libuna_error_t *error,
+                   FILE *stream );
+
+/* Prints a descriptive string of the error to the string
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBUNA_EXTERN int libuna_error_sprint(
+                   libuna_error_t *error,
+                   char *string, 
+                   size_t size );
 
 /* Prints a backtrace of the error to the stream
- *  */
-LIBUNA_EXTERN void libuna_error_backtrace_fprint(
-                    libuna_error_t *error,
-                    FILE *stream );
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBUNA_EXTERN int libuna_error_backtrace_fprint(
+                   libuna_error_t *error,
+                   FILE *stream );
+
+/* Prints a backtrace of the error to the string
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBUNA_EXTERN int libuna_error_backtrace_sprint(
+                   libuna_error_t *error,
+                   char *string,
+                   size_t size );
 
 /* -------------------------------------------------------------------------
  * Unicode character functions

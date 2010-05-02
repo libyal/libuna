@@ -37,6 +37,12 @@ TODO
     - 51949 euc-kr Korean (EUC)
     - 52936 hz-gb-2312 Chinese Simplified (HZ)
 
+Other Windows codepages (MBC)
+* 932 (Japanese Shift-JIS)
+* 936 (Simplified Chinese GBK)
+* 949 (Korean)
+* 950 (Traditional Chinese Big5)
+
 Test
 * create automated tests and test files
   - UTF-7
@@ -71,12 +77,6 @@ Deployment:
 * create debian package files
 * create Borland C++ 5.5 files
 
-Other Windows codepages (MBC)
-* 932 (Japanese Shift-JIS)
-* 936 (Simplified Chinese GBK)
-* 949 (Korean)
-* 950 (Traditional Chinese Big5)
-
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
@@ -84,9 +84,10 @@ Note:
 20100502
 * updated common, libcstring
 * cleaned up configure
-* change amount of into number of
+* changed amount of into number of
 * updated msvscpp and codegear project files
 * removed inline from public header
+* updated libuna_error.[ch]
 
 20100416
 * updated liberror
