@@ -6,6 +6,9 @@ EXTRA_DIST = \
 	unaexport/unaexport.vcproj \
 	libuna.sln
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 distclean: clean
 	/bin/rm -f Makefile
 

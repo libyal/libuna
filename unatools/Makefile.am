@@ -9,7 +9,8 @@ AM_CPPFLAGS = \
 
 AM_LDFLAGS = @STATIC_LDFLAGS@
 
-bin_PROGRAMS = unaexport
+bin_PROGRAMS = \
+	unaexport
 
 unaexport_SOURCES = \
 	byte_size_string.c byte_size_string.h \
@@ -24,6 +25,9 @@ unaexport_LDADD = \
 	../liberror/liberror.la \
 	../libsystem/libsystem.la \
 	@MEMWATCH_LIBADD@
+
+MAINTAINERCLEANFILES = \
+	Makefile.in
 
 distclean: clean
 	/bin/rm -f Makefile

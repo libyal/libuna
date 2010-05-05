@@ -43,7 +43,8 @@ Other Windows codepages (MBC)
 * 949 (Korean)
 * 950 (Traditional Chinese Big5)
 
-Test
+Test:
+* add autoconf/make test suite
 * create automated tests and test files
   - UTF-7
   - base16
@@ -80,6 +81,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20100505
+* updated configure.ac and Makefile.am files
 
 20100502
 * updated common, libcstring

@@ -4,9 +4,6 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/liberror \
 	@MEMWATCH_CPPFLAGS@
 
-EXTRA_DIST = \
-	libuna_definitions.h.in
-
 lib_LTLIBRARIES = libuna.la
 
 libuna_la_SOURCES = \
@@ -61,6 +58,12 @@ libuna_la_SOURCES = \
 
 libuna_la_LIBADD  = ../liberror/liberror.la
 libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0
+
+EXTRA_DIST = \
+	libuna_definitions.h.in
+
+MAINTAINERCLEANFILES = \
+	Makefile.in
 
 distclean: clean
 	/bin/rm -f libuna_definitions.h

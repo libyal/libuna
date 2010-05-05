@@ -22,6 +22,9 @@ EXTRA_DIST = \
         $(REDHAT_FILES) \
 	libuna.pc.in
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 pkgconfigdir = $(libdir)/pkgconfig
 
 pkgconfig_DATA = \
