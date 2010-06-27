@@ -67,16 +67,6 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
-* Sun Feb 21 2010 Joachim Metz <jbmetz@users.sourceforge.net> 20100221-1
-- Email address change
-
-* Sun Sep 11 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080911-1
-- Changed ucaexport into unaexport
-
-* Mon Sep 1 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080901-1
-- Small adjustments to text
-- Removed old requires and build requires
-
-* Fri Aug 29 2008 Joachim Metz <forensics@hoffmannbv.nl> 20080829-1
-- Initial version based on libpff spec file
+* Sun Jun 27 2010 Joachim Metz <jbmetz@users.sourceforge.net> 20100627-1
+- Clean up of previous version of spec file
 

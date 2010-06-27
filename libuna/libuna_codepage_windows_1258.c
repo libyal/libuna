@@ -1,9 +1,7 @@
 /*
  * Windows 1258 codepage (Vietnamese) functions
  *
- * Copyright (c) 2010, Joachim Metz <jbmetz@users.sourceforge.net>
- * Copyright (c) 2008-2010, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *

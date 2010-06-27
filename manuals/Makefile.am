@@ -1,8 +1,8 @@
-EXTRA_DIST = \
+man_MANS = \
 	unaexport.1 \
 	libuna.3
 
-man_MANS = \
+EXTRA_DIST = \
 	unaexport.1 \
 	libuna.3
 

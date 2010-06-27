@@ -1,9 +1,7 @@
 /*
  * Byte size string functions
  *
- * Copyright (c) 2010, Joachim Metz <jbmetz@users.sourceforge.net>
- * Copyright (c) 2006-2010, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -41,12 +39,12 @@ int byte_size_string_create(
 {
 	const libcstring_system_character_t *factor_string = NULL;
 	const libcstring_system_character_t *units_string  = NULL;
-	static char *function                      = "byte_size_string_create";
-	ssize_t print_count                        = 0;
-	uint64_t factored_size                     = 0;
-	uint64_t last_factored_size                = 0;
-	int8_t factor                              = 0;
-	int8_t remainder                           = -1;
+	static char *function                              = "byte_size_string_create";
+	ssize_t print_count                                = 0;
+	uint64_t factored_size                             = 0;
+	uint64_t last_factored_size                        = 0;
+	int8_t factor                                      = 0;
+	int8_t remainder                                   = -1;
 
 	if( byte_size_string == NULL )
 	{
