@@ -752,8 +752,8 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 					liberror_error_set(
 					 error,
 					 LIBERROR_ERROR_DOMAIN_RUNTIME,
-					 LIBERROR_RUNTIME_ERROR_VALUE_OUT_OF_RANGE,
-					 "%s: invalid UTF-7 stream character size value out of range.",
+					 LIBERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+					 "%s: invalid UTF-7 stream character size value out of bounds.",
 					 function );
 
 					return( -1 );
@@ -767,8 +767,8 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 				liberror_error_set(
 				 error,
 				 LIBERROR_ERROR_DOMAIN_RUNTIME,
-				 LIBERROR_RUNTIME_ERROR_VALUE_OUT_OF_RANGE,
-				 "%s: invalid UTF-7 stream character size value out of range.",
+				 LIBERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid UTF-7 stream character size value out of bounds.",
 				 function );
 
 				return( -1 );
