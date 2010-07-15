@@ -82,8 +82,11 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20100715
+* worked on issue in compare functions
+
 20100714
-* fixed compare functions
+* worked on issue in compare functions
 
 20100713
 * updated liberror and include/error.h

@@ -363,7 +363,7 @@ int libuna_utf32_string_compare_with_byte_stream(
 		}
 		if( utf32_unicode_character != byte_stream_unicode_character )
 		{
-			break;
+			return( 0 );
 		}
 	}
 	/* Check if both strings were entirely processed
@@ -743,7 +743,7 @@ int libuna_utf32_string_compare_with_utf7_stream(
 		}
 		if( utf32_unicode_character != utf7_stream_unicode_character )
 		{
-			break;
+			return( 0 );
 		}
 	}
 	/* Check if both strings were entirely processed
@@ -1340,7 +1340,7 @@ int libuna_utf32_string_compare_with_utf8_stream(
 		}
 		if( utf32_unicode_character != utf8_stream_unicode_character )
 		{
-			break;
+			return( 0 );
 		}
 	}
 	/* Check if both strings were entirely processed
@@ -2087,7 +2087,7 @@ int libuna_utf32_string_compare_with_utf16_stream(
 		}
 		if( utf32_unicode_character != utf16_stream_unicode_character )
 		{
-			break;
+			return( 0 );
 		}
 	}
 	/* Check if both strings were entirely processed
@@ -2662,7 +2662,7 @@ int libuna_utf32_string_compare_with_utf32_stream(
 		}
 		if( utf32_unicode_character != utf32_stream_unicode_character )
 		{
-			break;
+			return( 0 );
 		}
 	}
 	/* Check if both strings were entirely processed
