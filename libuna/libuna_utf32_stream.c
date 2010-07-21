@@ -214,7 +214,7 @@ int libuna_utf32_stream_size_from_utf8(
 /* Copies an UTF-32 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
-int libuna_utf32_stream_copy_to_utf8(
+int libuna_utf32_stream_copy_from_utf8(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
      uint8_t byte_order,
@@ -222,7 +222,7 @@ int libuna_utf32_stream_copy_to_utf8(
      size_t utf8_string_size,
      liberror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_stream_copy_to_utf8";
+	static char *function                        = "libuna_utf32_stream_copy_from_utf8";
 	size_t utf8_string_iterator                  = 0;
 	size_t utf32_stream_iterator                 = 0;
 	libuna_unicode_character_t unicode_character = 0;
