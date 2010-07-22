@@ -82,6 +82,9 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20100722
+* updated include/error.h and liberror
+
 20100721
 * fix for missing libuna_utf32_stream_copy_from_utf8
 
