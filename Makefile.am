@@ -8,6 +8,7 @@ SUBDIRS = \
 	libuna \
 	libsystem \
 	unatools \
+	po \
 	documents \
 	manuals \
 	macosx \
@@ -19,8 +20,11 @@ REDHAT_FILES = \
 	libuna.spec.in
 
 EXTRA_DIST = \
-        $(REDHAT_FILES) \
-	libuna.pc.in
+	config.rpath \
+	README.mingw \
+	po/Makevars.in \
+	libuna.pc.in \
+        $(REDHAT_FILES)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

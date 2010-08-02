@@ -8,6 +8,7 @@ TODO
 * complete base64
   - rename base64 functions like base16 functions?
 * complete base64url
+* gettext support
 
 * libuna
   - add source == destination check to functions?
@@ -81,6 +82,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20100802
+* mingw64 support
+* worked on gettext support
 
 20100722
 * updated include/error.h and liberror

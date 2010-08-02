@@ -984,6 +984,7 @@ int main( int argc, char * const argv[] )
 	 1 );
 
 	if( libsystem_initialize(
+	     "unatools",
 	     &error ) != 1 )
 	{
 		fprintf(
