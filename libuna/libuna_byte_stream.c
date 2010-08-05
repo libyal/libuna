@@ -29,7 +29,7 @@
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
 
-/* Determines the size of a byte stream from a UTF-8 string
+/* Determines the size of a byte stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_byte_stream_size_from_utf8(
@@ -222,7 +222,7 @@ int libuna_byte_stream_copy_from_utf8(
 	return( 1 );
 }
 
-/* Determines the size of a byte stream from a UTF-16 string
+/* Determines the size of a byte stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_byte_stream_size_from_utf16(
@@ -415,7 +415,7 @@ int libuna_byte_stream_copy_from_utf16(
 	return( 1 );
 }
 
-/* Determines the size of a byte stream from a UTF-32 string
+/* Determines the size of a byte stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_byte_stream_size_from_utf32(

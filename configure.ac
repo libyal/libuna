@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20100802],
+ [20100805],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -422,6 +422,13 @@ AC_CHECK_FUNCS(
   [AC_MSG_FAILURE(
    [Missing functions: strncasecmp and strcasecmp],
    [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [strstr],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: strstr],
+  [1]) ])
 
 AC_CHECK_FUNCS(
  [strtoll],

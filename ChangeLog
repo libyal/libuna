@@ -83,6 +83,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20100805
+* code clean up
+* updated libcstring
+
 20100802
 * mingw64 support
 * worked on gettext support

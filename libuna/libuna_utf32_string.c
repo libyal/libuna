@@ -29,7 +29,7 @@
 #include "libuna_unicode_character.h"
 #include "libuna_utf32_string.h"
 
-/* Determines the size of a UTF-32 string from a byte stream
+/* Determines the size of an UTF-32 string from a byte stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_byte_stream(
@@ -376,7 +376,7 @@ int libuna_utf32_string_compare_with_byte_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 string from a UTF-7 stream
+/* Determines the size of an UTF-32 string from an UTF-7 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf7_stream(
@@ -757,7 +757,7 @@ int libuna_utf32_string_compare_with_utf7_stream(
 }
 
 
-/* Determines the size of a UTF-32 string from a UTF-8 string
+/* Determines the size of an UTF-32 string from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf8(
@@ -946,7 +946,7 @@ int libuna_utf32_string_copy_from_utf8(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 string from a UTF-8 stream
+/* Determines the size of an UTF-32 string from an UTF-8 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf8_stream(
@@ -1353,7 +1353,7 @@ int libuna_utf32_string_compare_with_utf8_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 string from a UTF-16 string
+/* Determines the size of an UTF-32 string from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf16(
@@ -1542,7 +1542,7 @@ int libuna_utf32_string_copy_from_utf16(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 string from a UTF-16 stream
+/* Determines the size of an UTF-32 string from an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf16_stream(
@@ -2100,7 +2100,7 @@ int libuna_utf32_string_compare_with_utf16_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 string from a UTF-32 stream
+/* Determines the size of an UTF-32 string from an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf32_string_size_from_utf32_stream(

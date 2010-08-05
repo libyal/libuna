@@ -113,7 +113,7 @@ LIBUNA_INLINE int libuna_utf16_stream_copy_byte_order_mark(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-16 stream from a UTF-8 string
+/* Determines the size of an UTF-16 stream from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_stream_size_from_utf8(
@@ -338,7 +338,7 @@ int libuna_utf16_stream_copy_from_utf8(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-16 stream from a UTF-16 string
+/* Determines the size of an UTF-16 stream from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_stream_size_from_utf16(
@@ -505,7 +505,7 @@ int libuna_utf16_stream_copy_from_utf16(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-16 stream from a UTF-32 string
+/* Determines the size of an UTF-16 stream from an UTF-32 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_utf16_stream_size_from_utf32(

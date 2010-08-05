@@ -58,7 +58,7 @@
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
 
-/* Determines the size of a byte stream character from a Unicode character
+/* Determines the size of a byte stream character from an Unicode character
  * Adds the size to the byte stream character size value
  * Returns 1 if successful or -1 on error
  */
@@ -573,7 +573,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-7 stream character from a Unicode character
+/* Determines the size of an UTF-7 stream character from an Unicode character
  * Adds the size to the UTF-7 stream character size value
  * Returns 1 if successful or -1 on error
  */
@@ -853,7 +853,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-7 stream
+/* Copies a Unicode character from an UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
  *  24 - 25 the number of bytes in the triplet
@@ -1755,7 +1755,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-8 character from a Unicode character
+/* Determines the size of an UTF-8 character from an Unicode character
  * Adds the size to the UTF-8 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -1825,7 +1825,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-8 string
+/* Copies a Unicode character from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
@@ -2274,7 +2274,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-16 character from a Unicode character
+/* Determines the size of an UTF-16 character from an Unicode character
  * Adds the size to the UTF-16 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -2308,7 +2308,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-16 string
+/* Copies a Unicode character from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
@@ -2515,7 +2515,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-16 stream
+/* Copies a Unicode character from an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16_stream(
@@ -2809,7 +2809,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
 	return( 1 );
 }
 
-/* Determines the size of a UTF-32 character from a Unicode character
+/* Determines the size of an UTF-32 character from an Unicode character
  * Adds the size to the UTF-32 character size value
  * Returns 1 if successful or -1 on error
  */
@@ -2836,7 +2836,7 @@ LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-32 string
+/* Copies a Unicode character from an UTF-32 string
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32(
@@ -2992,7 +2992,7 @@ LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a UTF-32 stream
+/* Copies a Unicode character from an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32_stream(
