@@ -36,138 +36,157 @@
 extern "C" {
 #endif
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_byte_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 int codepage,
-                                 size_t *byte_stream_character_size,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_size_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     int codepage,
+     size_t *byte_stream_character_size,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_byte_stream(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const uint8_t *byte_stream,
-                                 size_t byte_stream_size,
-                                 size_t *byte_stream_index,
-                                 int codepage,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_byte_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     int codepage,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_byte_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 uint8_t *byte_stream,
-                                 size_t byte_stream_size,
-                                 size_t *byte_stream_index,
-                                 int codepage,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     int codepage,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf7_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 size_t *utf7_stream_character_size,
-                                 uint32_t *utf7_stream_base64_data,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_size_to_utf7_stream(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf7_stream_character_size,
+     uint32_t *utf7_stream_base64_data,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf7_stream(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const uint8_t *utf7_stream,
-                                 size_t utf7_stream_size,
-                                 size_t *utf7_stream_index,
-                                 uint32_t *utf7_stream_base64_data,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf7_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     size_t *utf7_stream_index,
+     uint32_t *utf7_stream_base64_data,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf7_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 uint8_t *utf7_stream,
-                                 size_t utf7_stream_size,
-                                 size_t *utf7_stream_index,
-                                 uint32_t *utf7_stream_base64_data,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf7_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     size_t *utf7_stream_index,
+     uint32_t *utf7_stream_base64_data,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf8(
-                                 libuna_unicode_character_t unicode_character,
-                                 size_t *utf8_character_size,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_size_to_utf8(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf8_character_size,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf8(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const libuna_utf8_character_t *utf8_string,
-                                 size_t utf8_string_size,
-                                 size_t *utf8_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf8(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf8(
-                                 libuna_unicode_character_t unicode_character,
-                                 libuna_utf8_character_t *utf8_string,
-                                 size_t utf8_string_size,
-                                 size_t *utf8_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf8(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf16(
-                                 libuna_unicode_character_t unicode_character,
-                                 size_t *utf16_character_size,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_size_to_utf16(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf16_character_size,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const libuna_utf16_character_t *utf16_string,
-                                 size_t utf16_string_size,
-                                 size_t *utf16_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf16(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16(
-                                 libuna_unicode_character_t unicode_character,
-                                 libuna_utf16_character_t *utf16_string,
-                                 size_t utf16_string_size,
-                                 size_t *utf16_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf16(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf16_stream(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const uint8_t *utf16_stream,
-                                 size_t utf16_stream_size,
-                                 size_t *utf16_stream_index,
-                                 uint8_t byte_order,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf16_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *utf16_stream,
+     size_t utf16_stream_size,
+     size_t *utf16_stream_index,
+     uint8_t byte_order,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf16_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 uint8_t *utf16_stream,
-                                 size_t utf16_stream_size,
-                                 size_t *utf16_stream_index,
-                                 uint8_t byte_order,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf16_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *utf16_stream,
+     size_t utf16_stream_size,
+     size_t *utf16_stream_index,
+     uint8_t byte_order,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_size_to_utf32(
-                                 libuna_unicode_character_t unicode_character,
-                                 size_t *utf32_character_size,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_size_to_utf32(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf32_character_size,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const libuna_utf32_character_t *utf32_string,
-                                 size_t utf32_string_size,
-                                 size_t *utf32_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf32(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32(
-                                 libuna_unicode_character_t unicode_character,
-                                 libuna_utf32_character_t *utf32_string,
-                                 size_t utf32_string_size,
-                                 size_t *utf32_string_index,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf32(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_from_utf32_stream(
-                                 libuna_unicode_character_t *unicode_character,
-                                 const uint8_t *utf32_stream,
-                                 size_t utf32_stream_size,
-                                 size_t *utf32_stream_index,
-                                 uint8_t byte_order,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_from_utf32_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *utf32_stream,
+     size_t utf32_stream_size,
+     size_t *utf32_stream_index,
+     uint8_t byte_order,
+     liberror_error_t **error );
 
-LIBUNA_EXTERN LIBUNA_INLINE int libuna_unicode_character_copy_to_utf32_stream(
-                                 libuna_unicode_character_t unicode_character,
-                                 uint8_t *utf32_stream,
-                                 size_t utf32_stream_size,
-                                 size_t *utf32_stream_index,
-                                 uint8_t byte_order,
-                                 liberror_error_t **error );
+LIBUNA_EXTERN LIBUNA_INLINE \
+int libuna_unicode_character_copy_to_utf32_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *utf32_stream,
+     size_t utf32_stream_size,
+     size_t *utf32_stream_index,
+     uint8_t byte_order,
+     liberror_error_t **error );
 
 #if defined( __cplusplus )
 }

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20100805],
+ [20101125],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -54,39 +54,29 @@ dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<librar
 
 dnl Check for headers
 dnl Headers included in include/libuna/types.h
-AC_CHECK_HEADER(
- [sys/types.h],
- [AC_DEFINE(
-  [HAVE_SYS_TYPES_H],
-  [1],
-  [Define to 1 if you have the <sys/types.h> header file.])
- AC_SUBST(
+AC_CHECK_HEADERS([sys/types.h inttypes.h stdint.h])
+
+AS_IF(
+ [test "x$ac_cv_header_sys_types_h" = xyes],
+ [AC_SUBST(
   [HAVE_SYS_TYPES_H],
   [1])],
  [AC_SUBST(
   [HAVE_SYS_TYPES_H],
   [0])])
 
-AC_CHECK_HEADER(
- [inttypes.h],
- [AC_DEFINE(
-  [HAVE_INTTYPES_H],
-  [1],
-  [Define to 1 if you have the <inttypes.h> header file.])
- AC_SUBST(
+AS_IF(
+ [test "x$ac_cv_header_inttypes_h" = xyes],
+ [AC_SUBST(
   [HAVE_INTTYPES_H],
   [1])],
  [AC_SUBST(
   [HAVE_INTTYPES_H],
   [0])])
 
-AC_CHECK_HEADER(
- [stdint.h],
- [AC_DEFINE(
-  [HAVE_STDINT_H],
-  [1],
-  [Define to 1 if you have the <stdint.h> header file.])
- AC_SUBST(
+AS_IF(
+ [test "x$ac_cv_header_stdint_h" = xyes],
+ [AC_SUBST(
   [HAVE_STDINT_H],
   [1])],
  [AC_SUBST(
@@ -355,12 +345,9 @@ AC_CHECK_FUNCS(
  [AC_CHECK_FUNCS(
   [strncmp],
   [],
-  [AC_CHECK_FUNCS(
-   [strcmp],
-   [],
-   [AC_MSG_FAILURE(
-    [Missing functions: memcmp, strncmp and strcmp],
-    [1]) ]) ]) ])
+  [AC_MSG_FAILURE(
+   [Missing functions: memcmp and strncmp],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [memcpy],
@@ -368,12 +355,9 @@ AC_CHECK_FUNCS(
  [AC_CHECK_FUNCS(
   [strncpy],
   [],
-  [AC_CHECK_FUNCS(
-   [strcpy],
-   [],
-   [AC_MSG_FAILURE(
-    [Missing functions: memcpy, strncpy and strcpy],
-    [1]) ]) ]) ])
+  [AC_MSG_FAILURE(
+   [Missing functions: memcpy and strncpy],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [memrchr],
@@ -645,6 +629,7 @@ AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
 AC_CONFIG_FILES([macosx/Introduction.rtf])
+AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])
 AC_CONFIG_FILES([libuna.spec])
 dnl Have configure write its configuration

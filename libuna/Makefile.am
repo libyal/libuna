@@ -47,6 +47,7 @@ libuna_la_SOURCES = \
 	libuna_support.c libuna_support.h \
 	libuna_types.h \
 	libuna_unicode_character.c libuna_unicode_character.h \
+	libuna_unused.h \
 	libuna_url_stream.c libuna_url_stream.h \
 	libuna_utf16_stream.c libuna_utf16_stream.h \
 	libuna_utf16_string.c libuna_utf16_string.h \
@@ -60,13 +61,16 @@ libuna_la_LIBADD  = ../liberror/liberror.la
 libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0
 
 EXTRA_DIST = \
-	libuna_definitions.h.in
+	libuna_definitions.h.in \
+	libuna.rc \
+	libuna.rc.in
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
 	/bin/rm -f libuna_definitions.h
+	/bin/rm -f libuna.rc
 	/bin/rm -f Makefile
 
 splint:

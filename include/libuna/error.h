@@ -22,6 +22,8 @@
 #if !defined( _LIBUNA_ERROR_H )
 #define _LIBUNA_ERROR_H
 
+#include <libuna/types.h>
+
 /* External error type definition hides internal structure
  */
 typedef intptr_t libuna_error_t;
@@ -290,7 +292,11 @@ enum LIBUNA_RUNTIME_ERROR
  */
 enum LIBUNA_OUTPUT_ERROR
 {
-	LIBUNA_OUTPUT_ERROR_GENERIC			= 0
+	LIBUNA_OUTPUT_ERROR_GENERIC			= 0,
+
+	/* There is insuficient space to write the output
+	 */
+	LIBUNA_OUTPUT_ERROR_INSUFFICIENT_SPACE		= 1
 };
 
 #endif

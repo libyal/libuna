@@ -15,7 +15,7 @@ SUBDIRS = \
 	borlandc \
 	msvscpp
 
-REDHAT_FILES = \
+SPEC_FILES = \
 	libuna.spec \
 	libuna.spec.in
 
@@ -24,7 +24,7 @@ EXTRA_DIST = \
 	README.mingw \
 	po/Makevars.in \
 	libuna.pc.in \
-        $(REDHAT_FILES)
+        $(SPEC_FILES)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
