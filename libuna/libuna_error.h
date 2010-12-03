@@ -39,26 +39,31 @@ extern "C" {
 
 #if !defined( HAVE_LOCAL_LIBUNA )
 
-LIBUNA_EXTERN void libuna_error_free(
-                    libuna_error_t **error );
+LIBUNA_EXTERN \
+void libuna_error_free(
+      libuna_error_t **error );
 
-LIBUNA_EXTERN int libuna_error_fprint(
-                   libuna_error_t *error,
-                   FILE *stream );
+LIBUNA_EXTERN \
+int libuna_error_fprint(
+     libuna_error_t *error,
+     FILE *stream );
 
-LIBUNA_EXTERN int libuna_error_sprint(
-                   libuna_error_t *error,
-                   char *string,
-                   size_t size );
+LIBUNA_EXTERN \
+int libuna_error_sprint(
+     libuna_error_t *error,
+     char *string,
+     size_t size );
 
-LIBUNA_EXTERN int libuna_error_backtrace_fprint(
-                   libuna_error_t *error,
-                   FILE *stream );
+LIBUNA_EXTERN \
+int libuna_error_backtrace_fprint(
+     libuna_error_t *error,
+     FILE *stream );
 
-LIBUNA_EXTERN int libuna_error_backtrace_sprint(
-                   libuna_error_t *error,
-                   char *string,
-                   size_t size );
+LIBUNA_EXTERN \
+int libuna_error_backtrace_sprint(
+     libuna_error_t *error,
+     char *string,
+     size_t size );
 
 #endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 

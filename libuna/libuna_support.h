@@ -36,8 +36,9 @@ extern "C" {
 
 #if !defined( HAVE_LOCAL_LIBUNA )
 
-LIBUNA_EXTERN const char *libuna_get_version(
-                           void );
+LIBUNA_EXTERN \
+const char *libuna_get_version(
+             void );
 
 #endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 

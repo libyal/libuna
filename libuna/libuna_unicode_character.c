@@ -72,6 +72,11 @@ int libuna_unicode_character_size_to_byte_stream(
 {
 	static char *function = "libuna_unicode_character_size_to_byte_stream";
 
+	/* TODO handle multi byte characters
+	 * remove LIBUNA_ATTRIBUTE_UNUSED, LIBUNA_UNREFERENCED_PARAMETER
+	 */
+	LIBUNA_UNREFERENCED_PARAMETER( unicode_character )
+
 	if( byte_stream_character_size == NULL )
 	{
 		liberror_error_set(
@@ -83,9 +88,6 @@ int libuna_unicode_character_size_to_byte_stream(
 
 		return( -1 );
 	}
-	/* TODO handle multi byte characters
-	 * remove LIBUNA_ATTRIBUTE_UNUSED
-	 */
 	switch( codepage )
 	{
 		case LIBUNA_CODEPAGE_ASCII:
@@ -2836,6 +2838,8 @@ int libuna_unicode_character_size_to_utf32(
      liberror_error_t **error )
 {
 	static char *function = "libuna_unicode_character_size_to_utf32";
+
+	LIBUNA_UNREFERENCED_PARAMETER( unicode_character )
 
 	if( utf32_character_size == NULL )
 	{

@@ -66,28 +66,29 @@ void usage_fprint(
 	}
 	fprintf( stream, "Use unaexport to export text in one encoding to another.\n\n" );
 
-	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_conversion ]\n" );
-	fprintf( stream, "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
+	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_conversion ]\n"
+	                 "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
 	fprintf( stream, "\t-B:          do not export a byte order mark (BOM)\n" );
-	fprintf( stream, "\t-c:          codepage of byte-stream, options: ascii (default), iso-8559-1,\n" );
-	fprintf( stream, "\t             iso-8559-2, iso-8559-3, iso-8559-4, iso-8559-5, iso-8559-6,\n" );
-	fprintf( stream, "\t             iso-8559-7, iso-8559-8, iso-8559-9, iso-8559-10, iso-8559-11,\n" );
-	fprintf( stream, "\t             iso-8559-13, iso-8559-14, iso-8559-15, iso-8559-16, koi8-r,\n" );
-	fprintf( stream, "\t             koi8-u, windows-874, windows-1250, windows-1251, windows-1252,\n" );
-	fprintf( stream, "\t             windows-1253, windows-1254, windows-1255, windows-1256\n" );
-	fprintf( stream, "\t             windows-1257 or windows-1258\n" );
+	fprintf( stream, "\t-c:          codepage of byte-stream, options: ascii (default),\n"
+	                 "\t             iso-8559-1, iso-8559-2, iso-8559-3, iso-8559-4,\n"
+	                 "\t             iso-8559-5, iso-8559-6, iso-8559-7, iso-8559-8,\n"
+	                 "\t             iso-8559-9, iso-8559-10, iso-8559-11, iso-8559-13,\n"
+	                 "\t             iso-8559-14, iso-8559-15, iso-8559-16, koi8-r, koi8-u,\n"
+	                 "\t             windows-874, windows-1250, windows-1251, windows-1252,\n"
+	                 "\t             windows-1253, windows-1254, windows-1255, windows-1256\n"
+	                 "\t             windows-1257 or windows-1258\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
-	fprintf( stream, "\t-i:          input format, options: auto-detect (default), utf7,\n" );
-	fprintf( stream, "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );
+	fprintf( stream, "\t-i:          input format, options: auto-detect (default), utf7,\n"
+	                 "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-l:          list information about the codepages\n" );
-	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n" );
-	fprintf( stream, "\t             crlf or lf\n" );
-	fprintf( stream, "\t-o:          output format, options: byte-stream, utf7, utf8 (default),\n" );
-	fprintf( stream, "\t             utf16be, utf16le, utf32be or utf32le\n" );
+	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n"
+	                 "\t             crlf or lf\n" );
+	fprintf( stream, "\t-o:          output format, options: byte-stream, utf7, utf8 (default),\n"
+	                 "\t             utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-q:          quiet shows no status information\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
 	fprintf( stream, "\t-V:          print version\n" );

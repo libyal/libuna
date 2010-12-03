@@ -37,10 +37,11 @@ static uint8_t libuna_base64_sixtet_to_character_table[] = "ABCDEFGHIJKLMNOPQRST
 /* Copies a base64 character to a base64 sixtet
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
-                   uint8_t base64_character,
-                   uint8_t *base64_sixtet,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_base64_character_copy_to_sixtet(
+     uint8_t base64_character,
+     uint8_t *base64_sixtet,
+     liberror_error_t **error )
 {
 	static char *function = "libuna_base64_character_copy_to_sixtet";
 
@@ -129,14 +130,15 @@ LIBUNA_INLINE int libuna_base64_character_copy_to_sixtet(
  *
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
-                   uint32_t *base64_triplet,
-                   const uint8_t *base64_stream,
-                   size_t base64_stream_size,
-                   size_t *base64_stream_index,
-                   uint8_t padding_character,
-                   uint8_t *padding_size,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_base64_triplet_copy_from_base64_stream(
+     uint32_t *base64_triplet,
+     const uint8_t *base64_stream,
+     size_t base64_stream_size,
+     size_t *base64_stream_index,
+     uint8_t padding_character,
+     uint8_t *padding_size,
+     liberror_error_t **error )
 {
 	static char *function               = "libuna_base64_triplet_copy_from_base64_stream";
 	uint8_t number_of_base64_characters = 0;
@@ -398,14 +400,15 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_base64_stream(
  * A padding character value of 0 indicates the lack of padding characters
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
-                   uint32_t base64_triplet,
-                   uint8_t *base64_stream,
-                   size_t base64_stream_size,
-                   size_t *base64_stream_index,
-                   uint8_t padding_character,
-                   uint8_t padding_size,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_base64_triplet_copy_to_base64_stream(
+     uint32_t base64_triplet,
+     uint8_t *base64_stream,
+     size_t base64_stream_size,
+     size_t *base64_stream_index,
+     uint8_t padding_character,
+     uint8_t padding_size,
+     liberror_error_t **error )
 {
 	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
 	uint8_t sixtet1       = 0;
@@ -561,13 +564,14 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_to_base64_stream(
 /* Copies a base64 triplet from a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
-                   uint32_t *base64_triplet,
-                   const uint8_t *byte_stream,
-                   size_t byte_stream_size,
-                   size_t *byte_stream_index,
-                   uint8_t *padding_size,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_base64_triplet_copy_from_byte_stream(
+     uint32_t *base64_triplet,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     uint8_t *padding_size,
+     liberror_error_t **error )
 {
 	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
 
@@ -656,13 +660,14 @@ LIBUNA_INLINE int libuna_base64_triplet_copy_from_byte_stream(
 /* Copies a base64 triplet to a byte stream
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_base64_triplet_copy_to_byte_stream(
-                   uint32_t base64_triplet,
-                   uint8_t *byte_stream,
-                   size_t byte_stream_size,
-                   size_t *byte_stream_index,
-                   uint8_t padding_size,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_base64_triplet_copy_to_byte_stream(
+     uint32_t base64_triplet,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     uint8_t padding_size,
+     liberror_error_t **error )
 {
 	static char *function = "libuna_base64_triplet_copy_to_byte_stream";
 

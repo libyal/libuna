@@ -34,11 +34,12 @@
 /* Copies an UTF-8 stream byte order mark (BOM)
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE int libuna_utf8_stream_copy_byte_order_mark(
-                   uint8_t *utf8_stream,
-                   size_t utf8_stream_size,
-                   size_t *utf8_stream_index,
-                   liberror_error_t **error )
+LIBUNA_INLINE \
+int libuna_utf8_stream_copy_byte_order_mark(
+     uint8_t *utf8_stream,
+     size_t utf8_stream_size,
+     size_t *utf8_stream_index,
+     liberror_error_t **error )
 {
 	static char *function = "libuna_utf8_stream_copy_byte_order_mark";
 
