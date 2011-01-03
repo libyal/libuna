@@ -1,7 +1,7 @@
 /*
  * Configuration file for Microsoft Visual Studio C++ compiler
  *
- * Copyright (c) 2006-2010, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2006-2011, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -57,6 +57,10 @@
 /* Enable debug output
 #define HAVE_DEBUG_OUTPUT	1
  */
+
+/* Disable warning C4201: nonstandard extension used : nameless struct/union
+ */
+#pragma warning( disable : 4201 )
 
 #endif
 

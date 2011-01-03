@@ -1,7 +1,7 @@
 /*
  * ISO 8859-5 codepage (Cyrillic) function
  *
- * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2011, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *

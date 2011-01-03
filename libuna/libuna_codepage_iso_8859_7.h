@@ -1,7 +1,7 @@
 /*
  * ISO 8859-7 codepage (Greek) functions
  *
- * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2011, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *

@@ -1,7 +1,7 @@
 /*
  * ISO 8859-16 codepage (Latin 10) functions
  *
- * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2011, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *

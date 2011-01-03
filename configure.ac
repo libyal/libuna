@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20101203],
+ [20110103],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -23,7 +23,7 @@ LIBUNA_TEST_ENABLE(
  [winapi],
  [winapi],
  [enable WINAPI support for cross-compilation],
- [no])
+ [auto-detect])
 LIBUNA_TEST_ENABLE(
  [static-executables],
  [static_executables],
@@ -49,8 +49,22 @@ AC_C_CONST
 AC_C_INLINE
 AC_C_VOLATILE
 
-dnl Checks for libraries and library functions
-dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
+dnl Automatically enable winapi support for mingw
+AS_IF(
+ [test "x$ac_cv_libuna_enable_winapi" = xauto-detect],
+ [ac_libuna_target_string="$target";
+
+ AS_IF(
+  [test "x$ac_libuna_target_string" = x],
+  [ac_libuna_target_string="$build"])
+
+ AS_CASE(
+  [$ac_libuna_target_string],
+  [*mingw*],[AC_MSG_NOTICE(
+             [Detected MinGW enabling WINAPI support for cross-compilation])
+            ac_cv_libuna_enable_winapi=yes],
+  [*],[ac_cv_libuna_enable_winapi=no])
+ ])
 
 dnl Check for headers
 dnl Headers included in include/libuna/types.h

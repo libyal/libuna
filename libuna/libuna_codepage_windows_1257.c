@@ -1,7 +1,7 @@
 /*
  * Windows 1257 codepage (Baltic) functions
  *
- * Copyright (c) 2008-2010, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2011, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *
