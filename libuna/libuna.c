@@ -21,13 +21,17 @@
 
 #include <common.h>
 
+#if defined( WINAPI )
+#include <windows.h>
+#endif
+
+#include "libuna_unused.h"
+
 /* Define HAVE_LOCAL_LIBUNA for local use of libuna
  */
 #if !defined( HAVE_LOCAL_LIBUNA )
 
 #if defined( WINAPI )
-
-#include <windows.h>
 
 #if defined( _MANAGED )
 #pragma managed( push, off )
@@ -40,6 +44,8 @@ BOOL WINAPI DllMain(
              DWORD fdwReason,
              LPVOID lpvReserved )
 {
+	LIBUNA_UNREFERENCED_PARAMETER( lpvReserved )
+
 	switch( fdwReason )
 	{
 		case DLL_PROCESS_ATTACH:
@@ -59,7 +65,16 @@ BOOL WINAPI DllMain(
 	return( TRUE );
 }
 
-#endif
+/* Function that indicates the library is a DLL
+ * Returns 1
+ */
+int libuna_is_dll(
+     void )
+{
+	return( 1 );
+}
 
-#endif
+#endif /* defined( WINAPI ) */
+
+#endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 

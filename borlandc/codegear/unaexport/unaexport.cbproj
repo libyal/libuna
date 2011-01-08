@@ -13,6 +13,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<BCC_PCHUsage>None</BCC_PCHUsage>
 			<_TCHARMapping>wchar_t</_TCHARMapping>
 			<FinalOutputDir>..\Release</FinalOutputDir>
 			<LinkPackageStatics>rtl.lib</LinkPackageStatics>
@@ -39,51 +40,51 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<None Include="..\..\..\unatools\byte_size_string.h">
-				<BuildOrder>1</BuildOrder>
+			<None Include="..\..\..\unatools\unacommon.h">
+				<BuildOrder>16</BuildOrder>
 			</None>
-			<CppCompile Include="..\..\..\unatools\byte_size_string.c">
-				<BuildOrder>0</BuildOrder>
+			<CppCompile Include="..\..\..\unatools\unaexport.c">
+				<BuildOrder>17</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\unatools\process_status.c">
+				<BuildOrder>12</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\unatools\unaoutput.c">
+				<BuildOrder>22</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\Release\libcstring.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>13</BuildOrder>
+			</LibFiles>
+			<None Include="..\..\..\unatools\process_status.h">
+				<BuildOrder>13</BuildOrder>
+			</None>
+			<None Include="..\..\..\unatools\unainput.h">
+				<BuildOrder>21</BuildOrder>
+			</None>
 			<CppCompile Include="..\..\..\unatools\unainput.c">
 				<BuildOrder>20</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\unatools\byte_size_string.c">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\unatools\byte_size_string.h">
+				<BuildOrder>1</BuildOrder>
+			</None>
 			<LibFiles Include="..\Release\libsystem.lib">
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>12</BuildOrder>
 			</LibFiles>
-			<LibFiles Include="..\Release\libuna.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>25</BuildOrder>
-			</LibFiles>
+			<None Include="..\..\..\unatools\unaoutput.h">
+				<BuildOrder>23</BuildOrder>
+			</None>
 			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
 				<BuildOrder>24</BuildOrder>
 			</LibFiles>
-			<None Include="..\..\..\unatools\unaoutput.h">
-				<BuildOrder>23</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\unatools\process_status.c">
-				<BuildOrder>12</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\unatools\unaexport.c">
-				<BuildOrder>17</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\unatools\unacommon.h">
-				<BuildOrder>16</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\unatools\unaoutput.c">
-				<BuildOrder>22</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\unatools\unainput.h">
-				<BuildOrder>21</BuildOrder>
-			</None>
-			<None Include="..\..\..\unatools\process_status.h">
-				<BuildOrder>13</BuildOrder>
-			</None>
-			<LibFiles Include="..\Release\libcstring.lib">
+			<LibFiles Include="..\Release\libuna.lib">
 				<IgnorePath>true</IgnorePath>
-				<BuildOrder>13</BuildOrder>
+				<BuildOrder>25</BuildOrder>
 			</LibFiles>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
