@@ -83,6 +83,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20110107
+* updated configure.ac
+* updated common, libcstring, libsystem
+
 20110103
 * updated configure
 * updated common, libcstring, libsystem
