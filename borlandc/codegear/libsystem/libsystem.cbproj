@@ -13,6 +13,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_DebugInformation>false</DCC_DebugInformation>
 			<BCC_SmartPCHCache>false</BCC_SmartPCHCache>
 			<BCC_PCHUsage>None</BCC_PCHUsage>
 			<_TCHARMapping>wchar_t</_TCHARMapping>
@@ -39,6 +40,8 @@
 		</PropertyGroup>
 		<ItemGroup>
 			<None Include="..\..\..\libsystem\libsystem_support.h">
+			</None>
+			<None Include="..\..\..\libsystem\libsystem_unused.h">
 			</None>
 			<None Include="..\..\..\libsystem\libsystem.h">
 			</None>
@@ -80,6 +83,8 @@
 			</CppCompile>
 			<None Include="..\..\..\libsystem\libsystem_notify.h">
 			</None>
+			<CppCompile Include="..\..\..\libsystem\libsystem_path.c">
+			</CppCompile>
 			<None Include="..\..\..\libsystem\libsystem_path.h">
 			</None>
 			<CppCompile Include="..\..\..\libsystem\libsystem_signal.c">
