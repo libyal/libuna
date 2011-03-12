@@ -1,4 +1,5 @@
 TODO
+* add unatools_libuna.h
 * work on 936 gb2312 Chinese Simplified (GB2312) support
 * complete base16
   - implement base16 functions
@@ -82,6 +83,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20110312
+* updated libcstring, libsystem
+* msvscpp: added VSDebug
 
 20110117
 * updated libsystem

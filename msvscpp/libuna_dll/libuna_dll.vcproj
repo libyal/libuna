@@ -81,6 +81,73 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="VSDebug|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\liberror"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_EXPORT"
+				RuntimeLibrary="2"
+				WarningLevel="4"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\libuna.dll"
+				AdditionalLibraryDirectories=""
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -108,6 +175,26 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_byte_stream.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_10.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_13.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_14.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_15.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_16.c"
 				>
 			</File>
 			<File
@@ -143,35 +230,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_10.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_13.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_14.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_15.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_16.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libuna\libuna_codepage_koi8_r.c"
 				>
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_koi8_u.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_windows_874.c"
 				>
 			</File>
 			<File
@@ -208,6 +271,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_1258.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_874.c"
 				>
 			</File>
 			<File
@@ -281,6 +348,30 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_10.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_11.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_13.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_14.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_15.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_iso_8859_16.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_iso_8859_2.h"
 				>
 			</File>
@@ -313,39 +404,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_10.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_11.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_13.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_14.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_15.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_16.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libuna\libuna_codepage_koi8_r.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_koi8_u.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_windows_874.h"
 				>
 			</File>
 			<File
@@ -382,6 +445,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_1258.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_874.h"
 				>
 			</File>
 			<File
