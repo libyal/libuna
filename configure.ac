@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20110312],
+ [20110326],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -318,6 +318,15 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 dnl Check for environment functions in libcstring/libcstring_locale.c
+AS_IF(
+ [test "x$ac_cv_libewf_enable_winapi" = xno],
+ [AC_CHECK_FUNCS(
+  [localeconv],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing function: localeconv],
+   [1]) ]) ])
+
 AC_CHECK_FUNCS(
  [getenv],
  [],
@@ -593,6 +602,10 @@ AS_IF(
  [STATIC_LDFLAGS="-all-static";
  AC_SUBST(
   [STATIC_LDFLAGS])
+ AC_DEFINE(
+  [HAVE_STATIC_EXECUTABLES],
+  [1],
+  [Define if executables should be static compiled.])
  ac_cv_libuna_enable_static_executables=yes])
 
 dnl Set memwatch support

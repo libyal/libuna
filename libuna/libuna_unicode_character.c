@@ -44,6 +44,7 @@
 #include "libuna_codepage_koi8_r.h"
 #include "libuna_codepage_koi8_u.h"
 #include "libuna_codepage_windows_874.h"
+#include "libuna_codepage_windows_936.h"
 #include "libuna_codepage_windows_1250.h"
 #include "libuna_codepage_windows_1251.h"
 #include "libuna_codepage_windows_1252.h"
@@ -119,6 +120,10 @@ int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_WINDOWS_1257:
 		case LIBUNA_CODEPAGE_WINDOWS_1258:
 			*byte_stream_character_size += 1;
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_936:
+/* TODO */
 			break;
 
 		default:
@@ -301,6 +306,28 @@ int libuna_unicode_character_copy_from_byte_stream(
 		case LIBUNA_CODEPAGE_WINDOWS_874:
 			*unicode_character = libuna_codepage_windows_874_byte_stream_to_unicode(
 			                      byte_stream[ *byte_stream_index ] );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_936:
+			if( ( byte_stream[ *byte_stream_index ] > 0x80 )
+			 && ( ( *byte_stream_index + 1 ) >= byte_stream_size ) )
+			{
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: byte stream too small.",
+				 function );
+
+				return( -1 );
+			}
+			*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode(
+			                      byte_stream );
+
+			if( byte_stream[ *byte_stream_index ] > 0x80 )
+			{
+				*byte_stream_index += 1;
+			}
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
@@ -516,6 +543,11 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
 			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_874_unicode_to_byte_stream(
+			                                     unicode_character );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_936:
+			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_936_unicode_to_byte_stream(
 			                                     unicode_character );
 			break;
 
