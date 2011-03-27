@@ -61,14 +61,103 @@ extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0x
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9e40[ 192 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9f40[ 192 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa040[ 192 ];
-extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa040[ 192 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa1a0[ 96 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa2a0[ 96 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa3a0[ 96 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa4a0[ 88 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa5a0[ 88 ];
-
-extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2018[ 8 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa6a0[ 88 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7a0[ 40 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7d0[ 40 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa840[ 88 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa8a0[ 80 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa940[ 72 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa9a0[ 80 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaa40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xab40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xac40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xad40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xae40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaf40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb040[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb140[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb240[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb340[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb440[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb540[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb640[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb740[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb840[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb940[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xba40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbb40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbc40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbd40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbe40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbf40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc040[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc140[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc240[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc340[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc440[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc540[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc640[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc740[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc840[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc940[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xca40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcb40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcc40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcd40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xce40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcf40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd040[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd140[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd240[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd340[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd440[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd540[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd640[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd740[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd840[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd940[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xda40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdb40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdc40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdd40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xde40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdf40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe040[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe140[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe240[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe340[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe440[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe540[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe640[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe740[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe840[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe940[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xea40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xeb40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xec40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xed40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xee40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xef40[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf040[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf140[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf240[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf340[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf440[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf540[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf640[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf740[ 192 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf840[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf940[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfa40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfb40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfc40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfd40[ 96 ];
+extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ 16 ];
 
 #define libuna_codepage_windows_936_byte_stream_to_unicode( byte_stream ) \
 	( byte_stream[ 0 ] < 0x80 ) ? byte_stream[ 0 ] : \
@@ -147,12 +236,222 @@ extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2
 		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa4a0[ byte_stream[ 1 ] - 0xa0 ] : \
 	( ( byte_stream[ 0 ] == 0xa5 ) && ( byte_stream[ 1 ] >= 0xa0 ) && ( byte_stream[ 1 ] < 0xf8 ) ) ? \
 		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa5a0[ byte_stream[ 1 ] - 0xa0 ] : \
+	( ( byte_stream[ 0 ] == 0xa6 ) && ( byte_stream[ 1 ] >= 0xa0 ) && ( byte_stream[ 1 ] < 0xf8 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa6a0[ byte_stream[ 1 ] - 0xa0 ] : \
+	( ( byte_stream[ 0 ] == 0xa7 ) && ( byte_stream[ 1 ] >= 0xa0 ) && ( byte_stream[ 1 ] < 0xc8 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7a0[ byte_stream[ 1 ] - 0xa0 ] : \
+	( ( byte_stream[ 0 ] == 0xa7 ) && ( byte_stream[ 1 ] >= 0xd0 ) && ( byte_stream[ 1 ] < 0xf8 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7d0[ byte_stream[ 1 ] - 0xd0 ] : \
+	( ( byte_stream[ 0 ] == 0xa8 ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0x98 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xa8 ) && ( byte_stream[ 1 ] >= 0xa0 ) && ( byte_stream[ 1 ] < 0xf0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa8a0[ byte_stream[ 1 ] - 0xa0 ] : \
+	( ( byte_stream[ 0 ] == 0xa9 ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0x88 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xa9 ) && ( byte_stream[ 1 ] == 0x88 ) ) ? \
+		0xfe6b : \
+	( ( byte_stream[ 0 ] == 0xa9 ) && ( byte_stream[ 1 ] == 0x96 ) ) ? \
+		0x3007 : \
+	( ( byte_stream[ 0 ] == 0xa9 ) && ( byte_stream[ 1 ] >= 0xa0 ) && ( byte_stream[ 1 ] < 0xf0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa9a0[ byte_stream[ 1 ] - 0xa0 ] : \
+	( ( byte_stream[ 0 ] == 0xaa ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaa40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xaa ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x7371 : \
+	( ( byte_stream[ 0 ] == 0xab ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xab40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xab ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x73f7 : \
+	( ( byte_stream[ 0 ] == 0xac ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xac40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xac ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x747a : \
+	( ( byte_stream[ 0 ] == 0xad ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xad40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xad ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x74f2 : \
+	( ( byte_stream[ 0 ] == 0xae ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xae40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xae ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x7587 : \
+	( ( byte_stream[ 0 ] == 0xaf ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaf40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xaf ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x7644 : \
+	( ( byte_stream[ 0 ] == 0xb0 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb040[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb1 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb140[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb2 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb240[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb3 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb340[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb4 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb440[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb5 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb540[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb6 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb640[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb7 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb740[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb8 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xb9 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xba ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xba40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xbb ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbb40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xbc ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbc40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xbd ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbd40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xbe ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbe40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xbf ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbf40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc0 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc040[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc1 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc140[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc2 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc240[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc3 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc340[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc4 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc440[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc5 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc540[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc6 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc640[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc7 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc740[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc8 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xc9 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xca ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xca40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xcb ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcb40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xcc ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcc40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xcd ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcd40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xce ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xce40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xcf ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcf40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd0 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd040[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd1 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd140[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd2 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd240[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd3 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd340[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd4 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd440[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd5 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd540[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd6 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd640[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd7 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd740[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd8 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xd9 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xda ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xda40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xdb ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdb40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xdc ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdc40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xdd ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdd40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xde ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xde40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xdf ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdf40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe0 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe040[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe1 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe140[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe2 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe240[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe3 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe340[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe4 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe440[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe5 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe540[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe6 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe640[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe7 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe740[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe8 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xe9 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xea ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xea40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xeb ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xeb40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xec ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xec40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xed ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xed40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xee ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xee40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xef ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xef40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf0 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf040[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf1 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf140[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf2 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf240[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf3 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf340[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf4 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf440[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf5 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf540[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf6 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf640[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf7 ) && ( byte_stream[ 1 ] >= 0x40 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf740[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf8 ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf840[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf8 ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x9d42 : \
+	( ( byte_stream[ 0 ] == 0xf9 ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf940[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xf9 ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x9da2 : \
+	( ( byte_stream[ 0 ] == 0xfa ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfa40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xfa ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x9e02 : \
+	( ( byte_stream[ 0 ] == 0xfb ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfb40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xfb ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x9eaa : \
+	( ( byte_stream[ 0 ] == 0xfc ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfc40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xfc ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0x9f31 : \
+	( ( byte_stream[ 0 ] == 0xfd ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0xa0 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfd40[ byte_stream[ 1 ] - 0x40 ] : \
+	( ( byte_stream[ 0 ] == 0xfd ) && ( byte_stream[ 1 ] == 0xa0 ) ) ? \
+		0xf9f1 : \
+	( ( byte_stream[ 0 ] == 0xfe ) && ( byte_stream[ 1 ] >= 0x40 ) && ( byte_stream[ 1 ] < 0x50 ) ) ? \
+		libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ byte_stream[ 1 ] - 0x40 ] : \
 	0xfffd
 
 #define libuna_codepage_windows_936_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x00e0 ) && ( unicode_character < 0x0140 ) ) ? libuna_codepage_windows_936_unicode_to_byte_stream_base_0x00e0[ unicode_character - 0x00e0 ] : \
-	( unicode_character == 0x20ac ) ? 0x80 : \
 	0x1a
 
 #if defined( __cplusplus )
