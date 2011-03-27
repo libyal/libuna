@@ -278,6 +278,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_936.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_support.c"
 				>
 			</File>
@@ -337,14 +341,6 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_byte_stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_ascii.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_1.h"
 				>
 			</File>
 			<File
@@ -449,6 +445,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_874.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_936.h"
 				>
 			</File>
 			<File

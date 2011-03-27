@@ -34,11 +34,6 @@ extern const uint16_t libuna_codepage_iso_8859_8_byte_stream_to_unicode_base_0xa
 extern const uint8_t libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x00a0[ 32 ];
 extern const uint8_t libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x05d0[ 32 ];
 
-#define libuna_codepage_iso_8859_8_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
-	( byte_stream[ byte_stream_index ] < 0xa0 ) ? \
-		byte_stream[ byte_stream_index ] : \
-	libuna_codepage_iso_8859_8_byte_stream_to_unicode_base_0xa0[ byte_stream[ byte_stream_index ] - 0xa0 ]
-
 #define libuna_codepage_iso_8859_8_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x00a0 ) ? \
 		(uint8_t) unicode_character : \
