@@ -1,7 +1,10 @@
 TODO
 * work on 936 gb2312 Chinese Simplified (GB2312) support
   - todo 0xa6 
-* rewrite ascii codepage macros to take byte stream as parameter ?
+* rewrite ascii codepage macros
+  - to take 3 parameters
+* rewrite unicode codepage macros
+  - to take 3 parameters
 * add unatools_libuna.h
 * complete base16
   - implement base16 functions

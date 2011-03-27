@@ -34,22 +34,36 @@ extern const uint16_t libuna_codepage_iso_8859_10_byte_stream_to_unicode_base_0x
 extern const uint8_t libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x00c0[ 144 ];
 extern const uint8_t libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x0160[ 16 ];
 
-#define libuna_codepage_iso_8859_10_byte_stream_to_unicode( byte_stream_character ) \
-	( byte_stream_character < 0xa0 ) ? byte_stream_character : libuna_codepage_iso_8859_10_byte_stream_to_unicode_base_0xa0[ byte_stream_character - 0xa0 ]
+#define libuna_codepage_iso_8859_10_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
+	( byte_stream[ byte_stream_index ] < 0xa0 ) ? \
+		 byte_stream[ byte_stream_index ] : \
+	libuna_codepage_iso_8859_10_byte_stream_to_unicode_base_0xa0[ byte_stream[ byte_stream_index ] - 0xa0 ]
 
 #define libuna_codepage_iso_8859_10_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x00a1 ) ? (uint8_t) unicode_character : \
-	( unicode_character == 0x00a7 ) ? 0xa7 : \
-	( unicode_character == 0x00ad ) ? 0xad : \
-	( unicode_character == 0x00b0 ) ? 0xb0 : \
-	( unicode_character == 0x00b7 ) ? 0xb7 : \
-	( ( unicode_character >= 0x00c0 ) && ( unicode_character < 0x0150 ) ) ? libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x00c0[ unicode_character - 0x00c0 ] : \
-	( ( unicode_character >= 0x0160 ) && ( unicode_character < 0x0170 ) ) ? libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x0160[ unicode_character - 0x0160 ] : \
-	( unicode_character == 0x0172 ) ? 0xd9 : \
-	( unicode_character == 0x0173 ) ? 0xf9 : \
-	( unicode_character == 0x017d ) ? 0xac : \
-	( unicode_character == 0x017e ) ? 0xbc : \
-	( unicode_character == 0x2015 ) ? 0xbd : \
+	( unicode_character < 0x00a1 ) ? \
+		(uint8_t) unicode_character : \
+	( unicode_character == 0x00a7 ) ? \
+		0xa7 : \
+	( unicode_character == 0x00ad ) ? \
+		0xad : \
+	( unicode_character == 0x00b0 ) ? \
+		0xb0 : \
+	( unicode_character == 0x00b7 ) ? \
+		0xb7 : \
+	( ( unicode_character >= 0x00c0 ) && ( unicode_character < 0x0150 ) ) ? \
+		libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x00c0[ unicode_character - 0x00c0 ] : \
+	( ( unicode_character >= 0x0160 ) && ( unicode_character < 0x0170 ) ) ? \
+		libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x0160[ unicode_character - 0x0160 ] : \
+	( unicode_character == 0x0172 ) ? \
+		0xd9 : \
+	( unicode_character == 0x0173 ) ? \
+		0xf9 : \
+	( unicode_character == 0x017d ) ? \
+		0xac : \
+	( unicode_character == 0x017e ) ? \
+		0xbc : \
+	( unicode_character == 0x2015 ) ? \
+		0xbd : \
 	0x1a
 
 #if defined( __cplusplus )

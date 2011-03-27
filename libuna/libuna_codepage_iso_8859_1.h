@@ -29,11 +29,12 @@
 extern "C" {
 #endif
 
-#define libuna_codepage_iso_8859_1_byte_stream_to_unicode( byte_stream_character ) \
-	byte_stream_character
+#define libuna_codepage_iso_8859_1_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
+	byte_stream[ byte_stream_index ]
 
 #define libuna_codepage_iso_8859_1_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x0100 ) ? (uint8_t) unicode_character : \
+	( unicode_character < 0x0100 ) ? \
+		(uint8_t) unicode_character : \
 	0x1a
 
 #if defined( __cplusplus )

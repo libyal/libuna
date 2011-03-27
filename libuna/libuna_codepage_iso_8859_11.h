@@ -29,17 +29,24 @@
 extern "C" {
 #endif
 
-#define libuna_codepage_iso_8859_11_byte_stream_to_unicode( byte_stream_character ) \
-	( byte_stream_character < 0xa1 ) ? byte_stream_character : \
-	( byte_stream_character < 0xdb ) ? byte_stream_character + 0x0d60 : \
-	( byte_stream_character < 0xdf ) ? 0xfffd : \
-	( byte_stream_character < 0xfc ) ? byte_stream_character + 0x0d60 : \
+#define libuna_codepage_iso_8859_11_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
+	( byte_stream[ byte_stream_index ] < 0xa1 ) ? \
+		byte_stream[ byte_stream_index ] : \
+	( byte_stream[ byte_stream_index ] < 0xdb ) ? \
+		byte_stream[ byte_stream_index ] + 0x0d60 : \
+	( byte_stream[ byte_stream_index ] < 0xdf ) ? \
+		0xfffd : \
+	( byte_stream[ byte_stream_index ] < 0xfc ) ? \
+		byte_stream[ byte_stream_index ] + 0x0d60 : \
 	0xfffd
 
 #define libuna_codepage_iso_8859_11_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x00a1 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x0e01 ) && ( unicode_character < 0x0e3b ) ) ? (uint8_t) ( unicode_character - 0x0d60 ) : \
-	( ( unicode_character >= 0x0e3f ) && ( unicode_character < 0x0e5c ) ) ? (uint8_t) ( unicode_character - 0x0d60 ) : \
+	( unicode_character < 0x00a1 ) ? \
+		(uint8_t) unicode_character : \
+	( ( unicode_character >= 0x0e01 ) && ( unicode_character < 0x0e3b ) ) ? \
+		(uint8_t) ( unicode_character - 0x0d60 ) : \
+	( ( unicode_character >= 0x0e3f ) && ( unicode_character < 0x0e5c ) ) ? \
+		(uint8_t) ( unicode_character - 0x0d60 ) : \
 	0x1a
 
 #if defined( __cplusplus )

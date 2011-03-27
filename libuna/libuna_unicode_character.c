@@ -66,17 +66,12 @@
  */
 LIBUNA_INLINE \
 int libuna_unicode_character_size_to_byte_stream(
-     libuna_unicode_character_t unicode_character LIBUNA_ATTRIBUTE_UNUSED,
+     libuna_unicode_character_t unicode_character,
      int codepage,
      size_t *byte_stream_character_size,
      liberror_error_t **error )
 {
 	static char *function = "libuna_unicode_character_size_to_byte_stream";
-
-	/* TODO handle multi byte characters
-	 * remove LIBUNA_ATTRIBUTE_UNUSED, LIBUNA_UNREFERENCED_PARAMETER
-	 */
-	LIBUNA_UNREFERENCED_PARAMETER( unicode_character )
 
 	if( byte_stream_character_size == NULL )
 	{
@@ -123,7 +118,18 @@ int libuna_unicode_character_size_to_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_936:
-/* TODO */
+/* TODO improve check
+ * determine non convertable characters
+ */
+			if( ( unicode_character < 0x00000080UL )
+			 || ( unicode_character == 0x20ac ) )
+			{
+				*byte_stream_character_size += 1;
+			}
+			else
+			{
+				*byte_stream_character_size += 2;
+			}
 			break;
 
 		default:
@@ -215,97 +221,116 @@ int libuna_unicode_character_copy_from_byte_stream(
 	{
 		case LIBUNA_CODEPAGE_ASCII:
 			*unicode_character = libuna_codepage_ascii_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_1:
 			*unicode_character = libuna_codepage_iso_8859_1_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_2:
 			*unicode_character = libuna_codepage_iso_8859_2_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_3:
 			*unicode_character = libuna_codepage_iso_8859_3_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_4:
 			*unicode_character = libuna_codepage_iso_8859_4_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_5:
 			*unicode_character = libuna_codepage_iso_8859_5_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_6:
 			*unicode_character = libuna_codepage_iso_8859_6_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_7:
 			*unicode_character = libuna_codepage_iso_8859_7_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_8:
 			*unicode_character = libuna_codepage_iso_8859_8_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_9:
 			*unicode_character = libuna_codepage_iso_8859_9_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_10:
 			*unicode_character = libuna_codepage_iso_8859_10_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_11:
 			*unicode_character = libuna_codepage_iso_8859_11_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_13:
 			*unicode_character = libuna_codepage_iso_8859_13_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_14:
 			*unicode_character = libuna_codepage_iso_8859_14_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_15:
 			*unicode_character = libuna_codepage_iso_8859_15_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_16:
 			*unicode_character = libuna_codepage_iso_8859_16_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_R:
 			*unicode_character = libuna_codepage_koi8_r_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_U:
 			*unicode_character = libuna_codepage_koi8_u_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
 			*unicode_character = libuna_codepage_windows_874_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_936:
@@ -322,7 +347,8 @@ int libuna_unicode_character_copy_from_byte_stream(
 				return( -1 );
 			}
 			*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode(
-			                      byte_stream );
+			                      byte_stream,
+			                      *byte_stream_index );
 
 			if( byte_stream[ *byte_stream_index ] > 0x80 )
 			{
@@ -332,47 +358,56 @@ int libuna_unicode_character_copy_from_byte_stream(
 
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 			*unicode_character = libuna_codepage_windows_1250_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1251:
 			*unicode_character = libuna_codepage_windows_1251_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1252:
 			*unicode_character = libuna_codepage_windows_1252_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1253:
 			*unicode_character = libuna_codepage_windows_1253_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1254:
 			*unicode_character = libuna_codepage_windows_1254_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1255:
 			*unicode_character = libuna_codepage_windows_1255_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1256:
 			*unicode_character = libuna_codepage_windows_1256_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1257:
 			*unicode_character = libuna_codepage_windows_1257_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1258:
 			*unicode_character = libuna_codepage_windows_1258_byte_stream_to_unicode(
-			                      byte_stream[ *byte_stream_index ] );
+			                      byte_stream,
+			                      *byte_stream_index );
 			break;
 
 		default:

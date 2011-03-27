@@ -33,22 +33,34 @@ extern const uint16_t libuna_codepage_iso_8859_15_byte_stream_to_unicode_base_0x
 
 extern const uint8_t libuna_codepage_iso_8859_15_unicode_to_byte_stream_base_0x00a0[ 32 ];
 
-#define libuna_codepage_iso_8859_15_byte_stream_to_unicode( byte_stream_character ) \
-	( ( byte_stream_character < 0xa0 ) || ( byte_stream_character >= 0xc0 ) ) ? byte_stream_character : \
-	libuna_codepage_iso_8859_15_byte_stream_to_unicode_base_0xa0[ byte_stream_character - 0xa0 ]
+#define libuna_codepage_iso_8859_15_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
+	( ( byte_stream[ byte_stream_index ] < 0xa0 ) || ( byte_stream[ byte_stream_index ] >= 0xc0 ) ) ? \
+		byte_stream[ byte_stream_index ] : \
+	libuna_codepage_iso_8859_15_byte_stream_to_unicode_base_0xa0[ byte_stream[ byte_stream_index ] - 0xa0 ]
 
 #define libuna_codepage_iso_8859_15_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x00a0 ) ? (uint8_t) unicode_character : \
-	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x00c0 ) ) ? libuna_codepage_iso_8859_15_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
-	( unicode_character < 0x0100 ) ? (uint8_t) unicode_character : \
-	( unicode_character == 0x0152 ) ? 0xbc : \
-	( unicode_character == 0x0153 ) ? 0xbd : \
-	( unicode_character == 0x0160 ) ? 0xa6 : \
-	( unicode_character == 0x0161 ) ? 0xa8 : \
-	( unicode_character == 0x0178 ) ? 0xbe : \
-	( unicode_character == 0x017d ) ? 0xb4 : \
-	( unicode_character == 0x017e ) ? 0xb8 : \
-	( unicode_character == 0x20ac ) ? 0xa4 : \
+	( unicode_character < 0x00a0 ) ? \
+		(uint8_t) unicode_character : \
+	( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x00c0 ) ) ? \
+		libuna_codepage_iso_8859_15_unicode_to_byte_stream_base_0x00a0[ unicode_character - 0x00a0 ] : \
+	( unicode_character < 0x0100 ) ? \
+		(uint8_t) unicode_character : \
+	( unicode_character == 0x0152 ) ? \
+		0xbc : \
+	( unicode_character == 0x0153 ) ? \
+		0xbd : \
+	( unicode_character == 0x0160 ) ? \
+		0xa6 : \
+	( unicode_character == 0x0161 ) ? \
+		0xa8 : \
+	( unicode_character == 0x0178 ) ? \
+		0xbe : \
+	( unicode_character == 0x017d ) ? \
+		0xb4 : \
+	( unicode_character == 0x017e ) ? \
+		0xb8 : \
+	( unicode_character == 0x20ac ) ? \
+		0xa4 : \
 	0x1a
 
 #if defined( __cplusplus )
