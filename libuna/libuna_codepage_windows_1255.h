@@ -36,11 +36,6 @@ extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x
 extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x05d0[ 40 ];
 extern const uint8_t libuna_codepage_windows_1255_unicode_to_byte_stream_base_0x2010[ 24 ];
 
-#define libuna_codepage_windows_1255_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
-	( byte_stream[ byte_stream_index ] < 0x80 ) ? \
-		byte_stream[ byte_stream_index ] : \
-	libuna_codepage_windows_1255_byte_stream_to_unicode_base_0x80[ byte_stream[ byte_stream_index ] - 0x80 ]
-
 #define libuna_codepage_windows_1255_unicode_to_byte_stream( unicode_character ) \
 	( unicode_character < 0x0080 ) ? \
 		(uint8_t) unicode_character : \

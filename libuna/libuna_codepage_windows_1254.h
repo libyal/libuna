@@ -36,19 +36,6 @@ extern const uint16_t libuna_codepage_windows_1254_byte_stream_to_unicode_base_0
 extern const uint8_t libuna_codepage_windows_1254_unicode_to_byte_stream_base_0x00d0[ 48 ];
 extern const uint8_t libuna_codepage_windows_1254_unicode_to_byte_stream_base_0x2010[ 24 ];
 
-#define libuna_codepage_windows_1254_byte_stream_to_unicode( byte_stream, byte_stream_index ) \
-	( byte_stream[ byte_stream_index ] < 0x80 ) ? \
-		byte_stream[ byte_stream_index ] : \
-	( byte_stream[ byte_stream_index ] < 0xa0 ) ? \
-		libuna_codepage_windows_1254_byte_stream_to_unicode_base_0x80[ byte_stream[ byte_stream_index ] - 0x80 ] : \
-	( byte_stream[ byte_stream_index ] < 0xd0 ) ? \
-		byte_stream[ byte_stream_index ] : \
-	( byte_stream[ byte_stream_index ] < 0xe0 ) ? \
-		libuna_codepage_windows_1254_byte_stream_to_unicode_base_0xd0[ byte_stream[ byte_stream_index ] - 0xd0 ] : \
-	( byte_stream[ byte_stream_index ] < 0xf0 ) ? \
-		byte_stream[ byte_stream_index ] : \
-	libuna_codepage_windows_1254_byte_stream_to_unicode_base_0xd0[ byte_stream[ byte_stream_index ] - 0xf0 ]
-
 #define libuna_codepage_windows_1254_unicode_to_byte_stream( unicode_character ) \
 	( ( unicode_character < 0x0080 ) || ( ( unicode_character >= 0x00a0 ) && ( unicode_character < 0x00d0 ) ) ) ? \
 		(uint8_t) unicode_character : \
