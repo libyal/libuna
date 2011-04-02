@@ -33,25 +33,6 @@ extern const uint16_t libuna_codepage_iso_8859_9_byte_stream_to_unicode_base_0xd
 
 extern const uint8_t libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ 48 ];
 
-#define libuna_codepage_iso_8859_9_unicode_to_byte_stream( unicode_character ) \
-	( unicode_character < 0x00d0 ) ? \
-		(uint8_t) unicode_character : \
-	( ( unicode_character >= 0x00d0 ) && ( unicode_character < 0x0100 ) ) ? \
-		libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ unicode_character - 0x00d0 ] : \
-	( unicode_character == 0x011e ) ? \
-		0xd0 : \
-	( unicode_character == 0x011f ) ? \
-		0xf0 : \
-	( unicode_character == 0x0130 ) ? \
-		0xdd : \
-	( unicode_character == 0x0131 ) ? \
-		0xfd : \
-	( unicode_character == 0x015e ) ? \
-		0xde : \
-	( unicode_character == 0x015f ) ? \
-		0xfe : \
-	0x1a
-
 #if defined( __cplusplus )
 }
 #endif

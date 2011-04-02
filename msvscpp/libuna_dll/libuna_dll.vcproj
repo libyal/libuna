@@ -348,10 +348,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuna\libuna_codepage_iso_8859_11.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libuna\libuna_codepage_iso_8859_13.h"
 				>
 			</File>

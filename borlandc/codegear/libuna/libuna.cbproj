@@ -215,8 +215,6 @@
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_codepage_iso_8859_10.h">
 			</None>
-			<None Include="..\..\..\libuna\libuna_codepage_iso_8859_11.h">
-			</None>
 			<None Include="..\..\..\libuna\libuna_unused.h">
 			</None>
 			<LibFiles Include="..\Release\libcstring.lib">

@@ -34,7 +34,6 @@
 #include "libuna_codepage_iso_8859_8.h"
 #include "libuna_codepage_iso_8859_9.h"
 #include "libuna_codepage_iso_8859_10.h"
-#include "libuna_codepage_iso_8859_11.h"
 #include "libuna_codepage_iso_8859_13.h"
 #include "libuna_codepage_iso_8859_14.h"
 #include "libuna_codepage_iso_8859_15.h"
@@ -2004,81 +2003,942 @@ int libuna_unicode_character_copy_to_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_7:
-/* TODO */
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x00b8 ) )
+			{
+				unicode_character -= 0x00a0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
+			}
+			else if( unicode_character == 0x00bb )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbb;
+			}
+			else if( unicode_character == 0x00bd )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbd;
+			}
+			else if( unicode_character == 0x037a )
+			{
+				byte_stream[ *byte_stream_index ] = 0xaa;
+			}
+			else if( ( unicode_character >= 0x0380 )
+			      && ( unicode_character < 0x03d0 ) )
+			{
+				unicode_character -= 0x0380;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream_base_0x0380[ unicode_character ];
+			}
+			else if( unicode_character == 0x2016 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xaf;
+			}
+			else if( unicode_character == 0x2018 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa1;
+			}
+			else if( unicode_character == 0x2019 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa2;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa4;
+			}
+			else if( unicode_character == 0x20af )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa5;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_8:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x00c0 ) )
+			{
+				unicode_character -= 0x00a0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
+			}
+			else if( unicode_character == 0x00d7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xaa;
+			}
+			else if( unicode_character == 0x00f7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xba;
+			}
+			else if( ( unicode_character >= 0x05d0 )
+			      && ( unicode_character < 0x05f0 ) )
+			{
+				unicode_character -= 0x05d0;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x05d0[ unicode_character ];
+			}
+			else if( unicode_character == 0x200e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfd;
+			}
+			else if( unicode_character == 0x200f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfe;
+			}
+			else if( unicode_character == 0x2017 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xdf;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_9:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_9_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00d0 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00d0 )
+			      && ( unicode_character < 0x0100 ) )
+			{
+				unicode_character -= 0x00d0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ unicode_character ];
+			}
+			else if( unicode_character == 0x011e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd0;
+			}
+			else if( unicode_character == 0x011f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf0;
+			}
+			else if( unicode_character == 0x0130 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xdd;
+			}
+			else if( unicode_character == 0x0131 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfd;
+			}
+			else if( unicode_character == 0x015e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xde;
+			}
+			else if( unicode_character == 0x015f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfe;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_10:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_10_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a1 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x00a7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa7;
+			}
+			else if( unicode_character == 0x00ad )
+			{
+				byte_stream[ *byte_stream_index ] = 0xad;
+			}
+			else if( unicode_character == 0x00b0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb0;
+			}
+			else if( unicode_character == 0x00b7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb7;
+			}
+			else if( ( unicode_character >= 0x00c0 )
+			      && ( unicode_character < 0x0150 ) )
+			{
+				unicode_character -= 0x00c0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x00c0[ unicode_character ];
+			}
+			else if( ( unicode_character >= 0x0160 )
+			      && ( unicode_character < 0x0170 ) )
+			{
+				unicode_character -= 0x0160;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x0160[ unicode_character ];
+			}
+			else if( unicode_character == 0x0172 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd9;
+			}
+			else if( unicode_character == 0x0173 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf9;
+			}
+			else if( unicode_character == 0x017d )
+			{
+				byte_stream[ *byte_stream_index ] = 0xac;
+			}
+			else if( unicode_character == 0x017e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbc;
+			}
+			else if( unicode_character == 0x2015 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbd;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_11:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_11_unicode_to_byte_stream(
-			                                     unicode_character );
-
+			if( unicode_character < 0x00a1 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x0e01 )
+			      && ( unicode_character < 0x0e3b ) )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) ( unicode_character - 0x0d60 );
+			}
+			else if( ( unicode_character >= 0x0e3f )
+			      && ( unicode_character < 0x0e5c ) )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) ( unicode_character - 0x0d60 );
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_13:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_13_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x0180 ) )
+			{
+				unicode_character -= 0x00a0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_13_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
+			}
+			else if( ( unicode_character >= 0x2018 )
+			       && ( unicode_character < 0x2020 ) )
+			{
+				unicode_character -= 0x2018;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_13_unicode_to_byte_stream_base_0x2018[ unicode_character ];
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_14:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a1 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x00a3 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa3;
+			}
+			else if( unicode_character == 0x00a7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa7;
+			}
+			else if( unicode_character == 0x00a9 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa9;
+			}
+			else if( unicode_character == 0x00ad )
+			{
+				byte_stream[ *byte_stream_index ] = 0xad;
+			}
+			else if( unicode_character == 0x00ae )
+			{
+				byte_stream[ *byte_stream_index ] = 0xae;
+			}
+			else if( unicode_character == 0x00b6 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb6;
+			}
+			else if( ( unicode_character >= 0x00c0 )
+			      && ( unicode_character < 0x0100 ) )
+			{
+				unicode_character -= 0x00c0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x00c0[ unicode_character ];
+			}
+			else if( unicode_character == 0x010a )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa4;
+			}
+			else if( unicode_character == 0x010b )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa5;
+			}
+			else if( unicode_character == 0x0120 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb2;
+			}
+			else if( unicode_character == 0x0121 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb3;
+			}
+			else if( ( unicode_character >= 0x0170 )
+			      && ( unicode_character < 0x0178 ) )
+			{
+				unicode_character -= 0x0170;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x0170[ unicode_character ];
+			}
+			else if( unicode_character == 0x0178 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xaf;
+			}
+			else if( unicode_character == 0x1e02 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa1;
+			}
+			else if( unicode_character == 0x1e03 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa2;
+			}
+			else if( unicode_character == 0x1e0a )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa6;
+			}
+			else if( unicode_character == 0x1e0b )
+			{
+				byte_stream[ *byte_stream_index ] = 0xab;
+			}
+			else if( unicode_character == 0x1e1e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb0;
+			}
+			else if( unicode_character == 0x1e1f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb1;
+			}
+			else if( unicode_character == 0x1e40 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb4;
+			}
+			else if( unicode_character == 0x1e41 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb5;
+			}
+			else if( unicode_character == 0x1e56 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb7;
+			}
+			else if( unicode_character == 0x1e57 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb9;
+			}
+			else if( unicode_character == 0x1e60 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbb;
+			}
+			else if( unicode_character == 0x1e61 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbf;
+			}
+			else if( unicode_character == 0x1e6a )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd7;
+			}
+			else if( unicode_character == 0x1e6b )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf7;
+			}
+			else if( ( unicode_character >= 0x1e80 )
+			      && ( unicode_character < 0x1e88 ) )
+			{
+				unicode_character -= 0x1e80;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x1e80[ unicode_character ];
+			}
+			else if( unicode_character == 0x1ef2 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xac;
+			}
+			else if( unicode_character == 0x1ef3 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbc;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_15:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_15_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x00c0 ) )
+			{
+				unicode_character -= 0x00a0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_15_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
+			}
+			else if( unicode_character < 0x0100 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x0152 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbc;
+			}
+			else if( unicode_character == 0x0153 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbd;
+			}
+			else if( unicode_character == 0x0160 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa6;
+			}
+			else if( unicode_character == 0x0161 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa8;
+			}
+			else if( unicode_character == 0x0178 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbe;
+			}
+			else if( unicode_character == 0x017d )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb4;
+			}
+			else if( unicode_character == 0x017e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb8;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa4;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_16:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x00a1 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x00a7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa7;
+			}
+			else if( ( unicode_character >= 0x00a8 )
+			      && ( unicode_character < 0x0108 ) )
+			{
+				unicode_character -= 0x00a8;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x00a8[ unicode_character ];
+			}
+			else if( unicode_character == 0x010c )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb2;
+			}
+			else if( unicode_character == 0x010d )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb9;
+			}
+			else if( unicode_character == 0x0110 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd0;
+			}
+			else if( unicode_character == 0x0111 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf0;
+			}
+			else if( unicode_character == 0x0118 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xdd;
+			}
+			else if( unicode_character == 0x0119 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfd;
+			}
+			else if( ( unicode_character >= 0x0140 )
+			      && ( unicode_character < 0x0148 ) )
+			{
+				unicode_character -= 0x0140;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0140[ unicode_character ];
+			}
+			else if( ( unicode_character >= 0x0150 )
+			      && ( unicode_character < 0x0158 ) )
+			{
+				unicode_character -= 0x0150;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0150[ unicode_character ];
+			}
+			else if( unicode_character == 0x015a )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd7;
+			}
+			else if( unicode_character == 0x015b )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf7;
+			}
+			else if( unicode_character == 0x0160 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa6;
+			}
+			else if( unicode_character == 0x0161 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa8;
+			}
+			else if( unicode_character == 0x0170 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd8;
+			}
+			else if( unicode_character == 0x0171 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf8;
+			}
+			else if( ( unicode_character >= 0x0178 )
+			      && ( unicode_character < 0x0180 ) )
+			{
+				unicode_character -= 0x0178;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0178[ unicode_character ];
+			}
+			else if( ( unicode_character >= 0x0218 )
+			      && ( unicode_character < 0x0220 ) )
+			{
+				unicode_character -= 0x0218;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0218[ unicode_character ];
+			}
+			else if( unicode_character == 0x201d )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb5;
+			}
+			else if( unicode_character == 0x201e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa5;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa4;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_R:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9a;
+			}
+			else if( unicode_character == 0x00a9 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbf;
+			}
+			else if( unicode_character == 0x00b0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9c;
+			}
+			else if( unicode_character == 0x00b2 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9d;
+			}
+			else if( unicode_character == 0x00b8 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9e;
+			}
+			else if( unicode_character == 0x00f8 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9f;
+			}
+			else if( unicode_character == 0x0401 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb3;
+			}
+			else if( ( unicode_character >= 0x0410 )
+			      && ( unicode_character < 0x0450 ) )
+			{
+				unicode_character -= 0x0410;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x0410[ unicode_character ];
+			}
+			else if( unicode_character == 0x0451 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa3;
+			}
+			else if( unicode_character == 0x2219 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x95;
+			}
+			else if( unicode_character == 0x221a )
+			{
+				byte_stream[ *byte_stream_index ] = 0x96;
+			}
+			else if( unicode_character == 0x2248 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x97;
+			}
+			else if( unicode_character == 0x2264 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x98;
+			}
+			else if( unicode_character == 0x2265 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x99;
+			}
+			else if( unicode_character == 0x2320 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x93;
+			}
+			else if( unicode_character == 0x2321 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9b;
+			}
+			else if( unicode_character == 0x2500 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x80;
+			}
+			else if( unicode_character == 0x2502 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x81;
+			}
+			else if( unicode_character == 0x250c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x82;
+			}
+			else if( unicode_character == 0x2510 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x83;
+			}
+			else if( unicode_character == 0x2514 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x84;
+			}
+			else if( unicode_character == 0x2518 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x85;
+			}
+			else if( unicode_character == 0x251c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x86;
+			}
+			else if( unicode_character == 0x2524 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x87;
+			}
+			else if( unicode_character == 0x252c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x88;
+			}
+			else if( unicode_character == 0x2534 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x89;
+			}
+			else if( unicode_character == 0x253c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8a;
+			}
+			else if( ( unicode_character >= 0x2550 )
+			      && ( unicode_character < 0x2570 ) )
+			{
+				unicode_character -= 0x2550;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x2550[ unicode_character ];
+			}
+			else if( unicode_character == 0x2580 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8b;
+			}
+			else if( unicode_character == 0x2584 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8c;
+			}
+			else if( unicode_character == 0x2588 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8d;
+			}
+			else if( unicode_character == 0x258c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8e;
+			}
+			else if( unicode_character == 0x2590 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8f;
+			}
+			else if( unicode_character == 0x2591 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x90;
+			}
+			else if( unicode_character == 0x2592 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x91;
+			}
+			else if( unicode_character == 0x2593 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x92;
+			}
+			else if( unicode_character == 0x25a0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x94;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_U:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x00a0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9a;
+			}
+			else if( unicode_character == 0x00a9 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbf;
+			}
+			else if( unicode_character == 0x00b0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9c;
+			}
+			else if( unicode_character == 0x00b2 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9d;
+			}
+			else if( unicode_character == 0x00b8 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9e;
+			}
+			else if( unicode_character == 0x00f8 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9f;
+			}
+			else if( unicode_character == 0x0401 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb3;
+			}
+			else if( unicode_character == 0x0404 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb4;
+			}
+			else if( unicode_character == 0x0406 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb6;
+			}
+			else if( unicode_character == 0x0407 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb7;
+			}
+			else if( ( unicode_character >= 0x0410 )
+			      && ( unicode_character < 0x0450 ) )
+			{
+				unicode_character -= 0x0410;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x0410[ unicode_character ];
+			}
+			else if( unicode_character == 0x0451 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa3;
+			}
+			else if( unicode_character == 0x0454 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa4;
+			}
+			else if( unicode_character == 0x0456 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa6;
+			}
+			else if( unicode_character == 0x0457 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xa7;
+			}
+			else if( unicode_character == 0x0490 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xbd;
+			}
+			else if( unicode_character == 0x0491 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xad;
+			}
+			else if( unicode_character == 0x2219 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x95;
+			}
+			else if( unicode_character == 0x221a )
+			{
+				byte_stream[ *byte_stream_index ] = 0x96;
+			}
+			else if( unicode_character == 0x2248 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x97;
+			}
+			else if( unicode_character == 0x2264 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x98;
+			}
+			else if( unicode_character == 0x2265 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x99;
+			}
+			else if( unicode_character == 0x2320 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x93;
+			}
+			else if( unicode_character == 0x2321 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9b;
+			}
+			else if( unicode_character == 0x2500 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x80;
+			}
+			else if( unicode_character == 0x2502 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x81;
+			}
+			else if( unicode_character == 0x250c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x82;
+			}
+			else if( unicode_character == 0x2510 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x83;
+			}
+			else if( unicode_character == 0x2514 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x84;
+			}
+			else if( unicode_character == 0x2518 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x85;
+			}
+			else if( unicode_character == 0x251c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x86;
+			}
+			else if( unicode_character == 0x2524 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x87;
+			}
+			else if( unicode_character == 0x252c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x88;
+			}
+			else if( unicode_character == 0x2534 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x89;
+			}
+			else if( unicode_character == 0x253c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8a;
+			}
+			else if( ( unicode_character >= 0x2550 )
+			      && ( unicode_character < 0x2570 ) )
+			{
+				unicode_character -= 0x2550;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x2550[ unicode_character ];
+			}
+			else if( unicode_character == 0x2580 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8b;
+			}
+			else if( unicode_character == 0x2584 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8c;
+			}
+			else if( unicode_character == 0x2588 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8d;
+			}
+			else if( unicode_character == 0x258c )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8e;
+			}
+			else if( unicode_character == 0x2590 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8f;
+			}
+			else if( unicode_character == 0x2591 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x90;
+			}
+			else if( unicode_character == 0x2592 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x91;
+			}
+			else if( unicode_character == 0x2593 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x92;
+			}
+			else if( unicode_character == 0x25a0 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x94;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
@@ -2204,7 +3064,7 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1251_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
 			}
-			else if( ( unicode_character >= 0x0400 ) 
+			else if( ( unicode_character >= 0x0400 )
 			      && ( unicode_character < 0x0460 ) )
 			{
 				unicode_character -= 0x0400;
@@ -2259,25 +3119,254 @@ int libuna_unicode_character_copy_to_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1252:
-/* TODO */
-			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1252_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x0100 ) )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( unicode_character == 0x0152 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8c;
+			}
+			else if( unicode_character == 0x0153 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9c;
+			}
+			else if( unicode_character == 0x0160 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8a;
+			}
+			else if( unicode_character == 0x0161 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9a;
+			}
+			else if( unicode_character == 0x0178 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9f;
+			}
+			else if( unicode_character == 0x017d )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8e;
+			}
+			else if( unicode_character == 0x017e )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9e;
+			}
+			else if( unicode_character == 0x0192 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x83;
+			}
+			else if( unicode_character == 0x02c6 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x88;
+			}
+			else if( unicode_character == 0x02dc )
+			{
+				byte_stream[ *byte_stream_index ] = 0x98;
+			}
+			else if( ( unicode_character >= 0x2010 )
+			      && ( unicode_character < 0x2028 ) )
+			{
+				unicode_character -= 0x2010;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1252_unicode_to_byte_stream_base_0x2010[ unicode_character ];
+			}
+			else if( unicode_character == 0x2030 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x89;
+			}
+			else if( unicode_character == 0x2039 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8b;
+			}
+			else if( unicode_character == 0x203a )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9b;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0x80;
+			}
+			else if( unicode_character == 0x2122 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x99;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1253:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1253_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x00c0 ) )
+			{
+				unicode_character -= 0x00a0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
+			}
+			else if( unicode_character == 0x0192 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x83;
+			}
+			else if( ( unicode_character >= 0x0380 )
+			      && ( unicode_character < 0x03d0 ) )
+			{
+				unicode_character -= 0x0380;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x0380[ unicode_character ];
+			}
+			else if( ( unicode_character >= 0x2010 )
+			      && ( unicode_character < 0x2028 ) )
+			{
+				unicode_character -= 0x2010;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1253_unicode_to_byte_stream_base_0x2010[ unicode_character ];
+			}
+			else if( unicode_character == 0x2030 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x89;
+			}
+			else if( unicode_character == 0x2039 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8b;
+			}
+			else if( unicode_character == 0x203a )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9b;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0x80;
+			}
+			else if( unicode_character == 0x2122 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x99;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1254:
-			byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1254_unicode_to_byte_stream(
-			                                     unicode_character );
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x00d0 ) )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00d0 )
+			      && ( unicode_character < 0x0100 ) )
+			{
+				unicode_character -= 0x00d0;
 
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1254_unicode_to_byte_stream_base_0x00d0[ unicode_character ];
+			}
+			else if( unicode_character == 0x011e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xd0;
+			}
+			else if( unicode_character == 0x011f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xf0;
+			}
+			else if( unicode_character == 0x0130 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xdd;
+			}
+			else if( unicode_character == 0x0131 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfd;
+			}
+			else if( unicode_character == 0x0152 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8c;
+			}
+			else if( unicode_character == 0x0153 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9c;
+			}
+			else if( unicode_character == 0x015e )
+			{
+				byte_stream[ *byte_stream_index ] = 0xde;
+			}
+			else if( unicode_character == 0x015f )
+			{
+				byte_stream[ *byte_stream_index ] = 0xfe;
+			}
+			else if( unicode_character == 0x0160 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8a;
+			}
+			else if( unicode_character == 0x0161 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9a;
+			}
+			else if( unicode_character == 0x0178 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9f;
+			}
+			else if( unicode_character == 0x0192 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x83;
+			}
+			else if( unicode_character == 0x02c6 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x88;
+			}
+			else if( unicode_character == 0x02dc )
+			{
+				byte_stream[ *byte_stream_index ] = 0x98;
+			}
+			else if( ( unicode_character >= 0x2010 )
+			      && ( unicode_character < 0x2028 ) )
+			{
+				unicode_character -= 0x2010;
+
+				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_1254_unicode_to_byte_stream_base_0x2010[ unicode_character ];
+			}
+			else if( unicode_character == 0x2030 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x89;
+			}
+			else if( unicode_character == 0x2039 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x8b;
+			}
+			else if( unicode_character == 0x203a )
+			{
+				byte_stream[ *byte_stream_index ] = 0x9b;
+			}
+			else if( unicode_character == 0x20ac )
+			{
+				byte_stream[ *byte_stream_index ] = 0x80;
+			}
+			else if( unicode_character == 0x2122 )
+			{
+				byte_stream[ *byte_stream_index ] = 0x99;
+			}
+			else
+			{
+				byte_stream[ *byte_stream_index ] = 0x1a;
+			}
 			*byte_stream_index += 1;
+
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_1255:
