@@ -35,7 +35,7 @@ TODO
   - implement support for base32
 
   - implement support for codepages:
-    - 923 iso-2022-jp Japanese (Shift-JIS)
+    - 932 iso-2022-jp Japanese (Shift-JIS)
     - 949 ks_c_5601-1987 Korean
     - 950 big5 Chinese Traditional (Big5)
     - 50220 iso-2022-jp Japanese (JIS)
