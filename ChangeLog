@@ -89,6 +89,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20110417
+* worked on windows 936 support
+* worked on windows 932 support
+
 20110402
 * rewrite for windows 936 support
 

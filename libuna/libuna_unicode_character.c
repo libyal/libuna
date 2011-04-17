@@ -41,6 +41,7 @@
 #include "libuna_codepage_koi8_r.h"
 #include "libuna_codepage_koi8_u.h"
 #include "libuna_codepage_windows_874.h"
+#include "libuna_codepage_windows_932.h"
 #include "libuna_codepage_windows_936.h"
 #include "libuna_codepage_windows_1250.h"
 #include "libuna_codepage_windows_1251.h"
@@ -503,6 +504,88 @@ int libuna_unicode_character_copy_from_byte_stream(
 
 			break;
 
+		case LIBUNA_CODEPAGE_WINDOWS_932:
+			if( byte_stream_character < 0x80 )
+			{
+				*unicode_character = byte_stream_character;
+			}
+			else if( ( byte_stream_character >= 0xa0 )
+			      && ( byte_stream_character < 0xe0 ) ) 
+			{
+				byte_stream_character -= 0xa0;
+
+				*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x00a0[ byte_stream_character ];
+			}
+			else if( ( *byte_stream_index + 1 ) >= byte_stream_size )
+			{
+				*byte_stream_index += 1;
+
+				additional_character = byte_stream[ *byte_stream_index ];
+
+				if( ( byte_stream_character == 0x81 )
+				  && ( additional_character >= 0x40 )
+				  && ( additional_character < 0xb0 ) )
+				{
+					additional_character -= 0x40;
+
+					*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8140[ additional_character ];
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character >= 0xb8 )
+				      && ( additional_character < 0xc0 ) )
+				{
+					additional_character -= 0xb8;
+
+					*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81b8[ additional_character ];
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character >= 0xc8 )
+				      && ( additional_character < 0xd0 ) )
+				{
+					additional_character -= 0xc8;
+
+					*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81c8[ additional_character ];
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character >= 0xd8 )
+				      && ( additional_character < 0xe8 ) )
+				{
+					additional_character -= 0xd8;
+
+					*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81d8[ additional_character ];
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character == 0xe8 ) )
+				{
+					*unicode_character = 0x222c;
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character >= 0xf0 )
+				      && ( additional_character < 0xf8 ) )
+				{
+					additional_character -= 0xf0;
+
+					*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81f0[ additional_character ];
+				}
+				else if( ( byte_stream_character == 0x81 )
+				      && ( additional_character == 0xfc ) )
+				{
+					*unicode_character = 0x25ef;
+				}
+/* TODO */
+				else
+				{
+					*unicode_character = 0xfffd;
+				}
+			}
+			else
+			{
+				*unicode_character = 0xfffd;
+			}
+			*byte_stream_index += 1;
+
+			break;
+
 		case LIBUNA_CODEPAGE_WINDOWS_936:
 			if( byte_stream_character < 0x80 )
 			{
@@ -512,19 +595,8 @@ int libuna_unicode_character_copy_from_byte_stream(
 			{
 				*unicode_character = 0x20ac;
 			}
-			else
+			else if( ( *byte_stream_index + 1 ) >= byte_stream_size )
 			{
-				if( ( *byte_stream_index + 1 ) >= byte_stream_size )
-				{
-					liberror_error_set(
-					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-					 "%s: byte stream too small.",
-					 function );
-
-					return( -1 );
-				}
 				*byte_stream_index += 1;
 
 				additional_character = byte_stream[ *byte_stream_index ];
@@ -1528,6 +1600,10 @@ int libuna_unicode_character_copy_from_byte_stream(
 				{
 					*unicode_character = 0xfffd;
 				}
+			}
+			else
+			{
+				*unicode_character = 0xfffd;
 			}
 			*byte_stream_index += 1;
 
