@@ -115,12 +115,27 @@ int libuna_unicode_character_size_to_byte_stream(
 			*byte_stream_character_size += 1;
 			break;
 
+		case LIBUNA_CODEPAGE_WINDOWS_932:
+			if( unicode_character < 0x00000080UL )
+			{
+				*byte_stream_character_size += 1;
+			}
+/* TODO */
+			else
+			{
+				*byte_stream_character_size += 2;
+			}
+			break;
+
 		case LIBUNA_CODEPAGE_WINDOWS_936:
 /* TODO improve check
  * determine non convertable characters
  */
-			if( ( unicode_character < 0x00000080UL )
-			 || ( unicode_character == 0x20ac ) )
+			if( unicode_character < 0x00000080UL )
+			{
+				*byte_stream_character_size += 1;
+			}
+			else if( unicode_character == 0x20ac )
 			{
 				*byte_stream_character_size += 1;
 			}
@@ -3062,6 +3077,10 @@ int libuna_unicode_character_copy_to_byte_stream(
 			}
 			*byte_stream_index += 1;
 
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_932:
+/* TODO */
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_936:
