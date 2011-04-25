@@ -29,12 +29,57 @@
 extern "C" {
 #endif
 
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x00a0[ 64 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8140[ 112 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8140[ 109 ];
 extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81b8[ 8 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81c8[ 8 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81d8[ 16 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81c8[ 7 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81da[ 15 ];
 extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81f0[ 8 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8440[ 33 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8470[ 15 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x849f[ 32 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x875f[ 23 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8780[ 29 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x889f[ 94 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8940[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8a40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8b40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8c40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8d40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8e40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8f40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9040[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9140[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9240[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9340[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9440[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9540[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9640[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9740[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9840[ 51 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x989f[ 94 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9940[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9a40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9b40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9c40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9d40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9e40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9f40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe040[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe140[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe240[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe340[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe440[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe540[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe640[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe740[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe840[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe940[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xea40[ 101 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xed40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xee40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfa40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfb40[ 189 ];
+extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfc40[ 12 ];
 
 #if defined( __cplusplus )
 }

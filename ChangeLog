@@ -1,10 +1,7 @@
 TODO
-* work on 936 gb2312 Chinese Simplified (GB2312) support
-  - add unicode to ascii support (combine with rewrite)
-* rewrite ascii codepage macros
-  - refactor into unicode char function
-* rewrite unicode codepage macros
-  - refactor into unicode char function
+* add unicode to ascii support for (combine with rewrite)
+  - 932 iso-2022-jp Japanese (Shift-JIS)
+  - 936 gb2312 Chinese Simplified (GB2312) support
 * add unatools_libuna.h
 * complete base16
   - implement base16 functions
@@ -35,7 +32,6 @@ TODO
   - implement support for base32
 
   - implement support for codepages:
-    - 932 iso-2022-jp Japanese (Shift-JIS)
     - 949 ks_c_5601-1987 Korean
     - 950 big5 Chinese Traditional (Big5)
     - 50220 iso-2022-jp Japanese (JIS)
@@ -88,6 +84,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20110425
+* worked on windows 932 support
 
 20110417
 * worked on windows 936 support
