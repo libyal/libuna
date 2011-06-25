@@ -24,6 +24,7 @@ unaexport_LDADD = \
 	../libcstring/libcstring.la \
 	../liberror/liberror.la \
 	../libsystem/libsystem.la \
+	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 
 MAINTAINERCLEANFILES = \
