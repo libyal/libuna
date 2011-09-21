@@ -101,9 +101,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\liberror;..\..\libuna"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBUNA"
-				RuntimeLibrary="2"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
 				WarningLevel="4"
 				WarnAsError="false"
 				DebugInformationFormat="3"
@@ -182,7 +185,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libsystem\libsystem_split_values.c"
+				RelativePath="..\..\libsystem\libsystem_split_string.c"
 				>
 			</File>
 			<File
@@ -205,6 +208,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libsystem\libsystem_date_time.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libsystem\libsystem_definitions.h"
 				>
 			</File>
 			<File
@@ -264,7 +271,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libsystem\libsystem_split_values.h"
+				RelativePath="..\..\libsystem\libsystem_split_string.h"
 				>
 			</File>
 			<File

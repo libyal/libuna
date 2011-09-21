@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20110830],
+ [20110921],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
