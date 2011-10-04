@@ -897,7 +897,7 @@ int libuna_base64_stream_decode(
 	/* Make sure the byte stream is able to hold
 	 * at least 3 bytes for each 4 bytes
 	 */
-	calculated_byte_stream_size = ( base64_stream_size / 4 ) * 3;
+	calculated_byte_stream_size = base64_stream_size / 4;
 
 	if( ( base64_stream_size % 4 ) != 0 )
 	{

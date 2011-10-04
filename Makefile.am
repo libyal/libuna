@@ -15,15 +15,24 @@ SUBDIRS = \
 	borlandc \
 	msvscpp
 
+GETTEXT_FILES = \
+	config.rpath \
+	po/Makevars.in
+
+PKGCONFIG_FILES = \
+	libuna.pc.in
+
 SPEC_FILES = \
 	libuna.spec \
 	libuna.spec.in
 
 EXTRA_DIST = \
-	config.rpath \
+	README.dll \
+	README.macosx \
 	README.mingw \
-	po/Makevars.in \
-	libuna.pc.in \
+	README.static \
+	$(GETTEXT_FILES) \
+	$(PKGCONFIG_FILES) \
         $(SPEC_FILES)
 
 MAINTAINERCLEANFILES = \

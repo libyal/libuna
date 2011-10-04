@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20110921],
+ [20111004],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -19,16 +19,6 @@ dnl Check for large file support
 AC_SYS_LARGEFILE
 
 dnl Check for configure arguments
-COMMON_ARG_ENABLE(
- [winapi],
- [winapi],
- [enable WINAPI support for cross-compilation],
- [auto-detect])
-COMMON_ARG_ENABLE(
- [static-executables],
- [static_executables],
- [build the unatools as static executables],
- [no])
 
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
@@ -49,45 +39,32 @@ AC_C_CONST
 AC_C_INLINE
 AC_C_VOLATILE
 
-dnl Automatically enable winapi support for mingw
-AC_CHECK_WINAPI
+dnl Check if WINAPI support should be enabled
+AX_COMMON_CHECK_ENABLE_WINAPI
 
 dnl Check for type definitions
-AC_CHECK_LOCAL_TYPES
+AX_TYPES_CHECK_LOCAL
 
 dnl Check for headers
 
 dnl Check for functions
 
-dnl Check for printf conversion specifier support
-AC_CHECK_FUNC_PRINTF_JD
-AC_CHECK_FUNC_PRINTF_ZD
-
 dnl Checks for libraries and library functions
 dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
-AC_CHECK_LOCAL_COMMON
-AC_CHECK_LOCAL_LIBCSTRING
-AC_CHECK_LOCAL_LIBERROR
-AC_CHECK_LOCAL_LIBNOTIFY
-AC_CHECK_LOCAL_LIBSYSTEM
+AX_COMMON_CHECK_LOCAL
+AX_LIBCSTRING_CHECK_LOCAL
+AX_LIBERROR_CHECK_LOCAL
+AX_LIBNOTIFY_CHECK_LOCAL
+AX_LIBSYSTEM_CHECK_LOCAL
 
 dnl Check if unatools should be build as static executables
-AS_IF(
- [test "x$ac_cv_enable_static_executables" != xno],
- [STATIC_LDFLAGS="-all-static";
- AC_SUBST(
-  [STATIC_LDFLAGS])
- AC_DEFINE(
-  [HAVE_STATIC_EXECUTABLES],
-  [1],
-  [Define if executables should be static compiled.])
- ac_cv_enable_static_executables=yes])
+AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
 
 dnl Set memwatch support
-ac_libuna_have_memwatch=no
+ac_cv_enable_memwatch=no
 
 AS_IF(
- [test "x$ac_libuna_have_memwatch" != xno ],
+ [test "x$ac_cv_enable_memwatch" != xno ],
  [AC_SUBST(
   [MEMWATCH_CPPFLAGS],
   ["-DMEMWATCH -DMEMWATCH_STDIO"])
@@ -97,14 +74,14 @@ AS_IF(
 
 AM_CONDITIONAL(
  [HAVE_MEMWATCH],
- [test "x$ac_libuna_have_memwatch" != xno])
+ [test "x$ac_cv_enable_memwatch" != xno])
 
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
 
 dnl Check if DLL support is needed in unatools
 AS_IF(
- [test x"$enable_shared" = xyes],
+ [test "x$enable_shared" = xyes],
  [AS_CASE(
   [$host],
   [*cygwin* | *mingw*],

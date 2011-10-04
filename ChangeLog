@@ -1,4 +1,5 @@
 TODO
+* base64 decode strip white space or add option to do so
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
@@ -84,6 +85,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20111004
+* updated configure, README
+* bug fix in base64_stream_decode
 
 20110921
 * updated configure, libsystem
