@@ -769,6 +769,9 @@ int libuna_base64_triplet_copy_to_byte_stream(
  * LIBUNA_BASE64_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
  * and trailing space, tab and end of line characters
  *
+ * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
+ * as defined by character_limit
+ *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base64_stream_decode_size(
@@ -819,6 +822,7 @@ int libuna_base64_stream_decode_size(
 
 		return( -1 );
 	}
+/* TODO must be multitude of 4 ? */
 	if( character_limit > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
@@ -841,23 +845,37 @@ int libuna_base64_stream_decode_size(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
-	{
-		base64_stream_index = base64_stream_size - 1;
+	base64_stream_index = base64_stream_size - 1;
+	whitespace_size     = 0;
 
-		while( base64_stream_index > 0 )
+	while( base64_stream_index > 0 )
+	{
+		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
+		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
 		{
-			if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+			whitespace_size++;
+		}
+		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+		{
+			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
 				whitespace_size++;
 			}
+			else
+			{
+				break;
+			}
 		}
-		base64_stream_size -= whitespace_size;
+		else
+		{
+			break;
+		}
+		base64_stream_index--;
 	}
+	base64_stream_size -= whitespace_size;
+
 	if( base64_stream[ base64_stream_size - 1 ] == (uint8_t) '=' )
 	{
 		padding_size += 1;
@@ -877,16 +895,52 @@ int libuna_base64_stream_decode_size(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
-	{
-		base64_stream_index = 0;
-		whitespace_size     = 0;
+	base64_stream_index = 0;
+	whitespace_size     = 0;
 
-		while( base64_stream_index < ( base64_stream_size - padding_size ) )
+	while( base64_stream_index < ( base64_stream_size - padding_size ) )
+	{
+		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
+		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
 		{
-			if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+			if( strip_mode != LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+			{
+				strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
+			}
+			else if( base64_stream_index < base64_stream_size )
+			{
+				if( ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\n' )
+				 || ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\r' ) )
+				{
+					strip_mode = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
+
+					base64_stream_index++;
+
+					whitespace_size++;
+				}
+			}
+			if( ( flags & LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+			{
+				if( number_of_characters != character_limit )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 "%s: number of characters in line exceed maximum.",
+					 function );
+
+					return( -1 );
+				}
+				number_of_characters = 0;
+			}
+			whitespace_size++;
+		}
+		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+		{
+			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
 				if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
 				{
@@ -902,103 +956,101 @@ int libuna_base64_stream_decode_size(
 					whitespace_size++;
 				}
 			}
-			else if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-			      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
-			{
-				if( strip_mode != LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
-				{
-					strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
-				}
-				else if( base64_stream_index < base64_stream_size )
-				{
-					if( ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\n' )
-					 || ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\r' ) )
-					{
-						strip_mode = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
-
-						base64_stream_index++;
-
-						whitespace_size++;
-					}
-				}
-				whitespace_size++;
-			}
-			else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE )
-			{
-				strip_mode = LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE;
-			}
-			else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+			else
 			{
 				strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
 			}
-			if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
+		}
+		else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE )
+		{
+			strip_mode = LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE;
+		}
+		else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+		{
+			strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
+		}
+		if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
+		{
+			/* A-Z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: A-I, J-R, S-Z
+			 */
+			if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'A' )
+			 && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'I' ) )
 			{
-				/* A-Z is not a continous range on a EBCDIC based system
-				 * it consists of the ranges: A-I, J-R, S-Z
-				 */
-				if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'A' )
-				 && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'I' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'J' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'R' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'S' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'Z' ) )
-				{
-					number_of_characters++;
-				}
-				/* a-z is not a continous range on a EBCDIC based system
-				 * it consists of the ranges: a-i, j-r, s-z
-				 */
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'a' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'i' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'j' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'r' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 's' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'z' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) '0' )
-				      && ( base64_stream[ base64_stream_index ] <= (uint8_t) '9' ) )
-				{
-					number_of_characters++;
-				}
-				else if( ( base64_stream[ base64_stream_index ] == (uint8_t) '+' )
-				      || ( base64_stream[ base64_stream_index ] == (uint8_t) '/' ) )
-				{
-					number_of_characters++;
-				}
-				else
-				{
-					strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
-				}
+				number_of_characters++;
 			}
-			if( strip_mode == LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER )
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'J' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'R' ) )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-				 "%s: invalid character in base64 stream at index: %d.",
-				 function,
-				 base64_stream_index );
-
-				return( -1 );
+				number_of_characters++;
+			}
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'S' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'Z' ) )
+			{
+				number_of_characters++;
+			}
+			/* a-z is not a continous range on a EBCDIC based system
+			 * it consists of the ranges: a-i, j-r, s-z
+			 */
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'a' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'i' ) )
+			{
+				number_of_characters++;
+			}
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'j' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'r' ) )
+			{
+				number_of_characters++;
+			}
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 's' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'z' ) )
+			{
+				number_of_characters++;
+			}
+			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) '0' )
+			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) '9' ) )
+			{
+				number_of_characters++;
+			}
+			else if( ( base64_stream[ base64_stream_index ] == (uint8_t) '+' )
+			      || ( base64_stream[ base64_stream_index ] == (uint8_t) '/' ) )
+			{
+				number_of_characters++;
+			}
+			else
+			{
+				strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
 			}
 		}
-		base64_stream_size -= whitespace_size;
+		if( strip_mode == LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: invalid character in base64 stream at index: %d.",
+			 function,
+			 base64_stream_index );
+
+			return( -1 );
+		}
 	}
+	if( ( flags & LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	{
+		if( number_of_characters != character_limit )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: number of characters in line exceed maximum.",
+			 function );
+
+			return( -1 );
+		}
+	}
+	base64_stream_size -= whitespace_size;
+
 	/* Make sure the base64 stream is able to hold
 	 * at least 3 bytes for each 4 bytes
 	 */
@@ -1019,6 +1071,9 @@ int libuna_base64_stream_decode_size(
  *
  * LIBUNA_BASE64_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
  * and trailing space, tab and end of line characters
+ *
+ * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
+ * as defined by character_limit
  *
  * Returns 1 if successful or -1 on error
  */
@@ -1111,11 +1166,44 @@ int libuna_base64_stream_decode(
 	}
 	while( base64_stream_index < base64_stream_size )
 	{
-		if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
+		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
+		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
 		{
-			if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-			 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+			if( strip_mode != LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+			{
+				strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
+			}
+			else if( base64_stream_index < base64_stream_size )
+			{
+				if( ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\n' )
+				 || ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\r' ) )
+				{
+					strip_mode = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
+
+					base64_stream_index++;
+				}
+			}
+			if( ( flags & LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+			{
+				if( number_of_characters != character_limit )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 "%s: number of characters in line exceed maximum.",
+					 function );
+
+					return( -1 );
+				}
+				number_of_characters = 0;
+			}
+		}
+		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
+		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+		{
+			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
 				if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
 				{
@@ -1128,44 +1216,30 @@ int libuna_base64_stream_decode(
 				}
 				base64_stream_index++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-			      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
-			{
-				if( strip_mode != LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
-				{
-					strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
-				}
-				else if( base64_stream_index < base64_stream_size )
-				{
-					if( ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\n' )
-					 || ( base64_stream[ base64_stream_index + 1 ] != (uint8_t) '\r' ) )
-					{
-						strip_mode = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
-
-						base64_stream_index++;
-					}
-				}
-			}
-			else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE )
-			{
-				strip_mode = LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE;
-			}
-			else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+			else
 			{
 				strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
 			}
-			if( strip_mode == LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-				 "%s: invalid character in base64 stream at index: %d.",
-				 function,
-				 base64_stream_index );
+		}
+		else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE )
+		{
+			strip_mode = LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE;
+		}
+		else if( strip_mode == LIBUNA_BASE64_STRIP_MODE_TRAILING_WHITESPACE )
+		{
+			strip_mode = LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER;
+		}
+		if( strip_mode == LIBUNA_BASE64_STRIP_MODE_INVALID_CHARACTER )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: invalid character in base64 stream at index: %d.",
+			 function,
+			 base64_stream_index );
 
-				return( -1 );
-			}
+			return( -1 );
 		}
 		if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
 		{
@@ -1219,16 +1293,31 @@ int libuna_base64_stream_decode(
 
 				return( -1 );
 			}
-			if( strip_mode == LIBUNA_BASE64_STRIP_MODE_NON_WHITESPACE )
-			{
-				number_of_characters++;
-			}
+			number_of_characters += 4 - padding_size;
+		}
+	}
+	if( ( flags & LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	{
+		if( number_of_characters != character_limit )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: number of characters in line exceed maximum.",
+			 function );
+
+			return( -1 );
 		}
 	}
 	return( 1 );
 }
 
 /* Determines the size of a base64 stream from a byte stream
+ *
+ * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
+ * as defined by character_limit
+ *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base64_stream_encode_size(
@@ -1311,6 +1400,10 @@ int libuna_base64_stream_encode_size(
 }
 
 /* Copies a base64 stream from a byte stream
+ *
+ * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
+ * as defined by character_limit
+ *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base64_stream_encode(
