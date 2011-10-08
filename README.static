@@ -1,4 +1,4 @@
-Libbde supports two types of static compilation
+Libuna supports the following types of static compilation:
 * static library
 * static excutables
 

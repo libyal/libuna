@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20111004],
+ [20111007],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -45,12 +45,7 @@ AX_COMMON_CHECK_ENABLE_WINAPI
 dnl Check for type definitions
 AX_TYPES_CHECK_LOCAL
 
-dnl Check for headers
-
-dnl Check for functions
-
 dnl Checks for libraries and library functions
-dnl ac_libuna_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
 AX_COMMON_CHECK_LOCAL
 AX_LIBCSTRING_CHECK_LOCAL
 AX_LIBERROR_CHECK_LOCAL
