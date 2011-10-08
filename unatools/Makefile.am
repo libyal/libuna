@@ -10,7 +10,22 @@ AM_CPPFLAGS = \
 AM_LDFLAGS = @STATIC_LDFLAGS@
 
 bin_PROGRAMS = \
+	unabase \
 	unaexport
+
+unabase_SOURCES = \
+	unacommon.h \
+	unabase.c \
+	unainput.c unainput.h \
+	unatools_libuna.h \
+	unaoutput.c unaoutput.h
+
+unabase_LDADD = \
+	../libcstring/libcstring.la \
+	../liberror/liberror.la \
+	../libsystem/libsystem.la \
+	@LIBINTL@ \
+	@MEMWATCH_LIBADD@
 
 unaexport_SOURCES = \
 	byte_size_string.c byte_size_string.h \
@@ -18,6 +33,7 @@ unaexport_SOURCES = \
 	unacommon.h \
 	unaexport.c \
 	unainput.c unainput.h \
+	unatools_libuna.h \
 	unaoutput.c unaoutput.h
 
 unaexport_LDADD = \

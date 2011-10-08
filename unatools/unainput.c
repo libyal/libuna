@@ -25,17 +25,9 @@
 #include <libcstring.h>
 #include <liberror.h>
 
-/* If libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBUNA_DLL_IMPORT
-#endif
-
-#include <libuna.h>
-
 #include "unacommon.h"
 #include "unainput.h"
+#include "unatools_libuna.h"
 
 /* Determines the codepage from an argument string
  * Returns 1 if successful or -1 on error

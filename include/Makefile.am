@@ -1,11 +1,11 @@
 include_HEADERS = \
-        libuna.h
+	libuna.h
 
 pkginclude_HEADERS = \
-        libuna/definitions.h \
-        libuna/error.h \
-        libuna/extern.h \
-        libuna/types.h
+	libuna/definitions.h \
+	libuna/error.h \
+	libuna/extern.h \
+	libuna/types.h
 
 EXTRA_DIST = \
 	libuna.h.in \

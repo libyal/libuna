@@ -36,21 +36,13 @@
 #include <stdlib.h>
 #endif
 
-/* If libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBUNA_DLL_IMPORT
-#endif
-
-#include <libuna.h>
-
 #include <libsystem.h>
 
 #include "byte_size_string.h"
 #include "process_status.h"
 #include "unacommon.h"
 #include "unainput.h"
+#include "unatools_libuna.h"
 #include "unaoutput.h"
 
 #define UNAEXPORT_BUFFER_SIZE	8 * 1024 * 1024
@@ -67,7 +59,7 @@ void usage_fprint(
 	fprintf( stream, "Use unaexport to export text in one encoding to another.\n\n" );
 
 	fprintf( stream, "Usage: unaexport [ -c codepage ] [ -i input_format ] [ -n newline_conversion ]\n"
-	                 "       [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
+	                 "                 [ -o output_format ] [ -BhlqvV ] source destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
@@ -336,7 +328,7 @@ ssize64_t unaexport(
 		 function,
 		 source_filename );
 
-		return( -1 );
+		goto on_error;
 	}
 	if( libsystem_file_open(
 	     &destination_file_handle,
@@ -352,11 +344,7 @@ ssize64_t unaexport(
 		 function,
 		 destination_filename );
 
-		libsystem_file_close(
-		 &source_file_handle,
-		 NULL );
-
-		return( -1 );
+		goto on_error;
 	}
 	source_string_buffer = (uint8_t *) memory_allocate(
 	                                    sizeof( uint8_t ) * source_string_buffer_size );
@@ -370,14 +358,7 @@ ssize64_t unaexport(
 		 "%s: unable to create source string buffer.",
 		 function );
 
-		libsystem_file_close(
-		 &destination_file_handle,
-		 NULL );
-		libsystem_file_close(
-		 &source_file_handle,
-		 NULL );
-
-		return( -1 );
+		goto on_error;
 	}
 	destination_string_buffer = (uint8_t *) memory_allocate(
 	                                         sizeof( uint8_t ) * destination_string_buffer_size );
@@ -391,17 +372,7 @@ ssize64_t unaexport(
 		 "%s: unable to create destination string buffer.",
 		 function );
 
-		memory_free(
-		 source_string_buffer );
-
-		libsystem_file_close(
-		 &destination_file_handle,
-		 NULL );
-		libsystem_file_close(
-		 &source_file_handle,
-		 NULL );
-
-		return( -1 );
+		goto on_error;
 	}
 	if( export_byte_order_mark != 0 )
 	{
@@ -464,19 +435,7 @@ ssize64_t unaexport(
 			 "%s: unable to set byte order mark.",
 			 function );
 
-			memory_free(
-			 destination_string_buffer );
-			memory_free(
-			 source_string_buffer );
-
-			libsystem_file_close(
-			 &destination_file_handle,
-			 NULL );
-			libsystem_file_close(
-			 &source_file_handle,
-			 NULL );
-
-			return( -1 );
+			goto on_error;
 		}
 	}
 	while( 1 )
@@ -887,10 +846,10 @@ ssize64_t unaexport(
 		{
 			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
 		}
-		 if( process_status_update_unknown_total(
-		      process_status,
-		      (size64_t) export_count,
-		      error ) != 1 )
+		if( process_status_update_unknown_total(
+		     process_status,
+		     (size64_t) export_count,
+		     error ) != 1 )
 		{
 			liberror_error_set(
 			 error,
@@ -899,25 +858,18 @@ ssize64_t unaexport(
 			 "%s: unable to update process status.",
 			 function );
 
-			memory_free(
-			 destination_string_buffer );
-			memory_free(
-			 source_string_buffer );
-
-			libsystem_file_close(
-			 &destination_file_handle,
-			 NULL );
-			libsystem_file_close(
-			 &source_file_handle,
-			 NULL );
-
-			return( -1 );
+			goto on_error;
 		}
 	}
 	memory_free(
 	 source_string_buffer );
+
+	source_string_buffer = NULL;
+
 	memory_free(
 	 destination_string_buffer );
+
+	destination_string_buffer = NULL;
 
 	if( libsystem_file_close(
 	     &source_file_handle,
@@ -931,11 +883,7 @@ ssize64_t unaexport(
 		 function,
 		 source_filename );
 
-		libsystem_file_close(
-		 &destination_file_handle,
-		 NULL );
-
-		return( -1 );
+		goto on_error;
 	}
 	if( libsystem_file_close(
 	     &destination_file_handle,
@@ -949,9 +897,34 @@ ssize64_t unaexport(
 		 function,
 		 destination_filename );
 
-		return( -1 );
+		goto on_error;
 	}
 	return( export_count );
+
+on_error:
+	if( destination_string_buffer != NULL )
+	{
+		memory_free(
+		 destination_string_buffer );
+	}
+	if( source_string_buffer != NULL )
+	{
+		memory_free(
+		 source_string_buffer );
+	}
+	if( destination_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		libsystem_file_close(
+		 &destination_file_handle,
+		 NULL );
+	}
+	if( source_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		libsystem_file_close(
+		 &source_file_handle,
+		 NULL );
+	}
+	return( -1 );
 }
 
 /* The main program
@@ -962,21 +935,25 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-	liberror_error_t *error                             = NULL;
-	process_status_t *process_status                    = NULL;
-	libcstring_system_character_t *destination_filename = NULL;
-	libcstring_system_character_t *source_filename      = NULL;
-	char *program                                       = "unaexport";
-	ssize64_t export_count                              = 0;
-	libcstring_system_integer_t option                  = 0;
-	uint8_t print_status_information                    = 1;
-	int byte_stream_codepage                            = LIBUNA_CODEPAGE_ASCII;
-	int export_byte_order_mark                          = 1;
-	int input_format                                    = UNACOMMON_FORMAT_AUTO_DETECT;
-	int newline_conversion                              = UNACOMMON_NEWLINE_CONVERSION_NONE;
-	int output_format                                   = UNACOMMON_FORMAT_UTF8;
-	int verbose                                         = 0;
-	int status                                          = 0;
+	liberror_error_t *error                                    = NULL;
+	process_status_t *process_status                           = NULL;
+	libcstring_system_character_t *destination_filename        = NULL;
+	libcstring_system_character_t *option_byte_stream_codepage = NULL;
+	libcstring_system_character_t *option_input_format         = NULL;
+	libcstring_system_character_t *option_newline_conversion   = NULL;
+	libcstring_system_character_t *option_output_format        = NULL;
+	libcstring_system_character_t *source_filename             = NULL;
+	char *program                                              = "unaexport";
+	ssize64_t export_count                                     = 0;
+	libcstring_system_integer_t option                         = 0;
+	uint8_t print_status_information                           = 1;
+	int byte_stream_codepage                                   = LIBUNA_CODEPAGE_ASCII;
+	int export_byte_order_mark                                 = 1;
+	int input_format                                           = UNACOMMON_FORMAT_AUTO_DETECT;
+	int newline_conversion                                     = UNACOMMON_NEWLINE_CONVERSION_NONE;
+	int output_format                                          = UNACOMMON_FORMAT_UTF8;
+	int verbose                                                = 0;
+	int status                                                 = 0;
 
 	libsystem_notify_set_stream(
 	 stderr,
@@ -992,12 +969,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to initialize system values.\n" );
 
-		libsystem_notify_print_error_backtrace(
-		 error );
-		liberror_error_free(
-		 &error );
-
-		return( EXIT_FAILURE );
+		goto on_error;
 	}
 	unaoutput_version_fprint(
 	 stdout,
@@ -1020,7 +992,7 @@ int main( int argc, char * const argv[] )
 				usage_fprint(
 				 stdout );
 
-				return( EXIT_FAILURE );
+				goto on_error;
 
 			case (libcstring_system_integer_t) 'B':
 				export_byte_order_mark = 0;
@@ -1028,22 +1000,8 @@ int main( int argc, char * const argv[] )
 				break;
 
 			case (libcstring_system_integer_t) 'c':
-				if( unainput_determine_byte_stream_codepage(
-				     optarg,
-				     &byte_stream_codepage,
-				     &error ) != 1 )
-				{
-					libsystem_notify_print_error_backtrace(
-					 error );
-					liberror_error_free(
-					 &error );
+				option_byte_stream_codepage = optarg;
 
-					byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
-
-					fprintf(
-					 stderr,
-					 "Unsupported byte stream codepage defaulting to: ascii.\n" );
-				}
 				break;
 
 			case (libcstring_system_integer_t) 'h':
@@ -1053,29 +1011,8 @@ int main( int argc, char * const argv[] )
 				return( EXIT_SUCCESS );
 
 			case (libcstring_system_integer_t) 'i':
-				if( libcstring_system_string_compare(
-				     optarg,
-				     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
-				     11 ) == 0 )
-				{
-					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
-				}
-				else if( unainput_determine_format(
-				          optarg,
-				          &input_format,
-				          &error ) != 1 )
-				{
-					libsystem_notify_print_error_backtrace(
-					 error );
-					liberror_error_free(
-					 &error );
+				option_input_format = optarg;
 
-					input_format = UNACOMMON_FORMAT_AUTO_DETECT;
-
-					fprintf(
-					 stderr,
-					 "Unsupported input format defaulting to: auto-detect.\n" );
-				}
 				break;
 
 			case (libcstring_system_integer_t) 'l':
@@ -1085,41 +1022,13 @@ int main( int argc, char * const argv[] )
 				return( EXIT_SUCCESS );
 
 			case (libcstring_system_integer_t) 'n':
-				if( unainput_determine_newline_conversion(
-				     optarg,
-				     &newline_conversion,
-				     &error ) != 1 )
-				{
-					libsystem_notify_print_error_backtrace(
-					 error );
-					liberror_error_free(
-					 &error );
+				option_newline_conversion = optarg;
 
-					newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
-
-					fprintf(
-					 stderr,
-					 "Unsupported newline conversion defaulting to: none.\n" );
-				}
 				break;
 
 			case (libcstring_system_integer_t) 'o':
-				if( unainput_determine_format(
-				     optarg,
-				     &output_format,
-				     &error ) != 1 )
-				{
-					libsystem_notify_print_error_backtrace(
-					 error );
-					liberror_error_free(
-					 &error );
+				option_output_format = optarg;
 
-					output_format = UNACOMMON_FORMAT_UTF8;
-
-					fprintf(
-					 stderr,
-					 "Unsupported output format defaulting to: utf8.\n" );
-				}
 				break;
 
 			case (libcstring_system_integer_t) 'q':
@@ -1168,6 +1077,89 @@ int main( int argc, char * const argv[] )
 	libsystem_notify_set_verbose(
 	 verbose );
 
+	if( option_byte_stream_codepage != NULL )
+	{
+		if( unainput_determine_byte_stream_codepage(
+		     option_byte_stream_codepage,
+		     &byte_stream_codepage,
+		     &error ) != 1 )
+		{
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
+
+			byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
+
+			fprintf(
+			 stderr,
+			 "Unsupported byte stream codepage defaulting to: ascii.\n" );
+		}
+	}
+	if( option_input_format != NULL )
+	{
+		if( libcstring_system_string_compare(
+		     option_input_format,
+		     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
+		     11 ) == 0 )
+		{
+			input_format = UNACOMMON_FORMAT_AUTO_DETECT;
+		}
+		else if( unainput_determine_format(
+			  optarg,
+			  &input_format,
+			  &error ) != 1 )
+		{
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
+
+			input_format = UNACOMMON_FORMAT_AUTO_DETECT;
+
+			fprintf(
+			 stderr,
+			 "Unsupported input format defaulting to: auto-detect.\n" );
+		}
+	}
+	if( option_output_format != NULL )
+	{
+		if( unainput_determine_format(
+		     option_output_format,
+		     &output_format,
+		     &error ) != 1 )
+		{
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
+
+			output_format = UNACOMMON_FORMAT_UTF8;
+
+			fprintf(
+			 stderr,
+			 "Unsupported output format defaulting to: utf8.\n" );
+		}
+	}
+	if( option_newline_conversion != NULL )
+	{
+		if( unainput_determine_newline_conversion(
+		     option_newline_conversion,
+		     &newline_conversion,
+		     &error ) != 1 )
+		{
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
+
+			newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
+
+			fprintf(
+			 stderr,
+			 "Unsupported newline conversion defaulting to: none.\n" );
+		}
+	}
 	export_fprint(
 	 stdout,
 	 source_filename,
@@ -1191,12 +1183,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to create process status.\n" );
 
-		libsystem_notify_print_error_backtrace(
-		 error );
-		liberror_error_free(
-		 &error );
-
-		return( EXIT_FAILURE );
+		goto on_error;
 	}
 	if( process_status_start(
 	     process_status,
@@ -1206,16 +1193,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to start process status.\n" );
 
-		libsystem_notify_print_error_backtrace(
-		 error );
-		liberror_error_free(
-		 &error );
-
-		process_status_free(
-		 &process_status,
-		 NULL );
-
-		return( EXIT_FAILURE );
+		goto on_error;
 	}
 	export_count = unaexport(
 	                source_filename,
@@ -1251,16 +1229,7 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to stop process status.\n" );
 
-		libsystem_notify_print_error_backtrace(
-		 error );
-		liberror_error_free(
-		 &error );
-
-		process_status_free(
-		 &process_status,
-		 NULL );
-
-		return( EXIT_FAILURE );
+		goto on_error;
 	}
 	if( process_status_free(
 	     &process_status,
@@ -1270,17 +1239,28 @@ int main( int argc, char * const argv[] )
 		 stderr,
 		 "Unable to free process status.\n" );
 
-		libsystem_notify_print_error_backtrace(
-		 error );
-		liberror_error_free(
-		 &error );
-
-		return( EXIT_FAILURE );
+		goto on_error;
 	}
 	if( status != PROCESS_STATUS_COMPLETED )
 	{
 		return( EXIT_FAILURE );
 	}
 	return( EXIT_SUCCESS );
+
+on_error:
+	if( error != NULL )
+	{
+		libsystem_notify_print_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+	}
+	if( process_status != NULL )
+	{
+		process_status_free(
+		 &process_status,
+		 NULL );
+	}
+	return( EXIT_FAILURE );
 }
 

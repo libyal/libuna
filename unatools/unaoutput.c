@@ -25,18 +25,10 @@
 
 #include <stdio.h>
 
-/* If libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBUNA_DLL_IMPORT
-#endif
-
-#include <libuna.h>
-
 #include <libsystem.h>
 
 #include "unacommon.h"
+#include "unatools_libuna.h"
 #include "unaoutput.h"
 
 /* Prints the copyright information

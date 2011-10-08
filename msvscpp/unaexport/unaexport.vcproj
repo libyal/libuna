@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\unatools\unatools_libuna.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\unatools\unaoutput.h"
 				>
 			</File>

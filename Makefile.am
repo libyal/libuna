@@ -11,6 +11,7 @@ SUBDIRS = \
 	po \
 	documents \
 	manuals \
+	tests \
 	macosx \
 	borlandc \
 	msvscpp

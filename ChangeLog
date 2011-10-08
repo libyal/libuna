@@ -1,4 +1,9 @@
 TODO
+* unabase:
+  - convert between base64 binary base16
+  - have hexdump as input/output
+* complete: test_unaexport.sh
+* unaexport: implement export handle
 * base64 decode strip white space or add option to do so
   line lenght restriction?
 * add unicode to ascii support for (combine with rewrite)
@@ -87,8 +92,12 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20111008
+* unatools: code clean up
+
 20111007
 * changes to configure.ac
+* worked on base64 support
 
 20111006
 * worked on base64 support

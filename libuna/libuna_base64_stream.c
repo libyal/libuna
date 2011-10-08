@@ -822,7 +822,6 @@ int libuna_base64_stream_decode_size(
 
 		return( -1 );
 	}
-/* TODO must be multitude of 4 ? */
 	if( character_limit > (size_t) SSIZE_MAX )
 	{
 		liberror_error_set(
@@ -830,6 +829,17 @@ int libuna_base64_stream_decode_size(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid character limit value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( character_limit % 4 ) != 0 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported character limit must be a multitude of 4.",
 		 function );
 
 		return( -1 );
@@ -1149,6 +1159,17 @@ int libuna_base64_stream_decode(
 
 		return( -1 );
 	}
+	if( ( character_limit % 4 ) != 0 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported character limit must be a multitude of 4.",
+		 function );
+
+		return( -1 );
+	}
 	if( ( flags & ~( LIBUNA_BASE64_FLAG_STRIP_WHITESPACE | LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) ) != 0 )
 	{
 		liberror_error_set(
@@ -1374,6 +1395,17 @@ int libuna_base64_stream_encode_size(
 
 		return( -1 );
 	}
+	if( ( character_limit % 4 ) != 0 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported character limit must be a multitude of 4.",
+		 function );
+
+		return( -1 );
+	}
 	if( ( flags & ~( LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ) ) != 0 )
 	{
 		liberror_error_set(
@@ -1473,6 +1505,17 @@ int libuna_base64_stream_encode(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid character limit value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( character_limit % 4 ) != 0 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported character limit must be a multitude of 4.",
 		 function );
 
 		return( -1 );
