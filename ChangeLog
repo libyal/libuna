@@ -92,6 +92,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20111030
+* updated configure.ac and m4 files
+* updated libsystem
+
 20111008
 * unatools: code clean up
 

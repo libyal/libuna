@@ -28,9 +28,7 @@
  * before including libuna.h
  */
 #if defined( _WIN32 ) && defined( DLL_EXPORT )
-#if !defined( HAVE_STATIC_EXECUTABLES )
 #define LIBUNA_DLL_IMPORT
-#endif
 #endif
 
 #include <libuna.h>
