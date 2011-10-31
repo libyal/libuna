@@ -60,10 +60,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="liberror.lib libuna.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\release"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories=""
+				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -118,9 +117,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\liberror;..\..\libsystem"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_IMPORT"
-				RuntimeLibrary="2"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="false"
@@ -137,9 +139,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="liberror.lib libuna.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\release"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -222,11 +223,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libuna.h"
+				RelativePath="..\..\unatools\unaoutput.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unaoutput.h"
+				RelativePath="..\..\unatools\unatools_libuna.h"
 				>
 			</File>
 		</Filter>

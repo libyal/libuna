@@ -104,9 +104,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="0"
 				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\liberror"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_WINDOWS_H;LIBUNA_DLL_EXPORT"
-				RuntimeLibrary="2"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
 				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
@@ -123,6 +126,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)\libuna.dll"
 				AdditionalLibraryDirectories=""
+				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>

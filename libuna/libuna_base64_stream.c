@@ -782,12 +782,12 @@ int libuna_base64_stream_decode_size(
      uint8_t flags,
      liberror_error_t **error )
 {
-	static char *function        = "libuna_base64_stream_decode_size";
-	size_t base64_stream_index   = 0;
-	size_t whitespace_size       = 0;
-	uint8_t number_of_characters = 0;
-	uint8_t padding_size         = 0;
-	uint8_t strip_mode           = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
+	static char *function       = "libuna_base64_stream_decode_size";
+	size_t base64_stream_index  = 0;
+	size_t number_of_characters = 0;
+	size_t whitespace_size      = 0;
+	uint8_t padding_size        = 0;
+	uint8_t strip_mode          = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
 
 	if( base64_stream == NULL )
 	{
@@ -1096,13 +1096,13 @@ int libuna_base64_stream_decode(
      uint8_t flags,
      liberror_error_t **error )
 {
-	static char *function        = "libuna_base64_stream_decode";
-	size_t base64_stream_index   = 0;
-	size_t byte_stream_index     = 0;
-	uint32_t base64_triplet      = 0;
-	uint8_t number_of_characters = 0;
-	uint8_t padding_size         = 0;
-	uint8_t strip_mode           = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
+	static char *function       = "libuna_base64_stream_decode";
+	size_t base64_stream_index  = 0;
+	size_t byte_stream_index    = 0;
+	size_t number_of_characters = 0;
+	uint32_t base64_triplet     = 0;
+	uint8_t padding_size        = 0;
+	uint8_t strip_mode          = LIBUNA_BASE64_STRIP_MODE_LEADING_WHITESPACE;
 
 	if( base64_stream == NULL )
 	{

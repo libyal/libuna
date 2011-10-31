@@ -963,6 +963,7 @@ int main( int argc, char * const argv[] )
 
 	if( libsystem_initialize(
 	     "unatools",
+	     _IONBF,
 	     &error ) != 1 )
 	{
 		fprintf(
@@ -1106,7 +1107,7 @@ int main( int argc, char * const argv[] )
 			input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 		}
 		else if( unainput_determine_format(
-			  optarg,
+			  option_input_format,
 			  &input_format,
 			  &error ) != 1 )
 		{

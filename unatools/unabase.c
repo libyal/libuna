@@ -413,6 +413,7 @@ int main( int argc, char * const argv[] )
 
 	if( libsystem_initialize(
 	     "unatools",
+	     _IONBF,
 	     &error ) != 1 )
 	{
 		fprintf(

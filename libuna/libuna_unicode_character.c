@@ -445,15 +445,16 @@ int libuna_unicode_character_copy_from_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_ISO_8859_15:
-			if( byte_stream_character < 0xa0 )
-			{
-				*unicode_character = byte_stream_character;
-			}
-			else
+			if( ( byte_stream_character >= 0xa0 )
+			 && ( byte_stream_character < 0xc0 ) )
 			{
 				byte_stream_character -= 0xa0;
 
 				*unicode_character = libuna_codepage_iso_8859_15_byte_stream_to_unicode_base_0xa0[ byte_stream_character ];
+			}
+			else
+			{
+				*unicode_character = byte_stream_character;
 			}
 			*byte_stream_index += 1;
 
@@ -529,7 +530,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 			{
 				*unicode_character = 0xff61 - 0xa0 + additional_character;
 			}
-			else if( ( *byte_stream_index + 1 ) >= byte_stream_size )
+			else if( ( *byte_stream_index + 1 ) <= byte_stream_size )
 			{
 				*byte_stream_index += 1;
 
@@ -1302,7 +1303,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 			{
 				*unicode_character = 0x20ac;
 			}
-			else if( ( *byte_stream_index + 1 ) >= byte_stream_size )
+			else if( ( *byte_stream_index + 1 ) <= byte_stream_size )
 			{
 				*byte_stream_index += 1;
 
