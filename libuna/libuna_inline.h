@@ -27,7 +27,7 @@
 #if defined( _MSC_VER )
 #define LIBUNA_INLINE _inline
 
-#elif defined( __BORLANDC__ )
+#elif defined( __BORLANDC__ ) || defined( __clang__ )
 #define LIBUNA_INLINE /* inline */
 
 #else

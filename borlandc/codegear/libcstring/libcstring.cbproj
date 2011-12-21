@@ -38,40 +38,40 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<None Include="..\..\..\libcstring\libcstring_system_string.h">
+			<None Include="..\..\..\libcstring\libcstring_wide_string.h">
 				<BuildOrder>0</BuildOrder>
 			</None>
-			<CppCompile Include="..\..\..\libcstring\libcstring_system_string.c">
+			<None Include="..\..\..\libcstring\libcstring.h">
 				<BuildOrder>1</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\libcstring\libcstring_string.h">
-				<BuildOrder>2</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcstring\libcstring_wide.h">
-				<BuildOrder>3</BuildOrder>
-			</None>
-			<CppCompile Include="..\..\..\libcstring\libcstring_wide.c">
-				<BuildOrder>4</BuildOrder>
-			</CppCompile>
-			<None Include="..\..\..\libcstring\libcstring_types.h">
-				<BuildOrder>5</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcstring\libcstring_definitions.h">
-				<BuildOrder>6</BuildOrder>
 			</None>
 			<None Include="..\..\..\libcstring\libcstring_codepage.h">
-				<BuildOrder>7</BuildOrder>
+				<BuildOrder>2</BuildOrder>
 			</None>
-			<None Include="..\..\..\libcstring\libcstring.h">
-				<BuildOrder>8</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcstring\libcstring_narrow.h">
-				<BuildOrder>9</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcstring\libcstring_locale.h">
-				<BuildOrder>10</BuildOrder>
+			<None Include="..\..\..\libcstring\libcstring_definitions.h">
+				<BuildOrder>3</BuildOrder>
 			</None>
 			<CppCompile Include="..\..\..\libcstring\libcstring_locale.c">
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\libcstring\libcstring_locale.h">
+				<BuildOrder>5</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcstring\libcstring_narrow_string.h">
+				<BuildOrder>6</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcstring\libcstring_string.h">
+				<BuildOrder>7</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\libcstring\libcstring_system_string.c">
+				<BuildOrder>8</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\libcstring\libcstring_system_string.h">
+				<BuildOrder>9</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcstring\libcstring_types.h">
+				<BuildOrder>10</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\libcstring\libcstring_wide_string.c">
 				<BuildOrder>11</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Base">

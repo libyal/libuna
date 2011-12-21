@@ -1,5 +1,8 @@
 TODO
+* unaexport:
+  - implement export handle
 * unabase:
+  - implement base handle
   - convert between base64 binary base16
   - have hexdump as input/output
 * complete: test_unaexport.sh
@@ -91,6 +94,11 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20111221
+* fix for inline support in clang compiler
+* updated libcstring
+* unaexport: export handle refactor
 
 20111031
 * bug fix for codepages iso-8859-15, windows 932 and 936

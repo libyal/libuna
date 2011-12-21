@@ -56,19 +56,23 @@
 			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
-			<None Include="..\..\..\unatools\unaoutput.h">
+			<CppCompile Include="..\..\..\unatools\export_handle.c">
+			</CppCompile>
+			<None Include="..\..\..\unatools\export_handle.h">
 			</None>
 			<CppCompile Include="..\..\..\unatools\process_status.c">
 			</CppCompile>
+			<None Include="..\..\..\unatools\process_status.h">
+			</None>
 			<CppCompile Include="..\..\..\unatools\unaexport.c">
 			</CppCompile>
 			<None Include="..\..\..\unatools\unacommon.h">
 			</None>
 			<CppCompile Include="..\..\..\unatools\unaoutput.c">
 			</CppCompile>
-			<None Include="..\..\..\unatools\unainput.h">
+			<None Include="..\..\..\unatools\unaoutput.h">
 			</None>
-			<None Include="..\..\..\unatools\process_status.h">
+			<None Include="..\..\..\unatools\unainput.h">
 			</None>
 			<None Include="..\..\..\unatools\unatools_libuna.h">
 			</None>

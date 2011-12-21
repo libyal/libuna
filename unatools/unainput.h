@@ -37,14 +37,24 @@ int unainput_determine_byte_stream_codepage(
      int *byte_stream_codepage,
      liberror_error_t **error );
 
+int unainput_determine_encoding(
+     const libcstring_system_character_t *string,
+     uint8_t *encoding,
+     liberror_error_t **error );
+
+int unainput_determine_format(
+     const libcstring_system_character_t *string,
+     uint8_t *format,
+     liberror_error_t **error );
+
 int unainput_determine_format(
      const libcstring_system_character_t *argument,
-     int *format,
+     uint8_t *format,
      liberror_error_t **error );
 
 int unainput_determine_newline_conversion(
      const libcstring_system_character_t *argument,
-     int *newline_conversion,
+     uint8_t *newline_conversion,
      liberror_error_t **error );
 
 #if defined( __cplusplus )

@@ -29,6 +29,7 @@ unabase_LDADD = \
 
 unaexport_SOURCES = \
 	byte_size_string.c byte_size_string.h \
+	export_handle.c export_handle.h \
 	process_status.c process_status.h \
 	unacommon.h \
 	unaexport.c \

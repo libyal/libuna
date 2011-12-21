@@ -185,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\unatools\export_handle.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\unatools\process_status.c"
 				>
 			</File>
@@ -208,6 +212,10 @@
 			>
 			<File
 				RelativePath="..\..\unatools\byte_size_string.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\unatools\export_handle.h"
 				>
 			</File>
 			<File

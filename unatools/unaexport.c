@@ -38,14 +38,13 @@
 
 #include <libsystem.h>
 
-#include "byte_size_string.h"
-#include "process_status.h"
+#include "export_handle.h"
 #include "unacommon.h"
-#include "unainput.h"
 #include "unatools_libuna.h"
 #include "unaoutput.h"
 
-#define UNAEXPORT_BUFFER_SIZE	8 * 1024 * 1024
+export_handle_t *unaexport_export_handle = NULL;
+int unaexport_abort                      = 0;
 
 /* Prints the executable usage information
  */
@@ -86,845 +85,43 @@ void usage_fprint(
 	fprintf( stream, "\t-V:          print version\n" );
 }
 
-/* Prints the export information
+/* Signal handler for unaexport
  */
-void export_fprint(
-      FILE *stream,
-      const libcstring_system_character_t *source_filename,
-      int input_format,
-      const libcstring_system_character_t *destination_filename,
-      int output_format,
-      int byte_stream_codepage,
-      int export_byte_order_mark,
-      int newline_conversion )
+void unaexport_signal_handler(
+      libsystem_signal_t signal LIBSYSTEM_ATTRIBUTE_UNUSED )
 {
-	if( stream == NULL )
+	liberror_error_t *error = NULL;
+	static char *function   = "unaexport_signal_handler";
+
+	LIBSYSTEM_UNREFERENCED_PARAMETER( signal )
+
+	unaexport_abort = 1;
+
+	if( unaexport_export_handle != NULL )
 	{
-		return;
-	}
-	fprintf(
-	 stream,
-	 "Exporting:\n" );
-	fprintf(
-	 stream,
-	 "\tsource:\t\t\t%s\n",
-	 source_filename );
-	fprintf(
-	 stream,
-	 "\tof format:\t\t" );
-	unaoutput_format_fprint(
-	 stream,
-	 input_format );
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\tdestination:\t\t%s\n",
-	 destination_filename );
-	fprintf(
-	 stream,
-	 "\tof format:\t\t" );
-	unaoutput_format_fprint(
-	 stream,
-	 output_format );
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\tbyte-stream codepage:\t" );
-	unaoutput_codepage_fprint(
-	 stream,
-	 byte_stream_codepage );
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\texport byte order mark:\t" );
-
-	if( export_byte_order_mark == 0 )
-	{
-		fprintf(
-		 stream,
-		 "no" );
-	}
-	else
-	{
-		fprintf(
-		 stream,
-		 "yes" );
-	}
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\tnewline conversion:\t" );
-	
-	if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
-	{
-		fprintf(
-		 stream,
-		 "none" );
-	}
-	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
-	{
-		fprintf(
-		 stream,
-		 "carriage return and line feed (crlf)" );
-	}
-	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
-	{
-		fprintf(
-		 stream,
-		 "carriage return (cr)" );
-	}
-	else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
-	{
-		fprintf(
-		 stream,
-		 "line feed (lf)" );
-	}
-	else
-	{
-		fprintf(
-		 stream,
-		 "unsupported" );
-	}
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\n" );
-}
-
-/* Exports the source file to the destination file
- * Returns the number of bytes of the source processed or -1 on error
- */
-ssize64_t unaexport(
-           const libcstring_system_character_t *source_filename,
-           int input_format,
-           const libcstring_system_character_t *destination_filename,
-           int output_format,
-           int byte_stream_codepage,
-           int export_byte_order_mark,
-           int newline_conversion,
-           process_status_t *process_status,
-           liberror_error_t **error )
-{
-	libuna_unicode_character_t unicode_character[ 2 ];
-
-	uint8_t *destination_string_buffer              = NULL;
-	uint8_t *source_string_buffer                   = NULL;
-	static char *function                           = "unaexport";
-	libsystem_file_handle_t destination_file_handle = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	libsystem_file_handle_t source_file_handle      = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	ssize64_t export_count                          = 0;
-	size_t destination_string_buffer_iterator       = 0;
-	size_t destination_string_buffer_size           = UNAEXPORT_BUFFER_SIZE;
-	size_t last_source_string_buffer_iterator       = 0;
-	size_t source_string_buffer_iterator            = 0;
-	size_t realignment_iterator                     = 0;
-	size_t source_string_buffer_size                = UNAEXPORT_BUFFER_SIZE;
-	ssize_t read_count                              = 0;
-	ssize_t write_count                             = 0;
-	uint32_t destination_utf7_stream_base64_data    = 0;
-	uint32_t source_utf7_stream_base64_data         = 0;
-	uint8_t analyze_first_character                 = 1;
-	uint8_t number_of_unicode_characters            = 0;
-	uint8_t unicode_character_iterator              = 0;
-	int result                                      = 1;
-
-	if( source_filename == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid source filename.",
-		 function );
-
-		return( -1 );
-	}
-	if( destination_filename == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid destination filename.",
-		 function );
-
-		return( -1 );
-	}
-	if( ( input_format != UNACOMMON_FORMAT_AUTO_DETECT )
-	 && ( input_format != UNACOMMON_FORMAT_BYTE_STREAM )
-	 && ( input_format != UNACOMMON_FORMAT_UTF7 )
-	 && ( input_format != UNACOMMON_FORMAT_UTF8 )
-	 && ( input_format != UNACOMMON_FORMAT_UTF16BE )
-	 && ( input_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( input_format != UNACOMMON_FORMAT_UTF32BE )
-	 && ( input_format != UNACOMMON_FORMAT_UTF32LE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported input format.",
-		 function );
-
-		return( -1 );
-	}
-	if( ( output_format != UNACOMMON_FORMAT_BYTE_STREAM )
-	 && ( output_format != UNACOMMON_FORMAT_UTF7 )
-	 && ( output_format != UNACOMMON_FORMAT_UTF8 )
-	 && ( output_format != UNACOMMON_FORMAT_UTF16BE )
-	 && ( output_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( output_format != UNACOMMON_FORMAT_UTF32BE )
-	 && ( output_format != UNACOMMON_FORMAT_UTF32LE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported output format.",
-		 function );
-
-		return( -1 );
-	}
-	if( ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
-	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CRLF )
-	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
-	 && ( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported newline conversion.",
-		 function );
-
-		return( -1 );
-	}
-	if( libsystem_file_open(
-	     &source_file_handle,
-	     source_filename,
-	     LIBSYSTEM_FILE_OPEN_READ,
-	     error ) != 1 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open source: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 source_filename );
-
-		goto on_error;
-	}
-	if( libsystem_file_open(
-	     &destination_file_handle,
-	     destination_filename,
-	     LIBSYSTEM_FILE_OPEN_WRITE_TRUNCATE,
-	     error ) != 1 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open destination: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 destination_filename );
-
-		goto on_error;
-	}
-	source_string_buffer = (uint8_t *) memory_allocate(
-	                                    sizeof( uint8_t ) * source_string_buffer_size );
-
-	if( source_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create source string buffer.",
-		 function );
-
-		goto on_error;
-	}
-	destination_string_buffer = (uint8_t *) memory_allocate(
-	                                         sizeof( uint8_t ) * destination_string_buffer_size );
-
-	if( destination_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create destination string buffer.",
-		 function );
-
-		goto on_error;
-	}
-	if( export_byte_order_mark != 0 )
-	{
-		switch( output_format )
+		if( export_handle_signal_abort(
+		     unaexport_export_handle,
+		     &error ) != 1 )
 		{
-			case UNACOMMON_FORMAT_UTF8:
-				result = libuna_utf8_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF16BE:
-				result = libuna_utf16_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF16LE:
-				result = libuna_utf16_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF32BE:
-				result = libuna_utf32_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF32LE:
-				result = libuna_utf32_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE,
-				          error );
-				break;
-
-			default:
-				result = 1;
-				break;
-		}
-		if( result != 1 )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set byte order mark.",
+			libsystem_notify_printf(
+			 "%s: unable to signal export handle to abort.\n",
 			 function );
 
-			goto on_error;
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
 		}
 	}
-	while( 1 )
+	/* Force stdin to close otherwise any function reading it will remain blocked
+	 */
+	if( libsystem_file_io_close(
+	     0 ) != 0 )
 	{
-		read_count = libsystem_file_read(
-		              source_file_handle,
-		              &( source_string_buffer[ source_string_buffer_iterator ] ),
-		              source_string_buffer_size - source_string_buffer_iterator,
-		              error );
-
-		if( read_count < 0 )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_IO,
-			 LIBERROR_IO_ERROR_READ_FAILED,
-			 "%s: unable to read from source.",
-			 function );
-
-			export_count = -1;
-
-			break;
-		}
-		export_count                 += read_count;
-		read_count                   += (ssize_t) source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
-
-		if( read_count == 0 )
-		{
-			break;
-		}
-		if( analyze_first_character != 0 )
-		{
-			if( ( read_count >= 3 )
-			 && ( source_string_buffer[ 0 ] == 0xef )
-			 && ( source_string_buffer[ 1 ] == 0xbb )
-			 && ( source_string_buffer[ 2 ] == 0xbf ) )
-			{
-				if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-				{
-					input_format = UNACOMMON_FORMAT_UTF8;
-				}
-				if( input_format == UNACOMMON_FORMAT_UTF8 )
-				{
-					source_string_buffer_iterator += 3;
-				}
-			}
-			else if( ( read_count >= 2 )
-			      && ( source_string_buffer[ 0 ] == 0xfe )
-			      && ( source_string_buffer[ 1 ] == 0xff ) )
-			{
-				if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-				{
-					input_format = UNACOMMON_FORMAT_UTF16BE;
-				}
-				if( input_format == UNACOMMON_FORMAT_UTF16BE )
-				{
-					source_string_buffer_iterator += 2;
-				}
-			}
-			else if( ( read_count >= 2 )
-			      && ( source_string_buffer[ 0 ] == 0xff )
-			      && ( source_string_buffer[ 1 ] == 0xfe ) )
-			{
-				if( ( read_count >= 4 )
-				 && ( source_string_buffer[ 2 ] == 0x00 )
-			         && ( source_string_buffer[ 3 ] == 0x00 ) )
-				{
-					if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-					{
-						input_format = UNACOMMON_FORMAT_UTF32LE;
-					}
-					if( input_format == UNACOMMON_FORMAT_UTF32LE )
-					{
-						source_string_buffer_iterator += 4;
-					}
-				}
-				else
-				{
-					if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-					{
-						input_format = UNACOMMON_FORMAT_UTF16LE;
-					}
-					if( input_format == UNACOMMON_FORMAT_UTF16LE )
-					{
-						source_string_buffer_iterator += 2;
-					}
-				}
-			}
-			else if( ( read_count >= 4 )
-			      && ( source_string_buffer[ 0 ] == 0x00 )
-			      && ( source_string_buffer[ 1 ] == 0x00 )
-			      && ( source_string_buffer[ 1 ] == 0xfe )
-			      && ( source_string_buffer[ 1 ] == 0xff ) )
-			{
-				if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-				{
-					input_format = UNACOMMON_FORMAT_UTF32BE;
-				}
-				if( input_format == UNACOMMON_FORMAT_UTF32BE )
-				{
-					source_string_buffer_iterator += 4;
-				}
-			}
-			else if( input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-			{
-				input_format = UNACOMMON_FORMAT_BYTE_STREAM;
-			}
-			read_count -= (ssize_t) source_string_buffer_iterator;
-
-			analyze_first_character = 0;
-		}
-		last_source_string_buffer_iterator = source_string_buffer_iterator;
-
-		while( read_count > 0 )
-		{
-			/* Sanity check
-			 */
-			if( source_string_buffer_iterator >= source_string_buffer_size )
-			{
-				break;
-			}
-			/* Make sure to have at least room for a 6 byte character in the destination string buffer
-			 */
-		 	if( destination_string_buffer_iterator >= ( destination_string_buffer_size - 5 ) )
-			{
-				break;
-			}
-			switch( input_format )
-			{
-				case UNACOMMON_FORMAT_BYTE_STREAM:
-					result = libuna_unicode_character_copy_from_byte_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  byte_stream_codepage,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF7:
-					result = libuna_unicode_character_copy_from_utf7_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  &source_utf7_stream_base64_data,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF8:
-					result = libuna_unicode_character_copy_from_utf8(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF16BE:
-					result = libuna_unicode_character_copy_from_utf16_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF16LE:
-					result = libuna_unicode_character_copy_from_utf16_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF32BE:
-					result = libuna_unicode_character_copy_from_utf32_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF32LE:
-					result = libuna_unicode_character_copy_from_utf32_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE,
-					          error );
-					break;
-
-				default:
-					result = -1;
-					break;
-			}
-			if( result != 1 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-				 "%s: unable to convert input character.",
-				 function );
-
-				export_count = -1;
-
-				break;
-			}
-			number_of_unicode_characters++;
-
-			read_count -= source_string_buffer_iterator - last_source_string_buffer_iterator;
-
-			last_source_string_buffer_iterator = source_string_buffer_iterator;
-
-			if( newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
-			{
-				/* Determine if character is a line feed (LF)
-				 */
-				if( unicode_character[ unicode_character_iterator ] == 0x000a )
-				{
-					if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
-					{
-						if( unicode_character_iterator == 0 )
-						{
-							unicode_character[ unicode_character_iterator     ] = 0x000d;
-							unicode_character[ unicode_character_iterator + 1 ] = 0x000a;
-			
-							number_of_unicode_characters++;
-						}
-					}
-					else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
-					{
-						if( unicode_character_iterator == 0 )
-						{
-							unicode_character[ unicode_character_iterator ] = 0x000d;
-						}
-						else if( unicode_character_iterator == 1 )
-						{
-							unicode_character[ unicode_character_iterator - 1 ] = 0x000d;
-
-							number_of_unicode_characters--;
-						}
-					}
-					else if( newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
-					{
-						if( unicode_character_iterator == 1 )
-						{
-							unicode_character[ unicode_character_iterator - 1 ] = 0x000a;
-
-							number_of_unicode_characters--;
-						}
-					}
-				}
-				/* Determine if character is a carriage return (CR)
-				 */
-				else if( unicode_character[ unicode_character_iterator ] == 0x000d )
-				{
-					unicode_character_iterator++;
-
-					continue;
-				}
-			}
-			/* Write all unicode characters
-			 */
-			for( unicode_character_iterator = 0;
-			     unicode_character_iterator < number_of_unicode_characters;
-			     unicode_character_iterator++ )
-			{
-				switch( output_format )
-				{
-					case UNACOMMON_FORMAT_BYTE_STREAM:
-						result = libuna_unicode_character_copy_to_byte_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  byte_stream_codepage,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF7:
-						result = libuna_unicode_character_copy_to_utf7_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  &destination_utf7_stream_base64_data,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF8:
-						result = libuna_unicode_character_copy_to_utf8(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF16BE:
-						result = libuna_unicode_character_copy_to_utf16_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF16LE:
-						result = libuna_unicode_character_copy_to_utf16_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF32BE:
-						result = libuna_unicode_character_copy_to_utf32_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF32LE:
-						result = libuna_unicode_character_copy_to_utf32_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE,
-						          error );
-						break;
-
-					default:
-						result = -1;
-						break;
-				}
-				if( result != 1 )
-				{
-					liberror_error_set(
-					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-					 "%s: unable to convert output character.",
-					 function );
-
-					export_count = -1;
-
-					break;
-				}
-			}
-			if( export_count <= -1 )
-			{
-				break;
-			}
-			number_of_unicode_characters = 0;
-			unicode_character_iterator   = 0;
-		}
-		if( export_count <= -1 )
-		{
-			break;
-		}
-		if( destination_string_buffer_iterator > 0 )
-		{
-			write_count = libsystem_file_write(
-			               destination_file_handle,
-			               destination_string_buffer,
-		        	       destination_string_buffer_iterator,
-			               error );
-
-			if( write_count < 0 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_IO,
-				 LIBERROR_IO_ERROR_WRITE_FAILED,
-				 "%s: unable to write to destination.",
-				 function );
-
-				export_count = -1;
-
-				break;
-			}
-			destination_string_buffer_iterator = 0;
-		}
-		/* Realign the remaining bytes to the start of the source string buffer
-		 */
-		realignment_iterator          = source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
-
-		for( ;
-		     read_count > 0;
-		     read_count-- )
-		{
-			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
-		}
-		if( process_status_update_unknown_total(
-		     process_status,
-		     (size64_t) export_count,
-		     error ) != 1 )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to update process status.",
-			 function );
-
-			goto on_error;
-		}
+		libsystem_notify_printf(
+		 "%s: unable to close stdin.\n",
+		 function );
 	}
-	memory_free(
-	 source_string_buffer );
-
-	source_string_buffer = NULL;
-
-	memory_free(
-	 destination_string_buffer );
-
-	destination_string_buffer = NULL;
-
-	if( libsystem_file_close(
-	     &source_file_handle,
-	     error ) != 0 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close source: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 source_filename );
-
-		goto on_error;
-	}
-	if( libsystem_file_close(
-	     &destination_file_handle,
-	     error ) != 0 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close destination: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 destination_filename );
-
-		goto on_error;
-	}
-	return( export_count );
-
-on_error:
-	if( destination_string_buffer != NULL )
-	{
-		memory_free(
-		 destination_string_buffer );
-	}
-	if( source_string_buffer != NULL )
-	{
-		memory_free(
-		 source_string_buffer );
-	}
-	if( destination_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		libsystem_file_close(
-		 &destination_file_handle,
-		 NULL );
-	}
-	if( source_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		libsystem_file_close(
-		 &source_file_handle,
-		 NULL );
-	}
-	return( -1 );
 }
 
 /* The main program
@@ -936,7 +133,6 @@ int main( int argc, char * const argv[] )
 #endif
 {
 	liberror_error_t *error                                    = NULL;
-	process_status_t *process_status                           = NULL;
 	libcstring_system_character_t *destination_filename        = NULL;
 	libcstring_system_character_t *option_byte_stream_codepage = NULL;
 	libcstring_system_character_t *option_input_format         = NULL;
@@ -944,16 +140,11 @@ int main( int argc, char * const argv[] )
 	libcstring_system_character_t *option_output_format        = NULL;
 	libcstring_system_character_t *source_filename             = NULL;
 	char *program                                              = "unaexport";
-	ssize64_t export_count                                     = 0;
 	libcstring_system_integer_t option                         = 0;
 	uint8_t print_status_information                           = 1;
-	int byte_stream_codepage                                   = LIBUNA_CODEPAGE_ASCII;
 	int export_byte_order_mark                                 = 1;
-	int input_format                                           = UNACOMMON_FORMAT_AUTO_DETECT;
-	int newline_conversion                                     = UNACOMMON_NEWLINE_CONVERSION_NONE;
-	int output_format                                          = UNACOMMON_FORMAT_UTF8;
 	int verbose                                                = 0;
-	int status                                                 = 0;
+	int result                                                 = 0;
 
 	libsystem_notify_set_stream(
 	 stderr,
@@ -1078,46 +269,72 @@ int main( int argc, char * const argv[] )
 	libsystem_notify_set_verbose(
 	 verbose );
 
-	if( option_byte_stream_codepage != NULL )
+	if( export_handle_initialize(
+	     &unaexport_export_handle,
+	     &error ) != 1 )
 	{
-		if( unainput_determine_byte_stream_codepage(
-		     option_byte_stream_codepage,
-		     &byte_stream_codepage,
-		     &error ) != 1 )
-		{
-			libsystem_notify_print_error_backtrace(
-			 error );
-			liberror_error_free(
-			 &error );
+		fprintf(
+		 stderr,
+		 "Unable to create export handle.\n" );
 
-			byte_stream_codepage = LIBUNA_CODEPAGE_ASCII;
+		goto on_error;
+	}
+	if( libsystem_signal_attach(
+	     unaexport_signal_handler,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to attach signal handler.\n" );
 
-			fprintf(
-			 stderr,
-			 "Unsupported byte stream codepage defaulting to: ascii.\n" );
-		}
+		libsystem_notify_print_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+	}
+	if( export_handle_set_string(
+	     unaexport_export_handle,
+	     source_filename,
+	     &( unaexport_export_handle->source_filename ),
+	     &( unaexport_export_handle->source_filename_size ),
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to set source filename.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_set_string(
+	     unaexport_export_handle,
+	     destination_filename,
+	     &( unaexport_export_handle->destination_filename ),
+	     &( unaexport_export_handle->destination_filename_size ),
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to set destination filename.\n" );
+
+		goto on_error;
 	}
 	if( option_input_format != NULL )
 	{
-		if( libcstring_system_string_compare(
-		     option_input_format,
-		     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
-		     11 ) == 0 )
-		{
-			input_format = UNACOMMON_FORMAT_AUTO_DETECT;
-		}
-		else if( unainput_determine_format(
+		result = export_handle_set_input_format(
+			  unaexport_export_handle,
 			  option_input_format,
-			  &input_format,
-			  &error ) != 1 )
+			  &error );
+
+		if( result == -1 )
 		{
-			libsystem_notify_print_error_backtrace(
-			 error );
-			liberror_error_free(
-			 &error );
+			fprintf(
+			 stderr,
+			 "Unable to set input format.\n" );
 
-			input_format = UNACOMMON_FORMAT_AUTO_DETECT;
-
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
 			fprintf(
 			 stderr,
 			 "Unsupported input format defaulting to: auto-detect.\n" );
@@ -1125,18 +342,21 @@ int main( int argc, char * const argv[] )
 	}
 	if( option_output_format != NULL )
 	{
-		if( unainput_determine_format(
-		     option_output_format,
-		     &output_format,
-		     &error ) != 1 )
+		result = export_handle_set_output_format(
+			  unaexport_export_handle,
+			  option_output_format,
+			  &error );
+
+		if( result == -1 )
 		{
-			libsystem_notify_print_error_backtrace(
-			 error );
-			liberror_error_free(
-			 &error );
+			fprintf(
+			 stderr,
+			 "Unable to set output format.\n" );
 
-			output_format = UNACOMMON_FORMAT_UTF8;
-
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
 			fprintf(
 			 stderr,
 			 "Unsupported output format defaulting to: utf8.\n" );
@@ -1144,108 +364,131 @@ int main( int argc, char * const argv[] )
 	}
 	if( option_newline_conversion != NULL )
 	{
-		if( unainput_determine_newline_conversion(
-		     option_newline_conversion,
-		     &newline_conversion,
-		     &error ) != 1 )
+		result = export_handle_set_newline_conversion(
+			  unaexport_export_handle,
+			  option_output_format,
+			  &error );
+
+		if( result == -1 )
 		{
-			libsystem_notify_print_error_backtrace(
-			 error );
-			liberror_error_free(
-			 &error );
+			fprintf(
+			 stderr,
+			 "Unable to set newline conversion.\n" );
 
-			newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
-
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
 			fprintf(
 			 stderr,
 			 "Unsupported newline conversion defaulting to: none.\n" );
 		}
 	}
-	export_fprint(
-	 stdout,
-	 source_filename,
-	 input_format,
-	 destination_filename,
-	 output_format,
-	 byte_stream_codepage,
-	 export_byte_order_mark,
-	 newline_conversion );
+	unaexport_export_handle->export_byte_order_mark = export_byte_order_mark;
 
-	if( process_status_initialize(
-	     &process_status,
-	     _LIBCSTRING_SYSTEM_STRING( "Export" ),
-	     _LIBCSTRING_SYSTEM_STRING( "exported" ),
-	     _LIBCSTRING_SYSTEM_STRING( "Exported" ),
-	     stdout,
-	     print_status_information,
+	if( option_byte_stream_codepage != NULL )
+	{
+		result = export_handle_set_byte_stream_codepage(
+			  unaexport_export_handle,
+		          option_byte_stream_codepage,
+			  &error );
+
+		if( result == -1 )
+		{
+			fprintf(
+			 stderr,
+			 "Unable to set byte stream codepage.\n" );
+
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
+			fprintf(
+			 stderr,
+			 "Unsupported byte stream codepage defaulting to: ascii.\n" );
+		}
+	}
+	if( export_handle_print_parameters(
+	     unaexport_export_handle,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to create process status.\n" );
+		 "Unable to print export parameters.\n" );
 
 		goto on_error;
 	}
-	if( process_status_start(
-	     process_status,
-	     &error ) != 1 )
+	result = export_handle_export_input(
+		  unaexport_export_handle,
+		  print_status_information,
+		  &error );
+
+	if( result != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to start process status.\n" );
+		 "Unable to export input.\n" );
 
-		goto on_error;
-	}
-	export_count = unaexport(
-	                source_filename,
-	                input_format,
-	                destination_filename,
-	                output_format,
-	                byte_stream_codepage,
-	                export_byte_order_mark,
-	                newline_conversion,
-	                process_status,
-	                &error );
-
-	if( export_count <= -1 )
-	{
 		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
-
-		status = PROCESS_STATUS_FAILED;
 	}
-	else
+	if( export_handle_close(
+	     unaexport_export_handle,
+	     &error ) != 0 )
 	{
-		status = PROCESS_STATUS_COMPLETED;
+		fprintf(
+		 stderr,
+		 "Unable to close export handle.\n" );
+
+		goto on_error;
 	}
-	if( process_status_stop(
-	     process_status,
-	     (size64_t) export_count,
-	     status,
+	if( libsystem_signal_detach(
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to stop process status.\n" );
+		 "Unable to detach signal handler.\n" );
 
-		goto on_error;
+		libsystem_notify_print_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
 	}
-	if( process_status_free(
-	     &process_status,
+	if( export_handle_free(
+	     &unaexport_export_handle,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to free process status.\n" );
+		 "Unable to free export handle.\n" );
 
 		goto on_error;
 	}
-	if( status != PROCESS_STATUS_COMPLETED )
+	if( unaexport_abort != 0 )
 	{
+		fprintf(
+		 stdout,
+		 "%" PRIs_LIBCSTRING_SYSTEM ": ABORTED\n",
+		 program );
+
 		return( EXIT_FAILURE );
 	}
+	if( result != 1 )
+	{
+		fprintf(
+		 stdout,
+		 "%" PRIs_LIBCSTRING_SYSTEM ": FAILURE\n",
+		 program );
+
+		return( EXIT_FAILURE );
+	}
+	fprintf(
+	 stdout,
+	 "%" PRIs_LIBCSTRING_SYSTEM ": SUCCESS\n",
+	 program );
+
 	return( EXIT_SUCCESS );
 
 on_error:
@@ -1256,10 +499,13 @@ on_error:
 		liberror_error_free(
 		 &error );
 	}
-	if( process_status != NULL )
+	if( unaexport_export_handle != NULL )
 	{
-		process_status_free(
-		 &process_status,
+		export_handle_close(
+		 unaexport_export_handle,
+		 NULL );
+		export_handle_free(
+		 &unaexport_export_handle,
 		 NULL );
 	}
 	return( EXIT_FAILURE );

@@ -394,7 +394,7 @@ int unainput_determine_byte_stream_codepage(
  */
 int unainput_determine_encoding(
      const libcstring_system_character_t *string,
-     int *encoding,
+     uint8_t *encoding,
      liberror_error_t **error )
 {
 	static char *function = "unainput_determine_encoding";
@@ -480,7 +480,7 @@ int unainput_determine_encoding(
  */
 int unainput_determine_format(
      const libcstring_system_character_t *string,
-     int *format,
+     uint8_t *format,
      liberror_error_t **error )
 {
 	static char *function = "unainput_determine_format";
@@ -593,7 +593,7 @@ int unainput_determine_format(
  */
 int unainput_determine_newline_conversion(
      const libcstring_system_character_t *string,
-     int *newline_conversion,
+     uint8_t *newline_conversion,
      liberror_error_t **error )
 {
 	static char *function = "unainput_determine_newline_conversion";
