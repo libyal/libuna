@@ -475,6 +475,65 @@ int unainput_determine_encoding(
 	return( result );
 }
 
+/* Determines the encoding mode from a string
+ * Returns 1 if successful or -1 on error
+ */
+int unainput_determine_encoding_mode(
+     const libcstring_system_character_t *string,
+     uint8_t *encoding_mode,
+     liberror_error_t **error )
+{
+	static char *function = "unainput_determine_encoding_mode";
+	size_t string_length  = 0;
+	int result            = -1;
+
+	if( string == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid string.",
+		 function );
+
+		return( -1 );
+	}
+	if( encoding_mode == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid encoding mode.",
+		 function );
+
+		return( -1 );
+	}
+	string_length = libcstring_system_string_length(
+	                 string );
+
+	if( string_length == 6 )
+	{
+		if( libcstring_system_string_compare(
+		     string,
+		     _LIBCSTRING_SYSTEM_STRING( "decode" ),
+		     6 ) == 0 )
+		{
+			*encoding_mode = UNACOMMON_ENCODING_MODE_DECODE;
+			result         = 1;
+		}
+		else if( libcstring_system_string_compare(
+			  string,
+			  _LIBCSTRING_SYSTEM_STRING( "encode" ),
+			  6 ) == 0 )
+		{
+			*encoding_mode = UNACOMMON_ENCODING_MODE_ENCODE;
+			result         = 1;
+		}
+	}
+	return( result );
+}
+
 /* Determines the format from a string
  * Returns 1 if successful or -1 on error
  */

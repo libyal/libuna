@@ -14,8 +14,11 @@ bin_PROGRAMS = \
 	unaexport
 
 unabase_SOURCES = \
-	unacommon.h \
+	byte_size_string.c byte_size_string.h \
+	export_handle.c export_handle.h \
+	process_status.c process_status.h \
 	unabase.c \
+	unacommon.h \
 	unainput.c unainput.h \
 	unatools_libuna.h \
 	unaoutput.c unaoutput.h

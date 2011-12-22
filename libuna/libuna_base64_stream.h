@@ -84,7 +84,7 @@ int libuna_base64_triplet_copy_to_byte_stream(
      liberror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_base64_stream_decode_size(
+int libuna_base64_stream_size_to_byte_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      size_t *byte_stream_size,
@@ -93,7 +93,7 @@ int libuna_base64_stream_decode_size(
      liberror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_base64_stream_decode(
+int libuna_base64_stream_copy_to_byte_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      uint8_t *byte_stream,
@@ -103,7 +103,7 @@ int libuna_base64_stream_decode(
      liberror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_base64_stream_encode_size(
+int libuna_base64_stream_size_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base64_stream_size,
@@ -112,7 +112,7 @@ int libuna_base64_stream_encode_size(
      liberror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_base64_stream_encode(
+int libuna_base64_stream_copy_from_byte_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      uint8_t *byte_stream,

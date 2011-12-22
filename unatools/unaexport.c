@@ -271,6 +271,7 @@ int main( int argc, char * const argv[] )
 
 	if( export_handle_initialize(
 	     &unaexport_export_handle,
+	     EXPORT_HANDLE_MODE_TEXT_ENCODING,
 	     &error ) != 1 )
 	{
 		fprintf(
@@ -415,6 +416,26 @@ int main( int argc, char * const argv[] )
 		fprintf(
 		 stderr,
 		 "Unable to print export parameters.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_open_input(
+	     unaexport_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to open source file.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_open_output(
+	     unaexport_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to open destination file.\n" );
 
 		goto on_error;
 	}

@@ -30,16 +30,27 @@
 
 #include <libsystem.h>
 
+#include "process_status.h"
 #include "unatools_libuna.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
+enum EXPORT_HANDLE_MODE
+{
+	EXPORT_HANDLE_MODE_BASE_ENCODING	= (uint8_t) 'b',
+	EXPORT_HANDLE_MODE_TEXT_ENCODING	= (uint8_t) 't'
+};
+
 typedef struct export_handle export_handle_t;
 
 struct export_handle
 {
+	/* The mode
+	 */
+	uint8_t mode;
+
 	/* The source filename
 	 */
 	libcstring_system_character_t *source_filename;
@@ -64,21 +75,42 @@ struct export_handle
 	 */
 	libsystem_file_handle_t destination_file_handle;
 
-	/* The input format
-	 */
-	uint8_t input_format;
+	union
+	{
+		/* Values for base encoding export
+		 */
+		struct
+		{
+			/* The enconding
+			 */
+			uint8_t encoding;
 
-	/* The output format
-	 */
-	uint8_t output_format;
+			/* The encoding mode
+			 */
+			uint8_t encoding_mode;
+		};
 
-	/* The newline conversion
-	 */
-	uint8_t newline_conversion;
+		/* Values for text encoding export
+		 */
+		struct
+		{
+			/* The input format
+			 */
+			uint8_t input_format;
 
-	/* Value to indicate if the byte-order mark should be exported
-	 */
-	uint8_t export_byte_order_mark;
+			/* The output format
+			 */
+			uint8_t output_format;
+
+			/* The newline conversion
+			 */
+			uint8_t newline_conversion;
+
+			/* Value to indicate if the byte-order mark should be exported
+			 */
+			uint8_t export_byte_order_mark;
+		};
+	};
 
 	/* The byte stream codepage
 	 */
@@ -95,6 +127,7 @@ struct export_handle
 
 int export_handle_initialize(
      export_handle_t **export_handle,
+     uint8_t mode,
      liberror_error_t **error );
 
 int export_handle_free(
@@ -107,12 +140,10 @@ int export_handle_signal_abort(
 
 int export_handle_open_input(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *filename,
      liberror_error_t **error );
 
 int export_handle_open_output(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *filename,
      liberror_error_t **error );
 
 int export_handle_close(
@@ -124,6 +155,16 @@ int export_handle_set_string(
      const libcstring_system_character_t *string,
      libcstring_system_character_t **internal_string,
      size_t *internal_string_size,
+     liberror_error_t **error );
+
+int export_handle_set_encoding(
+     export_handle_t *export_handle,
+     const libcstring_system_character_t *string,
+     liberror_error_t **error );
+
+int export_handle_set_encoding_mode(
+     export_handle_t *export_handle,
+     const libcstring_system_character_t *string,
      liberror_error_t **error );
 
 int export_handle_set_input_format(
@@ -149,6 +190,16 @@ int export_handle_set_byte_stream_codepage(
 int export_handle_export_input(
      export_handle_t *export_handle,
      uint8_t print_status_information,
+     liberror_error_t **error );
+
+int export_handle_export_base_encoded_input(
+     export_handle_t *export_handle,
+     process_status_t *process_status,
+     liberror_error_t **error );
+
+int export_handle_export_text_encoded_input(
+     export_handle_t *export_handle,
+     process_status_t *process_status,
      liberror_error_t **error );
 
 int export_handle_print_parameters(

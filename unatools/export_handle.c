@@ -44,6 +44,7 @@
  */
 int export_handle_initialize(
      export_handle_t **export_handle,
+     uint8_t mode,
      liberror_error_t **error )
 {
 	static char *function = "export_handle_initialize";
@@ -66,6 +67,18 @@ int export_handle_initialize(
 		 LIBERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
 		 "%s: invalid export handle value already set.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
+	 && ( mode != EXPORT_HANDLE_MODE_TEXT_ENCODING ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported mode.",
 		 function );
 
 		return( -1 );
@@ -103,14 +116,24 @@ int export_handle_initialize(
 
 		return( -1 );
 	}
+	( *export_handle )->mode                    = mode;
 	( *export_handle )->source_file_handle      = LIBSYSTEM_FILE_HANDLE_EMPTY;
 	( *export_handle )->destination_file_handle = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	( *export_handle )->input_format            = UNACOMMON_FORMAT_AUTO_DETECT;
-	( *export_handle )->output_format           = UNACOMMON_FORMAT_UTF8;
-	( *export_handle )->newline_conversion      = UNACOMMON_NEWLINE_CONVERSION_NONE;
-	( *export_handle )->export_byte_order_mark  = 1;
-	( *export_handle )->byte_stream_codepage    = LIBUNA_CODEPAGE_ASCII;
-	( *export_handle )->notify_stream           = EXPORT_HANDLE_NOTIFY_STREAM;
+
+	if( mode == EXPORT_HANDLE_MODE_BASE_ENCODING )
+	{
+		( *export_handle )->encoding      = UNACOMMON_ENCODING_BASE64;
+		( *export_handle )->encoding_mode = UNACOMMON_ENCODING_MODE_ENCODE;
+	}
+	else if( mode == EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		( *export_handle )->input_format           = UNACOMMON_FORMAT_AUTO_DETECT;
+		( *export_handle )->output_format          = UNACOMMON_FORMAT_UTF8;
+		( *export_handle )->newline_conversion     = UNACOMMON_NEWLINE_CONVERSION_NONE;
+		( *export_handle )->export_byte_order_mark = 1;
+		( *export_handle )->byte_stream_codepage   = LIBUNA_CODEPAGE_ASCII;
+	}
+	( *export_handle )->notify_stream = EXPORT_HANDLE_NOTIFY_STREAM;
 
 	return( 1 );
 
@@ -186,7 +209,6 @@ int export_handle_signal_abort(
  */
 int export_handle_open_input(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *filename,
      liberror_error_t **error )
 {
 	static char *function = "export_handle_open_input";
@@ -202,9 +224,20 @@ int export_handle_open_input(
 
 		return( -1 );
 	}
+	if( export_handle->source_filename == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing source filename.",
+		 function );
+
+		return( -1 );
+	}
 	if( libsystem_file_open(
 	     &( export_handle->source_file_handle ),
-	     filename,
+	     export_handle->source_filename,
 	     LIBSYSTEM_FILE_OPEN_READ,
 	     error ) != 1 )
 	{
@@ -214,7 +247,7 @@ int export_handle_open_input(
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
 		 "%s: unable to open source file: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
-		 filename );
+		 export_handle->source_file_handle );
 
 		return( -1 );
 	}
@@ -226,7 +259,6 @@ int export_handle_open_input(
  */
 int export_handle_open_output(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *filename,
      liberror_error_t **error )
 {
 	static char *function = "export_handle_open_output";
@@ -242,9 +274,20 @@ int export_handle_open_output(
 
 		return( -1 );
 	}
+	if( export_handle->destination_filename == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing destination filename.",
+		 function );
+
+		return( -1 );
+	}
 	if( libsystem_file_open(
 	     &( export_handle->destination_file_handle ),
-	     filename,
+	     export_handle->destination_filename,
 	     LIBSYSTEM_FILE_OPEN_WRITE_TRUNCATE,
 	     error ) != 1 )
 	{
@@ -254,7 +297,7 @@ int export_handle_open_output(
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
 		 "%s: unable to open destination file: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
-		 filename );
+		 export_handle->destination_filename );
 
 		return( -1 );
 	}
@@ -428,6 +471,110 @@ on_error:
 	return( -1 );
 }
 
+/* Sets the encoding
+ * Returns 1 if successful, 0 if unsupported value or -1 on error
+ */
+int export_handle_set_encoding(
+     export_handle_t *export_handle,
+     const libcstring_system_character_t *string,
+     liberror_error_t **error )
+{
+	static char *function = "export_handle_set_encoding";
+	int result            = 0;
+
+	if( export_handle == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
+	result = unainput_determine_encoding(
+		  string,
+		  &( export_handle->encoding ),
+		  error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 "%s: unable to determine encoding.",
+		 function );
+
+		return( -1 );
+	}
+	return( result );
+}
+
+/* Sets the encoding mode
+ * Returns 1 if successful, 0 if unsupported value or -1 on error
+ */
+int export_handle_set_encoding_mode(
+     export_handle_t *export_handle,
+     const libcstring_system_character_t *string,
+     liberror_error_t **error )
+{
+	static char *function = "export_handle_set_encoding_mode";
+	int result            = 0;
+
+	if( export_handle == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
+	result = unainput_determine_encoding_mode(
+		  string,
+		  &( export_handle->encoding_mode ),
+		  error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 "%s: unable to determine encoding mode.",
+		 function );
+
+		return( -1 );
+	}
+	return( result );
+}
+
 /* Sets the input format
  * Returns 1 if successful, 0 if unsupported value or -1 on error
  */
@@ -447,6 +594,17 @@ int export_handle_set_input_format(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
 		return( -1 );
@@ -509,6 +667,17 @@ int export_handle_set_output_format(
 
 		return( -1 );
 	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
 	result = unainput_determine_format(
 		  string,
 		  &( export_handle->output_format ),
@@ -546,6 +715,17 @@ int export_handle_set_newline_conversion(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
 		return( -1 );
@@ -591,6 +771,17 @@ int export_handle_set_byte_stream_codepage(
 
 		return( -1 );
 	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
 	result = unainput_determine_byte_stream_codepage(
 	          string,
 	          &export_handle->byte_stream_codepage,
@@ -618,27 +809,8 @@ int export_handle_export_input(
      uint8_t print_status_information,
      liberror_error_t **error )
 {
-	libuna_unicode_character_t unicode_character[ 2 ];
-
-	process_status_t *process_status                = NULL;
-	uint8_t *destination_string_buffer              = NULL;
-	uint8_t *source_string_buffer                   = NULL;
-	static char *function                           = "unaexport";
-	ssize64_t export_count                          = 0;
-	size_t destination_string_buffer_iterator       = 0;
-	size_t destination_string_buffer_size           = EXPORT_HANDLE_BUFFER_SIZE;
-	size_t last_source_string_buffer_iterator       = 0;
-	size_t source_string_buffer_iterator            = 0;
-	size_t realignment_iterator                     = 0;
-	size_t source_string_buffer_size                = EXPORT_HANDLE_BUFFER_SIZE;
-	ssize_t read_count                              = 0;
-	ssize_t write_count                             = 0;
-	uint32_t destination_utf7_stream_base64_data    = 0;
-	uint32_t source_utf7_stream_base64_data         = 0;
-	uint8_t analyze_first_character                 = 1;
-	uint8_t number_of_unicode_characters            = 0;
-	uint8_t unicode_character_iterator              = 0;
-	int result                                      = 1;
+	process_status_t *process_status = NULL;
+	static char *function            = "export_handle_export_text_input";
 
 	if( export_handle == NULL )
 	{
@@ -650,56 +822,6 @@ int export_handle_export_input(
 		 function );
 
 		return( -1 );
-	}
-	if( export_handle->source_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing source file handle.",
-		 function );
-
-		return( -1 );
-	}
-	if( export_handle->destination_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing destination file handle.",
-		 function );
-
-		return( -1 );
-	}
-	source_string_buffer = (uint8_t *) memory_allocate(
-	                                    sizeof( uint8_t ) * source_string_buffer_size );
-
-	if( source_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create source string buffer.",
-		 function );
-
-		goto on_error;
-	}
-	destination_string_buffer = (uint8_t *) memory_allocate(
-	                                         sizeof( uint8_t ) * destination_string_buffer_size );
-
-	if( destination_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create destination string buffer.",
-		 function );
-
-		goto on_error;
 	}
 	if( process_status_initialize(
 	     &process_status,
@@ -732,76 +854,261 @@ int export_handle_export_input(
 
 		goto on_error;
 	}
-	if( export_handle->export_byte_order_mark != 0 )
+	if( export_handle->mode == EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
-		switch( export_handle->output_format )
-		{
-			case UNACOMMON_FORMAT_UTF8:
-				result = libuna_utf8_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF16BE:
-				result = libuna_utf16_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF16LE:
-				result = libuna_utf16_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF32BE:
-				result = libuna_utf32_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_BIG,
-				          error );
-				break;
-
-			case UNACOMMON_FORMAT_UTF32LE:
-				result = libuna_utf32_stream_copy_byte_order_mark(
-				          destination_string_buffer,
-				          destination_string_buffer_size,
-				          &destination_string_buffer_iterator,
-				          LIBUNA_ENDIAN_LITTLE,
-				          error );
-				break;
-
-			default:
-				result = 1;
-				break;
-		}
-		if( result != 1 )
+		if( export_handle_export_base_encoded_input(
+		     export_handle,
+		     process_status,
+		     error ) != 1 )
 		{
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set byte order mark.",
+			 LIBERROR_RUNTIME_ERROR_GENERIC,
+			 "%s: unable to export base encoded input.",
 			 function );
 
 			goto on_error;
 		}
 	}
+	else if( export_handle->mode == EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		if( export_handle_export_text_encoded_input(
+		     export_handle,
+		     process_status,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_GENERIC,
+			 "%s: unable to export text encoded input.",
+			 function );
+
+			goto on_error;
+		}
+	}
+	if( process_status_free(
+	     &process_status,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_FINALIZE_FAILED,
+		 "%s: unable to free process status.",
+		 function );
+
+		goto on_error;
+	}
+	return( 1 );
+
+on_error:
+	if( process_status != NULL )
+	{
+		process_status_free(
+		 &process_status,
+		 NULL );
+	}
+	return( -1 );
+}
+
+/* Exports the base-encoded source file to the destination file
+ * Returns the number of bytes of the source processed or -1 on error
+ */
+int export_handle_export_base_encoded_input(
+     export_handle_t *export_handle,
+     process_status_t *process_status,
+     liberror_error_t **error )
+{
+	uint8_t *destination_buffer      = NULL;
+	uint8_t *source_buffer           = NULL;
+	const char *encoding_string      = NULL;
+	const char *encoding_mode_string = NULL;
+	static char *function            = "export_handle_export_base_encoded_input";
+	size64_t export_count            = 0;
+	size_t destination_buffer_size   = 0;
+	size_t source_buffer_size        = 0;
+	size_t write_size                = 0;
+	ssize_t read_count               = 0;
+	ssize_t write_count              = 0;
+	int result                       = 0;
+
+	if( export_handle == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->source_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing source file handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->destination_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing destination file handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( export_handle->encoding != UNACOMMON_ENCODING_BASE16 )
+	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE32 )
+	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE32HEX )
+	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64 )
+	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64URL ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported encoding.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_DECODE )
+	 && ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_ENCODE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported encoding mode.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+	{
+		encoding_mode_string = "decode";
+	}
+	else
+	{
+		encoding_mode_string = "encode";
+	}
+	switch( export_handle->encoding )
+	{
+		case UNACOMMON_ENCODING_BASE16:
+			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			{
+				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 2 ) * 2;
+				destination_buffer_size = EXPORT_HANDLE_BUFFER_SIZE / 2;
+			}
+			else
+			{
+				source_buffer_size       = EXPORT_HANDLE_BUFFER_SIZE;
+				destination_buffer_size  = EXPORT_HANDLE_BUFFER_SIZE * 2;
+				destination_buffer_size += ( destination_buffer_size / 76 ) + 1;
+			}
+			encoding_string = "base16";
+
+			break;
+
+		case UNACOMMON_ENCODING_BASE32:
+/* TODO */
+			encoding_string = "base32";
+
+			break;
+
+		case UNACOMMON_ENCODING_BASE32HEX:
+/* TODO */
+			encoding_string = "base32hex";
+
+			break;
+
+		case UNACOMMON_ENCODING_BASE64:
+			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			{
+				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) * 3;
+				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 3 ) / 4;
+			}
+			else
+			{
+				source_buffer_size       = ( EXPORT_HANDLE_BUFFER_SIZE / 4 ) * 4;
+				destination_buffer_size  = ( ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) + 1 ) * 4;
+				destination_buffer_size += ( destination_buffer_size / 76 ) + 1;
+			}
+			encoding_string = "base64";
+
+			break;
+
+		case UNACOMMON_ENCODING_BASE64URL:
+			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			{
+				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) * 3;
+				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 3 ) / 4;
+			}
+			else
+			{
+				source_buffer_size       = ( EXPORT_HANDLE_BUFFER_SIZE / 4 ) * 4;
+				destination_buffer_size  = ( ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) + 1 ) * 4;
+				destination_buffer_size += ( destination_buffer_size / 76 ) + 1;
+			}
+			encoding_string = "base64url";
+
+			break;
+	}
+	source_buffer = (uint8_t *) memory_allocate(
+	                             sizeof( uint8_t ) * source_buffer_size );
+
+	if( source_buffer == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create source buffer.",
+		 function );
+
+		goto on_error;
+	}
+	destination_buffer = (uint8_t *) memory_allocate(
+	                                  sizeof( uint8_t ) * destination_buffer_size );
+
+	if( destination_buffer == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create destination buffer.",
+		 function );
+
+		goto on_error;
+	}
 	while( 1 )
 	{
 		read_count = libsystem_file_read(
 		              export_handle->source_file_handle,
-		              &( source_string_buffer[ source_string_buffer_iterator ] ),
-		              source_string_buffer_size - source_string_buffer_iterator,
+		              source_buffer,
+		              source_buffer_size,
 		              error );
 
 		if( read_count < 0 )
@@ -813,400 +1120,214 @@ int export_handle_export_input(
 			 "%s: unable to read from source.",
 			 function );
 
-			export_count = -1;
-
-			break;
+			goto on_error;
 		}
-		export_count                 += read_count;
-		read_count                   += (ssize_t) source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
+		export_count += read_count;
 
 		if( read_count == 0 )
 		{
 			break;
 		}
-		if( analyze_first_character != 0 )
+		switch( export_handle->encoding )
 		{
-			if( ( read_count >= 3 )
-			 && ( source_string_buffer[ 0 ] == 0xef )
-			 && ( source_string_buffer[ 1 ] == 0xbb )
-			 && ( source_string_buffer[ 2 ] == 0xbf ) )
-			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+			case UNACOMMON_ENCODING_BASE16:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF8;
-				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF8 )
-				{
-					source_string_buffer_iterator += 3;
-				}
-			}
-			else if( ( read_count >= 2 )
-			      && ( source_string_buffer[ 0 ] == 0xfe )
-			      && ( source_string_buffer[ 1 ] == 0xff ) )
-			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF16BE;
-				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF16BE )
-				{
-					source_string_buffer_iterator += 2;
-				}
-			}
-			else if( ( read_count >= 2 )
-			      && ( source_string_buffer[ 0 ] == 0xff )
-			      && ( source_string_buffer[ 1 ] == 0xfe ) )
-			{
-				if( ( read_count >= 4 )
-				 && ( source_string_buffer[ 2 ] == 0x00 )
-			         && ( source_string_buffer[ 3 ] == 0x00 ) )
-				{
-					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-					{
-						export_handle->input_format = UNACOMMON_FORMAT_UTF32LE;
-					}
-					if( export_handle->input_format == UNACOMMON_FORMAT_UTF32LE )
-					{
-						source_string_buffer_iterator += 4;
-					}
+					result = libuna_base16_stream_size_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          0,
+					          LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
-					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-					{
-						export_handle->input_format = UNACOMMON_FORMAT_UTF16LE;
-					}
-					if( export_handle->input_format == UNACOMMON_FORMAT_UTF16LE )
-					{
-						source_string_buffer_iterator += 2;
-					}
+					result = libuna_base16_stream_size_from_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          76,
+					          0,
+					          error );
 				}
-			}
-			else if( ( read_count >= 4 )
-			      && ( source_string_buffer[ 0 ] == 0x00 )
-			      && ( source_string_buffer[ 1 ] == 0x00 )
-			      && ( source_string_buffer[ 1 ] == 0xfe )
-			      && ( source_string_buffer[ 1 ] == 0xff ) )
-			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF32BE;
-				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF32BE )
-				{
-					source_string_buffer_iterator += 4;
-				}
-			}
-			else if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
-			{
-				export_handle->input_format = UNACOMMON_FORMAT_BYTE_STREAM;
-			}
-			read_count -= (ssize_t) source_string_buffer_iterator;
+				break;
 
-			analyze_first_character = 0;
+			case UNACOMMON_ENCODING_BASE32:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE32HEX:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE64:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+					result = libuna_base64_stream_size_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          0,
+					          LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          error );
+				}
+				else
+				{
+					result = libuna_base64_stream_size_from_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          76,
+					          0,
+					          error );
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE64URL:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
 		}
-		last_source_string_buffer_iterator = source_string_buffer_iterator;
-
-		while( read_count > 0 )
+		if( result != 1 )
 		{
-			/* Sanity check
-			 */
-			if( source_string_buffer_iterator >= source_string_buffer_size )
-			{
-				break;
-			}
-			/* Make sure to have at least room for a 6 byte character in the destination string buffer
-			 */
-		 	if( destination_string_buffer_iterator >= ( destination_string_buffer_size - 5 ) )
-			{
-				break;
-			}
-			switch( export_handle->input_format )
-			{
-				case UNACOMMON_FORMAT_BYTE_STREAM:
-					result = libuna_unicode_character_copy_from_byte_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  export_handle->byte_stream_codepage,
-					          error );
-					break;
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to determine %s size of %s source data.",
+			 function,
+			 encoding_string,
+			 encoding_mode_string );
 
-				case UNACOMMON_FORMAT_UTF7:
-					result = libuna_unicode_character_copy_from_utf7_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  &source_utf7_stream_base64_data,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF8:
-					result = libuna_unicode_character_copy_from_utf8(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF16BE:
-					result = libuna_unicode_character_copy_from_utf16_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF16LE:
-					result = libuna_unicode_character_copy_from_utf16_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF32BE:
-					result = libuna_unicode_character_copy_from_utf32_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_BIG,
-					          error );
-					break;
-
-				case UNACOMMON_FORMAT_UTF32LE:
-					result = libuna_unicode_character_copy_from_utf32_stream(
-						  &unicode_character[ unicode_character_iterator ],
-						  source_string_buffer,
-						  source_string_buffer_size,
-						  &source_string_buffer_iterator,
-						  LIBUNA_ENDIAN_LITTLE,
-					          error );
-					break;
-
-				default:
-					result = -1;
-					break;
-			}
-			if( result != 1 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
-				 "%s: unable to convert input character.",
-				 function );
-
-				export_count = -1;
-
-				break;
-			}
-			number_of_unicode_characters++;
-
-			read_count -= source_string_buffer_iterator - last_source_string_buffer_iterator;
-
-			last_source_string_buffer_iterator = source_string_buffer_iterator;
-
-			if( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
-			{
-				/* Determine if character is a line feed (LF)
-				 */
-				if( unicode_character[ unicode_character_iterator ] == 0x000a )
-				{
-					if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
-					{
-						if( unicode_character_iterator == 0 )
-						{
-							unicode_character[ unicode_character_iterator     ] = 0x000d;
-							unicode_character[ unicode_character_iterator + 1 ] = 0x000a;
-			
-							number_of_unicode_characters++;
-						}
-					}
-					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
-					{
-						if( unicode_character_iterator == 0 )
-						{
-							unicode_character[ unicode_character_iterator ] = 0x000d;
-						}
-						else if( unicode_character_iterator == 1 )
-						{
-							unicode_character[ unicode_character_iterator - 1 ] = 0x000d;
-
-							number_of_unicode_characters--;
-						}
-					}
-					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
-					{
-						if( unicode_character_iterator == 1 )
-						{
-							unicode_character[ unicode_character_iterator - 1 ] = 0x000a;
-
-							number_of_unicode_characters--;
-						}
-					}
-				}
-				/* Determine if character is a carriage return (CR)
-				 */
-				else if( unicode_character[ unicode_character_iterator ] == 0x000d )
-				{
-					unicode_character_iterator++;
-
-					continue;
-				}
-			}
-			/* Write all unicode characters
-			 */
-			for( unicode_character_iterator = 0;
-			     unicode_character_iterator < number_of_unicode_characters;
-			     unicode_character_iterator++ )
-			{
-				switch( export_handle->output_format )
-				{
-					case UNACOMMON_FORMAT_BYTE_STREAM:
-						result = libuna_unicode_character_copy_to_byte_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  export_handle->byte_stream_codepage,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF7:
-						result = libuna_unicode_character_copy_to_utf7_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  &destination_utf7_stream_base64_data,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF8:
-						result = libuna_unicode_character_copy_to_utf8(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF16BE:
-						result = libuna_unicode_character_copy_to_utf16_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF16LE:
-						result = libuna_unicode_character_copy_to_utf16_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF32BE:
-						result = libuna_unicode_character_copy_to_utf32_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_BIG,
-						          error );
-						break;
-
-					case UNACOMMON_FORMAT_UTF32LE:
-						result = libuna_unicode_character_copy_to_utf32_stream(
-							  unicode_character[ unicode_character_iterator ],
-							  destination_string_buffer,
-							  destination_string_buffer_size,
-							  &destination_string_buffer_iterator,
-							  LIBUNA_ENDIAN_LITTLE,
-						          error );
-						break;
-
-					default:
-						result = -1;
-						break;
-				}
-				if( result != 1 )
-				{
-					liberror_error_set(
-					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-					 "%s: unable to convert output character.",
-					 function );
-
-					export_count = -1;
-
-					break;
-				}
-			}
-			if( export_count <= -1 )
-			{
-				break;
-			}
-			number_of_unicode_characters = 0;
-			unicode_character_iterator   = 0;
+			goto on_error;
 		}
-		if( export_count <= -1 )
+		switch( export_handle->encoding )
 		{
-			break;
-		}
-		if( destination_string_buffer_iterator > 0 )
-		{
-			write_count = libsystem_file_write(
-			               export_handle->destination_file_handle,
-			               destination_string_buffer,
-		        	       destination_string_buffer_iterator,
-			               error );
-
-			if( write_count < 0 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_IO,
-				 LIBERROR_IO_ERROR_WRITE_FAILED,
-				 "%s: unable to write to destination.",
-				 function );
-
-				export_count = -1;
-
+			case UNACOMMON_ENCODING_BASE16:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+					result = libuna_base16_stream_copy_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          destination_buffer,
+					          destination_buffer_size,
+					          0,
+					          LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
+					          error );
+				}
+				else
+				{
+					result = libuna_base16_stream_copy_from_byte_stream(
+					          destination_buffer,
+					          destination_buffer_size,
+					          source_buffer,
+					          read_count,
+					          76,
+					          0,
+					          error );
+				}
 				break;
-			}
-			destination_string_buffer_iterator = 0;
-		}
-		/* Realign the remaining bytes to the start of the source string buffer
-		 */
-		realignment_iterator          = source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
 
-		for( ;
-		     read_count > 0;
-		     read_count-- )
+			case UNACOMMON_ENCODING_BASE32:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE32HEX:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE64:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+					result = libuna_base64_stream_copy_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          destination_buffer,
+					          destination_buffer_size,
+					          0,
+					          LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          error );
+				}
+				else
+				{
+					result = libuna_base64_stream_copy_from_byte_stream(
+					          destination_buffer,
+					          destination_buffer_size,
+					          source_buffer,
+					          read_count,
+					          76,
+					          0,
+					          error );
+				}
+				break;
+
+			case UNACOMMON_ENCODING_BASE64URL:
+				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				{
+				}
+				else
+				{
+				}
+				break;
+		}
+		if( result != 1 )
 		{
-			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to %s %s source data.",
+			 function,
+			 encoding_string,
+			 encoding_mode_string );
+
+			goto on_error;
+		}
+		write_count = libsystem_file_write(
+			       export_handle->destination_file_handle,
+			       destination_buffer,
+			       write_size,
+			       error );
+
+		if( write_count < 0 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_IO,
+			 LIBERROR_IO_ERROR_WRITE_FAILED,
+			 "%s: unable to write to destination.",
+			 function );
+
+			goto on_error;
 		}
 		if( process_status_update_unknown_total(
 		     process_status,
-		     (size64_t) export_count,
+		     export_count,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -1234,30 +1355,17 @@ int export_handle_export_input(
 
 		goto on_error;
 	}
-	if( process_status_free(
-	     &process_status,
-	     error ) != 1 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_FINALIZE_FAILED,
-		 "%s: unable to free process status.",
-		 function );
-
-		goto on_error;
-	}
 	memory_free(
-	 source_string_buffer );
+	 source_buffer );
 
-	source_string_buffer = NULL;
+	source_buffer = NULL;
 
 	memory_free(
-	 destination_string_buffer );
+	 destination_buffer );
 
-	destination_string_buffer = NULL;
+	destination_buffer = NULL;
 
-	return( export_count );
+	return( 1 );
 
 on_error:
 	if( process_status != NULL )
@@ -1267,19 +1375,686 @@ on_error:
 		 (size64_t) export_count,
 		 PROCESS_STATUS_FAILED,
 		 NULL );
-		process_status_free(
-		 &process_status,
+	}
+	if( destination_buffer != NULL )
+	{
+		memory_free(
+		 destination_buffer );
+	}
+	if( source_buffer != NULL )
+	{
+		memory_free(
+		 source_buffer );
+	}
+	return( -1 );
+}
+
+/* Exports the text-encoded source file to the destination file
+ * Returns the number of bytes of the source processed or -1 on error
+ */
+int export_handle_export_text_encoded_input(
+     export_handle_t *export_handle,
+     process_status_t *process_status,
+     liberror_error_t **error )
+{
+	libuna_unicode_character_t unicode_character[ 2 ];
+
+	uint8_t *destination_buffer                  = NULL;
+	uint8_t *source_buffer                       = NULL;
+	static char *function                        = "export_handle_export_text_encoded_input";
+	size64_t export_count                        = 0;
+	size_t destination_buffer_index              = 0;
+	size_t destination_buffer_size               = EXPORT_HANDLE_BUFFER_SIZE;
+	size_t last_source_buffer_index              = 0;
+	size_t realignment_iterator                  = 0;
+	size_t source_buffer_index                   = 0;
+	size_t source_buffer_size                    = EXPORT_HANDLE_BUFFER_SIZE;
+	ssize_t read_count                           = 0;
+	ssize_t write_count                          = 0;
+	uint32_t destination_utf7_stream_base64_data = 0;
+	uint32_t source_utf7_stream_base64_data      = 0;
+	uint8_t analyze_first_character              = 1;
+	uint8_t number_of_unicode_characters         = 0;
+	uint8_t unicode_character_index              = 0;
+	int result                                   = 1;
+
+	if( export_handle == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid export handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->source_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing source file handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( export_handle->destination_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: invalid export handle - missing destination file handle.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( export_handle->input_format != UNACOMMON_FORMAT_AUTO_DETECT )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF7 )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported input format.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( export_handle->output_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF7 )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported output format.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
+	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CRLF )
+	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
+	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported newline conversion.",
+		 function );
+
+		return( -1 );
+	}
+	source_buffer = (uint8_t *) memory_allocate(
+	                             sizeof( uint8_t ) * source_buffer_size );
+
+	if( source_buffer == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create source buffer.",
+		 function );
+
+		goto on_error;
+	}
+	destination_buffer = (uint8_t *) memory_allocate(
+	                                  sizeof( uint8_t ) * destination_buffer_size );
+
+	if( destination_buffer == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create destination buffer.",
+		 function );
+
+		goto on_error;
+	}
+	if( export_handle->export_byte_order_mark != 0 )
+	{
+		switch( export_handle->output_format )
+		{
+			case UNACOMMON_FORMAT_UTF8:
+				result = libuna_utf8_stream_copy_byte_order_mark(
+				          destination_buffer,
+				          destination_buffer_size,
+				          &destination_buffer_index,
+				          error );
+				break;
+
+			case UNACOMMON_FORMAT_UTF16BE:
+				result = libuna_utf16_stream_copy_byte_order_mark(
+				          destination_buffer,
+				          destination_buffer_size,
+				          &destination_buffer_index,
+				          LIBUNA_ENDIAN_BIG,
+				          error );
+				break;
+
+			case UNACOMMON_FORMAT_UTF16LE:
+				result = libuna_utf16_stream_copy_byte_order_mark(
+				          destination_buffer,
+				          destination_buffer_size,
+				          &destination_buffer_index,
+				          LIBUNA_ENDIAN_LITTLE,
+				          error );
+				break;
+
+			case UNACOMMON_FORMAT_UTF32BE:
+				result = libuna_utf32_stream_copy_byte_order_mark(
+				          destination_buffer,
+				          destination_buffer_size,
+				          &destination_buffer_index,
+				          LIBUNA_ENDIAN_BIG,
+				          error );
+				break;
+
+			case UNACOMMON_FORMAT_UTF32LE:
+				result = libuna_utf32_stream_copy_byte_order_mark(
+				          destination_buffer,
+				          destination_buffer_size,
+				          &destination_buffer_index,
+				          LIBUNA_ENDIAN_LITTLE,
+				          error );
+				break;
+
+			default:
+				result = 1;
+				break;
+		}
+		if( result != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to set byte order mark.",
+			 function );
+
+			goto on_error;
+		}
+	}
+	while( 1 )
+	{
+		read_count = libsystem_file_read(
+		              export_handle->source_file_handle,
+		              &( source_buffer[ source_buffer_index ] ),
+		              source_buffer_size - source_buffer_index,
+		              error );
+
+		if( read_count < 0 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_IO,
+			 LIBERROR_IO_ERROR_READ_FAILED,
+			 "%s: unable to read from source.",
+			 function );
+
+			goto on_error;
+		}
+		export_count       += read_count;
+		read_count         += (ssize_t) source_buffer_index;
+		source_buffer_index = 0;
+
+		if( read_count == 0 )
+		{
+			break;
+		}
+		if( analyze_first_character != 0 )
+		{
+			if( ( read_count >= 3 )
+			 && ( source_buffer[ 0 ] == 0xef )
+			 && ( source_buffer[ 1 ] == 0xbb )
+			 && ( source_buffer[ 2 ] == 0xbf ) )
+			{
+				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				{
+					export_handle->input_format = UNACOMMON_FORMAT_UTF8;
+				}
+				if( export_handle->input_format == UNACOMMON_FORMAT_UTF8 )
+				{
+					source_buffer_index += 3;
+				}
+			}
+			else if( ( read_count >= 2 )
+			      && ( source_buffer[ 0 ] == 0xfe )
+			      && ( source_buffer[ 1 ] == 0xff ) )
+			{
+				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				{
+					export_handle->input_format = UNACOMMON_FORMAT_UTF16BE;
+				}
+				if( export_handle->input_format == UNACOMMON_FORMAT_UTF16BE )
+				{
+					source_buffer_index += 2;
+				}
+			}
+			else if( ( read_count >= 2 )
+			      && ( source_buffer[ 0 ] == 0xff )
+			      && ( source_buffer[ 1 ] == 0xfe ) )
+			{
+				if( ( read_count >= 4 )
+				 && ( source_buffer[ 2 ] == 0x00 )
+			         && ( source_buffer[ 3 ] == 0x00 ) )
+				{
+					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+					{
+						export_handle->input_format = UNACOMMON_FORMAT_UTF32LE;
+					}
+					if( export_handle->input_format == UNACOMMON_FORMAT_UTF32LE )
+					{
+						source_buffer_index += 4;
+					}
+				}
+				else
+				{
+					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+					{
+						export_handle->input_format = UNACOMMON_FORMAT_UTF16LE;
+					}
+					if( export_handle->input_format == UNACOMMON_FORMAT_UTF16LE )
+					{
+						source_buffer_index += 2;
+					}
+				}
+			}
+			else if( ( read_count >= 4 )
+			      && ( source_buffer[ 0 ] == 0x00 )
+			      && ( source_buffer[ 1 ] == 0x00 )
+			      && ( source_buffer[ 1 ] == 0xfe )
+			      && ( source_buffer[ 1 ] == 0xff ) )
+			{
+				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				{
+					export_handle->input_format = UNACOMMON_FORMAT_UTF32BE;
+				}
+				if( export_handle->input_format == UNACOMMON_FORMAT_UTF32BE )
+				{
+					source_buffer_index += 4;
+				}
+			}
+			else if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+			{
+				export_handle->input_format = UNACOMMON_FORMAT_BYTE_STREAM;
+			}
+			read_count -= (ssize_t) source_buffer_index;
+
+			analyze_first_character = 0;
+		}
+		last_source_buffer_index = source_buffer_index;
+
+		while( read_count > 0 )
+		{
+			/* Sanity check
+			 */
+			if( source_buffer_index >= source_buffer_size )
+			{
+				break;
+			}
+			/* Make sure to have at least room for a 6 byte character in the destination buffer
+			 */
+		 	if( destination_buffer_index >= ( destination_buffer_size - 5 ) )
+			{
+				break;
+			}
+			switch( export_handle->input_format )
+			{
+				case UNACOMMON_FORMAT_BYTE_STREAM:
+					result = libuna_unicode_character_copy_from_byte_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  export_handle->byte_stream_codepage,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF7:
+					result = libuna_unicode_character_copy_from_utf7_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  &source_utf7_stream_base64_data,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF8:
+					result = libuna_unicode_character_copy_from_utf8(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF16BE:
+					result = libuna_unicode_character_copy_from_utf16_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  LIBUNA_ENDIAN_BIG,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF16LE:
+					result = libuna_unicode_character_copy_from_utf16_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  LIBUNA_ENDIAN_LITTLE,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF32BE:
+					result = libuna_unicode_character_copy_from_utf32_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  LIBUNA_ENDIAN_BIG,
+					          error );
+					break;
+
+				case UNACOMMON_FORMAT_UTF32LE:
+					result = libuna_unicode_character_copy_from_utf32_stream(
+						  &unicode_character[ unicode_character_index ],
+						  source_buffer,
+						  source_buffer_size,
+						  &source_buffer_index,
+						  LIBUNA_ENDIAN_LITTLE,
+					          error );
+					break;
+
+				default:
+					result = -1;
+					break;
+			}
+			if( result != 1 )
+			{
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 "%s: unable to convert input character.",
+				 function );
+
+				goto on_error;
+			}
+			number_of_unicode_characters++;
+
+			read_count -= source_buffer_index - last_source_buffer_index;
+
+			last_source_buffer_index = source_buffer_index;
+
+			if( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
+			{
+				/* Determine if character is a line feed (LF)
+				 */
+				if( unicode_character[ unicode_character_index ] == 0x000a )
+				{
+					if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
+					{
+						if( unicode_character_index == 0 )
+						{
+							unicode_character[ unicode_character_index     ] = 0x000d;
+							unicode_character[ unicode_character_index + 1 ] = 0x000a;
+			
+							number_of_unicode_characters++;
+						}
+					}
+					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
+					{
+						if( unicode_character_index == 0 )
+						{
+							unicode_character[ unicode_character_index ] = 0x000d;
+						}
+						else if( unicode_character_index == 1 )
+						{
+							unicode_character[ unicode_character_index - 1 ] = 0x000d;
+
+							number_of_unicode_characters--;
+						}
+					}
+					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
+					{
+						if( unicode_character_index == 1 )
+						{
+							unicode_character[ unicode_character_index - 1 ] = 0x000a;
+
+							number_of_unicode_characters--;
+						}
+					}
+				}
+				/* Determine if character is a carriage return (CR)
+				 */
+				else if( unicode_character[ unicode_character_index ] == 0x000d )
+				{
+					unicode_character_index++;
+
+					continue;
+				}
+			}
+			/* Write all unicode characters
+			 */
+			for( unicode_character_index = 0;
+			     unicode_character_index < number_of_unicode_characters;
+			     unicode_character_index++ )
+			{
+				switch( export_handle->output_format )
+				{
+					case UNACOMMON_FORMAT_BYTE_STREAM:
+						result = libuna_unicode_character_copy_to_byte_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  export_handle->byte_stream_codepage,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF7:
+						result = libuna_unicode_character_copy_to_utf7_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  &destination_utf7_stream_base64_data,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF8:
+						result = libuna_unicode_character_copy_to_utf8(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF16BE:
+						result = libuna_unicode_character_copy_to_utf16_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  LIBUNA_ENDIAN_BIG,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF16LE:
+						result = libuna_unicode_character_copy_to_utf16_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  LIBUNA_ENDIAN_LITTLE,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF32BE:
+						result = libuna_unicode_character_copy_to_utf32_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  LIBUNA_ENDIAN_BIG,
+						          error );
+						break;
+
+					case UNACOMMON_FORMAT_UTF32LE:
+						result = libuna_unicode_character_copy_to_utf32_stream(
+							  unicode_character[ unicode_character_index ],
+							  destination_buffer,
+							  destination_buffer_size,
+							  &destination_buffer_index,
+							  LIBUNA_ENDIAN_LITTLE,
+						          error );
+						break;
+
+					default:
+						result = -1;
+						break;
+				}
+				if( result != 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+					 "%s: unable to convert output character.",
+					 function );
+
+					goto on_error;
+				}
+			}
+			number_of_unicode_characters = 0;
+			unicode_character_index      = 0;
+		}
+		if( destination_buffer_index > 0 )
+		{
+			write_count = libsystem_file_write(
+			               export_handle->destination_file_handle,
+			               destination_buffer,
+		        	       destination_buffer_index,
+			               error );
+
+			if( write_count < 0 )
+			{
+				liberror_error_set(
+				 error,
+				 LIBERROR_ERROR_DOMAIN_IO,
+				 LIBERROR_IO_ERROR_WRITE_FAILED,
+				 "%s: unable to write to destination.",
+				 function );
+
+				goto on_error;
+			}
+			destination_buffer_index = 0;
+		}
+		/* Realign the remaining bytes to the start of the source buffer
+		 */
+		realignment_iterator = source_buffer_index;
+		source_buffer_index  = 0;
+
+		for( ;
+		     read_count > 0;
+		     read_count-- )
+		{
+			source_buffer[ source_buffer_index++ ] = source_buffer[ realignment_iterator++ ];
+		}
+		if( process_status_update_unknown_total(
+		     process_status,
+		     export_count,
+		     error ) != 1 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to update process status.",
+			 function );
+
+			goto on_error;
+		}
+	}
+	if( process_status_stop(
+	     process_status,
+	     (size64_t) export_count,
+	     PROCESS_STATUS_COMPLETED,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to stop process status.",
+		 function );
+
+		goto on_error;
+	}
+	memory_free(
+	 source_buffer );
+
+	source_buffer = NULL;
+
+	memory_free(
+	 destination_buffer );
+
+	destination_buffer = NULL;
+
+	return( 1 );
+
+on_error:
+	if( process_status != NULL )
+	{
+		process_status_stop(
+		 process_status,
+		 (size64_t) export_count,
+		 PROCESS_STATUS_FAILED,
 		 NULL );
 	}
-	if( destination_string_buffer != NULL )
+	if( destination_buffer != NULL )
 	{
 		memory_free(
-		 destination_string_buffer );
+		 destination_buffer );
 	}
-	if( source_string_buffer != NULL )
+	if( source_buffer != NULL )
 	{
 		memory_free(
-		 source_string_buffer );
+		 source_buffer );
 	}
 	return( -1 );
 }
@@ -1337,114 +2112,131 @@ int export_handle_print_parameters(
 
 		return( -1 );
 	}
+	if( ( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
+	 && ( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid export handle - unsupported mode.",
+		 function );
+
+		return( -1 );
+	}
 	fprintf(
 	 export_handle->notify_stream,
 	 "Exporting:\n" );
 
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tsource:\t\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
-	 export_handle->source_filename );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tof format:\t\t" );
-
-	unaoutput_format_fprint(
-	 export_handle->notify_stream,
-	 export_handle->input_format );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\n" );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tdestination:\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
-	 export_handle->destination_filename );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tof format:\t\t" );
-
-	unaoutput_format_fprint(
-	 export_handle->notify_stream,
-	 export_handle->output_format );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\n" );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tbyte-stream codepage:\t" );
-
-	unaoutput_codepage_fprint(
-	 export_handle->notify_stream,
-	 export_handle->byte_stream_codepage );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\n" );
-
-	fprintf(
-	 export_handle->notify_stream,
-	 "\texport byte order mark:\t" );
-
-	if( export_handle->export_byte_order_mark == 0 )
+	if( export_handle->mode == EXPORT_HANDLE_MODE_BASE_ENCODING )
+	{
+	}
+	else if( export_handle->mode == EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
 		fprintf(
 		 export_handle->notify_stream,
-		 "no" );
-	}
-	else
-	{
-		fprintf(
-		 export_handle->notify_stream,
-		 "yes" );
-	}
-	fprintf(
-	 export_handle->notify_stream,
-	 "\n" );
+		 "\tsource:\t\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
+		 export_handle->source_filename );
 
-	fprintf(
-	 export_handle->notify_stream,
-	 "\tnewline conversion:\t" );
-	
-	if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
-	{
 		fprintf(
 		 export_handle->notify_stream,
-		 "none" );
-	}
-	else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
-	{
-		fprintf(
-		 export_handle->notify_stream,
-		 "carriage return and line feed (crlf)" );
-	}
-	else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
-	{
-		fprintf(
-		 export_handle->notify_stream,
-		 "carriage return (cr)" );
-	}
-	else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
-	{
-		fprintf(
-		 export_handle->notify_stream,
-		 "line feed (lf)" );
-	}
-	else
-	{
-		fprintf(
-		 export_handle->notify_stream,
-		 "unsupported" );
-	}
-	fprintf(
-	 export_handle->notify_stream,
-	 "\n" );
+		 "\tof format:\t\t" );
 
+		unaoutput_format_fprint(
+		 export_handle->notify_stream,
+		 export_handle->input_format );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\n" );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\tdestination:\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
+		 export_handle->destination_filename );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\tof format:\t\t" );
+
+		unaoutput_format_fprint(
+		 export_handle->notify_stream,
+		 export_handle->output_format );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\n" );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\tbyte-stream codepage:\t" );
+
+		unaoutput_codepage_fprint(
+		 export_handle->notify_stream,
+		 export_handle->byte_stream_codepage );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\n" );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\texport byte order mark:\t" );
+
+		if( export_handle->export_byte_order_mark == 0 )
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "no" );
+		}
+		else
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "yes" );
+		}
+		fprintf(
+		 export_handle->notify_stream,
+		 "\n" );
+
+		fprintf(
+		 export_handle->notify_stream,
+		 "\tnewline conversion:\t" );
+		
+		if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "none" );
+		}
+		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "carriage return and line feed (crlf)" );
+		}
+		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "carriage return (cr)" );
+		}
+		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "line feed (lf)" );
+		}
+		else
+		{
+			fprintf(
+			 export_handle->notify_stream,
+			 "unsupported" );
+		}
+		fprintf(
+		 export_handle->notify_stream,
+		 "\n" );
+	}
 	fprintf(
 	 export_handle->notify_stream,
 	 "\n" );

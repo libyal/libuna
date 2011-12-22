@@ -1,26 +1,12 @@
 TODO
-* unaexport:
-  - implement export handle
+* complete base64url
 * unabase:
-  - implement base handle
-  - convert between base64 binary base16
+  - convert between base64 binary base16?
   - have hexdump as input/output
 * complete: test_unaexport.sh
-* unaexport: implement export handle
-* base64 decode strip white space or add option to do so
-  line lenght restriction?
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
-* add unatools_libuna.h
-* complete base16
-  - implement base16 functions
-    - add base16 functions to api
-    - add error to base16
-    - add flag to set upper/lower case
-* complete base64
-  - rename base64 functions like base16 functions?
-* complete base64url
 * gettext support
 
 * libuna
@@ -94,6 +80,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20111222
+* worked on unabase
+* worked on base encondings
 
 20111221
 * fix for inline support in clang compiler

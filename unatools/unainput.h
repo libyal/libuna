@@ -42,6 +42,11 @@ int unainput_determine_encoding(
      uint8_t *encoding,
      liberror_error_t **error );
 
+int unainput_determine_encoding_mode(
+     const libcstring_system_character_t *string,
+     uint8_t *encoding_mode,
+     liberror_error_t **error );
+
 int unainput_determine_format(
      const libcstring_system_character_t *string,
      uint8_t *format,

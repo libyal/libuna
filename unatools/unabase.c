@@ -38,12 +38,13 @@
 
 #include <libsystem.h>
 
+#include "export_handle.h"
 #include "unacommon.h"
-#include "unainput.h"
 #include "unatools_libuna.h"
 #include "unaoutput.h"
 
-#define UNABASE_BUFFER_SIZE	8 * 1024 * 1024
+export_handle_t *unabase_export_handle = NULL;
+int unabase_abort                      = 0;
 
 /* Prints the executable usage information
  */
@@ -57,335 +58,58 @@ void usage_fprint(
 	fprintf( stream, "Use unabase to de/encode data form/to different base\n"
 	                 "encodings\n\n" );
 
-	fprintf( stream, "Usage: unabase [ -m mode ] [ -hvV ] source destination\n\n" );
+	fprintf( stream, "Usage: unabase [ -e encoding ] [ -m mode ] [ -hqvV ] source\n"
+	                 "               destination\n\n" );
 
 	fprintf( stream, "\tsource:      the source file\n" );
 	fprintf( stream, "\tdestination: the destination file\n\n" );
 
-	fprintf( stream, "\t-m:          export mode, options: decode (default),\n"
-	                 "\t             or encode\n" );
+	fprintf( stream, "\t-e:          encoding, options: base16, base32, base32hex,\n"
+	                 "\t             base64 (default), base64url\n" );
+	fprintf( stream, "\t-m:          encoding mode, options: decode, encode (default)\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
+	fprintf( stream, "\t-q:          quiet shows no status information\n" );
 	fprintf( stream, "\t-v:          verbose output to stderr\n" );
 	fprintf( stream, "\t-V:          print version\n" );
 }
 
-/* Prints the export information
+/* Signal handler for unabase
  */
-void export_fprint(
-      FILE *stream,
-      const libcstring_system_character_t *source_filename,
-      const libcstring_system_character_t *destination_filename )
+void unabase_signal_handler(
+      libsystem_signal_t signal LIBSYSTEM_ATTRIBUTE_UNUSED )
 {
-	if( stream == NULL )
+	liberror_error_t *error = NULL;
+	static char *function   = "unabase_signal_handler";
+
+	LIBSYSTEM_UNREFERENCED_PARAMETER( signal )
+
+	unabase_abort = 1;
+
+	if( unabase_export_handle != NULL )
 	{
-		return;
-	}
-	fprintf(
-	 stream,
-	 "Exporting:\n" );
-	fprintf(
-	 stream,
-	 "\tsource:\t\t\t%s\n",
-	 source_filename );
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\tdestination:\t\t%s\n",
-	 destination_filename );
-	fprintf(
-	 stream,
-	 "\n" );
-
-	fprintf(
-	 stream,
-	 "\n" );
-}
-
-/* Exports the source file to the destination file
- * Returns the number of bytes of the source processed or -1 on error
- */
-ssize64_t unabase(
-           const libcstring_system_character_t *source_filename,
-           const libcstring_system_character_t *destination_filename,
-           liberror_error_t **error )
-{
-	libuna_unicode_character_t unicode_character[ 2 ];
-
-	uint8_t *destination_string_buffer              = NULL;
-	uint8_t *source_string_buffer                   = NULL;
-	static char *function                           = "unabase";
-	libsystem_file_handle_t destination_file_handle = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	libsystem_file_handle_t source_file_handle      = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	ssize64_t export_count                          = 0;
-	size_t destination_string_buffer_iterator       = 0;
-	size_t destination_string_buffer_size           = UNABASE_BUFFER_SIZE;
-	size_t source_string_buffer_iterator            = 0;
-	size_t realignment_iterator                     = 0;
-	size_t source_string_buffer_size                = UNABASE_BUFFER_SIZE;
-	ssize_t read_count                              = 0;
-	ssize_t write_count                             = 0;
-	uint8_t number_of_unicode_characters            = 0;
-	uint8_t unicode_character_iterator              = 0;
-	int result                                      = 1;
-
-	if( source_filename == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid source filename.",
-		 function );
-
-		return( -1 );
-	}
-	if( destination_filename == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid destination filename.",
-		 function );
-
-		return( -1 );
-	}
-	if( libsystem_file_open(
-	     &source_file_handle,
-	     source_filename,
-	     LIBSYSTEM_FILE_OPEN_READ,
-	     error ) != 1 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open source: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 source_filename );
-
-		goto on_error;
-	}
-	if( libsystem_file_open(
-	     &destination_file_handle,
-	     destination_filename,
-	     LIBSYSTEM_FILE_OPEN_WRITE_TRUNCATE,
-	     error ) != 1 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open destination: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 destination_filename );
-
-		goto on_error;
-	}
-	source_string_buffer = (uint8_t *) memory_allocate(
-	                                    sizeof( uint8_t ) * source_string_buffer_size );
-
-	if( source_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create source string buffer.",
-		 function );
-
-		goto on_error;
-	}
-	destination_string_buffer = (uint8_t *) memory_allocate(
-	                                         sizeof( uint8_t ) * destination_string_buffer_size );
-
-	if( destination_string_buffer == NULL )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create destination string buffer.",
-		 function );
-
-		goto on_error;
-	}
-	while( 1 )
-	{
-		read_count = libsystem_file_read(
-		              source_file_handle,
-		              &( source_string_buffer[ source_string_buffer_iterator ] ),
-		              source_string_buffer_size - source_string_buffer_iterator,
-		              error );
-
-		if( read_count < 0 )
+		if( export_handle_signal_abort(
+		     unabase_export_handle,
+		     &error ) != 1 )
 		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_IO,
-			 LIBERROR_IO_ERROR_READ_FAILED,
-			 "%s: unable to read from source.",
+			libsystem_notify_printf(
+			 "%s: unable to signal export handle to abort.\n",
 			 function );
 
-			export_count = -1;
-
-			break;
-		}
-		export_count                 += read_count;
-		read_count                   += (ssize_t) source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
-
-		if( read_count == 0 )
-		{
-			break;
-		}
-		while( read_count > 0 )
-		{
-			/* Sanity check
-			 */
-			if( source_string_buffer_iterator >= source_string_buffer_size )
-			{
-				break;
-			}
-			/* Make sure to have at least room for a 6 byte character in the destination string buffer
-			 */
-		 	if( destination_string_buffer_iterator >= ( destination_string_buffer_size - 5 ) )
-			{
-				break;
-			}
-			/* Write all unicode characters
-			 */
-			for( unicode_character_iterator = 0;
-			     unicode_character_iterator < number_of_unicode_characters;
-			     unicode_character_iterator++ )
-			{
-				if( result != 1 )
-				{
-					liberror_error_set(
-					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-					 "%s: unable to convert output character.",
-					 function );
-
-					export_count = -1;
-
-					break;
-				}
-			}
-			if( export_count <= -1 )
-			{
-				break;
-			}
-			number_of_unicode_characters = 0;
-			unicode_character_iterator   = 0;
-		}
-		if( export_count <= -1 )
-		{
-			break;
-		}
-		if( destination_string_buffer_iterator > 0 )
-		{
-			write_count = libsystem_file_write(
-			               destination_file_handle,
-			               destination_string_buffer,
-		        	       destination_string_buffer_iterator,
-			               error );
-
-			if( write_count < 0 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_IO,
-				 LIBERROR_IO_ERROR_WRITE_FAILED,
-				 "%s: unable to write to destination.",
-				 function );
-
-				export_count = -1;
-
-				break;
-			}
-			destination_string_buffer_iterator = 0;
-		}
-		/* Realign the remaining bytes to the start of the source string buffer
-		 */
-		realignment_iterator          = source_string_buffer_iterator;
-		source_string_buffer_iterator = 0;
-
-		for( ;
-		     read_count > 0;
-		     read_count-- )
-		{
-			source_string_buffer[ source_string_buffer_iterator++ ] = source_string_buffer[ realignment_iterator++ ];
+			libsystem_notify_print_error_backtrace(
+			 error );
+			liberror_error_free(
+			 &error );
 		}
 	}
-	memory_free(
-	 source_string_buffer );
-
-	source_string_buffer = NULL;
-
-	memory_free(
-	 destination_string_buffer );
-
-	destination_string_buffer = NULL;
-
-	if( libsystem_file_close(
-	     &source_file_handle,
-	     error ) != 0 )
+	/* Force stdin to close otherwise any function reading it will remain blocked
+	 */
+	if( libsystem_file_io_close(
+	     0 ) != 0 )
 	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close source: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 source_filename );
-
-		goto on_error;
+		libsystem_notify_printf(
+		 "%s: unable to close stdin.\n",
+		 function );
 	}
-	if( libsystem_file_close(
-	     &destination_file_handle,
-	     error ) != 0 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close destination: %" PRIs_LIBCSTRING_SYSTEM ".",
-		 function,
-		 destination_filename );
-
-		goto on_error;
-	}
-	return( export_count );
-
-on_error:
-	if( destination_string_buffer != NULL )
-	{
-		memory_free(
-		 destination_string_buffer );
-	}
-	if( source_string_buffer != NULL )
-	{
-		memory_free(
-		 source_string_buffer );
-	}
-	if( destination_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		libsystem_file_close(
-		 &destination_file_handle,
-		 NULL );
-	}
-	if( source_file_handle != LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		libsystem_file_close(
-		 &source_file_handle,
-		 NULL );
-	}
-	return( -1 );
 }
 
 /* The main program
@@ -398,11 +122,13 @@ int main( int argc, char * const argv[] )
 {
 	liberror_error_t *error                             = NULL;
 	libcstring_system_character_t *destination_filename = NULL;
-	libcstring_system_character_t *option_mode          = NULL;
+	libcstring_system_character_t *option_encoding      = NULL;
+	libcstring_system_character_t *option_encoding_mode = NULL;
 	libcstring_system_character_t *source_filename      = NULL;
 	char *program                                       = "unabase";
-	ssize64_t export_count                              = 0;
 	libcstring_system_integer_t option                  = 0;
+	uint8_t print_status_information                    = 1;
+	int result                                          = 0;
 	int verbose                                         = 0;
 
 	libsystem_notify_set_stream(
@@ -429,7 +155,7 @@ int main( int argc, char * const argv[] )
 	while( ( option = libsystem_getopt(
 	                   argc,
 	                   argv,
-	                   _LIBCSTRING_SYSTEM_STRING( "hm:vV" ) ) ) != (libcstring_system_integer_t) -1 )
+	                   _LIBCSTRING_SYSTEM_STRING( "e:hm:qvV" ) ) ) != (libcstring_system_integer_t) -1 )
 	{
 		switch( option )
 		{
@@ -451,8 +177,18 @@ int main( int argc, char * const argv[] )
 
 				return( EXIT_SUCCESS );
 
+			case (libcstring_system_integer_t) 'e':
+				option_encoding = optarg;
+
+				break;
+
 			case (libcstring_system_integer_t) 'm':
-				option_mode = optarg;
+				option_encoding_mode = optarg;
+
+				break;
+
+			case (libcstring_system_integer_t) 'q':
+				print_status_information = 0;
 
 				break;
 
@@ -497,23 +233,201 @@ int main( int argc, char * const argv[] )
 	libsystem_notify_set_verbose(
 	 verbose );
 
-	export_fprint(
-	 stdout,
-	 source_filename,
-	 destination_filename );
-
-	export_count = unabase(
-	                source_filename,
-	                destination_filename,
-	                &error );
-
-	if( export_count <= -1 )
+	if( export_handle_initialize(
+	     &unabase_export_handle,
+	     EXPORT_HANDLE_MODE_BASE_ENCODING,
+	     &error ) != 1 )
 	{
+		fprintf(
+		 stderr,
+		 "Unable to create export handle.\n" );
+
+		goto on_error;
+	}
+	if( libsystem_signal_attach(
+	     unabase_signal_handler,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to attach signal handler.\n" );
+
 		libsystem_notify_print_error_backtrace(
 		 error );
 		liberror_error_free(
 		 &error );
 	}
+	if( export_handle_set_string(
+	     unabase_export_handle,
+	     source_filename,
+	     &( unabase_export_handle->source_filename ),
+	     &( unabase_export_handle->source_filename_size ),
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to set source filename.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_set_string(
+	     unabase_export_handle,
+	     destination_filename,
+	     &( unabase_export_handle->destination_filename ),
+	     &( unabase_export_handle->destination_filename_size ),
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to set destination filename.\n" );
+
+		goto on_error;
+	}
+	if( option_encoding != NULL )
+	{
+		result = export_handle_set_encoding(
+			  unabase_export_handle,
+			  option_encoding,
+			  &error );
+
+		if( result == -1 )
+		{
+			fprintf(
+			 stderr,
+			 "Unable to set encoding.\n" );
+
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
+			fprintf(
+			 stderr,
+			 "Unsupported encoding defaulting to: base64.\n" );
+		}
+	}
+	if( option_encoding_mode != NULL )
+	{
+		result = export_handle_set_encoding_mode(
+			  unabase_export_handle,
+			  option_encoding_mode,
+			  &error );
+
+		if( result == -1 )
+		{
+			fprintf(
+			 stderr,
+			 "Unable to set encoding mode.\n" );
+
+			goto on_error;
+		}
+		else if( result == 0 )
+		{
+			fprintf(
+			 stderr,
+			 "Unsupported encoding mode defaulting to: encode.\n" );
+		}
+	}
+	if( export_handle_print_parameters(
+	     unabase_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to print export parameters.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_open_input(
+	     unabase_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to open source file.\n" );
+
+		goto on_error;
+	}
+	if( export_handle_open_output(
+	     unabase_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to open destination file.\n" );
+
+		goto on_error;
+	}
+	result = export_handle_export_input(
+		  unabase_export_handle,
+		  print_status_information,
+		  &error );
+
+	if( result != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to export input.\n" );
+
+		libsystem_notify_print_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+	}
+	if( export_handle_close(
+	     unabase_export_handle,
+	     &error ) != 0 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to close export handle.\n" );
+
+		goto on_error;
+	}
+	if( libsystem_signal_detach(
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to detach signal handler.\n" );
+
+		libsystem_notify_print_error_backtrace(
+		 error );
+		liberror_error_free(
+		 &error );
+	}
+	if( export_handle_free(
+	     &unabase_export_handle,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to free export handle.\n" );
+
+		goto on_error;
+	}
+	if( unabase_abort != 0 )
+	{
+		fprintf(
+		 stdout,
+		 "%" PRIs_LIBCSTRING_SYSTEM ": ABORTED\n",
+		 program );
+
+		return( EXIT_FAILURE );
+	}
+	if( result != 1 )
+	{
+		fprintf(
+		 stdout,
+		 "%" PRIs_LIBCSTRING_SYSTEM ": FAILURE\n",
+		 program );
+
+		return( EXIT_FAILURE );
+	}
+	fprintf(
+	 stdout,
+	 "%" PRIs_LIBCSTRING_SYSTEM ": SUCCESS\n",
+	 program );
+
 	return( EXIT_SUCCESS );
 
 on_error:
@@ -523,6 +437,15 @@ on_error:
 		 error );
 		liberror_error_free(
 		 &error );
+	}
+	if( unabase_export_handle != NULL )
+	{
+		export_handle_close(
+		 unabase_export_handle,
+		 NULL );
+		export_handle_free(
+		 &unabase_export_handle,
+		 NULL );
 	}
 	return( EXIT_FAILURE );
 }
