@@ -174,10 +174,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libuna\libuna_base64url_stream.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libuna\libuna_byte_stream.c"
 				>
 			</File>
@@ -341,10 +337,6 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_base64_stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libuna\libuna_base64url_stream.h"
 				>
 			</File>
 			<File

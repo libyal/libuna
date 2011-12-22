@@ -5125,8 +5125,8 @@ int libuna_unicode_character_copy_from_utf7_stream(
 		     utf7_stream,
 		     utf7_stream_size,
 		     utf7_stream_index,
-		     0,
 		     &padding_size,
+		     LIBUNA_BASE64_VARIANT_UTF7,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -5165,8 +5165,8 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			     utf7_stream,
 			     utf7_stream_size,
 			     utf7_stream_index,
-			     0,
 			     &padding_size,
+			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
 			{
 				liberror_error_set(
@@ -5206,8 +5206,8 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				     utf7_stream,
 				     utf7_stream_size,
 				     utf7_stream_index,
-				     0,
 				     &padding_size,
+				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
 				{
 					liberror_error_set(
@@ -5244,8 +5244,8 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				     utf7_stream,
 				     utf7_stream_size,
 				     utf7_stream_index,
-				     0,
 				     &padding_size,
+				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
 				{
 					liberror_error_set(
@@ -5581,7 +5581,8 @@ int libuna_unicode_character_copy_to_utf7_stream(
 		{
 			unicode_character -= 0x010000;
 
-			utf16_surrogate = (libuna_utf16_character_t) ( ( unicode_character >> 10 ) + LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START );
+			utf16_surrogate = (libuna_utf16_character_t) ( ( unicode_character >> 10 )
+			                + LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START );
 
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( ( utf16_surrogate >> 8 ) & 0xff ) << byte_bit_shift;
@@ -5596,7 +5597,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				     utf7_stream_size,
 				     utf7_stream_index,
 				     0,
-				     0,
+				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
 				{
 					liberror_error_set(
@@ -5625,7 +5626,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				     utf7_stream_size,
 				     utf7_stream_index,
 				     0,
-				     0,
+				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
 				{
 					liberror_error_set(
@@ -5641,7 +5642,8 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				current_byte    = 0;
 				base64_triplet  = 0;
 			}
-			unicode_character = (libuna_utf16_character_t) ( ( unicode_character & 0x03ff ) + LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START );
+			unicode_character = (libuna_utf16_character_t) ( ( unicode_character & 0x03ff )
+			                  + LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START );
 		}
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( ( unicode_character >> 8 ) & 0xff ) << byte_bit_shift;
@@ -5656,7 +5658,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     utf7_stream_size,
 			     utf7_stream_index,
 			     0,
-			     0,
+			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
 			{
 				liberror_error_set(
@@ -5685,7 +5687,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     utf7_stream_size,
 			     utf7_stream_index,
 			     0,
-			     0,
+			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
 			{
 				liberror_error_set(
@@ -5710,8 +5712,8 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     utf7_stream,
 			     utf7_stream_size,
 			     utf7_stream_index,
-			     0,
 			     3 - number_of_bytes,
+			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
 			{
 				liberror_error_set(

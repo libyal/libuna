@@ -1574,9 +1574,6 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 /* Copies a base64 triplet from a base64 stream
  *
- * A padding character value of 0 indicates the lack of padding characters
- * 0 padding also allows for non base64 characters to terminate the triplet
- *
  * The padding size will still be set to indicate the number of
  * sixtets in the triplet
  *
@@ -1588,12 +1585,11 @@ int libuna_base64_triplet_copy_from_base64_stream(
      const uint8_t *base64_stream,
      size_t base64_stream_size,
      size_t *base64_stream_index,
-     uint8_t padding_character,
      uint8_t *padding_size,
+     uint8_t base64_variant,
      liberror_error_t **error );
 
 /* Copies a base64 triplet to a base64 stream
- * A padding character value of 0 indicates the lack of padding characters
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
@@ -1602,8 +1598,8 @@ int libuna_base64_triplet_copy_to_base64_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      size_t *base64_stream_index,
-     uint8_t padding_character,
      uint8_t padding_size,
+     uint8_t base64_variant,
      liberror_error_t **error );
 
 /* Copies a base64 triplet from a byte stream
@@ -1631,13 +1627,6 @@ int libuna_base64_triplet_copy_to_byte_stream(
      liberror_error_t **error );
 
 /* Determines the size of a byte stream from a base64 stream
- *
- * LIBUNA_BASE64_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
- * and trailing space, tab and end of line characters
- *
- * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
@@ -1645,18 +1634,11 @@ int libuna_base64_stream_size_to_byte_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      size_t *byte_stream_size,
-     size_t character_limit,
+     uint8_t base64_variant,
      uint8_t flags,
      liberror_error_t **error );
 
 /* Copies a byte stream from a base64 stream
- *
- * LIBUNA_BASE64_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
- * and trailing space, tab and end of line characters
- *
- * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
@@ -1665,15 +1647,11 @@ int libuna_base64_stream_copy_to_byte_stream(
      size_t base64_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
+     uint8_t base64_variant,
      uint8_t flags,
      liberror_error_t **error );
 
 /* Determines the size of a base64 stream from a byte stream
- *
- * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
@@ -1681,15 +1659,10 @@ int libuna_base64_stream_size_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base64_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint8_t base64_variant,
      liberror_error_t **error );
 
 /* Copies a base64 stream from a byte stream
- *
- * LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
@@ -1698,8 +1671,7 @@ int libuna_base64_stream_copy_from_byte_stream(
      size_t base64_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint8_t base64_variant,
      liberror_error_t **error );
 
 #if defined( __cplusplus )

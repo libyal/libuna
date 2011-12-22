@@ -10,7 +10,6 @@ libuna_la_SOURCES = \
 	libuna.c \
 	libuna_base16_stream.c libuna_base16_stream.h \
 	libuna_base64_stream.c libuna_base64_stream.h \
-	libuna_base64url_stream.c libuna_base64url_stream.h \
 	libuna_byte_stream.c libuna_byte_stream.h \
 	libuna_codepage_iso_8859_2.c libuna_codepage_iso_8859_2.h \
 	libuna_codepage_iso_8859_3.c libuna_codepage_iso_8859_3.h \

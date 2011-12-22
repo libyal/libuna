@@ -1,4 +1,6 @@
 TODO
+* complete base32
+* complete base32hex
 * complete base64url
 * unabase:
   - convert between base64 binary base16?

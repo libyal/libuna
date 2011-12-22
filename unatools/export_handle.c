@@ -1178,8 +1178,8 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          0,
-					          LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
 				else
@@ -1188,8 +1188,7 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          76,
-					          0,
+					          LIBUNA_BASE64_VARIANT_76,
 					          error );
 				}
 				break;
@@ -1197,9 +1196,22 @@ int export_handle_export_base_encoded_input(
 			case UNACOMMON_ENCODING_BASE64URL:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base64_stream_size_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE64_VARIANT_URL,
+					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base64_stream_size_from_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE64_VARIANT_URL,
+					          error );
 				}
 				break;
 		}
@@ -1269,8 +1281,8 @@ int export_handle_export_base_encoded_input(
 					          read_count,
 					          destination_buffer,
 					          destination_buffer_size,
-					          0,
-					          LIBUNA_BASE64_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
 				else
@@ -1280,8 +1292,7 @@ int export_handle_export_base_encoded_input(
 					          destination_buffer_size,
 					          source_buffer,
 					          read_count,
-					          76,
-					          0,
+					          LIBUNA_BASE64_VARIANT_76,
 					          error );
 				}
 				break;
@@ -1289,9 +1300,24 @@ int export_handle_export_base_encoded_input(
 			case UNACOMMON_ENCODING_BASE64URL:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base64_stream_copy_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          destination_buffer,
+					          destination_buffer_size,
+					          LIBUNA_BASE64_VARIANT_URL,
+					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base64_stream_copy_from_byte_stream(
+					          destination_buffer,
+					          destination_buffer_size,
+					          source_buffer,
+					          read_count,
+					          LIBUNA_BASE64_VARIANT_URL,
+					          error );
 				}
 				break;
 		}
