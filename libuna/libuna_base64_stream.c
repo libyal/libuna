@@ -42,7 +42,7 @@ LIBUNA_INLINE \
 int libuna_base64_character_copy_to_sixtet(
      uint8_t base64_character,
      uint8_t *base64_sixtet,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      liberror_error_t **error )
 {
 	static char *function       = "libuna_base64_character_copy_to_sixtet";
@@ -60,22 +60,16 @@ int libuna_base64_character_copy_to_sixtet(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000f0000UL )
 	{
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-		case LIBUNA_BASE64_VARIANT_PEM:
-		case LIBUNA_BASE64_VARIANT_UTF7:
+		case LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL:
 			base64_character_62 = (uint8_t) '+';
 			base64_character_63 = (uint8_t) '/';
-
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
+		case LIBUNA_BASE64_VARIANT_ALPHABET_URL:
 			base64_character_62 = (uint8_t) '-';
 			base64_character_63 = (uint8_t) '_';
-
 			break;
 
 		default:
@@ -166,7 +160,7 @@ int libuna_base64_triplet_copy_from_base64_stream(
      size_t base64_stream_size,
      size_t *base64_stream_index,
      uint8_t *padding_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      liberror_error_t **error )
 {
 	static char *function               = "libuna_base64_triplet_copy_from_base64_stream";
@@ -243,25 +237,19 @@ int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x0f000000UL )
 	{
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-		case LIBUNA_BASE64_VARIANT_PEM:
-			padding_character = (uint8_t) '=';
-
+		case LIBUNA_BASE64_VARIANT_PADDING_NONE:
+			padding_character = 0;
 			break;
 
 /* TODO padding is optional */
-		case LIBUNA_BASE64_VARIANT_URL:
+		case LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL:
 			padding_character = (uint8_t) '=';
-
 			break;
 
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			padding_character = 0;
-
+		case LIBUNA_BASE64_VARIANT_PADDING_REQUIRED:
+			padding_character = (uint8_t) '=';
 			break;
 
 		default:
@@ -471,7 +459,7 @@ int libuna_base64_triplet_copy_to_base64_stream(
      size_t base64_stream_size,
      size_t *base64_stream_index,
      uint8_t padding_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      liberror_error_t **error )
 {
 	uint8_t *sixtet_to_character_table = NULL;
@@ -526,27 +514,36 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000f0000UL )
 	{
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-		case LIBUNA_BASE64_VARIANT_PEM:
-			padding_character         = (uint8_t) '=';
+		case LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL:
 			sixtet_to_character_table = libuna_base64_sixtet_to_character_table;
-
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
-			padding_character         = 0;
+		case LIBUNA_BASE64_VARIANT_ALPHABET_URL:
 			sixtet_to_character_table = libuna_base64url_sixtet_to_character_table;
-
 			break;
 
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			padding_character         = 0;
-			sixtet_to_character_table = libuna_base64_sixtet_to_character_table;
+		default:
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base64 variant.",
+			 function );
 
+			return( -1 );
+	}
+	switch( base64_variant & 0x0f000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_PADDING_NONE:
+		case LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL:
+			padding_character = 0;
+			break;
+
+
+		case LIBUNA_BASE64_VARIANT_PADDING_REQUIRED:
+			padding_character = (uint8_t) '=';
 			break;
 
 		default:
@@ -862,7 +859,7 @@ int libuna_base64_stream_size_to_byte_stream(
      uint8_t *base64_stream,
      size_t base64_stream_size,
      size_t *byte_stream_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      uint8_t flags,
      liberror_error_t **error )
 {
@@ -908,23 +905,20 @@ int libuna_base64_stream_size_to_byte_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000000ffUL )
 	{
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-			character_limit = 76;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_PEM:
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			character_limit = 0;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
 
 			break;
 
@@ -1187,7 +1181,7 @@ int libuna_base64_stream_copy_to_byte_stream(
      size_t base64_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      uint8_t flags,
      liberror_error_t **error )
 {
@@ -1244,23 +1238,20 @@ int libuna_base64_stream_copy_to_byte_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000000ffUL )
 	{
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-			character_limit = 76;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_PEM:
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			character_limit = 0;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
 
 			break;
 
@@ -1450,7 +1441,7 @@ int libuna_base64_stream_size_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base64_stream_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      liberror_error_t **error )
 {
 	static char *function   = "libuna_base64_stream_size_from_byte_stream";
@@ -1489,23 +1480,20 @@ int libuna_base64_stream_size_from_byte_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000000ffUL )
 	{
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-			character_limit = 76;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_PEM:
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			character_limit = 0;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
 
 			break;
 
@@ -1545,7 +1533,7 @@ int libuna_base64_stream_copy_from_byte_stream(
      size_t base64_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t base64_variant,
+     uint32_t base64_variant,
      liberror_error_t **error )
 {
 	static char *function                = "libuna_base64_stream_copy_from_byte_stream";
@@ -1601,23 +1589,20 @@ int libuna_base64_stream_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	switch( base64_variant )
+	switch( base64_variant & 0x000000ffUL )
 	{
-		case LIBUNA_BASE64_VARIANT_76:
-		case LIBUNA_BASE64_VARIANT_MIME:
-			character_limit = 76;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_64:
-		case LIBUNA_BASE64_VARIANT_PEM:
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
 
 			break;
 
-		case LIBUNA_BASE64_VARIANT_URL:
-		case LIBUNA_BASE64_VARIANT_UTF7:
-			character_limit = 0;
+		case LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
 
 			break;
 

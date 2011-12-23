@@ -33,16 +33,13 @@
  * LIBUNA_BASE16_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
  * and trailing space, tab and end of line characters
  *
- * LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_size_to_byte_stream(
      uint8_t *base16_stream,
      size_t base16_stream_size,
      size_t *byte_stream_size,
-     size_t character_limit,
+     uint32_t base16_variant,
      uint8_t flags,
      liberror_error_t **error )
 {
@@ -51,8 +48,8 @@ int libuna_base16_stream_size_to_byte_stream(
 	size_t number_of_characters = 0;
 	size_t whitespace_size      = 0;
 	uint8_t character_case      = 0;
+	uint8_t character_limit     = 0;
 	uint8_t strip_mode          = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
-	uint8_t supported_flags     = 0;
 
 	if( base16_stream == NULL )
 	{
@@ -88,37 +85,55 @@ int libuna_base16_stream_size_to_byte_stream(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	switch( base16_variant & 0x000000ffUL )
 	{
-		if( ( character_limit == 0 )
-		 || ( character_limit > (size_t) SSIZE_MAX ) )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-			 "%s: invalid character limit value out of bounds.",
-			 function );
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
+			break;
 
-			return( -1 );
-		}
-		if( ( character_limit % 2 ) != 0 )
-		{
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64:
+			character_limit = 64;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
+			break;
+
+		default:
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported character limit must be a multitude of 2.",
+			 "%s: unsupported base16 variant.",
 			 function );
 
 			return( -1 );
-		}
 	}
-	supported_flags = LIBUNA_BASE16_FLAG_STRIP_WHITESPACE
-	                | LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT
-	                | LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE;
+	switch( base16_variant & 0x000f0000UL )
+	{
+		case LIBUNA_BASE16_VARIANT_CASE_LOWER:
+			character_case = LIBUNA_CASE_LOWER;
+			break;
 
-	if( ( flags & ~( supported_flags ) ) != 0 )
+		case LIBUNA_BASE16_VARIANT_CASE_MIXED:
+			character_case = LIBUNA_CASE_MIXED;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CASE_UPPER:
+			character_case = LIBUNA_CASE_UPPER;
+			break;
+
+		default:
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base16 variant.",
+			 function );
+
+			return( -1 );
+	}
+	if( ( flags & ~( LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
 		liberror_error_set(
 		 error,
@@ -186,7 +201,7 @@ int libuna_base16_stream_size_to_byte_stream(
 				}
 				strip_mode = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
 			}
-			if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+			if( character_limit != 0 )
 			{
 				if( number_of_characters != character_limit )
 				{
@@ -241,12 +256,8 @@ int libuna_base16_stream_size_to_byte_stream(
 			if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
 			 && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_UPPER;
-				}
-				else if( ( character_case != LIBUNA_CASE_UPPER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_UPPER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -255,12 +266,8 @@ int libuna_base16_stream_size_to_byte_stream(
 			else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'a' )
 			      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'f' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_LOWER;
-				}
-				else if( ( character_case != LIBUNA_CASE_LOWER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_LOWER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -290,7 +297,7 @@ int libuna_base16_stream_size_to_byte_stream(
 		}
 		base16_stream_index++;
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	if( character_limit != 0 )
 	{
 		if( number_of_characters != character_limit )
 		{
@@ -330,9 +337,6 @@ int libuna_base16_stream_size_to_byte_stream(
  * LIBUNA_BASE16_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
  * and trailing space, tab and end of line characters
  *
- * LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_copy_to_byte_stream(
@@ -340,7 +344,7 @@ int libuna_base16_stream_copy_to_byte_stream(
      size_t base16_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
+     uint32_t base16_variant,
      uint8_t flags,
      liberror_error_t **error )
 {
@@ -350,8 +354,8 @@ int libuna_base16_stream_copy_to_byte_stream(
 	size_t number_of_characters = 0;
 	uint8_t byte_value          = 0;
 	uint8_t character_case      = 0;
+	uint8_t character_limit     = 0;
 	uint8_t strip_mode          = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
-	uint8_t supported_flags     = 0;
 
 	if( base16_stream == NULL )
 	{
@@ -397,37 +401,55 @@ int libuna_base16_stream_copy_to_byte_stream(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	switch( base16_variant & 0x000000ffUL )
 	{
-		if( ( character_limit == 0 )
-		 || ( character_limit > (size_t) SSIZE_MAX ) )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-			 "%s: invalid character limit value out of bounds.",
-			 function );
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
+			break;
 
-			return( -1 );
-		}
-		if( ( character_limit % 2 ) != 0 )
-		{
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64:
+			character_limit = 64;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
+			break;
+
+		default:
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported character limit must be a multitude of 2.",
+			 "%s: unsupported base16 variant.",
 			 function );
 
 			return( -1 );
-		}
 	}
-	supported_flags = LIBUNA_BASE16_FLAG_STRIP_WHITESPACE
-	                | LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT
-	                | LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE;
+	switch( base16_variant & 0x000f0000UL )
+	{
+		case LIBUNA_BASE16_VARIANT_CASE_LOWER:
+			character_case = LIBUNA_CASE_LOWER;
+			break;
 
-	if( ( flags & ~( supported_flags ) ) != 0 )
+		case LIBUNA_BASE16_VARIANT_CASE_MIXED:
+			character_case = LIBUNA_CASE_MIXED;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CASE_UPPER:
+			character_case = LIBUNA_CASE_UPPER;
+			break;
+
+		default:
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base16 variant.",
+			 function );
+
+			return( -1 );
+	}
+	if( ( flags & ~( LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
 		liberror_error_set(
 		 error,
@@ -466,7 +488,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 
 				base16_stream_index++;
 			}
-			if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+			if( character_limit != 0 )
 			{
 				if( number_of_characters != character_limit )
 				{
@@ -531,12 +553,8 @@ int libuna_base16_stream_copy_to_byte_stream(
 			if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
 			 && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_UPPER;
-				}
-				else if( ( character_case != LIBUNA_CASE_UPPER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_UPPER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -545,12 +563,8 @@ int libuna_base16_stream_copy_to_byte_stream(
 			else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'a' )
 			      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'f' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_LOWER;
-				}
-				else if( ( character_case != LIBUNA_CASE_LOWER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_LOWER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -584,12 +598,8 @@ int libuna_base16_stream_copy_to_byte_stream(
 			if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'A' )
 			 && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'F' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_UPPER;
-				}
-				else if( ( character_case != LIBUNA_CASE_UPPER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_UPPER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -598,12 +608,8 @@ int libuna_base16_stream_copy_to_byte_stream(
 			else if( ( base16_stream[ base16_stream_index ] >= (uint8_t) 'a' )
 			      && ( base16_stream[ base16_stream_index ] <= (uint8_t) 'f' ) )
 			{
-				if( character_case == 0 )
-				{
-					character_case = LIBUNA_CASE_LOWER;
-				}
-				else if( ( character_case != LIBUNA_CASE_LOWER )
-				      && ( ( flags & LIBUNA_BASE16_FLAG_ALLOW_MIXED_CASE ) == 0 ) )
+				if( ( character_case != LIBUNA_CASE_MIXED )
+				 && ( character_case != LIBUNA_CASE_LOWER ) )
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
@@ -637,7 +643,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 			number_of_characters += 2;
 		}
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	if( character_limit != 0 )
 	{
 		if( number_of_characters != character_limit )
 		{
@@ -655,25 +661,17 @@ int libuna_base16_stream_copy_to_byte_stream(
 }
 
 /* Determines the size of a base16 stream from a byte stream
- *
- * LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
- * LIBUNA_BASE16_FLAG_USE_LOWER_CASE to use lower case instead of upper case
- * for the hexadecimal digits
- *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_size_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base16_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint32_t base16_variant,
      liberror_error_t **error )
 {
 	static char *function   = "libuna_base16_stream_size_from_byte_stream";
-	uint8_t supported_flags = 0;
+	uint8_t character_limit = 0;
 
 	if( byte_stream == NULL )
 	{
@@ -708,51 +706,35 @@ int libuna_base16_stream_size_from_byte_stream(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	switch( base16_variant & 0x000000ffUL )
 	{
-		if( ( character_limit == 0 )
-		 || ( character_limit > (size_t) SSIZE_MAX ) )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-			 "%s: invalid character limit value out of bounds.",
-			 function );
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
+			break;
 
-			return( -1 );
-		}
-		if( ( character_limit % 2 ) != 0 )
-		{
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64:
+			character_limit = 64;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
+			break;
+
+		default:
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported character limit must be a multitude of 2.",
+			 "%s: unsupported base16 variant.",
 			 function );
 
 			return( -1 );
-		}
-	}
-	supported_flags = LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT
-	                | LIBUNA_BASE16_FLAG_USE_LOWER_CASE;
-
-	if( ( flags & ~( supported_flags ) ) != 0 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported flags.",
-		 function );
-
-		return( -1 );
 	}
 	/* The base16 stream contains 2 characters for every byte
 	 */
 	*base16_stream_size = byte_stream_size * 2;
 
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	if( character_limit != 0 )
 	{
 		*base16_stream_size += ( *base16_stream_size / character_limit ) + 1;
 	}
@@ -760,13 +742,6 @@ int libuna_base16_stream_size_from_byte_stream(
 }
 
 /* Copies a base16 stream from a byte stream
- *
- * LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ignores a character limit per line
- * as defined by character_limit
- *
- * LIBUNA_BASE16_FLAG_USE_LOWER_CASE to use lower case instead of upper case
- * for the hexadecimal digits
- *
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_copy_from_byte_stream(
@@ -774,8 +749,7 @@ int libuna_base16_stream_copy_from_byte_stream(
      size_t base16_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint32_t base16_variant,
      liberror_error_t **error )
 {
 	static char *function                = "libuna_base16_stream_copy_from_byte_stream";
@@ -785,7 +759,7 @@ int libuna_base16_stream_copy_from_byte_stream(
 	size_t number_of_characters          = 0;
 	uint8_t a_character_value            = 0;
 	uint8_t byte_value                   = 0;
-	uint8_t supported_flags              = 0;
+	uint8_t character_limit              = 0;
 
 	if( base16_stream == NULL )
 	{
@@ -831,52 +805,57 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	switch( base16_variant & 0x000000ffUL )
 	{
-		if( ( character_limit == 0 )
-		 || ( character_limit > (size_t) SSIZE_MAX ) )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
-			 "%s: invalid character limit value out of bounds.",
-			 function );
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE:
+			character_limit = 0;
+			break;
 
-			return( -1 );
-		}
-		if( ( character_limit % 2 ) != 0 )
-		{
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64:
+			character_limit = 64;
+			break;
+
+		case LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76:
+			character_limit = 76;
+			break;
+
+		default:
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported character limit must be a multitude of 2.",
+			 "%s: unsupported base16 variant.",
 			 function );
 
 			return( -1 );
-		}
 	}
-	supported_flags = LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT
-	                | LIBUNA_BASE16_FLAG_USE_LOWER_CASE;
-
-	if( ( flags & ~( supported_flags ) ) != 0 )
+	switch( base16_variant & 0x000f0000UL )
 	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported flags.",
-		 function );
+		case LIBUNA_BASE16_VARIANT_CASE_LOWER:
+			a_character_value = (uint8_t) 'a';
+			break;
 
-		return( -1 );
+		case LIBUNA_BASE16_VARIANT_CASE_MIXED:
+		case LIBUNA_BASE16_VARIANT_CASE_UPPER:
+			a_character_value = (uint8_t) 'A';
+			break;
+
+		default:
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base16 variant.",
+			 function );
+
+			return( -1 );
 	}
 	/* Make sure the base16 stream is able to hold
 	 * at least 2 bytes for each byte
 	 */
 	calculated_base16_stream_size = byte_stream_size * 2;
 
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	if( character_limit != 0 )
 	{
 		calculated_base16_stream_size += ( calculated_base16_stream_size / character_limit ) + 1;
 	}
@@ -890,14 +869,6 @@ int libuna_base16_stream_copy_from_byte_stream(
 		 function );
 
 		return( -1 );
-	}
-	if( ( flags & LIBUNA_BASE16_FLAG_USE_LOWER_CASE ) == 0 )
-	{
-		a_character_value = (uint8_t) 'A';
-	}
-	else
-	{
-		a_character_value = (uint8_t) 'a';
 	}
 	while( byte_stream_index < byte_stream_size )
 	{
@@ -923,7 +894,7 @@ int libuna_base16_stream_copy_from_byte_stream(
 		}
 		byte_stream_index++;
 
-		if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+		if( character_limit != 0 )
 		{
 			number_of_characters += 2;
 
@@ -935,7 +906,7 @@ int libuna_base16_stream_copy_from_byte_stream(
 			}
 		}
 	}
-	if( ( flags & LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT ) == 0 )
+	if( character_limit != 0 )
 	{
 		if( number_of_characters != 0 )
 		{

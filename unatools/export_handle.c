@@ -1137,8 +1137,8 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          0,
-					          LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
+					          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+					          LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
 				else
@@ -1147,8 +1147,7 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          76,
-					          0,
+					          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76,
 					          error );
 				}
 				break;
@@ -1178,7 +1177,7 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
@@ -1188,7 +1187,7 @@ int export_handle_export_base_encoded_input(
 					          source_buffer,
 					          read_count,
 					          &write_size,
-					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_VARIANT_MIME,
 					          error );
 				}
 				break;
@@ -1238,8 +1237,8 @@ int export_handle_export_base_encoded_input(
 					          read_count,
 					          destination_buffer,
 					          destination_buffer_size,
-					          0,
-					          LIBUNA_BASE16_FLAG_NO_CHARACTER_LIMIT | LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
+					          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+					          LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
 				else
@@ -1249,8 +1248,7 @@ int export_handle_export_base_encoded_input(
 					          destination_buffer_size,
 					          source_buffer,
 					          read_count,
-					          76,
-					          0,
+					          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76,
 					          error );
 				}
 				break;
@@ -1281,7 +1279,7 @@ int export_handle_export_base_encoded_input(
 					          read_count,
 					          destination_buffer,
 					          destination_buffer_size,
-					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 					          LIBUNA_BASE64_FLAG_STRIP_WHITESPACE,
 					          error );
 				}
@@ -1292,7 +1290,7 @@ int export_handle_export_base_encoded_input(
 					          destination_buffer_size,
 					          source_buffer,
 					          read_count,
-					          LIBUNA_BASE64_VARIANT_76,
+					          LIBUNA_BASE64_VARIANT_MIME,
 					          error );
 				}
 				break;

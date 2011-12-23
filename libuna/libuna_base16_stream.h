@@ -39,7 +39,7 @@ int libuna_base16_stream_size_to_byte_stream(
      uint8_t *base16_stream,
      size_t base16_stream_size,
      size_t *byte_stream_size,
-     size_t character_limit,
+     uint32_t base16_variant,
      uint8_t flags,
      liberror_error_t **error );
 
@@ -49,7 +49,7 @@ int libuna_base16_stream_copy_to_byte_stream(
      size_t base16_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
+     uint32_t base16_variant,
      uint8_t flags,
      liberror_error_t **error );
 
@@ -58,8 +58,7 @@ int libuna_base16_stream_size_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base16_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint32_t base16_variant,
      liberror_error_t **error );
 
 LIBUNA_EXTERN \
@@ -68,8 +67,7 @@ int libuna_base16_stream_copy_from_byte_stream(
      size_t base16_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     size_t character_limit,
-     uint8_t flags,
+     uint32_t base16_variant,
      liberror_error_t **error );
 
 #if defined( __cplusplus )
