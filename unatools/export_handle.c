@@ -171,6 +171,16 @@ int export_handle_free(
 	}
 	if( *export_handle != NULL )
 	{
+		if( ( *export_handle )->source_filename != NULL )
+		{
+			memory_free(
+			 ( *export_handle )->source_filename );
+		}
+		if( ( *export_handle )->destination_filename != NULL )
+		{
+			memory_free(
+			 ( *export_handle )->destination_filename );
+		}
 		memory_free(
 		 *export_handle );
 
@@ -247,7 +257,7 @@ int export_handle_open_input(
 		 LIBERROR_IO_ERROR_OPEN_FAILED,
 		 "%s: unable to open source file: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
-		 export_handle->source_file_handle );
+		 export_handle->source_filename );
 
 		return( -1 );
 	}
@@ -1032,13 +1042,33 @@ int export_handle_export_base_encoded_input(
 			break;
 
 		case UNACOMMON_ENCODING_BASE32:
-/* TODO */
+			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			{
+				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) * 5;
+				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 5 ) / 8;
+			}
+			else
+			{
+				source_buffer_size       = ( EXPORT_HANDLE_BUFFER_SIZE / 8 ) * 8;
+				destination_buffer_size  = ( ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) + 1 ) * 8;
+				destination_buffer_size += ( destination_buffer_size / 76 ) + 1;
+			}
 			encoding_string = "base32";
 
 			break;
 
 		case UNACOMMON_ENCODING_BASE32HEX:
-/* TODO */
+			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			{
+				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) * 5;
+				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 5 ) / 8;
+			}
+			else
+			{
+				source_buffer_size       = ( EXPORT_HANDLE_BUFFER_SIZE / 8 ) * 8;
+				destination_buffer_size  = ( ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) + 1 ) * 8;
+				destination_buffer_size += ( destination_buffer_size / 76 ) + 1;
+			}
 			encoding_string = "base32hex";
 
 			break;
@@ -1155,18 +1185,44 @@ int export_handle_export_base_encoded_input(
 			case UNACOMMON_ENCODING_BASE32:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base32_stream_size_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base32_stream_size_from_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          error );
 				}
 				break;
 
 			case UNACOMMON_ENCODING_BASE32HEX:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base32_stream_size_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_HEX | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base32_stream_size_from_byte_stream(
+					          source_buffer,
+					          read_count,
+					          &write_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_HEX | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          error );
 				}
 				break;
 
@@ -1256,18 +1312,48 @@ int export_handle_export_base_encoded_input(
 			case UNACOMMON_ENCODING_BASE32:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base32_stream_copy_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          destination_buffer,
+					          destination_buffer_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base32_stream_copy_from_byte_stream(
+					          destination_buffer,
+					          destination_buffer_size,
+					          source_buffer,
+					          read_count,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          error );
 				}
 				break;
 
 			case UNACOMMON_ENCODING_BASE32HEX:
 				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
+					result = libuna_base32_stream_copy_to_byte_stream(
+					          source_buffer,
+					          read_count,
+					          destination_buffer,
+					          destination_buffer_size,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_HEX | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
+					          error );
 				}
 				else
 				{
+					result = libuna_base32_stream_copy_from_byte_stream(
+					          destination_buffer,
+					          destination_buffer_size,
+					          source_buffer,
+					          read_count,
+					          LIBUNA_BASE32_VARIANT_ALPHABET_HEX | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+					          error );
 				}
 				break;
 

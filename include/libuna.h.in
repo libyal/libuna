@@ -1546,6 +1546,116 @@ int libuna_base16_stream_copy_from_byte_stream(
  * Base32 stream functions
  * ------------------------------------------------------------------------- */
 
+/* Copies a base32 quintuplet from a base32 stream
+ *
+ * The padding size will still be set to indicate the number of
+ * quintets in the quintuplet
+ *
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_quintuplet_copy_from_base32_stream(
+     uint32_t *base32_quintuplet,
+     const uint8_t *base32_stream,
+     size_t base32_stream_size,
+     size_t *base32_stream_index,
+     uint8_t *padding_size,
+     uint32_t base32_variant,
+     liberror_error_t **error );
+
+/* Copies a base32 quintuplet to a base32 stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_quintuplet_copy_to_base32_stream(
+     uint32_t base32_quintuplet,
+     uint8_t *base32_stream,
+     size_t base32_stream_size,
+     size_t *base32_stream_index,
+     uint8_t padding_size,
+     uint32_t base32_variant,
+     liberror_error_t **error );
+
+/* Copies a base32 quintuplet from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_quintuplet_copy_from_byte_stream(
+     uint32_t *base32_quintuplet,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     uint8_t *padding_size,
+     liberror_error_t **error );
+
+/* Copies a base32 quintuplet to a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_quintuplet_copy_to_byte_stream(
+     uint32_t base32_quintuplet,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     uint8_t padding_size,
+     liberror_error_t **error );
+
+/* Determines the size of a byte stream from a base32 stream
+ *
+ * LIBUNA_BASE32_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
+ * and trailing space, tab and end of line characters
+ *
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_stream_size_to_byte_stream(
+     uint8_t *base32_stream,
+     size_t base32_stream_size,
+     size_t *byte_stream_size,
+     uint32_t base32_variant,
+     uint8_t flags,
+     liberror_error_t **error );
+
+/* Copies a byte stream from a base32 stream
+ *
+ * LIBUNA_BASE32_FLAG_STRIP_WHITESPACE removes leading space and tab characters,
+ * and trailing space, tab and end of line characters
+ *
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_stream_copy_to_byte_stream(
+     uint8_t *base32_stream,
+     size_t base32_stream_size,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint32_t base32_variant,
+     uint8_t flags,
+     liberror_error_t **error );
+
+/* Determines the size of a base32 stream from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_stream_size_from_byte_stream(
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *base32_stream_size,
+     uint32_t base32_variant,
+     liberror_error_t **error );
+
+/* Copies a base32 stream from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_base32_stream_copy_from_byte_stream(
+     uint8_t *base32_stream,
+     size_t base32_stream_size,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint32_t base32_variant,
+     liberror_error_t **error );
+
 /* -------------------------------------------------------------------------
  * Base64 stream functions
  * ------------------------------------------------------------------------- */

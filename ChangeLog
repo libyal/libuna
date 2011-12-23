@@ -2,6 +2,7 @@ TODO
 * base16
   - add separate function to convert a byte like base64 sixtet
 * complete base32 and base32hex
+  - test and fix
 * unabase:
   - convert between base64 binary base16?
   - have hexdump as input/output

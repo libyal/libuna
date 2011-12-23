@@ -219,10 +219,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libsystem\libsystem_directory_io.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libsystem\libsystem_error_string.h"
 				>
 			</File>
