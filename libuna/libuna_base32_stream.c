@@ -655,19 +655,19 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	*base32_quintuplet   = quintet1;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet2;
+	*base32_quintuplet  |= quintet2;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet3;
+	*base32_quintuplet  |= quintet3;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet4;
+	*base32_quintuplet  |= quintet4;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet5;
+	*base32_quintuplet  |= quintet5;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet6;
+	*base32_quintuplet  |= quintet6;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet7;
+	*base32_quintuplet  |= quintet7;
 	*base32_quintuplet <<= 5;
-	*base32_quintuplet  += quintet8;
+	*base32_quintuplet  |= quintet8;
 
 	*base32_stream_index += number_of_base32_characters;
 
@@ -1255,10 +1255,6 @@ int libuna_base32_stream_size_to_byte_stream(
 			character_limit = 64;
 			break;
 
-		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76:
-			character_limit = 76;
-			break;
-
 		default:
 			liberror_error_set(
 			 error,
@@ -1538,7 +1534,6 @@ int libuna_base32_stream_size_to_byte_stream(
 		}
 	}
 	base32_stream_size -= whitespace_size;
-	base32_stream_size -= padding_size;
 
 	/* Make sure the byte stream is able to hold
 	 * at least 5 bytes for each 8 base32 characters
@@ -1551,6 +1546,22 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	*byte_stream_size *= 5;
 
+	if( padding_size == 1 )
+	{
+		base32_stream_size -= 1;
+	}
+	else if( padding_size == 3 )
+	{
+		base32_stream_size -= 2;
+	}
+	else if( padding_size == 4 )
+	{
+		base32_stream_size -= 3;
+	}
+	else if( padding_size == 6 )
+	{
+		base32_stream_size -= 4;
+	}
 	return( 1 );
 }
 
@@ -1627,17 +1638,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	{
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE:
 			character_limit = 0;
-
 			break;
 
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
-
-			break;
-
-		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76:
-			character_limit = 76;
-
 			break;
 
 		default:
@@ -1830,6 +1834,7 @@ int libuna_base32_stream_size_from_byte_stream(
      liberror_error_t **error )
 {
 	static char *function   = "libuna_base32_stream_size_from_byte_stream";
+	size_t whitespace_size  = 0;
 	uint8_t character_limit = 0;
 
 	if( byte_stream == NULL )
@@ -1869,17 +1874,10 @@ int libuna_base32_stream_size_from_byte_stream(
 	{
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE:
 			character_limit = 0;
-
 			break;
 
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
-
-			break;
-
-		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76:
-			character_limit = 76;
-
 			break;
 
 		default:
@@ -1905,7 +1903,13 @@ int libuna_base32_stream_size_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		*base32_stream_size += ( *base32_stream_size / character_limit ) + 1;
+		whitespace_size = *base32_stream_size / character_limit;
+
+		if( ( *base32_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		*base32_stream_size += whitespace_size;
 	}
 	return( 1 );
 }
@@ -1926,6 +1930,7 @@ int libuna_base32_stream_copy_from_byte_stream(
 	size_t base32_stream_index           = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
+	size_t whitespace_size               = 0;
 	uint64_t base32_quintuplet           = 0;
 	uint8_t character_limit              = 0;
 	uint8_t padding_size                 = 0;
@@ -1978,17 +1983,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 	{
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE:
 			character_limit = 0;
-
 			break;
 
 		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64:
 			character_limit = 64;
-
-			break;
-
-		case LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76:
-			character_limit = 76;
-
 			break;
 
 		default:
@@ -2014,7 +2012,13 @@ int libuna_base32_stream_copy_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		calculated_base32_stream_size += ( calculated_base32_stream_size / character_limit ) + 1;
+		whitespace_size = calculated_base32_stream_size / character_limit;
+
+		if( ( calculated_base32_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		calculated_base32_stream_size += whitespace_size;
 	}
 	if( base32_stream_size < calculated_base32_stream_size )
 	{
@@ -2072,7 +2076,7 @@ int libuna_base32_stream_copy_from_byte_stream(
 		{
 			number_of_characters += 8;
 
-			if( number_of_characters == character_limit )
+			if( number_of_characters >= character_limit )
 			{
 				base32_stream[ base32_stream_index++ ] = (uint8_t) '\n';
 

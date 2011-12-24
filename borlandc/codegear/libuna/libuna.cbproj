@@ -60,14 +60,10 @@
 			</None>
 			<CppCompile Include="..\..\..\libuna\libuna.c">
 			</CppCompile>
-			<None Include="..\..\..\libuna\libuna_base64url_stream.h">
-			</None>
 			<CppCompile Include="..\..\..\libuna\libuna_byte_stream.c">
 			</CppCompile>
 			<None Include="..\..\..\libuna\libuna_byte_stream.h">
 			</None>
-			<CppCompile Include="..\..\..\libuna\libuna_base64url_stream.c">
-			</CppCompile>
 			<CppCompile Include="..\..\..\libuna\libuna_codepage_iso_8859_4.c">
 			</CppCompile>
 			<CppCompile Include="..\..\..\libuna\libuna_codepage_iso_8859_3.c">

@@ -415,11 +415,11 @@ int libuna_base64_triplet_copy_from_base64_stream(
 	}
 	*base64_triplet   = sixtet1;
 	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet2;
+	*base64_triplet  |= sixtet2;
 	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet3;
+	*base64_triplet  |= sixtet3;
 	*base64_triplet <<= 6;
-	*base64_triplet  += sixtet4;
+	*base64_triplet  |= sixtet4;
 
 	*base64_stream_index += number_of_base64_characters;
 
@@ -1155,7 +1155,6 @@ int libuna_base64_stream_size_to_byte_stream(
 		}
 	}
 	base64_stream_size -= whitespace_size;
-	base64_stream_size -= padding_size;
 
 	/* Make sure the byte stream is able to hold
 	 * at least 3 bytes for each 4 base64 characters
@@ -1167,6 +1166,11 @@ int libuna_base64_stream_size_to_byte_stream(
 		*byte_stream_size += 1;
 	}
 	*byte_stream_size *= 3;
+
+	/* In this case the padding size matches the number of bytes
+	 * to correct
+	 */
+	*byte_stream_size -= padding_size;
 
 	return( 1 );
 }
@@ -1447,6 +1451,7 @@ int libuna_base64_stream_size_from_byte_stream(
      liberror_error_t **error )
 {
 	static char *function   = "libuna_base64_stream_size_from_byte_stream";
+	size_t whitespace_size  = 0;
 	uint8_t character_limit = 0;
 
 	if( byte_stream == NULL )
@@ -1522,7 +1527,13 @@ int libuna_base64_stream_size_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		*base64_stream_size += ( *base64_stream_size / character_limit ) + 1;
+		whitespace_size = *base64_stream_size / character_limit;
+
+		if( ( *base64_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		*base64_stream_size += whitespace_size;
 	}
 	return( 1 );
 }
@@ -1543,6 +1554,7 @@ int libuna_base64_stream_copy_from_byte_stream(
 	size_t base64_stream_index           = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
+	size_t whitespace_size               = 0;
 	uint32_t base64_triplet              = 0;
 	uint8_t character_limit              = 0;
 	uint8_t padding_size                 = 0;
@@ -1631,7 +1643,13 @@ int libuna_base64_stream_copy_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		calculated_base64_stream_size += ( calculated_base64_stream_size / character_limit ) + 1;
+		whitespace_size = calculated_base64_stream_size / character_limit;
+
+		if( ( calculated_base64_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		calculated_base64_stream_size += whitespace_size;
 	}
 	if( base64_stream_size < calculated_base64_stream_size )
 	{
@@ -1689,7 +1707,7 @@ int libuna_base64_stream_copy_from_byte_stream(
 		{
 			number_of_characters += 4;
 
-			if( number_of_characters == character_limit )
+			if( number_of_characters >= character_limit )
 			{
 				base64_stream[ base64_stream_index++ ] = (uint8_t) '\n';
 

@@ -141,8 +141,8 @@ int main( int argc, char * const argv[] )
 	libcstring_system_character_t *source_filename             = NULL;
 	char *program                                              = "unaexport";
 	libcstring_system_integer_t option                         = 0;
+	uint8_t export_byte_order_mark                             = 1;
 	uint8_t print_status_information                           = 1;
-	int export_byte_order_mark                                 = 1;
 	int verbose                                                = 0;
 	int result                                                 = 0;
 

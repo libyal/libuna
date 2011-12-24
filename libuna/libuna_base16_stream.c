@@ -671,6 +671,7 @@ int libuna_base16_stream_size_from_byte_stream(
      liberror_error_t **error )
 {
 	static char *function   = "libuna_base16_stream_size_from_byte_stream";
+	size_t whitespace_size  = 0;
 	uint8_t character_limit = 0;
 
 	if( byte_stream == NULL )
@@ -736,7 +737,13 @@ int libuna_base16_stream_size_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		*base16_stream_size += ( *base16_stream_size / character_limit ) + 1;
+		whitespace_size = *base16_stream_size / character_limit;
+
+		if( ( *base16_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		*base16_stream_size += whitespace_size;
 	}
 	return( 1 );
 }
@@ -757,6 +764,7 @@ int libuna_base16_stream_copy_from_byte_stream(
 	size_t base16_stream_index           = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
+	size_t whitespace_size               = 0;
 	uint8_t a_character_value            = 0;
 	uint8_t byte_value                   = 0;
 	uint8_t character_limit              = 0;
@@ -857,7 +865,13 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 	if( character_limit != 0 )
 	{
-		calculated_base16_stream_size += ( calculated_base16_stream_size / character_limit ) + 1;
+		whitespace_size = calculated_base16_stream_size / character_limit;
+
+		if( ( calculated_base16_stream_size % character_limit ) != 0 )
+		{
+			whitespace_size += 1;
+		}
+		calculated_base16_stream_size += whitespace_size;
 	}
 	if( base16_stream_size < calculated_base16_stream_size )
 	{
