@@ -1389,7 +1389,7 @@ int libuna_base32_stream_size_to_byte_stream(
 			}
 			if( character_limit != 0 )
 			{
-				if( number_of_characters != character_limit )
+				if( number_of_characters != (size_t) character_limit )
 				{
 					liberror_error_set(
 					 error,
@@ -1521,7 +1521,7 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != character_limit )
+		if( number_of_characters != (size_t) character_limit )
 		{
 			liberror_error_set(
 			 error,
@@ -1695,7 +1695,7 @@ int libuna_base32_stream_copy_to_byte_stream(
 			}
 			if( character_limit != 0 )
 			{
-				if( number_of_characters != character_limit )
+				if( number_of_characters != (size_t) character_limit )
 				{
 					liberror_error_set(
 					 error,
@@ -1808,7 +1808,7 @@ int libuna_base32_stream_copy_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != character_limit )
+		if( number_of_characters != (size_t) character_limit )
 		{
 			liberror_error_set(
 			 error,
@@ -2076,7 +2076,7 @@ int libuna_base32_stream_copy_from_byte_stream(
 		{
 			number_of_characters += 8;
 
-			if( number_of_characters >= character_limit )
+			if( number_of_characters >= (size_t) character_limit )
 			{
 				base32_stream[ base32_stream_index++ ] = (uint8_t) '\n';
 

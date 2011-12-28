@@ -85,6 +85,11 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20111228
+* small changes
+* updated libcstring
+* updated libuna.3 man page
+
 20111224
 * worked on base encondings
 
