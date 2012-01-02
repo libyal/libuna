@@ -1,7 +1,7 @@
 /*
  * KOI8-U codepage (Ukrainian Cyrillic) function
  *
- * Copyright (c) 2008-2011, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
  * Refer to AUTHORS for acknowledgements.
  *
