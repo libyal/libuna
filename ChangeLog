@@ -1,4 +1,7 @@
 TODO
+* fix issue in byte order detection when byte order is set
+* unaexport.1
+  - make sure every argument is documented
 * libuna.3
   - add base16, base32 and base64 functions
 * base16

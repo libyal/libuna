@@ -73,8 +73,8 @@ void usage_fprint(
 	                 "\t             windows-1253, windows-1254, windows-1255, windows-1256\n"
 	                 "\t             windows-1257 or windows-1258\n" );
 	fprintf( stream, "\t-h:          shows this help\n" );
-	fprintf( stream, "\t-i:          input format, options: auto-detect (default), utf7,\n"
-	                 "\t             utf8, utf16be, utf16le, utf32be or utf32le\n" );
+	fprintf( stream, "\t-i:          input format, options: auto-detect (default), byte-stream,\n"
+	                 "\t             utf7, utf8, utf16be, utf16le, utf32be or utf32le\n" );
 	fprintf( stream, "\t-l:          list information about the codepages\n" );
 	fprintf( stream, "\t-n:          convert newline characters, options: none (default), cr,\n"
 	                 "\t             crlf or lf\n" );
