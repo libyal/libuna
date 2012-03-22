@@ -1,4 +1,4 @@
-.Dd January  2, 2012
+.Dd March 22, 2012
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -259,50 +259,50 @@ UTF-32 string functions
 .Pp
 Base16 stream functions
 .Ft int
-.Fn libuna_base16_stream_size_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, size_t *byte_stream_size, uint32_t base16_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base16_stream_size_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, size_t *byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_copy_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base16_stream_copy_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base16_stream_size, uint32_t base16_variant, liberror_error_t **error"
+.Fn libuna_base16_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base16_stream_size, uint32_t base16_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_copy_from_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, liberror_error_t **error"
+.Fn libuna_base16_stream_copy_from_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, libuna_error_t **error"
 .Pp
 Base32 stream functions
 .Ft int
-.Fn libuna_base32_quintuplet_copy_from_base32_stream "uint32_t *base32_quintuplet, const uint8_t *base32_stream, size_t base32_stream_size, size_t *base32_stream_index, uint8_t *padding_size, uint32_t base32_variant, liberror_error_t **error"
+.Fn libuna_base32_quintuplet_copy_from_base32_stream "uint32_t *base32_quintuplet, const uint8_t *base32_stream, size_t base32_stream_size, size_t *base32_stream_index, uint8_t *padding_size, uint32_t base32_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_quintuplet_copy_to_base32_stream "uint32_t base32_quintuplet, uint8_t *base32_stream, size_t base32_stream_size, size_t *base32_stream_index, uint8_t padding_size, uint32_t base32_variant, liberror_error_t **error"
+.Fn libuna_base32_quintuplet_copy_to_base32_stream "uint32_t base32_quintuplet, uint8_t *base32_stream, size_t base32_stream_size, size_t *base32_stream_index, uint8_t padding_size, uint32_t base32_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_quintuplet_copy_from_byte_stream "uint32_t *base32_quintuplet, const uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t *padding_size, liberror_error_t **error"
+.Fn libuna_base32_quintuplet_copy_from_byte_stream "uint32_t *base32_quintuplet, const uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t *padding_size, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_quintuplet_copy_to_byte_stream "uint32_t base32_quintuplet, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t padding_size, liberror_error_t **error"
+.Fn libuna_base32_quintuplet_copy_to_byte_stream "uint32_t base32_quintuplet, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t padding_size, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_size_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, size_t *byte_stream_size, uint32_t base32_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base32_stream_size_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, size_t *byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_copy_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base32_stream_copy_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base32_stream_size, uint32_t base32_variant, liberror_error_t **error"
+.Fn libuna_base32_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base32_stream_size, uint32_t base32_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_copy_from_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, liberror_error_t **error"
+.Fn libuna_base32_stream_copy_from_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, libuna_error_t **error"
 .Pp
 Base64 stream functions
 .Ft int
 .Fn libuna_base64_triplet_copy_from_base64_stream "uint32_t *base64_triplet, const uint8_t *base64_stream, size_t base64_stream_size, size_t *base64_stream_index,
-     uint8_t *padding_size, uint32_t base64_variant, liberror_error_t **error"
+     uint8_t *padding_size, uint32_t base64_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_triplet_copy_to_base64_stream "uint32_t base64_triplet, uint8_t *base64_stream, size_t base64_stream_size, size_t *base64_stream_index, uint8_t padding_size, uint32_t base64_variant, liberror_error_t **error"
+.Fn libuna_base64_triplet_copy_to_base64_stream "uint32_t base64_triplet, uint8_t *base64_stream, size_t base64_stream_size, size_t *base64_stream_index, uint8_t padding_size, uint32_t base64_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_triplet_copy_from_byte_stream "uint32_t *base64_triplet, const uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t *padding_size, liberror_error_t **error"
+.Fn libuna_base64_triplet_copy_from_byte_stream "uint32_t *base64_triplet, const uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t *padding_size, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_triplet_copy_to_byte_stream "uint32_t base64_triplet, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t padding_size, liberror_error_t **error"
+.Fn libuna_base64_triplet_copy_to_byte_stream "uint32_t base64_triplet, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t padding_size, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_stream_size_to_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, size_t *byte_stream_size, uint32_t base64_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base64_stream_size_to_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, size_t *byte_stream_size, uint32_t base64_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_stream_copy_to_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base64_variant, uint8_t flags, liberror_error_t **error"
+.Fn libuna_base64_stream_copy_to_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base64_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base64_stream_size, uint32_t base64_variant, liberror_error_t **error"
+.Fn libuna_base64_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base64_stream_size, uint32_t base64_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base64_stream_copy_from_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base64_variant, liberror_error_t **error"
+.Fn libuna_base64_stream_copy_from_byte_stream "uint8_t *base64_stream, size_t base64_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base64_variant, libuna_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libuna_get_version

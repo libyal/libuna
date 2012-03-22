@@ -1,7 +1,4 @@
 TODO
-* fix issue in byte order detection when byte order is set
-* libuna.3
-  - add base16, base32 and base64 functions
 * base16
   - add separate function to convert a byte like base64 sixtet
 * unabase:
@@ -48,10 +45,15 @@ Other Windows codepages (MBC)
 * 950 (Traditional Chinese Big5)
 
 Test:
-* add autoconf/make test suite
 * create automated tests and test files
   - UTF-7
+  - UTF-16 string
+  - UTF-32 string
+  - UTF-8 stream
+  - UTF-16 stream
+  - UTF-32 stream
   - base16
+  - base32
   - base64
   - base64url
 
@@ -90,6 +92,8 @@ Note:
 * changed endianess detection in UTF streams
   - previous method was unreliable for some edge cases
 * update unaexport man page
+* bug fixes for stand-alone version
+* worked on tests
 
 20120102
 * 2012 update

@@ -290,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_error.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_support.c"
 				>
 			</File>
