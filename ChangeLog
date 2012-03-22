@@ -1,7 +1,5 @@
 TODO
 * fix issue in byte order detection when byte order is set
-* unaexport.1
-  - make sure every argument is documented
 * libuna.3
   - add base16, base32 and base64 functions
 * base16
@@ -87,6 +85,11 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120322
+* changed endianess detection in UTF streams
+  - previous method was unreliable for some edge cases
+* update unaexport man page
 
 20120102
 * 2012 update

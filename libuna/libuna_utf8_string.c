@@ -1523,19 +1523,6 @@ int libuna_utf8_string_size_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	if( utf8_string_size == NULL )
 	{
 		liberror_error_set(
@@ -1563,27 +1550,21 @@ int libuna_utf8_string_size_from_utf16_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf16_stream_iterator = 2;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf16_stream[ 0 ] == 0 )
-		 && ( utf16_stream[ 1 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf16_stream[ 0 ] != 0 )
-		      && ( utf16_stream[ 1 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf16_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	/* Check if the UTF-16 stream is terminated with zero bytes
 	 */
@@ -1601,7 +1582,7 @@ int libuna_utf8_string_size_from_utf16_stream(
 		     utf16_stream,
 		     utf16_stream_size,
 		     &utf16_stream_iterator,
-		     read_byte_order,
+		     byte_order,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -1718,19 +1699,6 @@ int libuna_utf8_string_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	/* Check if UTF-16 stream is in big or little endian
 	 */
 	if( ( utf16_stream[ 0 ] == 0xfe )
@@ -1745,27 +1713,21 @@ int libuna_utf8_string_copy_from_utf16_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf16_stream_iterator = 2;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf16_stream[ 0 ] == 0 )
-		 && ( utf16_stream[ 1 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf16_stream[ 0 ] != 0 )
-		      && ( utf16_stream[ 1 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf16_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	/* Check if the UTF-16 stream is terminated with zero bytes
 	 */
@@ -1783,7 +1745,7 @@ int libuna_utf8_string_copy_from_utf16_stream(
 		     utf16_stream,
 		     utf16_stream_size,
 		     &utf16_stream_iterator,
-		     read_byte_order,
+		     byte_order,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -1917,19 +1879,6 @@ int libuna_utf8_string_compare_with_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	/* Check if UTF-16 stream is in big or little endian
 	 */
 	if( ( utf16_stream[ 0 ] == 0xfe )
@@ -1944,27 +1893,21 @@ int libuna_utf8_string_compare_with_utf16_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf16_stream_iterator = 2;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf16_stream[ 0 ] == 0 )
-		 && ( utf16_stream[ 1 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf16_stream[ 0 ] != 0 )
-		      && ( utf16_stream[ 1 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf16_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	if( utf8_string[ utf8_string_size - 1 ] == 0 )
 	{
@@ -2005,7 +1948,7 @@ int libuna_utf8_string_compare_with_utf16_stream(
 		     utf16_stream,
 		     utf16_stream_size,
 		     &utf16_stream_iterator,
-		     read_byte_order,
+		     byte_order,
                      error ) != 1 )
 		{
 			liberror_error_set(
@@ -2392,19 +2335,6 @@ int libuna_utf8_string_size_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	if( utf8_string_size == NULL )
 	{
 		liberror_error_set(
@@ -2436,31 +2366,21 @@ int libuna_utf8_string_size_from_utf32_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf32_stream_iterator = 4;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf32_stream[ 0 ] == 0 )
-		 && ( utf32_stream[ 1 ] == 0 )
-		 && ( utf32_stream[ 2 ] == 0 )
-		 && ( utf32_stream[ 3 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf32_stream[ 0 ] != 0 )
-		      && ( utf32_stream[ 1 ] == 0 )
-		      && ( utf32_stream[ 2 ] == 0 )
-		      && ( utf32_stream[ 3 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf32_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	/* Check if the UTF-32 stream is terminated with zero bytes
 	 */
@@ -2480,7 +2400,7 @@ int libuna_utf8_string_size_from_utf32_stream(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     read_byte_order,
+		     byte_order,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -2597,19 +2517,6 @@ int libuna_utf8_string_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	/* Check if UTF-32 stream is in big or little endian
 	 */
 	if( ( utf32_stream[ 0 ] == 0x00 )
@@ -2628,31 +2535,21 @@ int libuna_utf8_string_copy_from_utf32_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf32_stream_iterator = 4;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf32_stream[ 0 ] == 0 )
-		 && ( utf32_stream[ 1 ] == 0 )
-		 && ( utf32_stream[ 2 ] == 0 )
-		 && ( utf32_stream[ 3 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf32_stream[ 0 ] != 0 )
-		      && ( utf32_stream[ 1 ] == 0 )
-		      && ( utf32_stream[ 2 ] == 0 )
-		      && ( utf32_stream[ 3 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf32_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	/* Check if the UTF-32 stream is terminated with zero bytes
 	 */
@@ -2672,7 +2569,7 @@ int libuna_utf8_string_copy_from_utf32_stream(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     read_byte_order,
+		     byte_order,
 		     error ) != 1 )
 		{
 			liberror_error_set(
@@ -2806,19 +2703,6 @@ int libuna_utf8_string_compare_with_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( byte_order != 0 )
-	 && ( byte_order != LIBUNA_ENDIAN_BIG )
-	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported byte order.",
-		 function );
-
-		return( -1 );
-	}
 	/* Check if UTF-32 stream is in big or little endian
 	 */
 	if( ( utf32_stream[ 0 ] == 0x00 )
@@ -2837,31 +2721,21 @@ int libuna_utf8_string_compare_with_utf32_stream(
 		read_byte_order       = LIBUNA_ENDIAN_LITTLE;
 		utf32_stream_iterator = 4;
 	}
-	else
+	if( byte_order == 0 )
 	{
-		if( ( utf32_stream[ 0 ] == 0 )
-		 && ( utf32_stream[ 1 ] == 0 )
-		 && ( utf32_stream[ 2 ] == 0 )
-		 && ( utf32_stream[ 3 ] != 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else if( ( utf32_stream[ 0 ] != 0 )
-		      && ( utf32_stream[ 1 ] == 0 )
-		      && ( utf32_stream[ 2 ] == 0 )
-		      && ( utf32_stream[ 3 ] == 0 ) )
-		{
-			read_byte_order = LIBUNA_ENDIAN_LITTLE;
-		}
-		else if( byte_order == 0 )
-		{
-			read_byte_order = LIBUNA_ENDIAN_BIG;
-		}
-		else
-		{
-			read_byte_order = byte_order;
-		}
-		utf32_stream_iterator = 0;
+		byte_order = read_byte_order;
+	}
+	if( ( byte_order != LIBUNA_ENDIAN_BIG )
+	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported byte order.",
+		 function );
+
+		return( -1 );
 	}
 	if( utf8_string[ utf8_string_size - 1 ] == 0 )
 	{
@@ -2904,7 +2778,7 @@ int libuna_utf8_string_compare_with_utf32_stream(
 		     utf32_stream,
 		     utf32_stream_size,
 		     &utf32_stream_iterator,
-		     read_byte_order,
+		     byte_order,
                      error ) != 1 )
 		{
 			liberror_error_set(

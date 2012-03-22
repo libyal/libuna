@@ -1,4 +1,4 @@
-.Dd March 21, 2012
+.Dd March 22, 2012
 .Dt unaexport
 .Os libuna
 .Sh NAME
@@ -6,7 +6,11 @@
 .Nd exports Unicode and ASCII (byte stream) text
 .Sh SYNOPSIS
 .Nm unaexport
-.Op Fl hvV
+.Op Fl c Ar codepage
+.Op Fl i Ar input_format
+.Op Fl n Ar newline_conversion
+.Op Fl o Ar output_format
+.Op Fl BhlqvV
 .Va Ar source
 .Sh DESCRIPTION
 .Nm unaexport
@@ -24,8 +28,22 @@ is the source device to read from.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
+.It Fl B
+do not export a byte order mark (BOM)
+.It Fl A Ar codepage
+the codepage of byte-stream, options: ascii (default), iso-8559-1, iso-8559-2, iso-8559-3, iso-8559-4, iso-8559-5, iso-8559-6, iso-8559-7, iso-8559-8, iso-8559-9, iso-8559-10, iso-8559-11, iso-8559-13, iso-8559-14, iso-8559-15, iso-8559-16, koi8-r, koi8-u, windows-874, windows-1250, windows-1251, windows-1252, windows-1253, windows-1254, windows-1255, windows-1256 windows-1257 or windows-1258
 .It Fl h
 shows this help
+.It Fl i Ar input_format
+the input format, options: auto-detect (default), utf7, utf8, utf16be, utf16le, utf32be or utf32le
+.It Fl l
+list information about the codepages
+.It Fl n Ar newline_conversion
+convert newline characters, options: none (default), cr, crlf or lf
+.It Fl o Ar output_format
+the output format, options: byte-stream, utf7, utf8 (default), utf16be, utf16le, utf32be or utf32le
+.It Fl q
+quiet shows no status information
 .It Fl v
 verbose output to stderr
 .It Fl V
