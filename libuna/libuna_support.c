@@ -22,10 +22,6 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
-#include <stdio.h>
-
 #include "libuna_definitions.h"
 #include "libuna_support.h"
 

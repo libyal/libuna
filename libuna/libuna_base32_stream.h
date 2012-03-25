@@ -25,10 +25,9 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libuna_inline.h"
 #include "libuna_extern.h"
+#include "libuna_libcerror.h"
 #include "libuna_types.h"
 
 #if defined( __cplusplus )
@@ -40,7 +39,7 @@ int libuna_base32_character_copy_to_quintet(
      uint8_t base32_character,
      uint8_t *base32_quintet,
      uint32_t base32_variant,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 LIBUNA_INLINE \
@@ -51,7 +50,7 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
      size_t *base32_stream_index,
      uint8_t *padding_size,
      uint32_t base32_variant,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 LIBUNA_INLINE \
@@ -62,7 +61,7 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
      size_t *base32_stream_index,
      uint8_t padding_size,
      uint32_t base32_variant,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 LIBUNA_INLINE \
@@ -72,7 +71,7 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
      size_t byte_stream_size,
      size_t *byte_stream_index,
      uint8_t *padding_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 LIBUNA_INLINE \
@@ -82,7 +81,7 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
      size_t byte_stream_size,
      size_t *byte_stream_index,
      uint8_t padding_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_base32_stream_size_to_byte_stream(
@@ -91,7 +90,7 @@ int libuna_base32_stream_size_to_byte_stream(
      size_t *byte_stream_size,
      uint32_t base32_variant,
      uint8_t flags,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_base32_stream_copy_to_byte_stream(
@@ -101,7 +100,7 @@ int libuna_base32_stream_copy_to_byte_stream(
      size_t byte_stream_size,
      uint32_t base32_variant,
      uint8_t flags,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_base32_stream_size_from_byte_stream(
@@ -109,7 +108,7 @@ int libuna_base32_stream_size_from_byte_stream(
      size_t byte_stream_size,
      size_t *base32_stream_size,
      uint32_t base32_variant,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_base32_stream_copy_from_byte_stream(
@@ -118,7 +117,7 @@ int libuna_base32_stream_copy_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      uint32_t base32_variant,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

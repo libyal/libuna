@@ -25,9 +25,10 @@
 
 #include <stdio.h>
 
-#include <libsystem.h>
-
 #include "unacommon.h"
+#include "unatools_libcerror.h"
+#include "unatools_libcstring.h"
+#include "unatools_libcsystem.h"
 #include "unatools_libuna.h"
 #include "unaoutput.h"
 

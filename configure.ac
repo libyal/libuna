@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120322],
+ [20120325],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -47,10 +47,18 @@ AX_TYPES_CHECK_LOCAL
 
 dnl Checks for libraries and library functions
 AX_COMMON_CHECK_LOCAL
-AX_LIBCSTRING_CHECK_LOCAL
-AX_LIBERROR_CHECK_LOCAL
-AX_LIBNOTIFY_CHECK_LOCAL
-AX_LIBSYSTEM_CHECK_LOCAL
+
+dnl Check for enabling libcstring for cross-platform C string functions
+AX_LIBCSTRING_CHECK_ENABLE
+
+dnl Check for enabling libcerror for cross-platform C error functions
+AX_LIBCERROR_CHECK_ENABLE
+
+dnl Check for enabling libcerror for cross-platform C generic system functions
+AX_LIBCSYSTEM_CHECK_ENABLE
+
+dnl Check for enabling libcerror for cross-platform C file functions
+AX_LIBCFILE_CHECK_ENABLE
 
 dnl Check if unatools should be build as static executables
 AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
@@ -91,9 +99,10 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([libcstring/Makefile])
-AC_CONFIG_FILES([liberror/Makefile])
+AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
-AC_CONFIG_FILES([libsystem/Makefile])
+AC_CONFIG_FILES([libcsystem/Makefile])
+AC_CONFIG_FILES([libcfile/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
@@ -121,7 +130,13 @@ AC_OUTPUT
 
 dnl Print a summary
 AC_MSG_NOTICE([
+Building:
+   libcstring support:                              $ac_cv_libcstring
+   libcerror support:                               $ac_cv_libcerror
+   libcsystem support:                              $ac_cv_libcsystem
+   libcfile support:                                $ac_cv_libcfile
+
 Features:
-   unatools are build as static executables: $ac_cv_enable_static_executables
+   unatools are build as static executables:        $ac_cv_enable_static_executables
 ]);
 

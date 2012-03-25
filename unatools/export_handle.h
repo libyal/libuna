@@ -25,12 +25,10 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-#include <liberror.h>
-
-#include <libsystem.h>
-
 #include "process_status.h"
+#include "unatools_libcerror.h"
+#include "unatools_libcfile.h"
+#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 #if defined( __cplusplus )
@@ -67,13 +65,13 @@ struct export_handle
 	 */
 	size_t destination_filename_size;
 
-	/* The source file handle
+	/* The source file
 	 */
-	libsystem_file_handle_t source_file_handle;
+	libcfile_file_t *source_file;
 
-	/* The destination file handle
+	/* The destination file
 	 */
-	libsystem_file_handle_t destination_file_handle;
+	libcfile_file_t *destination_file;
 
 	union
 	{
@@ -128,83 +126,83 @@ struct export_handle
 int export_handle_initialize(
      export_handle_t **export_handle,
      uint8_t mode,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_free(
      export_handle_t **export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_signal_abort(
      export_handle_t *export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_open_input(
      export_handle_t *export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_open_output(
      export_handle_t *export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_close(
      export_handle_t *export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_string(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
      libcstring_system_character_t **internal_string,
      size_t *internal_string_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_encoding(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_encoding_mode(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_input_format(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_output_format(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_newline_conversion(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_set_byte_stream_codepage(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_export_input(
      export_handle_t *export_handle,
      uint8_t print_status_information,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_export_base_encoded_input(
      export_handle_t *export_handle,
      process_status_t *process_status,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_export_text_encoded_input(
      export_handle_t *export_handle,
      process_status_t *process_status,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int export_handle_print_parameters(
      export_handle_t *export_handle,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

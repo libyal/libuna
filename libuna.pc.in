@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: libuna
 Description: Library to support Unicode and ASCII (byte stream) conversions
 Version: @VERSION@
-Libs: -L${libdir} -luca
+Libs: -L${libdir} -luna
 Cflags: -I${includedir}
 

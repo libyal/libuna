@@ -1,9 +1,10 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	-I$(top_srcdir)/libcstring \
-	-I$(top_srcdir)/liberror \
-	-I$(top_srcdir)/libsystem \
+	@LIBCSTRING_CPPFLAGS@ \
+	@LIBCERROR_CPPFLAGS@ \
+	@LIBCSYSTEM_CPPFLAGS@ \
+	@LIBCFILE_CPPFLAGS@ \
 	@MEMWATCH_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 
@@ -20,13 +21,18 @@ unabase_SOURCES = \
 	unabase.c \
 	unacommon.h \
 	unainput.c unainput.h \
-	unatools_libuna.h \
 	unaoutput.c unaoutput.h
+	unatools_libcerror.h \
+	unatools_libcfile.h \
+	unatools_libcstring.h \
+	unatools_libuna.h
 
 unabase_LDADD = \
-	../libcstring/libcstring.la \
-	../liberror/liberror.la \
-	../libsystem/libsystem.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
+	../libuna/libuna.la \
+	@LIBCSYSTEM_LIBADD@ \
+	@LIBCFILE_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 
@@ -37,13 +43,18 @@ unaexport_SOURCES = \
 	unacommon.h \
 	unaexport.c \
 	unainput.c unainput.h \
-	unatools_libuna.h \
-	unaoutput.c unaoutput.h
+	unaoutput.c unaoutput.h \
+	unatools_libcerror.h \
+	unatools_libcfile.h \
+	unatools_libcstring.h \
+	unatools_libuna.h
 
 unaexport_LDADD = \
-	../libcstring/libcstring.la \
-	../liberror/liberror.la \
-	../libsystem/libsystem.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
+	../libuna/libuna.la \
+	@LIBCSYSTEM_LIBADD@ \
+	@LIBCFILE_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 

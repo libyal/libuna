@@ -25,8 +25,8 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-#include <liberror.h>
+#include "unatools_libcerror.h"
+#include "unatools_libcstring.h"
 
 #if defined( __cplusplus )
 extern "C" {
@@ -43,13 +43,13 @@ int byte_size_string_create(
      size_t byte_size_string_length,
      uint64_t size,
      int units,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int byte_size_string_convert(
      const libcstring_system_character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t *size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

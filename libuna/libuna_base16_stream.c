@@ -22,10 +22,9 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libuna_base16_stream.h"
 #include "libuna_definitions.h"
+#include "libuna_libcerror.h"
 #include "libuna_types.h"
 
 /* Determines the size of a byte stream from a base16 stream
@@ -41,7 +40,7 @@ int libuna_base16_stream_size_to_byte_stream(
      size_t *byte_stream_size,
      uint32_t base16_variant,
      uint8_t flags,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function       = "libuna_base16_stream_size_to_byte_stream";
 	size_t base16_stream_index  = 0;
@@ -53,10 +52,10 @@ int libuna_base16_stream_size_to_byte_stream(
 
 	if( base16_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base16 stream.",
 		 function );
 
@@ -65,10 +64,10 @@ int libuna_base16_stream_size_to_byte_stream(
 	if( ( base16_stream_size == 0 )
 	 || ( base16_stream_size > (size_t) SSIZE_MAX ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
 		 "%s: invalid base16 stream size value out of bounds.",
 		 function );
 
@@ -76,10 +75,10 @@ int libuna_base16_stream_size_to_byte_stream(
 	}
 	if( byte_stream_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream size.",
 		 function );
 
@@ -100,10 +99,10 @@ int libuna_base16_stream_size_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -124,10 +123,10 @@ int libuna_base16_stream_size_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -135,10 +134,10 @@ int libuna_base16_stream_size_to_byte_stream(
 	}
 	if( ( flags & ~( LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported flags.",
 		 function );
 
@@ -205,10 +204,10 @@ int libuna_base16_stream_size_to_byte_stream(
 			{
 				if( number_of_characters != (size_t) character_limit )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 					 "%s: number of characters in line exceed maximum.",
 					 function );
 
@@ -285,10 +284,10 @@ int libuna_base16_stream_size_to_byte_stream(
 		}
 		if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: invalid character in base16 stream at index: %d.",
 			 function,
 			 base16_stream_index );
@@ -301,10 +300,10 @@ int libuna_base16_stream_size_to_byte_stream(
 	{
 		if( number_of_characters != (size_t) character_limit )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: number of characters in line exceed maximum.",
 			 function );
 
@@ -315,10 +314,10 @@ int libuna_base16_stream_size_to_byte_stream(
 
 	if( ( base16_stream_size % 2 ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 		 "%s: invalid base16 stream size.",
 		 function );
 
@@ -346,7 +345,7 @@ int libuna_base16_stream_copy_to_byte_stream(
      size_t byte_stream_size,
      uint32_t base16_variant,
      uint8_t flags,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function       = "libuna_base16_stream_copy_to_byte_stream";
 	size_t base16_stream_index  = 0;
@@ -359,10 +358,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 
 	if( base16_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base16 stream.",
 		 function );
 
@@ -370,10 +369,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	if( base16_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base16 stream size value exceeds maximum.",
 		 function );
 
@@ -381,10 +380,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -392,10 +391,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -416,10 +415,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -440,10 +439,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -451,10 +450,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	if( ( flags & ~( LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported flags.",
 		 function );
 
@@ -492,10 +491,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 			{
 				if( number_of_characters != (size_t) character_limit )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 					 "%s: number of characters in line exceed maximum.",
 					 function );
 
@@ -536,10 +535,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 		}
 		if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: invalid character in base16 stream at index: %d.",
 			 function,
 			 base16_stream_index );
@@ -581,10 +580,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 			}
 			if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid base16 character stream at index: %d..",
 				 function,
 				 base16_stream_index );
@@ -626,10 +625,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 			}
 			if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid base16 character stream at index: %d..",
 				 function,
 				 base16_stream_index );
@@ -647,10 +646,10 @@ int libuna_base16_stream_copy_to_byte_stream(
 	{
 		if( number_of_characters != (size_t) character_limit )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: number of characters in line exceed maximum.",
 			 function );
 
@@ -668,7 +667,7 @@ int libuna_base16_stream_size_from_byte_stream(
      size_t byte_stream_size,
      size_t *base16_stream_size,
      uint32_t base16_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function   = "libuna_base16_stream_size_from_byte_stream";
 	size_t whitespace_size  = 0;
@@ -676,10 +675,10 @@ int libuna_base16_stream_size_from_byte_stream(
 
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -687,10 +686,10 @@ int libuna_base16_stream_size_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -698,10 +697,10 @@ int libuna_base16_stream_size_from_byte_stream(
 	}
 	if( base16_stream_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base16 stream size.",
 		 function );
 
@@ -722,10 +721,10 @@ int libuna_base16_stream_size_from_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -757,7 +756,7 @@ int libuna_base16_stream_copy_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      uint32_t base16_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function                = "libuna_base16_stream_copy_from_byte_stream";
 	size_t calculated_base16_stream_size = 0;
@@ -771,10 +770,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 	if( base16_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base16 stream.",
 		 function );
 
@@ -782,10 +781,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 	}
 	if( base16_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base16 stream size value exceeds maximum.",
 		 function );
 
@@ -793,10 +792,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -804,10 +803,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -828,10 +827,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -849,10 +848,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base16 variant.",
 			 function );
 
@@ -875,10 +874,10 @@ int libuna_base16_stream_copy_from_byte_stream(
 	}
 	if( base16_stream_size < calculated_base16_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base16 stream is too small.",
 		 function );
 

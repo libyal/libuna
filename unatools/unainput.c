@@ -22,11 +22,10 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-#include <liberror.h>
-
 #include "unacommon.h"
 #include "unainput.h"
+#include "unatools_libcerror.h"
+#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 /* Determines the codepage from a string
@@ -35,7 +34,7 @@
 int unainput_determine_byte_stream_codepage(
      const libcstring_system_character_t *string,
      int *byte_stream_codepage,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "unainput_determine_byte_stream_codepage";
 	size_t string_length  = 0;
@@ -43,10 +42,10 @@ int unainput_determine_byte_stream_codepage(
 
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -54,10 +53,10 @@ int unainput_determine_byte_stream_codepage(
 	}
 	if( byte_stream_codepage == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream codepage.",
 		 function );
 
@@ -395,7 +394,7 @@ int unainput_determine_byte_stream_codepage(
 int unainput_determine_encoding(
      const libcstring_system_character_t *string,
      uint8_t *encoding,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "unainput_determine_encoding";
 	size_t string_length  = 0;
@@ -403,10 +402,10 @@ int unainput_determine_encoding(
 
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -414,10 +413,10 @@ int unainput_determine_encoding(
 	}
 	if( encoding == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid encoding.",
 		 function );
 
@@ -481,7 +480,7 @@ int unainput_determine_encoding(
 int unainput_determine_encoding_mode(
      const libcstring_system_character_t *string,
      uint8_t *encoding_mode,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "unainput_determine_encoding_mode";
 	size_t string_length  = 0;
@@ -489,10 +488,10 @@ int unainput_determine_encoding_mode(
 
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -500,10 +499,10 @@ int unainput_determine_encoding_mode(
 	}
 	if( encoding_mode == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid encoding mode.",
 		 function );
 
@@ -540,7 +539,7 @@ int unainput_determine_encoding_mode(
 int unainput_determine_format(
      const libcstring_system_character_t *string,
      uint8_t *format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "unainput_determine_format";
 	size_t string_length  = 0;
@@ -548,10 +547,10 @@ int unainput_determine_format(
 
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -559,10 +558,10 @@ int unainput_determine_format(
 	}
 	if( format == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid format.",
 		 function );
 
@@ -653,7 +652,7 @@ int unainput_determine_format(
 int unainput_determine_newline_conversion(
      const libcstring_system_character_t *string,
      uint8_t *newline_conversion,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "unainput_determine_newline_conversion";
 	size_t string_length  = 0;
@@ -661,10 +660,10 @@ int unainput_determine_newline_conversion(
 
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -672,10 +671,10 @@ int unainput_determine_newline_conversion(
 	}
 	if( newline_conversion == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid newline conversion.",
 		 function );
 

@@ -29,11 +29,6 @@ make library
 You should end up with the following DLL:
 libuna-<version>/libuna/.libs/cyguna-0.dll
 
-Older versions of Cygwin might require e2fsprogs for libuuid support
-Install the e2fsprogs package and run the commands as following:
-LDFLAGS=-L/usr/lib/e2fsprogs ./configure
-make library
-
 
 Creating a DLL using Microsoft Visual Studio C++
 To create a DLL using Microsoft Visual Studio C++ you'll need:

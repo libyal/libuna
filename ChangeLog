@@ -1,4 +1,5 @@
 TODO
+* update msvscpp and codegear files
 * base16
   - add separate function to convert a byte like base64 sixtet
 * unabase:
@@ -7,8 +8,7 @@ TODO
   - add msvscpp project file
   - add codegear project file
 * tests
-  - create test_unabase.sh
-  - complete test_unaexport.sh
+  - implement tests
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
@@ -46,16 +46,13 @@ Other Windows codepages (MBC)
 
 Test:
 * create automated tests and test files
-  - UTF-7
-  - UTF-16 string
-  - UTF-32 string
-  - UTF-8 stream
-  - UTF-16 stream
-  - UTF-32 stream
+  - byte stream/codepages
   - base16
   - base32
   - base64
   - base64url
+  - create test_unabase.sh
+  - complete test_unaexport.sh
 
 Tools:
 * unaexport
@@ -87,6 +84,12 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120325
+* worked on tests
+* UTF-7 functions added support for end-of-string character
+* bug fixes in include header
+* code clean up
 
 20120322
 * changed endianess detection in UTF streams

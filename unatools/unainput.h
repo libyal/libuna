@@ -25,8 +25,8 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-#include <liberror.h>
+#include "unatools_libcerror.h"
+#include "unatools_libcstring.h"
 
 #if defined( __cplusplus )
 extern "C" {
@@ -35,32 +35,32 @@ extern "C" {
 int unainput_determine_byte_stream_codepage(
      const libcstring_system_character_t *argument,
      int *byte_stream_codepage,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int unainput_determine_encoding(
      const libcstring_system_character_t *string,
      uint8_t *encoding,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int unainput_determine_encoding_mode(
      const libcstring_system_character_t *string,
      uint8_t *encoding_mode,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int unainput_determine_format(
      const libcstring_system_character_t *string,
      uint8_t *format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int unainput_determine_format(
      const libcstring_system_character_t *argument,
      uint8_t *format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int unainput_determine_newline_conversion(
      const libcstring_system_character_t *argument,
      uint8_t *newline_conversion,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

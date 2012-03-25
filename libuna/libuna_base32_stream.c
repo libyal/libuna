@@ -22,10 +22,9 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libuna_base32_stream.h"
 #include "libuna_definitions.h"
+#include "libuna_libcerror.h"
 #include "libuna_types.h"
 
 static uint8_t *libuna_base32_quintet_to_character_table = \
@@ -42,16 +41,16 @@ int libuna_base32_character_copy_to_quintet(
      uint8_t base32_character,
      uint8_t *base32_quintet,
      uint32_t base32_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "libuna_base32_character_copy_to_quintet";
 
 	if( base32_quintet == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 quintet.",
 		 function );
 
@@ -85,10 +84,10 @@ int libuna_base32_character_copy_to_quintet(
 			}
 			else
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid base32 character: 0x%02" PRIx8 ".",
 				 function,
 				 base32_character );
@@ -123,10 +122,10 @@ int libuna_base32_character_copy_to_quintet(
 			}
 			else
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid base32 character: 0x%02" PRIx8 ".",
 				 function,
 				 base32_character );
@@ -136,10 +135,10 @@ int libuna_base32_character_copy_to_quintet(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -163,7 +162,7 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
      size_t *base32_stream_index,
      uint8_t *padding_size,
      uint32_t base32_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function               = "libuna_base32_quintuplet_copy_from_base32_stream";
 	uint8_t number_of_base32_characters = 0;
@@ -179,10 +178,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 
 	if( base32_quintuplet == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 quintuplet.",
 		 function );
 
@@ -190,10 +189,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	if( base32_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream.",
 		 function );
 
@@ -201,10 +200,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	if( base32_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base32 stream size value exceeds maximum.",
 		 function );
 
@@ -212,10 +211,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	if( base32_stream_index == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream index.",
 		 function );
 
@@ -223,10 +222,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	if( *base32_stream_index >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream string too small.",
 		 function );
 
@@ -234,10 +233,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	if( padding_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid padding size.",
 		 function );
 
@@ -259,10 +258,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -274,10 +273,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	     base32_variant,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 		 "%s: unable to copy base32 character to 1st quintet.",
 		 function );
 
@@ -291,10 +290,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		     base32_variant,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy base32 character to 2nd quintet.",
 			 function );
 
@@ -303,10 +302,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	else
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing 2nd base32 character.",
 		 function );
 
@@ -323,10 +322,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( base32_stream[ *base32_stream_index + 2 ] != padding_character )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 3rd base32 quintet.",
 				 function );
 
@@ -334,10 +333,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 			}
 			if( base32_stream[ *base32_stream_index + 3 ] != padding_character )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 4th base32 quintet.",
 				 function );
 
@@ -355,16 +354,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 3rd base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else if( libuna_base32_character_copy_to_quintet(
@@ -375,16 +374,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 4th base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else
@@ -397,10 +396,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	{
 		if( ( *base32_stream_index + 2 ) >= base32_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: missing 3rd base32 character.",
 			 function );
 
@@ -408,10 +407,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		}
 		if( ( *base32_stream_index + 3 ) >= base32_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: missing 4th base32 character.",
 			 function );
 
@@ -430,10 +429,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 5th base32 quintet.",
 				 function );
 
@@ -448,16 +447,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 5th base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else
@@ -468,10 +467,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	else if( padding_character != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing 5th base32 character.",
 		 function );
 
@@ -485,10 +484,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( base32_stream[ *base32_stream_index + 5 ] != padding_character )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 6th base32 quintet.",
 				 function );
 
@@ -496,10 +495,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 			}
 			if( base32_stream[ *base32_stream_index + 6 ] != padding_character )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 7th base32 quintet.",
 				 function );
 
@@ -513,10 +512,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 6th and 7th base32 quintet.",
 				 function );
 
@@ -531,16 +530,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 6th base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else if( libuna_base32_character_copy_to_quintet(
@@ -551,16 +550,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 7th base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else
@@ -573,10 +572,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	{
 		if( ( *base32_stream_index + 5 ) >= base32_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: missing 6th base32 character.",
 			 function );
 
@@ -584,10 +583,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		}
 		if( ( *base32_stream_index + 6 ) >= base32_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: missing 7th base32 character.",
 			 function );
 
@@ -606,10 +605,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 8th base32 quintet.",
 				 function );
 
@@ -624,16 +623,16 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 		{
 			if( padding_character != 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 8th base32 quintet.",
 				 function );
 
 				return( -1 );
 			}
-			liberror_error_free(
+			libcerror_error_free(
 			 error );
 		}
 		else
@@ -644,10 +643,10 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 	}
 	else if( padding_character != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: missing 8th base32 character.",
 		 function );
 
@@ -685,7 +684,7 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
      size_t *base32_stream_index,
      uint8_t padding_size,
      uint32_t base32_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	uint8_t *quintet_to_character_table = NULL;
 	static char *function               = "libuna_base32_quintuplet_copy_to_base32_stream";
@@ -701,10 +700,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 
 	if( base32_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream.",
 		 function );
 
@@ -712,10 +711,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	}
 	if( base32_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base32 stream size value exceeds maximum.",
 		 function );
 
@@ -723,10 +722,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	}
 	if( base32_stream_index == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream index.",
 		 function );
 
@@ -734,10 +733,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	}
 	if( *base32_stream_index >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream string too small.",
 		 function );
 
@@ -745,10 +744,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	}
 	if( padding_size > 6 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
 		 "%s: invalid padding size value out of bounds.",
 		 function );
 
@@ -765,10 +764,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -786,10 +785,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -817,10 +816,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	 */
 	if( ( *base32_stream_index + 1 ) >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -836,10 +835,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	 */
 	if( ( *base32_stream_index + 1 ) >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -864,10 +863,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	 */
 	if( *base32_stream_index >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -890,10 +889,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	 */
 	if( ( *base32_stream_index + 1 ) >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -918,10 +917,10 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
 	 */
 	if( *base32_stream_index >= base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -952,16 +951,16 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
      size_t byte_stream_size,
      size_t *byte_stream_index,
      uint8_t *padding_size,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "libuna_base32_quintuplet_copy_from_byte_stream";
 
 	if( base32_quintuplet == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 quintuplet.",
 		 function );
 
@@ -969,10 +968,10 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -980,10 +979,10 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -991,10 +990,10 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
 	}
 	if( byte_stream_index == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream index.",
 		 function );
 
@@ -1002,10 +1001,10 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
 	}
 	if( *byte_stream_index >= byte_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: byte stream string too small.",
 		 function );
 
@@ -1054,16 +1053,16 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
      size_t byte_stream_size,
      size_t *byte_stream_index,
      uint8_t padding_size,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "libuna_base32_quintuplet_copy_to_byte_stream";
 
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -1071,10 +1070,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -1082,10 +1081,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	}
 	if( byte_stream_index == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream index.",
 		 function );
 
@@ -1093,10 +1092,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	}
 	if( *byte_stream_index >= byte_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: byte stream string too small.",
 		 function );
 
@@ -1104,10 +1103,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	}
 	if( padding_size > 6 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
 		 "%s: invalid padding size value out of bounds.",
 		 function );
 
@@ -1121,10 +1120,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	{
 		if( *byte_stream_index >= byte_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: byte stream string too small.",
 			 function );
 
@@ -1138,10 +1137,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	{
 		if( *byte_stream_index >= byte_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: byte stream string too small.",
 			 function );
 
@@ -1155,10 +1154,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	{
 		if( *byte_stream_index >= byte_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: byte stream string too small.",
 			 function );
 
@@ -1172,10 +1171,10 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
 	{
 		if( *byte_stream_index >= byte_stream_size )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: byte stream is too small.",
 			 function );
 
@@ -1201,7 +1200,7 @@ int libuna_base32_stream_size_to_byte_stream(
      size_t *byte_stream_size,
      uint32_t base32_variant,
      uint8_t flags,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function       = "libuna_base32_stream_size_to_byte_stream";
 	size_t base32_stream_index  = 0;
@@ -1213,10 +1212,10 @@ int libuna_base32_stream_size_to_byte_stream(
 
 	if( base32_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream.",
 		 function );
 
@@ -1225,10 +1224,10 @@ int libuna_base32_stream_size_to_byte_stream(
 	if( ( base32_stream_size == 0 )
 	 || ( base32_stream_size > (size_t) SSIZE_MAX ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS,
 		 "%s: invalid base32 stream size value out of bounds.",
 		 function );
 
@@ -1236,10 +1235,10 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	if( byte_stream_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream size.",
 		 function );
 
@@ -1256,10 +1255,10 @@ int libuna_base32_stream_size_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -1274,10 +1273,10 @@ int libuna_base32_stream_size_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -1285,10 +1284,10 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	if( ( flags & ~( LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported flags.",
 		 function );
 
@@ -1351,10 +1350,10 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	if( base32_stream[ base32_stream_size - 7 ] == (uint8_t) '=' )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 		 "%s: invalid number of padding bytes.",
 		 function );
 
@@ -1391,10 +1390,10 @@ int libuna_base32_stream_size_to_byte_stream(
 			{
 				if( number_of_characters != (size_t) character_limit )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 					 "%s: number of characters in line exceed maximum.",
 					 function );
 
@@ -1507,10 +1506,10 @@ int libuna_base32_stream_size_to_byte_stream(
 		}
 		if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: invalid character in base32 stream at index: %d.",
 			 function,
 			 base32_stream_index );
@@ -1523,10 +1522,10 @@ int libuna_base32_stream_size_to_byte_stream(
 	{
 		if( number_of_characters != (size_t) character_limit )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: number of characters in line exceed maximum.",
 			 function );
 
@@ -1579,7 +1578,7 @@ int libuna_base32_stream_copy_to_byte_stream(
      size_t byte_stream_size,
      uint32_t base32_variant,
      uint8_t flags,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function       = "libuna_base32_stream_copy_to_byte_stream";
 	size_t base32_stream_index  = 0;
@@ -1592,10 +1591,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 
 	if( base32_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream.",
 		 function );
 
@@ -1603,10 +1602,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	}
 	if( base32_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base32 stream size value exceeds maximum.",
 		 function );
 
@@ -1614,10 +1613,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -1625,10 +1624,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -1645,10 +1644,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -1656,10 +1655,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	}
 	if( ( flags & ~( LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported flags.",
 		 function );
 
@@ -1697,10 +1696,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 			{
 				if( number_of_characters != (size_t) character_limit )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 					 "%s: number of characters in line exceed maximum.",
 					 function );
 
@@ -1741,10 +1740,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 		}
 		if( strip_mode == LIBUNA_STRIP_MODE_INVALID_CHARACTER )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: invalid character in base32 stream at index: %d.",
 			 function,
 			 base32_stream_index );
@@ -1755,10 +1754,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 		{
 			if( padding_size > 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 				 "%s: invalid 1st base32 quintet.",
 				 function );
 
@@ -1775,10 +1774,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 			     base32_variant,
 			     error ) != 1 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 				 "%s: unable to copy base32 quintuplet from base32 stream.",
 				 function );
 
@@ -1794,10 +1793,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 			     padding_size,
 			     error ) != 1 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 				 "%s: unable to copy base32 quintuplet to byte stream.",
 				 function );
 
@@ -1810,10 +1809,10 @@ int libuna_base32_stream_copy_to_byte_stream(
 	{
 		if( number_of_characters != (size_t) character_limit )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: number of characters in line exceed maximum.",
 			 function );
 
@@ -1831,7 +1830,7 @@ int libuna_base32_stream_size_from_byte_stream(
      size_t byte_stream_size,
      size_t *base32_stream_size,
      uint32_t base32_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function   = "libuna_base32_stream_size_from_byte_stream";
 	size_t whitespace_size  = 0;
@@ -1839,10 +1838,10 @@ int libuna_base32_stream_size_from_byte_stream(
 
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -1850,10 +1849,10 @@ int libuna_base32_stream_size_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -1861,10 +1860,10 @@ int libuna_base32_stream_size_from_byte_stream(
 	}
 	if( base32_stream_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream size.",
 		 function );
 
@@ -1881,10 +1880,10 @@ int libuna_base32_stream_size_from_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -1923,7 +1922,7 @@ int libuna_base32_stream_copy_from_byte_stream(
      uint8_t *byte_stream,
      size_t byte_stream_size,
      uint32_t base32_variant,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function                = "libuna_base32_stream_copy_from_byte_stream";
 	size_t calculated_base32_stream_size = 0;
@@ -1937,10 +1936,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 
 	if( base32_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid base32 stream.",
 		 function );
 
@@ -1948,10 +1947,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 	}
 	if( base32_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base32 stream size value exceeds maximum.",
 		 function );
 
@@ -1959,10 +1958,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 	}
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -1970,10 +1969,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid byte stream size value exceeds maximum.",
 		 function );
 
@@ -1990,10 +1989,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 			break;
 
 		default:
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: unsupported base32 variant.",
 			 function );
 
@@ -2022,10 +2021,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 	}
 	if( base32_stream_size < calculated_base32_stream_size )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: base32 stream is too small.",
 		 function );
 
@@ -2043,10 +2042,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 		     &padding_size,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy base32 quintuplet from byte stream.",
 			 function );
 
@@ -2063,10 +2062,10 @@ int libuna_base32_stream_copy_from_byte_stream(
 		     base32_variant,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to copy base32 quintuplet to base32 stream.",
 			 function );
 

@@ -22,14 +22,13 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
 #include <stdio.h>
 
+#include "una_test_libcstring.h"
 #include "una_test_libuna.h"
 
 /* Tests copying an UTF-8 string from a byte stream
@@ -84,15 +83,12 @@ int una_test_utf8_string_copy_from_byte_stream(
 	}
 	if( result == 1 )
 	{
-		if( result == expected_result )
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
 		{
-			if( memory_compare(
-			     utf8_string,
-			     expected_utf8_string,
-			     expected_utf8_string_size ) != 0 )
-			{
-				result = 0;
-			}
+			result = 0;
 		}
 	}
 	if( result == expected_result )
@@ -182,15 +178,12 @@ int una_test_utf8_string_copy_from_utf7_stream(
 	}
 	if( result == 1 )
 	{
-		if( result == expected_result )
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
 		{
-			if( memory_compare(
-			     utf8_string,
-			     expected_utf8_string,
-			     expected_utf8_string_size ) != 0 )
-			{
-				result = 0;
-			}
+			result = 0;
 		}
 	}
 	if( result == expected_result )
@@ -280,15 +273,12 @@ int una_test_utf8_string_copy_from_utf8_stream(
 	}
 	if( result == 1 )
 	{
-		if( result == expected_result )
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
 		{
-			if( memory_compare(
-			     utf8_string,
-			     expected_utf8_string,
-			     expected_utf8_string_size ) != 0 )
-			{
-				result = 0;
-			}
+			result = 0;
 		}
 	}
 	if( result == expected_result )
@@ -391,15 +381,12 @@ int una_test_utf8_string_copy_from_utf16_stream(
 	}
 	if( result == 1 )
 	{
-		if( result == expected_result )
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
 		{
-			if( memory_compare(
-			     utf8_string,
-			     expected_utf8_string,
-			     expected_utf8_string_size ) != 0 )
-			{
-				result = 0;
-			}
+			result = 0;
 		}
 	}
 	if( result == expected_result )
@@ -502,15 +489,202 @@ int una_test_utf8_string_copy_from_utf32_stream(
 	}
 	if( result == 1 )
 	{
-		if( result == expected_result )
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
 		{
-			if( memory_compare(
-			     utf8_string,
-			     expected_utf8_string,
-			     expected_utf8_string_size ) != 0 )
-			{
-				result = 0;
-			}
+			result = 0;
+		}
+	}
+	if( result == expected_result )
+	{
+		fprintf(
+		 stdout,
+		 "(PASS)" );
+	}
+	else
+	{
+		fprintf(
+		 stdout,
+		 "(FAIL)" );
+	}
+	fprintf(
+	 stdout,
+	 "\n" );
+
+	if( result == -1 )
+	{
+		if( expected_result != -1 )
+		{
+			libuna_error_backtrace_fprint(
+			 error,
+			 stderr );
+		}
+		libuna_error_free(
+		 &error );
+	}
+	if( result == expected_result )
+	{
+		result = 1;
+	}
+	else
+	{
+		result = 0;
+	}
+	return( result );
+}
+
+/* Tests copying an UTF-8 string from an UTF-16 string
+ * Returns 1 if successful, 0 if not or -1 on error
+ */
+int una_test_utf8_string_copy_from_utf16_string(
+     const libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     const uint8_t *expected_utf8_string,
+     size_t expected_utf8_string_size,
+     int expected_result )
+{
+	libuna_error_t *error          = NULL;
+	size_t result_utf8_string_size = 0;
+	int result                     = 0;
+
+        fprintf(
+         stdout,
+         "Testing copying UTF-8 string from UTF-16 string\t" );
+
+	result = libuna_utf8_string_size_from_utf16(
+	          utf16_string,
+	          utf16_string_size,
+	          &result_utf8_string_size,
+	          &error );
+
+	if( result == 1 )
+	{
+		if( result_utf8_string_size != expected_utf8_string_size )
+		{
+			result = 0;
+		}
+	}
+	if( result != 0 )
+	{
+		if( result == -1 )
+		{
+			libuna_error_free(
+			 &error );
+		}
+		result = libuna_utf8_string_copy_from_utf16(
+			  utf8_string,
+			  utf8_string_size,
+			  utf16_string,
+			  utf16_string_size,
+			  &error );
+	}
+	if( result == 1 )
+	{
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
+		{
+			result = 0;
+		}
+	}
+	if( result == expected_result )
+	{
+		fprintf(
+		 stdout,
+		 "(PASS)" );
+	}
+	else
+	{
+		fprintf(
+		 stdout,
+		 "(FAIL)" );
+	}
+	fprintf(
+	 stdout,
+	 "\n" );
+
+	if( result == -1 )
+	{
+		if( expected_result != -1 )
+		{
+			libuna_error_backtrace_fprint(
+			 error,
+			 stderr );
+		}
+		libuna_error_free(
+		 &error );
+	}
+	if( result == expected_result )
+	{
+		result = 1;
+	}
+	else
+	{
+		result = 0;
+	}
+	return( result );
+}
+
+/* Tests copying an UTF-8 string from an UTF-32 string
+ * Returns 1 if successful, 0 if not or -1 on error
+ */
+int una_test_utf8_string_copy_from_utf32_string(
+     const libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     const uint8_t *expected_utf8_string,
+     size_t expected_utf8_string_size,
+     int expected_result )
+{
+	libuna_error_t *error          = NULL;
+	size_t result_utf8_string_size = 0;
+	int result                     = 0;
+
+        fprintf(
+         stdout,
+         "Testing copying UTF-8 string from UTF-32 string\t" );
+
+	result = libuna_utf8_string_size_from_utf32(
+	          utf32_string,
+	          utf32_string_size,
+	          &result_utf8_string_size,
+	          &error );
+
+	if( result == 1 )
+	{
+		if( result_utf8_string_size != expected_utf8_string_size )
+		{
+			result = 0;
+		}
+	}
+	if( result != 0 )
+	{
+		if( result == -1 )
+		{
+			libuna_error_free(
+			 &error );
+		}
+		result = libuna_utf8_string_copy_from_utf32(
+			  utf8_string,
+			  utf8_string_size,
+			  utf32_string,
+			  utf32_string_size,
+			  &error );
+	}
+	if( result == 1 )
+	{
+		if( memory_compare(
+		     utf8_string,
+		     expected_utf8_string,
+		     sizeof( uint8_t ) * expected_utf8_string_size ) != 0 )
+		{
+			result = 0;
 		}
 	}
 	if( result == expected_result )
@@ -561,14 +735,18 @@ int main( int argc, char * const argv[] )
 {
 	uint8_t utf8_string[ 256 ];
 
-	libuna_error_t *error         = NULL;
-	uint8_t *byte_stream          = (uint8_t *) "This is \xe1 test.";
-	uint8_t *utf16_stream         = (uint8_t *) "T\0h\0i\0s\0 \0i\0s\0 \0\xe1\0 \0t\0e\0s\0t\0.\0\0\0";
-	uint8_t *utf32_stream         = (uint8_t *) "T\0\0\0h\0\0\0i\0\0\0s\0\0\0 \0\0\0i\0\0\0s\0\0\0 \0\0\0\xe1\0\0\0 \0\0\0t\0\0\0e\0\0\0s\0\0\0t\0\0\0.\0\0\0\0\0\0\0\0\0";
-	uint8_t *utf7_stream          = (uint8_t *) "This is +AOE test.";
-	uint8_t *utf8_stream          = (uint8_t *) "This is \xc3\xa1 test.";
-	uint8_t *expected_utf8_string = (uint8_t *) "This is \xc3\xa1 test.";
-	size_t utf8_string_size       = 0;
+	uint32_t utf32_string[ 16 ]        = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
+	uint16_t utf16_string[ 16 ]        = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
+	uint8_t byte_stream[ 16 ]          = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
+	uint8_t expected_utf8_string[ 17 ] = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
+	uint8_t utf32_stream[ 64 ]         = { 'T', 0, 0, 0, 'h', 0, 0, 0, 'i', 0, 0, 0, 's', 0, 0, 0, ' ', 0, 0, 0,
+	                                       'i', 0, 0, 0, 's', 0, 0, 0, ' ', 0, 0, 0, 0xe1, 0, 0, 0, ' ', 0, 0, 0,
+	                                       't', 0, 0, 0, 'e', 0, 0, 0, 's', 0, 0, 0, 't', 0, 0, 0, '.', 0, 0, 0, 0, 0, 0, 0 };
+	uint8_t utf16_stream[ 32 ]         = { 'T', 0, 'h', 0, 'i', 0, 's', 0, ' ', 0, 'i', 0, 's', 0, ' ', 0, 0xe1, 0,
+	                                       ' ', 0, 't', 0, 'e', 0, 's', 0, 't', 0, '.', 0, 0, 0 };
+	uint8_t utf7_stream[ 20 ]          = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', '+', 'A', 'O', 'E', '-', ' ', 't', 'e', 's', 't', '.', 0 };
+	uint8_t utf8_stream[ 17 ]          = { 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
+	libuna_error_t *error              = NULL;
 
 	if( argc != 1 )
 	{
@@ -581,7 +759,7 @@ int main( int argc, char * const argv[] )
 	/* byte stream tests
 	 */
 
-	/* Case 1: byte stream is NULL, byte stream size is 16 and byte order
+	/* Case 1: byte stream is NULL, byte stream size is 16
 	 *         UTF-8 string is a buffer, UTF-8 string size is 256
 	 * Expected result: -1
 	 */
@@ -601,7 +779,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 2: byte stream is a buffer, byte stream size is 16 and byte order
+	/* Case 2: byte stream is a buffer, byte stream size is 16
 	 *         UTF-8 string is a buffer, UTF-8 string size is 256
 	 * Expected result: 1
 	 */
@@ -621,7 +799,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 3: byte stream is a buffer, byte stream size is 16 and byte order
+	/* Case 3: byte stream is a buffer, byte stream size is 16
 	 *         UTF-8 string is a buffer, UTF-8 string size is 8
 	 * Expected result: -1
 	 */
@@ -641,7 +819,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 4: byte stream is a buffer, byte stream size is 16 and byte order
+	/* Case 4: byte stream is a buffer, byte stream size is 16
 	 *         UTF-8 string is NULL, UTF-8 string size is 256
 	 * Expected result: -1
 	 */
@@ -661,10 +839,89 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	/* UTF-7 stream tests
+	 */
+
+	/* Case 1: UTF-7 stream is NULL, UTF-7 stream size is 20
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf7_stream(
+	     NULL,
+	     20,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-7 stream to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 2: UTF-7 stream is a buffer, UTF-7 stream size is 20
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_string_copy_from_utf7_stream(
+	     utf7_stream,
+	     20,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-7 stream to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 3: UTF-7 stream is a buffer, UTF-7 stream size is 20
+	 *         UTF-8 string is a buffer, UTF-8 string size is 8
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf7_stream(
+	     utf7_stream,
+	     20,
+	     utf8_string,
+	     8,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-7 stream to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 4: UTF-7 stream is a buffer, UTF-7 stream size is 20
+	 *         UTF-8 string is NULL, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf7_stream(
+	     utf7_stream,
+	     20,
+	     NULL,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-7 stream to UTF-8 string.\n" );
+
+		goto on_error;
+	}
 	/* UTF-8 stream tests
 	 */
 
-	/* Case 1: UTF-8 stream is NULL, UTF-8 stream size is 17 and byte order
+	/* Case 1: UTF-8 stream is NULL, UTF-8 stream size is 17
 	 *         UTF-8 string is a buffer, UTF-8 string size is 256
 	 * Expected result: -1
 	 */
@@ -683,7 +940,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 2: UTF-8 stream is a buffer, UTF-8 stream size is 17 and byte order
+	/* Case 2: UTF-8 stream is a buffer, UTF-8 stream size is 17
 	 *         UTF-8 string is a buffer, UTF-8 string size is 256
 	 * Expected result: 1
 	 */
@@ -702,7 +959,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 3: UTF-8 stream is a buffer, UTF-8 stream size is 17 and byte order
+	/* Case 3: UTF-8 stream is a buffer, UTF-8 stream size is 17
 	 *         UTF-8 string is a buffer, UTF-8 string size is 8
 	 * Expected result: -1
 	 */
@@ -721,7 +978,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 4: UTF-8 stream is a buffer, UTF-8 stream size is 17 and byte order
+	/* Case 4: UTF-8 stream is a buffer, UTF-8 stream size is 17
 	 *         UTF-8 string is NULL, UTF-8 string size is 256
 	 * Expected result: -1
 	 */
@@ -943,6 +1200,164 @@ int main( int argc, char * const argv[] )
 		fprintf(
 		 stderr,
 		 "Unable to copy UTF-32 stream to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* UTF-16 string tests
+	 */
+
+	/* Case 1: UTF-16 string is NULL, UTF-16 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf16_string(
+	     NULL,
+	     16,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-16 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 2: UTF-16 string is a buffer, UTF-16 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_string_copy_from_utf16_string(
+	     utf16_string,
+	     16,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-16 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 3: UTF-16 string is a buffer, UTF-16 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 8
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf16_string(
+	     utf16_string,
+	     16,
+	     utf8_string,
+	     8,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-16 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 4: UTF-16 string is a buffer, UTF-16 string size is 16
+	 *         UTF-8 string is NULL, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf16_string(
+	     utf16_string,
+	     16,
+	     NULL,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-16 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* UTF-32 string tests
+	 */
+
+	/* Case 1: UTF-32 string is NULL, UTF-32 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf32_string(
+	     NULL,
+	     16,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-32 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 2: UTF-32 string is a buffer, UTF-32 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 256
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_string_copy_from_utf32_string(
+	     utf32_string,
+	     16,
+	     utf8_string,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-32 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 3: UTF-32 string is a buffer, UTF-32 string size is 16
+	 *         UTF-8 string is a buffer, UTF-8 string size is 8
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf32_string(
+	     utf32_string,
+	     16,
+	     utf8_string,
+	     8,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-32 string to UTF-8 string.\n" );
+
+		goto on_error;
+	}
+	/* Case 4: UTF-32 string is a buffer, UTF-32 string size is 16
+	 *         UTF-8 string is NULL, UTF-8 string size is 256
+	 * Expected result: -1
+	 */
+	if( una_test_utf8_string_copy_from_utf32_string(
+	     utf32_string,
+	     16,
+	     NULL,
+	     256,
+	     expected_utf8_string,
+	     17,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-32 string to UTF-8 string.\n" );
 
 		goto on_error;
 	}

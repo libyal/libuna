@@ -23,16 +23,14 @@
 #include <memory.h>
 #include <types.h>
 
-#include <libcstring.h>
-#include <liberror.h>
-
-#include <libsystem.h>
-
 #include "export_handle.h"
 #include "process_status.h"
 #include "unacommon.h"
 #include "unainput.h"
 #include "unaoutput.h"
+#include "unatools_libcerror.h"
+#include "unatools_libcfile.h"
+#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 #define EXPORT_HANDLE_BUFFER_SIZE		8 * 1024 * 1024
@@ -45,16 +43,16 @@
 int export_handle_initialize(
      export_handle_t **export_handle,
      uint8_t mode,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_initialize";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -62,10 +60,10 @@ int export_handle_initialize(
 	}
 	if( *export_handle != NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
 		 "%s: invalid export handle value already set.",
 		 function );
 
@@ -74,10 +72,10 @@ int export_handle_initialize(
 	if( ( mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
 	 && ( mode != EXPORT_HANDLE_MODE_TEXT_ENCODING ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported mode.",
 		 function );
 
@@ -88,10 +86,10 @@ int export_handle_initialize(
 
 	if( *export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create export handle.",
 		 function );
 
@@ -102,10 +100,10 @@ int export_handle_initialize(
 	     0,
 	     sizeof( export_handle_t ) ) == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
 		 "%s: unable to clear export handle.",
 		 function );
 
@@ -116,9 +114,33 @@ int export_handle_initialize(
 
 		return( -1 );
 	}
-	( *export_handle )->mode                    = mode;
-	( *export_handle )->source_file_handle      = LIBSYSTEM_FILE_HANDLE_EMPTY;
-	( *export_handle )->destination_file_handle = LIBSYSTEM_FILE_HANDLE_EMPTY;
+	if( libcfile_file_initialize(
+	     &( ( *export_handle )->source_file ),
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
+		 "%s: unable to create source file.",
+		 function );
+
+		goto on_error;
+	}
+	if( libcfile_file_initialize(
+	     &( ( *export_handle )->destination_file ),
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
+		 "%s: unable to create destination file.",
+		 function );
+
+		goto on_error;
+	}
+	( *export_handle )->mode = mode;
 
 	if( mode == EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
@@ -140,6 +162,12 @@ int export_handle_initialize(
 on_error:
 	if( *export_handle != NULL )
 	{
+		if( ( *export_handle )->source_file != NULL )
+		{
+			libcfile_file_free(
+			 &( ( *export_handle )->source_file ),
+			 NULL );
+		}
 		memory_free(
 		 *export_handle );
 
@@ -153,17 +181,17 @@ on_error:
  */
 int export_handle_free(
      export_handle_t **export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_free";
 	int result            = 1;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -181,6 +209,32 @@ int export_handle_free(
 			memory_free(
 			 ( *export_handle )->destination_filename );
 		}
+		if( libcfile_file_free(
+		     &( ( *export_handle )->source_file ),
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_FINALIZE_FAILED,
+			 "%s: unable to free source file.",
+			 function );
+
+			result = -1;
+		}
+		if( libcfile_file_free(
+		     &( ( *export_handle )->destination_file ),
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_FINALIZE_FAILED,
+			 "%s: unable to free destination file.",
+			 function );
+
+			result = -1;
+		}
 		memory_free(
 		 *export_handle );
 
@@ -194,16 +248,16 @@ int export_handle_free(
  */
 int export_handle_signal_abort(
      export_handle_t *export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_signal_abort";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -219,16 +273,16 @@ int export_handle_signal_abort(
  */
 int export_handle_open_input(
      export_handle_t *export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_open_input";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -236,25 +290,25 @@ int export_handle_open_input(
 	}
 	if( export_handle->source_filename == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
 		 "%s: invalid export handle - missing source filename.",
 		 function );
 
 		return( -1 );
 	}
-	if( libsystem_file_open(
-	     &( export_handle->source_file_handle ),
+	if( libcfile_file_open(
+	     export_handle->source_file,
 	     export_handle->source_filename,
-	     LIBSYSTEM_FILE_OPEN_READ,
+	     LIBCFILE_FILE_OPEN_READ,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_IO,
+		 LIBCERROR_IO_ERROR_OPEN_FAILED,
 		 "%s: unable to open source file: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 export_handle->source_filename );
@@ -269,16 +323,16 @@ int export_handle_open_input(
  */
 int export_handle_open_output(
      export_handle_t *export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_open_output";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -286,25 +340,25 @@ int export_handle_open_output(
 	}
 	if( export_handle->destination_filename == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
 		 "%s: invalid export handle - missing destination filename.",
 		 function );
 
 		return( -1 );
 	}
-	if( libsystem_file_open(
-	     &( export_handle->destination_file_handle ),
+	if( libcfile_file_open(
+	     export_handle->destination_file,
 	     export_handle->destination_filename,
-	     LIBSYSTEM_FILE_OPEN_WRITE_TRUNCATE,
+	     LIBCFILE_FILE_OPEN_WRITE_TRUNCATE,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_OPEN_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_IO,
+		 LIBCERROR_IO_ERROR_OPEN_FAILED,
 		 "%s: unable to open destination file: %" PRIs_LIBCSTRING_SYSTEM ".",
 		 function,
 		 export_handle->destination_filename );
@@ -319,44 +373,44 @@ int export_handle_open_output(
  */
 int export_handle_close(
      export_handle_t *export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_close";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
 		return( -1 );
 	}
-	if( libsystem_file_close(
-	     &( export_handle->source_file_handle ),
+	if( libcfile_file_close(
+	     export_handle->source_file,
 	     error ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close source file handle.",
+		 LIBCERROR_ERROR_DOMAIN_IO,
+		 LIBCERROR_IO_ERROR_CLOSE_FAILED,
+		 "%s: unable to close source file.",
 		 function );
 
 		result = -1;
 	}
-	if( libsystem_file_close(
-	     &( export_handle->destination_file_handle ),
+	if( libcfile_file_close(
+	     export_handle->destination_file,
 	     error ) != 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_IO,
-		 LIBERROR_IO_ERROR_CLOSE_FAILED,
-		 "%s: unable to close destination file handle.",
+		 LIBCERROR_ERROR_DOMAIN_IO,
+		 LIBCERROR_IO_ERROR_CLOSE_FAILED,
+		 "%s: unable to close destination file.",
 		 function );
 
 		result = -1;
@@ -372,17 +426,17 @@ int export_handle_set_string(
      const libcstring_system_character_t *string,
      libcstring_system_character_t **internal_string,
      size_t *internal_string_size,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_string";
 	size_t string_length  = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -390,10 +444,10 @@ int export_handle_set_string(
 	}
 	if( string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string.",
 		 function );
 
@@ -401,10 +455,10 @@ int export_handle_set_string(
 	}
 	if( internal_string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid internal string.",
 		 function );
 
@@ -412,10 +466,10 @@ int export_handle_set_string(
 	}
 	if( internal_string_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid internal string size.",
 		 function );
 
@@ -439,10 +493,10 @@ int export_handle_set_string(
 
 		if( *internal_string == NULL )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+			 LIBCERROR_ERROR_DOMAIN_MEMORY,
+			 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 			 "%s: unable to create internal string.",
 			 function );
 
@@ -453,10 +507,10 @@ int export_handle_set_string(
 		     string,
 		     string_length ) == NULL )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_COPY_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
 			 "%s: unable to copy string.",
 			 function );
 
@@ -487,17 +541,17 @@ on_error:
 int export_handle_set_encoding(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_encoding";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -505,10 +559,10 @@ int export_handle_set_encoding(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -521,10 +575,10 @@ int export_handle_set_encoding(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to determine encoding.",
 		 function );
 
@@ -539,17 +593,17 @@ int export_handle_set_encoding(
 int export_handle_set_encoding_mode(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_encoding_mode";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -557,10 +611,10 @@ int export_handle_set_encoding_mode(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -573,10 +627,10 @@ int export_handle_set_encoding_mode(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to determine encoding mode.",
 		 function );
 
@@ -591,7 +645,7 @@ int export_handle_set_encoding_mode(
 int export_handle_set_input_format(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_input_format";
 	size_t string_length  = 0;
@@ -599,10 +653,10 @@ int export_handle_set_input_format(
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -610,10 +664,10 @@ int export_handle_set_input_format(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -642,10 +696,10 @@ int export_handle_set_input_format(
 
 		if( result == -1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 			 "%s: unable to determine input format.",
 			 function );
 
@@ -661,17 +715,17 @@ int export_handle_set_input_format(
 int export_handle_set_output_format(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_output_format";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -679,10 +733,10 @@ int export_handle_set_output_format(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -695,10 +749,10 @@ int export_handle_set_output_format(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to determine output format.",
 		 function );
 
@@ -713,17 +767,17 @@ int export_handle_set_output_format(
 int export_handle_set_newline_conversion(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_output_format";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -731,10 +785,10 @@ int export_handle_set_newline_conversion(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -747,10 +801,10 @@ int export_handle_set_newline_conversion(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to determine newline conversion.",
 		 function );
 
@@ -765,17 +819,17 @@ int export_handle_set_newline_conversion(
 int export_handle_set_byte_stream_codepage(
      export_handle_t *export_handle,
      const libcstring_system_character_t *string,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_byte_stream_codepage";
 	int result            = 0;
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -783,10 +837,10 @@ int export_handle_set_byte_stream_codepage(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 
@@ -799,10 +853,10 @@ int export_handle_set_byte_stream_codepage(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to determine byte stream codepage.",
 		 function );
 
@@ -817,17 +871,17 @@ int export_handle_set_byte_stream_codepage(
 int export_handle_export_input(
      export_handle_t *export_handle,
      uint8_t print_status_information,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	process_status_t *process_status = NULL;
 	static char *function            = "export_handle_export_text_input";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -842,10 +896,10 @@ int export_handle_export_input(
 	     print_status_information,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_INITIALIZE_FAILED,
 		 "%s: unable to create process status.",
 		 function );
 
@@ -855,10 +909,10 @@ int export_handle_export_input(
 	     process_status,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to start process status.",
 		 function );
 
@@ -871,10 +925,10 @@ int export_handle_export_input(
 		     process_status,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_GENERIC,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_GENERIC,
 			 "%s: unable to export base encoded input.",
 			 function );
 
@@ -888,10 +942,10 @@ int export_handle_export_input(
 		     process_status,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_GENERIC,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_GENERIC,
 			 "%s: unable to export text encoded input.",
 			 function );
 
@@ -902,10 +956,10 @@ int export_handle_export_input(
 	     &process_status,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_FINALIZE_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_FINALIZE_FAILED,
 		 "%s: unable to free process status.",
 		 function );
 
@@ -929,7 +983,7 @@ on_error:
 int export_handle_export_base_encoded_input(
      export_handle_t *export_handle,
      process_status_t *process_status,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	uint8_t *destination_buffer      = NULL;
 	uint8_t *source_buffer           = NULL;
@@ -946,10 +1000,10 @@ int export_handle_export_base_encoded_input(
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -957,33 +1011,11 @@ int export_handle_export_base_encoded_input(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
-		 function );
-
-		return( -1 );
-	}
-	if( export_handle->source_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing source file handle.",
-		 function );
-
-		return( -1 );
-	}
-	if( export_handle->destination_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing destination file handle.",
 		 function );
 
 		return( -1 );
@@ -994,10 +1026,10 @@ int export_handle_export_base_encoded_input(
 	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64 )
 	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64URL ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported encoding.",
 		 function );
 
@@ -1006,10 +1038,10 @@ int export_handle_export_base_encoded_input(
 	if( ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_DECODE )
 	 && ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_ENCODE ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported encoding mode.",
 		 function );
 
@@ -1110,10 +1142,10 @@ int export_handle_export_base_encoded_input(
 
 	if( source_buffer == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create source buffer.",
 		 function );
 
@@ -1124,10 +1156,10 @@ int export_handle_export_base_encoded_input(
 
 	if( destination_buffer == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create destination buffer.",
 		 function );
 
@@ -1135,18 +1167,18 @@ int export_handle_export_base_encoded_input(
 	}
 	while( 1 )
 	{
-		read_count = libsystem_file_read(
-		              export_handle->source_file_handle,
+		read_count = libcfile_file_read(
+		              export_handle->source_file,
 		              source_buffer,
 		              source_buffer_size,
 		              error );
 
 		if( read_count < 0 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_IO,
-			 LIBERROR_IO_ERROR_READ_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_IO,
+			 LIBCERROR_IO_ERROR_READ_FAILED,
 			 "%s: unable to read from source.",
 			 function );
 
@@ -1284,10 +1316,10 @@ int export_handle_export_base_encoded_input(
 		}
 		if( result != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to determine %s size of %s source data.",
 			 function,
 			 encoding_string,
@@ -1431,10 +1463,10 @@ int export_handle_export_base_encoded_input(
 		}
 		if( result != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_CONVERSION,
-			 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 			 "%s: unable to %s %s source data.",
 			 function,
 			 encoding_string,
@@ -1442,18 +1474,18 @@ int export_handle_export_base_encoded_input(
 
 			goto on_error;
 		}
-		write_count = libsystem_file_write(
-			       export_handle->destination_file_handle,
+		write_count = libcfile_file_write(
+			       export_handle->destination_file,
 			       destination_buffer,
 			       write_size,
 			       error );
 
 		if( write_count < 0 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_IO,
-			 LIBERROR_IO_ERROR_WRITE_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_IO,
+			 LIBCERROR_IO_ERROR_WRITE_FAILED,
 			 "%s: unable to write to destination.",
 			 function );
 
@@ -1464,10 +1496,10 @@ int export_handle_export_base_encoded_input(
 		     export_count,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 			 "%s: unable to update process status.",
 			 function );
 
@@ -1480,10 +1512,10 @@ int export_handle_export_base_encoded_input(
 	     PROCESS_STATUS_COMPLETED,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to stop process status.",
 		 function );
 
@@ -1529,7 +1561,7 @@ on_error:
 int export_handle_export_text_encoded_input(
      export_handle_t *export_handle,
      process_status_t *process_status,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libuna_unicode_character_t unicode_character[ 2 ];
 
@@ -1554,10 +1586,10 @@ int export_handle_export_text_encoded_input(
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -1565,33 +1597,11 @@ int export_handle_export_text_encoded_input(
 	}
 	if( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
-		 function );
-
-		return( -1 );
-	}
-	if( export_handle->source_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing source file handle.",
-		 function );
-
-		return( -1 );
-	}
-	if( export_handle->destination_file_handle == LIBSYSTEM_FILE_HANDLE_EMPTY )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
-		 "%s: invalid export handle - missing destination file handle.",
 		 function );
 
 		return( -1 );
@@ -1605,10 +1615,10 @@ int export_handle_export_text_encoded_input(
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE )
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported input format.",
 		 function );
 
@@ -1622,10 +1632,10 @@ int export_handle_export_text_encoded_input(
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE )
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported output format.",
 		 function );
 
@@ -1636,10 +1646,10 @@ int export_handle_export_text_encoded_input(
 	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
 	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported newline conversion.",
 		 function );
 
@@ -1650,10 +1660,10 @@ int export_handle_export_text_encoded_input(
 
 	if( source_buffer == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create source buffer.",
 		 function );
 
@@ -1664,10 +1674,10 @@ int export_handle_export_text_encoded_input(
 
 	if( destination_buffer == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create destination buffer.",
 		 function );
 
@@ -1727,10 +1737,10 @@ int export_handle_export_text_encoded_input(
 		}
 		if( result != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 			 "%s: unable to set byte order mark.",
 			 function );
 
@@ -1739,18 +1749,18 @@ int export_handle_export_text_encoded_input(
 	}
 	while( 1 )
 	{
-		read_count = libsystem_file_read(
-		              export_handle->source_file_handle,
+		read_count = libcfile_file_read(
+		              export_handle->source_file,
 		              &( source_buffer[ source_buffer_index ] ),
 		              source_buffer_size - source_buffer_index,
 		              error );
 
 		if( read_count < 0 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_IO,
-			 LIBERROR_IO_ERROR_READ_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_IO,
+			 LIBCERROR_IO_ERROR_READ_FAILED,
 			 "%s: unable to read from source.",
 			 function );
 
@@ -1938,10 +1948,10 @@ int export_handle_export_text_encoded_input(
 			}
 			if( result != 1 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_CONVERSION,
-				 LIBERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
 				 "%s: unable to convert input character.",
 				 function );
 
@@ -2084,10 +2094,10 @@ int export_handle_export_text_encoded_input(
 				}
 				if( result != 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_CONVERSION,
-					 LIBERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+					 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
 					 "%s: unable to convert output character.",
 					 function );
 
@@ -2099,18 +2109,18 @@ int export_handle_export_text_encoded_input(
 		}
 		if( destination_buffer_index > 0 )
 		{
-			write_count = libsystem_file_write(
-			               export_handle->destination_file_handle,
+			write_count = libcfile_file_write(
+			               export_handle->destination_file,
 			               destination_buffer,
 		        	       destination_buffer_index,
 			               error );
 
 			if( write_count < 0 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_IO,
-				 LIBERROR_IO_ERROR_WRITE_FAILED,
+				 LIBCERROR_ERROR_DOMAIN_IO,
+				 LIBCERROR_IO_ERROR_WRITE_FAILED,
 				 "%s: unable to write to destination.",
 				 function );
 
@@ -2134,10 +2144,10 @@ int export_handle_export_text_encoded_input(
 		     export_count,
 		     error ) != 1 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 			 "%s: unable to update process status.",
 			 function );
 
@@ -2150,10 +2160,10 @@ int export_handle_export_text_encoded_input(
 	     PROCESS_STATUS_COMPLETED,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to stop process status.",
 		 function );
 
@@ -2198,16 +2208,16 @@ on_error:
  */
 int export_handle_print_parameters(
      export_handle_t *export_handle,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "export_handle_print_parameters";
 
 	if( export_handle == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid export handle.",
 		 function );
 
@@ -2215,10 +2225,10 @@ int export_handle_print_parameters(
 	}
 	if( export_handle->notify_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
 		 "%s: invalid export handle - missing notify stream.",
 		 function );
 
@@ -2226,10 +2236,10 @@ int export_handle_print_parameters(
 	}
 	if( export_handle->source_filename == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
 		 "%s: invalid export handle - missing source filename.",
 		 function );
 
@@ -2237,10 +2247,10 @@ int export_handle_print_parameters(
 	}
 	if( export_handle->destination_filename == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
 		 "%s: invalid export handle - missing destination filename.",
 		 function );
 
@@ -2249,10 +2259,10 @@ int export_handle_print_parameters(
 	if( ( export_handle->mode != EXPORT_HANDLE_MODE_BASE_ENCODING )
 	 && ( export_handle->mode != EXPORT_HANDLE_MODE_TEXT_ENCODING ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: invalid export handle - unsupported mode.",
 		 function );
 

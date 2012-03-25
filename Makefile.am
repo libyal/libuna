@@ -4,9 +4,10 @@ SUBDIRS = \
 	include \
 	common \
 	libcstring \
-	liberror \
+	libcerror \
 	libuna \
-	libsystem \
+	libcsystem \
+	libcfile \
 	unatools \
 	po \
 	documents \
@@ -52,7 +53,7 @@ lib: library
 library:
 	cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS)
 	cd $(srcdir)/libcstring && $(MAKE) $(AM_MAKEFLAGS)
-	cd $(srcdir)/liberror && $(MAKE) $(AM_MAKEFLAGS)
+	cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS)
 	cd $(srcdir)/libuna && $(MAKE) $(AM_MAKEFLAGS)
 
 distclean: clean
@@ -69,8 +70,9 @@ distclean: clean
 
 splint:
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libsystem && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcsystem && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
 

@@ -25,10 +25,9 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libuna_extern.h"
 #include "libuna_inline.h"
+#include "libuna_libcerror.h"
 #include "libuna_types.h"
 
 #if defined( __cplusplus )
@@ -40,7 +39,7 @@ int libuna_utf7_stream_size_from_utf8(
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf7_stream_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_utf7_stream_copy_from_utf8(
@@ -48,7 +47,7 @@ int libuna_utf7_stream_copy_from_utf8(
      size_t utf7_stream_size,
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 /* The functionality for libuna_utf7_stream_copy_to_utf8 is implemented by
  * libuna_utf8_string_copy_from_utf7_stream
@@ -59,7 +58,7 @@ int libuna_utf7_stream_size_from_utf16(
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf7_stream_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_utf7_stream_copy_from_utf16(
@@ -67,7 +66,7 @@ int libuna_utf7_stream_copy_from_utf16(
      size_t utf7_stream_size,
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 /* The functionality for libuna_utf7_stream_copy_to_utf16 is implemented by
  * libuna_utf16_string_copy_from_utf7_stream
@@ -78,7 +77,7 @@ int libuna_utf7_stream_size_from_utf32(
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf7_stream_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_utf7_stream_copy_from_utf32(
@@ -86,7 +85,7 @@ int libuna_utf7_stream_copy_from_utf32(
      size_t utf7_stream_size,
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 /* The functionality for libuna_utf7_stream_copy_to_utf32 is implemented by
  * libuna_utf32_string_copy_from_utf7_stream

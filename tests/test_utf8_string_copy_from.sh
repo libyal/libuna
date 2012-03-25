@@ -26,7 +26,7 @@ EXIT_IGNORE=77;
 
 test_utf8_string_copy_from()
 { 
-	echo "Testing utf8_string copy from function";
+	echo "Testing UTF-8 string copy from function";
 
 	./${UNA_TEST_UTF8_STRING_COPY_FROM};
 

@@ -835,7 +835,7 @@ LIBUNA_EXTERN \
 int libuna_utf16_stream_size_from_utf16(
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     size_t utf16_stream_size,
+     size_t *utf16_stream_size,
      libuna_error_t **error );
 
 /* Copies an UTF-16 stream from an UTF-16 string
@@ -861,7 +861,7 @@ LIBUNA_EXTERN \
 int libuna_utf16_stream_size_from_utf32(
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     size_t utf16_stream_size,
+     size_t *utf16_stream_size,
      libuna_error_t **error );
 
 /* Copies an UTF-16 stream from an UTF-32 string
@@ -1160,7 +1160,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_size_from_utf8(
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
-     size_t utf32_stream_size,
+     size_t *utf32_stream_size,
      libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-8 string
@@ -1186,7 +1186,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_size_from_utf16(
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
-     size_t utf32_stream_size,
+     size_t *utf32_stream_size,
      libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-16 string
@@ -1212,7 +1212,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_size_from_utf32(
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     size_t utf32_stream_size,
+     size_t *utf32_stream_size,
      libuna_error_t **error );
 
 /* Copies an UTF-32 stream from an UTF-32 string
