@@ -29,9 +29,6 @@
 
 #include <libcsystem_date_time.h>
 #include <libcsystem_definitions.h>
-#include <libcsystem_directory.h>
-#include <libcsystem_directory_entry.h>
-#include <libcsystem_error_string.h>
 #include <libcsystem_file_io.h>
 #include <libcsystem_file_stream.h>
 #include <libcsystem_getopt.h>

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120325],
+ [20120327],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -54,11 +54,14 @@ AX_LIBCSTRING_CHECK_ENABLE
 dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
 
-dnl Check for enabling libcerror for cross-platform C generic system functions
+dnl Check for enabling libcsystem for cross-platform C generic system functions
 AX_LIBCSYSTEM_CHECK_ENABLE
 
-dnl Check for enabling libcerror for cross-platform C file functions
+dnl Check for enabling libcfile for cross-platform C file functions
 AX_LIBCFILE_CHECK_ENABLE
+
+dnl Check for enabling libcdirectory for cross-platform C directory functions
+AX_LIBCDIRECTORY_CHECK_ENABLE
 
 dnl Check if unatools should be build as static executables
 AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
@@ -103,6 +106,7 @@ AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([libcfile/Makefile])
+AC_CONFIG_FILES([libcdirectory/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
@@ -135,6 +139,7 @@ Building:
    libcerror support:                               $ac_cv_libcerror
    libcsystem support:                              $ac_cv_libcsystem
    libcfile support:                                $ac_cv_libcfile
+   libcdirectory support:                           $ac_cv_libcdirectory
 
 Features:
    unatools are build as static executables:        $ac_cv_enable_static_executables

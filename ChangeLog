@@ -1,4 +1,7 @@
 TODO
+* libcsystem rewrite
+  - remove libcdirectory
+  - rename directory function in path
 * update msvscpp and codegear files
 * base16
   - add separate function to convert a byte like base64 sixtet
@@ -84,6 +87,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120327
+* code clean up
 
 20120325
 * worked on tests

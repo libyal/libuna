@@ -1,6 +1,6 @@
 dnl Functions for libcsystem
 dnl
-dnl Version: 20120325
+dnl Version: 20120327
 
 dnl Function to detect if libcsystem is available
 dnl ac_libcsystem_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
@@ -218,11 +218,8 @@ AC_DEFUN([AX_LIBCSYSTEM_CHECK_LOCAL],
  dnl libcsystem/libcsystem_notify.h and libcsystem/libcsystem_string.h
  AC_CHECK_HEADERS([errno.h])
 
- dnl Headers included in libcsystem/libcsystem_directory.h, libcsystem/libcsystem_file_io.h
+ dnl Headers included in libcsystem/libcsystem_file_io.h, libcsystem/libcsystem_path.c
  AC_CHECK_HEADERS([sys/stat.h])
-
- dnl Headers included in libcsystem/libcsystem_directory.h
- AC_CHECK_HEADERS([dirent.h])
 
  dnl Headers included in libcsystem/libcsystem_file_io.h
  AC_CHECK_HEADERS([fcntl.h unistd.h])
@@ -336,18 +333,6 @@ AC_DEFUN([AX_LIBCSYSTEM_CHECK_LOCAL],
    [1])
   ])
  
- dnl Directory functions used in libcsystem/libcsystem_directory.h
- AC_CHECK_FUNCS([chdir closedir opendir readdir_r])
- 
- AS_IF(
-  [test "x$ac_cv_func_chdir" != xyes],
-  [AC_MSG_FAILURE(
-   [Missing functions: chdir],
-   [1])
-  ])
- 
- AX_LIBCSYSTEM_CHECK_FUNC_MKDIR
- 
  dnl Check for error string functions used in libcsystem/libcsystem_error_string.c
  AC_FUNC_STRERROR_R()
  
@@ -367,7 +352,14 @@ AC_DEFUN([AX_LIBCSYSTEM_CHECK_LOCAL],
  AC_CHECK_FUNCS([getopt])
  
  dnl Path functions used in libcsystem/libcsystem_path.h
- AC_CHECK_FUNCS([getcwd])
+ AC_CHECK_FUNCS([chdir getcwd])
+ 
+ AS_IF(
+  [test "x$ac_cv_func_chdir" != xyes],
+  [AC_MSG_FAILURE(
+   [Missing functions: chdir],
+   [1])
+  ])
  
  AS_IF(
   [test "x$ac_cv_func_getcwd" != xyes],
@@ -376,6 +368,8 @@ AC_DEFUN([AX_LIBCSYSTEM_CHECK_LOCAL],
    [1])
   ])
  
+ AX_LIBCSYSTEM_CHECK_FUNC_MKDIR
+
  dnl Check for IO buffering functions in libcsystem/libcsystem_support.c
  AC_CHECK_FUNCS([setvbuf])
 
