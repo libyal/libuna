@@ -25,6 +25,10 @@
 #include <common.h>
 #include <types.h>
 
+#if defined( HAVE_DIRENT_H )
+#include <dirent.h>
+#endif
+
 #include "libcdirectory_directory_entry.h"
 #include "libcdirectory_extern.h"
 #include "libcdirectory_libcerror.h"
@@ -37,13 +41,18 @@ extern "C" {
 
 typedef struct libcdirectory_internal_directory libcdirectory_internal_directory_t;
 
+#if defined( WINAPI ) && !defined( USE_CRT_FUNCTIONS )
 struct libcdirectory_internal_directory
 {
-#if defined( WINAPI )
-#if !defined( USE_CRT_FUNCTIONS )
 	HANDLE handle;
 
-#elif defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
+	libcdirectory_internal_directory_entry_t *first_entry;
+};
+
+#elif defined( WINAPI ) && defined( USE_CRT_FUNCTIONS )
+struct libcdirectory_internal_directory
+{
+#if defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
 	int handle;
 
 #elif defined( __BORLANDC__ )
@@ -53,12 +62,17 @@ struct libcdirectory_internal_directory
 	intptr_t handle;
 
 #endif
-	libcdirectory_internal_directory_entry_t *first_entry;
 
-#else
-	DIR *stream;
-#endif
+	libcdirectory_internal_directory_entry_t *first_entry;
 };
+
+#elif defined( HAVE_DIRENT_H )
+struct libcdirectory_internal_directory
+{
+	DIR *stream;
+};
+
+#endif
 
 LIBCDIRECTORY_EXTERN \
 int libcdirectory_directory_initialize(

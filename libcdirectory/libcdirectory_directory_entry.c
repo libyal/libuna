@@ -153,7 +153,10 @@ int libcdirectory_directory_entry_free(
 	return( 1 );
 }
 
+#if defined( WINAPI ) && ( WINVER >= 0x0501 ) && !defined( USE_CRT_FUNCTIONS )
+
 /* Retrieves the directory entry type
+ * This function uses the WINAPI directory entry structure for Windows XP or later
  * Returns 1 if successful or -1 on error
  */
 int libcdirectory_directory_entry_get_type(
@@ -188,8 +191,6 @@ int libcdirectory_directory_entry_get_type(
 
 		return( 1 );
 	}
-#if defined( WINAPI )
-#if !defined( USE_CRT_FUNCTIONS )
 	if( ( internal_directory_entry->find_data.dwFileAttributes & FILE_ATTRIBUTE_DEVICE ) != 0 )
 	{
 		*type = LIBCDIRECTORY_DIRECTORY_ENTRY_TYPE_DEVICE;
@@ -206,7 +207,53 @@ int libcdirectory_directory_entry_get_type(
 	{
 		*type = LIBCDIRECTORY_DIRECTORY_ENTRY_TYPE_FILE;
 	}
-#elif defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
+	return( 1 );
+}
+
+#elif defined( WINAPI ) && !defined( USE_CRT_FUNCTIONS )
+
+/* TODO */
+#error WINAPI directory entry structure for Windows 2000 or earlier NOT implemented yet
+
+#elif defined( WINAPI ) && defined( USE_CRT_FUNCTIONS )
+
+/* Retrieves the directory entry type
+ * This function uses the Visual Studio C runtime library directory entry structure or equivalent
+ * Returns 1 if successful or -1 on error
+ */
+int libcdirectory_directory_entry_get_type(
+     libcdirectory_directory_entry_t *directory_entry,
+     uint8_t *type,
+     libcerror_error_t **error )
+{
+	libcdirectory_internal_directory_entry_t *internal_directory_entry = NULL;
+	static char *function                                              = "libcdirectory_directory_entry_get_type";
+
+	if( directory_entry == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid directory entry.",
+		 function );
+
+		return( 1 );
+	}
+	internal_directory_entry = (libcdirectory_internal_directory_entry_t *) directory_entry;
+
+	if( type == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid type.",
+		 function );
+
+		return( 1 );
+	}
+#if defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
 	if( ( internal_directory_entry->find_data.ff_attrib & FA_DIREC ) != 0 )
 	{
 		*type = LIBCDIRECTORY_DIRECTORY_ENTRY_TYPE_DIRECTORY;
@@ -225,7 +272,47 @@ int libcdirectory_directory_entry_get_type(
 		*type = LIBCDIRECTORY_DIRECTORY_ENTRY_TYPE_FILE;
 	}
 #endif
-#else
+	return( 1 );
+}
+
+#elif defined( HAVE_DIRENT_H )
+
+/* Retrieves the directory entry type
+ * This function uses the POSIX directory entry structure
+ * Returns 1 if successful or -1 on error
+ */
+int libcdirectory_directory_entry_get_type(
+     libcdirectory_directory_entry_t *directory_entry,
+     uint8_t *type,
+     libcerror_error_t **error )
+{
+	libcdirectory_internal_directory_entry_t *internal_directory_entry = NULL;
+	static char *function                                              = "libcdirectory_directory_entry_get_type";
+
+	if( directory_entry == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid directory entry.",
+		 function );
+
+		return( 1 );
+	}
+	internal_directory_entry = (libcdirectory_internal_directory_entry_t *) directory_entry;
+
+	if( type == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid type.",
+		 function );
+
+		return( 1 );
+	}
 	if( ( internal_directory_entry->entry.d_type == DT_BLK )
 	 || ( internal_directory_entry->entry.d_type == DT_CHR ) )
 	{
@@ -262,11 +349,17 @@ int libcdirectory_directory_entry_get_type(
 
 		return( -1 );
 	}
-#endif
 	return( 1 );
 }
 
+#else
+#error Missing directory entry structure definition
+#endif
+
+#if defined( WINAPI ) && ( WINVER >= 0x0501 ) && !defined( USE_CRT_FUNCTIONS )
+
 /* Retrieves the directory entry name
+ * This function uses the WINAPI directory entry structure for Windows XP or later
  * Returns 1 if successful or -1 on error
  */
 int libcdirectory_directory_entry_get_name(
@@ -301,16 +394,100 @@ int libcdirectory_directory_entry_get_name(
 
 		return( 1 );
 	}
-#if defined( WINAPI )
-#if !defined( USE_CRT_FUNCTIONS )
 	*name = internal_directory_entry->find_data.cFileName;
 
-#elif defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
+	return( 1 );
+}
+
+#elif defined( WINAPI ) && !defined( USE_CRT_FUNCTIONS )
+
+/* TODO */
+#error WINAPI directory entry structure for Windows 2000 or earlier NOT implemented yet
+
+#elif defined( WINAPI ) && defined( USE_CRT_FUNCTIONS )
+
+/* Retrieves the directory entry name
+ * This function uses the Visual Studio C runtime library directory entry structure or equivalent
+ * Returns 1 if successful or -1 on error
+ */
+int libcdirectory_directory_entry_get_name(
+     libcdirectory_directory_entry_t *directory_entry,
+     libcstring_system_character_t **name,
+     libcerror_error_t **error )
+{
+	libcdirectory_internal_directory_entry_t *internal_directory_entry = NULL;
+	static char *function                                              = "libcdirectory_directory_entry_get_name";
+
+	if( directory_entry == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid directory entry.",
+		 function );
+
+		return( 1 );
+	}
+	internal_directory_entry = (libcdirectory_internal_directory_entry_t *) directory_entry;
+
+	if( name == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid name.",
+		 function );
+
+		return( 1 );
+	}
+#if defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
 	*name = internal_directory_entry->find_data.ff_name;
 #else
 	*name = internal_directory_entry->find_data.name;
 #endif
-#else
+	return( 1 );
+}
+
+#elif defined( HAVE_DIRENT_H )
+
+/* Retrieves the directory entry name
+ * This function uses the POSIX directory entry structure
+ * Returns 1 if successful or -1 on error
+ */
+int libcdirectory_directory_entry_get_name(
+     libcdirectory_directory_entry_t *directory_entry,
+     libcstring_system_character_t **name,
+     libcerror_error_t **error )
+{
+	libcdirectory_internal_directory_entry_t *internal_directory_entry = NULL;
+	static char *function                                              = "libcdirectory_directory_entry_get_name";
+
+	if( directory_entry == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid directory entry.",
+		 function );
+
+		return( 1 );
+	}
+	internal_directory_entry = (libcdirectory_internal_directory_entry_t *) directory_entry;
+
+	if( name == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid name.",
+		 function );
+
+		return( 1 );
+	}
 /* Sanity check
  */
 #if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
@@ -318,7 +495,11 @@ int libcdirectory_directory_entry_get_name(
 #endif
 
 	*name = internal_directory_entry->entry.d_name;
-#endif
+
 	return( 1 );
 }
+
+#else
+#error Missing directory entry structure definition
+#endif
 

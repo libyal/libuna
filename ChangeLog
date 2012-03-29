@@ -88,14 +88,17 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20120329
+* libsystem: code clean up
+
 20120327
-* code clean up
+* libsystem: code clean up
 
 20120325
 * worked on tests
 * UTF-7 functions added support for end-of-string character
 * bug fixes in include header
-* code clean up
+* libsystem: code clean up
 
 20120322
 * changed endianess detection in UTF streams

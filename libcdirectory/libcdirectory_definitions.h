@@ -29,11 +29,11 @@
 extern "C" {
 #endif
 
-#define LIBCDIRECTORY_VERSION		 		20120327
+#define LIBCDIRECTORY_VERSION		 		20120329
 
 /* The libcdirectory version string
  */
-#define LIBCDIRECTORY_VERSION_STRING			"20120327"
+#define LIBCDIRECTORY_VERSION_STRING			"20120329"
 
 /* The directory entry type definitions
  */

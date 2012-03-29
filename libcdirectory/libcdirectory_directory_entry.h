@@ -31,12 +31,14 @@
 
 #if defined( __BORLANDC__ ) && __BORLANDC__ <= 0x0520
 #include <dir.h>
+#endif
 
-#elif defined( HAVE_IO_H ) || defined( WINAPI )
-#include <io.h>
-
-#elif defined( HAVE_DIRENT_H )
+#if defined( HAVE_DIRENT_H )
 #include <dirent.h>
+#endif
+
+#if defined( HAVE_IO_H ) || defined( WINAPI )
+#include <io.h>
 #endif
 
 #include "libcdirectory_extern.h"
