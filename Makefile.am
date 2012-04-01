@@ -6,10 +6,8 @@ SUBDIRS = \
 	libcstring \
 	libcerror \
 	libuna \
-	libcsystem \
 	libcfile \
-	libcdirectory \
-	libcpath \
+	libcsystem \
 	unatools \
 	po \
 	documents \
@@ -74,9 +72,7 @@ splint:
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcdirectory && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcpath && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
 

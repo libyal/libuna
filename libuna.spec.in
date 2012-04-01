@@ -7,6 +7,8 @@ License: LGPL
 Source: %{name}-%{version}.tar.gz
 URL: http://libuna.sourceforge.net
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+@libuna_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcstring_spec_requires@
+@libuna_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcstring_spec_build_requires@
 
 %description
 libuna is a library to support Unicode and ASCII (byte stream) conversions
@@ -22,7 +24,8 @@ Header files and libraries for developing applications for libuna.
 %package tools
 Summary: Several tools for converting Unicode and ASCII (byte stream) based text
 Group: Applications/System
-Requires: libuna = %{version}-%{release}
+Requires: libuna = %{version}-%{release} @ax_libcfile_spec_requires@ @ax_libcsystem_spec_requires@
+@libuna_tools_spec_build_requires@ @ax_libcfile_spec_build_requires@ @ax_libcsystem_spec_build_requires@
 
 %description tools
 Several tools for converting Unicode and ASCII (byte stream) based text
@@ -67,6 +70,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
+* Sun Apr  1 2012 Joachim Metz <jbmetz@users.sourceforge.net> 20120401-1
+- Changes for libsystem code clean up
+
 * Tue Oct  4 2011 Joachim Metz <jbmetz@users.sourceforge.net> 20111004-1
 - Updated READMEs
 

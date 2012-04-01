@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libuna_dll", "libuna_dll\libuna_dll.vcproj", "{B5225323-AC67-411D-8FBA-199E9467FAB5}"
 	ProjectSection(ProjectDependencies) = postProject
+		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
@@ -10,16 +11,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unaexport", "unaexport\unae
 	ProjectSection(ProjectDependencies) = postProject
 		{B5225323-AC67-411D-8FBA-199E9467FAB5} = {B5225323-AC67-411D-8FBA-199E9467FAB5}
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
+		{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0} = {4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}
 		{A2B861D5-6751-43A9-B085-8D48F8754AC5} = {A2B861D5-6751-43A9-B085-8D48F8754AC5}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liberror", "liberror\liberror.vcproj", "{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcerror", "libcerror\libcerror.vcproj", "{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsystem", "libsystem\libsystem.vcproj", "{A2B861D5-6751-43A9-B085-8D48F8754AC5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcsystem", "libcsystem\libcsystem.vcproj", "{A2B861D5-6751-43A9-B085-8D48F8754AC5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B5225323-AC67-411D-8FBA-199E9467FAB5} = {B5225323-AC67-411D-8FBA-199E9467FAB5}
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
@@ -27,6 +29,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsystem", "libsystem\libs
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstring", "libcstring\libcstring.vcproj", "{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcfile", "libcfile\libcfile.vcproj", "{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
+		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +62,10 @@ Global
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.Release|Win32.Build.0 = Release|Win32
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.VSDebug|Win32.Build.0 = VSDebug|Win32
+		{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}.Release|Win32.ActiveCfg = Release|Win32
+		{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}.Release|Win32.Build.0 = Release|Win32
+		{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{4C93BDD3-1804-47F3-9B34-F2DE0CAE1AE0}.VSDebug|Win32.Build.0 = VSDebug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

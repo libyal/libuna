@@ -1,7 +1,8 @@
 EXTRA_DIST = \
+	libcerror/libcerror.vcproj \
+	libcfile/libcfile.vcproj \
 	libcstring/libcstring.vcproj \
-	liberror/liberror.vcproj \
-	libsystem/libsystem.vcproj \
+	libcsystem/libcsystem.vcproj \
 	libuna_dll/libuna_dll.vcproj \
 	unaexport/unaexport.vcproj \
 	libuna.sln

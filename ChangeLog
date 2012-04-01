@@ -1,9 +1,4 @@
 TODO
-* libcsystem rewrite
-  - remove libcdirectory if not used
-  - remove libcpath if not used
-  - rename directory function in path
-* update msvscpp and codegear files
 * base16
   - add separate function to convert a byte like base64 sixtet
 * unabase:
@@ -91,6 +86,8 @@ Note:
 
 20120401
 * libsystem: code clean up
+* updated .pc and .spec file
+* updated msvscpp and codegear files
 
 20120329
 * libsystem: code clean up

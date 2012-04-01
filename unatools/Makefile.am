@@ -25,6 +25,7 @@ unabase_SOURCES = \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libcstring.h \
+	unatools_libcsystem.h \
 	unatools_libuna.h
 
 unabase_LDADD = \
@@ -47,6 +48,7 @@ unaexport_SOURCES = \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libcstring.h \
+	unatools_libcsystem.h \
 	unatools_libuna.h
 
 unaexport_LDADD = \

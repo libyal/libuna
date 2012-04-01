@@ -54,20 +54,32 @@ AX_LIBCSTRING_CHECK_ENABLE
 dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
 
-dnl Check for enabling libcsystem for cross-platform C generic system functions
-AX_LIBCSYSTEM_CHECK_ENABLE
-
 dnl Check for enabling libcfile for cross-platform C file functions
 AX_LIBCFILE_CHECK_ENABLE
 
-dnl Check for enabling libcdirectory for cross-platform C directory functions
-AX_LIBCDIRECTORY_CHECK_ENABLE
-
-dnl Check for enabling libcpath for cross-platform C path functions
-AX_LIBCPATH_CHECK_ENABLE
+dnl Check for enabling libcsystem for cross-platform C generic system functions
+AX_LIBCSYSTEM_CHECK_ENABLE
 
 dnl Check if unatools should be build as static executables
 AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
+
+dnl Check if requires and build requires should be set in spec file
+AS_IF(
+ [test "x$ac_cv_libstring" = xyes || test "x$ac_cv_libcerror" = xyes],
+ [AC_SUBST(
+  [libevt_spec_requires],
+  [Requires:])
+ AC_SUBST(
+  [libevt_spec_build_requires],
+  [BuildRequires:])
+ ])
+
+AS_IF(
+ [test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libcsystem" = xyes],
+ [AC_SUBST(
+  [libevt_tools_spec_build_requires],
+  [BuildRequires:])
+ ])
 
 dnl Set memwatch support
 ac_cv_enable_memwatch=no
@@ -107,10 +119,8 @@ AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([libcstring/Makefile])
 AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
-AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([libcfile/Makefile])
-AC_CONFIG_FILES([libcdirectory/Makefile])
-AC_CONFIG_FILES([libcpath/Makefile])
+AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
@@ -139,14 +149,12 @@ AC_OUTPUT
 dnl Print a summary
 AC_MSG_NOTICE([
 Building:
-   libcstring support:                              $ac_cv_libcstring
-   libcerror support:                               $ac_cv_libcerror
-   libcsystem support:                              $ac_cv_libcsystem
-   libcfile support:                                $ac_cv_libcfile
-   libcdirectory support:                           $ac_cv_libcdirectory
-   libcpath support:                                $ac_cv_libcpath
+   libcstring support:                       $ac_cv_libcstring
+   libcerror support:                        $ac_cv_libcerror
+   libcfile support:                         $ac_cv_libcfile
+   libcsystem support:                       $ac_cv_libcsystem
 
 Features:
-   unatools are build as static executables:        $ac_cv_enable_static_executables
+   unatools are build as static executables: $ac_cv_enable_static_executables
 ]);
 

@@ -2,10 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="unaexport"
-	ProjectGUID="{6B758D1D-FE05-49C6-836B-9B8AC8DC4FCD}"
-	RootNamespace="unaexport"
-	Keyword="Win32Proj"
+	Name="libcsystem"
+	ProjectGUID="{A2B861D5-6751-43A9-B085-8D48F8754AC5}"
+	RootNamespace="libcsystem"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -20,9 +19,8 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			CharacterSet="1"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -41,14 +39,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\libcerror;..\..\libcfile;..\..\libcsystem"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING;HAVE_LOCAL_LIBCERROR;HAVE_LOCAL_LIBCFILE;HAVE_LOCAL_LIBCSYSTEM;LIBUNA_DLL_IMPORT"
+				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\libcerror;..\..\libuna"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING;HAVE_LOCAL_LIBCERROR;HAVE_LOCAL_LIBUNA;HAVE_LOCAL_LIBCSYSTEM"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
+				WarnAsError="false"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -60,22 +57,13 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories=""
-				GenerateDebugInformation="false"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\libcsystem.lib"
+				ModuleDefinitionFile=""
+				IgnoreAllDefaultLibraries="false"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -87,9 +75,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -97,9 +82,8 @@
 			Name="VSDebug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			CharacterSet="1"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -119,15 +103,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\libcerror;..\..\libcfile;..\..\libcsystem"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING;HAVE_LOCAL_LIBCERROR;HAVE_LOCAL_LIBCFILE;HAVE_LOCAL_LIBCSYSTEM;LIBUNA_DLL_IMPORT"
+				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\libcerror;..\..\libuna"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING;HAVE_LOCAL_LIBCERROR;HAVE_LOCAL_LIBUNA;HAVE_LOCAL_LIBCSYSTEM"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="false"
+				WarnAsError="false"
 				DebugInformationFormat="3"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -139,22 +123,13 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories=""
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\libcsystem.lib"
+				ModuleDefinitionFile=""
+				IgnoreAllDefaultLibraries="false"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -164,9 +139,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -182,27 +154,31 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\unatools\byte_size_string.c"
+				RelativePath="..\..\libcsystem\libcsystem_date_time.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\export_handle.c"
+				RelativePath="..\..\libcsystem\libcsystem_getopt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\process_status.c"
+				RelativePath="..\..\libcsystem\libcsystem_glob.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unaexport.c"
+				RelativePath="..\..\libcsystem\libcsystem_notify.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unainput.c"
+				RelativePath="..\..\libcsystem\libcsystem_signal.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unaoutput.c"
+				RelativePath="..\..\libcsystem\libcsystem_string.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_support.c"
 				>
 			</File>
 		</Filter>
@@ -212,47 +188,67 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\unatools\byte_size_string.h"
+				RelativePath="..\..\libcsystem\libcsystem_date_time.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\export_handle.h"
+				RelativePath="..\..\libcsystem\libcsystem_definitions.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\process_status.h"
+				RelativePath="..\..\libcsystem\libcsystem_file_io.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unacommon.h"
+				RelativePath="..\..\libcsystem\libcsystem_file_stream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unainput.h"
+				RelativePath="..\..\libcsystem\libcsystem_find.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unaoutput.h"
+				RelativePath="..\..\libcsystem\libcsystem_getopt.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libcerror.h"
+				RelativePath="..\..\libcsystem\libcsystem_glob.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libcfile.h"
+				RelativePath="..\..\libcsystem\libcsystem_i18n.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libcstring.h"
+				RelativePath="..\..\libcsystem\libcsystem_libcerror.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libcsystem.h"
+				RelativePath="..\..\libcsystem\libcsystem_libcstring.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\unatools\unatools_libuna.h"
+				RelativePath="..\..\libcsystem\libcsystem_libuna.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_notify.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_signal.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_string.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_support.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcsystem\libcsystem_unused.h"
 				>
 			</File>
 		</Filter>

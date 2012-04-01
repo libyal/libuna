@@ -40,7 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\include;..\..\common"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING"
+				SmallerTypeCheck="true"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				WarnAsError="false"
@@ -103,7 +104,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\include;..\..\common"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="3"
@@ -157,6 +158,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libcstring\libcstring_support.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libcstring\libcstring_system_string.c"
 				>
 			</File>
@@ -171,15 +176,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\libcstring\libcstring.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libcstring\libcstring_codepage.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\libcstring\libcstring_definitions.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcstring\libcstring_extern.h"
 				>
 			</File>
 			<File
@@ -191,7 +196,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libcstring\libcstring_string.h"
+				RelativePath="..\..\libcstring\libcstring_support.h"
 				>
 			</File>
 			<File

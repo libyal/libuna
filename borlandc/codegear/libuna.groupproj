@@ -6,17 +6,20 @@
 			<Projects Include="libcstring\libcstring.cbproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="liberror\liberror.cbproj">
+			<Projects Include="libcerror\libcerror.cbproj">
 				<Dependencies>libcstring\libcstring.cbproj</Dependencies>
 			</Projects>
 			<Projects Include="libuna\libuna.cbproj">
-				<Dependencies>liberror\liberror.cbproj</Dependencies>
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
 			</Projects>
-			<Projects Include="libsystem\libsystem.cbproj">
-				<Dependencies>liberror\liberror.cbproj;libuna\libuna.cbproj;libcstring\libcstring.cbproj</Dependencies>
+			<Projects Include="libcfile\libcfile.cbproj">
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
+			</Projects>
+			<Projects Include="libcsystem\libcsystem.cbproj">
+				<Dependencies>libcstring\libcstring.cbproj;libuna\libuna.cbproj;libcerror\libcerror.cbproj</Dependencies>
 			</Projects>
 			<Projects Include="unaexport\unaexport.cbproj">
-				<Dependencies>liberror\liberror.cbproj;libuna\libuna.cbproj;libsystem\libsystem.cbproj;libcstring\libcstring.cbproj</Dependencies>
+				<Dependencies>libcstring\libcstring.cbproj;libuna\libuna.cbproj;libcerror\libcerror.cbproj;libcfile\libcfile.cbproj;libcsystem\libcsystem.cbproj</Dependencies>
 			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
@@ -35,50 +38,59 @@
 		<Target Name="libcstring:Make">
 			<MSBuild Targets="Make" Projects="libcstring\libcstring.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring" Name="liberror">
-			<MSBuild Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring" Name="libcerror">
+			<MSBuild Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Clean" Name="liberror:Clean">
-			<MSBuild Targets="Clean" Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring:Clean" Name="libcerror:Clean">
+			<MSBuild Targets="Clean" Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Make" Name="liberror:Make">
-			<MSBuild Targets="Make" Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring:Make" Name="libcerror:Make">
+			<MSBuild Targets="Make" Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror" Name="libuna">
+		<Target DependsOnTargets="libcstring;libcerror" Name="libuna">
 			<MSBuild Projects="libuna\libuna.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Clean" Name="libuna:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libuna:Clean">
 			<MSBuild Targets="Clean" Projects="libuna\libuna.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Make" Name="libuna:Make">
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libuna:Make">
 			<MSBuild Targets="Make" Projects="libuna\libuna.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror;libuna;libcstring" Name="libsystem">
-			<MSBuild Projects="libsystem\libsystem.cbproj"/>
+		<Target DependsOnTargets="libcstring;libcerror" Name="libcfile">
+			<MSBuild Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Clean;libuna:Clean;libcstring:Clean" Name="libsystem:Clean">
-			<MSBuild Targets="Clean" Projects="libsystem\libsystem.cbproj"/>
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libcfile:Clean">
+			<MSBuild Targets="Clean" Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Make;libuna:Make;libcstring:Make" Name="libsystem:Make">
-			<MSBuild Targets="Make" Projects="libsystem\libsystem.cbproj"/>
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libcfile:Make">
+			<MSBuild Targets="Make" Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror;libuna;libsystem;libcstring" Name="unaexport">
+		<Target DependsOnTargets="libcstring;libuna;libcerror" Name="libcsystem">
+			<MSBuild Projects="libcsystem\libcsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Clean;libuna:Clean;libcerror:Clean" Name="libcsystem:Clean">
+			<MSBuild Targets="Clean" Projects="libcsystem\libcsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Make;libuna:Make;libcerror:Make" Name="libcsystem:Make">
+			<MSBuild Targets="Make" Projects="libcsystem\libcsystem.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring;libuna;libcerror;libcfile;libcsystem" Name="unaexport">
 			<MSBuild Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Clean;libuna:Clean;libsystem:Clean;libcstring:Clean" Name="unaexport:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libuna:Clean;libcerror:Clean;libcfile:Clean;libcsystem:Clean" Name="unaexport:Clean">
 			<MSBuild Targets="Clean" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Make;libuna:Make;libsystem:Make;libcstring:Make" Name="unaexport:Make">
+		<Target DependsOnTargets="libcstring:Make;libuna:Make;libcerror:Make;libcfile:Make;libcsystem:Make" Name="unaexport:Make">
 			<MSBuild Targets="Make" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="libcstring;liberror;libuna;libsystem;unaexport"/>
+			<CallTarget Targets="libcstring;libcerror;libuna;libcfile;libcsystem;unaexport"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="libcstring:Clean;liberror:Clean;libuna:Clean;libsystem:Clean;unaexport:Clean"/>
+			<CallTarget Targets="libcstring:Clean;libcerror:Clean;libuna:Clean;libcfile:Clean;libcsystem:Clean;unaexport:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="libcstring:Make;liberror:Make;libuna:Make;libsystem:Make;unaexport:Make"/>
+			<CallTarget Targets="libcstring:Make;libcerror:Make;libuna:Make;libcfile:Make;libcsystem:Make;unaexport:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>
