@@ -1,6 +1,5 @@
 /*
- * Library for system independent implementation of functionality
- * for programs
+ * The internal libcstring header
  *
  * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
@@ -20,39 +19,36 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UNATOOLS_LIBCSYSTEM_H )
-#define _UNATOOLS_LIBCSYSTEM_H
+#if !defined( _LIBCPATH_LIBCSTRING_H )
+#define _LIBCPATH_LIBCSTRING_H
 
-/* Define HAVE_LOCAL_LIBCSYSTEM for local use of libcsystem
+#include <common.h>
+
+/* Define HAVE_LOCAL_LIBCSTRING for local use of libcstring
  */
-#if defined( HAVE_LOCAL_LIBCSYSTEM )
+#if defined( HAVE_LOCAL_LIBCSTRING )
 
-#include <libcsystem_date_time.h>
-#include <libcsystem_definitions.h>
-#include <libcsystem_file_io.h>
-#include <libcsystem_file_stream.h>
-#include <libcsystem_getopt.h>
-#include <libcsystem_glob.h>
-#include <libcsystem_i18n.h>
-#include <libcsystem_notify.h>
-#include <libcsystem_signal.h>
-#include <libcsystem_string.h>
-#include <libcsystem_support.h>
-#include <libcsystem_unused.h>
+#include <libcstring_codepage.h>
+#include <libcstring_definitions.h>
+#include <libcstring_locale.h>
+#include <libcstring_narrow_string.h>
+#include <libcstring_system_string.h>
+#include <libcstring_types.h>
+#include <libcstring_wide_string.h>
 
-#elif defined( HAVE_LIBCSYSTEM_H )
+#elif defined( HAVE_LIBCSTRING_H )
 
-/* If libtool DLL support is enabled set LIBCSYSTEM_DLL_IMPORT
- * before including libcsystem.h
+/* If libtool DLL support is enabled set LIBCSTRING_DLL_IMPORT
+ * before including libcstring.h
  */
 #if defined( _WIN32 ) && defined( DLL_IMPORT )
-#define LIBCSYSTEM_DLL_IMPORT
+#define LIBCSTRING_DLL_IMPORT
 #endif
 
-#include <libcsystem.h>
+#include <libcstring.h>
 
 #else
-#error Missing libcsystem.h
+#error Missing libcstring.h
 #endif
 
 #endif

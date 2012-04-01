@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120329],
+ [20120401],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -63,6 +63,9 @@ AX_LIBCFILE_CHECK_ENABLE
 dnl Check for enabling libcdirectory for cross-platform C directory functions
 AX_LIBCDIRECTORY_CHECK_ENABLE
 
+dnl Check for enabling libcpath for cross-platform C path functions
+AX_LIBCPATH_CHECK_ENABLE
+
 dnl Check if unatools should be build as static executables
 AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
 
@@ -107,6 +110,7 @@ AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([libcfile/Makefile])
 AC_CONFIG_FILES([libcdirectory/Makefile])
+AC_CONFIG_FILES([libcpath/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
@@ -140,6 +144,7 @@ Building:
    libcsystem support:                              $ac_cv_libcsystem
    libcfile support:                                $ac_cv_libcfile
    libcdirectory support:                           $ac_cv_libcdirectory
+   libcpath support:                                $ac_cv_libcpath
 
 Features:
    unatools are build as static executables:        $ac_cv_enable_static_executables

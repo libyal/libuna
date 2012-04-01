@@ -1,6 +1,5 @@
 /*
- * Library for system independent implementation of functionality
- * for programs
+ * The internal libcerror header
  *
  * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
@@ -20,39 +19,33 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UNATOOLS_LIBCSYSTEM_H )
-#define _UNATOOLS_LIBCSYSTEM_H
+#if !defined( _LIBCPATH_LIBCERROR_H )
+#define _LIBCPATH_LIBCERROR_H
 
-/* Define HAVE_LOCAL_LIBCSYSTEM for local use of libcsystem
+#include <common.h>
+
+/* Define HAVE_LOCAL_LIBCERROR for local use of libcerror
  */
-#if defined( HAVE_LOCAL_LIBCSYSTEM )
+#if defined( HAVE_LOCAL_LIBCERROR )
 
-#include <libcsystem_date_time.h>
-#include <libcsystem_definitions.h>
-#include <libcsystem_file_io.h>
-#include <libcsystem_file_stream.h>
-#include <libcsystem_getopt.h>
-#include <libcsystem_glob.h>
-#include <libcsystem_i18n.h>
-#include <libcsystem_notify.h>
-#include <libcsystem_signal.h>
-#include <libcsystem_string.h>
-#include <libcsystem_support.h>
-#include <libcsystem_unused.h>
+#include <libcerror_definitions.h>
+#include <libcerror_error.h>
+#include <libcerror_system.h>
+#include <libcerror_types.h>
 
-#elif defined( HAVE_LIBCSYSTEM_H )
+#elif defined( HAVE_LIBCERROR_H )
 
-/* If libtool DLL support is enabled set LIBCSYSTEM_DLL_IMPORT
- * before including libcsystem.h
+/* If libtool DLL support is enabled set LIBCERROR_DLL_IMPORT
+ * before including libcerror.h
  */
 #if defined( _WIN32 ) && defined( DLL_IMPORT )
-#define LIBCSYSTEM_DLL_IMPORT
+#define LIBCERROR_DLL_IMPORT
 #endif
 
-#include <libcsystem.h>
+#include <libcerror.h>
 
 #else
-#error Missing libcsystem.h
+#error Missing libcerror.h
 #endif
 
 #endif

@@ -1,6 +1,7 @@
 TODO
 * libcsystem rewrite
-  - remove libcdirectory
+  - remove libcdirectory if not used
+  - remove libcpath if not used
   - rename directory function in path
 * update msvscpp and codegear files
 * base16
@@ -87,6 +88,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120401
+* libsystem: code clean up
 
 20120329
 * libsystem: code clean up
