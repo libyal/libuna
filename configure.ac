@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120401],
+ [20120403],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -65,19 +65,19 @@ AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
 
 dnl Check if requires and build requires should be set in spec file
 AS_IF(
- [test "x$ac_cv_libstring" = xyes || test "x$ac_cv_libcerror" = xyes],
+ [test "x$ac_cv_libcstring" = xyes || test "x$ac_cv_libcerror" = xyes],
  [AC_SUBST(
-  [libevt_spec_requires],
+  [libuna_spec_requires],
   [Requires:])
  AC_SUBST(
-  [libevt_spec_build_requires],
+  [libuna_spec_build_requires],
   [BuildRequires:])
  ])
 
 AS_IF(
  [test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libcsystem" = xyes],
  [AC_SUBST(
-  [libevt_tools_spec_build_requires],
+  [libuna_tools_spec_build_requires],
   [BuildRequires:])
  ])
 
