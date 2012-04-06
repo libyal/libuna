@@ -1,6 +1,6 @@
 dnl Functions for libcfile
 dnl
-dnl Version: 20120405
+dnl Version: 20120406
 
 dnl Function to detect if libcfile is available
 dnl ac_libcfile_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
@@ -55,12 +55,12 @@ AC_DEFUN([AX_LIBCFILE_CHECK_LIB],
     [ac_cv_libcfile=no])
    AC_CHECK_LIB(
     cfile,
-    libcfile_file_read,
+    libcfile_file_read_buffer,
     [ac_cv_libcfile_dummy=yes],
     [ac_cv_libcfile=no])
    AC_CHECK_LIB(
     cfile,
-    libcfile_file_write,
+    libcfile_file_write_buffer,
     [ac_cv_libcfile_dummy=yes],
     [ac_cv_libcfile=no])
    AC_CHECK_LIB(
@@ -73,6 +73,21 @@ AC_DEFUN([AX_LIBCFILE_CHECK_LIB],
     libcfile_file_resize,
     [ac_cv_libcfile_dummy=yes],
     [ac_cv_libcfile=no])
+   AC_CHECK_LIB(
+    cfile,
+    libcfile_file_is_open,
+    [ac_cv_libcfile_dummy=yes],
+    [ac_cv_libcfile=no])
+   AC_CHECK_LIB(
+    cfile,
+    libcfile_file_get_offset,
+    [ac_cv_libcfile_dummy=yes],
+    [ac_cv_libcfile=no])
+   AC_CHECK_LIB(
+    cfile,
+    libcfile_file_get_size,
+    [ac_cv_libcfile_dummy=yes],
+    [ac_cv_libcfile=no])
 
    AS_IF(
     [test "x$ac_cv_enable_wide_character_type" != xno],
@@ -82,6 +97,23 @@ AC_DEFUN([AX_LIBCFILE_CHECK_LIB],
      [ac_cv_libcfile_dummy=yes],
      [ac_cv_libcfile=no])
     ])
+
+   dnl Support functions
+   AC_CHECK_LIB(
+    cfile,
+    libcfile_file_exists,
+    [ac_cv_libcfile_dummy=yes],
+    [ac_cv_libcfile=no])
+
+   AS_IF(
+    [test "x$ac_cv_enable_wide_character_type" != xno],
+    [AC_CHECK_LIB(
+     cfile,
+     libcfile_file_exists_wide,
+     [ac_cv_libcfile_dummy=yes],
+     [ac_cv_libcfile=no])
+    ])
+
    ])
   ])
 
@@ -109,21 +141,25 @@ AC_DEFUN([AX_LIBCFILE_CHECK_LIB],
 dnl Function to detect if libcfile dependencies are available
 AC_DEFUN([AX_LIBCFILE_CHECK_LOCAL],
  [dnl Headers included in libcfile/libcfile_file.h and libcfile/libcfile_support.h
- AC_CHECK_HEADERS([errno.h])
+ AC_CHECK_HEADERS([errno.h sys/stat.h])
 
  dnl Headers included in libcfile/libcfile_file.h
  AC_CHECK_HEADERS([fcntl.h unistd.h])
 
- dnl Headers included in libcfile/libcfile_support.h
- AC_CHECK_HEADERS([sys/stat.h])
-
  dnl File input/output functions used in libcfile/libcfile_file.h
- AC_CHECK_FUNCS([close ftruncate lseek open read write])
+ AC_CHECK_FUNCS([close fstat ftruncate lseek open read write])
 
  AS_IF(
   [test "x$ac_cv_func_close" != xyes],
   [AC_MSG_FAILURE(
    [Missing function: close],
+   [1])
+  ])
+ 
+ AS_IF(
+  [test "x$ac_cv_func_fstat" != xyes],
+  [AC_MSG_FAILURE(
+   [Missing function: fstat],
    [1])
   ])
  
@@ -189,7 +225,7 @@ AC_DEFUN([AX_LIBCFILE_CHECK_ENABLE],
 
  dnl Check for a pkg-config file
  AS_IF(
-  [test "x$PKGCONFIG" != "x"],
+  [test "x$cross_compiling" != "xyes" && test "x$PKGCONFIG" != "x"],
   [PKG_CHECK_MODULES(
    [libcfile],
    [libcfile >= 20120405],

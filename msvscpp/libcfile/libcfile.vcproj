@@ -154,7 +154,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\libcfile\libcfile_error.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libcfile\libcfile_file.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcfile\libcfile_support.c"
 				>
 			</File>
 		</Filter>
@@ -165,6 +173,10 @@
 			>
 			<File
 				RelativePath="..\..\libcfile\libcfile_definitions.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcfile\libcfile_error.h"
 				>
 			</File>
 			<File
@@ -184,7 +196,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libcfile\libcfile_libuna.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcfile\libcfile_support.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libcfile\libcfile_types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libcfile\libcfile_unused.h"
 				>
 			</File>
 		</Filter>

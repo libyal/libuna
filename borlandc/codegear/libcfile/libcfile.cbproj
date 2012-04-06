@@ -38,26 +38,44 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
-			<None Include="..\..\..\libcfile\libcfile_libcstring.h">
-				<BuildOrder>6</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcfile\libcfile_libcerror.h">
-				<BuildOrder>5</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcfile\libcfile_file.h">
-				<BuildOrder>4</BuildOrder>
-			</None>
 			<None Include="..\..\..\libcfile\libcfile_definitions.h">
-				<BuildOrder>1</BuildOrder>
-			</None>
-			<None Include="..\..\..\libcfile\libcfile_types.h">
 				<BuildOrder>0</BuildOrder>
 			</None>
-			<CppCompile Include="..\..\..\libcfile\libcfile_file.c">
-				<BuildOrder>3</BuildOrder>
+			<CppCompile Include="..\..\..\libcfile\libcfile_error.c">
+				<BuildOrder>1</BuildOrder>
 			</CppCompile>
-			<None Include="..\..\..\libcfile\libcfile_extern.h">
+			<None Include="..\..\..\libcfile\libcfile_error.h">
 				<BuildOrder>2</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_extern.h">
+				<BuildOrder>3</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\libcfile\libcfile_file.c">
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\libcfile\libcfile_file.h">
+				<BuildOrder>5</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_libcerror.h">
+				<BuildOrder>6</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_libcstring.h">
+				<BuildOrder>7</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_libuna.h">
+				<BuildOrder>8</BuildOrder>
+			</None>
+			<CppCompile Include="..\..\..\libcfile\libcfile_support.c">
+				<BuildOrder>9</BuildOrder>
+			</CppCompile>
+			<None Include="..\..\..\libcfile\libcfile_support.h">
+				<BuildOrder>10</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_types.h">
+				<BuildOrder>11</BuildOrder>
+			</None>
+			<None Include="..\..\..\libcfile\libcfile_unused.h">
+				<BuildOrder>12</BuildOrder>
 			</None>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

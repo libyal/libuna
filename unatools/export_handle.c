@@ -299,11 +299,19 @@ int export_handle_open_input(
 
 		return( -1 );
 	}
+#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+	if( libcfile_file_open_wide(
+	     export_handle->source_file,
+	     export_handle->source_filename,
+	     LIBCFILE_OPEN_READ,
+	     error ) != 1 )
+#else
 	if( libcfile_file_open(
 	     export_handle->source_file,
 	     export_handle->source_filename,
-	     LIBCFILE_FILE_OPEN_READ,
+	     LIBCFILE_OPEN_READ,
 	     error ) != 1 )
+#endif
 	{
 		libcerror_error_set(
 		 error,
@@ -349,11 +357,19 @@ int export_handle_open_output(
 
 		return( -1 );
 	}
+#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+	if( libcfile_file_open_wide(
+	     export_handle->destination_file,
+	     export_handle->destination_filename,
+	     LIBCFILE_OPEN_WRITE_TRUNCATE,
+	     error ) != 1 )
+#else
 	if( libcfile_file_open(
 	     export_handle->destination_file,
 	     export_handle->destination_filename,
-	     LIBCFILE_FILE_OPEN_WRITE_TRUNCATE,
+	     LIBCFILE_OPEN_WRITE_TRUNCATE,
 	     error ) != 1 )
+#endif
 	{
 		libcerror_error_set(
 		 error,
@@ -1167,7 +1183,7 @@ int export_handle_export_base_encoded_input(
 	}
 	while( 1 )
 	{
-		read_count = libcfile_file_read(
+		read_count = libcfile_file_read_buffer(
 		              export_handle->source_file,
 		              source_buffer,
 		              source_buffer_size,
@@ -1474,7 +1490,7 @@ int export_handle_export_base_encoded_input(
 
 			goto on_error;
 		}
-		write_count = libcfile_file_write(
+		write_count = libcfile_file_write_buffer(
 			       export_handle->destination_file,
 			       destination_buffer,
 			       write_size,
@@ -1749,7 +1765,7 @@ int export_handle_export_text_encoded_input(
 	}
 	while( 1 )
 	{
-		read_count = libcfile_file_read(
+		read_count = libcfile_file_read_buffer(
 		              export_handle->source_file,
 		              &( source_buffer[ source_buffer_index ] ),
 		              source_buffer_size - source_buffer_index,
@@ -2109,7 +2125,7 @@ int export_handle_export_text_encoded_input(
 		}
 		if( destination_buffer_index > 0 )
 		{
-			write_count = libcfile_file_write(
+			write_count = libcfile_file_write_buffer(
 			               export_handle->destination_file,
 			               destination_buffer,
 		        	       destination_buffer_index,
