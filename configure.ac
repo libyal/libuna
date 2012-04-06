@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120403],
+ [20120405],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -18,8 +18,6 @@ AC_CANONICAL_HOST
 dnl Check for large file support
 AC_SYS_LARGEFILE
 
-dnl Check for configure arguments
-
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
 
@@ -28,8 +26,13 @@ AC_PROG_CC
 AC_PROG_GCC_TRADITIONAL
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
+
+dnl Check for libtool
 AC_PROG_LIBTOOL
 AC_SUBST(LIBTOOL_DEPS)
+
+dnl Check for pkg-config
+AC_PATH_PROG(PKGCONFIG,[pkg-config])
 
 dnl Support of internationalization (i18n)
 AM_GNU_GETTEXT([external])
@@ -63,6 +66,37 @@ AX_LIBCSYSTEM_CHECK_ENABLE
 dnl Check if unatools should be build as static executables
 AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
 
+dnl Check if DLL support is needed in unatools
+AS_IF(
+ [test "x$enable_shared" = xyes && test "x$ac_cv_enable_static_executables" = xno],
+ [AS_CASE(
+  [$host],
+  [*cygwin* | *mingw*],
+  [AC_SUBST(
+   [LIBUNA_DLL_IMPORT],
+   ["-DLIBUNA_DLL_IMPORT"])
+  ])
+ ])
+
+dnl Set additional compiler flags
+CFLAGS="$CFLAGS -Wall";
+
+dnl Set memwatch support
+ac_cv_enable_memwatch=no
+
+AS_IF(
+ [test "x$ac_cv_enable_memwatch" != xno ],
+ [AC_SUBST(
+  [MEMWATCH_CPPFLAGS],
+  ["-DMEMWATCH -DMEMWATCH_STDIO"])
+ AC_SUBST(
+  [MEMWATCH_LIBADD],
+  [../common/libmemwatch.la]) ])
+
+AM_CONDITIONAL(
+ [HAVE_MEMWATCH],
+ [test "x$ac_cv_enable_memwatch" != xno])
+
 dnl Check if requires and build requires should be set in spec file
 AS_IF(
  [test "x$ac_cv_libcstring" = xyes || test "x$ac_cv_libcerror" = xyes],
@@ -81,36 +115,10 @@ AS_IF(
   [BuildRequires:])
  ])
 
-dnl Set memwatch support
-ac_cv_enable_memwatch=no
-
-AS_IF(
- [test "x$ac_cv_enable_memwatch" != xno ],
- [AC_SUBST(
-  [MEMWATCH_CPPFLAGS],
-  ["-DMEMWATCH -DMEMWATCH_STDIO"])
- AC_SUBST(
-  [MEMWATCH_LIBADD],
-  [../common/libmemwatch.la]) ])
-
-AM_CONDITIONAL(
- [HAVE_MEMWATCH],
- [test "x$ac_cv_enable_memwatch" != xno])
-
-dnl Set additional compiler flags
-CFLAGS="$CFLAGS -Wall";
-
-dnl Check if DLL support is needed in unatools
-AS_IF(
- [test "x$enable_shared" = xyes && test "x$ac_cv_enable_static_executables" = xno],
- [AS_CASE(
-  [$host],
-  [*cygwin* | *mingw*],
-  [AC_SUBST(
-   [LIBUNA_DLL_IMPORT],
-   ["-DLIBUNA_DLL_IMPORT"])
-  ])
- ])
+dnl Set the date for dpkg files
+AC_SUBST(
+ [DATE],
+ [`date -R 2> /dev/null`])
 
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
@@ -137,6 +145,8 @@ AC_CONFIG_FILES([include/libuna/types.h])
 AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
+AC_CONFIG_FILES([dpkg/changelog])
+AC_CONFIG_FILES([dpkg/copyright])
 AC_CONFIG_FILES([macosx/Introduction.rtf])
 AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])

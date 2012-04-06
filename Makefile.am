@@ -17,6 +17,18 @@ SUBDIRS = \
 	borlandc \
 	msvscpp
 
+DPKG_FILES = \
+	dpkg/changelog \
+	dpkg/changelog.in \
+       	dpkg/compat \
+       	dpkg/control \
+       	dpkg/copyright \
+       	dpkg/copyright.in \
+       	dpkg/rules \
+       	dpkg/libuna-dev.docs \
+       	dpkg/libuna.docs \
+       	dpkg/libuna-tools.docs
+
 GETTEXT_FILES = \
 	config.rpath \
 	po/Makevars.in
@@ -33,6 +45,7 @@ EXTRA_DIST = \
 	README.macosx \
 	README.mingw \
 	README.static \
+	$(DPKG_FILES) \
 	$(GETTEXT_FILES) \
 	$(PKGCONFIG_FILES) \
         $(SPEC_FILES)

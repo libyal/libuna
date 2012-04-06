@@ -1,0 +1,29 @@
+Source: libuna
+Section: unknown
+Priority: extra
+Maintainer: Joachim Metz <jbmetz@users.sourceforge.net>
+Build-Depends: debhelper (>= 7), autotools-dev
+Standards-Version: 3.8.3
+Homepage: https://sourceforge.net/projects/libuna/
+
+Package: libuna
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Library to support Unicode and ASCII (byte stream) conversions.
+ libuna is a library to support Unicode and ASCII (byte stream) conversions.
+
+Package: libuna-dev
+Section: libdevel
+Architecture: any
+Depends: libuna (= ${Source-Version})
+Description: Header files and libraries for developing applications for libuna
+ Header files and libraries for developing applications for libuna.
+
+Package: libuna-tools
+Section: utils
+Architecture: any
+Depends: libuna (= ${Source-Version}), ${shlibs:Depends}
+Description: Several tools for converting Unicode and ASCII (byte stream) based text
+ Several tools for converting Unicode and ASCII (byte stream) based text.
+
