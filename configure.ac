@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120406],
+ [20120407],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -60,6 +60,12 @@ AX_LIBCERROR_CHECK_ENABLE
 dnl Check for enabling libcfile for cross-platform C file functions
 AX_LIBCFILE_CHECK_ENABLE
 
+dnl Check for enabling libclocale for cross-platform C locale functions
+AX_LIBCLOCALE_CHECK_ENABLE
+
+dnl Check for enabling libcnotify for cross-platform C notification functions
+AX_LIBCNOTIFY_CHECK_ENABLE
+
 dnl Check for enabling libcsystem for cross-platform C generic system functions
 AX_LIBCSYSTEM_CHECK_ENABLE
 
@@ -109,7 +115,7 @@ AS_IF(
  ])
 
 AS_IF(
- [test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libcsystem" = xyes],
+ [test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes || test "x$ac_cv_libcsystem" = xyes],
  [AC_SUBST(
   [libuna_tools_spec_build_requires],
   [BuildRequires:])
@@ -127,7 +133,9 @@ AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([libcstring/Makefile])
 AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
+AC_CONFIG_FILES([libclocale/Makefile])
 AC_CONFIG_FILES([libcfile/Makefile])
+AC_CONFIG_FILES([libcnotify/Makefile])
 AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
@@ -162,6 +170,8 @@ Building:
    libcstring support:                       $ac_cv_libcstring
    libcerror support:                        $ac_cv_libcerror
    libcfile support:                         $ac_cv_libcfile
+   libclocale support:                       $ac_cv_libclocale
+   libcnotify support:                       $ac_cv_libcnotify
    libcsystem support:                       $ac_cv_libcsystem
 
 Features:

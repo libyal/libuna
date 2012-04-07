@@ -1,6 +1,8 @@
 EXTRA_DIST = \
 	libcerror/libcerror.vcproj \
 	libcfile/libcfile.vcproj \
+	libclocale/libclocale.vcproj \
+	libcnotify/libcnotify.vcproj \
 	libcstring/libcstring.vcproj \
 	libcsystem/libcsystem.vcproj \
 	libuna_dll/libuna_dll.vcproj \

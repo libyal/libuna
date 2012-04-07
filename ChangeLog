@@ -84,6 +84,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
 
+20120407
+* updated dependencies
+* updated msvscpp and codegear files
+
 20120406
 * updated libcfile
 * updated msvscpp and codegear files

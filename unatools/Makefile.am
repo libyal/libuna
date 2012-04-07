@@ -3,8 +3,10 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/common \
 	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
-	@LIBCSYSTEM_CPPFLAGS@ \
+	@LIBCLOCALE_CPPFLAGS@ \
+	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBCFILE_CPPFLAGS@ \
+	@LIBCSYSTEM_CPPFLAGS@ \
 	@MEMWATCH_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 
@@ -24,6 +26,8 @@ unabase_SOURCES = \
 	unaoutput.c unaoutput.h
 	unatools_libcerror.h \
 	unatools_libcfile.h \
+	unatools_libclocale.h \
+	unatools_libcnotify.h \
 	unatools_libcstring.h \
 	unatools_libcsystem.h \
 	unatools_libuna.h
@@ -32,8 +36,9 @@ unabase_LDADD = \
 	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@ \
 	../libuna/libuna.la \
-	@LIBCSYSTEM_LIBADD@ \
+	@LIBCNOTIFY_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
+	@LIBCSYSTEM_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 
@@ -47,6 +52,8 @@ unaexport_SOURCES = \
 	unaoutput.c unaoutput.h \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
+	unatools_libclocale.h \
+	unatools_libcnotify.h \
 	unatools_libcstring.h \
 	unatools_libcsystem.h \
 	unatools_libuna.h
@@ -55,8 +62,9 @@ unaexport_LDADD = \
 	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@ \
 	../libuna/libuna.la \
-	@LIBCSYSTEM_LIBADD@ \
+	@LIBCNOTIFY_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
+	@LIBCSYSTEM_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 

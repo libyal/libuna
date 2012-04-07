@@ -24,6 +24,7 @@
 
 #include "byte_size_string.h"
 #include "unatools_libcerror.h"
+#include "unatools_libcnotify.h"
 #include "unatools_libcstring.h"
 
 /* Creates a human readable byte size string
@@ -367,7 +368,7 @@ int byte_size_string_convert(
 #if defined( HAVE_VERBOSE_OUTPUT )
 	else if( remainder >= 0 )
 	{
-		libcsystem_notify_printf(
+		libcnotify_printf(
 		 "%s: ignoring byte value remainder.\n",
 		 function );
 	}
@@ -375,7 +376,7 @@ int byte_size_string_convert(
 #if defined( HAVE_VERBOSE_OUTPUT )
 	if( byte_size_string[ byte_size_string_iterator ] != 0 )
 	{
-		libcsystem_notify_printf(
+		libcnotify_printf(
 		 "%s: trailing data in byte size string.\n",
 		 function );
 	}

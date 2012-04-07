@@ -12,14 +12,20 @@
 			<Projects Include="libuna\libuna.cbproj">
 				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
 			</Projects>
-			<Projects Include="libcfile\libcfile.cbproj">
+			<Projects Include="libclocale\libclocale.cbproj">
 				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
 			</Projects>
+			<Projects Include="libcnotify\libcnotify.cbproj">
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
+			</Projects>
+			<Projects Include="libcfile\libcfile.cbproj">
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj;libclocale\libclocale.cbproj</Dependencies>
+			</Projects>
 			<Projects Include="libcsystem\libcsystem.cbproj">
-				<Dependencies>libcstring\libcstring.cbproj;libuna\libuna.cbproj;libcerror\libcerror.cbproj</Dependencies>
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj;libuna\libuna.cbproj;libclocale\libclocale.cbproj;libclocale\libclocale.cbproj</Dependencies>
 			</Projects>
 			<Projects Include="unaexport\unaexport.cbproj">
-				<Dependencies>libcstring\libcstring.cbproj;libuna\libuna.cbproj;libcerror\libcerror.cbproj;libcfile\libcfile.cbproj;libcsystem\libcsystem.cbproj</Dependencies>
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj;libuna\libuna.cbproj;libcfile\libcfile.cbproj;libcsystem\libcsystem.cbproj;libclocale\libclocale.cbproj;libclocale\libclocale.cbproj</Dependencies>
 			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
@@ -56,41 +62,59 @@
 		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libuna:Make">
 			<MSBuild Targets="Make" Projects="libuna\libuna.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring;libcerror" Name="libcfile">
+		<Target DependsOnTargets="libcstring;libcerror" Name="libclocale">
+			<MSBuild Projects="libclocale\libclocale.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libclocale:Clean">
+			<MSBuild Targets="Clean" Projects="libclocale\libclocale.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libclocale:Make">
+			<MSBuild Targets="Make" Projects="libclocale\libclocale.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring;libcerror" Name="libcnotify">
+			<MSBuild Projects="libcnotify\libcnotify.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libcnotify:Clean">
+			<MSBuild Targets="Clean" Projects="libcnotify\libcnotify.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libcnotify:Make">
+			<MSBuild Targets="Make" Projects="libcnotify\libcnotify.cbproj"/>
+		</Target>
+		<Target DependsOnTargets="libcstring;libcerror;libclocale" Name="libcfile">
 			<MSBuild Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libcfile:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean;libclocale:Clean" Name="libcfile:Clean">
 			<MSBuild Targets="Clean" Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libcfile:Make">
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make;libclocale:Make" Name="libcfile:Make">
 			<MSBuild Targets="Make" Projects="libcfile\libcfile.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring;libuna;libcerror" Name="libcsystem">
+		<Target DependsOnTargets="libcstring;libcerror;libuna;libclocale;libclocale" Name="libcsystem">
 			<MSBuild Projects="libcsystem\libcsystem.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Clean;libuna:Clean;libcerror:Clean" Name="libcsystem:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean;libuna:Clean;libclocale:Clean;libclocale:Clean" Name="libcsystem:Clean">
 			<MSBuild Targets="Clean" Projects="libcsystem\libcsystem.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Make;libuna:Make;libcerror:Make" Name="libcsystem:Make">
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make;libuna:Make;libclocale:Make;libclocale:Make" Name="libcsystem:Make">
 			<MSBuild Targets="Make" Projects="libcsystem\libcsystem.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring;libuna;libcerror;libcfile;libcsystem" Name="unaexport">
+		<Target DependsOnTargets="libcstring;libcerror;libuna;libcfile;libcsystem;libclocale;libclocale" Name="unaexport">
 			<MSBuild Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Clean;libuna:Clean;libcerror:Clean;libcfile:Clean;libcsystem:Clean" Name="unaexport:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean;libuna:Clean;libcfile:Clean;libcsystem:Clean;libclocale:Clean;libclocale:Clean" Name="unaexport:Clean">
 			<MSBuild Targets="Clean" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Make;libuna:Make;libcerror:Make;libcfile:Make;libcsystem:Make" Name="unaexport:Make">
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make;libuna:Make;libcfile:Make;libcsystem:Make;libclocale:Make;libclocale:Make" Name="unaexport:Make">
 			<MSBuild Targets="Make" Projects="unaexport\unaexport.cbproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="libcstring;libcerror;libuna;libcfile;libcsystem;unaexport"/>
+			<CallTarget Targets="libcstring;libcerror;libuna;libclocale;libcnotify;libcfile;libcsystem;unaexport"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="libcstring:Clean;libcerror:Clean;libuna:Clean;libcfile:Clean;libcsystem:Clean;unaexport:Clean"/>
+			<CallTarget Targets="libcstring:Clean;libcerror:Clean;libuna:Clean;libclocale:Clean;libcnotify:Clean;libcfile:Clean;libcsystem:Clean;unaexport:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="libcstring:Make;libcerror:Make;libuna:Make;libcfile:Make;libcsystem:Make;unaexport:Make"/>
+			<CallTarget Targets="libcstring:Make;libcerror:Make;libuna:Make;libclocale:Make;libcnotify:Make;libcfile:Make;libcsystem:Make;unaexport:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

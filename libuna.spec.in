@@ -24,8 +24,8 @@ Header files and libraries for developing applications for libuna.
 %package tools
 Summary: Several tools for converting Unicode and ASCII (byte stream) based text
 Group: Applications/System
-Requires: libuna = %{version}-%{release} @ax_libcfile_spec_requires@ @ax_libcsystem_spec_requires@
-@libuna_tools_spec_build_requires@ @ax_libcfile_spec_build_requires@ @ax_libcsystem_spec_build_requires@
+Requires: libuna = %{version}-%{release} @ax_libcfile_spec_requires@ @ax_libclocale_spec_requires@ @ax_libcnotify_spec_requires@ @ax_libcsystem_spec_requires@
+@libuna_tools_spec_build_requires@ @ax_libcfile_spec_build_requires@ @ax_libclocale_spec_build_requires@ @ax_libcnotify_spec_build_requires@ @ax_libcsystem_spec_build_requires@
 
 %description tools
 Several tools for converting Unicode and ASCII (byte stream) based text
@@ -70,6 +70,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
+* Sat Apr  7 2012 Joachim Metz <jbmetz@users.sourceforge.net> 20120407-1
+- Changes for libcsystem code clean up
+
 * Sun Apr  1 2012 Joachim Metz <jbmetz@users.sourceforge.net> 20120401-1
 - Changes for libsystem code clean up
 
