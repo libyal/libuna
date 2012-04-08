@@ -22,6 +22,8 @@
 #if !defined( _LIBUNA_TYPES_H )
 #define _LIBUNA_TYPES_H
 
+#include <libuna/features.h>
+
 /* Integer type definitions
  */
 #if defined( _MSC_VER ) || ( defined( __BORLANDC__ ) && ( __BORLANDC__ <= 0x0560 ) )
@@ -165,6 +167,32 @@ typedef int64_t ssize64_t;
 #if ( !defined( HAVE_OFF64_T ) && ! @HAVE_OFF64_T@ ) || HAVE_OFF64_T == 0
 #define HAVE_OFF64_T	1
 typedef int64_t off64_t;
+#endif
+
+/* Wide character definition
+ */
+#if defined( __BORLANDC__ ) && ( __BORLANDC__ <= 0x0520 )
+#include <string.h>
+
+#elif defined( WINAPI )
+#include <wchar.h>
+
+#elif @HAVE_WCHAR_H@ || defined( HAVE_WCHAR_H )
+
+/* __USE_UNIX98 is required to add swprintf definition
+ */
+#if !defined( __USE_UNIX98 )
+#define __USE_UNIX98
+#define LIBCSTRING_DEFINITION_UNIX98
+#endif
+
+#include <wchar.h>
+
+#if defined( LIBCSTRING_DEFINITION_UNIX98 )
+#undef __USE_UNIX98
+#undef LIBCSTRING_DEFINITION_UNIX98
+#endif
+
 #endif
 
 /* The following type definitions hide internal data structures

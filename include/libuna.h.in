@@ -25,6 +25,7 @@
 #include <libuna/definitions.h>
 #include <libuna/error.h>
 #include <libuna/extern.h>
+#include <libuna/features.h>
 #include <libuna/types.h>
 
 #include <stdio.h>

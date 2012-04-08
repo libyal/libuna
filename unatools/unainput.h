@@ -32,11 +32,6 @@
 extern "C" {
 #endif
 
-int unainput_determine_byte_stream_codepage(
-     const libcstring_system_character_t *argument,
-     int *byte_stream_codepage,
-     libcerror_error_t **error );
-
 int unainput_determine_encoding(
      const libcstring_system_character_t *string,
      uint8_t *encoding,

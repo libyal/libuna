@@ -30,6 +30,7 @@
 #include "unaoutput.h"
 #include "unatools_libcerror.h"
 #include "unatools_libcfile.h"
+#include "unatools_libclocale.h"
 #include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
@@ -837,8 +838,10 @@ int export_handle_set_byte_stream_codepage(
      const libcstring_system_character_t *string,
      libcerror_error_t **error )
 {
-	static char *function = "export_handle_set_byte_stream_codepage";
-	int result            = 0;
+	static char *function  = "export_handle_set_byte_stream_codepage";
+	size_t string_length   = 0;
+	uint32_t feature_flags = 0;
+	int result             = 0;
 
 	if( export_handle == NULL )
 	{
@@ -862,11 +865,28 @@ int export_handle_set_byte_stream_codepage(
 
 		return( -1 );
 	}
-	result = unainput_determine_byte_stream_codepage(
-	          string,
-	          &export_handle->byte_stream_codepage,
-	          error );
+	feature_flags = LIBCLOCALE_CODEPAGE_FEATURE_FLAG_HAVE_ISO_8859
+	              | LIBCLOCALE_CODEPAGE_FEATURE_FLAG_HAVE_KOI8
+	              | LIBCLOCALE_CODEPAGE_FEATURE_FLAG_HAVE_WINDOWS;
 
+	string_length = libcstring_system_string_length(
+	                 string );
+
+#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+	result = libclocale_codepage_copy_from_string_wide(
+	          &( export_handle->byte_stream_codepage ),
+	          string,
+	          string_length,
+	          feature_flags,
+	          error );
+#else
+	result = libclocale_codepage_copy_from_string(
+	          &( export_handle->byte_stream_codepage ),
+	          string,
+	          string_length,
+	          feature_flags,
+	          error );
+#endif
 	if( result == -1 )
 	{
 		libcerror_error_set(

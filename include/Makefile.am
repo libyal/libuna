@@ -5,11 +5,13 @@ pkginclude_HEADERS = \
 	libuna/definitions.h \
 	libuna/error.h \
 	libuna/extern.h \
+	libuna/features.h \
 	libuna/types.h
 
 EXTRA_DIST = \
 	libuna.h.in \
 	libuna/definitions.h.in \
+	libuna/features.h.in \
 	libuna/types.h.in
 
 MAINTAINERCLEANFILES = \

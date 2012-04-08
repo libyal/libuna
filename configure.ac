@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120407],
+ [20120408],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -44,6 +44,9 @@ AC_C_VOLATILE
 
 dnl Check if WINAPI support should be enabled
 AX_COMMON_CHECK_ENABLE_WINAPI
+
+dnl Check if wide character type should be enabled
+AX_COMMON_CHECK_ENABLE_WIDE_CHARACTER_TYPE
 
 dnl Check for type definitions
 AX_TYPES_CHECK_LOCAL
@@ -149,6 +152,7 @@ AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuna.h])
 AC_CONFIG_FILES([include/libuna/definitions.h])
+AC_CONFIG_FILES([include/libuna/features.h])
 AC_CONFIG_FILES([include/libuna/types.h])
 AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
@@ -175,6 +179,7 @@ Building:
    libcsystem support:                       $ac_cv_libcsystem
 
 Features:
+   Wide character type support:              $ac_cv_enable_wide_character_type
    unatools are build as static executables: $ac_cv_enable_static_executables
 ]);
 
