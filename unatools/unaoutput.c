@@ -197,6 +197,18 @@ void unaoutput_codepage_fprint(
 			 "Windows 874 (Thai)" );
 			break;
 
+		case LIBUNA_CODEPAGE_WINDOWS_932:
+			fprintf(
+			 stream,
+			 "Windows 932 (Japanese)" );
+			break;
+
+		case LIBUNA_CODEPAGE_WINDOWS_936:
+			fprintf(
+			 stream,
+			 "Windows 936 (Simplified Chinese GBK)" );
+			break;
+
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 			fprintf(
 			 stream,
