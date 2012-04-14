@@ -527,7 +527,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 			else if( ( byte_stream_character >= 0xa1 )
 			      && ( byte_stream_character < 0xe0 ) ) 
 			{
-				*unicode_character = 0xff61 - 0xa0 + additional_character;
+				*unicode_character = 0xff61 + byte_stream_character - 0xa1;
 			}
 			else if( ( *byte_stream_index + 1 ) <= byte_stream_size )
 			{

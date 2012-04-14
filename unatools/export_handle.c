@@ -1646,9 +1646,9 @@ int export_handle_export_text_encoded_input(
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_BYTE_STREAM )
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF7 )
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16BE )
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE )
+	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
 		libcerror_error_set(
@@ -1663,9 +1663,9 @@ int export_handle_export_text_encoded_input(
 	if( ( export_handle->output_format != UNACOMMON_FORMAT_BYTE_STREAM )
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF7 )
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16BE )
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE )
+	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32BE )
 	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
 		libcerror_error_set(
