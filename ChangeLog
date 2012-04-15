@@ -1,4 +1,7 @@
 TODO
+* implement string with index functions
+  - UTF32 functions (.c, .h, include)
+  - update manual
 * base16
   - add separate function to convert a byte like base64 sixtet
 * unabase:
@@ -8,6 +11,7 @@ TODO
   - add codegear project file
 * tests
   - implement tests
+  - rigid codepage test
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
@@ -83,6 +87,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120415
+* worked on UTF-8 string with index functions
 
 20120414
 * bug fix in export handle
