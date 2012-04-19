@@ -1,4 +1,6 @@
 TODO
+* added const to base32 and base64 functions
+* libuna_base16_stream_size_from_byte_stream add const
 * implement string with index functions
   - UTF32 functions (.c, .h, include)
   - update manual
@@ -87,6 +89,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120419
+* added const to base16 functions
 
 20120415
 * worked on UTF-8 string with index functions

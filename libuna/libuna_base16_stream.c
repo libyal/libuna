@@ -35,7 +35,7 @@
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_size_to_byte_stream(
-     uint8_t *base16_stream,
+     const uint8_t *base16_stream,
      size_t base16_stream_size,
      size_t *byte_stream_size,
      uint32_t base16_variant,
@@ -339,7 +339,7 @@ int libuna_base16_stream_size_to_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_copy_to_byte_stream(
-     uint8_t *base16_stream,
+     const uint8_t *base16_stream,
      size_t base16_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
@@ -663,7 +663,7 @@ int libuna_base16_stream_copy_to_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_base16_stream_size_from_byte_stream(
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base16_stream_size,
      uint32_t base16_variant,
@@ -753,7 +753,7 @@ int libuna_base16_stream_size_from_byte_stream(
 int libuna_base16_stream_copy_from_byte_stream(
      uint8_t *base16_stream,
      size_t base16_stream_size,
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint32_t base16_variant,
      libcerror_error_t **error )

@@ -1,4 +1,4 @@
-.Dd March 25, 2012
+.Dd April 19, 2012
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -259,13 +259,13 @@ UTF-32 string functions
 .Pp
 Base16 stream functions
 .Ft int
-.Fn libuna_base16_stream_size_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, size_t *byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
+.Fn libuna_base16_stream_size_to_byte_stream "const uint8_t *base16_stream, size_t base16_stream_size, size_t *byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_copy_to_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
+.Fn libuna_base16_stream_copy_to_byte_stream "const uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base16_stream_size, uint32_t base16_variant, libuna_error_t **error"
+.Fn libuna_base16_stream_size_from_byte_stream "const uint8_t *byte_stream, size_t byte_stream_size, size_t *base16_stream_size, uint32_t base16_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base16_stream_copy_from_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, libuna_error_t **error"
+.Fn libuna_base16_stream_copy_from_byte_stream "uint8_t *base16_stream, size_t base16_stream_size, const uint8_t *byte_stream, size_t byte_stream_size, uint32_t base16_variant, libuna_error_t **error"
 .Pp
 Base32 stream functions
 .Ft int
