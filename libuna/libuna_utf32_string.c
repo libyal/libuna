@@ -135,9 +135,44 @@ int libuna_utf32_string_copy_from_byte_stream(
      int codepage,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_byte_stream";
+	static char *function     = "libuna_utf32_string_copy_from_byte_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_byte_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     byte_stream,
+	     byte_stream_size,
+	     codepage,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy byte stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_byte_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     int codepage,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_byte_stream";
 	size_t byte_stream_index                     = 0;
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint8_t zero_byte                            = 0;
 
@@ -159,6 +194,17 @@ int libuna_utf32_string_copy_from_byte_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -218,7 +264,7 @@ int libuna_utf32_string_copy_from_byte_stream(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -233,7 +279,7 @@ int libuna_utf32_string_copy_from_byte_stream(
 	}
 	if( zero_byte != 0 )
 	{
-		if( utf32_string_index >= utf32_string_size )
+		if( *utf32_string_index >= utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -244,7 +290,9 @@ int libuna_utf32_string_copy_from_byte_stream(
 
 			return( -1 );
 		}
-		utf32_string[ utf32_string_index++ ] = 0;
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
@@ -492,8 +540,41 @@ int libuna_utf32_string_copy_from_utf7_stream(
      size_t utf7_stream_size,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf7_stream";
-	size_t utf32_string_index                    = 0;
+	static char *function     = "libuna_utf32_string_copy_from_utf7_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf7_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf7_stream,
+	     utf7_stream_size,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to UTF-7 stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-7 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf7_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *utf7_stream,
+     size_t utf7_stream_size,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf7_stream";
 	size_t utf7_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
@@ -517,6 +598,17 @@ int libuna_utf32_string_copy_from_utf7_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -587,7 +679,7 @@ int libuna_utf32_string_copy_from_utf7_stream(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -602,7 +694,7 @@ int libuna_utf32_string_copy_from_utf7_stream(
 	}
 	if( zero_byte != 0 )
 	{
-		if( utf32_string_index >= utf32_string_size )
+		if( *utf32_string_index >= utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -613,7 +705,9 @@ int libuna_utf32_string_copy_from_utf7_stream(
 
 			return( -1 );
 		}
-		utf32_string[ utf32_string_index++ ] = 0;
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
@@ -854,8 +948,41 @@ int libuna_utf32_string_copy_from_utf8(
      size_t utf8_string_size,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf8";
-	size_t utf32_string_index                    = 0;
+	static char *function     = "libuna_utf32_string_copy_from_utf8";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf8(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf8_string,
+	     utf8_string_size,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy UTF-8 string to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-8 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf8(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf8";
 	size_t utf8_string_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
 
@@ -877,6 +1004,17 @@ int libuna_utf32_string_copy_from_utf8(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -929,7 +1067,7 @@ int libuna_utf32_string_copy_from_utf8(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -1071,8 +1209,41 @@ int libuna_utf32_string_copy_from_utf8_stream(
      size_t utf8_stream_size,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf8_stream";
-	size_t utf32_string_index                    = 0;
+	static char *function     = "libuna_utf32_string_copy_from_utf8_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf8_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf8_stream,
+	     utf8_stream_size,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to UTF-8 stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-8 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf8_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *utf8_stream,
+     size_t utf8_stream_size,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf8_stream";
 	size_t utf8_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint8_t zero_byte                            = 0;
@@ -1095,6 +1266,17 @@ int libuna_utf32_string_copy_from_utf8_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -1175,7 +1357,7 @@ int libuna_utf32_string_copy_from_utf8_stream(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -1190,7 +1372,7 @@ int libuna_utf32_string_copy_from_utf8_stream(
 	}
 	if( zero_byte != 0 )
 	{
-		if( utf32_string_index >= utf32_string_size )
+		if( *utf32_string_index >= utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1201,7 +1383,9 @@ int libuna_utf32_string_copy_from_utf8_stream(
 
 			return( -1 );
 		}
-		utf32_string[ utf32_string_index++ ] = 0;
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
@@ -1446,13 +1630,46 @@ int libuna_utf32_string_size_from_utf16(
 int libuna_utf32_string_copy_from_utf16(
      libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
-     const libuna_utf16_character_t *utf16_string,
+     const uint16_t *utf16_string,
      size_t utf16_string_size,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf16";
+	static char *function     = "libuna_utf32_string_copy_from_utf16";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf16(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf16_string,
+	     utf16_string_size,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy UTF-16 string to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-16 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf16(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint16_t *utf16_string,
+     size_t utf16_string_size,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf16";
 	size_t utf16_string_index                    = 0;
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 
 	if( utf32_string == NULL )
@@ -1473,6 +1690,17 @@ int libuna_utf32_string_copy_from_utf16(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -1525,7 +1753,7 @@ int libuna_utf32_string_copy_from_utf16(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -1703,9 +1931,44 @@ int libuna_utf32_string_copy_from_utf16_stream(
      uint8_t byte_order,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf16_stream";
+	static char *function     = "libuna_utf32_string_copy_from_utf16_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf16_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf16_stream,
+	     utf16_stream_size,
+	     byte_order,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy UTF-16 stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-16 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf16_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *utf16_stream,
+     size_t utf16_stream_size,
+     uint8_t byte_order,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf16_stream";
 	size_t utf16_stream_index                    = 0;
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint8_t read_byte_order                      = 0;
 	uint8_t zero_byte                            = 0;
@@ -1728,6 +1991,17 @@ int libuna_utf32_string_copy_from_utf16_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -1830,7 +2104,7 @@ int libuna_utf32_string_copy_from_utf16_stream(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -1856,7 +2130,7 @@ int libuna_utf32_string_copy_from_utf16_stream(
 	}
 	if( zero_byte != 0 )
 	{
-		if( utf32_string_index >= utf32_string_size )
+		if( *utf32_string_index >= utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1867,7 +2141,9 @@ int libuna_utf32_string_copy_from_utf16_stream(
 
 			return( -1 );
 		}
-		utf32_string[ utf32_string_index++ ] = 0;
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
@@ -2210,9 +2486,44 @@ int libuna_utf32_string_copy_from_utf32_stream(
      uint8_t byte_order,
      libcerror_error_t **error )
 {
-	static char *function                        = "libuna_utf32_string_copy_from_utf32_stream";
+	static char *function     = "libuna_utf32_string_copy_from_utf32_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_utf32_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     utf32_stream,
+	     utf32_stream_size,
+	     byte_order,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy UTF-32 stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from an UTF-32 stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_utf32_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *utf32_stream,
+     size_t utf32_stream_size,
+     uint8_t byte_order,
+     libcerror_error_t **error )
+{
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf32_stream";
 	size_t utf32_stream_index                    = 0;
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint8_t read_byte_order                      = 0;
 	uint8_t zero_byte                            = 0;
@@ -2235,6 +2546,17 @@ int libuna_utf32_string_copy_from_utf32_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
 		 function );
 
 		return( -1 );
@@ -2343,7 +2665,7 @@ int libuna_utf32_string_copy_from_utf32_stream(
 		     unicode_character,
 		     utf32_string,
 		     utf32_string_size,
-		     &utf32_string_index,
+		     utf32_string_index,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -2369,7 +2691,7 @@ int libuna_utf32_string_copy_from_utf32_stream(
 	}
 	if( zero_byte != 0 )
 	{
-		if( utf32_string_index >= utf32_string_size )
+		if( *utf32_string_index >= utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -2380,7 +2702,9 @@ int libuna_utf32_string_copy_from_utf32_stream(
 
 			return( -1 );
 		}
-		utf32_string[ utf32_string_index++ ] = 0;
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }

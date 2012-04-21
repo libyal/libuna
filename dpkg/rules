@@ -38,6 +38,8 @@ install_libuna_tools:
 	install -p -m755 debian/tmp/usr/bin/* debian/libuna-tools/usr/bin
 	install -p -m755 debian/tmp/usr/share/man/man1/* debian/libuna-tools/usr/share/man/man1
 
+override_dh_auto_test:
+
 override_dh_installinit: install_libuna install_libuna_dev install_libuna_tools
 
 override_dh_installmenu:
