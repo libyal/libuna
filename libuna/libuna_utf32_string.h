@@ -213,7 +213,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_string_size_from_utf16_stream(
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      size_t *utf32_string_size,
      libcerror_error_t **error );
 
@@ -223,7 +223,7 @@ int libuna_utf32_string_copy_from_utf16_stream(
      size_t utf32_string_size,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 /* The functionality for libuna_utf32_string_copy_to_utf16_stream is implemented by
@@ -237,7 +237,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
      size_t *utf32_string_index,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
@@ -246,14 +246,14 @@ int libuna_utf32_string_compare_with_utf16_stream(
      size_t utf32_string_size,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
 int libuna_utf32_string_size_from_utf32_stream(
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      size_t *utf32_string_size,
      libcerror_error_t **error );
 
@@ -263,7 +263,7 @@ int libuna_utf32_string_copy_from_utf32_stream(
      size_t utf32_string_size,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 /* The functionality for libuna_utf32_string_copy_to_utf32_stream is implemented by
@@ -277,7 +277,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
      size_t *utf32_string_index,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
@@ -286,7 +286,7 @@ int libuna_utf32_string_compare_with_utf32_stream(
      size_t utf32_string_size,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 #if defined( __cplusplus )

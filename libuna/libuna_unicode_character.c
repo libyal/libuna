@@ -6533,7 +6533,7 @@ int libuna_unicode_character_copy_from_utf16_stream(
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
      size_t *utf16_stream_index,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                    = "libuna_unicode_character_copy_from_utf16_stream";
@@ -6684,7 +6684,7 @@ int libuna_unicode_character_copy_to_utf16_stream(
      uint8_t *utf16_stream,
      size_t utf16_stream_size,
      size_t *utf16_stream_index,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                    = "libuna_unicode_character_copy_to_utf16_stream";
@@ -7017,7 +7017,7 @@ int libuna_unicode_character_copy_from_utf32_stream(
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
      size_t *utf32_stream_index,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function = "libuna_unicode_character_copy_from_utf32_stream";
@@ -7130,7 +7130,7 @@ int libuna_unicode_character_copy_to_utf32_stream(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
      size_t *utf32_stream_index,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function = "libuna_unicode_character_copy_to_utf32_stream";

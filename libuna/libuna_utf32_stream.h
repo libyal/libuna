@@ -40,7 +40,7 @@ int libuna_utf32_stream_copy_byte_order_mark(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
      size_t *utf32_stream_index,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
@@ -54,7 +54,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_copy_from_utf8(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
      libcerror_error_t **error );
@@ -74,7 +74,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_copy_from_utf16(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
      libcerror_error_t **error );
@@ -94,7 +94,7 @@ LIBUNA_EXTERN \
 int libuna_utf32_stream_copy_from_utf32(
      uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      const libuna_utf32_character_t *utf32_string,
      size_t utf32_string_size,
      libcerror_error_t **error );

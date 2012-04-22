@@ -1541,14 +1541,14 @@ int libuna_utf16_string_compare_with_utf8_stream(
 int libuna_utf16_string_size_from_utf16_stream(
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      size_t *utf16_string_size,
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf16_string_size_from_utf16_stream";
 	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t read_byte_order                      = 0;
+	int read_byte_order                          = 0;
 
 	if( utf16_stream == NULL )
 	{
@@ -1694,7 +1694,7 @@ int libuna_utf16_string_copy_from_utf16_stream(
      size_t utf16_string_size,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function     = "libuna_utf16_string_copy_from_utf16_stream";
@@ -1730,14 +1730,14 @@ int libuna_utf16_string_with_index_copy_from_utf16_stream(
      size_t *utf16_string_index,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf16_string_with_index_copy_from_utf16_stream";
 	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t read_byte_order                      = 0;
 	uint8_t zero_byte                            = 0;
+	int read_byte_order                          = 0;
 
 	if( utf16_string == NULL )
 	{
@@ -1922,7 +1922,7 @@ int libuna_utf16_string_compare_with_utf16_stream(
      size_t utf16_string_size,
      const uint8_t *utf16_stream,
      size_t utf16_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                                     = "libuna_utf16_string_compare_with_utf16_stream";
@@ -1930,7 +1930,7 @@ int libuna_utf16_string_compare_with_utf16_stream(
 	size_t utf16_string_index                                 = 0;
 	libuna_unicode_character_t utf16_unicode_character        = 0;
 	libuna_unicode_character_t utf16_stream_unicode_character = 0;
-	uint8_t read_byte_order                                   = 0;
+	int read_byte_order                                       = 0;
 
 	if( utf16_string == NULL )
 	{
@@ -2445,14 +2445,14 @@ int libuna_utf16_string_compare_with_utf32(
 int libuna_utf16_string_size_from_utf32_stream(
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      size_t *utf16_string_size,
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf16_string_size_from_utf32_stream";
 	size_t utf32_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t read_byte_order                      = 0;
+	int read_byte_order                          = 0;
 
 	if( utf32_stream == NULL )
 	{
@@ -2604,7 +2604,7 @@ int libuna_utf16_string_copy_from_utf32_stream(
      size_t utf16_string_size,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function     = "libuna_utf16_string_copy_from_utf32_stream";
@@ -2640,14 +2640,14 @@ int libuna_utf16_string_with_index_copy_from_utf32_stream(
      size_t *utf16_string_index,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf16_string_with_index_copy_from_utf32_stream";
 	size_t utf32_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t read_byte_order                      = 0;
 	uint8_t zero_byte                            = 0;
+	int read_byte_order                          = 0;
 
 	if( utf16_string == NULL )
 	{
@@ -2838,7 +2838,7 @@ int libuna_utf16_string_compare_with_utf32_stream(
      size_t utf16_string_size,
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	static char *function                                     = "libuna_utf16_string_compare_with_utf32_stream";
@@ -2846,7 +2846,7 @@ int libuna_utf16_string_compare_with_utf32_stream(
 	size_t utf32_stream_index                                 = 0;
 	libuna_unicode_character_t utf16_unicode_character        = 0;
 	libuna_unicode_character_t utf32_stream_unicode_character = 0;
-	uint8_t read_byte_order                                   = 0;
+	int read_byte_order                                       = 0;
 
 	if( utf16_string == NULL )
 	{
