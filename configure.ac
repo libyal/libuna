@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120422],
+ [20120425],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -60,11 +60,11 @@ AX_LIBCSTRING_CHECK_ENABLE
 dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
 
-dnl Check for enabling libcfile for cross-platform C file functions
-AX_LIBCFILE_CHECK_ENABLE
-
 dnl Check for enabling libclocale for cross-platform C locale functions
 AX_LIBCLOCALE_CHECK_ENABLE
+
+dnl Check for enabling libcfile for cross-platform C file functions
+AX_LIBCFILE_CHECK_ENABLE
 
 dnl Check for enabling libcnotify for cross-platform C notification functions
 AX_LIBCNOTIFY_CHECK_ENABLE
@@ -173,8 +173,8 @@ AC_MSG_NOTICE([
 Building:
    libcstring support:                       $ac_cv_libcstring
    libcerror support:                        $ac_cv_libcerror
-   libcfile support:                         $ac_cv_libcfile
    libclocale support:                       $ac_cv_libclocale
+   libcfile support:                         $ac_cv_libcfile
    libcnotify support:                       $ac_cv_libcnotify
    libcsystem support:                       $ac_cv_libcsystem
 

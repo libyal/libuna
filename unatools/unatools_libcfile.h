@@ -32,7 +32,7 @@
 #include <libcfile_file.h>
 #include <libcfile_types.h>
 
-#elif defined( HAVE_LIBCFILE_H )
+#else
 
 /* If libtool DLL support is enabled set LIBCFILE_DLL_IMPORT
  * before including libcfile.h
@@ -43,8 +43,6 @@
 
 #include <libcfile.h>
 
-#else
-#error Missing libcfile.h
 #endif
 
 #endif
