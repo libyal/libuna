@@ -786,7 +786,7 @@ int export_handle_set_newline_conversion(
      const libcstring_system_character_t *string,
      libcerror_error_t **error )
 {
-	static char *function = "export_handle_set_output_format";
+	static char *function = "export_handle_set_newline_conversion";
 	int result            = 0;
 
 	if( export_handle == NULL )

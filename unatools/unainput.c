@@ -287,7 +287,7 @@ int unainput_determine_format(
 }
 
 /* Determines the newline conversion from a string
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if unsupported value or -1 on error
  */
 int unainput_determine_newline_conversion(
      const libcstring_system_character_t *string,
@@ -296,7 +296,7 @@ int unainput_determine_newline_conversion(
 {
 	static char *function = "unainput_determine_newline_conversion";
 	size_t string_length  = 0;
-	int result            = -1;
+	int result            = 0;
 
 	if( string == NULL )
 	{

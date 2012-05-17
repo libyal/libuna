@@ -376,7 +376,7 @@ int main( int argc, char * const argv[] )
 	{
 		result = export_handle_set_newline_conversion(
 			  unaexport_export_handle,
-			  option_output_format,
+			  option_newline_conversion,
 			  &error );
 
 		if( result == -1 )
