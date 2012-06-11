@@ -20,6 +20,8 @@ EXTRA_DIST = \
 	windows-874.txt \
 	windows-932.txt \
 	windows-936.txt \
+	windows-949.txt \
+	windows-950.txt \
 	windows-1250.txt \
 	windows-1251.txt \
 	windows-1252.txt \

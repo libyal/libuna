@@ -1,4 +1,11 @@
 TODO
+* clean up documents
+  - iso
+* add documents
+  - documents/windows-949.txt (continue with: 0xa0)
+    http://msdn.microsoft.com/en-us/goglobal/cc305154
+  - documents/windows-950.txt (continue with: 0x81)
+    http://msdn.microsoft.com/en-us/goglobal/cc305155
 * implement with index functions
 * added const to base32 and base64 functions
 * libuna_base16_stream_size_from_byte_stream add const
@@ -11,7 +18,14 @@ TODO
   - add codegear project file
 * tests
   - implement tests
-  - rigid codepage test
+  - unicode 2 codepage tests
+  - codepage 2 unicode tests
+    - ascii
+    - windows 949, 950
+    - iso
+* Add support for:
+  - 949 (Korean)
+  - 950 (Traditional Chinese Big5)
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
@@ -40,12 +54,6 @@ TODO
     - 51932 euc-jp Japanese (EUC)
     - 51949 euc-kr Korean (EUC)
     - 52936 hz-gb-2312 Chinese Simplified (HZ)
-
-Other Windows codepages (MBC)
-* 932 (Japanese Shift-JIS)
-* 936 (Simplified Chinese GBK)
-* 949 (Korean)
-* 950 (Traditional Chinese Big5)
 
 Test:
 * create automated tests and test files
@@ -87,6 +95,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses numeric codepage e.g. 850
+
+20120611
+* updated dependencies
+* worked on byte stream to Unicode tests
 
 20120517
 * bug fix for newline conversion in unaexport

@@ -33,12 +33,12 @@ unabase_SOURCES = \
 	unatools_libuna.h
 
 unabase_LDADD = \
-	@LIBCSTRING_LIBADD@ \
-	@LIBCERROR_LIBADD@ \
-	../libuna/libuna.la \
-	@LIBCNOTIFY_LIBADD@ \
-	@LIBCFILE_LIBADD@ \
 	@LIBCSYSTEM_LIBADD@ \
+	@LIBCFILE_LIBADD@ \
+	@LIBCNOTIFY_LIBADD@ \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@ \
+	@LIBCSTRING_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 
@@ -59,12 +59,12 @@ unaexport_SOURCES = \
 	unatools_libuna.h
 
 unaexport_LDADD = \
-	@LIBCSTRING_LIBADD@ \
-	@LIBCERROR_LIBADD@ \
-	../libuna/libuna.la \
-	@LIBCNOTIFY_LIBADD@ \
-	@LIBCFILE_LIBADD@ \
 	@LIBCSYSTEM_LIBADD@ \
+	@LIBCFILE_LIBADD@ \
+	@LIBCNOTIFY_LIBADD@ \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@ \
+	@LIBCSTRING_LIBADD@ \
 	@LIBINTL@ \
 	@MEMWATCH_LIBADD@
 
