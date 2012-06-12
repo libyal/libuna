@@ -48,6 +48,8 @@
 #include "una_test_codepage_windows_874.h"
 #include "una_test_codepage_windows_932.h"
 #include "una_test_codepage_windows_936.h"
+#include "una_test_codepage_windows_949.h"
+#include "una_test_codepage_windows_950.h"
 #include "una_test_codepage_windows_1250.h"
 #include "una_test_codepage_windows_1251.h"
 #include "una_test_codepage_windows_1252.h"
@@ -188,6 +190,12 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	/* Case: codepage windows 949
+	 */
+/* TODO */
+	/* Case: codepage windows 950
+	 */
+/* TODO */
 	/* Case: codepage windows 1250
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(

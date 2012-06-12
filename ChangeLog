@@ -1,7 +1,14 @@
 TODO
-* complete documents
-  - documents/windows-950.txt (continue with: 0xd0)
-    http://msdn.microsoft.com/en-us/goglobal/cc305155
+* add unicode to ascii support for (combine with rewrite)
+  - 932 iso-2022-jp Japanese (Shift-JIS)
+  - 936 gb2312 Chinese Simplified (GB2312) support
+* Add support for:
+  - 949 (Korean) ks_c_5601-1987
+    TODO: codepage 2 unicode => 0xa0
+  - 950 (Traditional Chinese Big5)
+
+* improve: libuna_unicode_character_size_to_byte_stream ?
+  - lookup value
 * implement with index functions
 * added const to base32 and base64 functions
 * libuna_base16_stream_size_from_byte_stream add const
@@ -18,11 +25,7 @@ TODO
   - codepage 2 unicode tests
     - ascii
     - windows 949, 950
-    - iso
-* Add support for:
-  - 949 (Korean)
-  - 950 (Traditional Chinese Big5)
-* OEM codepages
+* add support for OEM codepages:
   - 437 (US)
   - 720 (Arabic)
   - 737 (Greek)
@@ -34,9 +37,6 @@ TODO
   - 858 (Multilingual Latin I + Euro)
   - 862 (Hebrew)
   - 866 (Russian)
-* add unicode to ascii support for (combine with rewrite)
-  - 932 iso-2022-jp Japanese (Shift-JIS)
-  - 936 gb2312 Chinese Simplified (GB2312) support
 * gettext support
 
 * libuna
@@ -54,14 +54,12 @@ TODO
   - implement support for scsu ?
   - implement support for usc-1, ucs-2, usc-4 ?
 
-  - implement support for codepages:
-    - 949 ks_c_5601-1987 Korean
-    - 950 big5 Chinese Traditional (Big5)
-    - 50220 iso-2022-jp Japanese (JIS)
-    - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
-    - 51932 euc-jp Japanese (EUC)
-    - 51949 euc-kr Korean (EUC)
-    - 52936 hz-gb-2312 Chinese Simplified (HZ)
+* implement support for codepages:
+  - 50220 iso-2022-jp Japanese (JIS)
+  - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
+  - 51932 euc-jp Japanese (EUC)
+  - 51949 euc-kr Korean (EUC)
+  - 52936 hz-gb-2312 Chinese Simplified (HZ)
 
 Test:
 * create automated tests and test files
@@ -108,6 +106,7 @@ Note:
 * added OEM codepage definitions
 * updated documents
 * worked on byte stream to Unicode tests
+* worked on changing codepage 932 and 936 to unicode to using switch statements
 
 20120611
 * updated dependencies

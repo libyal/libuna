@@ -31,6 +31,8 @@ libuna_la_SOURCES = \
 	libuna_codepage_windows_874.c libuna_codepage_windows_874.h \
 	libuna_codepage_windows_932.c libuna_codepage_windows_932.h \
 	libuna_codepage_windows_936.c libuna_codepage_windows_936.h \
+	libuna_codepage_windows_949.c libuna_codepage_windows_949.h \
+	libuna_codepage_windows_950.c libuna_codepage_windows_950.h \
 	libuna_codepage_windows_1250.c libuna_codepage_windows_1250.h \
 	libuna_codepage_windows_1251.c libuna_codepage_windows_1251.h \
 	libuna_codepage_windows_1252.c libuna_codepage_windows_1252.h \

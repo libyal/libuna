@@ -128,6 +128,8 @@ una_test_unicode_character_copy_from_SOURCES = \
 	una_test_codepage_windows_874.h \
 	una_test_codepage_windows_932.h \
 	una_test_codepage_windows_936.h \
+	una_test_codepage_windows_949.h \
+	una_test_codepage_windows_950.h \
 	una_test_codepage_windows_1250.h \
 	una_test_codepage_windows_1251.h \
 	una_test_codepage_windows_1252.h \
