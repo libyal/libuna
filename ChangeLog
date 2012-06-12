@@ -1,8 +1,6 @@
 TODO
-* clean up documents
-  - iso
 * complete documents
-  - documents/windows-950.txt (continue with: 0x81)
+  - documents/windows-950.txt (continue with: 0xd0)
     http://msdn.microsoft.com/en-us/goglobal/cc305155
 * implement with index functions
 * added const to base32 and base64 functions
@@ -40,14 +38,6 @@ TODO
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
 * gettext support
-* Add OEM defintions for these codepages
-  (make sure that the doc also contains this info)
-874 (Thai)
-932 (Japanese Shift-JIS)
-936 (Simplified Chinese GBK)
-949 (Korean)
-950 (Traditional Chinese Big5)
-1258 (Vietnam)
 
 * libuna
   - add source == destination check to functions?
@@ -112,11 +102,17 @@ Deployment:
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
-* CodeGear uses numeric codepage e.g. 850
+* CodeGear uses OEM codepage e.g. 850
+
+20120612
+* added OEM codepage definitions
+* updated documents
+* worked on byte stream to Unicode tests
 
 20120611
 * updated dependencies
 * worked on byte stream to Unicode tests
+* updated documents
 
 20120517
 * bug fix for newline conversion in unaexport

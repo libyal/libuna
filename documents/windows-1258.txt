@@ -1,4 +1,6 @@
 The Windows 1258 codepage (Vietnamese)
+* Also known as
+  * OEM 1258
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING

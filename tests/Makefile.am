@@ -108,6 +108,21 @@ una_test_utf8_string_copy_from_LDADD = \
         @MEMWATCH_LIBADD@
 
 una_test_unicode_character_copy_from_SOURCES = \
+	una_test_codepage_iso_8859_1.h \
+	una_test_codepage_iso_8859_2.h \
+	una_test_codepage_iso_8859_3.h \
+	una_test_codepage_iso_8859_4.h \
+	una_test_codepage_iso_8859_5.h \
+	una_test_codepage_iso_8859_6.h \
+	una_test_codepage_iso_8859_7.h \
+	una_test_codepage_iso_8859_8.h \
+	una_test_codepage_iso_8859_9.h \
+	una_test_codepage_iso_8859_10.h \
+	una_test_codepage_iso_8859_11.h \
+	una_test_codepage_iso_8859_13.h \
+	una_test_codepage_iso_8859_14.h \
+	una_test_codepage_iso_8859_15.h \
+	una_test_codepage_iso_8859_16.h \
 	una_test_codepage_koi8_r.h \
 	una_test_codepage_koi8_u.h \
 	una_test_codepage_windows_874.h \

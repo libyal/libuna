@@ -2,6 +2,8 @@ The Windows 932 codepage (Japanese)
 * based on Shift JIS
 * Also known as
   * CP932
+  * Japanese Shift-JIS
+  * OEM 932
   * Windows-31J (IANA)
 
 00 = U+0000 : NULL

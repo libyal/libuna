@@ -1,4 +1,7 @@
 The Windows 936 codepage (Simplified Chinese GBK)
+* Also known as
+  * GB2312
+  * OEM 936
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING

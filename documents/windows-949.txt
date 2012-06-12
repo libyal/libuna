@@ -1,4 +1,6 @@
 The Windows codepage 949 (Korean)
+* Also known as
+  * OEM 949
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING

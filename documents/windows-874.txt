@@ -1,5 +1,7 @@
 The Windows 874 codepage (Thai)
 * based on TIS-620
+* Also known as
+  * OEM 874
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING

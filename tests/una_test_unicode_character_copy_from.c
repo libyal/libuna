@@ -28,6 +28,21 @@
 
 #include <stdio.h>
 
+#include "una_test_codepage_iso_8859_1.h"
+#include "una_test_codepage_iso_8859_2.h"
+#include "una_test_codepage_iso_8859_3.h"
+#include "una_test_codepage_iso_8859_4.h"
+#include "una_test_codepage_iso_8859_5.h"
+#include "una_test_codepage_iso_8859_6.h"
+#include "una_test_codepage_iso_8859_7.h"
+#include "una_test_codepage_iso_8859_8.h"
+#include "una_test_codepage_iso_8859_9.h"
+#include "una_test_codepage_iso_8859_10.h"
+#include "una_test_codepage_iso_8859_11.h"
+#include "una_test_codepage_iso_8859_13.h"
+#include "una_test_codepage_iso_8859_14.h"
+#include "una_test_codepage_iso_8859_15.h"
+#include "una_test_codepage_iso_8859_16.h"
 #include "una_test_codepage_koi8_r.h"
 #include "una_test_codepage_koi8_u.h"
 #include "una_test_codepage_windows_874.h"
@@ -134,7 +149,7 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	/* Case: codepage 874
+	/* Case: codepage windows 874
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_874_byte_stream_to_unicode,
@@ -143,11 +158,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 874 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 874 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 932
+	/* Case: codepage windows 932
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_932_byte_stream_to_unicode,
@@ -156,11 +171,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 932 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 932 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 936
+	/* Case: codepage windows 936
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_936_byte_stream_to_unicode,
@@ -169,11 +184,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 936 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 936 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1250
+	/* Case: codepage windows 1250
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1250_byte_stream_to_unicode,
@@ -182,11 +197,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1250 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1250 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1251
+	/* Case: codepage windows 1251
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1251_byte_stream_to_unicode,
@@ -195,11 +210,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1251 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1251 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1252
+	/* Case: codepage windows 1252
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1252_byte_stream_to_unicode,
@@ -208,11 +223,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1252 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1252 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1253
+	/* Case: codepage windows 1253
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1253_byte_stream_to_unicode,
@@ -221,11 +236,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1253 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1253 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1254
+	/* Case: codepage windows 1254
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1254_byte_stream_to_unicode,
@@ -234,11 +249,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1254 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1254 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1255
+	/* Case: codepage windows 1255
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1255_byte_stream_to_unicode,
@@ -247,11 +262,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1255 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1255 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1256
+	/* Case: codepage windows 1256
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1256_byte_stream_to_unicode,
@@ -260,11 +275,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1256 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1256 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1257
+	/* Case: codepage windows 1257
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1257_byte_stream_to_unicode,
@@ -273,11 +288,11 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1257 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1257 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
-	/* Case: codepage 1258
+	/* Case: codepage windows 1258
 	 */
 	if( una_test_unicode_character_copy_from_byte_stream(
 	     una_test_codepage_windows_1258_byte_stream_to_unicode,
@@ -286,7 +301,7 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy codepage 1258 byte stream to Unicode character.\n" );
+		 "Unable to copy codepage windows 1258 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
@@ -313,6 +328,201 @@ int main( int argc, char * const argv[] )
 		fprintf(
 		 stderr,
 		 "Unable to copy codepage koi8-u byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28591 (iso-8859-1)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_1_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-1 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28592 (iso-8859-2)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_2_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_2 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-2 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28593 (iso-8859-3)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_3_byte_stream_to_unicode,
+	     249,
+	     LIBUNA_CODEPAGE_ISO_8859_3 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-3 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28594 (iso-8859-4)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_4_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_4 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-4 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28595 (iso-8859-5)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_5_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_5 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-5 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28596 (iso-8859-6)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_6_byte_stream_to_unicode,
+	     211,
+	     LIBUNA_CODEPAGE_ISO_8859_6 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-6 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28597 (iso-8859-7)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_7_byte_stream_to_unicode,
+	     253,
+	     LIBUNA_CODEPAGE_ISO_8859_7 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-7 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28598 (iso-8859-8)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_8_byte_stream_to_unicode,
+	     220,
+	     LIBUNA_CODEPAGE_ISO_8859_8 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-8 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28599 (iso-8859-9)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_9_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_9 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-9 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28600 (iso-8859-10)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_10_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_10 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-10 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28601 (iso-8859-11)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_11_byte_stream_to_unicode,
+	     248,
+	     LIBUNA_CODEPAGE_ISO_8859_11 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-11 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28603 (iso-8859-13)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_13_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_13 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-13 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28604 (iso-8859-14)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_14_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_14 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-14 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28605 (iso-8859-15)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_15_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_15 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-15 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
+	/* Case: codepage 28606 (iso-8859-16)
+	 */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_iso_8859_16_byte_stream_to_unicode,
+	     256,
+	     LIBUNA_CODEPAGE_ISO_8859_16 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage iso-8859-16 byte stream to Unicode character.\n" );
 
 		goto on_error;
 	}
