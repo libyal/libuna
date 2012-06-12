@@ -1,14 +1,14 @@
 TODO
+* add ascii to unicode support for:
+  - 950 (Traditional Chinese Big5)
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
-* Add support for:
   - 949 (Korean) ks_c_5601-1987
-    TODO: codepage 2 unicode => 0xa0
   - 950 (Traditional Chinese Big5)
-
 * improve: libuna_unicode_character_size_to_byte_stream ?
   - lookup value
+
 * implement with index functions
 * added const to base32 and base64 functions
 * libuna_base16_stream_size_from_byte_stream add const
@@ -24,7 +24,7 @@ TODO
   - unicode 2 codepage tests
   - codepage 2 unicode tests
     - ascii
-    - windows 949, 950
+    - windows 950
 * add support for OEM codepages:
   - 437 (US)
   - 720 (Arabic)
@@ -107,6 +107,7 @@ Note:
 * updated documents
 * worked on byte stream to Unicode tests
 * worked on changing codepage 932 and 936 to unicode to using switch statements
+* added codepage windows 949 ascii to unicode support
 
 20120611
 * updated dependencies

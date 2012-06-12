@@ -130,6 +130,29 @@ int una_test_unicode_character_copy_from_byte_stream(
 		libuna_error_free(
 		 &error );
 	}
+	else if( result == 0 )
+	{
+		if( byte_stream_to_unicode_entry_index < number_of_byte_stream_to_unicode_entries )
+		{
+			fprintf(
+			 stdout,
+			 "Mismatch for: 0x%02" PRIx8 "",
+			 ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream[ 0 ] );
+
+			if( ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size > 1 )
+			{
+				fprintf(
+				 stdout,
+				 " 0x%02" PRIx8 "",
+				 ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream[ 1 ] );
+			}
+			fprintf(
+			 stdout,
+			 " expected: 0x%08" PRIx32 " got:  0x%08" PRIx32 "\n",
+			 ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).unicode_character,
+			 unicode_character );
+		}
+	}
 	return( result );
 }
 
@@ -192,7 +215,17 @@ int main( int argc, char * const argv[] )
 	}
 	/* Case: codepage windows 949
 	 */
-/* TODO */
+	if( una_test_unicode_character_copy_from_byte_stream(
+	     una_test_codepage_windows_949_byte_stream_to_unicode,
+	     17176,
+	     LIBUNA_CODEPAGE_WINDOWS_949 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy codepage windows 949 byte stream to Unicode character.\n" );
+
+		goto on_error;
+	}
 	/* Case: codepage windows 950
 	 */
 /* TODO */

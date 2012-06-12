@@ -293,6 +293,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_949.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_950.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_error.c"
 				>
 			</File>
@@ -464,6 +472,14 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_936.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_949.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_windows_950.h"
 				>
 			</File>
 			<File
