@@ -1,9 +1,7 @@
 TODO
 * clean up documents
   - iso
-* add documents
-  - documents/windows-949.txt (continue with: 0xa0)
-    http://msdn.microsoft.com/en-us/goglobal/cc305154
+* complete documents
   - documents/windows-950.txt (continue with: 0x81)
     http://msdn.microsoft.com/en-us/goglobal/cc305155
 * implement with index functions
@@ -26,10 +24,30 @@ TODO
 * Add support for:
   - 949 (Korean)
   - 950 (Traditional Chinese Big5)
+* OEM codepages
+  - 437 (US)
+  - 720 (Arabic)
+  - 737 (Greek)
+  - 775 (Baltic)
+  - 850 (Multilingual Latin I)
+  - 852 (Latin II)
+  - 855 (Cyrillic)
+  - 857 (Turkish)
+  - 858 (Multilingual Latin I + Euro)
+  - 862 (Hebrew)
+  - 866 (Russian)
 * add unicode to ascii support for (combine with rewrite)
   - 932 iso-2022-jp Japanese (Shift-JIS)
   - 936 gb2312 Chinese Simplified (GB2312) support
 * gettext support
+* Add OEM defintions for these codepages
+  (make sure that the doc also contains this info)
+874 (Thai)
+932 (Japanese Shift-JIS)
+936 (Simplified Chinese GBK)
+949 (Korean)
+950 (Traditional Chinese Big5)
+1258 (Vietnam)
 
 * libuna
   - add source == destination check to functions?

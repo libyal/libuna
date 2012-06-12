@@ -17,6 +17,17 @@ EXTRA_DIST = \
 	iso-8859-16.txt \
 	koi8-r.txt \
 	koi8-u.txt \
+	oem-437.txt \
+	oem-720.txt \
+	oem-737.txt \
+	oem-775.txt \
+	oem-850.txt \
+	oem-852.txt \
+	oem-855.txt \
+	oem-857.txt \
+	oem-858.txt \
+	oem-862.txt \
+	oem-866.txt \
 	windows-874.txt \
 	windows-932.txt \
 	windows-936.txt \
