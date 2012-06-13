@@ -31,7 +31,7 @@ extern "C" {
 
 extern const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128 ];
 
-extern const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x00e0[ 96 ];
+extern const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96 ];
 extern const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ 8 ];
 
 #if defined( __cplusplus )
