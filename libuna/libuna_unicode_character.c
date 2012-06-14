@@ -2808,7 +2808,8 @@ int libuna_unicode_character_copy_to_byte_stream(
      int codepage,
      libcerror_error_t **error )
 {
-	static char *function = "libuna_unicode_character_copy_to_byte_stream";
+	static char *function                = "libuna_unicode_character_copy_to_byte_stream";
+	uint8_t byte_stream_additional_bytes = 0;
 
 	if( byte_stream == NULL )
 	{
@@ -2901,16 +2902,16 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_2_unicode_to_byte_stream_base_0x0138[ unicode_character ];
 			}
-			else if( unicode_character == 0x02c7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb7;
-			}
 			else if( ( unicode_character >= 0x02d8 )
 			      && ( unicode_character < 0x02e0 ) )
 			{
 				unicode_character -= 0x02d8;
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_2_unicode_to_byte_stream_base_0x02d8[ unicode_character ];
+			}
+			else if( unicode_character == 0x02c7 )
+			{
+				byte_stream[ *byte_stream_index ] = 0xb7;
 			}
 			else
 			{
@@ -2960,33 +2961,35 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_3_unicode_to_byte_stream_base_0x0158[ unicode_character ];
 			}
-			else if( unicode_character == 0x016c )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xdd;
-			}
-			else if( unicode_character == 0x016d )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfd;
-			}
-			else if( unicode_character == 0x017b )
-			{
-				byte_stream[ *byte_stream_index ] = 0xaf;
-			}
-			else if( unicode_character == 0x017c )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbf;
-			}
-			else if( unicode_character == 0x02d8 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa2;
-			}
-			else if( unicode_character == 0x02d9 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xff;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x016c:
+					byte_stream[ *byte_stream_index ] = 0xdd;
+					break;
+
+				case 0x016d:
+					byte_stream[ *byte_stream_index ] = 0xfd;
+					break;
+
+				case 0x017b:
+					byte_stream[ *byte_stream_index ] = 0xaf;
+					break;
+
+				case 0x017c:
+					byte_stream[ *byte_stream_index ] = 0xbf;
+					break;
+
+				case 0x02d8:
+					byte_stream[ *byte_stream_index ] = 0xa2;
+					break;
+
+				case 0x02d9:
+					byte_stream[ *byte_stream_index ] = 0xff;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3011,21 +3014,23 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_4_unicode_to_byte_stream_base_0x0160[ unicode_character ];
 			}
-			else if( unicode_character == 0x02c7 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xb7;
-			}
-			else if( unicode_character == 0x02d9 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xff;
-			}
-			else if( unicode_character == 0x02db )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb2;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x02c7:
+					byte_stream[ *byte_stream_index ] = 0xb7;
+					break;
+
+				case 0x02d9:
+					byte_stream[ *byte_stream_index ] = 0xff;
+					break;
+
+				case 0x02db:
+					byte_stream[ *byte_stream_index ] = 0xb2;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3036,14 +3041,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfd;
-			}
-			else if( unicode_character == 0x00ad )
-			{
-				byte_stream[ *byte_stream_index ] = 0xad;
-			}
 			else if( ( unicode_character >= 0x0400 )
 			      && ( unicode_character < 0x0460 ) )
 			{
@@ -3051,13 +3048,23 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_5_unicode_to_byte_stream_base_0x0400[ unicode_character ];
 			}
-			else if( unicode_character == 0x2116 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xf0;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a7:
+					byte_stream[ *byte_stream_index ] = 0xfd;
+					break;
+
+				case 0x00ad:
+					byte_stream[ *byte_stream_index ] = 0xad;
+					break;
+
+				case 0x2116:
+					byte_stream[ *byte_stream_index ] = 0xf0;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3068,18 +3075,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a4 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else if( unicode_character == 0x00ad )
-			{
-				byte_stream[ *byte_stream_index ] = 0xad;
-			}
-			else if( unicode_character == 0x060c )
-			{
-				byte_stream[ *byte_stream_index ] = 0xac;
-			}
 			else if( ( unicode_character >= 0x0618 )
 			      && ( unicode_character < 0x658 ) )
 			{
@@ -3087,9 +3082,23 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_6_unicode_to_byte_stream_base_0x0618[ unicode_character ];
 			}
-			else
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a4:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				case 0x00ad:
+					byte_stream[ *byte_stream_index ] = 0xad;
+					break;
+
+				case 0x060c:
+					byte_stream[ *byte_stream_index ] = 0xac;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3107,18 +3116,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
 			}
-			else if( unicode_character == 0x00bb )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbb;
-			}
-			else if( unicode_character == 0x00bd )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbd;
-			}
-			else if( unicode_character == 0x037a )
-			{
-				byte_stream[ *byte_stream_index ] = 0xaa;
-			}
 			else if( ( unicode_character >= 0x0380 )
 			      && ( unicode_character < 0x03d0 ) )
 			{
@@ -3126,29 +3123,43 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_7_unicode_to_byte_stream_base_0x0380[ unicode_character ];
 			}
-			else if( unicode_character == 0x2015 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xaf;
-			}
-			else if( unicode_character == 0x2018 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa1;
-			}
-			else if( unicode_character == 0x2019 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa2;
-			}
-			else if( unicode_character == 0x20ac )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else if( unicode_character == 0x20af )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa5;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00bb:
+					byte_stream[ *byte_stream_index ] = 0xbb;
+					break;
+
+				case 0x00bd:
+					byte_stream[ *byte_stream_index ] = 0xbd;
+					break;
+
+				case 0x037a:
+					byte_stream[ *byte_stream_index ] = 0xaa;
+					break;
+
+				case 0x2015:
+					byte_stream[ *byte_stream_index ] = 0xaf;
+					break;
+
+				case 0x2018:
+					byte_stream[ *byte_stream_index ] = 0xa1;
+					break;
+
+				case 0x2019:
+					byte_stream[ *byte_stream_index ] = 0xa2;
+					break;
+
+				case 0x20ac:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				case 0x20af:
+					byte_stream[ *byte_stream_index ] = 0xa5;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3166,14 +3177,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x00a0[ unicode_character ];
 			}
-			else if( unicode_character == 0x00d7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xaa;
-			}
-			else if( unicode_character == 0x00f7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xba;
-			}
 			else if( ( unicode_character >= 0x05d0 )
 			      && ( unicode_character < 0x05f0 ) )
 			{
@@ -3181,21 +3184,31 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_8_unicode_to_byte_stream_base_0x05d0[ unicode_character ];
 			}
-			else if( unicode_character == 0x200e )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xfd;
-			}
-			else if( unicode_character == 0x200f )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfe;
-			}
-			else if( unicode_character == 0x2017 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xdf;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00d7:
+					byte_stream[ *byte_stream_index ] = 0xaa;
+					break;
+
+				case 0x00f7:
+					byte_stream[ *byte_stream_index ] = 0xba;
+					break;
+
+				case 0x200e:
+					byte_stream[ *byte_stream_index ] = 0xfd;
+					break;
+
+				case 0x200f:
+					byte_stream[ *byte_stream_index ] = 0xfe;
+					break;
+
+				case 0x2017:
+					byte_stream[ *byte_stream_index ] = 0xdf;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3213,33 +3226,35 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ unicode_character ];
 			}
-			else if( unicode_character == 0x011e )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xd0;
-			}
-			else if( unicode_character == 0x011f )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf0;
-			}
-			else if( unicode_character == 0x0130 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xdd;
-			}
-			else if( unicode_character == 0x0131 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfd;
-			}
-			else if( unicode_character == 0x015e )
-			{
-				byte_stream[ *byte_stream_index ] = 0xde;
-			}
-			else if( unicode_character == 0x015f )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfe;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x011e:
+					byte_stream[ *byte_stream_index ] = 0xd0;
+					break;
+
+				case 0x011f:
+					byte_stream[ *byte_stream_index ] = 0xf0;
+					break;
+
+				case 0x0130:
+					byte_stream[ *byte_stream_index ] = 0xdd;
+					break;
+
+				case 0x0131:
+					byte_stream[ *byte_stream_index ] = 0xfd;
+					break;
+
+				case 0x015e:
+					byte_stream[ *byte_stream_index ] = 0xde;
+					break;
+
+				case 0x015f:
+					byte_stream[ *byte_stream_index ] = 0xfe;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3249,22 +3264,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 			if( unicode_character < 0x00a1 )
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
-			}
-			else if( unicode_character == 0x00a7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa7;
-			}
-			else if( unicode_character == 0x00ad )
-			{
-				byte_stream[ *byte_stream_index ] = 0xad;
-			}
-			else if( unicode_character == 0x00b0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb0;
-			}
-			else if( unicode_character == 0x00b7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb7;
 			}
 			else if( ( unicode_character >= 0x00c0 )
 			      && ( unicode_character < 0x0150 ) )
@@ -3280,29 +3279,47 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_10_unicode_to_byte_stream_base_0x0160[ unicode_character ];
 			}
-			else if( unicode_character == 0x0172 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xd9;
-			}
-			else if( unicode_character == 0x0173 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf9;
-			}
-			else if( unicode_character == 0x017d )
-			{
-				byte_stream[ *byte_stream_index ] = 0xac;
-			}
-			else if( unicode_character == 0x017e )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbc;
-			}
-			else if( unicode_character == 0x2015 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbd;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a7:
+					byte_stream[ *byte_stream_index ] = 0xa7;
+					break;
+
+				case 0x00ad:
+					byte_stream[ *byte_stream_index ] = 0xad;
+					break;
+
+				case 0x00b0:
+					byte_stream[ *byte_stream_index ] = 0xb0;
+					break;
+
+				case 0x00b7:
+					byte_stream[ *byte_stream_index ] = 0xb7;
+					break;
+
+				case 0x0172:
+					byte_stream[ *byte_stream_index ] = 0xd9;
+					break;
+
+				case 0x0173:
+					byte_stream[ *byte_stream_index ] = 0xf9;
+					break;
+
+				case 0x017d:
+					byte_stream[ *byte_stream_index ] = 0xac;
+					break;
+
+				case 0x017e:
+					byte_stream[ *byte_stream_index ] = 0xbc;
+					break;
+
+				case 0x2015:
+					byte_stream[ *byte_stream_index ] = 0xbd;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3363,52 +3380,12 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a3 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa3;
-			}
-			else if( unicode_character == 0x00a7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa7;
-			}
-			else if( unicode_character == 0x00a9 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa9;
-			}
-			else if( unicode_character == 0x00ad )
-			{
-				byte_stream[ *byte_stream_index ] = 0xad;
-			}
-			else if( unicode_character == 0x00ae )
-			{
-				byte_stream[ *byte_stream_index ] = 0xae;
-			}
-			else if( unicode_character == 0x00b6 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb6;
-			}
 			else if( ( unicode_character >= 0x00c0 )
 			      && ( unicode_character < 0x0100 ) )
 			{
 				unicode_character -= 0x00c0;
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x00c0[ unicode_character ];
-			}
-			else if( unicode_character == 0x010a )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else if( unicode_character == 0x010b )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa5;
-			}
-			else if( unicode_character == 0x0120 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb2;
-			}
-			else if( unicode_character == 0x0121 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb3;
 			}
 			else if( ( unicode_character >= 0x0170 )
 			      && ( unicode_character < 0x0178 ) )
@@ -3417,66 +3394,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x0170[ unicode_character ];
 			}
-			else if( unicode_character == 0x0178 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xaf;
-			}
-			else if( unicode_character == 0x1e02 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa1;
-			}
-			else if( unicode_character == 0x1e03 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa2;
-			}
-			else if( unicode_character == 0x1e0a )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa6;
-			}
-			else if( unicode_character == 0x1e0b )
-			{
-				byte_stream[ *byte_stream_index ] = 0xab;
-			}
-			else if( unicode_character == 0x1e1e )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb0;
-			}
-			else if( unicode_character == 0x1e1f )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb1;
-			}
-			else if( unicode_character == 0x1e40 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb4;
-			}
-			else if( unicode_character == 0x1e41 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb5;
-			}
-			else if( unicode_character == 0x1e56 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb7;
-			}
-			else if( unicode_character == 0x1e57 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb9;
-			}
-			else if( unicode_character == 0x1e60 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbb;
-			}
-			else if( unicode_character == 0x1e61 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbf;
-			}
-			else if( unicode_character == 0x1e6a )
-			{
-				byte_stream[ *byte_stream_index ] = 0xd7;
-			}
-			else if( unicode_character == 0x1e6b )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf7;
-			}
 			else if( ( unicode_character >= 0x1e80 )
 			      && ( unicode_character < 0x1e88 ) )
 			{
@@ -3484,17 +3401,119 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_14_unicode_to_byte_stream_base_0x1e80[ unicode_character ];
 			}
-			else if( unicode_character == 0x1ef2 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xac;
-			}
-			else if( unicode_character == 0x1ef3 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbc;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a3:
+					byte_stream[ *byte_stream_index ] = 0xa3;
+					break;
+
+				case 0x00a7:
+					byte_stream[ *byte_stream_index ] = 0xa7;
+					break;
+
+				case 0x00a9:
+					byte_stream[ *byte_stream_index ] = 0xa9;
+					break;
+
+				case 0x00ad:
+					byte_stream[ *byte_stream_index ] = 0xad;
+					break;
+
+				case 0x00ae:
+					byte_stream[ *byte_stream_index ] = 0xae;
+					break;
+
+				case 0x00b6:
+					byte_stream[ *byte_stream_index ] = 0xb6;
+					break;
+
+				case 0x010a:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				case 0x010b:
+					byte_stream[ *byte_stream_index ] = 0xa5;
+					break;
+
+				case 0x0120:
+					byte_stream[ *byte_stream_index ] = 0xb2;
+					break;
+
+				case 0x0121:
+					byte_stream[ *byte_stream_index ] = 0xb3;
+					break;
+
+				case 0x0178:
+					byte_stream[ *byte_stream_index ] = 0xaf;
+					break;
+
+				case 0x1e02:
+					byte_stream[ *byte_stream_index ] = 0xa1;
+					break;
+
+				case 0x1e03:
+					byte_stream[ *byte_stream_index ] = 0xa2;
+					break;
+
+				case 0x1e0a:
+					byte_stream[ *byte_stream_index ] = 0xa6;
+					break;
+
+				case 0x1e0b:
+					byte_stream[ *byte_stream_index ] = 0xab;
+					break;
+
+				case 0x1e1e:
+					byte_stream[ *byte_stream_index ] = 0xb0;
+					break;
+
+				case 0x1e1f:
+					byte_stream[ *byte_stream_index ] = 0xb1;
+					break;
+
+				case 0x1e40:
+					byte_stream[ *byte_stream_index ] = 0xb4;
+					break;
+
+				case 0x1e41:
+					byte_stream[ *byte_stream_index ] = 0xb5;
+					break;
+
+				case 0x1e56:
+					byte_stream[ *byte_stream_index ] = 0xb7;
+					break;
+
+				case 0x1e57:
+					byte_stream[ *byte_stream_index ] = 0xb9;
+					break;
+
+				case 0x1e60:
+					byte_stream[ *byte_stream_index ] = 0xbb;
+					break;
+
+				case 0x1e61:
+					byte_stream[ *byte_stream_index ] = 0xbf;
+					break;
+
+				case 0x1e6a:
+					byte_stream[ *byte_stream_index ] = 0xd7;
+					break;
+
+				case 0x1e6b:
+					byte_stream[ *byte_stream_index ] = 0xf7;
+					break;
+
+				case 0x1ef2:
+					byte_stream[ *byte_stream_index ] = 0xac;
+					break;
+
+				case 0x1ef3:
+					byte_stream[ *byte_stream_index ] = 0xbc;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3516,41 +3535,43 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x0152 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xbc;
-			}
-			else if( unicode_character == 0x0153 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbd;
-			}
-			else if( unicode_character == 0x0160 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa6;
-			}
-			else if( unicode_character == 0x0161 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa8;
-			}
-			else if( unicode_character == 0x0178 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbe;
-			}
-			else if( unicode_character == 0x017d )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb4;
-			}
-			else if( unicode_character == 0x017e )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb8;
-			}
-			else if( unicode_character == 0x20ac )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x0152:
+					byte_stream[ *byte_stream_index ] = 0xbc;
+					break;
+
+				case 0x0153:
+					byte_stream[ *byte_stream_index ] = 0xbd;
+					break;
+
+				case 0x0160:
+					byte_stream[ *byte_stream_index ] = 0xa6;
+					break;
+
+				case 0x0161:
+					byte_stream[ *byte_stream_index ] = 0xa8;
+					break;
+
+				case 0x0178:
+					byte_stream[ *byte_stream_index ] = 0xbe;
+					break;
+
+				case 0x017d:
+					byte_stream[ *byte_stream_index ] = 0xb4;
+					break;
+
+				case 0x017e:
+					byte_stream[ *byte_stream_index ] = 0xb8;
+					break;
+
+				case 0x20ac:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3561,40 +3582,12 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa7;
-			}
 			else if( ( unicode_character >= 0x00a8 )
 			      && ( unicode_character < 0x0108 ) )
 			{
 				unicode_character -= 0x00a8;
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x00a8[ unicode_character ];
-			}
-			else if( unicode_character == 0x010c )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb2;
-			}
-			else if( unicode_character == 0x010d )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb9;
-			}
-			else if( unicode_character == 0x0110 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xd0;
-			}
-			else if( unicode_character == 0x0111 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf0;
-			}
-			else if( unicode_character == 0x0118 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xdd;
-			}
-			else if( unicode_character == 0x0119 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xfd;
 			}
 			else if( ( unicode_character >= 0x0140 )
 			      && ( unicode_character < 0x0148 ) )
@@ -3610,30 +3603,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0150[ unicode_character ];
 			}
-			else if( unicode_character == 0x015a )
-			{
-				byte_stream[ *byte_stream_index ] = 0xd7;
-			}
-			else if( unicode_character == 0x015b )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf7;
-			}
-			else if( unicode_character == 0x0160 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa6;
-			}
-			else if( unicode_character == 0x0161 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa8;
-			}
-			else if( unicode_character == 0x0170 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xd8;
-			}
-			else if( unicode_character == 0x0171 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xf8;
-			}
 			else if( ( unicode_character >= 0x0178 )
 			      && ( unicode_character < 0x0180 ) )
 			{
@@ -3648,21 +3617,75 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0218[ unicode_character ];
 			}
-			else if( unicode_character == 0x201d )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0xb5;
-			}
-			else if( unicode_character == 0x201e )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa5;
-			}
-			else if( unicode_character == 0x20ac )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a7:
+					byte_stream[ *byte_stream_index ] = 0xa7;
+					break;
+
+				case 0x010c:
+					byte_stream[ *byte_stream_index ] = 0xb2;
+					break;
+
+				case 0x010d:
+					byte_stream[ *byte_stream_index ] = 0xb9;
+					break;
+
+				case 0x0110:
+					byte_stream[ *byte_stream_index ] = 0xd0;
+					break;
+
+				case 0x0111:
+					byte_stream[ *byte_stream_index ] = 0xf0;
+					break;
+
+				case 0x0118:
+					byte_stream[ *byte_stream_index ] = 0xdd;
+					break;
+
+				case 0x0119:
+					byte_stream[ *byte_stream_index ] = 0xfd;
+					break;
+
+				case 0x015a:
+					byte_stream[ *byte_stream_index ] = 0xd7;
+					break;
+
+				case 0x015b:
+					byte_stream[ *byte_stream_index ] = 0xf7;
+					break;
+
+				case 0x0160:
+					byte_stream[ *byte_stream_index ] = 0xa6;
+					break;
+
+				case 0x0161:
+					byte_stream[ *byte_stream_index ] = 0xa8;
+					break;
+
+				case 0x0170:
+					byte_stream[ *byte_stream_index ] = 0xd8;
+					break;
+
+				case 0x0171:
+					byte_stream[ *byte_stream_index ] = 0xf8;
+					break;
+
+				case 0x201d:
+					byte_stream[ *byte_stream_index ] = 0xb5;
+					break;
+
+				case 0x201e:
+					byte_stream[ *byte_stream_index ] = 0xa5;
+					break;
+
+				case 0x20ac:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3673,116 +3696,12 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9a;
-			}
-			else if( unicode_character == 0x00a9 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbf;
-			}
-			else if( unicode_character == 0x00b0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9c;
-			}
-			else if( unicode_character == 0x00b2 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9d;
-			}
-			else if( unicode_character == 0x00b7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9e;
-			}
-			else if( unicode_character == 0x00f7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9f;
-			}
-			else if( unicode_character == 0x0401 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb3;
-			}
 			else if( ( unicode_character >= 0x0410 )
 			      && ( unicode_character < 0x0450 ) )
 			{
 				unicode_character -= 0x0410;
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x0410[ unicode_character ];
-			}
-			else if( unicode_character == 0x0451 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa3;
-			}
-			else if( unicode_character == 0x2219 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x95;
-			}
-			else if( unicode_character == 0x221a )
-			{
-				byte_stream[ *byte_stream_index ] = 0x96;
-			}
-			else if( unicode_character == 0x2248 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x97;
-			}
-			else if( unicode_character == 0x2264 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x98;
-			}
-			else if( unicode_character == 0x2265 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x99;
-			}
-			else if( unicode_character == 0x2320 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x93;
-			}
-			else if( unicode_character == 0x2321 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9b;
-			}
-			else if( unicode_character == 0x2500 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x80;
-			}
-			else if( unicode_character == 0x2502 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x81;
-			}
-			else if( unicode_character == 0x250c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x82;
-			}
-			else if( unicode_character == 0x2510 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x83;
-			}
-			else if( unicode_character == 0x2514 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x84;
-			}
-			else if( unicode_character == 0x2518 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x85;
-			}
-			else if( unicode_character == 0x251c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x86;
-			}
-			else if( unicode_character == 0x2524 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x87;
-			}
-			else if( unicode_character == 0x252c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x88;
-			}
-			else if( unicode_character == 0x2534 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x89;
-			}
-			else if( unicode_character == 0x253c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8a;
 			}
 			else if( ( unicode_character >= 0x2550 )
 			      && ( unicode_character < 0x2570 ) )
@@ -3791,45 +3710,151 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x2550[ unicode_character ];
 			}
-			else if( unicode_character == 0x2580 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0x8b;
-			}
-			else if( unicode_character == 0x2584 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8c;
-			}
-			else if( unicode_character == 0x2588 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8d;
-			}
-			else if( unicode_character == 0x258c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8e;
-			}
-			else if( unicode_character == 0x2590 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8f;
-			}
-			else if( unicode_character == 0x2591 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x90;
-			}
-			else if( unicode_character == 0x2592 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x91;
-			}
-			else if( unicode_character == 0x2593 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x92;
-			}
-			else if( unicode_character == 0x25a0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x94;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a0:
+					byte_stream[ *byte_stream_index ] = 0x9a;
+					break;
+
+				case 0x00a9:
+					byte_stream[ *byte_stream_index ] = 0xbf;
+					break;
+
+				case 0x00b0:
+					byte_stream[ *byte_stream_index ] = 0x9c;
+					break;
+
+				case 0x00b2:
+					byte_stream[ *byte_stream_index ] = 0x9d;
+					break;
+
+				case 0x00b7:
+					byte_stream[ *byte_stream_index ] = 0x9e;
+					break;
+
+				case 0x00f7:
+					byte_stream[ *byte_stream_index ] = 0x9f;
+					break;
+
+				case 0x0401:
+					byte_stream[ *byte_stream_index ] = 0xb3;
+					break;
+
+				case 0x0451:
+					byte_stream[ *byte_stream_index ] = 0xa3;
+					break;
+
+				case 0x2219:
+					byte_stream[ *byte_stream_index ] = 0x95;
+					break;
+
+				case 0x221a:
+					byte_stream[ *byte_stream_index ] = 0x96;
+					break;
+
+				case 0x2248:
+					byte_stream[ *byte_stream_index ] = 0x97;
+					break;
+
+				case 0x2264:
+					byte_stream[ *byte_stream_index ] = 0x98;
+					break;
+
+				case 0x2265:
+					byte_stream[ *byte_stream_index ] = 0x99;
+					break;
+
+				case 0x2320:
+					byte_stream[ *byte_stream_index ] = 0x93;
+					break;
+
+				case 0x2321:
+					byte_stream[ *byte_stream_index ] = 0x9b;
+					break;
+
+				case 0x2500:
+					byte_stream[ *byte_stream_index ] = 0x80;
+					break;
+
+				case 0x2502:
+					byte_stream[ *byte_stream_index ] = 0x81;
+					break;
+
+				case 0x250c:
+					byte_stream[ *byte_stream_index ] = 0x82;
+					break;
+
+				case 0x2510:
+					byte_stream[ *byte_stream_index ] = 0x83;
+					break;
+
+				case 0x2514:
+					byte_stream[ *byte_stream_index ] = 0x84;
+					break;
+
+				case 0x2518:
+					byte_stream[ *byte_stream_index ] = 0x85;
+					break;
+
+				case 0x251c:
+					byte_stream[ *byte_stream_index ] = 0x86;
+					break;
+
+				case 0x2524:
+					byte_stream[ *byte_stream_index ] = 0x87;
+					break;
+
+				case 0x252c:
+					byte_stream[ *byte_stream_index ] = 0x88;
+					break;
+
+				case 0x2534:
+					byte_stream[ *byte_stream_index ] = 0x89;
+					break;
+
+				case 0x253c:
+					byte_stream[ *byte_stream_index ] = 0x8a;
+					break;
+
+				case 0x2580:
+					byte_stream[ *byte_stream_index ] = 0x8b;
+					break;
+
+				case 0x2584:
+					byte_stream[ *byte_stream_index ] = 0x8c;
+					break;
+
+				case 0x2588:
+					byte_stream[ *byte_stream_index ] = 0x8d;
+					break;
+
+				case 0x258c:
+					byte_stream[ *byte_stream_index ] = 0x8e;
+					break;
+
+				case 0x2590:
+					byte_stream[ *byte_stream_index ] = 0x8f;
+					break;
+
+				case 0x2591:
+					byte_stream[ *byte_stream_index ] = 0x90;
+					break;
+
+				case 0x2592:
+					byte_stream[ *byte_stream_index ] = 0x91;
+					break;
+
+				case 0x2593:
+					byte_stream[ *byte_stream_index ] = 0x92;
+					break;
+
+				case 0x25a0:
+					byte_stream[ *byte_stream_index ] = 0x94;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -3840,148 +3865,12 @@ int libuna_unicode_character_copy_to_byte_stream(
 			{
 				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
 			}
-			else if( unicode_character == 0x00a0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9a;
-			}
-			else if( unicode_character == 0x00a9 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbf;
-			}
-			else if( unicode_character == 0x00b0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9c;
-			}
-			else if( unicode_character == 0x00b2 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9d;
-			}
-			else if( unicode_character == 0x00b7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9e;
-			}
-			else if( unicode_character == 0x00f7 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9f;
-			}
-			else if( unicode_character == 0x0401 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb3;
-			}
-			else if( unicode_character == 0x0404 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb4;
-			}
-			else if( unicode_character == 0x0406 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb6;
-			}
-			else if( unicode_character == 0x0407 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xb7;
-			}
 			else if( ( unicode_character >= 0x0410 )
 			      && ( unicode_character < 0x0450 ) )
 			{
 				unicode_character -= 0x0410;
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x0410[ unicode_character ];
-			}
-			else if( unicode_character == 0x0451 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa3;
-			}
-			else if( unicode_character == 0x0454 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa4;
-			}
-			else if( unicode_character == 0x0456 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa6;
-			}
-			else if( unicode_character == 0x0457 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xa7;
-			}
-			else if( unicode_character == 0x0490 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xbd;
-			}
-			else if( unicode_character == 0x0491 )
-			{
-				byte_stream[ *byte_stream_index ] = 0xad;
-			}
-			else if( unicode_character == 0x2219 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x95;
-			}
-			else if( unicode_character == 0x221a )
-			{
-				byte_stream[ *byte_stream_index ] = 0x96;
-			}
-			else if( unicode_character == 0x2248 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x97;
-			}
-			else if( unicode_character == 0x2264 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x98;
-			}
-			else if( unicode_character == 0x2265 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x99;
-			}
-			else if( unicode_character == 0x2320 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x93;
-			}
-			else if( unicode_character == 0x2321 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x9b;
-			}
-			else if( unicode_character == 0x2500 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x80;
-			}
-			else if( unicode_character == 0x2502 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x81;
-			}
-			else if( unicode_character == 0x250c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x82;
-			}
-			else if( unicode_character == 0x2510 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x83;
-			}
-			else if( unicode_character == 0x2514 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x84;
-			}
-			else if( unicode_character == 0x2518 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x85;
-			}
-			else if( unicode_character == 0x251c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x86;
-			}
-			else if( unicode_character == 0x2524 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x87;
-			}
-			else if( unicode_character == 0x252c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x88;
-			}
-			else if( unicode_character == 0x2534 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x89;
-			}
-			else if( unicode_character == 0x253c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8a;
 			}
 			else if( ( unicode_character >= 0x2550 )
 			      && ( unicode_character < 0x2570 ) )
@@ -3990,45 +3879,183 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x2550[ unicode_character ];
 			}
-			else if( unicode_character == 0x2580 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0x8b;
-			}
-			else if( unicode_character == 0x2584 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8c;
-			}
-			else if( unicode_character == 0x2588 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8d;
-			}
-			else if( unicode_character == 0x258c )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8e;
-			}
-			else if( unicode_character == 0x2590 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x8f;
-			}
-			else if( unicode_character == 0x2591 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x90;
-			}
-			else if( unicode_character == 0x2592 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x91;
-			}
-			else if( unicode_character == 0x2593 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x92;
-			}
-			else if( unicode_character == 0x25a0 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x94;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x00a0:
+					byte_stream[ *byte_stream_index ] = 0x9a;
+					break;
+
+				case 0x00a9:
+					byte_stream[ *byte_stream_index ] = 0xbf;
+					break;
+
+				case 0x00b0:
+					byte_stream[ *byte_stream_index ] = 0x9c;
+					break;
+
+				case 0x00b2:
+					byte_stream[ *byte_stream_index ] = 0x9d;
+					break;
+
+				case 0x00b7:
+					byte_stream[ *byte_stream_index ] = 0x9e;
+					break;
+
+				case 0x00f7:
+					byte_stream[ *byte_stream_index ] = 0x9f;
+					break;
+
+				case 0x0401:
+					byte_stream[ *byte_stream_index ] = 0xb3;
+					break;
+
+				case 0x0404:
+					byte_stream[ *byte_stream_index ] = 0xb4;
+					break;
+
+				case 0x0406:
+					byte_stream[ *byte_stream_index ] = 0xb6;
+					break;
+
+				case 0x0407:
+					byte_stream[ *byte_stream_index ] = 0xb7;
+					break;
+
+				case 0x0451:
+					byte_stream[ *byte_stream_index ] = 0xa3;
+					break;
+
+				case 0x0454:
+					byte_stream[ *byte_stream_index ] = 0xa4;
+					break;
+
+				case 0x0456:
+					byte_stream[ *byte_stream_index ] = 0xa6;
+					break;
+
+				case 0x0457:
+					byte_stream[ *byte_stream_index ] = 0xa7;
+					break;
+
+				case 0x0490:
+					byte_stream[ *byte_stream_index ] = 0xbd;
+					break;
+
+				case 0x0491:
+					byte_stream[ *byte_stream_index ] = 0xad;
+					break;
+
+				case 0x2219:
+					byte_stream[ *byte_stream_index ] = 0x95;
+					break;
+
+				case 0x221a:
+					byte_stream[ *byte_stream_index ] = 0x96;
+					break;
+
+				case 0x2248:
+					byte_stream[ *byte_stream_index ] = 0x97;
+					break;
+
+				case 0x2264:
+					byte_stream[ *byte_stream_index ] = 0x98;
+					break;
+
+				case 0x2265:
+					byte_stream[ *byte_stream_index ] = 0x99;
+					break;
+
+				case 0x2320:
+					byte_stream[ *byte_stream_index ] = 0x93;
+					break;
+
+				case 0x2321:
+					byte_stream[ *byte_stream_index ] = 0x9b;
+					break;
+
+				case 0x2500:
+					byte_stream[ *byte_stream_index ] = 0x80;
+					break;
+
+				case 0x2502:
+					byte_stream[ *byte_stream_index ] = 0x81;
+					break;
+
+				case 0x250c:
+					byte_stream[ *byte_stream_index ] = 0x82;
+					break;
+
+				case 0x2510:
+					byte_stream[ *byte_stream_index ] = 0x83;
+					break;
+
+				case 0x2514:
+					byte_stream[ *byte_stream_index ] = 0x84;
+					break;
+
+				case 0x2518:
+					byte_stream[ *byte_stream_index ] = 0x85;
+					break;
+
+				case 0x251c:
+					byte_stream[ *byte_stream_index ] = 0x86;
+					break;
+
+				case 0x2524:
+					byte_stream[ *byte_stream_index ] = 0x87;
+					break;
+
+				case 0x252c:
+					byte_stream[ *byte_stream_index ] = 0x88;
+					break;
+
+				case 0x2534:
+					byte_stream[ *byte_stream_index ] = 0x89;
+					break;
+
+				case 0x253c:
+					byte_stream[ *byte_stream_index ] = 0x8a;
+					break;
+
+				case 0x2580:
+					byte_stream[ *byte_stream_index ] = 0x8b;
+					break;
+
+				case 0x2584:
+					byte_stream[ *byte_stream_index ] = 0x8c;
+					break;
+
+				case 0x2588:
+					byte_stream[ *byte_stream_index ] = 0x8d;
+					break;
+
+				case 0x258c:
+					byte_stream[ *byte_stream_index ] = 0x8e;
+					break;
+
+				case 0x2590:
+					byte_stream[ *byte_stream_index ] = 0x8f;
+					break;
+
+				case 0x2591:
+					byte_stream[ *byte_stream_index ] = 0x90;
+					break;
+
+				case 0x2592:
+					byte_stream[ *byte_stream_index ] = 0x91;
+					break;
+
+				case 0x2593:
+					byte_stream[ *byte_stream_index ] = 0x92;
+					break;
+
+				case 0x25a0:
+					byte_stream[ *byte_stream_index ] = 0x94;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
@@ -4047,14 +4074,6 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ unicode_character ];
 			}
-			else if( unicode_character == 0x2013 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x96;
-			}
-			else if( unicode_character == 0x2014 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x97;
-			}
 			else if( ( unicode_character >= 0x2018 )
 			      && ( unicode_character < 0x2020 ) )
 			{
@@ -4062,30 +4081,283 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 				byte_stream[ *byte_stream_index ] = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ unicode_character ];
 			}
-			else if( unicode_character == 0x2022 )
+			else switch( unicode_character )
 			{
-				byte_stream[ *byte_stream_index ] = 0x95;
-			}
-			else if( unicode_character == 0x2026 )
-			{
-				byte_stream[ *byte_stream_index ] = 0x85;
-			}
-			else if( unicode_character == 0x20ac )
-			{
-				byte_stream[ *byte_stream_index ] = 0x80;
-			}
-			else
-			{
-				byte_stream[ *byte_stream_index ] = 0x1a;
+				case 0x2013:
+					byte_stream[ *byte_stream_index ] = 0x96;
+					break;
+
+				case 0x2014:
+					byte_stream[ *byte_stream_index ] = 0x97;
+					break;
+
+				case 0x2022:
+					byte_stream[ *byte_stream_index ] = 0x95;
+					break;
+
+				case 0x2026:
+					byte_stream[ *byte_stream_index ] = 0x85;
+					break;
+
+				case 0x20ac:
+					byte_stream[ *byte_stream_index ] = 0x80;
+					break;
+
+				default:
+					byte_stream[ *byte_stream_index ] = 0x1a;
+					break;
 			}
 			*byte_stream_index += 1;
 
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_932:
+			if( unicode_character < 0x0080 )
+			{
+				byte_stream[ *byte_stream_index ] = (uint8_t) unicode_character;
+			}
+			else if( ( unicode_character >= 0x00a0 )
+			      && ( unicode_character < 0x0100 ) )
+			{
+				byte_stream[ *byte_stream_index ] = 0x81;
+
+				byte_stream_additional_bytes = 1;
+
+				switch( unicode_character )
+				{
+					case 0x00a7:
+						byte_stream[ *byte_stream_index + 1 ] = 0x98;
+						break;
+
+					case 0x00a8:
+						byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+						break;
+
+					case 0x00b0:
+						byte_stream[ *byte_stream_index + 1 ] = 0x8b;
+						break;
+
+					case 0x00b1:
+						byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+						break;
+
+					case 0x00b4:
+						byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+						break;
+
+					case 0x00b7:
+						byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+						break;
+
+					case 0x00d7:
+						byte_stream[ *byte_stream_index + 1 ] = 0x7e;
+						break;
+
+					case 0x00f7:
+						byte_stream[ *byte_stream_index + 1 ] = 0x80;
+						break;
+
+					default:
+						byte_stream[ *byte_stream_index ] = 0x1a;
+
+						byte_stream_additional_bytes = 0;
+						break;
+				}
+			}
+			else if( ( unicode_character >= 0x2010 )
+			      && ( unicode_character < 0x2110 ) )
+			{
+				byte_stream[ *byte_stream_index ] = 0x81;
+
+				byte_stream_additional_bytes = 1;
+
+				switch( unicode_character )
+				{
+					case 0x2010:
+						byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+						break;
+
+					case 0x2015:
+						byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+						break;
+
+					case 0x2018:
+						byte_stream[ *byte_stream_index + 1 ] = 0x65;
+						break;
+
+					case 0x2019:
+						byte_stream[ *byte_stream_index + 1 ] = 0x66;
+						break;
+
+					case 0x201c:
+						byte_stream[ *byte_stream_index + 1 ] = 0x67;
+						break;
+
+					case 0x201d:
+						byte_stream[ *byte_stream_index + 1 ] = 0x68;
+						break;
+
+					case 0x2020:
+						byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+						break;
+
+					case 0x2021:
+						byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+						break;
+
+					case 0x2025:
+						byte_stream[ *byte_stream_index + 1 ] = 0x64;
+						break;
+
+					case 0x2026:
+						byte_stream[ *byte_stream_index + 1 ] = 0x63;
+						break;
+
+					case 0x2030:
+						byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+						break;
+
+					case 0x2032:
+						byte_stream[ *byte_stream_index + 1 ] = 0x8c;
+						break;
+
+					case 0x2033:
+						byte_stream[ *byte_stream_index + 1 ] = 0x8d;
+						break;
+
+					case 0x203b:
+						byte_stream[ *byte_stream_index + 1 ] = 0xa6;
+						break;
+
+					case 0x2103:
+						byte_stream[ *byte_stream_index + 1 ] = 0x8e;
+						break;
+
+					default:
+						byte_stream[ *byte_stream_index ] = 0x1a;
+
+						byte_stream_additional_bytes = 0;
+						break;
+				}
+			}
+			else if( ( unicode_character >= 0xfa0e )
+			      && ( unicode_character < 0xfa2e ) )
+			{
+				unicode_character -= 0xfa0e;
+
+				byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xfa0e[ unicode_character ][ 0 ];
+				byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xfa0e[ unicode_character ][ 1 ];
+
+				byte_stream_additional_bytes = 1;
+			}
+			else if( ( unicode_character >= 0xff01 )
+			      && ( unicode_character < 0xff5f ) )
+			{
+				unicode_character -= 0xff01;
+
+				byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xff01[ unicode_character ][ 0 ];
+				byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xff01[ unicode_character ][ 1 ];
+
+				byte_stream_additional_bytes = 1;
+			}
+			else if( ( unicode_character >= 0xff61 )
+			      && ( unicode_character < 0xffa0 ) )
+			{
+				unicode_character -= 0xff61;
+
+				byte_stream[ *byte_stream_index ] = (uint8_t) ( 0xa1 + unicode_character );
+			}
+			else if( ( unicode_character >= 0xffe0 )
+			      && ( unicode_character < 0xffe6 ) )
+			{
+				unicode_character -= 0xffe0;
+
+				byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xffe0[ unicode_character ][ 0 ];
+				byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_932_unicode_to_byte_stream_base_0xffe0[ unicode_character ][ 1 ];
+
+				byte_stream_additional_bytes = 1;
+			}
+			else
+			{
+				byte_stream_additional_bytes = 1;
+
+				switch( unicode_character )
+				{
+					case 0x0450:
+						byte_stream[ *byte_stream_index     ] = 0x84;
+						byte_stream[ *byte_stream_index + 1 ] = 0x76;
+						break;
+
+					case 0x2116:
+						byte_stream[ *byte_stream_index ]     = 0x87;
+						byte_stream[ *byte_stream_index + 1 ] = 0x82;
+						break;
+
+					case 0x2121:
+						byte_stream[ *byte_stream_index ]     = 0x87;
+						byte_stream[ *byte_stream_index + 1 ] = 0x84;
+						break;
+
+					case 0x212b:
+						byte_stream[ *byte_stream_index ]     = 0x81;
+						byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+						break;
 /* TODO */
+
+					case 0x9f5f:
+						byte_stream[ *byte_stream_index ]     = 0xea;
+						byte_stream[ *byte_stream_index + 1 ] = 0x92;
+						break;
+
+
+/* TODO */
+					case 0x9f8d:
+						byte_stream[ *byte_stream_index ]     = 0x97;
+						byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+						break;
+
+					case 0x9f95:
+						byte_stream[ *byte_stream_index ]     = 0xea;
+						byte_stream[ *byte_stream_index + 1 ] = 0x9c;
+						break;
+
+					case 0x9f9c:
+						byte_stream[ *byte_stream_index ]     = 0xea;
+						byte_stream[ *byte_stream_index + 1 ] = 0x9d;
+						break;
+
+					case 0x9f9d:
+						byte_stream[ *byte_stream_index ]     = 0xe2;
+						byte_stream[ *byte_stream_index + 1 ] = 0x73;
+						break;
+
+					case 0x9fa0:
+						byte_stream[ *byte_stream_index ]     = 0xea;
+						byte_stream[ *byte_stream_index + 1 ] = 0x9e;
+						break;
+
+					case 0xf929:
+						byte_stream[ *byte_stream_index ]     = 0xed;
+						byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+						break;
+
+					case 0xf9dc:
+						byte_stream[ *byte_stream_index ]     = 0xee;
+						byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+						break;
+
+					default:
+						byte_stream[ *byte_stream_index ] = 0x1a;
+
+						byte_stream_additional_bytes = 0;
+						break;
+				}
+			}
+			*byte_stream_index += 1 + byte_stream_additional_bytes;
+
 			break;
 
+/* TODO code clean */
 		case LIBUNA_CODEPAGE_WINDOWS_936:
 /* TODO */
 			break;

@@ -8,6 +8,16 @@ TODO
   - 950 (Traditional Chinese Big5)
 * improve: libuna_unicode_character_size_to_byte_stream ?
   - lookup value
+* tests
+  - unicode 2 codepage tests
+    - ascii
+    - windows 932
+    - windows 936
+    - windows 949
+    - windows 950
+  - codepage 2 unicode tests
+    - ascii
+    - windows 950
 
 * implement with index functions
 * added const to base32 and base64 functions
@@ -21,10 +31,6 @@ TODO
   - add codegear project file
 * tests
   - implement tests
-  - unicode 2 codepage tests
-  - codepage 2 unicode tests
-    - ascii
-    - windows 950
 * add support for OEM codepages:
   - 437 (US)
   - 720 (Arabic)
@@ -101,6 +107,10 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
+
+20120614
+* code clean up in unicode to ascii conversion
+* worked on unicode to ascii support
 
 20120613
 * worked on Unicode tests to byte stream tests

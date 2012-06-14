@@ -81,6 +81,10 @@ extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x
 extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfb40[ 189 ];
 extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfc40[ 12 ];
 
+extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xfa0e[ 32 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xff01[ 94 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xffe0[ 6 ][ 2 ];
+
 #if defined( __cplusplus )
 }
 #endif
