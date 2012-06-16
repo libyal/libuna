@@ -44,6 +44,10 @@ struct una_test_byte_stream_to_unicode
 	/* The Unicode character
 	 */
 	libuna_unicode_character_t unicode_character;
+
+	/* Value to indicate this is a duplicate unicode character entry
+	 */
+	uint8_t is_duplicate;
 };
 
 #if defined( __cplusplus )

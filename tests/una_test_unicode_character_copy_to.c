@@ -87,29 +87,32 @@ int una_test_unicode_character_copy_to_byte_stream(
 
 	while( byte_stream_to_unicode_entry_index < number_of_byte_stream_to_unicode_entries )
 	{
-		byte_stream_index = 0;
-
-		result = libuna_unicode_character_copy_to_byte_stream(
-			  ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).unicode_character,
-			  byte_stream,
-			  byte_stream_size,
-			  &byte_stream_index,
-			  codepage,
-			  &error );
-
-		if( result != 1 )
+		if( ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).is_duplicate == 0 )
 		{
-			break;
-		}
-		if( ( byte_stream_index != ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size )
-		 || ( memory_compare(
-		       byte_stream,
-		       ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream,
-		       ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size ) != 0 ) )
-		{
-			result = 0;
+			byte_stream_index = 0;
 
-			break;
+			result = libuna_unicode_character_copy_to_byte_stream(
+				  ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).unicode_character,
+				  byte_stream,
+				  byte_stream_size,
+				  &byte_stream_index,
+				  codepage,
+				  &error );
+
+			if( result != 1 )
+			{
+				break;
+			}
+			if( ( byte_stream_index != ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size )
+			 || ( memory_compare(
+			       byte_stream,
+			       ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream,
+			       ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size ) != 0 ) )
+			{
+				result = 0;
+
+				break;
+			}
 		}
 		byte_stream_to_unicode_entry_index++;
 	}
@@ -156,7 +159,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 			}
 			fprintf(
 			 stdout,
-			 " got:  0x%02" PRIx8 "",
+			 " got: 0x%02" PRIx8 "",
 			 byte_stream[ 0 ] );
 
 			if( ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).byte_stream_size > 1 )
@@ -205,8 +208,6 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-/* TODO */
-#ifdef TODO
 	/* Case: codepage windows 932
 	 */
 	if( una_test_unicode_character_copy_to_byte_stream(
@@ -220,6 +221,8 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+/* TODO */
+#ifdef TODO
 	/* Case: codepage windows 936
 	 */
 	if( una_test_unicode_character_copy_to_byte_stream(

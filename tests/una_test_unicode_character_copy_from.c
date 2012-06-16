@@ -148,7 +148,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 			}
 			fprintf(
 			 stdout,
-			 " expected: 0x%08" PRIx32 " got:  0x%08" PRIx32 "\n",
+			 " expected: 0x%08" PRIx32 " got: 0x%08" PRIx32 "\n",
 			 ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).unicode_character,
 			 unicode_character );
 		}

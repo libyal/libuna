@@ -108,6 +108,9 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 
+20120616
+* added unicode to ascii support for codepage 932
+
 20120614
 * code clean up in unicode to ascii conversion
 * worked on unicode to ascii support
