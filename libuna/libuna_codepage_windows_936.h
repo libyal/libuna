@@ -1,7 +1,7 @@
 /*
  * Windows 936 codepage (Chinese Simplified) functions
  *
- * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -158,6 +158,37 @@ extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0x
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfc40[ 96 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfd40[ 96 ];
 extern const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ 16 ];
+
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x0391[ 17 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x03a3[ 7 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x03b1[ 17 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x03c3[ 7 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x0410[ 64 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2160[ 12 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2170[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2460[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2474[ 40 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2500[ 76 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2550[ 36 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x2581[ 15 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x3005[ 19 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x3021[ 9 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x3041[ 83 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x30a1[ 86 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x3105[ 37 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x3220[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x4e00[ 512 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x5000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x6000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x7000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x8000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x9000[ 4006 ][ 2 ];
+
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xfe33[ 18 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xfe49[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xfe59[ 14 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xff01[ 94 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xffe0[ 6 ][ 2 ];
 
 #if defined( __cplusplus )
 }

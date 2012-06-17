@@ -5,7 +5,7 @@ Summary: Library to support Unicode and ASCII (byte stream) conversions
 Group: System Environment/Libraries
 License: LGPL
 Source: %{name}-%{version}.tar.gz
-URL: http://libuna.sourceforge.net
+URL: http://code.google.com/p/libuna/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 @libuna_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcstring_spec_requires@
 @libuna_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcstring_spec_build_requires@
@@ -70,15 +70,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 
 %changelog
-* Sat Apr  7 2012 Joachim Metz <jbmetz@users.sourceforge.net> 20120407-1
+* Sat Apr  7 2012 Joachim Metz <joachim.metz@gmail.com> 20120407-1
 - Changes for libcsystem code clean up
 
-* Sun Apr  1 2012 Joachim Metz <jbmetz@users.sourceforge.net> 20120401-1
+* Sun Apr  1 2012 Joachim Metz <joachim.metz@gmail.com> 20120401-1
 - Changes for libsystem code clean up
 
-* Tue Oct  4 2011 Joachim Metz <jbmetz@users.sourceforge.net> 20111004-1
+* Tue Oct  4 2011 Joachim Metz <joachim.metz@gmail.com> 20111004-1
 - Updated READMEs
 
-* Sun Jun 27 2010 Joachim Metz <jbmetz@users.sourceforge.net> 20100627-1
+* Sun Jun 27 2010 Joachim Metz <joachim.metz@gmail.com> 20100627-1
 - Clean up of previous version of spec file
 

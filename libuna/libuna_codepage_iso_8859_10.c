@@ -1,7 +1,7 @@
 /*
  * ISO 8859-10 codepage (Nordic) function
  *
- * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *

@@ -1,7 +1,7 @@
 /*
  * Windows 932 codepage (Japanese Shift-JIS) functions
  *
- * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -92,7 +92,6 @@ extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x2
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x3005[ 17 ][ 2 ];
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x3041[ 83 ][ 2 ];
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x30a1[ 86 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x9eb8[ 5 ][ 2 ];
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x9ecc[ 8 ][ 2 ];
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xfa0e[ 32 ][ 2 ];
 extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xff01[ 94 ][ 2 ];

@@ -1,23 +1,15 @@
 TODO
-* add ascii to unicode support for:
-  - 950 (Traditional Chinese Big5)
-* add unicode to ascii support for (combine with rewrite)
-  - 932 iso-2022-jp Japanese (Shift-JIS)
-  - 936 gb2312 Chinese Simplified (GB2312) support
-  - 949 (Korean) ks_c_5601-1987
+* add unicode to ascii support
   - 950 (Traditional Chinese Big5)
 * improve: libuna_unicode_character_size_to_byte_stream ?
-  - lookup value
+  - windows 949
+  - windows 950
 * tests
   - unicode 2 codepage tests
-    - ascii
-    - windows 932
-    - windows 936
-    - windows 949
-    - windows 950
+    - test values not in codepage
   - codepage 2 unicode tests
-    - ascii
     - windows 950
+    - test values not in codepage
 
 * implement with index functions
 * added const to base32 and base64 functions
@@ -31,23 +23,10 @@ TODO
   - add codegear project file
 * tests
   - implement tests
-* add support for OEM codepages:
-  - 437 (US)
-  - 720 (Arabic)
-  - 737 (Greek)
-  - 775 (Baltic)
-  - 850 (Multilingual Latin I)
-  - 852 (Latin II)
-  - 855 (Cyrillic)
-  - 857 (Turkish)
-  - 858 (Multilingual Latin I + Euro)
-  - 862 (Hebrew)
-  - 866 (Russian)
 * gettext support
 
 * libuna
   - add source == destination check to functions?
-  - handle combining characters in windows 1255 and 1258 ?
   - speed test between index based and pointer based iteration
   - change libuna_codepage_ macros into inline functions ?
   - copy from/to functions should set/return amount of bytes successfully processed?
@@ -60,7 +39,19 @@ TODO
   - implement support for scsu ?
   - implement support for usc-1, ucs-2, usc-4 ?
 
-* implement support for codepages:
+* add support for OEM codepages:
+  - 437 (US)
+  - 720 (Arabic)
+  - 737 (Greek)
+  - 775 (Baltic)
+  - 850 (Multilingual Latin I)
+  - 852 (Latin II)
+  - 855 (Cyrillic)
+  - 857 (Turkish)
+  - 858 (Multilingual Latin I + Euro)
+  - 862 (Hebrew)
+  - 866 (Russian)
+* add support for codepages:
   - 50220 iso-2022-jp Japanese (JIS)
   - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
   - 51932 euc-jp Japanese (EUC)
@@ -101,22 +92,28 @@ Tools:
   - update msvscpp, codegear project files
 
 Deployment:
-* create debian package files
 * create Borland C++ 5.5 files
+* update macosx packagemaker files
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 
+20120617
+* worked on Unicode to byte stream tests
+  - added size check
+* worked on copepages 932, 936, 949 and 950
+
 20120616
 * added unicode to ascii support for codepage 932
+* project location change
 
 20120614
 * code clean up in unicode to ascii conversion
 * worked on unicode to ascii support
 
 20120613
-* worked on Unicode tests to byte stream tests
+* worked on Unicode to byte stream tests
 * bug fixes in unicode to codepage conversion
 
 20120612

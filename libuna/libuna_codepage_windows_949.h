@@ -1,7 +1,7 @@
 /*
  * Windows 949 codepage (Korean) functions
  *
- * Copyright (c) 2008-2012, Joachim Metz <jbmetz@users.sourceforge.net>
+ * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -155,6 +155,34 @@ extern const uint16_t libuna_codepage_windows_949_byte_stream_to_unicode_base_0x
 extern const uint16_t libuna_codepage_windows_949_byte_stream_to_unicode_base_0xfba0[ 96 ];
 extern const uint16_t libuna_codepage_windows_949_byte_stream_to_unicode_base_0xfca0[ 96 ];
 extern const uint16_t libuna_codepage_windows_949_byte_stream_to_unicode_base_0xfda0[ 96 ];
+
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x0391[ 17 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x03a3[ 7 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x03b1[ 17 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x03c3[ 7 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x0410[ 64 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x2160[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x2170[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x2190[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x2460[ 15 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x2474[ 15 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x249c[ 26 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x24d0[ 26 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x250c[ 64 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x25a3[ 7 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3008[ 10 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3041[ 83 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x30a1[ 86 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3131[ 94 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3200[ 29 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3260[ 28 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0x3388[ 67 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xac00[ 1024 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xb000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xc000[ 4096 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xd000[ 1956 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xf900[ 268 ][ 2 ];
+extern const uint8_t libuna_codepage_windows_949_unicode_to_byte_stream_base_0xff01[ 94 ][ 2 ];
 
 #if defined( __cplusplus )
 }

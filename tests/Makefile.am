@@ -111,6 +111,7 @@ una_test_utf8_string_copy_from_LDADD = \
         @MEMWATCH_LIBADD@
 
 una_test_unicode_character_copy_from_SOURCES = \
+	una_test_codepage_ascii.h \
 	una_test_codepage_iso_8859_1.h \
 	una_test_codepage_iso_8859_2.h \
 	una_test_codepage_iso_8859_3.h \
