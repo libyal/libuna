@@ -11,6 +11,9 @@ TODO
     - windows 950
     - test values not in codepage
 
+* base encoding
+  - support UTF-16 and 32 by flags ?
+
 * implement with index functions
 * added const to base32 and base64 functions
 * libuna_base16_stream_size_from_byte_stream add const
