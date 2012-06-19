@@ -25,77 +25,34 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_inline.h"
+#include "libuna_libcerror.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8140[ 109 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81b8[ 8 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81c8[ 7 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81da[ 15 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81f0[ 8 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8440[ 33 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8470[ 15 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x849f[ 32 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x875f[ 23 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8780[ 29 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x889f[ 94 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8940[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8a40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8b40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8c40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8d40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8e40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x8f40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9040[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9140[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9240[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9340[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9440[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9540[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9640[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9740[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9840[ 51 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x989f[ 94 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9940[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9a40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9b40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9c40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9d40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9e40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0x9f40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe040[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe140[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe240[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe340[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe440[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe540[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe640[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe740[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe840[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xe940[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xea40[ 101 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xed40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xee40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfa40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfb40[ 189 ];
-extern const uint16_t libuna_codepage_windows_932_byte_stream_to_unicode_base_0xfc40[ 12 ];
+LIBUNA_INLINE \
+int libuna_codepage_windows_932_unicode_character_size_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     size_t *byte_stream_character_size,
+     libcerror_error_t **error );
 
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x0391[ 17 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x03a3[ 7 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x03b1[ 17 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x03c3[ 7 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x0410[ 64 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x2160[ 10 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x2170[ 10 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x2460[ 20 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x3005[ 17 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x3041[ 83 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x30a1[ 86 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0x9ecc[ 8 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xfa0e[ 32 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xff01[ 94 ][ 2 ];
-extern const uint8_t libuna_codepage_windows_932_unicode_to_byte_stream_base_0xffe0[ 6 ][ 2 ];
+LIBUNA_INLINE \
+int libuna_codepage_windows_932_copy_from_byte_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error );
+
+LIBUNA_INLINE \
+int libuna_codepage_windows_932_copy_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }
