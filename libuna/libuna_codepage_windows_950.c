@@ -2378,353 +2378,158 @@ const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50ac[ 13
 	{ 0xdc, 0xc4 }
 };
 
-#ifdef TODO
-base 0x50b8
-0x1a, 0x1a, 0xdcbf, 0xb6cc, 0x1a, 0xdcb4, 0xb6c9, 0xdcb5,
-
-base 0x50c0
-0x1a, 0xdcbe, 0xdcbc, 0x1a,
-
 const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50c4[ 8 ][ 2 ] = {
-	                                0xdcb8, 0xb6c8, 0xdcb6, 0xb6ce,
-	0xdcbb, 0xdcc2, 0xdcb9, 0xdcc1,
+	                                                                { 0xdc, 0xb8 }, { 0xb6, 0xc8 }, { 0xdc, 0xb6 }, { 0xb6, 0xce },
+	{ 0xdc, 0xbb }, { 0xdc, 0xc2 }, { 0xdc, 0xb9 }, { 0xdc, 0xc1 }
 };
-
-base 0x50cc
-0x1a, 0x1a, 0xb9b6, 0xb9b3,
-
-base 0x50d0
-0x1a, 0xb9b4, 0x1a, 0xe0f9, 0xe0f1, 0xb9b2, 0xb9af, 0xe0f2,
-0x1a, 0x1a, 0xb9b1, 0xe0f5, 0x1a, 0xe0f7, 0x1a, 0x1a,
-
-base 0x50e0
-0xe0fe, 0x1a, 0x1a,
 
 const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50e3[ 8 ][ 2 ] = {
-	                        0xe0fd, 0xe0f8, 0xb9ae, 0xe0f0, 0xb9ac,
-	0xe0f3, 0xb9b7, 0xe0f6,
+	                                                { 0xe0, 0xfd }, { 0xe0, 0xf8 }, { 0xb9, 0xae }, { 0xe0, 0xf0 }, { 0xb9, 0xac },
+	{ 0xe0, 0xf3 }, { 0xb9, 0xb7 }, { 0xe0, 0xf6 }
 };
-
-base 0x50eb
-0x1a, 0xe0fa, 0xb9b0, 0xb9ad, 0xe0fc,
-
-base 0x50f0
-0xe0fb, 0xb9b5, 0x1a, 0xe0f4, 0x1a, 0xbbf8, 0xe4ec, 0x1a,
-0xe4e9, 0xbbf9, 0x1a, 0xbbf7, 0x1a, 0xe4f0, 0xe4ed, 0xe4e6,
-
-base 0x5100
-0xbbf6, 0x1a,
 
 const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5102[ 11 ][ 2 ] = {
-	                0xbbfa, 0xe4e7, 0xbbf5, 0xbbfd, 0xe4ea, 0xe4eb,
-	0xbbfb, 0xbbfc, 0xe4f1, 0xe4ee, 0xe4ef,
+	                                { 0xbb, 0xfa }, { 0xe4, 0xe7 }, { 0xbb, 0xf5 }, { 0xbb, 0xfd }, { 0xe4, 0xea }, { 0xe4, 0xeb },
+	{ 0xbb, 0xfb }, { 0xbb, 0xfc }, { 0xe4, 0xf1 }, { 0xe4, 0xee }, { 0xe4, 0xef }
 };
 
-base 0x5110
-0xbeaa, 0xe8f8, 0xbea7, 0xe8f5, 0xbea9, 0xbeab, 0x1a, 0xe8f6,
-0xbea8, 0x1a, 0xe8f7, 0x1a, 0xe8f4, 0x1a, 0x1a, 0xc076,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x53e8[ 12 ][ 2 ] = {
+	{ 0xa5, 0x6f }, { 0xa5, 0x6e }, { 0xa5, 0x75 }, { 0xa5, 0x73 }, { 0xa5, 0x6c }, { 0xa5, 0x7a }, { 0xa5, 0x6d }, { 0xa5, 0x69 },
+	{ 0xa5, 0x78 }, { 0xa5, 0x77 }, { 0xa5, 0x76 }, { 0xa5, 0x6b }
+};
 
-base 0x5120
-0xecbd, 0xc077, 0xecbb, 0x1a, 0xecbc, 0xecba, 0xecb9, 0x1a,
-0x1a, 0xecbe, 0xc075, 0x1a, 0x1a, 0xefb8, 0xefb9, 0x1a,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5406[ 13 ][ 2 ] = {
+	                                                                                                { 0xa6, 0x5b }, { 0xc9, 0xc5 },
+	{ 0xa6, 0x58 }, { 0xa6, 0x4e }, { 0xa6, 0x51 }, { 0xa6, 0x54 }, { 0xa6, 0x50 }, { 0xa6, 0x57 }, { 0xa6, 0x5a }, { 0xa6, 0x4f },
+	{ 0xa6, 0x52 }, { 0xa6, 0x56 }, { 0xa6, 0x5c }
+};
 
-base 0x5130
-0xe4e8, 0xefb7, 0xc078, 0xc35f, 0xf1ea, 0xf1ec, 0x1a, 0xc4d7,
-0xc4d8, 0xf5c1, 0xf5c0, 0xc56c, 0xc56b, 0xf7d0, 0x1a, 0xa449,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5424[ 11 ][ 2 ] = {
+	                                                                { 0xca, 0xa5 }, { 0xca, 0x7d }, { 0xa7, 0x5f }, { 0xa7, 0x61 },
+	{ 0xca, 0xa4 }, { 0xa7, 0x68 }, { 0xca, 0x78 }, { 0xa7, 0x74 }, { 0xa7, 0x76 }, { 0xa7, 0x5c }, { 0xa7, 0x6d }
+};
 
-base 0x5140
-0xa461, 0xa4b9, 0x1a, 0xa4b8, 0xa553, 0xa552, 0xa5fc, 0xa5fb,
-0xa5fd, 0xa5fa, 0x1a, 0xa74a, 0xa749, 0xa74b, 0x1a, 0x1a,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5460[ 9 ][ 2 ] = {
+	{ 0xcb, 0xeb }, { 0xcb, 0xea }, { 0xa9, 0x4f }, { 0xcb, 0xed }, { 0xcb, 0xef }, { 0xcb, 0xe4 }, { 0xcb, 0xe7 }, { 0xcb, 0xee },
+	{ 0xa9, 0x50 }
+};
 
-base 0x5150
-0x1a, 0x1a, 0xa8e0, 0x1a, 0xa8df, 0xa8e1, 0x1a, 0xab5e,
-0x1a, 0xa259, 0xd0de, 0xa25a, 0xb0c2, 0xa25c, 0xa25b, 0xd860,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5470[ 9 ][ 2 ] = {
+	{ 0xce, 0x49 }, { 0xa9, 0x4b }, { 0xce, 0x4d }, { 0xa8, 0xfd }, { 0xcb, 0xe6 }, { 0xa8, 0xfe }, { 0xa9, 0x4c }, { 0xa9, 0x45 },
+	{ 0xa9, 0x41 }
+};
 
-base 0x5160
-0x1a, 0xa25d, 0xb9b8, 0xa25e, 0x1a, 0xa44a, 0x1a, 0xa4ba,
-0xa5fe, 0xa8e2, 0x1a, 0xa44b, 0xa4bd, 0xa4bb, 0xa4bc, 0x1a,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x547a[ 9 ][ 2 ] = {
+	                                { 0xcb, 0xe2 }, { 0xa9, 0x44 }, { 0xa9, 0x49 }, { 0xa9, 0x52 }, { 0xcb, 0xe3 }, { 0xcb, 0xdc },
+	{ 0xa9, 0x43 }, { 0xcb, 0xdd }, { 0xcb, 0xdf }
+};
 
-base 0x5170
-0x1a, 0xa640, 0x1a, 0x1a, 0x1a, 0xa74c, 0xa8e4, 0xa8e3,
-0xa8e5, 0x1a, 0x1a, 0x1a, 0xaddd, 0x1a, 0x1a, 0x1a,
-0xbeac, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xc94e,
-0x1a, 0xa554, 0xa555, 0x1a, 0x1a, 0xa641, 0x1a, 0xca6a,
-0x1a, 0xab60, 0xab5f, 0xd0e0, 0xd0df, 0xb0c3, 0x1a, 0xa4be,
-0xc955, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xcbcd, 0x1a,
-0xab61, 0x1a, 0xade0, 0x1a, 0xadde, 0xaddf, 0x1a, 0x1a,
-0x1a, 0x1a, 0xbead, 0x1a, 0xa556, 0x1a, 0x1a, 0x1a,
-0xa642, 0xc9bc, 0x1a, 0x1a, 0x1a, 0x1a, 0xa74d, 0xa74e,
-0x1a, 0xca6b, 0x1a, 0x1a, 0xcbce, 0xa8e6, 0xcbcf, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0xd0e2, 0xd0e3, 0xade3, 0x1a,
-0xd0e4, 0x1a, 0xd0e1, 0xade4, 0xade2, 0xade1, 0xd0e5, 0x1a,
-0xd468, 0x1a, 0x1a, 0x1a, 0xd861, 0x1a, 0x1a, 0xdcc5,
-0xe140, 0x1a, 0x1a, 0x1a, 0xbbfe, 0xbeae, 0xe8f9, 0x1a,
-0xa44c, 0xa45a, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54a5[ 13 ][ 2 ] = {
+	                                                                                { 0xcd, 0xfd }, { 0xab, 0x78 }, { 0xab, 0xa8 },
+	{ 0xab, 0x74 }, { 0xab, 0xa7 }, { 0xab, 0x7d }, { 0xab, 0xa4 }, { 0xab, 0x72 }, { 0xcd, 0xfc }, { 0xce, 0x43 }, { 0xab, 0xa3 },
+	{ 0xce, 0x4f }, { 0xab, 0xa5 }
+};
 
-base 0x51f0
-0xb0c4, 0xb3cd, 0x1a, 0xb9b9, 0x1a, 0xc942, 0xa4bf, 0x1a,
-0xa559, 0xa557, 0xa558, 0x1a, 0x1a, 0xa8e7, 0x1a, 0x1a,
-0xa44d, 0xa44e, 0x1a, 0xa462, 0x1a, 0x1a, 0xa4c0, 0xa4c1,
-0xa4c2, 0xc9be, 0xa55a, 0x1a, 0xc96b, 0x1a, 0xa646, 0x1a,
-0xc9bf, 0xa644, 0xa645, 0xc9bd, 0x1a, 0x1a, 0xa647, 0xa643,
-0x1a, 0x1a, 0x1a, 0x1a, 0xca6c, 0xaaec, 0xca6d, 0x1a,
-0x1a, 0xca6e, 0x1a, 0x1a, 0xa750, 0xa74f, 0x1a, 0x1a,
-0xa753, 0xa751, 0xa752, 0x1a, 0x1a, 0x1a, 0xa8ed, 0x1a,
-0xa8ec, 0xcbd4, 0xcbd1, 0xcbd2, 0x1a, 0xcbd0, 0xa8ee, 0xa8ea,
-0xa8e9, 0x1a, 0xa8eb, 0xa8e8, 0x1a, 0x1a, 0x1a, 0x1a,
-0x1a, 0xa8ef, 0x1a, 0xab63, 0xcdf0, 0x1a, 0xcbd3, 0xab68,
-0x1a, 0xcdf1, 0xab64, 0xab67, 0xab66, 0xab65, 0xab62, 0x1a,
-0x1a, 0x1a, 0xd0e8, 0x1a, 0xade7, 0xd0eb, 0xade5, 0x1a,
-0x1a, 0x1a, 0xd0e7, 0xade8, 0xade6, 0xade9, 0xd0e9, 0xd0ea,
-0x1a, 0xd0e6, 0xd0ec, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a,
-0x1a, 0xb3d1, 0xb0c5, 0xd469, 0xd46b, 0xd46a, 0xd46c, 0xb0c6,
-0x1a, 0x1a, 0xb3ce, 0x1a, 0xb3cf, 0xb3d0, 0x1a, 0xb6d0,
-0xdcc7, 0x1a, 0xdcc6, 0xdcc8, 0xdcc9, 0xb6d1, 0x1a, 0xb6cf,
-0xe141, 0xe142, 0xb9bb, 0xb9ba, 0xe35a, 0x1a, 0x1a, 0xbc40,
-0xbc41, 0xbc42, 0xbc44, 0xe4f2, 0xe4f3, 0xbc43, 0x1a, 0x1a,
-0x1a, 0xbeaf, 0x1a, 0xbeb0, 0x1a, 0x1a, 0xf1ed, 0xf5c3,
-0xf5c2, 0xf7d1, 0x1a, 0xa44f, 0x1a, 0x1a, 0x1a, 0xa55c,
-0xa55b, 0x1a, 0x1a, 0xa648, 0x1a, 0x1a, 0xc9c0, 0x1a,
-0x1a, 0xa755, 0xa756, 0xa754, 0xa757, 0xca6f, 0xca70, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54ba[ 16 ][ 2 ] = {
+	                                { 0xcd, 0xfa }, { 0xab, 0xa6 }, { 0xce, 0x4a }, { 0xab, 0x7c }, { 0xce, 0x4c }, { 0xab, 0xa9 },
+	{ 0xab, 0x73 }, { 0xab, 0x7e }, { 0xab, 0x7b }, { 0xce, 0x40 }, { 0xab, 0xa1 }, { 0xce, 0x46 }, { 0xce, 0x47 }, { 0xab, 0x7a },
+	{ 0xab, 0xa2 }, { 0xab, 0x76 }
+};
 
-base 0x52b8
-0x1a, 0x1a, 0x1a, 0xa8f1, 0xcbd5, 0x1a, 0xa8f0, 0x1a,
-0xcdf2, 0xab6c, 0xcdf3, 0xab6b, 0x1a, 0x1a, 0x1a, 0xab69,
-0x1a, 0xab6a, 0x1a, 0x1a, 0x1a, 0xd0ed, 0x1a, 0x1a,
-0x1a, 0x1a, 0xb0c7, 0xd46e, 0x1a, 0xb0ca, 0xd46d, 0xb1e5,
-0xb0c9, 0xb0c8, 0x1a, 0xb3d4, 0x1a, 0xb3d3, 0xb3d2, 0xb6d2,
-0x1a, 0x1a, 0xb6d5, 0xb6d6, 0xb6d4, 0x1a, 0xb6d3, 0x1a,
-0x1a, 0xe143, 0x1a, 0xe144, 0x1a, 0x1a, 0x1a, 0xe4f5,
-0xbc45, 0xe4f4, 0x1a, 0xbeb1, 0xecbf, 0xc079, 0x1a, 0xf1ee,
-0xc455, 0x1a, 0xa463, 0xa4c3, 0xc956, 0x1a, 0xa4c4, 0xa4c5,
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xa55d, 0xa55e, 0x1a,
-0xa649, 0xca71, 0xcbd6, 0xcbd7, 0x1a, 0xab6d, 0xd0ee, 0xb0cc,
-0xb0cb, 0xd863, 0xd862, 0x1a, 0x1a, 0xa450, 0xa4c6, 0xa55f,
-0x1a, 0xb0cd, 0xc943, 0x1a, 0xc96c, 0xa560, 0x1a, 0xc9c2,
-0xa64b, 0xa64a, 0xc9c1, 0xa758, 0x1a, 0x1a, 0x1a, 0x1a,
-0x1a, 0x1a, 0xadea, 0x1a, 0x1a, 0xd46f, 0x1a, 0xb6d7,
-0xe145, 0xb9bc, 0x1a, 0x1a, 0xe8fa, 0x1a, 0x1a, 0xf3fd,
-0x1a, 0xa4c7, 0x1a, 0x1a, 0xcbd8, 0xcdf4, 0xb0d0, 0xb0ce,
-0xb0cf, 0xa2cc, 0x1a, 0xa464, 0xa2cd, 0xa2ce, 0x1a, 0xa4c9,
-0xa4c8, 0xa563, 0xa562, 0x1a, 0xc96d, 0xc9c3, 0x1a, 0x1a,
-0x1a, 0xa8f5, 0xa8f2, 0xa8f4, 0xa8f3, 0x1a, 0x1a, 0xab6e,
-0x1a, 0x1a, 0xb3d5, 0x1a, 0xa452, 0x1a, 0xa4cb, 0x1a,
-0xa565, 0xa564, 0x1a, 0xca72, 0x1a, 0x1a, 0xa8f6, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0xc957, 0x1a, 0xa567, 0xa566,
-0xa64c, 0xa64d, 0xca73, 0xa759, 0x1a, 0xa75a, 0x1a, 0xa8f7,
-0xa8f8, 0xa8f9, 0x1a, 0xab6f, 0xcdf5, 0x1a, 0x1a, 0xadeb,
-0x1a, 0x1a, 0xc944, 0x1a, 0xa4cc, 0x1a, 0x1a, 0x1a,
-0x1a, 0x1a, 0xc9c4, 0x1a, 0x1a, 0x1a, 0xca74, 0xca75,
-0x1a, 0x1a, 0xcbd9, 0x1a, 0xcbda, 0x1a, 0xcdf7, 0xcdf6,
-0xcdf9, 0xcdf8, 0xab70, 0x1a, 0xd470, 0xaded, 0xd0ef, 0xadec,
-0x1a, 0x1a, 0x1a, 0x1a, 0xd864, 0xb3d6, 0x1a, 0xd865,
-0x1a, 0x1a, 0x1a, 0x1a, 0xe146, 0xb9bd, 0x1a, 0x1a,
-0x1a, 0x1a, 0xbc46, 0x1a, 0xf1ef, 0x1a, 0x1a, 0x1a,
-0x1a, 0xc958, 0x1a, 0xa568, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54e4[ 8 ][ 2 ] = {
+	                                                                { 0xd0, 0xf6 }, { 0xad, 0xf4 }, { 0xae, 0x40 }, { 0xd0, 0xf4 },
+	{ 0xad, 0xef }, { 0xad, 0xf9 }, { 0xad, 0xfe }, { 0xd0, 0xfb }
+};
 
-base 0x53c0
-0x1a, 0x1a, 0x1a, 0xb0d1, 0x1a, 0x1a, 0x1a, 0x1a,
-0xa453, 0xa465, 0xa4ce, 0xa4cd, 0x1a, 0xa4cf, 0x1a, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0xa8fb, 0x1a, 0xa8fa, 0xa8fc,
-0x1a, 0x1a, 0x1a, 0xab71, 0x1a, 0x1a, 0x1a, 0xadee,
-0x1a, 0xe8fb, 0xc24f, 0xa466, 0xa56a, 0xa579, 0xa574, 0x1a,
-0xa56f, 0xa56e, 0xa575, 0xa573, 0xa56c, 0xa57a, 0xa56d, 0xa569,
-0xa578, 0xa577, 0xa576, 0xa56b, 0x1a, 0xa572, 0x1a, 0x1a,
-0xa571, 0x1a, 0x1a, 0xa57b, 0xa570, 0x1a, 0x1a, 0x1a,
-0x1a, 0xa653, 0x1a, 0xa659, 0xa655, 0x1a, 0xa65b, 0xc9c5,
-0xa658, 0xa64e, 0xa651, 0xa654, 0xa650, 0xa657, 0xa65a, 0xa64f,
-0xa652, 0xa656, 0xa65c, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a,
-0xca7e, 0xca7b, 0x1a, 0xa767, 0xca7c, 0xa75b, 0xa75d, 0xa775,
-0xa770, 0x1a, 0x1a, 0x1a, 0xcaa5, 0xca7d, 0xa75f, 0xa761,
-0xcaa4, 0xa768, 0xca78, 0xa774, 0xa776, 0xa75c, 0xa76d, 0x1a,
-0xca76, 0xa773, 0x1a, 0xa764, 0x1a, 0xa76e, 0xa76f, 0xca77,
-0xa76c, 0xa76a, 0x1a, 0xa76b, 0xa771, 0xcaa1, 0xa75e, 0x1a,
-0xa772, 0xcaa3, 0xa766, 0xa763, 0x1a, 0xca7a, 0xa762, 0xcaa6,
-0xa765, 0x1a, 0xa769, 0x1a, 0x1a, 0x1a, 0xa760, 0xcaa2,
-0x1a, 0x1a, 0x1a, 0x1a, 0xca79, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5503[ 10 ][ 2 ] = {
+	                                                { 0xd1, 0x46 }, { 0xd0, 0xf9 }, { 0xd0, 0xfd }, { 0xad, 0xf6 }, { 0xae, 0x42 },
+	{ 0xd0, 0xfa }, { 0xad, 0xfc }, { 0xd1, 0x40 }, { 0xd1, 0x47 }, { 0xd4, 0xa1 }
+};
 
-base 0x5460
-0xcbeb, 0xcbea, 0xa94f, 0xcbed, 0xcbef, 0xcbe4, 0xcbe7, 0xcbee,
-0xa950, 0x1a, 0x1a, 0xcbe1, 0xcbe5, 0x1a, 0x1a, 0xcbe9,
-0xce49, 0xa94b, 0xce4d, 0xa8fd, 0xcbe6, 0xa8fe, 0xa94c, 0xa945,
-0xa941, 0x1a, 0xcbe2, 0xa944, 0xa949, 0xa952, 0xcbe3, 0xcbdc,
-0xa943, 0xcbdd, 0xcbdf, 0x1a, 0xa946, 0x1a, 0xa948, 0xcbdb,
-0xcbe0, 0x1a, 0x1a, 0xa951, 0xa94d, 0xcbe8, 0xa953, 0x1a,
-0xa94a, 0xcbde, 0xa947, 0x1a, 0x1a, 0xa942, 0xa940, 0x1a,
-0xcbec, 0x1a, 0xa94e, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a,
-0xce48, 0xcdfb, 0xce4b, 0x1a, 0x1a, 0xcdfd, 0xab78, 0xaba8,
-0xab74, 0xaba7, 0xab7d, 0xaba4, 0xab72, 0xcdfc, 0xce43, 0xaba3,
-0xce4f, 0xaba5, 0x1a, 0xab79, 0x1a, 0x1a, 0xce45, 0xce42,
-0xab77, 0x1a, 0xcdfa, 0xaba6, 0xce4a, 0xab7c, 0xce4c, 0xaba9,
-0xab73, 0xab7e, 0xab7b, 0xce40, 0xaba1, 0xce46, 0xce47, 0xab7a,
-0xaba2, 0xab76, 0x1a, 0x1a, 0x1a, 0x1a, 0xab75, 0xcdfe,
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xce44, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x552c[ 14 ][ 2 ] = {
+	                                                                { 0xb0, 0xe4 }, { 0xd4, 0xa7 }, { 0xb0, 0xe2 }, { 0xb0, 0xdf },
+	{ 0xd4, 0x7c }, { 0xb0, 0xdb }, { 0xd4, 0xa2 }, { 0xb0, 0xe6 }, { 0xd4, 0x76 }, { 0xd4, 0x7b }, { 0xd4, 0x7a }, { 0xad, 0xf2 },
+	{ 0xb0, 0xe1 }, { 0xd4, 0xa5 }
+};
 
-base 0x54d8
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xce4e, 0x1a,
-0xd144, 0xadfb, 0xd0f1, 0x1a, 0xd0f6, 0xadf4, 0xae40, 0xd0f4,
-0xadef, 0xadf9, 0xadfe, 0xd0fb, 0x1a, 0xadfa, 0xadfd, 0x1a,
-0x1a, 0xd0fe, 0xadf5, 0xd0f5, 0x1a, 0x1a, 0x1a, 0xd142,
-0xd143, 0x1a, 0xadf7, 0xd141, 0xadf3, 0xae43, 0x1a, 0xd0f8,
-0x1a, 0xadf1, 0x1a, 0xd146, 0xd0f9, 0xd0fd, 0xadf6, 0xae42,
-0xd0fa, 0xadfc, 0xd140, 0xd147, 0xd4a1, 0x1a, 0xd145, 0xae44,
-0xadf0, 0xd0fc, 0xd0f3, 0x1a, 0xadf8, 0x1a, 0x1a, 0xd0f2,
-0x1a, 0x1a, 0xd0f7, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x557b[ 10 ][ 2 ] = {
+	                                                { 0xb3, 0xd7 }, { 0xb3, 0xda }, { 0xd8, 0x75 }, { 0xb3, 0xee }, { 0xd8, 0x78 },
+	{ 0xb3, 0xd8 }, { 0xd8, 0x71 }, { 0xb3, 0xde }, { 0xb3, 0xe4 }, { 0xb5, 0xbd }
+};
 
-base 0x5520
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xd0f0, 0xae41,
-0x1a, 0x1a, 0xd477, 0x1a, 0xb0e4, 0xd4a7, 0xb0e2, 0xb0df,
-0xd47c, 0xb0db, 0xd4a2, 0xb0e6, 0xd476, 0xd47b, 0xd47a, 0xadf2,
-0xb0e1, 0xd4a5, 0x1a, 0xd4a8, 0xd473, 0x1a, 0xb3e8, 0x1a,
-0xd4a9, 0xb0e7, 0x1a, 0xb0d9, 0xb0d6, 0xd47e, 0xb0d3, 0x1a,
-0xd4a6, 0x1a, 0xb0da, 0xd4aa, 0x1a, 0xd474, 0xd4a4, 0xb0dd,
-0xd475, 0xd478, 0xd47d, 0x1a, 0x1a, 0xb0de, 0xb0dc, 0xb0e8,
-0x1a, 0x1a, 0x1a, 0x1a, 0xb0e3, 0x1a, 0xb0d7, 0xb1d2,
-0x1a, 0xb0d8, 0xd479, 0xb0e5, 0xb0e0, 0xd4a3, 0xb0d5, 0x1a,
-0x1a, 0x1a, 0xb0d4, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5587[ 9 ][ 2 ] = {
+	                                                                                                                { 0xb3, 0xe2 },
+	{ 0xd8, 0x6e }, { 0xb3, 0xef }, { 0xb3, 0xdb }, { 0xb3, 0xe3 }, { 0xd8, 0x76 }, { 0xdc, 0xd7 }, { 0xd8, 0x7b }, { 0xd8, 0x6f }
+};
 
-base 0x5570
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xd471, 0xd472, 0xd86a,
-0x1a, 0x1a, 0x1a, 0xb3d7, 0xb3da, 0xd875, 0xb3ee, 0xd878,
-0xb3d8, 0xd871, 0xb3de, 0xb3e4, 0xb5bd, 0x1a, 0x1a, 0xb3e2,
-0xd86e, 0xb3ef, 0xb3db, 0xb3e3, 0xd876, 0xdcd7, 0xd87b, 0xd86f,
-0x1a, 0xd866, 0xd873, 0xd86d, 0xb3e1, 0xd879, 0x1a, 0x1a,
-0xb3dd, 0xb3f1, 0xb3ea, 0x1a, 0xb3df, 0xb3dc, 0x1a, 0xb3e7,
-0x1a, 0xd87a, 0xd86c, 0xd872, 0xd874, 0xd868, 0xd877, 0xb3d9,
-0xd867, 0x1a, 0xb3e0, 0xb3f0, 0xb3ec, 0xd869, 0xb3e6, 0x1a,
-0x1a, 0xb3ed, 0xb3e9, 0xb3e5, 0x1a, 0xd870, 0x1a, 0x1a,
-0x1a, 0x1a, 0x1a, 0xb3eb, 0x1a, 0x1a, 0x1a, 0xdcd5,
-0xdcd1, 0x1a, 0xdce0, 0xdcca, 0xdcd3, 0xb6e5, 0xb6e6, 0xb6de,
-0xdcdc, 0xb6e8, 0xdccf, 0xdcce, 0xdccc, 0xdcde, 0xb6dc, 0xdcd8,
-0xdccd, 0xb6df, 0xdcd6, 0xb6da, 0xdcd2, 0xdcd9, 0xdcdb, 0x1a,
-0x1a, 0xdcdf, 0xb6e3, 0xdccb, 0xb6dd, 0xdcd0, 0x1a, 0xb6d8,
-0x1a, 0xb6e4, 0xdcda, 0xb6e0, 0xb6e1, 0xb6e7, 0xb6db, 0xa25f,
-0xb6d9, 0xdcd4, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xb6e2,
-0x1a, 0x1a, 0xdcdd, 0x1a, 0x1a, 0x1a, 0xb9cd, 0xb9c8,
-0x1a, 0xe155, 0xe151, 0x1a, 0xe14b, 0xb9c2, 0xb9be, 0xe154,
-0xb9bf, 0xe14e, 0xe150, 0x1a, 0xe153, 0x1a, 0xb9c4, 0x1a,
-0xb9cb, 0xb9c5, 0x1a, 0x1a, 0xe149, 0xb9c6, 0xb9c7, 0xe14c,
-0xb9cc, 0x1a, 0xe14a, 0xe14f, 0xb9c3, 0xe148, 0xb9c9, 0xb9c1,
-0x1a, 0x1a, 0x1a, 0xb9c0, 0xe14d, 0xe152, 0x1a, 0xb9ca,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55a1[ 8 ][ 2 ] = {
+	                { 0xd8, 0x7a }, { 0xd8, 0x6c }, { 0xd8, 0x72 }, { 0xd8, 0x74 }, { 0xd8, 0x68 }, { 0xd8, 0x77 }, { 0xb3, 0xd9 },
+	{ 0xd8, 0x67 }
+};
 
-base 0x5620
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xe147,
-0x1a, 0xbc4d, 0xe547, 0x1a, 0xe544, 0x1a, 0xbc47, 0xbc53,
-0xbc54, 0x1a, 0xbc4a, 0xe542, 0xbc4c, 0xe4f9, 0xbc52, 0x1a,
-0xe546, 0xbc49, 0xe548, 0xbc48, 0x1a, 0xe543, 0xe545, 0xbc4b,
-0xe541, 0xe4fa, 0xe4f7, 0x1a, 0x1a, 0xd86b, 0xe4fd, 0x1a,
-0xe4f6, 0xe4fc, 0xe4fb, 0x1a, 0xe4f8, 0x1a, 0xbc4f, 0x1a,
-0x1a, 0x1a, 0x1a, 0xbc4e, 0x1a, 0x1a, 0x1a, 0xbc50,
-0xe4fe, 0xbeb2, 0xe540, 0x1a, 0x1a, 0x1a, 0xe945, 0x1a,
-0xe8fd, 0x1a, 0xbebe, 0xe942, 0xbeb6, 0xbeba, 0xe941, 0x1a,
-0xbeb9, 0xbeb5, 0xbeb8, 0xbeb3, 0xbebd, 0xe943, 0xe8fe, 0xbebc,
-0xe8fc, 0xbebb, 0xe944, 0xe940, 0xbc51, 0x1a, 0xbebf, 0xe946,
-0xbeb7, 0xbeb4, 0x1a, 0x1a, 0x1a, 0x1a, 0xecc6, 0xecc8,
-0xc07b, 0xecc9, 0xecc7, 0xecc5, 0xecc4, 0xc07d, 0xecc3, 0xc07e,
-0x1a, 0x1a, 0x1a, 0x1a, 0xecc1, 0xecc2, 0xc07a, 0xc0a1,
-0xc07c, 0x1a, 0x1a, 0xecc0, 0x1a, 0xc250, 0x1a, 0xefbc,
-0xefba, 0xefbf, 0xefbd, 0x1a, 0xefbb, 0xefbe, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55c2[ 21 ][ 2 ] = {
+	                                { 0xdc, 0xe0 }, { 0xdc, 0xca }, { 0xdc, 0xd3 }, { 0xb6, 0xe5 }, { 0xb6, 0xe6 }, { 0xb6, 0xde },
+	{ 0xdc, 0xdc }, { 0xb6, 0xe8 }, { 0xdc, 0xcf }, { 0xdc, 0xce }, { 0xdc, 0xcc }, { 0xdc, 0xde }, { 0xb6, 0xdc }, { 0xdc, 0xd8 },
+	{ 0xdc, 0xcd }, { 0xb6, 0xdf }, { 0xdc, 0xd6 }, { 0xb6, 0xda }, { 0xdc, 0xd2 }, { 0xdc, 0xd9 }, { 0xdc, 0xdb }
+};
 
-base 0x56a0
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xc360, 0xf1f2, 0xf1f3,
-0xc456, 0x1a, 0xf1f4, 0xf1f0, 0xf1f5, 0xf1f1, 0xc251, 0x1a,
-0x1a, 0x1a, 0xf3fe, 0xf441, 0xc459, 0xf440, 0xc458, 0xc457,
-0x1a, 0x1a, 0x1a, 0x1a, 0xc45a, 0xf5c5, 0xf5c6, 0x1a,
-0xc4da, 0xc4d9, 0xc4db, 0xf5c4, 0x1a, 0xf6d8, 0xf6d7, 0x1a,
-0xc56d, 0xc56f, 0xc56e, 0xf6d9, 0xc5c8, 0xf8a6, 0x1a, 0x1a,
-0x1a, 0xc5f1, 0x1a, 0xf8a5, 0xf8ee, 0x1a, 0x1a, 0xc949,
-0x1a, 0x1a, 0xa57d, 0xa57c, 0x1a, 0xa65f, 0xa65e, 0xc9c7,
-0xa65d, 0xc9c6, 0x1a, 0x1a, 0xa779, 0xcaa9, 0x1a, 0xcaa8,
-0x1a, 0x1a, 0xa777, 0xa77a, 0x1a, 0x1a, 0xcaa7, 0x1a,
-0xa778, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xcbf0,
-0x1a, 0xcbf1, 0xa954, 0x1a, 0x1a, 0x1a, 0x1a, 0xabaa,
-0x1a, 0xd148, 0xd149, 0xae45, 0xae46, 0x1a, 0x1a, 0xd4ac,
-0xb0e9, 0xb0eb, 0xd4ab, 0xb0ea, 0xd87c, 0xb3f2, 0x1a, 0x1a,
-0x1a, 0x1a, 0xb6e9, 0xb6ea, 0xdce1, 0x1a, 0xb9cf, 0x1a,
-0xb9ce, 0x1a, 0xe549, 0xe948, 0xe947, 0x1a, 0xf96b, 0xa467,
-0xc959, 0x1a, 0xc96e, 0xc96f, 0x1a, 0x1a, 0x1a, 0x1a,
-0xa662, 0xa666, 0xc9c9, 0x1a, 0xa664, 0xa663, 0xc9c8, 0xa665,
-0xa661, 0x1a, 0x1a, 0xa660, 0xc9ca, 0x1a, 0x1a, 0x1a,
-0x1a, 0x1a, 0x1a, 0xa7a6, 0x1a, 0x1a, 0xa7a3, 0x1a,
-0xa77d, 0xcaaa, 0x1a, 0x1a, 0x1a, 0xcaab, 0x1a, 0xa7a1,
-0x1a, 0xcaad, 0xa77b, 0xcaae, 0xcaac, 0xa77e, 0xa7a2, 0xa7a5,
-0xa7a4, 0xa77c, 0xcaaf, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55e1[ 9 ][ 2 ] = {
+	                { 0xb6, 0xe4 }, { 0xdc, 0xda }, { 0xb6, 0xe0 }, { 0xb6, 0xe1 }, { 0xb6, 0xe7 }, { 0xb6, 0xdb }, { 0xa2, 0x5f },
+	{ 0xb6, 0xd9 }, { 0xdc, 0xd4 }
+};
 
-base 0x5760
-0x1a, 0xa959, 0xcbfe, 0x1a, 0xa95b, 0x1a, 0xa95a, 0x1a,
-0xcc40, 0xa958, 0xa957, 0xcbf5, 0x1a, 0xcbf4, 0x1a, 0xcbf2,
-0xcbf7, 0xcbf6, 0xcbf3, 0xcbfc, 0xcbfd, 0xcbfa, 0xcbf8, 0xa956,
-0x1a, 0x1a, 0x1a, 0xcbfb, 0xa95c, 0xcc41, 0x1a, 0x1a,
-0xcbf9, 0x1a, 0xabab, 0xa955, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5668[ 13 ][ 2 ] = {
+	{ 0xbe, 0xb9 }, { 0xbe, 0xb5 }, { 0xbe, 0xb8 }, { 0xbe, 0xb3 }, { 0xbe, 0xbd }, { 0xe9, 0x43 }, { 0xe8, 0xfe }, { 0xbe, 0xbc },
+	{ 0xe8, 0xfc }, { 0xbe, 0xbb }, { 0xe9, 0x44 }, { 0xe9, 0x40 }, { 0xbc, 0x51 }
+};
 
-base 0x5788
-0x1a, 0x1a, 0x1a, 0xabac, 0xce54, 0x1a, 0x1a, 0xce5a,
-0x1a, 0x1a, 0x1a, 0xabb2, 0xce58, 0xce5e, 0x1a, 0xce55,
-0xce59, 0xce5b, 0xce5d, 0xce57, 0x1a, 0xce56, 0xce51, 0xce52,
-0xabad, 0x1a, 0xabaf, 0xabae, 0xce53, 0xce5c, 
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x567e[ 10 ][ 2 ] = {
+	                                                                                                { 0xec, 0xc6 }, { 0xec, 0xc8 },
+	{ 0xc0, 0x7b }, { 0xec, 0xc9 }, { 0xec, 0xc7 }, { 0xec, 0xc5 }, { 0xec, 0xc4 }, { 0xc0, 0x7d }, { 0xec, 0xc3 }, { 0xc0, 0x7e }
+};
 
-base 0x57a8
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xabb1, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xce50, 0xd153, 0x1a,
-0xd152, 0xd157, 0xd14e, 0x1a, 0xd151, 0xd150, 0x1a, 0xd154,
-0x1a, 0xd158, 0xae47, 0xae4a, 0x1a, 0x1a, 0xd14f, 0xd155,
-0x1a, 0x1a, 0x1a, 0xae49, 0xd14a, 0x1a, 0xabb0, 0xd4ba,
-0xd156, 0x1a, 0xd14d, 0x1a, 0xae48, 0xd14c, 0x1a, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0xd4b1, 0x1a, 0x1a, 0xb0ec,
-0xb0f0, 0xd4c1, 0xd4af, 0xd4bd, 0xb0f1, 0xd4bf, 0x1a, 0xd4c5,
-0x1a, 0xd4c9, 0x1a, 0x1a, 0xd4c0, 0xd4b4, 0xd4bc, 0x1a,
-0xd4ca, 0xd4c8, 0xd4be, 0xd4b9, 0xd4b2, 0xd8a6, 0xd4b0, 0xb0f5,
-0xd4b7, 0xb0f6, 0xb0f2, 0xd4ad, 0xd4c3, 0xd4b5, 0x1a, 0x1a,
-0xd4b3, 0xd4c6, 0xb0f3, 0x1a, 0xd4cc, 0xb0ed, 0xb0ef, 0xd4bb,
-0xd4b6, 0xae4b, 0xb0ee, 0xd4b8, 0xd4c7, 0xd4cb, 0xd4c2, 0x1a,
-0xd4c4, 0x1a, 0x1a, 0x1a, 0xd4ae, 0x1a, 0x1a, 0x1a,
-0x1a, 0xd8a1, 0x1a, 0xd8aa, 0xd8a9, 0xb3fa, 0xd8a2, 0x1a,
-0xb3fb, 0xb3f9, 0x1a, 0xd8a4, 0xb3f6, 0xd8a8, 0x1a, 0xd8a3,
-0xd8a5, 0xd87d, 0xb3f4, 0x1a, 0xd8b2, 0xd8b1, 0xd8ae, 0xb3f3,
-0xb3f7, 0xb3f8, 0xd14b, 0xd8ab, 0xb3f5, 0xb0f4, 0xd8ad, 0xd87e,
-0xd8b0, 0xd8af, 0x1a, 0xd8b3, 0x1a, 0xdcef, 0x1a, 0xd8ac,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5749[ 10 ][ 2 ] = {
+	                { 0xca, 0xad }, { 0xa7, 0x7b }, { 0xca, 0xae }, { 0xca, 0xac }, { 0xa7, 0x7e }, { 0xa7, 0xa2 }, { 0xa7, 0xa5 },
+	{ 0xa7, 0xa4 }, { 0xa7, 0x7c }, { 0xca, 0xaf }
+};
 
-base 0x5848
-0xd8a7, 0xdce7, 0xb6f4, 0xb6f7, 0xb6f2, 0xdce6, 0xdcea, 0xdce5,
-0x1a, 0xb6ec, 0xb6f6, 0xdce2, 0xb6f0, 0xdce9, 0x1a, 0xb6ee,
-0xb6ed, 0xdcec, 0xb6ef, 0xdcee, 0x1a, 0xdceb, 0xb6eb, 0x1a,
-0x1a, 0x1a, 0xb6f5, 0xdcf0, 0xdce4, 0xdced, 0x1a, 0x1a,
-0xdce3, 0x1a, 0x1a, 0xb6f1, 0x1a, 0xb6f3, 0x1a, 0xdce8,
-0x1a, 0xdcf1, 0x1a, 0x1a, 0xe15d, 0xb9d0, 0xe163, 0x1a,
-0x1a, 0xb9d5, 0xe15f, 0xe166, 0xe157, 0xb9d7, 0xb9d1, 0xe15c,
-0xbc55, 0xe15b, 0xe164, 0xb9d2, 0x1a, 0xb9d6, 0xe15a, 0xe160,
-0xe165, 0xe156, 0xb9d4, 0xe15e, 0x1a, 0x1a, 0xe162, 0xe168,
-0xe158, 0xe161, 0x1a, 0xb9d3, 0xe167, 0x1a, 0x1a, 0x1a,
-0xe159, 0x1a, 0x1a, 0x1a, 0xbc59, 0xe54b, 0xbc57, 0xbc56,
-0xe54d, 0xe552, 0x1a, 0xe54e, 0x1a, 0xe551, 0xbc5c, 0x1a,
-0xbea5, 0xbc5b, 0x1a, 0xe54a, 0xe550, 0x1a, 0xbc5a, 0xe54f,
-0x1a, 0xe54c, 0x1a, 0xbc58, 0x1a, 0x1a, 0x1a, 0x1a,
-0x1a, 0x1a, 0xe94d, 0xf9d9, 0xe94f, 0xe94a, 0xbec1, 0xe94c,
-0x1a, 0xbec0, 0xe94e, 0x1a, 0x1a, 0xbec3, 0xe950, 0xbec2,
-0xe949, 0xe94b, 0x1a, 0x1a, 0x1a, 0x1a, 0xc0a5, 0xeccc,
-0x1a, 0xc0a4, 0xeccd, 0xc0a3, 0xeccb, 0xc0a2, 0xecca, 0x1a,
-0xc253, 0xc252, 0xf1f6, 0xf1f8, 0x1a, 0xf1f7, 0xc361, 0xc362,
-0x1a, 0x1a, 0xc363, 0xf442, 0xc45b, 0x1a, 0x1a, 0xf7d3,
-0xf7d2, 0xc5f2, 0x1a, 0xa468, 0xa4d0, 0x1a, 0x1a, 0xa7a7,
-0x1a, 0x1a, 0x1a, 0x1a, 0xce5f, 0x1a, 0x1a, 0x1a,
-0x1a, 0xb3fc, 0xb3fd, 0x1a, 0xdcf2, 0xb9d8, 0xe169, 0xe553,
-0x1a, 0x1a, 0x1a, 0xc95a, 0x1a, 0x1a, 0xcab0, 0x1a,
-0x1a, 0x1a, 0x1a, 0x1a, 0xcc42, 0xce60, 0xd159, 0xae4c,
-0x1a, 0x1a, 0xf1f9, 0x1a, 0xc4dc, 0xa469, 0xa57e, 0xc970,
-0x1a, 0xa667, 0xa668, 0x1a, 0xa95d, 0x1a, 0x1a, 0x1a,
-0xb0f7, 0x1a, 0xb9da, 0x1a, 0xb9db, 0xb9d9, 0x1a, 0xa46a,
-0x1a, 0xa4d1, 0xa4d3, 0xa4d2, 0xc95b, 0xa4d4, 0xa5a1, 0xc971,
-0x1a, 0xa5a2, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xa669,
-0xa66a, 0x1a, 0x1a, 0x1a, 0xc9cb, 0x1a, 0xa7a8, 0x1a,
-0xcab1, 0x1a, 0x1a, 0x1a, 0xa961, 0xcc43, 0x1a, 0xa95f,
-0xa960, 0xa95e, 0xd15a, 0x1a, 0x1a, 0x1a, 0xabb6, 0xabb5,
-0xabb7, 0xabb4, 0x1a, 0xce61, 0xa962, 0xabb3, 0x1a, 0xae4d,
-0xae4e, 0x1a, 0xae4f, 0x1a, 0xd4cd, 0x1a, 0x1a, 0x1a,
-0xb3fe, 0xd8b4, 0xb0f8, 0x1a, 0x1a, 0x1a, 0x1a, 0xb6f8,
-0x1a, 0xb9dd, 0xb9dc, 0xe16a, 0x1a, 0xbc5d, 0xbec4, 0x1a,
-0xefc0, 0xf6da, 0xf7d4, 0xa46b, 0xa5a3, 0x1a, 0xa5a4, 0xc9d1,
-0xa66c, 0xa66f, 0x1a, 0xc9cf, 0xc9cd, 0xa66e, 0xc9d0, 0xc9d2,
-0xc9cc, 0xa671, 0xa670, 0xa66d, 0xa66b, 0xc9ce, 0x1a, 0x1a,
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x576f[ 9 ][ 2 ] = {
+	                                                                                                                { 0xcb, 0xf2 },
+	{ 0xcb, 0xf7 }, { 0xcb, 0xf6 }, { 0xcb, 0xf3 }, { 0xcb, 0xfc }, { 0xcb, 0xfd }, { 0xcb, 0xfa }, { 0xcb, 0xf8 }, { 0xa9, 0x56 }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x57f0[ 14 ][ 2 ] = {
+	{ 0xd4, 0xca }, { 0xd4, 0xc8 }, { 0xd4, 0xbe }, { 0xd4, 0xb9 }, { 0xd4, 0xb2 }, { 0xd8, 0xa6 }, { 0xd4, 0xb0 }, { 0xb0, 0xf5 },
+	{ 0xd4, 0xb7 }, { 0xb0, 0xf6 }, { 0xb0, 0xf2 }, { 0xd4, 0xad }, { 0xd4, 0xc3 }, { 0xd4, 0xb5 }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5804[ 11 ][ 2 ] = {
+	                                                                { 0xd4, 0xcc }, { 0xb0, 0xed }, { 0xb0, 0xef }, { 0xd4, 0xbb },
+	{ 0xd4, 0xb6 }, { 0xae, 0x4b }, { 0xb0, 0xee }, { 0xd4, 0xb8 }, { 0xd4, 0xc7 }, { 0xd4, 0xcb }, { 0xd4, 0xc2 }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x582c[ 14 ][ 2 ] = {
+	                                                                { 0xd8, 0xb2 }, { 0xd8, 0xb1 }, { 0xd8, 0xae }, { 0xb3, 0xf3 },
+	{ 0xb3, 0xf7 }, { 0xb3, 0xf8 }, { 0xd1, 0x4b }, { 0xd8, 0xab }, { 0xb3, 0xf5 }, { 0xb0, 0xf4 }, { 0xd8, 0xad }, { 0xd8, 0x7e },
+	{ 0xd8, 0xb0 }, { 0xd8, 0xaf }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5848[ 8 ][ 2 ] = {
+	{ 0xd8, 0xa7 }, { 0xdc, 0xe7 }, { 0xb6, 0xf4 }, { 0xb6, 0xf7 }, { 0xb6, 0xf2 }, { 0xdc, 0xe6 }, { 0xdc, 0xea }, { 0xdc, 0xe5 }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5879[ 11 ][ 2 ] = {
+	                { 0xb9, 0xd5 }, { 0xe1, 0x5f }, { 0xe1, 0x66 }, { 0xe1, 0x57 }, { 0xb9, 0xd7 }, { 0xb9, 0xd1 }, { 0xe1, 0x5c },
+	{ 0xbc, 0x55 }, { 0xe1, 0x5b }, { 0xe1, 0x64 }, { 0xb9, 0xd2 }
+};
+
+#ifdef TODO
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x597b[ 11 ][ 2 ] = {
+	                                                { 0xc9, 0xcf }, { 0xc9, 0xcd }, { 0xa6, 0x6e }, { 0xc9, 0xd0 }, { 0xc9, 0xd2 },
+	{ 0xc9, 0xcc }, { 0xa6, 0x71 }, { 0xa6, 0x70 }, { 0xa6, 0x6d }, { 0xa6, 0x6b }, { 0xc9, 0xce }
+};
+
+base 0x5988
 0x1a, 0x1a, 0xa7b3, 0x1a, 0x1a, 0xa7b0, 0xcab6, 0xcab9,
 0xcab8, 0x1a, 0xa7aa, 0xa7b2, 0x1a, 0x1a, 0xa7af, 0xcab5,
 0xcab3, 0xa7ae, 0x1a, 0x1a, 0x1a, 0xa7a9, 0xa7ac, 0x1a,
@@ -4909,64 +4714,133 @@ base 0x9bf0
 base 0x9c00
 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xf56d, 0xf573, 0xf571,
 0xf56b, 0xf576, 0x1a, 0xf56a, 0x1a, 0xc4cf, 0xf572, 0x1a,
+
+base 0x9c10
 0x1a, 0x1a, 0xf56e, 0xc4ce, 0xf575, 0x1a, 0x1a, 0xf574,
 0x1a, 0x1a, 0x1a, 0x1a, 0xf6ab, 0xf6aa, 0x1a, 0x1a,
+
+base 0x9c20
 0x1a, 0xf6b1, 0x1a, 0xf6ad, 0xf6b0, 0xc560, 0x1a, 0x1a,
 0xf6ae, 0xf6af, 0x1a, 0xf6a9, 0xf6ac, 0xc55f, 0x1a, 0x1a,
+
+base 0x9c30
 0x1a, 0xc5bf, 0xf7b4, 0xf7af, 0xf7b3, 0x1a, 0xf7b6, 0xf7b2,
 0x1a, 0xf7ae, 0x1a, 0xc5c1, 0xf7b1, 0xf7b5, 0xc5c0, 0xf7ac,
+
+base 0x9c40
 0xf570, 0xf7b0, 0x1a, 0x1a, 0xf7ad, 0x1a, 0xf7aa, 0x1a,
 0xf7ab, 0xc5be, 0xf85a, 0xf85c, 0xf85f, 0xf85b, 0xf860, 0x1a,
+
+base 0x9c50
 0xf859, 0x1a, 0xf857, 0x1a, 0xc5eb, 0xf85d, 0xc5ed, 0xc5ec,
 0xf858, 0xf85e, 0x1a, 0x1a, 0x1a, 0x1a, 0xf8da, 0xc64d,
+
+base 0x9c60
 0xf8db, 0x1a, 0xf8d9, 0xf8d6, 0x1a, 0x1a, 0xf8d8, 0xf8d7,
 0xf95a, 0x1a, 0x1a, 0x1a, 0x1a, 0xf95c, 0xf95b, 0x1a,
+
+base 0x9c70
 0x1a, 0xf979, 0x1a, 0xf978, 0xf977, 0xf97a, 0x1a, 0xc673,
 0xc674, 0xf9ca, 0xf9ce, 
 
 base 0x9ce0
 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xb3be, 0xdcaf, 0xe0ed,
 0x1a, 0xb9a7, 0xe0eb, 0x1a, 0x1a, 0xe0ec, 0x1a, 0x1a,
+
+base 0x9cf0
 0x1a, 0xe4e2, 0xe4e3, 0xbbf1, 0xbbef, 0xe4e4, 0xbbf0, 0xe8e8,
 0x1a, 0xe8eb, 0xe8e5, 0xe8ec, 0xe8e4, 0xe8e6, 0x1a, 0xe8e7,
+
+base 0x9d00
 0xe8ea, 0x1a, 0x1a, 0xbea1, 0xe8ef, 0xe8ee, 0xbe7d, 0xe8e9,
 0xe8ed, 0xbe7e, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a,
+
+base 0x9d10
 0xecac, 0x1a, 0xc06f, 0x1a, 0xeca7, 0xc06b, 0x1a, 0xeca4,
 0xecaa, 0xecad, 0x1a, 0xc070, 0x1a, 0xeca9, 0xeca6, 0xecae,
+
+base 0x9d20
 0xeca5, 0x1a, 0xecab, 0xc06c, 0x1a, 0xeca3, 0xc06d, 0x1a,
 0xc06e, 0xeca8, 0x1a, 0x1a, 0x1a, 0xefa9, 0xef7a, 0xef7b,
+
+base 0x9d30
 0xef7e, 0xef7c, 0x1a, 0xef76, 0x1a, 0x1a, 0xef79, 0xefa5,
 0xef7d, 0x1a, 0x1a, 0xc245, 0x1a, 0xefa7, 0xefa4, 0xc246,
+
+base 0x9d40
 0xefa6, 0xef77, 0xefa2, 0xefa3, 0x1a, 0xefa1, 0x1a, 0x1a,
 0x1a, 0x1a, 0xf1d2, 0xf1d4, 0xf1d7, 0x1a, 0x1a, 0xf1d1,
-0x1a, 0xc359, 0xf1d9, 0xf1d0, 0xf1da, 0x1a, 0xf1d6, 0xf1d8,
-0xf1dc, 0xf1d5, 0xf1dd, 0xf1d3, 0xf1cf, 0xc35a, 0x1a, 0xf1db,
+
+base 0x9d50
+0x1a, 0xc359, 0xf1d9, 0xf1d0, 0xf1da, 0x1a,
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9d56[ 11 ][ 2 ] = {
+	                                                0xf1d6, 0xf1d8,
+	0xf1dc, 0xf1d5, 0xf1dd, 0xf1d3, 0xf1cf, 0xc35a,
+};
+
+base 0x9d5e
+0x1a, 0xf1db,
+
+base 0x9d60
 0xc35b, 0xc44d, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0xef78,
 0xf3f1, 0xf3e8, 0xc44f, 0xf3e4, 0xc450, 0x1a, 0x1a, 0xf3ed,
+
+base 0x9d70
 0xf3e7, 0xf3dd, 0xc44e, 0xf3ea, 0xf3e5, 0xf3e6, 0x1a, 0xf3d8,
 0xf3df, 0xf3ee, 0x1a, 0xf3eb, 0x1a, 0xf3e3, 0x1a, 0xf3ef,
+
+base 0x9d80
 0xf3de, 0xf3d9, 0xf3ec, 0x1a, 0xf3db, 0xf3e9, 0xf3e0, 0xf3f0,
 0xf3dc, 0xc44c, 0xf3da, 0xf3e1, 0xf3e2, 0x1a, 0x1a, 0x1a,
-0xf57d, 0x1a, 0xf57b, 0x1a, 0xf5a2, 0x1a, 0xf5ae, 0xf5a5,
-0xf57c, 0xf578, 0xf5a7, 0xf57e, 0xf5a3, 0xf57a, 0xf5aa, 0xf577,
-0xf5a1, 0xf5a6, 0xf5a8, 0xf5ab, 0xf579, 0x1a, 0xf5af, 0xf5b0,
+
+base 0x9d90
+0xf57d, 0x1a, 0xf57b, 0x1a, 0xf5a2, 0x1a,
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9d96[ 11 ][ 2 ] = {
+	                                                0xf5ae, 0xf5a5,
+	0xf57c, 0xf578, 0xf5a7, 0xf57e, 0xf5a3, 0xf57a, 0xf5aa, 0xf577,
+	0xf5a1, 0xf5a6, 0xf5a8, 0xf5ab, 0xf579,
+};
+
+base 0x9da5
+0x1a, 0xf5af, 0xf5b0,
+
+base 0x9da8
 0xf5a9, 0xf5ad, 0xf5a4, 0x1a, 0xf6c1, 0xf6c4, 0x1a, 0xc561,
+
+base 0x9db0
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9d96[ 11 ][ 2 ] = {
 0x1a, 0xf6c3, 0xf6c8, 0xf6c6, 0xc562, 0xf6bd, 0xf6b3, 0xf6b2,
 0xc564, 0xf6bf, 0xf6c0, 0xf6bc, 0xf6b4, 0x1a, 0xf6b9, 0xf5ac,
+
+base 0x9dc0
 0x1a, 0xf6b5, 0xc563, 0xf6bb, 0x1a, 0xf6ba, 0x1a, 0xf6b6,
+
+base 0x9dc8
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9d96[ 11 ][ 2 ] = {
 0xf6c2, 0x1a, 0xf6b7, 0xf7bb, 0xf6c5, 0xf6c7, 0xf6be, 0xf6b8,
 0xf7bc, 0xf7be, 0xf7b8, 0xc5c2, 0x1a, 0xf7c5, 0xf7c3, 0xc5c3,
 0xf7c2, 0xf7c1, 0xf7ba, 0xf7b7, 0xf7bd, 0xf7c6, 0xf7b9, 0xf7bf,
+
+base 0x9de0
 0x1a, 0xf869, 0xf86e, 0xf864, 0xf867, 0xc5ee, 0xf86b, 0x1a,
 0xf872, 0xf7c0, 0x1a, 0xf865, 0xf86f, 0xf873, 0xf86a, 0xf863,
-0xf86d, 0x1a, 0xf86c, 0xf871, 0xf870, 0xf7c4, 0xf868, 0xf862,
-0xf866, 0xc64e, 0xc64f, 0xf861, 0x1a, 0xf8e6, 0xf8dd, 0xf8e5,
-0xf8e2, 0xf8e3, 0xf8dc, 0xf8df, 0xf8e7, 0xf8e1, 0xf8e0, 0xf8de,
-0x1a, 0xf8e4, 0x1a, 0xf95d, 0x1a, 0xf95e, 0x1a, 0xf960,
-0xf95f, 0xf962, 0xf961, 0xf97c, 0xf97b, 0xf9b7, 0x1a, 0xf9b8,
-0x1a, 0xf9c5, 0xc678, 0xc67c, 0x1a, 0xf9cf, 0xc67d, 
+
+base 0x9df0
+0xf86d,
 
 #endif 
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9df2[ 10 ][ 2 ] = {
+	                                { 0xf8, 0x6c }, { 0xf8, 0x71 }, { 0xf8, 0x70 }, { 0xf7, 0xc4 }, { 0xf8, 0x68 }, { 0xf8, 0x62 },
+	{ 0xf8, 0x66 }, { 0xc6, 0x4e }, { 0xc6, 0x4f }, { 0xf8, 0x61 }
+};
+
+const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9dfd[ 11 ][ 2 ] = {
+	                                                                                { 0xf8, 0xe6 }, { 0xf8, 0xdd }, { 0xf8, 0xe5 },
+	{ 0xf8, 0xe2 }, { 0xf8, 0xe3 }, { 0xf8, 0xdc }, { 0xf8, 0xdf }, { 0xf8, 0xe7 }, { 0xf8, 0xe1 }, { 0xf8, 0xe0 }, { 0xf8, 0xde }
+};
 
 const uint8_t libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9f28[ 17 ][ 2 ] = {
 	{ 0xf1, 0xe8 }, { 0xf1, 0xe7 }, { 0xf1, 0xe6 }, { 0xf1, 0xe5 }, { 0xc3, 0x5e }, { 0xf3, 0xf6 }, { 0xf5, 0xb9 }, { 0xc4, 0xd3 },
@@ -6599,7 +6473,491 @@ int libuna_codepage_windows_950_copy_to_byte_stream(
 
 		byte_stream_additional_bytes = 1;
 	}
+	else if( ( unicode_character >= 0x50c4 )
+	      && ( unicode_character < 0x50cc ) )
+	{
+		unicode_character -= 0x50c4;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50c4[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50c4[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x50e3 )
+	      && ( unicode_character < 0x50eb ) )
+	{
+		unicode_character -= 0x50e3;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50e3[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x50e3[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5102 )
+	      && ( unicode_character < 0x510d ) )
+	{
+		unicode_character -= 0x5102;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5102[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5102[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x53e8 )
+	      && ( unicode_character < 0x53f4 ) )
+	{
+		unicode_character -= 0x53e8;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x53e8[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x53e8[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5406 )
+	      && ( unicode_character < 0x5413 ) )
+	{
+		unicode_character -= 0x5406;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5406[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5406[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5424 )
+	      && ( unicode_character < 0x542f ) )
+	{
+		unicode_character -= 0x5424;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5424[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5424[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5460 )
+	      && ( unicode_character < 0x5469 ) )
+	{
+		unicode_character -= 0x5460;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5460[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5460[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5470 )
+	      && ( unicode_character < 0x5479 ) )
+	{
+		unicode_character -= 0x5470;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5470[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5470[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x547a )
+	      && ( unicode_character < 0x5483 ) )
+	{
+		unicode_character -= 0x547a;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x547a[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x547a[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x54a5 )
+	      && ( unicode_character < 0x54b2 ) )
+	{
+		unicode_character -= 0x54a5;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54a5[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54a5[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x54ba )
+	      && ( unicode_character < 0x54ca ) )
+	{
+		unicode_character -= 0x54ba;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54ba[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54ba[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x54e4 )
+	      && ( unicode_character < 0x54ec ) )
+	{
+		unicode_character -= 0x54e4;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54e4[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x54e4[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5503 )
+	      && ( unicode_character < 0x550d ) )
+	{
+		unicode_character -= 0x5503;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5503[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5503[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x552c )
+	      && ( unicode_character < 0x553a ) )
+	{
+		unicode_character -= 0x552c;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x552c[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x552c[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x557b )
+	      && ( unicode_character < 0x5585 ) )
+	{
+		unicode_character -= 0x557b;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x557b[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x557b[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5587 )
+	      && ( unicode_character < 0x5590 ) )
+	{
+		unicode_character -= 0x5587;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5587[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5587[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5596 )
+	      && ( unicode_character < 0x55a1 ) )
+	{
+		byte_stream[ *byte_stream_index ] = 0xb3;
+
+		byte_stream_additional_bytes = 1;
+
+		switch( unicode_character )
+		{
+			case 0x5598:
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x5599:
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x559a:
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x559c:
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x559d:
+				byte_stream[ *byte_stream_index + 1 ] = 0xdc;
+				break;
+
+			case 0x559f:
+				byte_stream[ *byte_stream_index + 1 ] = 0xe7;
+				break;
+
+			default:
+				byte_stream[ *byte_stream_index ] = 0x1a;
+
+				byte_stream_additional_bytes = 0;
+				break;
+		}
+	}
+	else if( ( unicode_character >= 0x55a1 )
+	      && ( unicode_character < 0x55a9 ) )
+	{
+		unicode_character -= 0x55a1;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55a1[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55a1[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x55c2 )
+	      && ( unicode_character < 0x55d7 ) )
+	{
+		unicode_character -= 0x55c2;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55c2[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55c2[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x55e1 )
+	      && ( unicode_character < 0x55ea ) )
+	{
+		unicode_character -= 0x55e1;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55e1[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x55e1[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5668 )
+	      && ( unicode_character < 0x5675 ) )
+	{
+		unicode_character -= 0x5668;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5668[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5668[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x567e )
+	      && ( unicode_character < 0x5688 ) )
+	{
+		unicode_character -= 0x567e;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x567e[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x567e[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5749 )
+	      && ( unicode_character < 0x5753 ) )
+	{
+		unicode_character -= 0x5749;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5749[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5749[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x576f )
+	      && ( unicode_character < 0x5778 ) )
+	{
+		unicode_character -= 0x576f;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x576f[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x576f[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5794 )
+	      && ( unicode_character < 0x57a0 ) )
+	{
+		byte_stream[ *byte_stream_index ] = 0xce;
+
+		byte_stream_additional_bytes = 1;
+
+		switch( unicode_character )
+		{
+			case 0x5794:
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x5795:
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x5797:
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x5798:
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x5799:
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x579a:
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x579b:
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x579d:
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x579e:
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x579f:
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			default:
+				byte_stream[ *byte_stream_index ] = 0x1a;
+
+				byte_stream_additional_bytes = 0;
+				break;
+		}
+	}
+	else if( ( unicode_character >= 0x57b6 )
+	      && ( unicode_character < 0x57c2 ) )
+	{
+		byte_stream[ *byte_stream_index ] = 0xd1;
+
+		byte_stream_additional_bytes = 1;
+
+		switch( unicode_character )
+		{
+			case 0x57b6:
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x57b8:
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x57b9:
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x57ba:
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x57bc:
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x57bd:
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x57bf:
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x57c1:
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			default:
+				byte_stream[ *byte_stream_index ] = 0x1a;
+
+				byte_stream_additional_bytes = 0;
+				break;
+		}
+	}
+	else if( ( unicode_character >= 0x57e5 )
+	      && ( unicode_character < 0x57f0 ) )
+	{
+		byte_stream[ *byte_stream_index ] = 0xd4;
+
+		byte_stream_additional_bytes = 1;
+
+		switch( unicode_character )
+		{
+			case 0x57e5:
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x57e7:
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x57e9:
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x57ec:
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x57ed:
+				byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+				break;
+
+			case 0x57ee:
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			default:
+				byte_stream[ *byte_stream_index ] = 0x1a;
+
+				byte_stream_additional_bytes = 0;
+				break;
+		}
+	}
+	else if( ( unicode_character >= 0x57f0 )
+	      && ( unicode_character < 0x57fe ) )
+	{
+		unicode_character -= 0x57f0;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x57f0[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x57f0[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5804 )
+	      && ( unicode_character < 0x580f ) )
+	{
+		unicode_character -= 0x5804;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5804[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5804[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x582c )
+	      && ( unicode_character < 0x583a ) )
+	{
+		unicode_character -= 0x582c;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x582c[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x582c[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5848 )
+	      && ( unicode_character < 0x5850 ) )
+	{
+		unicode_character -= 0x5848;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5848[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5848[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x5879 )
+	      && ( unicode_character < 0x5884 ) )
+	{
+		unicode_character -= 0x5879;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5879[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x5879[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
 /* TODO */
+	else if( ( unicode_character >= 0x9df2 )
+	      && ( unicode_character < 0x9dfc ) )
+	{
+		unicode_character -= 0x9df2;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9df2[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9df2[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
+	else if( ( unicode_character >= 0x9dfd )
+	      && ( unicode_character < 0x9e00 ) )
+	{
+		unicode_character -= 0x9dfd;
+
+		byte_stream[ *byte_stream_index ]     = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9dfd[ unicode_character ][ 0 ];
+		byte_stream[ *byte_stream_index + 1 ] = libuna_codepage_windows_950_unicode_to_byte_stream_base_0x9dfd[ unicode_character ][ 1 ];
+
+		byte_stream_additional_bytes = 1;
+	}
 	else if( ( unicode_character >= 0x9f28 )
 	      && ( unicode_character < 0x9f39 ) )
 	{
@@ -8471,7 +8829,5117 @@ int libuna_codepage_windows_950_copy_to_byte_stream(
 				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
 				break;
 
+			case 0x50ce:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb6;
+				break;
+
+			case 0x50cf:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb3;
+				break;
+
+			case 0x50d1:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+				break;
+
+			case 0x50d3:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x50d4:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x50d5:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb2;
+				break;
+
+			case 0x50d6:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaf;
+				break;
+
+			case 0x50d7:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x50da:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb1;
+				break;
+
+			case 0x50db:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x50dd:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x50e0:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x50ec:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x50ed:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb0;
+				break;
+
+			case 0x50ee:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xad;
+				break;
+
+			case 0x50ef:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x50f0:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x50f1:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb5;
+				break;
+
+			case 0x50f3:
+				byte_stream[ *byte_stream_index     ] = 0xe0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x50f5:
+				byte_stream[ *byte_stream_index     ] = 0xbb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x50f6:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x50f8:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x50f9:
+				byte_stream[ *byte_stream_index     ] = 0xbb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x50fb:
+				byte_stream[ *byte_stream_index     ] = 0xbb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x50fd:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x50fe:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x50ff:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe6;
+				break;
+
+			case 0x5100:
+				byte_stream[ *byte_stream_index     ] = 0xbb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5110:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaa;
+				break;
+
+			case 0x5111:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5112:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa7;
+				break;
+
+			case 0x5113:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x5114:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa9;
+				break;
+
+			case 0x5115:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xab;
+				break;
+
+			case 0x5117:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5118:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa8;
+				break;
+
+			case 0x511a:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x511c:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x511f:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x76;
+				break;
+
+			case 0x5120:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x5121:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x77;
+				break;
+
+			case 0x5122:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbb;
+				break;
+
+			case 0x5124:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			case 0x5125:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x5126:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb9;
+				break;
+
+			case 0x5129:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x512a:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x75;
+				break;
+
+			case 0x512d:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb8;
+				break;
+
+			case 0x512e:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb9;
+				break;
+
+			case 0x5130:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x5131:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb7;
+				break;
+
+			case 0x5132:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x78;
+				break;
+
+			case 0x5133:
+				byte_stream[ *byte_stream_index     ] = 0xc3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x5134:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x5135:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x5137:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd7;
+				break;
+
+			case 0x5138:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x5139:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x513a:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x513b:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x513c:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x513d:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x513f:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x5140:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x5141:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb9;
+				break;
+
+			case 0x5143:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb8;
+				break;
+
+			case 0x5144:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5145:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x5146:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x5147:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x5148:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x5149:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x514b:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x514c:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x514d:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x5152:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x5154:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x5155:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x5157:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x5159:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x515a:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xde;
+				break;
+
+			case 0x515b:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x515c:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x515d:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+				break;
+
+			case 0x515e:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x515f:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x5161:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x5162:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb8;
+				break;
+
+			case 0x5163:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x5165:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x5167:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x5168:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x5169:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe2;
+				break;
+
+			case 0x516b:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x516c:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x516d:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbb;
+				break;
+
+			case 0x516e:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			case 0x5171:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x5175:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x5176:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe4;
+				break;
+
+			case 0x5177:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x5178:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x517c:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x5180:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xac;
+				break;
+
+			case 0x5187:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x5189:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x518a:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x518d:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x518f:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x5191:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x5192:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x5193:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x5194:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x5195:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x5197:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x5198:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x519e:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x51a0:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x51a2:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x51a4:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xde;
+				break;
+
+			case 0x51a5:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x51aa:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xad;
+				break;
+
+			case 0x51ac:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x51b0:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x51b1:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			case 0x51b6:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x51b7:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x51b9:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x51bc:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x51bd:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe6;
+				break;
+
+			case 0x51be:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x51c4:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe2;
+				break;
+
+			case 0x51c5:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x51c6:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x51c8:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe4;
+				break;
+
+			case 0x51ca:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x51cb:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe4;
+				break;
+
+			case 0x51cc:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe2;
+				break;
+
+			case 0x51cd:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x51ce:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x51d0:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x51d4:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x51d7:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x51d8:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x51dc:
+				byte_stream[ *byte_stream_index     ] = 0xbb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x51dd:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xae;
+				break;
+
+			case 0x51de:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x51e0:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x51e1:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x51f0:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x51f1:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x51f3:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb9;
+				break;
+
+			case 0x51f5:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x51f6:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x51f8:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x51f9:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x51fa:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x51fd:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe7;
+				break;
+
+			case 0x5200:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x5201:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x5203:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5206:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x5207:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x5208:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x5209:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x520a:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x520c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x520e:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x5210:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x5211:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x5212:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x5213:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x5216:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x5217:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x521c:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x521d:
+				byte_stream[ *byte_stream_index     ] = 0xaa;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x521e:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x5221:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x5224:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x5225:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x5228:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5229:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x522a:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x522e:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x5230:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x5231:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x5232:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x5233:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x5235:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x5236:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x5237:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x5238:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x523a:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x523b:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x5241:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xef;
+				break;
+
+			case 0x5243:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x5244:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x5246:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x5247:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x5249:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x524a:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x524b:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x524c:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x524d:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x524e:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5252:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x5254:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe7;
+				break;
+
+			case 0x5255:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x5256:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x525a:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe7;
+				break;
+
+			case 0x525b:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x525c:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe6;
+				break;
+
+			case 0x525d:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x525e:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x525f:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x5261:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe6;
+				break;
+
+			case 0x5262:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x5269:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x526a:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x526b:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x526c:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x526d:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x526e:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x526f:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x5272:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x5274:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x5275:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x5277:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x5278:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc7;
+				break;
+
+			case 0x527a:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x527b:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x527c:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x527d:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x527f:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x5280:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x5281:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x5282:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbb;
+				break;
+
+			case 0x5283:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x5284:
+				byte_stream[ *byte_stream_index     ] = 0xe3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5287:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x5288:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x5289:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x528a:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x528b:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x528c:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x528d:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x5291:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaf;
+				break;
+
+			case 0x5293:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb0;
+				break;
+
+			case 0x5296:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x5297:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x5298:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x5299:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x529b:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x529f:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+				break;
+
+			case 0x52a0:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x52a3:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x52a6:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x52a9:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x52aa:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x52ab:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x52ac:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x52ad:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x52ae:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x52bb:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x52bc:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd5;
+				break;
+
+			case 0x52be:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x52c0:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x52c1:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x52c2:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x52c3:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x52c7:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x52c9:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x52cd:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x52d2:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc7;
+				break;
+
+			case 0x52d3:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x52d5:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xca;
+				break;
+
+			case 0x52d6:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x52d7:
+				byte_stream[ *byte_stream_index     ] = 0xb1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x52d8:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x52d9:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x52db:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x52dd:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x52de:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x52df:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x52e2:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd5;
+				break;
+
+			case 0x52e3:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd6;
+				break;
+
+			case 0x52e4:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x52e6:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x52e9:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x52eb:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x52ef:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x52f0:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x52f1:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x52f3:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb1;
+				break;
+
+			case 0x52f4:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x52f5:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x52f7:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x52f8:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x52fa:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x52fb:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x52fc:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x52fe:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x52ff:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x5305:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x5306:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x5308:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x5309:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x530a:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd6;
+				break;
+
+			case 0x530b:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd7;
+				break;
+
+			case 0x530d:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x530e:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x530f:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcc;
+				break;
+
+			case 0x5310:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x5311:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x5312:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5315:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x5316:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x5317:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x5319:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x531a:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x531c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x531d:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x531f:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x5320:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x5321:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x5322:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x5323:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x532a:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x532d:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x532f:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd7;
+				break;
+
+			case 0x5330:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x5331:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			case 0x5334:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x5337:
+				byte_stream[ *byte_stream_index     ] = 0xf3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x5339:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc7;
+				break;
+
+			case 0x533c:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x533d:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x533e:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x533f:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x5340:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x5341:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcc;
+				break;
+
+			case 0x5343:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x5344:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x5345:
+				byte_stream[ *byte_stream_index     ] = 0xa2;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x5347:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x5348:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x5349:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x534a:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x534c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x534d:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x5351:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x5352:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x5353:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x5354:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x5357:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x535a:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd5;
+				break;
+
+			case 0x535c:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x535e:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x5360:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x5361:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x5363:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x72;
+				break;
+
+			case 0x5366:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x536c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x536e:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x536f:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x5370:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x5371:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x5372:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x73;
+				break;
+
+			case 0x5373:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x5375:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5377:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x5378:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5379:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x537b:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x537c:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x537f:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x5382:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x5384:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcc;
+				break;
+
+			case 0x538a:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x538e:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x74;
+				break;
+
+			case 0x538f:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x75;
+				break;
+
+			case 0x5392:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x5394:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xda;
+				break;
+
+			case 0x5396:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x5397:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5398:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x5399:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x539a:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x539c:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x539d:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x539e:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xef;
+				break;
+
+			case 0x539f:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x53a4:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x53a5:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd6;
+				break;
+
+			case 0x53a7:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x53ac:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x53ad:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x53b2:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x53b4:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xef;
+				break;
+
+			case 0x53b9:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x53bb:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x53c3:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x53c8:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x53c9:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x53ca:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x53cb:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x53cd:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x53d4:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x53d6:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x53d7:
+				byte_stream[ *byte_stream_index     ] = 0xa8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x53db:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x53df:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x53e1:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x53e2:
+				byte_stream[ *byte_stream_index     ] = 0xc2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x53e3:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x53e4:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x53e5:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x53e6:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x74;
+				break;
+
+			case 0x53f5:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x72;
+				break;
+
+			case 0x53f8:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x53fb:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7b;
+				break;
+
+			case 0x53fc:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x5401:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5403:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x5404:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x5418:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7e;
+				break;
+
+			case 0x5419:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7b;
+				break;
+
+			case 0x541b:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x541c:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x541d:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x541e:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x541f:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x75;
+				break;
+
+			case 0x5420:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x5430:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x76;
+				break;
+
+			case 0x5431:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x73;
+				break;
+
+			case 0x5433:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x5435:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x5436:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x5437:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x77;
+				break;
+
+			case 0x5438:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x5439:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x543b:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x543c:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x543d:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa1;
+				break;
+
+			case 0x543e:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x5440:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x72;
+				break;
+
+			case 0x5441:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x5442:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x5443:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x5445:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7a;
+				break;
+
+			case 0x5446:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5447:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa6;
+				break;
+
+			case 0x5448:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x544a:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x544e:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x544f:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa2;
+				break;
+
+			case 0x5454:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x546b:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x546c:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x546f:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x547c:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x547d:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x547e:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x547f:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdc;
+				break;
+
+			case 0x5480:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x5481:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x5482:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x5484:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x5486:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x5487:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdb;
+				break;
+
+			case 0x5488:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x548b:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x548c:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x548d:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x548e:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5490:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x5491:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xde;
+				break;
+
+			case 0x5492:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x5495:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x5496:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x5498:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x549a:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x54a0:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x54a1:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x54a2:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x54b3:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x54b6:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x54b7:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x54b8:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x77;
+				break;
+
+			case 0x54ce:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0x75;
+				break;
+
+			case 0x54cf:
+				byte_stream[ *byte_stream_index     ] = 0xcd;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x54d6:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x54de:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x54e0:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x54e1:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x54e2:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x54ed:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x54ee:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x54f1:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x54f2:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x54f3:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x54f7:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x54f8:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x54fa:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x54fb:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x54fc:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x54fd:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x54ff:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5501:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x550e:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x550f:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x5510:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x5511:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x5512:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x5514:
+				byte_stream[ *byte_stream_index     ] = 0xad;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5517:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x551a:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x5526:
+				byte_stream[ *byte_stream_index     ] = 0xd0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x5527:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x552a:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x77;
+				break;
+
+			case 0x553b:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa8;
+				break;
+
+			case 0x553c:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x73;
+				break;
+
+			case 0x553e:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x5540:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa9;
+				break;
+
+			case 0x5541:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe7;
+				break;
+
+			case 0x5543:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x5544:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd6;
+				break;
+
+			case 0x5545:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7e;
+				break;
+
+			case 0x5546:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x5548:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa6;
+				break;
+
+			case 0x554a:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xda;
+				break;
+
+			case 0x554b:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaa;
+				break;
+
+			case 0x554d:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x74;
+				break;
+
+			case 0x554e:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa4;
+				break;
+
+			case 0x554f:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x5550:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x75;
+				break;
+
+			case 0x5551:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x78;
+				break;
+
+			case 0x5552:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+				break;
+
+			case 0x5555:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xde;
+				break;
+
+			case 0x5556:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdc;
+				break;
+
+			case 0x5557:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x555c:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x555e:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd7;
+				break;
+
+			case 0x555f:
+				byte_stream[ *byte_stream_index     ] = 0xb1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x5561:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x5562:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x5563:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x5564:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x5565:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x5566:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd5;
+				break;
+
+			case 0x556a:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x5575:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x5576:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x72;
+				break;
+
+			case 0x5577:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x5591:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x5592:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x73;
+				break;
+
+			case 0x5593:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x5594:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x5595:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x55aa:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe0;
+				break;
+
+			case 0x55ab:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x55ac:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x55ad:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x55ae:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe6;
+				break;
+
+			case 0x55b1:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x55b2:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x55b3:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe5;
+				break;
+
+			case 0x55b5:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x55bb:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x55bf:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd5;
+				break;
+
+			case 0x55c0:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x55d9:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdf;
+				break;
+
+			case 0x55da:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x55db:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x55dc:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x55dd:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x55df:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x55ef:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe2;
+				break;
+
+			case 0x55f2:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x55f6:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x55f7:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x55f9:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x55fa:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x55fc:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x55fd:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x55fe:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x55ff:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x5600:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x5601:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x5602:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x5604:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5606:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x5608:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x5609:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x560c:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x560d:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x560e:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc7;
+				break;
+
+			case 0x560f:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x5610:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcc;
+				break;
+
+			case 0x5612:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x5613:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x5614:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x5615:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x5616:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x5617:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x561b:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x561c:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x561d:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x561f:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xca;
+				break;
+
+			case 0x5627:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x5629:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x562a:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x562c:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x44;
+				break;
+
+			case 0x562e:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x562f:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5630:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x5632:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x5633:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x5634:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x5635:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x5636:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x5638:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x5639:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x563a:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x563b:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x563d:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x563e:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x563f:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x5640:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x5641:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x5642:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x5645:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x5646:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x5648:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5649:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x564a:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x564c:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x564e:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x5653:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x5657:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x5658:
+				byte_stream[ *byte_stream_index     ] = 0xe4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x5659:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb2;
+				break;
+
+			case 0x565a:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x565e:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x5660:
+				byte_stream[ *byte_stream_index     ] = 0xe8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x5662:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x5663:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x5664:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb6;
+				break;
+
+			case 0x5665:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x5666:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x5676:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x5677:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x5678:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb7;
+				break;
+
+			case 0x5679:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+				break;
+
+			case 0x568c:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x568d:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x568e:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7a;
+				break;
+
+			case 0x568f:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa1;
+				break;
+
+			case 0x5690:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x5693:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x5695:
+				byte_stream[ *byte_stream_index     ] = 0xc2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x5697:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbc;
+				break;
+
+			case 0x5698:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x5699:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
+				break;
+
+			case 0x569a:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x569c:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbb;
+				break;
+
+			case 0x569d:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbe;
+				break;
+
+			case 0x56a5:
+				byte_stream[ *byte_stream_index     ] = 0xc3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x56a6:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x56a7:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x56a8:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x56aa:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x56ab:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x56ac:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x56ad:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x56ae:
+				byte_stream[ *byte_stream_index     ] = 0xc2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x56b2:
+				byte_stream[ *byte_stream_index     ] = 0xf3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x56b3:
+				byte_stream[ *byte_stream_index     ] = 0xf4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x56b4:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x56b5:
+				byte_stream[ *byte_stream_index     ] = 0xf4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x56b6:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x56b7:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x56bc:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x56bd:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x56be:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x56c0:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xda;
+				break;
+
+			case 0x56c1:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x56c2:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdb;
+				break;
+
+			case 0x56c3:
+				byte_stream[ *byte_stream_index     ] = 0xf5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x56c5:
+				byte_stream[ *byte_stream_index     ] = 0xf6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x56c6:
+				byte_stream[ *byte_stream_index     ] = 0xf6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd7;
+				break;
+
+			case 0x56c8:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x56c9:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x56ca:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x56cb:
+				byte_stream[ *byte_stream_index     ] = 0xf6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x56cc:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x56cd:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa6;
+				break;
+
+			case 0x56d1:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x56d3:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa5;
+				break;
+
+			case 0x56d4:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x56d7:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x56da:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+				break;
+
+			case 0x56db:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x56dd:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x56de:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x56df:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc7;
+				break;
+
+			case 0x56e0:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x56e1:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x56e4:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x79;
+				break;
+
+			case 0x56e5:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa9;
+				break;
+
+			case 0x56e7:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa8;
+				break;
+
+			case 0x56ea:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x77;
+				break;
+
+			case 0x56eb:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7a;
+				break;
+
+			case 0x56ee:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa7;
+				break;
+
+			case 0x56f0:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x78;
+				break;
+
+			case 0x56f7:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x56f9:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x56fa:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x56ff:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaa;
+				break;
+
+			case 0x5701:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x5702:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x5703:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x45;
+				break;
+
+			case 0x5704:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x46;
+				break;
+
+			case 0x5707:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xac;
+				break;
+
+			case 0x5708:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x5709:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x570a:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xab;
+				break;
+
+			case 0x570b:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x570c:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x570d:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x5712:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x5713:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xea;
+				break;
+
+			case 0x5714:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe1;
+				break;
+
+			case 0x5716:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x5718:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xce;
+				break;
+
+			case 0x571a:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x571b:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x571c:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x571e:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x571f:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x5720:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x5722:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x5723:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x5728:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5729:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x66;
+				break;
+
+			case 0x572a:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc9;
+				break;
+
+			case 0x572c:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x572d:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x572e:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc8;
+				break;
+
+			case 0x572f:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x5730:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x5733:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x5734:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xca;
+				break;
+
+			case 0x573b:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa6;
+				break;
+
+			case 0x573e:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x5740:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+				break;
+
+			case 0x5741:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaa;
+				break;
+
+			case 0x5745:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xab;
+				break;
+
+			case 0x5747:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa1;
+				break;
+
+			case 0x5761:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x5762:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x5764:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x5766:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5768:
+				byte_stream[ *byte_stream_index     ] = 0xcc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x40;
+				break;
+
+			case 0x5769:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x576a:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x576b:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x576d:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x577b:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x577c:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+				break;
+
+			case 0x577d:
+				byte_stream[ *byte_stream_index     ] = 0xcc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x41;
+				break;
+
+			case 0x5780:
+				byte_stream[ *byte_stream_index     ] = 0xcb;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x5782:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xab;
+				break;
+
+			case 0x5783:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x578b:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xac;
+				break;
+
+			case 0x578c:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x54;
+				break;
+
+			case 0x578f:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5793:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb2;
+				break;
+
+			case 0x57a0:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xad;
+				break;
+
+			case 0x57a2:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaf;
+				break;
+
+			case 0x57a3:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xae;
+				break;
+
+			case 0x57a4:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x57a5:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+				break;
+
+			case 0x57ae:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb1;
+				break;
+
+			case 0x57b5:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x57c2:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x47;
+				break;
+
+			case 0x57c3:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x57c6:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x57c7:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x55;
+				break;
+
+			case 0x57cb:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x57cc:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x57ce:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb0;
+				break;
+
+			case 0x57cf:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xba;
+				break;
+
+			case 0x57d0:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x57d2:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x57d4:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x48;
+				break;
+
+			case 0x57d5:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x57dc:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb1;
+				break;
+
+			case 0x57df:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x57e0:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x57e1:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x57e2:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaf;
+				break;
+
+			case 0x57e3:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xbd;
+				break;
+
+			case 0x57e4:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x5800:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb3;
+				break;
+
+			case 0x5801:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc6;
+				break;
+
+			case 0x5802:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x5810:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x5814:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xae;
+				break;
+
+			case 0x5819:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa1;
+				break;
+
+			case 0x581b:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xaa;
+				break;
+
+			case 0x581c:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa9;
+				break;
+
+			case 0x581d:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfa;
+				break;
+
+			case 0x581e:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa2;
+				break;
+
+			case 0x5820:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfb;
+				break;
+
+			case 0x5821:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x5823:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa4;
+				break;
+
+			case 0x5824:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5825:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa8;
+				break;
+
+			case 0x5827:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x5828:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa5;
+				break;
+
+			case 0x5829:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+				break;
+
+			case 0x582a:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf4;
+				break;
+
+			case 0x583b:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb3;
+				break;
+
+			case 0x583d:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xef;
+				break;
+
+			case 0x583f:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xac;
+				break;
+
+			case 0x5851:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x5852:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x5853:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe2;
+				break;
+
+			case 0x5854:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x5855:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe9;
+				break;
+
+			case 0x5857:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x5858:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x5859:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xec;
+				break;
+
+			case 0x585a:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xef;
+				break;
+
+			case 0x585b:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x585d:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x585e:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xeb;
+				break;
+
+			case 0x5862:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf5;
+				break;
+
+			case 0x5863:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf0;
+				break;
+
+			case 0x5864:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe4;
+				break;
+
+			case 0x5865:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xed;
+				break;
+
+			case 0x5868:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe3;
+				break;
+
+			case 0x586b:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x586d:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf3;
+				break;
+
+			case 0x586f:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe8;
+				break;
+
+			case 0x5871:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf1;
+				break;
+
+			case 0x5874:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x5875:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x5876:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x5885:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd6;
+				break;
+
+			case 0x5886:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5887:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x5888:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x5889:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x588a:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x588b:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x588e:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x588f:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x5890:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x5891:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x5893:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x5894:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x5898:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x589c:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x589d:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x589e:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x57;
+				break;
+
+			case 0x589f:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x56;
+				break;
+
+			case 0x58a0:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x58a1:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x58a3:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x58a5:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x51;
+				break;
+
+			case 0x58a6:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5c;
+				break;
+
+			case 0x58a8:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa5;
+				break;
+
+			case 0x58a9:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x58ab:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x58ac:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x58ae:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x58af:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x58b1:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x58b3:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x58;
+				break;
+
+			case 0x58ba:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x58bb:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x58bc:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x58bd:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4a;
+				break;
+
+			case 0x58be:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc1;
+				break;
+
+			case 0x58bf:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x58c1:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x58c2:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x58c5:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc3;
+				break;
+
+			case 0x58c6:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x50;
+				break;
+
+			case 0x58c7:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc2;
+				break;
+
+			case 0x58c8:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x49;
+				break;
+
+			case 0x58c9:
+				byte_stream[ *byte_stream_index     ] = 0xe9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4b;
+				break;
+
+			case 0x58ce:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa5;
+				break;
+
+			case 0x58cf:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcc;
+				break;
+
+			case 0x58d1:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa4;
+				break;
+
+			case 0x58d2:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x58d3:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x58d4:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x58d5:
+				byte_stream[ *byte_stream_index     ] = 0xc0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa2;
+				break;
+
+			case 0x58d6:
+				byte_stream[ *byte_stream_index     ] = 0xec;
+				byte_stream[ *byte_stream_index + 1 ] = 0xca;
+				break;
+
+			case 0x58d8:
+				byte_stream[ *byte_stream_index     ] = 0xc2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x58d9:
+				byte_stream[ *byte_stream_index     ] = 0xc2;
+				byte_stream[ *byte_stream_index + 1 ] = 0x52;
+				break;
+
+			case 0x58da:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf6;
+				break;
+
+			case 0x58db:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x58dd:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x58de:
+				byte_stream[ *byte_stream_index     ] = 0xc3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x58df:
+				byte_stream[ *byte_stream_index     ] = 0xc3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x58e2:
+				byte_stream[ *byte_stream_index     ] = 0xc3;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x58e3:
+				byte_stream[ *byte_stream_index     ] = 0xf4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x58e4:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x58e7:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x58e8:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x58e9:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x58eb:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x58ec:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd0;
+				break;
+
+			case 0x58ef:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa7;
+				break;
+
+			case 0x58f4:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x58f9:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfc;
+				break;
+
+			case 0x58fa:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfd;
+				break;
+
+			case 0x58fc:
+				byte_stream[ *byte_stream_index     ] = 0xdc;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf2;
+				break;
+
+			case 0x58fd:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd8;
+				break;
+
+			case 0x58fe:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x58ff:
+				byte_stream[ *byte_stream_index     ] = 0xe5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x53;
+				break;
+
+			case 0x5903:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x5906:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb0;
+				break;
+
+			case 0x590c:
+				byte_stream[ *byte_stream_index     ] = 0xcc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x42;
+				break;
+
+			case 0x590d:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x590e:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x59;
+				break;
+
+			case 0x590f:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4c;
+				break;
+
+			case 0x5912:
+				byte_stream[ *byte_stream_index     ] = 0xf1;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf9;
+				break;
+
+			case 0x5914:
+				byte_stream[ *byte_stream_index     ] = 0xc4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdc;
+				break;
+
+			case 0x5915:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x5916:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7e;
+				break;
+
+			case 0x5917:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x70;
+				break;
+
+			case 0x5919:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x591a:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x68;
+				break;
+
+			case 0x591c:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x5920:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf7;
+				break;
+
+			case 0x5922:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xda;
+				break;
+
+			case 0x5924:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdb;
+				break;
+
+			case 0x5925:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd9;
+				break;
+
+			case 0x5927:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x5929:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x592a:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd3;
+				break;
+
+			case 0x592b:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd2;
+				break;
+
+			case 0x592c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5b;
+				break;
+
+			case 0x592d:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x592e:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa1;
+				break;
+
+			case 0x592f:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x71;
+				break;
+
+			case 0x5931:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa2;
+				break;
+
+			case 0x5937:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x5938:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x593c:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcb;
+				break;
+
+			case 0x593e:
+				byte_stream[ *byte_stream_index     ] = 0xa7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa8;
+				break;
+
+			case 0x5940:
+				byte_stream[ *byte_stream_index     ] = 0xca;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb1;
+				break;
+
+			case 0x5944:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x5945:
+				byte_stream[ *byte_stream_index     ] = 0xcc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x43;
+				break;
+
+			case 0x5947:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x5948:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x5949:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x594a:
+				byte_stream[ *byte_stream_index     ] = 0xd1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5a;
+				break;
+
+			case 0x594e:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb6;
+				break;
+
+			case 0x594f:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb5;
+				break;
+
+			case 0x5950:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb7;
+				break;
+
+			case 0x5951:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+				break;
+
+			case 0x5953:
+				byte_stream[ *byte_stream_index     ] = 0xce;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x5954:
+				byte_stream[ *byte_stream_index     ] = 0xa9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x5955:
+				byte_stream[ *byte_stream_index     ] = 0xab;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb3;
+				break;
+
+			case 0x5957:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4d;
+				break;
+
+			case 0x5958:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4e;
+				break;
+
+			case 0x595a:
+				byte_stream[ *byte_stream_index     ] = 0xae;
+				byte_stream[ *byte_stream_index + 1 ] = 0x4f;
+				break;
+
+			case 0x595c:
+				byte_stream[ *byte_stream_index     ] = 0xd4;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcd;
+				break;
+
+			case 0x5960:
+				byte_stream[ *byte_stream_index     ] = 0xb3;
+				byte_stream[ *byte_stream_index + 1 ] = 0xfe;
+				break;
+
+			case 0x5961:
+				byte_stream[ *byte_stream_index     ] = 0xd8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb4;
+				break;
+
+			case 0x5962:
+				byte_stream[ *byte_stream_index     ] = 0xb0;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5967:
+				byte_stream[ *byte_stream_index     ] = 0xb6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xf8;
+				break;
+
+			case 0x5969:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdd;
+				break;
+
+			case 0x596a:
+				byte_stream[ *byte_stream_index     ] = 0xb9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xdc;
+				break;
+
+			case 0x596b:
+				byte_stream[ *byte_stream_index     ] = 0xe1;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x596d:
+				byte_stream[ *byte_stream_index     ] = 0xbc;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x596e:
+				byte_stream[ *byte_stream_index     ] = 0xbe;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc4;
+				break;
+
+			case 0x5970:
+				byte_stream[ *byte_stream_index     ] = 0xef;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x5971:
+				byte_stream[ *byte_stream_index     ] = 0xf6;
+				byte_stream[ *byte_stream_index + 1 ] = 0xda;
+				break;
+
+			case 0x5972:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd4;
+				break;
+
+			case 0x5973:
+				byte_stream[ *byte_stream_index     ] = 0xa4;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x5974:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa3;
+				break;
+
+			case 0x5976:
+				byte_stream[ *byte_stream_index     ] = 0xa5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xa4;
+				break;
+
+			case 0x5977:
+				byte_stream[ *byte_stream_index     ] = 0xc9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xd1;
+				break;
+
+			case 0x5978:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6c;
+				break;
+
+			case 0x5979:
+				byte_stream[ *byte_stream_index     ] = 0xa6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
 /* TODO */
+			case 0x9de1:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x69;
+				break;
+
+			case 0x9de2:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6e;
+				break;
+
+			case 0x9de3:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x64;
+				break;
+
+			case 0x9de4:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x67;
+				break;
+
+			case 0x9de5:
+				byte_stream[ *byte_stream_index     ] = 0xc5;
+				byte_stream[ *byte_stream_index + 1 ] = 0xee;
+				break;
+
+			case 0x9de6:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6b;
+				break;
+
+			case 0x9de8:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x72;
+				break;
+
+			case 0x9de9:
+				byte_stream[ *byte_stream_index     ] = 0xf7;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc0;
+				break;
+
+			case 0x9deb:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x65;
+				break;
+
+			case 0x9dec:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6f;
+				break;
+
+			case 0x9ded:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x73;
+				break;
+
+			case 0x9dee:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6a;
+				break;
+
+			case 0x9def:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x63;
+				break;
+
+			case 0x9df0:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0x6d;
+				break;
+
+			case 0x9e09:
+				byte_stream[ *byte_stream_index     ] = 0xf8;
+				byte_stream[ *byte_stream_index + 1 ] = 0xe4;
+				break;
+
+			case 0x9e0b:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5d;
+				break;
+
+			case 0x9e0d:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5e;
+				break;
+
+			case 0x9e0f:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x60;
+				break;
+
+			case 0x9e10:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x5f;
+				break;
+
+			case 0x9e11:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x62;
+				break;
+
+			case 0x9e12:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x61;
+				break;
+
+			case 0x9e13:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x9e14:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7b;
+				break;
+
+			case 0x9e15:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb7;
+				break;
+
+			case 0x9e17:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xb8;
+				break;
+
+			case 0x9e19:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xc5;
+				break;
+
+			case 0x9e1a:
+				byte_stream[ *byte_stream_index     ] = 0xc6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x78;
+				break;
+
+			case 0x9e1b:
+				byte_stream[ *byte_stream_index     ] = 0xc6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7c;
+				break;
+
+			case 0x9e1d:
+				byte_stream[ *byte_stream_index     ] = 0xf9;
+				byte_stream[ *byte_stream_index + 1 ] = 0xcf;
+				break;
+
+			case 0x9e1e:
+				byte_stream[ *byte_stream_index     ] = 0xc6;
+				byte_stream[ *byte_stream_index + 1 ] = 0x7d;
+				break;
+
 			case 0x9e75:
 				byte_stream[ *byte_stream_index     ] = 0xb3;
 				byte_stream[ *byte_stream_index + 1 ] = 0xbf;
