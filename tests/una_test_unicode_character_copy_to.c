@@ -90,7 +90,6 @@ int una_test_unicode_character_copy_to_byte_stream(
 	{
 		if( ( byte_stream_to_unicode[ byte_stream_to_unicode_entry_index ] ).is_duplicate == 0 )
 		{
-/* TODO
 			byte_stream_size = 0;
 
 			result = libuna_unicode_character_size_to_byte_stream(
@@ -109,7 +108,6 @@ int una_test_unicode_character_copy_to_byte_stream(
 
 				break;
 			}
-*/
 			byte_stream_index = 0;
 			byte_stream_size  = 2;
 
@@ -269,8 +267,6 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-/* TODO */
-#ifdef TODO
 	/* Case: codepage windows 950
 	 */
 	if( una_test_unicode_character_copy_to_byte_stream(
@@ -284,7 +280,6 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-#endif
 	/* Case: codepage windows 1250
 	 */
 	if( una_test_unicode_character_copy_to_byte_stream(

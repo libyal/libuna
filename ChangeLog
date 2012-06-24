@@ -1,21 +1,9 @@
 TODO
-* add unicode to ascii support
-  - 950 (Traditional Chinese Big5)
-* improve: libuna_unicode_character_size_to_byte_stream ?
-  - windows 949
-  - windows 950
 * tests
   - unicode 2 codepage tests
     - test values not in codepage
   - codepage 2 unicode tests
-    - windows 950
     - test values not in codepage
-* optimize codepage 932 ?
-  - use short lookup tables
-  - condense switch statements: x - base
-* optimize codepage 949 ?
-  - use short lookup tables
-  - condense switch statements: x - base
 
 * base encoding
   - support UTF-16 and 32 by flags ?
@@ -108,15 +96,20 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 
+20120624
+* worked on copepage 950
+* improved copepages 932, 936, 949 and 950
+  - switched to lookup bitmaps and tables
+
 20120621
-* worked on copepages 950
+* worked on copepage 950
 
 20120620
-* worked on copepages 950
+* worked on copepage 950
 
 20120619
 * code clean up
-* worked on copepages 950
+* worked on copepage 950
 
 20120617
 * worked on Unicode to byte stream tests
