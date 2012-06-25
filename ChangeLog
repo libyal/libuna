@@ -96,6 +96,10 @@ Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 
+20120625
+* improved copepages 932, 936, 949 and 950
+  - removed bitmap
+
 20120624
 * worked on copepage 950
 * improved copepages 932, 936, 949 and 950
