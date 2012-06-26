@@ -1,12 +1,18 @@
 TODO
-* base encoding
-  - support UTF-16 and 32 by flags ?
+* base encoding: support UTF-16 and 32 encoding by flags
+  - base16
+  - base32 (+/-)
+  - base64 (done)
 * add const to base32 and base64 functions
+* add base64 functions with index:
+  - libuna_base64_stream_copy_from_byte_stream
+  - libuna_base64_stream_copy_to_byte_stream
 * create automated tests and test files
   - base16
   - base32
-  - base64
+  - base64 (+/-)
   - base64url
+* check TODO's
 
 * tests
   - unicode 2 codepage tests
@@ -98,6 +104,7 @@ Note:
 
 20120626
 * worked on base16, 32 and 64 string encoding support
+* worked on base64 tests
 
 20120625
 * improved copepages 932, 936, 949 and 950

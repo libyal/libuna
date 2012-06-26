@@ -74,12 +74,11 @@ int una_test_unicode_character_copy_to_byte_stream(
 {
 	uint8_t byte_stream[ 2 ];
 
-	libuna_error_t *error                        = NULL;
-	libuna_unicode_character_t unicode_character = 0;
-	size_t byte_stream_index                     = 0;
-	size_t byte_stream_size                      = 2;
-	size_t byte_stream_to_unicode_entry_index    = 0;
-	int result                                   = 0;
+	libuna_error_t *error                     = NULL;
+	size_t byte_stream_index                  = 0;
+	size_t byte_stream_size                   = 2;
+	size_t byte_stream_to_unicode_entry_index = 0;
+	int result                                = 0;
 
         fprintf(
          stdout,

@@ -341,7 +341,7 @@ int libuna_base64_triplet_copy_from_base64_stream(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid base64 character for 1st sixtet.",
+		 "%s: invalid 1st base64 character.",
 		 function );
 
 		return( -1 );
@@ -410,7 +410,7 @@ int libuna_base64_triplet_copy_from_base64_stream(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid base64 character for 2nd sixtet.",
+		 "%s: invalid 2nd base64 character.",
 		 function );
 
 		return( -1 );
@@ -472,7 +472,7 @@ int libuna_base64_triplet_copy_from_base64_stream(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid base64 character for 3rd sixtet.",
+			 "%s: invalid 3rd base64 character.",
 			 function );
 
 			return( -1 );
@@ -558,7 +558,7 @@ int libuna_base64_triplet_copy_from_base64_stream(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid base64 character for 4th sixtet.",
+			 "%s: invalid 4th base64 character.",
 			 function );
 
 			return( -1 );
@@ -646,13 +646,15 @@ int libuna_base64_triplet_copy_to_base64_stream(
 {
 	uint8_t *sixtet_to_character_table = NULL;
 	static char *function              = "libuna_base64_triplet_copy_to_base64_stream";
+	size_t base64_character_size       = 0;
+	size_t stream_index                = 0;
+	uint32_t base64_character          = 0;
 	uint8_t padding_character          = 0;
 	uint8_t sixtet1                    = 0;
 	uint8_t sixtet2                    = 0;
 	uint8_t sixtet3                    = 0;
 	uint8_t sixtet4                    = 0;
 
-/* TODO add encoding support */
 	if( base64_stream == NULL )
 	{
 		libcerror_error_set(
@@ -750,6 +752,34 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 			return( -1 );
 	}
+	switch( base64_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+			base64_character_size = 1;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			base64_character_size = 2;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			base64_character_size = 4;
+			break;
+
+		default:
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base64 variant.",
+			 function );
+
+			return( -1 );
+	}
+	stream_index = *base64_stream_index;
+
 	/* Separate the 3 bytes value into 4 x 6 bit values
 	 */
 	sixtet4          = (uint8_t) ( base64_triplet & 0x3f );
@@ -762,7 +792,7 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 	/* Spread the encoding over 2 characters if 1 byte is available
 	 */
-	if( ( *base64_stream_index + 1 ) >= base64_stream_size )
+	if( ( stream_index + ( base64_character_size * 2 ) ) > base64_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -773,15 +803,78 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 		return( -1 );
 	}
-	base64_stream[ *base64_stream_index     ] = sixtet_to_character_table[ sixtet1 ];
-	base64_stream[ *base64_stream_index + 1 ] = sixtet_to_character_table[ sixtet2 ];
+	base64_character = sixtet_to_character_table[ sixtet1 ];
 
-	*base64_stream_index += 2;
+	switch( base64_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+			base64_stream[ stream_index ] = (uint8_t) base64_character;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+			byte_stream_copy_from_uint16_big_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			byte_stream_copy_from_uint16_little_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+			byte_stream_copy_from_uint32_big_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			byte_stream_copy_from_uint32_little_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+	}
+	stream_index += base64_character_size;
+
+	base64_character = sixtet_to_character_table[ sixtet2 ];
+
+	switch( base64_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+			base64_stream[ stream_index ] = (uint8_t) base64_character;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+			byte_stream_copy_from_uint16_big_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			byte_stream_copy_from_uint16_little_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+			byte_stream_copy_from_uint32_big_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			byte_stream_copy_from_uint32_little_endian(
+			 &( base64_stream[ stream_index ] ),
+			 base64_character );
+			break;
+	}
+	stream_index += base64_character_size;
 
 	/* Spread the encoding over 3 characters if 2 bytes are available
 	 * Otherwise pad the remaining bytes if required
 	 */
-	if( *base64_stream_index >= base64_stream_size )
+	if( ( stream_index + base64_character_size ) > base64_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -792,22 +885,53 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 		return( -1 );
 	}
-	if( padding_size < 2 )
+	if( ( padding_size < 2 )
+	 || ( padding_character != 0 ) )
 	{
-		base64_stream[ *base64_stream_index ] = sixtet_to_character_table[ sixtet3 ];
+		if( padding_size < 2 )
+		{
+			base64_character = sixtet_to_character_table[ sixtet3 ];
+		}
+		else if( padding_character != 0 )
+		{
+			base64_character = padding_character;
+		}
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_stream[ stream_index ] = (uint8_t) base64_character;
+				break;
 
-		*base64_stream_index += 1;
-	}
-	else if( padding_character != 0 )
-	{
-		base64_stream[ *base64_stream_index ] = padding_character;
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_from_uint16_big_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
 
-		*base64_stream_index += 1;
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_from_uint16_little_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_from_uint32_big_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_from_uint32_little_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+		}
+		stream_index += base64_character_size;
 	}
 	/* Spread the encoding over 4 characters if 3 bytes are available
 	 * Otherwise pad the remaining bytes if required
 	 */
-	if( *base64_stream_index >= base64_stream_size )
+	if( ( stream_index + base64_character_size ) > base64_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -818,18 +942,51 @@ int libuna_base64_triplet_copy_to_base64_stream(
 
 		return( -1 );
 	}
-	if( padding_size < 1 )
+	if( ( padding_size < 1 )
+	 || ( padding_character != 0 ) )
 	{
-		base64_stream[ *base64_stream_index ] = sixtet_to_character_table[ sixtet4 ];
+		if( padding_size < 1 )
+		{
+			base64_character = sixtet_to_character_table[ sixtet4 ];
+		}
+		else if( padding_character != 0 )
+		{
+			base64_character = padding_character;
+		}
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_stream[ stream_index ] = (uint8_t) base64_character;
+				break;
 
-		*base64_stream_index += 1;
-	}
-	else if( padding_character != 0 )
-	{
-		base64_stream[ *base64_stream_index ] = padding_character;
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_from_uint16_big_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
 
-		*base64_stream_index += 1;
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_from_uint16_little_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_from_uint32_big_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_from_uint32_little_endian(
+				 &( base64_stream[ stream_index ] ),
+				 base64_character );
+				break;
+		}
+		stream_index += base64_character_size;
 	}
+	*base64_stream_index = stream_index;
+
 	return( 1 );
 }
 
