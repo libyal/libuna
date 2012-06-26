@@ -1,15 +1,20 @@
 TODO
+* base encoding
+  - support UTF-16 and 32 by flags ?
+* add const to base32 and base64 functions
+* create automated tests and test files
+  - base16
+  - base32
+  - base64
+  - base64url
+
 * tests
   - unicode 2 codepage tests
     - test values not in codepage
   - codepage 2 unicode tests
     - test values not in codepage
 
-* base encoding
-  - support UTF-16 and 32 by flags ?
-
 * implement with index functions
-* added const to base32 and base64 functions
 * libuna_base16_stream_size_from_byte_stream add const
 * base16
   - add separate function to convert a byte like base64 sixtet
@@ -48,7 +53,7 @@ TODO
   - 858 (Multilingual Latin I + Euro)
   - 862 (Hebrew)
   - 866 (Russian)
-* add support for codepages:
+* add support for other codepages:
   - 50220 iso-2022-jp Japanese (JIS)
   - 50221 csISO2022JP Japanese (JIS-Allow 1 byte Kana)
   - 51932 euc-jp Japanese (EUC)
@@ -57,11 +62,6 @@ TODO
 
 Test:
 * create automated tests and test files
-  - byte stream/codepages
-  - base16
-  - base32
-  - base64
-  - base64url
   - create test_unabase.sh
   - complete test_unaexport.sh
 
@@ -95,6 +95,9 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
+
+20120626
+* worked on base16, 32 and 64 string encoding support
 
 20120625
 * improved copepages 932, 936, 949 and 950
