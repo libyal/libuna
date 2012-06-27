@@ -64,7 +64,6 @@ int una_test_base64_stream_copy_from_byte_stream(
 	{
 		if( result_base64_stream_size != expected_base64_stream_size )
 		{
-fprintf( stderr, "CP1: %zd != %zd\n", result_base64_stream_size, expected_base64_stream_size );
 			result = 0;
 		}
 	}
@@ -90,7 +89,6 @@ fprintf( stderr, "CP1: %zd != %zd\n", result_base64_stream_size, expected_base64
 		     expected_base64_stream,
 		     sizeof( uint8_t ) * expected_base64_stream_size ) != 0 )
 		{
-fprintf( stderr, "CP2: %s != %s\n", base64_stream, expected_base64_stream );
 			result = 0;
 		}
 	}
@@ -145,24 +143,24 @@ int main( int argc, char * const argv[] )
 	uint8_t byte_stream[ 16 ] = \
 		{ 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.' };
 
-	uint8_t expected_rfc1421_base64_stream[ 25 ] = \
-		{ 'V', 'G', 'h', 'p', 'c', 'y', 'B', 'p', 'c', 'y', 'D', 'D', 'o', 'S', 'B', '0', 'Z', 'X', 'N', '0',
-	          'L', 'g', '=', '=', '\n' };
+	uint8_t expected_rfc1421_base64_stream[ 25 ] = {
+		'V', 'G', 'h', 'p', 'c', 'y', 'B', 'p', 'c', 'y', 'D', 'D', 'o', 'S', 'B', '0', 'Z', 'X', 'N', '0',
+	        'L', 'g', '=', '=', '\n' };
 
-	uint8_t expected_rfc1421_utf16be_base64_stream[ 50 ] = \
-		{ 0, 'V', 0, 'G', 0, 'h', 0, 'p', 0, 'c', 0, 'y', 0, 'B', 0, 'p', 0, 'c', 0, 'y', 0, 'D', 0, 'D',
-	          0, 'o', 0, 'S', 0, 'B', 0, '0', 0, 'Z', 0, 'X', 0, 'N', 0, '0', 0, 'L', 0, 'g', 0, '=', 0, '=',
-	          0, '\n' };
+	uint8_t expected_rfc1421_utf16be_base64_stream[ 50 ] = {
+		0, 'V', 0, 'G', 0, 'h', 0, 'p', 0, 'c', 0, 'y', 0, 'B', 0, 'p', 0, 'c', 0, 'y', 0, 'D', 0, 'D',
+	        0, 'o', 0, 'S', 0, 'B', 0, '0', 0, 'Z', 0, 'X', 0, 'N', 0, '0', 0, 'L', 0, 'g', 0, '=', 0, '=',
+	        0, '\n' };
 
-	uint8_t expected_rfc1421_utf32le_base64_stream[ 100 ] = \
-		{ 'V', 0, 0, 0, 'G', 0, 0, 0, 'h', 0, 0, 0, 'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'B', 0, 0, 0,
-	          'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'D', 0, 0, 0, 'D', 0, 0, 0, 'o', 0, 0, 0, 'S', 0, 0, 0,
-	          'B', 0, 0, 0, '0', 0, 0, 0, 'Z', 0, 0, 0, 'X', 0, 0, 0, 'N', 0, 0, 0, '0', 0, 0, 0, 'L', 0, 0, 0,
-	          'g', 0, 0, 0, '=', 0, 0, 0, '=', 0, 0, 0, '\n', 0, 0, 0 };
+	uint8_t expected_rfc1421_utf32le_base64_stream[ 100 ] = {
+		'V', 0, 0, 0, 'G', 0, 0, 0, 'h', 0, 0, 0, 'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'B', 0, 0, 0,
+	        'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'D', 0, 0, 0, 'D', 0, 0, 0, 'o', 0, 0, 0, 'S', 0, 0, 0,
+	        'B', 0, 0, 0, '0', 0, 0, 0, 'Z', 0, 0, 0, 'X', 0, 0, 0, 'N', 0, 0, 0, '0', 0, 0, 0, 'L', 0, 0, 0,
+	        'g', 0, 0, 0, '=', 0, 0, 0, '=', 0, 0, 0, '\n', 0, 0, 0 };
 
-	uint8_t expected_rfc1642_base64_stream[ 22 ] = \
-		{ 'V', 'G', 'h', 'p', 'c', 'y', 'B', 'p', 'c', 'y', 'D', 'D', 'o', 'S', 'B', '0', 'Z', 'X', 'N', '0',
-	          'L', 'g' };
+	uint8_t expected_rfc1642_base64_stream[ 22 ] = {
+		'V', 'G', 'h', 'p', 'c', 'y', 'B', 'p', 'c', 'y', 'D', 'D', 'o', 'S', 'B', '0', 'Z', 'X', 'N', '0',
+	        'L', 'g' };
 
 	uint8_t *long_byte_stream = \
 		(uint8_t *) "The test of success is not what you do when you are on top. Success is how high you bounce when you hit bottom.\n";
@@ -171,17 +169,17 @@ int main( int argc, char * const argv[] )
 		(uint8_t *) "VGhlIHRlc3Qgb2Ygc3VjY2VzcyBpcyBub3Qgd2hhdCB5b3UgZG8gd2hlbiB5b3UgYXJlIG9uIHRv\n"
 		            "cC4gU3VjY2VzcyBpcyBob3cgaGlnaCB5b3UgYm91bmNlIHdoZW4geW91IGhpdCBib3R0b20uCg==\n";
 
-	uint8_t byte_stream1[ 6 ] = \
-		{ 0xe6, 0xb5, 0x8b, 0xe8, 0xaf, 0x95 };
+	uint8_t byte_stream1[ 6 ] = { 0xe6, 0xb5, 0x8b, 0xe8, 0xaf, 0x95 };
 
-	uint8_t *expected_base64_stream1 = \
-		(uint8_t *) "5rWL6K+VCg";
+	uint8_t *expected_base64_stream1 = (uint8_t *) "5rWL6K+V";
 
-	uint8_t byte_stream2[ 9 ] = \
-		{ 0xe8, 0xa9, 0xa6, 0xe3, 0x81, 0xbf, 0xe3, 0x82, 0x8b };
+	uint8_t *expected_base64_url_stream1 = (uint8_t *) "5rWL6K-V";
 
-	uint8_t *expected_base64_stream2 = \
-		(uint8_t *) "6Kmm44G/44KLCg";
+	uint8_t byte_stream2[ 9 ] = { 0xe8, 0xa9, 0xa6, 0xe3, 0x81, 0xbf, 0xe3, 0x82, 0x8b };
+
+	uint8_t *expected_base64_stream2 = (uint8_t *) "6Kmm44G/44KL";
+
+	uint8_t *expected_base64_url_stream2 = (uint8_t *) "6Kmm44G_44KL";
 
 	libuna_error_t *error = NULL;
 
@@ -404,7 +402,7 @@ int main( int argc, char * const argv[] )
 	     256,
 	     LIBUNA_BASE64_VARIANT_RFC1642,
 	     expected_base64_stream1,
-	     10,
+	     8,
 	     1 ) != 1 )
 	{
 		fprintf(
@@ -413,7 +411,27 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 12: byte stream is a buffer, byte stream size is 9
+	/* Case 12: byte stream is a buffer, byte stream size is 6
+	 *          base64 stream is a buffer, base64 stream size is 256, variant URL
+	 * Expected result: 1
+	 */
+	if( una_test_base64_stream_copy_from_byte_stream(
+	     byte_stream1,
+	     6,
+	     base64_stream,
+	     256,
+	     LIBUNA_BASE64_VARIANT_URL,
+	     expected_base64_url_stream1,
+	     8,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy byte stream to base64 stream.\n" );
+
+		goto on_error;
+	}
+	/* Case 13: byte stream is a buffer, byte stream size is 9
 	 *          base64 stream is a buffer, base64 stream size is 256, variant RFC1642
 	 * Expected result: 1
 	 */
@@ -424,7 +442,7 @@ int main( int argc, char * const argv[] )
 	     256,
 	     LIBUNA_BASE64_VARIANT_RFC1642,
 	     expected_base64_stream2,
-	     14,
+	     12,
 	     1 ) != 1 )
 	{
 		fprintf(
@@ -433,9 +451,26 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	/* Case 14: byte stream is a buffer, byte stream size is 9
+	 *          base64 stream is a buffer, base64 stream size is 256, variant URL
+	 * Expected result: 1
+	 */
+	if( una_test_base64_stream_copy_from_byte_stream(
+	     byte_stream2,
+	     9,
+	     base64_stream,
+	     256,
+	     LIBUNA_BASE64_VARIANT_URL,
+	     expected_base64_url_stream2,
+	     12,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy byte stream to base64 stream.\n" );
 
-/* TODO check URL alphabet */
-
+		goto on_error;
+	}
 	return( EXIT_SUCCESS );
 
 on_error:

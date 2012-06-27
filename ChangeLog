@@ -8,10 +8,9 @@ TODO
   - libuna_base64_stream_copy_from_byte_stream
   - libuna_base64_stream_copy_to_byte_stream
 * tests: copy to
-  - base16
-  - base32
+  - base16 (+/-)
+  - base32 (+/-)
   - base64 (+/-)
-    - fix current tests
     - URL
 * tests: copy from
   - base16
@@ -19,6 +18,8 @@ TODO
   - base64
     - URL
 * check TODO's
+  - base64 optional padding
+  - base64 definitions
 
 * tests
   - unicode 2 codepage tests
@@ -107,6 +108,11 @@ Deployment:
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
+* streams, except for a (byte stream) ASCII string, are not considered
+  terminated by an end-of-string character
+
+20120627
+* worked on base64 tests
 
 20120626
 * worked on base16, 32 and 64 string encoding support
