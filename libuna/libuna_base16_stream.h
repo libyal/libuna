@@ -69,6 +69,16 @@ int libuna_base16_stream_copy_from_byte_stream(
      uint32_t base16_variant,
      libcerror_error_t **error );
 
+LIBUNA_EXTERN \
+int libuna_base16_stream_with_index_copy_from_byte_stream(
+     uint8_t *base16_stream,
+     size_t base16_stream_size,
+     size_t *base16_stream_index,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint32_t base16_variant,
+     libcerror_error_t **error );
+
 #if defined( __cplusplus )
 }
 #endif

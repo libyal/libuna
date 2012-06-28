@@ -1,9 +1,14 @@
 TODO
+* make sure whitespace is stripped when copying to byte stream:
+  - base32
+  - base64
 * base encoding: support UTF-16 and 32 encoding by flags
   - base16 (test)
   - base32 (+/-)
   - base64 (+/-)
-* add const to base32 and base64 functions
+* add const to functions
+  - base32
+  - base64
 * add baseX functions with index:
   - base16
   - base32
@@ -14,7 +19,7 @@ TODO
   - base64 (+/-)
     - URL
 * tests: copy to
-  - base16
+  - base16 (+/-)
   - base32
   - base64
     - URL
@@ -29,7 +34,6 @@ TODO
     - test values not in codepage
 
 * implement with index functions
-* libuna_base16_stream_size_from_byte_stream add const
 * base16
   - add separate function to convert a byte like base64 sixtet
 * unabase:
@@ -112,8 +116,12 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20120628
+* worked on base16 tests
+* fixes for base16, base32 and base64 support
+
 20120627
-* worked on base64 tests
+* worked on base16 and base64 tests
 
 20120626
 * worked on base16, 32 and 64 string encoding support

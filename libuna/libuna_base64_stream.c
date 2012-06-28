@@ -1394,7 +1394,7 @@ int libuna_base64_stream_size_to_byte_stream(
 					 error,
 					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-					 "%s: number of characters in line exceed maximum.",
+					 "%s: number of characters in line does not match character limit.",
 					 function );
 
 					return( -1 );
@@ -1505,13 +1505,13 @@ int libuna_base64_stream_size_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != (size_t) character_limit )
+		if( number_of_characters > (size_t) character_limit )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: number of characters in line exceed maximum.",
+			 "%s: number of characters in last line exceed maximum.",
 			 function );
 
 			return( -1 );
@@ -1681,7 +1681,7 @@ int libuna_base64_stream_copy_to_byte_stream(
 					 error,
 					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-					 "%s: number of characters in line exceed maximum.",
+					 "%s: number of characters in line does not match character limit.",
 					 function );
 
 					return( -1 );
@@ -1788,13 +1788,13 @@ int libuna_base64_stream_copy_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != (size_t) character_limit )
+		if( number_of_characters > (size_t) character_limit )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: number of characters in line exceed maximum.",
+			 "%s: number of characters in last line exceed maximum.",
 			 function );
 
 			return( -1 );

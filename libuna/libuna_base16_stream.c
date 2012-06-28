@@ -208,13 +208,13 @@ int libuna_base16_stream_size_to_byte_stream(
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-				byte_stream_copy_to_uint16_big_endian(
+				byte_stream_copy_to_uint32_big_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-				byte_stream_copy_to_uint16_little_endian(
+				byte_stream_copy_to_uint32_little_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
@@ -238,18 +238,15 @@ int libuna_base16_stream_size_to_byte_stream(
 		{
 			whitespace_size += base16_character_size;
 		}
+		else if( ( flags & LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) == 0 )
+		{
+			break;
+		}
 		else if( ( base16_character1 == (uint32_t) ' ' )
 		      || ( base16_character1 == (uint32_t) '\t' )
 		      || ( base16_character1 == (uint32_t) '\v' ) )
 		{
-			if( ( flags & LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) != 0 )
-			{
-				whitespace_size += base16_character_size;
-			}
-			else
-			{
-				break;
-			}
+			whitespace_size += base16_character_size;
 		}
 		else
 		{
@@ -281,13 +278,13 @@ int libuna_base16_stream_size_to_byte_stream(
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-				byte_stream_copy_to_uint16_big_endian(
+				byte_stream_copy_to_uint32_big_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-				byte_stream_copy_to_uint16_little_endian(
+				byte_stream_copy_to_uint32_little_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
@@ -337,13 +334,13 @@ int libuna_base16_stream_size_to_byte_stream(
 							break;
 
 						case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-							byte_stream_copy_to_uint16_big_endian(
+							byte_stream_copy_to_uint32_big_endian(
 							 &( base16_stream[ base16_stream_index ] ),
 							 base16_character2 );
 							break;
 
 						case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-							byte_stream_copy_to_uint16_little_endian(
+							byte_stream_copy_to_uint32_little_endian(
 							 &( base16_stream[ base16_stream_index ] ),
 							 base16_character2 );
 							break;
@@ -377,7 +374,7 @@ int libuna_base16_stream_size_to_byte_stream(
 					 error,
 					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-					 "%s: number of characters in line exceed maximum.",
+					 "%s: number of characters in line does not match character limit.",
 					 function );
 
 					return( -1 );
@@ -466,13 +463,13 @@ int libuna_base16_stream_size_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != (size_t) character_limit )
+		if( number_of_characters > (size_t) character_limit )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: number of characters in line exceed maximum.",
+			 "%s: number of characters in last line exceed maximum.",
 			 function );
 
 			return( -1 );
@@ -524,6 +521,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 	size_t base16_stream_index   = 0;
 	size_t byte_stream_index     = 0;
 	size_t number_of_characters  = 0;
+	size_t whitespace_size       = 0;
 	uint32_t base16_character1   = 0;
 	uint32_t base16_character2   = 0;
 	uint8_t byte_value           = 0;
@@ -675,6 +673,79 @@ int libuna_base16_stream_copy_to_byte_stream(
 	{
 		strip_mode = LIBUNA_STRIP_MODE_NON_WHITESPACE;
 	}
+	base16_stream_index = base16_stream_size - base16_character_size;
+	whitespace_size     = 0;
+
+	while( base16_stream_index > 0 )
+	{
+		switch( base16_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
+				base16_character1 = base16_stream[ base16_stream_index ];
+				break;
+
+			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base16_stream[ base16_stream_index ] ),
+				 base16_character1 );
+				break;
+
+			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base16_stream[ base16_stream_index ] ),
+				 base16_character1 );
+				break;
+
+			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base16_stream[ base16_stream_index ] ),
+				 base16_character1 );
+				break;
+
+			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base16_stream[ base16_stream_index ] ),
+				 base16_character1 );
+				break;
+		}
+		if( ( base16_character1 & 0xffffff00UL ) != 0 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid base16 character at index: %" PRIzd ".",
+			 function,
+			 base16_stream_index );
+
+			return( -1 );
+		}
+		base16_stream_index -= base16_character_size;
+
+		if( ( base16_character1 == (uint32_t) '\n' )
+		 || ( base16_character1 == (uint32_t) '\r' ) )
+		{
+			whitespace_size += base16_character_size;
+		}
+		else if( ( flags & LIBUNA_BASE16_FLAG_STRIP_WHITESPACE ) == 0 )
+		{
+			break;
+		}
+		else if( ( base16_character1 == (uint32_t) ' ' )
+		      || ( base16_character1 == (uint32_t) '\t' )
+		      || ( base16_character1 == (uint32_t) '\v' ) )
+		{
+			whitespace_size += base16_character_size;
+		}
+		else
+		{
+			break;
+		}
+	}
+	base16_stream_size -= whitespace_size;
+	base16_stream_index = 0;
+	whitespace_size     = 0;
+
 	while( base16_stream_index < base16_stream_size )
 	{
 		switch( base16_variant & 0xf0000000UL )
@@ -696,13 +767,13 @@ int libuna_base16_stream_copy_to_byte_stream(
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-				byte_stream_copy_to_uint16_big_endian(
+				byte_stream_copy_to_uint32_big_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-				byte_stream_copy_to_uint16_little_endian(
+				byte_stream_copy_to_uint32_little_endian(
 				 &( base16_stream[ base16_stream_index ] ),
 				 base16_character1 );
 				break;
@@ -752,13 +823,13 @@ int libuna_base16_stream_copy_to_byte_stream(
 							break;
 
 						case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-							byte_stream_copy_to_uint16_big_endian(
+							byte_stream_copy_to_uint32_big_endian(
 							 &( base16_stream[ base16_stream_index ] ),
 							 base16_character2 );
 							break;
 
 						case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-							byte_stream_copy_to_uint16_little_endian(
+							byte_stream_copy_to_uint32_little_endian(
 							 &( base16_stream[ base16_stream_index ] ),
 							 base16_character2 );
 							break;
@@ -791,7 +862,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 					 error,
 					 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 					 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-					 "%s: number of characters in line exceed maximum.",
+					 "%s: number of characters in line does not match character limit.",
 					 function );
 
 					return( -1 );
@@ -906,13 +977,13 @@ int libuna_base16_stream_copy_to_byte_stream(
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
-					byte_stream_copy_to_uint16_big_endian(
+					byte_stream_copy_to_uint32_big_endian(
 					 &( base16_stream[ base16_stream_index ] ),
 					 base16_character1 );
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
-					byte_stream_copy_to_uint16_little_endian(
+					byte_stream_copy_to_uint32_little_endian(
 					 &( base16_stream[ base16_stream_index ] ),
 					 base16_character1 );
 					break;
@@ -972,6 +1043,17 @@ int libuna_base16_stream_copy_to_byte_stream(
 
 				return( -1 );
 			}
+			if( byte_stream_index >= byte_stream_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: byte stream is too small.",
+				 function );
+
+				return( -1 );
+			}
 			byte_stream[ byte_stream_index++ ] = byte_value;
 
 			number_of_characters += 2;
@@ -979,13 +1061,13 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	if( character_limit != 0 )
 	{
-		if( number_of_characters != (size_t) character_limit )
+		if( number_of_characters > (size_t) character_limit )
 		{
 			libcerror_error_set(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: number of characters in line exceed maximum.",
+			 "%s: number of characters in last line exceed maximum.",
 			 function );
 
 			return( -1 );
@@ -1122,10 +1204,46 @@ int libuna_base16_stream_copy_from_byte_stream(
      uint32_t base16_variant,
      libcerror_error_t **error )
 {
-	static char *function                = "libuna_base16_stream_copy_from_byte_stream";
+	static char *function      = "libuna_base16_stream_copy_from_byte_stream";
+	size_t base16_stream_index = 0;
+
+	if( libuna_base16_stream_with_index_copy_from_byte_stream(
+	     base16_stream,
+	     base16_stream_size,
+	     &base16_stream_index,
+	     byte_stream,
+	     byte_stream_size,
+	     base16_variant,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy base16 stream from byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies a base16 stream from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_base16_stream_with_index_copy_from_byte_stream(
+     uint8_t *base16_stream,
+     size_t base16_stream_size,
+     size_t *base16_stream_index,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint32_t base16_variant,
+     libcerror_error_t **error )
+{
+	static char *function                = "libuna_base16_stream_with_index_copy_from_byte_stream";
 	size_t calculated_base16_stream_size = 0;
 	size_t base16_character_size         = 0;
-	size_t base16_stream_index           = 0;
+	size_t stream_index                  = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
 	size_t whitespace_size               = 0;
@@ -1151,6 +1269,28 @@ int libuna_base16_stream_copy_from_byte_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base16 stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( base16_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid base16 stream index.",
+		 function );
+
+		return( -1 );
+	}
+	if( *base16_stream_index >= base16_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: base16 stream string too small.",
 		 function );
 
 		return( -1 );
@@ -1248,6 +1388,8 @@ int libuna_base16_stream_copy_from_byte_stream(
 
 			return( -1 );
 	}
+	stream_index = *base16_stream_index;
+
 	/* Make sure the base16 stream is able to hold
 	 * at least 2 bytes for each byte
 	 */
@@ -1291,34 +1433,34 @@ int libuna_base16_stream_copy_from_byte_stream(
 		switch( base16_variant & 0xf0000000UL )
 		{
 			case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
-				base16_stream[ base16_stream_index ] = (uint8_t) base16_character;
+				base16_stream[ stream_index ] = (uint8_t) base16_character;
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
 				byte_stream_copy_from_uint16_big_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
 				byte_stream_copy_from_uint16_little_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
 				byte_stream_copy_from_uint32_big_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
 				byte_stream_copy_from_uint32_little_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 		}
-		base16_stream_index += base16_character_size;
+		stream_index += base16_character_size;
 
 		base16_character = byte_stream[ byte_stream_index ] & 0x0f;
 
@@ -1333,34 +1475,34 @@ int libuna_base16_stream_copy_from_byte_stream(
 		switch( base16_variant & 0xf0000000UL )
 		{
 			case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
-				base16_stream[ base16_stream_index ] = (uint8_t) base16_character;
+				base16_stream[ stream_index ] = (uint8_t) base16_character;
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
 				byte_stream_copy_from_uint16_big_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
 				byte_stream_copy_from_uint16_little_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
 				byte_stream_copy_from_uint32_big_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 
 			case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
 				byte_stream_copy_from_uint32_little_endian(
-				 &( base16_stream[ base16_stream_index ] ),
+				 &( base16_stream[ stream_index ] ),
 				 base16_character );
 				break;
 		}
-		base16_stream_index += base16_character_size;
+		stream_index += base16_character_size;
 
 		if( character_limit != 0 )
 		{
@@ -1373,34 +1515,34 @@ int libuna_base16_stream_copy_from_byte_stream(
 				switch( base16_variant & 0xf0000000UL )
 				{
 					case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
-						base16_stream[ base16_stream_index ] = (uint8_t) base16_character;
+						base16_stream[ stream_index ] = (uint8_t) base16_character;
 						break;
 
 					case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
 						byte_stream_copy_from_uint16_big_endian(
-						 &( base16_stream[ base16_stream_index ] ),
+						 &( base16_stream[ stream_index ] ),
 						 base16_character );
 						break;
 
 					case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
 						byte_stream_copy_from_uint16_little_endian(
-						 &( base16_stream[ base16_stream_index ] ),
+						 &( base16_stream[ stream_index ] ),
 						 base16_character );
 						break;
 
 					case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
 						byte_stream_copy_from_uint32_big_endian(
-						 &( base16_stream[ base16_stream_index ] ),
+						 &( base16_stream[ stream_index ] ),
 						 base16_character );
 						break;
 
 					case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
 						byte_stream_copy_from_uint32_little_endian(
-						 &( base16_stream[ base16_stream_index ] ),
+						 &( base16_stream[ stream_index ] ),
 						 base16_character );
 						break;
 				}
-				base16_stream_index += base16_character_size;
+				stream_index += base16_character_size;
 
 				number_of_characters = 0;
 			}
@@ -1416,36 +1558,38 @@ int libuna_base16_stream_copy_from_byte_stream(
 			switch( base16_variant & 0xf0000000UL )
 			{
 				case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
-					base16_stream[ base16_stream_index ] = (uint8_t) base16_character;
+					base16_stream[ stream_index ] = (uint8_t) base16_character;
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
 					byte_stream_copy_from_uint16_big_endian(
-					 &( base16_stream[ base16_stream_index ] ),
+					 &( base16_stream[ stream_index ] ),
 					 base16_character );
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
 					byte_stream_copy_from_uint16_little_endian(
-					 &( base16_stream[ base16_stream_index ] ),
+					 &( base16_stream[ stream_index ] ),
 					 base16_character );
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
 					byte_stream_copy_from_uint32_big_endian(
-					 &( base16_stream[ base16_stream_index ] ),
+					 &( base16_stream[ stream_index ] ),
 					 base16_character );
 					break;
 
 				case LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
 					byte_stream_copy_from_uint32_little_endian(
-					 &( base16_stream[ base16_stream_index ] ),
+					 &( base16_stream[ stream_index ] ),
 					 base16_character );
 					break;
 			}
-			base16_stream_index += base16_character_size;
+			stream_index += base16_character_size;
 		}
 	}
+	*base16_stream_index = stream_index;
+
 	return( 1 );
 }
 
