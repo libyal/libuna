@@ -187,7 +187,7 @@ int libuna_base16_stream_size_to_byte_stream(
 	base16_stream_index = base16_stream_size - base16_character_size;
 	whitespace_size     = 0;
 
-	while( base16_stream_index > 0 )
+	while( base16_stream_index > base16_character_size )
 	{
 		switch( base16_variant & 0xf0000000UL )
 		{
@@ -254,6 +254,18 @@ int libuna_base16_stream_size_to_byte_stream(
 		}
 	}
 	base16_stream_size -= whitespace_size;
+
+	if( base16_stream_size < base16_character_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: invalid base16 stream value too small.",
+		 function );
+
+		return( -1 );
+	}
 	base16_stream_index = 0;
 	whitespace_size     = 0;
 
@@ -313,7 +325,7 @@ int libuna_base16_stream_size_to_byte_stream(
 			}
 			else
 			{
-				if( base16_stream_index < base16_stream_size )
+				if( ( base16_stream_index + base16_character_size ) < base16_stream_size )
 				{
 					switch( base16_variant & 0xf0000000UL )
 					{
@@ -676,7 +688,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 	base16_stream_index = base16_stream_size - base16_character_size;
 	whitespace_size     = 0;
 
-	while( base16_stream_index > 0 )
+	while( base16_stream_index > base16_character_size )
 	{
 		switch( base16_variant & 0xf0000000UL )
 		{
@@ -743,6 +755,18 @@ int libuna_base16_stream_copy_to_byte_stream(
 		}
 	}
 	base16_stream_size -= whitespace_size;
+
+	if( base16_stream_size < base16_character_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: invalid base16 stream value too small.",
+		 function );
+
+		return( -1 );
+	}
 	base16_stream_index = 0;
 	whitespace_size     = 0;
 
@@ -802,7 +826,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 			}
 			else
 			{
-				if( base16_stream_index < base16_stream_size )
+				if( ( base16_stream_index + base16_character_size ) < base16_stream_size )
 				{
 					switch( base16_variant & 0xf0000000UL )
 					{

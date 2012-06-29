@@ -171,15 +171,15 @@ int main( int argc, char * const argv[] )
 
 	uint8_t byte_stream1[ 6 ] = { 0xe6, 0xb5, 0x8b, 0xe8, 0xaf, 0x95 };
 
-	uint8_t *expected_base64_stream1 = (uint8_t *) "5rWL6K+V";
+	uint8_t *expected_rfc1642_base64_stream1 = (uint8_t *) "5rWL6K+V";
 
-	uint8_t *expected_base64_url_stream1 = (uint8_t *) "5rWL6K-V";
+	uint8_t *expected_url_base64_stream1 = (uint8_t *) "5rWL6K-V";
 
 	uint8_t byte_stream2[ 9 ] = { 0xe8, 0xa9, 0xa6, 0xe3, 0x81, 0xbf, 0xe3, 0x82, 0x8b };
 
-	uint8_t *expected_base64_stream2 = (uint8_t *) "6Kmm44G/44KL";
+	uint8_t *expected_rfc1642_base64_stream2 = (uint8_t *) "6Kmm44G/44KL";
 
-	uint8_t *expected_base64_url_stream2 = (uint8_t *) "6Kmm44G_44KL";
+	uint8_t *expected_url_base64_stream2 = (uint8_t *) "6Kmm44G_44KL";
 
 	libuna_error_t *error = NULL;
 
@@ -401,7 +401,7 @@ int main( int argc, char * const argv[] )
 	     base64_stream,
 	     256,
 	     LIBUNA_BASE64_VARIANT_RFC1642,
-	     expected_base64_stream1,
+	     expected_rfc1642_base64_stream1,
 	     8,
 	     1 ) != 1 )
 	{
@@ -421,7 +421,7 @@ int main( int argc, char * const argv[] )
 	     base64_stream,
 	     256,
 	     LIBUNA_BASE64_VARIANT_URL,
-	     expected_base64_url_stream1,
+	     expected_url_base64_stream1,
 	     8,
 	     1 ) != 1 )
 	{
@@ -441,7 +441,7 @@ int main( int argc, char * const argv[] )
 	     base64_stream,
 	     256,
 	     LIBUNA_BASE64_VARIANT_RFC1642,
-	     expected_base64_stream2,
+	     expected_rfc1642_base64_stream2,
 	     12,
 	     1 ) != 1 )
 	{
@@ -461,7 +461,7 @@ int main( int argc, char * const argv[] )
 	     base64_stream,
 	     256,
 	     LIBUNA_BASE64_VARIANT_URL,
-	     expected_base64_url_stream2,
+	     expected_url_base64_stream2,
 	     12,
 	     1 ) != 1 )
 	{

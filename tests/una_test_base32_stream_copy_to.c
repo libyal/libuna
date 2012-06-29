@@ -1,5 +1,5 @@
 /*
- * Unicode and ASCII (byte stream) conversion library base16 stream copy to testing program
+ * Unicode and ASCII (byte stream) conversion library base32 stream copy to testing program
  *
  * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -31,15 +31,15 @@
 #include "una_test_libcstring.h"
 #include "una_test_libuna.h"
 
-/* Tests copying a base16 stream to a byte stream
+/* Tests copying a base32 stream to a byte stream
  * Returns 1 if successful, 0 if not or -1 on error
  */
-int una_test_base16_stream_copy_to_byte_stream(
-     const uint8_t *base16_stream,
-     size_t base16_stream_size,
+int una_test_base32_stream_copy_to_byte_stream(
+     const uint8_t *base32_stream,
+     size_t base32_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint32_t base16_variant,
+     uint32_t base32_variant,
      uint8_t flags,
      const uint8_t *expected_byte_stream,
      size_t expected_byte_stream_size,
@@ -51,14 +51,14 @@ int una_test_base16_stream_copy_to_byte_stream(
 
         fprintf(
          stdout,
-         "Testing copying base16 stream to byte stream with variant: 0x%08" PRIx32 "\t",
-	 base16_variant );
+         "Testing copying base32 stream to byte stream with variant: 0x%08" PRIx32 "\t",
+	 base32_variant );
 
-	result = libuna_base16_stream_size_to_byte_stream(
-	          base16_stream,
-	          base16_stream_size,
+	result = libuna_base32_stream_size_to_byte_stream(
+	          base32_stream,
+	          base32_stream_size,
 	          &result_byte_stream_size,
-	          base16_variant,
+	          base32_variant,
 	          flags,
 	          &error );
 
@@ -76,12 +76,12 @@ int una_test_base16_stream_copy_to_byte_stream(
 			libuna_error_free(
 			 &error );
 		}
-		result = libuna_base16_stream_copy_to_byte_stream(
-			  base16_stream,
-			  base16_stream_size,
+		result = libuna_base32_stream_copy_to_byte_stream(
+			  base32_stream,
+			  base32_stream_size,
 			  byte_stream,
 			  byte_stream_size,
-			  base16_variant,
+			  base32_variant,
 			  flags,
 			  &error );
 	}
@@ -191,6 +191,7 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
+#ifdef TODO
 	/* Case 1: base16 stream is NULL, base16 stream size is 32, variant lower case
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: -1
@@ -464,27 +465,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 13: base16 stream is a buffer, base16 stream size is 272, variant mixed case with 64 character limit
-	 *          byte stream is a buffer, byte stream size is 256
-	 * Expected result: -1
-	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     long_base16_stream2,
-	     272,
-	     byte_stream,
-	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
-	     0,
-	     expected_long_byte_stream,
-	     112,
-	     -1 ) != 1 )
-	{
-		fprintf(
-		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
-
-		goto on_error;
-	}
+#endif
 	return( EXIT_SUCCESS );
 
 on_error:

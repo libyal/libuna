@@ -1,4 +1,6 @@
 TODO
+* make sure trailing white space is stripped, but the last char should be a
+  new line ?
 * make sure whitespace is stripped when copying to byte stream:
   - base32
   - base64
@@ -14,11 +16,13 @@ TODO
   - base32
   - base64
 * tests: copy from
+  - invalid number of characters in line ?
   - base16 (done)
   - base32 (+/-)
   - base64 (+/-)
     - URL
 * tests: copy to
+  - invalid number of characters in line ?
   - base16 (+/-)
   - base32
   - base64
@@ -115,6 +119,10 @@ Note:
 * CodeGear uses OEM codepage e.g. 850
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
+
+20120629
+* worked on base64 tests
+* fixes for base64 support
 
 20120628
 * worked on base16 tests

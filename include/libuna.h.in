@@ -92,6 +92,17 @@ int libuna_error_backtrace_sprint(
  * Unicode character functions
  * ------------------------------------------------------------------------- */
 
+/* Determines the size of a byte stream character from an Unicode character
+ * Adds the size to the byte stream character size value
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_size_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     int codepage,
+     size_t *byte_stream_character_size,
+     libuna_error_t **error );
+
 /* Copies a Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */

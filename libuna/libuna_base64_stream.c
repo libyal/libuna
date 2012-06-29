@@ -1205,15 +1205,18 @@ int libuna_base64_stream_size_to_byte_stream(
      uint8_t flags,
      libcerror_error_t **error )
 {
-	static char *function       = "libuna_base64_stream_size_to_byte_stream";
-	size_t base64_stream_index  = 0;
-	size_t number_of_characters = 0;
-	size_t whitespace_size      = 0;
-	uint8_t base64_character_62 = 0;
-	uint8_t base64_character_63 = 0;
-	uint8_t character_limit     = 0;
-	uint8_t padding_size        = 0;
-	uint8_t strip_mode          = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
+	static char *function        = "libuna_base64_stream_size_to_byte_stream";
+	size_t base64_character_size = 0;
+	size_t base64_stream_index   = 0;
+	size_t number_of_characters  = 0;
+	size_t whitespace_size       = 0;
+	uint32_t base64_character1   = 0;
+	uint32_t base64_character2   = 0;
+	uint8_t base64_character_62  = 0;
+	uint8_t base64_character_63  = 0;
+	uint8_t character_limit      = 0;
+	uint8_t padding_size         = 0;
+	uint8_t strip_mode           = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
 
 	if( base64_stream == NULL )
 	{
@@ -1298,6 +1301,43 @@ int libuna_base64_stream_size_to_byte_stream(
 
 			return( -1 );
 	}
+	switch( base64_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+			base64_character_size = 1;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			base64_character_size = 2;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			base64_character_size = 4;
+			break;
+
+		default:
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base64 variant.",
+			 function );
+
+			return( -1 );
+	}
+	if( base64_stream_size < base64_character_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: invalid base64 stream value too small.",
+		 function );
+
+		return( -1 );
+	}
 	if( ( flags & ~( LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
 		libcerror_error_set(
@@ -1309,63 +1349,239 @@ int libuna_base64_stream_size_to_byte_stream(
 
 		return( -1 );
 	}
-	base64_stream_index = base64_stream_size - 1;
+	base64_stream_index = base64_stream_size - base64_character_size;
 	whitespace_size     = 0;
 
-	while( base64_stream_index > 0 )
+	while( base64_stream_index > base64_character_size )
 	{
-		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
+		switch( base64_variant & 0xf0000000UL )
 		{
-			whitespace_size++;
-		}
-		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
-		{
-			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
-			{
-				whitespace_size++;
-			}
-			else
-			{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
 				break;
-			}
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index -= base64_character_size;
+
+		if( ( base64_character1 == (uint32_t) '\n' )
+		 || ( base64_character1 == (uint32_t) '\r' ) )
+		{
+			whitespace_size += base64_character_size;
+		}
+		else if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) == 0 )
+		{
+			break;
+		}
+		else if( ( base64_character1 == (uint32_t) ' ' )
+		      || ( base64_character1 == (uint32_t) '\t' )
+		      || ( base64_character1 == (uint32_t) '\v' ) )
+		{
+			whitespace_size += base64_character_size;
 		}
 		else
 		{
 			break;
 		}
-		base64_stream_index--;
 	}
 	base64_stream_size -= whitespace_size;
 
-	if( base64_stream[ base64_stream_size - 1 ] == (uint8_t) '=' )
-	{
-		padding_size += 1;
-	}
-	if( base64_stream[ base64_stream_size - 2 ] == (uint8_t) '=' )
-	{
-		padding_size += 1;
-	}
-	if( base64_stream[ base64_stream_size - 3 ] == (uint8_t) '=' )
+	if( base64_stream_size < base64_character_size )
 	{
 		libcerror_error_set(
 		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-		 "%s: invalid number of padding bytes.",
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: invalid base64 stream value too small.",
 		 function );
 
 		return( -1 );
 	}
+	if( base64_stream_index > base64_character_size )
+	{
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index -= base64_character_size;
+
+		if( base64_character1 == (uint32_t) '=' )
+		{
+			padding_size += 1;
+		}
+	}
+	if( base64_stream_index > base64_character_size )
+	{
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index -= base64_character_size;
+
+		if( base64_character1 == (uint32_t) '=' )
+		{
+			padding_size += 1;
+		}
+	}
+	if( base64_stream_index > base64_character_size )
+	{
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index -= base64_character_size;
+
+		if( base64_character1 == (uint32_t) '=' )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: invalid number of padding bytes.",
+			 function );
+
+			return( -1 );
+		}
+	}
 	base64_stream_index = 0;
 	whitespace_size     = 0;
 
-	while( base64_stream_index < ( base64_stream_size - padding_size ) )
+	while( base64_stream_index < ( base64_stream_size - ( padding_size * base64_character_size ) ) )
 	{
-		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index += base64_character_size;
+
+		if( ( base64_character1 == (uint32_t) '\n' )
+		 || ( base64_character1 == (uint32_t) '\r' ) )
 		{
 			if( ( strip_mode != LIBUNA_STRIP_MODE_NON_WHITESPACE )
 			 && ( strip_mode != LIBUNA_STRIP_MODE_TRAILING_WHITESPACE ) )
@@ -1374,14 +1590,44 @@ int libuna_base64_stream_size_to_byte_stream(
 			}
 			else
 			{
-				if( base64_stream_index < base64_stream_size )
+				if( ( base64_stream_index + base64_character_size ) < base64_stream_size )
 				{
-					if( ( base64_stream[ base64_stream_index + 1 ] == (uint8_t) '\n' )
-					 || ( base64_stream[ base64_stream_index + 1 ] == (uint8_t) '\r' ) )
+					switch( base64_variant & 0xf0000000UL )
 					{
-						base64_stream_index++;
+						case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+							base64_character2 = base64_stream[ base64_stream_index ];
+							break;
 
-						whitespace_size++;
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+							byte_stream_copy_to_uint16_big_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint16_little_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+							byte_stream_copy_to_uint32_big_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint32_little_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+					}
+					if( ( base64_character2 == (uint32_t) '\n' )
+					 || ( base64_character2 == (uint32_t) '\r' ) )
+					{
+						base64_stream_index += base64_character_size;
+
+						whitespace_size += base64_character_size;
 					}
 				}
 				strip_mode = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
@@ -1401,11 +1647,11 @@ int libuna_base64_stream_size_to_byte_stream(
 				}
 				number_of_characters = 0;
 			}
-			whitespace_size++;
+			whitespace_size += base64_character_size;
 		}
-		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+		else if( ( base64_character1 == (uint32_t) ' ' )
+		      || ( base64_character1 == (uint32_t) '\t' )
+		      || ( base64_character1 == (uint32_t) '\v' ) )
 		{
 			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
@@ -1420,7 +1666,7 @@ int libuna_base64_stream_size_to_byte_stream(
 				}
 				else
 				{
-					whitespace_size++;
+					whitespace_size += base64_character_size;
 				}
 			}
 			else
@@ -1441,46 +1687,46 @@ int libuna_base64_stream_size_to_byte_stream(
 			/* A-Z is not a continous range on a EBCDIC based system
 			 * it consists of the ranges: A-I, J-R, S-Z
 			 */
-			if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'A' )
-			 && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'I' ) )
+			if( ( base64_character1 >= (uint32_t) 'A' )
+			 && ( base64_character1 <= (uint32_t) 'I' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'J' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'R' ) )
+			else if( ( base64_character1 >= (uint32_t) 'J' )
+			      && ( base64_character1 <= (uint32_t) 'R' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'S' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'Z' ) )
+			else if( ( base64_character1 >= (uint32_t) 'S' )
+			      && ( base64_character1 <= (uint32_t) 'Z' ) )
 			{
 				number_of_characters++;
 			}
 			/* a-z is not a continous range on a EBCDIC based system
 			 * it consists of the ranges: a-i, j-r, s-z
 			 */
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'a' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'i' ) )
+			else if( ( base64_character1 >= (uint32_t) 'a' )
+			      && ( base64_character1 <= (uint32_t) 'i' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 'j' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'r' ) )
+			else if( ( base64_character1 >= (uint32_t) 'j' )
+			      && ( base64_character1 <= (uint32_t) 'r' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) 's' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) 'z' ) )
+			else if( ( base64_character1 >= (uint32_t) 's' )
+			      && ( base64_character1 <= (uint32_t) 'z' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] >= (uint8_t) '0' )
-			      && ( base64_stream[ base64_stream_index ] <= (uint8_t) '9' ) )
+			else if( ( base64_character1 >= (uint32_t) '0' )
+			      && ( base64_character1 <= (uint32_t) '9' ) )
 			{
 				number_of_characters++;
 			}
-			else if( ( base64_stream[ base64_stream_index ] == (uint8_t) base64_character_62 )
-			      || ( base64_stream[ base64_stream_index ] == (uint8_t) base64_character_63 ) )
+			else if( ( base64_character1 == (uint32_t) base64_character_62 )
+			      || ( base64_character1 == (uint32_t) base64_character_63 ) )
 			{
 				number_of_characters++;
 			}
@@ -1495,13 +1741,12 @@ int libuna_base64_stream_size_to_byte_stream(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: invalid character in base64 stream at index: %d.",
+			 "%s: invalid character in base64 stream at index: %" PRIzd ".",
 			 function,
-			 base64_stream_index );
+			 base64_stream_index - base64_character_size );
 
 			return( -1 );
 		}
-		base64_stream_index++;
 	}
 	if( character_limit != 0 )
 	{
@@ -1522,16 +1767,17 @@ int libuna_base64_stream_size_to_byte_stream(
 	/* Make sure the byte stream is able to hold
 	 * at least 3 bytes for each 4 base64 characters
 	 */
-	*byte_stream_size = base64_stream_size / 4;
+	base64_character_size *= 4;
 
-	if( ( base64_stream_size % 4 ) != 0 )
+	*byte_stream_size = base64_stream_size / base64_character_size;
+
+	if( ( base64_stream_size % base64_character_size ) != 0 )
 	{
 		*byte_stream_size += 1;
 	}
 	*byte_stream_size *= 3;
 
-	/* In this case the padding size matches the number of bytes
-	 * to correct
+	/* In this case the padding size contains the number of bytes to correct
 	 */
 	*byte_stream_size -= padding_size;
 
@@ -1554,14 +1800,18 @@ int libuna_base64_stream_copy_to_byte_stream(
      uint8_t flags,
      libcerror_error_t **error )
 {
-	static char *function       = "libuna_base64_stream_copy_to_byte_stream";
-	size_t base64_stream_index  = 0;
-	size_t byte_stream_index    = 0;
-	size_t number_of_characters = 0;
-	uint32_t base64_triplet     = 0;
-	uint8_t character_limit     = 0;
-	uint8_t padding_size        = 0;
-	uint8_t strip_mode          = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
+	static char *function        = "libuna_base64_stream_copy_to_byte_stream";
+	size_t base64_character_size = 0;
+	size_t base64_stream_index   = 0;
+	size_t byte_stream_index     = 0;
+	size_t number_of_characters  = 0;
+	size_t whitespace_size       = 0;
+	uint32_t base64_character1   = 0;
+	uint32_t base64_character2   = 0;
+	uint32_t base64_triplet      = 0;
+	uint8_t character_limit      = 0;
+	uint8_t padding_size         = 0;
+	uint8_t strip_mode           = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
 
 	if( base64_stream == NULL )
 	{
@@ -1634,6 +1884,43 @@ int libuna_base64_stream_copy_to_byte_stream(
 
 			return( -1 );
 	}
+	switch( base64_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+			base64_character_size = 1;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			base64_character_size = 2;
+			break;
+
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+		case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			base64_character_size = 4;
+			break;
+
+		default:
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base64 variant.",
+			 function );
+
+			return( -1 );
+	}
+	if( base64_stream_size < base64_character_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: invalid base64 stream value too small.",
+		 function );
+
+		return( -1 );
+	}
 	if( ( flags & ~( LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
 		libcerror_error_set(
@@ -1645,14 +1932,107 @@ int libuna_base64_stream_copy_to_byte_stream(
 
 		return( -1 );
 	}
+	base64_stream_index = base64_stream_size - base64_character_size;
+	whitespace_size     = 0;
+
+	while( base64_stream_index > base64_character_size )
+	{
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index -= base64_character_size;
+
+		if( ( base64_character1 == (uint32_t) '\n' )
+		 || ( base64_character1 == (uint32_t) '\r' ) )
+		{
+			whitespace_size += base64_character_size;
+		}
+		else if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) == 0 )
+		{
+			break;
+		}
+		else if( ( base64_character1 == (uint32_t) ' ' )
+		      || ( base64_character1 == (uint32_t) '\t' )
+		      || ( base64_character1 == (uint32_t) '\v' ) )
+		{
+			whitespace_size += base64_character_size;
+		}
+		else
+		{
+			break;
+		}
+	}
+	base64_stream_size -= whitespace_size;
+	base64_stream_index = 0;
+	whitespace_size     = 0;
+
 	if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) == 0 )
 	{
 		strip_mode = LIBUNA_STRIP_MODE_NON_WHITESPACE;
 	}
 	while( base64_stream_index < base64_stream_size )
 	{
-		if( ( base64_stream[ base64_stream_index ] == (uint8_t) '\n' )
-		 || ( base64_stream[ base64_stream_index ] == (uint8_t) '\r' ) )
+		switch( base64_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+				base64_character1 = base64_stream[ base64_stream_index ];
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+
+			case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base64_stream[ base64_stream_index ] ),
+				 base64_character1 );
+				break;
+		}
+		base64_stream_index += base64_character_size;
+
+		if( ( base64_character1 == (uint32_t) '\n' )
+		 || ( base64_character1 == (uint32_t) '\r' ) )
 		{
 			if( ( strip_mode != LIBUNA_STRIP_MODE_NON_WHITESPACE )
 			 && ( strip_mode != LIBUNA_STRIP_MODE_TRAILING_WHITESPACE ) )
@@ -1661,17 +2041,45 @@ int libuna_base64_stream_copy_to_byte_stream(
 			}
 			else
 			{
-				if( base64_stream_index < base64_stream_size )
+				if( ( base64_stream_index + base64_character_size ) < base64_stream_size )
 				{
-					if( ( base64_stream[ base64_stream_index + 1 ] == (uint8_t) '\n' )
-					 || ( base64_stream[ base64_stream_index + 1 ] == (uint8_t) '\r' ) )
+					switch( base64_variant & 0xf0000000UL )
 					{
-						base64_stream_index++;
+						case LIBUNA_BASE64_VARIANT_ENCODING_BYTE_STREAM:
+							base64_character2 = base64_stream[ base64_stream_index ];
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+							byte_stream_copy_to_uint16_big_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint16_little_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+							byte_stream_copy_to_uint32_big_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+
+						case LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint32_little_endian(
+							 &( base64_stream[ base64_stream_index ] ),
+							 base64_character2 );
+							break;
+					}
+					if( ( base64_character2 == (uint32_t) '\n' )
+					 || ( base64_character2 == (uint32_t) '\r' ) )
+					{
+						base64_stream_index += base64_character_size;
 					}
 				}
 				strip_mode = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
-
-				base64_stream_index++;
 			}
 			if( character_limit != 0 )
 			{
@@ -1689,9 +2097,9 @@ int libuna_base64_stream_copy_to_byte_stream(
 				number_of_characters = 0;
 			}
 		}
-		else if( ( base64_stream[ base64_stream_index ] == (uint8_t) ' ' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\t' )
-		      || ( base64_stream[ base64_stream_index ] == (uint8_t) '\v' ) )
+		else if( ( base64_character1 == (uint32_t) ' ' )
+		      || ( base64_character1 == (uint32_t) '\t' )
+		      || ( base64_character1 == (uint32_t) '\v' ) )
 		{
 			if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
@@ -1704,7 +2112,6 @@ int libuna_base64_stream_copy_to_byte_stream(
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
-				base64_stream_index++;
 			}
 			else
 			{
@@ -1725,9 +2132,9 @@ int libuna_base64_stream_copy_to_byte_stream(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
 			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
-			 "%s: invalid character in base64 stream at index: %d.",
+			 "%s: invalid character in base64 stream at index: %" PRIzd ".",
 			 function,
-			 base64_stream_index );
+			 base64_stream_index - base64_character_size );
 
 			return( -1 );
 		}
@@ -1744,6 +2151,8 @@ int libuna_base64_stream_copy_to_byte_stream(
 
 				return( -1 );
 			}
+			base64_stream_index -= base64_character_size;
+
 			/* Convert the base64 stream into a base64 triplet
 			 */
 			if( libuna_base64_triplet_copy_from_base64_stream(

@@ -8,7 +8,9 @@ TESTS = \
 	test_base16_stream_copy_from.sh \
 	test_base16_stream_copy_to.sh \
 	test_base32_stream_copy_from.sh \
+	test_base32_stream_copy_to.sh \
 	test_base64_stream_copy_from.sh \
+	test_base64_stream_copy_to.sh \
 	test_unicode_character_copy_from.sh \
 	test_unicode_character_copy_to.sh \
 	test_utf16_stream_copy_from.sh \
@@ -43,7 +45,9 @@ check_PROGRAMS = \
 	una_test_base16_stream_copy_from \
 	una_test_base16_stream_copy_to \
 	una_test_base32_stream_copy_from \
+	una_test_base32_stream_copy_to \
 	una_test_base64_stream_copy_from \
+	una_test_base64_stream_copy_to \
 	una_test_utf16_stream_copy_from \
 	una_test_utf16_string_copy_from \
 	una_test_utf32_stream_copy_from \
@@ -84,12 +88,32 @@ una_test_base32_stream_copy_from_LDADD = \
 	@LIBCSTRING_LIBADD@ \
         @MEMWATCH_LIBADD@
 
+una_test_base32_stream_copy_to_SOURCES = \
+	una_test_base32_stream_copy_to.c \
+	una_test_libcstring.h \
+	una_test_libuna.h
+
+una_test_base32_stream_copy_to_LDADD = \
+	../libuna/libuna.la \
+	@LIBCSTRING_LIBADD@ \
+        @MEMWATCH_LIBADD@
+
 una_test_base64_stream_copy_from_SOURCES = \
 	una_test_base64_stream_copy_from.c \
 	una_test_libcstring.h \
 	una_test_libuna.h
 
 una_test_base64_stream_copy_from_LDADD = \
+	../libuna/libuna.la \
+	@LIBCSTRING_LIBADD@ \
+        @MEMWATCH_LIBADD@
+
+una_test_base64_stream_copy_to_SOURCES = \
+	una_test_base64_stream_copy_to.c \
+	una_test_libcstring.h \
+	una_test_libuna.h
+
+una_test_base64_stream_copy_to_LDADD = \
 	../libuna/libuna.la \
 	@LIBCSTRING_LIBADD@ \
         @MEMWATCH_LIBADD@
