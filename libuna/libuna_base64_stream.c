@@ -245,7 +245,6 @@ int libuna_base64_triplet_copy_from_base64_stream(
 			padding_character = 0;
 			break;
 
-/* TODO padding is optional */
 		case LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL:
 			padding_character = (uint8_t) '=';
 			break;
@@ -2295,7 +2294,6 @@ int libuna_base64_stream_size_from_byte_stream(
 			padding_character = 0;
 			break;
 
-/* TODO padding is optional */
 		case LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL:
 			padding_character = (uint8_t) '=';
 			break;
@@ -2537,7 +2535,6 @@ int libuna_base64_stream_with_index_copy_from_byte_stream(
 			padding_character = 0;
 			break;
 
-/* TODO padding is optional */
 		case LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL:
 			padding_character = (uint8_t) '=';
 			break;

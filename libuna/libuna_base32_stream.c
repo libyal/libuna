@@ -252,7 +252,6 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
 			padding_character = 0;
 			break;
 
-/* TODO padding is optional */
 		case LIBUNA_BASE32_VARIANT_PADDING_OPTIONAL:
 			padding_character = (uint8_t) '=';
 			break;
@@ -1542,7 +1541,7 @@ int libuna_base32_quintuplet_copy_to_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_base32_stream_size_to_byte_stream(
-     uint8_t *base32_stream,
+     const uint8_t *base32_stream,
      size_t base32_stream_size,
      size_t *byte_stream_size,
      uint32_t base32_variant,
@@ -1919,7 +1918,7 @@ int libuna_base32_stream_size_to_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_base32_stream_copy_to_byte_stream(
-     uint8_t *base32_stream,
+     const uint8_t *base32_stream,
      size_t base32_stream_size,
      uint8_t *byte_stream,
      size_t byte_stream_size,
@@ -2173,7 +2172,7 @@ int libuna_base32_stream_copy_to_byte_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_base32_stream_size_from_byte_stream(
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *base32_stream_size,
      uint32_t base32_variant,
@@ -2266,14 +2265,50 @@ int libuna_base32_stream_size_from_byte_stream(
 int libuna_base32_stream_copy_from_byte_stream(
      uint8_t *base32_stream,
      size_t base32_stream_size,
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint32_t base32_variant,
      libcerror_error_t **error )
 {
-	static char *function                = "libuna_base32_stream_copy_from_byte_stream";
+	static char *function      = "libuna_base32_stream_copy_from_byte_stream";
+	size_t base32_stream_index = 0;
+
+	if( libuna_base32_stream_with_index_copy_from_byte_stream(
+	     base32_stream,
+	     base32_stream_size,
+	     &base32_stream_index,
+	     byte_stream,
+	     byte_stream_size,
+	     base32_variant,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy base32 stream from byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies a base32 stream from a byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_base32_stream_with_index_copy_from_byte_stream(
+     uint8_t *base32_stream,
+     size_t base32_stream_size,
+     size_t *base32_stream_index,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint32_t base32_variant,
+     libcerror_error_t **error )
+{
+	static char *function                = "libuna_base32_stream_with_index_copy_from_byte_stream";
 	size_t calculated_base32_stream_size = 0;
-	size_t base32_stream_index           = 0;
+	size_t stream_index                  = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
 	size_t whitespace_size               = 0;
@@ -2299,6 +2334,28 @@ int libuna_base32_stream_copy_from_byte_stream(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid base32 stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( base32_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid base32 stream index.",
+		 function );
+
+		return( -1 );
+	}
+	if( *base32_stream_index >= base32_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: base32 stream string too small.",
 		 function );
 
 		return( -1 );
@@ -2345,6 +2402,8 @@ int libuna_base32_stream_copy_from_byte_stream(
 
 			return( -1 );
 	}
+	stream_index = *base32_stream_index;
+
 	/* Make sure the base32 stream is able to hold
 	 * at least 8 base32 characters for each 5 bytes
 	 */
@@ -2404,7 +2463,7 @@ int libuna_base32_stream_copy_from_byte_stream(
 		     base32_quintuplet,
 		     base32_stream,
 		     base32_stream_size,
-		     &base32_stream_index,
+		     &stream_index,
 		     padding_size,
 		     base32_variant,
 		     error ) != 1 )
@@ -2424,7 +2483,7 @@ int libuna_base32_stream_copy_from_byte_stream(
 
 			if( number_of_characters >= (size_t) character_limit )
 			{
-				base32_stream[ base32_stream_index++ ] = (uint8_t) '\n';
+				base32_stream[ stream_index++ ] = (uint8_t) '\n';
 
 				number_of_characters = 0;
 			}
@@ -2434,9 +2493,11 @@ int libuna_base32_stream_copy_from_byte_stream(
 	{
 		if( number_of_characters != 0 )
 		{
-			base32_stream[ base32_stream_index++ ] = (uint8_t) '\n';
+			base32_stream[ stream_index++ ] = (uint8_t) '\n';
 		}
 	}
+	*base32_stream_index = stream_index;
+
 	return( 1 );
 }
 

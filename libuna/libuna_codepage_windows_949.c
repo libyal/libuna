@@ -25,6 +25,7 @@
 #include "libuna_codepage_windows_949.h"
 #include "libuna_inline.h"
 #include "libuna_libcerror.h"
+#include "libuna_types.h"
 
 /* Extended ASCII to Unicode character lookup table for Windows 949 codepage
  * Unknown are filled with the Unicode replacement character 0xfffd

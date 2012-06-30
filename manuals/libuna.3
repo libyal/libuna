@@ -1,4 +1,4 @@
-.Dd June 29, 2012
+.Dd June 30, 2012
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -345,13 +345,15 @@ Base32 stream functions
 .Ft int
 .Fn libuna_base32_quintuplet_copy_to_byte_stream "uint32_t base32_quintuplet, uint8_t *byte_stream, size_t byte_stream_size, size_t *byte_stream_index, uint8_t padding_size, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_size_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, size_t *byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
+.Fn libuna_base32_stream_size_to_byte_stream "const uint8_t *base32_stream, size_t base32_stream_size, size_t *byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_copy_to_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
+.Fn libuna_base32_stream_copy_to_byte_stream "const uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, uint8_t flags, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_size_from_byte_stream "uint8_t *byte_stream, size_t byte_stream_size, size_t *base32_stream_size, uint32_t base32_variant, libuna_error_t **error"
+.Fn libuna_base32_stream_size_from_byte_stream "const uint8_t *byte_stream, size_t byte_stream_size, size_t *base32_stream_size, uint32_t base32_variant, libuna_error_t **error"
 .Ft int
-.Fn libuna_base32_stream_copy_from_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, libuna_error_t **error"
+.Fn libuna_base32_stream_copy_from_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, const uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, libuna_error_t **error"
+.Ft int
+.Fn libuna_base32_stream_with_index_copy_from_byte_stream "uint8_t *base32_stream, size_t base32_stream_size, size_t *base32_stream_index, const uint8_t *byte_stream, size_t byte_stream_size, uint32_t base32_variant, libuna_error_t **error"
 .Pp
 Base64 stream functions
 .Ft int
