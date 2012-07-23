@@ -1406,6 +1406,7 @@ int libuna_base64_stream_size_to_byte_stream(
 		}
 	}
 	base64_stream_size -= whitespace_size;
+	base64_stream_index = base64_stream_size - base64_character_size;
 
 	if( base64_stream_size < base64_character_size )
 	{
