@@ -7,7 +7,6 @@ AM_CPPFLAGS = \
 	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBCFILE_CPPFLAGS@ \
 	@LIBCSYSTEM_CPPFLAGS@ \
-	@MEMWATCH_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 
 AM_LDFLAGS = @STATIC_LDFLAGS@
@@ -39,8 +38,7 @@ unabase_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@ \
-	@LIBINTL@ \
-	@MEMWATCH_LIBADD@
+	@LIBINTL@
 
 unaexport_SOURCES = \
 	byte_size_string.c byte_size_string.h \
@@ -65,8 +63,7 @@ unaexport_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@ \
-	@LIBINTL@ \
-	@MEMWATCH_LIBADD@
+	@LIBINTL@
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

@@ -105,6 +105,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20120919
+* applied updates
+
 20120723
 * fix for trailing white space stripping in base64 size to byte stream
 

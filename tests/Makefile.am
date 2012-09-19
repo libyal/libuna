@@ -1,8 +1,7 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	@LIBCSTRING_CPPFLAGS@ \
-	@LIBCERROR_CPPFLAGS@ \
-	@MEMWATCH_CPPFLAGS@
+	@LIBCERROR_CPPFLAGS@
 
 TESTS = \
 	test_base16_stream_copy_from.sh \
@@ -65,8 +64,7 @@ una_test_base16_stream_copy_from_SOURCES = \
 
 una_test_base16_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_base16_stream_copy_to_SOURCES = \
 	una_test_base16_stream_copy_to.c \
@@ -75,8 +73,7 @@ una_test_base16_stream_copy_to_SOURCES = \
 
 una_test_base16_stream_copy_to_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_base32_stream_copy_from_SOURCES = \
 	una_test_base32_stream_copy_from.c \
@@ -85,8 +82,7 @@ una_test_base32_stream_copy_from_SOURCES = \
 
 una_test_base32_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_base32_stream_copy_to_SOURCES = \
 	una_test_base32_stream_copy_to.c \
@@ -95,8 +91,7 @@ una_test_base32_stream_copy_to_SOURCES = \
 
 una_test_base32_stream_copy_to_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_base64_stream_copy_from_SOURCES = \
 	una_test_base64_stream_copy_from.c \
@@ -105,8 +100,7 @@ una_test_base64_stream_copy_from_SOURCES = \
 
 una_test_base64_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_base64_stream_copy_to_SOURCES = \
 	una_test_base64_stream_copy_to.c \
@@ -115,8 +109,7 @@ una_test_base64_stream_copy_to_SOURCES = \
 
 una_test_base64_stream_copy_to_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf16_stream_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -125,8 +118,7 @@ una_test_utf16_stream_copy_from_SOURCES = \
 
 una_test_utf16_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf16_string_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -135,8 +127,7 @@ una_test_utf16_string_copy_from_SOURCES = \
 
 una_test_utf16_string_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf32_stream_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -145,8 +136,7 @@ una_test_utf32_stream_copy_from_SOURCES = \
 
 una_test_utf32_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf32_string_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -155,8 +145,7 @@ una_test_utf32_string_copy_from_SOURCES = \
 
 una_test_utf32_string_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf7_stream_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -165,8 +154,7 @@ una_test_utf7_stream_copy_from_SOURCES = \
 
 una_test_utf7_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf8_stream_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -175,8 +163,7 @@ una_test_utf8_stream_copy_from_SOURCES = \
 
 una_test_utf8_stream_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_utf8_string_copy_from_SOURCES = \
 	una_test_libcstring.h \
@@ -185,8 +172,7 @@ una_test_utf8_string_copy_from_SOURCES = \
 
 una_test_utf8_string_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_unicode_character_copy_from_SOURCES = \
 	una_test_codepage_ascii.h \
@@ -228,8 +214,7 @@ una_test_unicode_character_copy_from_SOURCES = \
 
 una_test_unicode_character_copy_from_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 una_test_unicode_character_copy_to_SOURCES = \
 	una_test_codepage_iso_8859_1.h \
@@ -270,8 +255,7 @@ una_test_unicode_character_copy_to_SOURCES = \
 
 una_test_unicode_character_copy_to_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@ \
-        @MEMWATCH_LIBADD@
+	@LIBCSTRING_LIBADD@
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
