@@ -1,40 +1,23 @@
-# Files to ignore by git
-#
-# Version: 20150725
-
 # Generic auto-generated build files
 *~
 *.a
 *.la
 *.lai
-*.lib
-*.lineno
 *.lo
-*.log
 *.Plo
 *.Po
 *.o
-*.obj
 *.so
 *.so.[0-9][0-9]*
 *.so.[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*
-*.swp
-*.trs
-*.Tpo
-.deps
+.debs
 .libs
-INSTALL
 Makefile
-Makefile.bcc
 Makefile.in
-stamp-h[1-9]
-
 # Specific auto-generated build files
 /ABOUT-NLS
 /aclocal.m4
 /autom4te.cache/
-/build
-/compile
 /config.guess
 /config.log
 /config.rpath
@@ -42,13 +25,10 @@ stamp-h[1-9]
 /config.sub
 /configure
 /depcomp
-/dist
 /install-sh
 /libtool
 /ltmain.sh
 /missing
-/test-driver
-/ylwrap
 /m4/codeset.m4
 /m4/fcntl-o.m4
 /m4/gettext.m4
@@ -97,12 +77,11 @@ stamp-h[1-9]
 /po/quot.sed
 /po/remove-potcdate.sed
 /po/remove-potcdate.sin
-
 # Project specific files
 /libuna.pc
 /libuna.spec
 /common/config.h
-/common/config.h.in
+/common/stamp-h1
 /common/types.h
 /dpkg/changelog
 /dpkg/copyright
@@ -112,30 +91,14 @@ stamp-h[1-9]
 /include/libuna/types.h
 /libuna/libuna.rc
 /libuna/libuna_definitions.h
-/tests/tmp*
-/tests/una_test_base16_stream_copy_from
-/tests/una_test_base16_stream_copy_to
-/tests/una_test_base32_stream_copy_from
-/tests/una_test_base32_stream_copy_to
-/tests/una_test_base64_stream_copy_from
-/tests/una_test_base64_stream_copy_to
-/tests/una_test_utf16_stream_copy_from
-/tests/una_test_utf16_string_copy_from
-/tests/una_test_utf32_stream_copy_from
-/tests/una_test_utf32_string_copy_from
-/tests/una_test_utf7_stream_copy_from
-/tests/una_test_utf8_stream_copy_from
-/tests/una_test_utf8_string_copy_from
-/tests/una_test_unicode_character_copy_from
-/tests/una_test_unicode_character_copy_to
-/unatools/unabase
-/unatools/unaexport
-
+/macosx/libuna.pmdoc/01bin.xml
+/macosx/libuna.pmdoc/02include.xml
+/macosx/libuna.pmdoc/03lib.xml
+/macosx/libuna.pmdoc/04share.xml
+/macosx/libuna.pmdoc/index.xml
+/macosx/Introduction.rtf
 # Local library dependencies specific files
-/libcdatetime
 /libcerror
 /libcfile
 /libclocale
 /libcnotify
-/libcstring
-/libcsystem

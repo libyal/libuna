@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20120919],
+ [20121224],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -36,6 +36,7 @@ AC_PATH_PROG(PKGCONFIG,[pkg-config])
 
 dnl Support of internationalization (i18n)
 AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.18.1])
 
 dnl Check for compiler language support
 AC_C_CONST
@@ -108,10 +109,15 @@ AS_IF(
   [BuildRequires:])
  ])
 
-dnl Set the date for dpkg files
+dnl Set the date for the dpkg files
 AC_SUBST(
- [DATE],
+ [DPKG_DATE],
  [`date -R 2> /dev/null`])
+
+dnl Set the date for the spec file
+AC_SUBST(
+ [SPEC_DATE],
+ [`date +"%a %b %e %Y" 2> /dev/null`])
 
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
@@ -143,6 +149,11 @@ dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
 AC_CONFIG_FILES([dpkg/changelog])
 AC_CONFIG_FILES([dpkg/copyright])
+AC_CONFIG_FILES([macosx/libuna.pmdoc/01bin.xml])
+AC_CONFIG_FILES([macosx/libuna.pmdoc/02include.xml])
+AC_CONFIG_FILES([macosx/libuna.pmdoc/03lib.xml])
+AC_CONFIG_FILES([macosx/libuna.pmdoc/04share.xml])
+AC_CONFIG_FILES([macosx/libuna.pmdoc/index.xml])
 AC_CONFIG_FILES([macosx/Introduction.rtf])
 AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])

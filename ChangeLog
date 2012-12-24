@@ -97,13 +97,16 @@ Tools:
 
 Deployment:
 * create Borland C++ 5.5 files
-* update macosx packagemaker files
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
+
+20121224
+* added .gitignore
+* updated macosx package maker files
 
 20120919
 * applied updates
