@@ -1,3 +1,7 @@
+# Files to ignore by git
+#
+# Version: 20130103
+
 # Generic auto-generated build files
 *~
 *.a
@@ -15,6 +19,7 @@
 .libs
 Makefile
 Makefile.in
+
 # Specific auto-generated build files
 /ABOUT-NLS
 /aclocal.m4
@@ -78,6 +83,7 @@ Makefile.in
 /po/quot.sed
 /po/remove-potcdate.sed
 /po/remove-potcdate.sin
+
 # Project specific files
 /libuna.pc
 /libuna.spec
@@ -98,6 +104,7 @@ Makefile.in
 /macosx/libuna.pmdoc/04share.xml
 /macosx/libuna.pmdoc/index.xml
 /macosx/Introduction.rtf
+
 # Local library dependencies specific files
 /libcerror
 /libcfile
