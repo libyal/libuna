@@ -286,7 +286,7 @@ una_test_byte_stream_to_unicode_t una_test_codepage_windows_1252_byte_stream_to_
 	{ { 0xfc }, 1, 0x00fc, 0 },
 	{ { 0xfd }, 1, 0x00fd, 0 },
 	{ { 0xfe }, 1, 0x00fe, 0 },
-	{ { 0xff }, 1, 0x00ff, 0 } 
+	{ { 0xff }, 1, 0x00ff, 0 }
 };
 
 #if defined( __cplusplus )

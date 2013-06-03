@@ -48,7 +48,7 @@
 
 /* The codepage definitions
  */
-enum LIBUNA_CODEPAGE
+enum LIBUNA_CODEPAGES
 {
 	LIBUNA_CODEPAGE_ASCII					= 20127,
 

@@ -68,7 +68,7 @@ int libuna_error_fprint(
 LIBUNA_EXTERN \
 int libuna_error_sprint(
      libuna_error_t *error,
-     char *string, 
+     char *string,
      size_t size );
 
 /* Prints a backtrace of the error to the stream
