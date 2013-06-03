@@ -101,6 +101,19 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20130603
+* updated dependencies
+* fixes issues for building with stand-alone version of libcnotify
+
+20130413
+* updated dependencies
+
+20130113
+* updated msvscpp files
+
+20130105
+* removed date time functionality from libcsystem
+
 20130103
 * 2013 update
 * worked on macosx package maker files
@@ -113,7 +126,7 @@ Note:
 * updated macosx package maker files
 
 20120919
-* applied updates
+* updated dependencies
 
 20120723
 * fix for trailing white space stripping in base64 size to byte stream
