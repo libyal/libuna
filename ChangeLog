@@ -101,6 +101,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20130608
+* updated dependencies
+
 20130603
 * updated dependencies
 * fixes issues for building with stand-alone version of libcnotify
