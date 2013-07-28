@@ -81,7 +81,7 @@ int libuna_url_stream_size_from_byte_stream(
 	 */
 	while( byte_stream_index < byte_stream_size )
 	{
-		/* A-Z is not a continous range on a EBCDIC based system
+		/* A-Z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: A-I, J-R, S-Z
 		 */
 		if( ( byte_stream[ byte_stream_index ] >= (uint8_t) 'A' )
@@ -99,7 +99,7 @@ int libuna_url_stream_size_from_byte_stream(
 		{
 			*url_stream_size += 1;
 		}
-		/* a-z is not a continous range on a EBCDIC based system
+		/* a-z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: a-i, j-r, s-z
 		 */
 		else if( ( byte_stream[ byte_stream_index ] >= (uint8_t) 'a' )
@@ -215,7 +215,7 @@ int libuna_url_stream_copy_from_byte_stream(
 
 			return( -1 );
 		}
-		/* A-Z is not a continous range on a EBCDIC based system
+		/* A-Z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: A-I, J-R, S-Z
 		 */
 		if( ( byte_stream[ byte_stream_index ] >= (uint8_t) 'A' )
@@ -233,7 +233,7 @@ int libuna_url_stream_copy_from_byte_stream(
 		{
 			url_stream[ url_stream_index++ ] = byte_stream[ byte_stream_index ];
 		}
-		/* a-z is not a continous range on a EBCDIC based system
+		/* a-z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: a-i, j-r, s-z
 		 */
 		else if( ( byte_stream[ byte_stream_index ] >= (uint8_t) 'a' )
@@ -265,7 +265,7 @@ int libuna_url_stream_copy_from_byte_stream(
 		}
 		else
 		{
-			if( ( url_stream_index + 2 ) >= url_stream_size )
+			if( ( url_stream_index + 3 ) > url_stream_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -357,7 +357,7 @@ int libuna_url_stream_size_to_byte_stream(
 		{
 			url_stream_index++;
 
-			if( ( url_stream_index + 1 ) >= url_stream_size )
+			if( ( url_stream_index + 2 ) > url_stream_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -503,7 +503,7 @@ int libuna_url_stream_copy_to_byte_stream(
 		{
 			url_stream_index++;
 
-			if( ( url_stream_index + 1 ) >= url_stream_size )
+			if( ( url_stream_index + 2 ) > url_stream_size )
 			{
 				libcerror_error_set(
 				 error,

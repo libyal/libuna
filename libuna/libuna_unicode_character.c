@@ -2975,7 +2975,7 @@ int libuna_unicode_character_size_to_utf7_stream(
 	{
 		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
 	}
-	/* A-Z is not a continous range on a EBCDIC based system
+	/* A-Z is not a continous range on an EBCDIC based system
 	 * it consists of the ranges: A-I, J-R, S-Z
 	 */
 	if( ( unicode_character >= 0x41 )
@@ -2990,7 +2990,7 @@ int libuna_unicode_character_size_to_utf7_stream(
 	      && ( unicode_character <= 0x5a ) )
 	{
 	}
-	/* a-z is not a continous range on a EBCDIC based system
+	/* a-z is not a continous range on an EBCDIC based system
 	 * it consists of the ranges: a-i, j-r, s-z
 	 */
 	else if( ( unicode_character >= 0x61 )
@@ -3311,7 +3311,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 
 		if( current_byte >= number_of_bytes )
 		{
-			/* A-Z is not a continous range on a EBCDIC based system
+			/* A-Z is not a continous range on an EBCDIC based system
 			 * it consists of the ranges: A-I, J-R, S-Z
 			 */
 			if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'A' )
@@ -3326,7 +3326,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'Z' ) )
 			{
 			}
-			/* a-z is not a continous range on a EBCDIC based system
+			/* a-z is not a continous range on an EBCDIC based system
 			 * it consists of the ranges: a-i, j-r, s-z
 			 */
 			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'a' )
@@ -3376,7 +3376,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				*utf7_stream_index += 1;
 			}
 		}
-		/* A-Z is not a continous range on a EBCDIC based system
+		/* A-Z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: A-I, J-R, S-Z
 		 */
 		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'A' )
@@ -3391,7 +3391,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'Z' ) )
 		{
 		}
-		/* a-z is not a continous range on a EBCDIC based system
+		/* a-z is not a continous range on an EBCDIC based system
 		 * it consists of the ranges: a-i, j-r, s-z
 		 */
 		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'a' )
@@ -3765,7 +3765,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 	{
 		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
 	}
-	/* A-Z is not a continous range on a EBCDIC based system
+	/* A-Z is not a continous range on an EBCDIC based system
 	 * it consists of the ranges: A-I, J-R, S-Z
 	 */
 	if( ( unicode_character >= 0x41 )
@@ -3783,7 +3783,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 	{
 		unicode_character = ( unicode_character - 0x53 ) + (libuna_unicode_character_t) 'S';
 	}
-	/* a-z is not a continous range on a EBCDIC based system
+	/* a-z is not a continous range on an EBCDIC based system
 	 * it consists of the ranges: a-i, j-r, s-z
 	 */
 	else if( ( unicode_character >= 0x61 )

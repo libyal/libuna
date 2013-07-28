@@ -60,7 +60,7 @@ int libuna_base32_character_copy_to_quintet(
 	switch( base32_variant & 0x000f0000UL )
 	{
 		case LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL:
-			/* A-Z is not a continous range on a EBCDIC based system
+			/* A-Z is not a continous range on an EBCDIC based system
 			 * it consists of the ranges: A-I, J-R, S-Z
 			 */
 			if( ( base32_character >= (uint8_t) 'A' )
@@ -103,7 +103,7 @@ int libuna_base32_character_copy_to_quintet(
 			{
 				*base32_quintet = base32_character - (uint8_t) '0';
 			}
-			/* A-V is not a continous range on a EBCDIC based system
+			/* A-V is not a continous range on an EBCDIC based system
 			 * it consists of the ranges: A-I, J-R, S-V
 			 */
 			else if( ( base32_character >= (uint8_t) 'A' )
@@ -1787,7 +1787,7 @@ int libuna_base32_stream_size_to_byte_stream(
 			switch( base32_variant & 0x000f0000UL )
 			{
 				case LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL:
-					/* A-Z is not a continous range on a EBCDIC based system
+					/* A-Z is not a continous range on an EBCDIC based system
 					 * it consists of the ranges: A-I, J-R, S-Z
 					 */
 					if( ( base32_stream[ base32_stream_index ] >= (uint8_t) 'A' )
@@ -1822,7 +1822,7 @@ int libuna_base32_stream_size_to_byte_stream(
 					{
 						number_of_characters++;
 					}
-					/* A-V is not a continous range on a EBCDIC based system
+					/* A-V is not a continous range on an EBCDIC based system
 					 * it consists of the ranges: A-I, J-R, S-V
 					 */
 					else if( ( base32_stream[ base32_stream_index ] >= (uint8_t) 'A' )

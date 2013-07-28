@@ -419,6 +419,25 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	/* Case 5: UTF-8 string is a buffer, UTF-8 string size is 17
+	 *         UTF-8 stream is a buffer, UTF-8 stream size is 20
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_stream_copy_from_utf8_string(
+	     utf8_string,
+	     17,
+	     utf8_stream,
+	     34,
+	     expected_utf8_stream,
+	     20,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-8 string to UTF-8 stream.\n" );
+
+		goto on_error;
+	}
 	/* UTF-16 string tests
 	 */
 
@@ -498,6 +517,25 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	/* Case 5: UTF-16 string is a buffer, UTF-16 string size is 16
+	 *         UTF-8 stream is a buffer, UTF-8 stream size is 20
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_stream_copy_from_utf16_string(
+	     utf16_string,
+	     16,
+	     utf8_stream,
+	     34,
+	     expected_utf8_stream,
+	     20,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-16 string to UTF-8 stream.\n" );
+
+		goto on_error;
+	}
 	/* UTF-32 string tests
 	 */
 
@@ -570,6 +608,25 @@ int main( int argc, char * const argv[] )
 	     expected_utf8_stream,
 	     20,
 	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy UTF-32 string to UTF-8 stream.\n" );
+
+		goto on_error;
+	}
+	/* Case 5: UTF-32 string is a buffer, UTF-32 string size is 16
+	 *         UTF-8 stream is a buffer, UTF-8 stream size is 20
+	 * Expected result: 1
+	 */
+	if( una_test_utf8_stream_copy_from_utf32_string(
+	     utf32_string,
+	     16,
+	     utf8_stream,
+	     34,
+	     expected_utf8_stream,
+	     20,
+	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
