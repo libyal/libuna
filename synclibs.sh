@@ -81,6 +81,8 @@ SED_SCRIPT="
 
 			cp ${LOCAL_LIB}-$$/${LOCAL_LIB}/${LOCAL_LIB}_definitions.h.in ${LOCAL_LIB}/${LOCAL_LIB}_definitions.h;
 			sed 's/@VERSION@/${LOCAL_LIB_VERSION}/' -i ${LOCAL_LIB}/${LOCAL_LIB}_definitions.h;
+
+			sed 's?@LIBUNA_CPPFLAGS@?-I$(top_srcdir)/libuna?' -i ${LOCAL_LIB}/Makefile.am;
 		fi
 		rm -rf ${LOCAL_LIB}-$$;
 	fi
