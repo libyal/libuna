@@ -26,11 +26,16 @@ EXIT_IGNORE=77;
 
 test_utf8_string_copy_from()
 { 
+	rm -rf tmp;
+	mkdir tmp;
+
 	echo "Testing UTF-8 string copy from function";
 
-	./${UNA_TEST_UTF8_STRING_COPY_FROM};
+	${TEST_RUNNER} ./${UNA_TEST_UTF8_STRING_COPY_FROM};
 
 	RESULT=$?;
+
+	rm -rf tmp;
 
 	echo "";
 
@@ -47,6 +52,20 @@ fi
 if ! test -x ${UNA_TEST_UTF8_STRING_COPY_FROM};
 then
 	echo "Missing executable: ${UNA_TEST_UTF8_STRING_COPY_FROM}";
+
+	exit ${EXIT_FAILURE};
+fi
+
+TEST_RUNNER="tests/test_runner.sh";
+
+if ! test -x ${TEST_RUNNER};
+then
+	TEST_RUNNER="./test_runner.sh";
+fi
+
+if ! test -x ${TEST_RUNNER};
+then
+	echo "Missing test runner: ${TEST_RUNNER}";
 
 	exit ${EXIT_FAILURE};
 fi

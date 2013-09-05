@@ -1529,8 +1529,6 @@ int libuna_base64_stream_size_to_byte_stream(
 				 base64_character1 );
 				break;
 		}
-		base64_stream_index -= base64_character_size;
-
 		if( base64_character1 == (uint32_t) '=' )
 		{
 			libcerror_error_set(
@@ -1991,7 +1989,6 @@ int libuna_base64_stream_copy_to_byte_stream(
 	}
 	base64_stream_size -= whitespace_size;
 	base64_stream_index = 0;
-	whitespace_size     = 0;
 
 	if( ( flags & LIBUNA_BASE64_FLAG_STRIP_WHITESPACE ) == 0 )
 	{

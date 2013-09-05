@@ -1,4 +1,5 @@
 TODO
+* pre compiler macro to detect ASCII vs non-ASCII system?
 * test macosx package maker files
 * make sure whitespace is stripped when copying to byte stream:
   - base32

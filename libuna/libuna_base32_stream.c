@@ -1891,22 +1891,6 @@ int libuna_base32_stream_size_to_byte_stream(
 	}
 	*byte_stream_size *= 5;
 
-	if( padding_size == 1 )
-	{
-		base32_stream_size -= 1;
-	}
-	else if( padding_size == 3 )
-	{
-		base32_stream_size -= 2;
-	}
-	else if( padding_size == 4 )
-	{
-		base32_stream_size -= 3;
-	}
-	else if( padding_size == 6 )
-	{
-		base32_stream_size -= 4;
-	}
 	return( 1 );
 }
 

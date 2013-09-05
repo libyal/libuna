@@ -768,7 +768,6 @@ int libuna_base16_stream_copy_to_byte_stream(
 		return( -1 );
 	}
 	base16_stream_index = 0;
-	whitespace_size     = 0;
 
 	while( base16_stream_index < base16_stream_size )
 	{

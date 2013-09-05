@@ -26,11 +26,16 @@ EXIT_IGNORE=77;
 
 test_base32_stream_copy_to()
 { 
+	rm -rf tmp;
+	mkdir tmp;
+
 	echo "Testing base32 stream copy to function";
 
-	./${UNA_TEST_BASE32_STREAM_COPY_FROM};
+	${TEST_RUNNER} ./${UNA_TEST_BASE32_STREAM_COPY_FROM};
 
 	RESULT=$?;
+
+	rm -rf tmp;
 
 	echo "";
 
@@ -47,6 +52,20 @@ fi
 if ! test -x ${UNA_TEST_BASE32_STREAM_COPY_FROM};
 then
 	echo "Missing executable: ${UNA_TEST_BASE32_STREAM_COPY_FROM}";
+
+	exit ${EXIT_FAILURE};
+fi
+
+TEST_RUNNER="tests/test_runner.sh";
+
+if ! test -x ${TEST_RUNNER};
+then
+	TEST_RUNNER="./test_runner.sh";
+fi
+
+if ! test -x ${TEST_RUNNER};
+then
+	echo "Missing test runner: ${TEST_RUNNER}";
 
 	exit ${EXIT_FAILURE};
 fi

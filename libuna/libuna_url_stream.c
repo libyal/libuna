@@ -514,8 +514,6 @@ int libuna_url_stream_copy_to_byte_stream(
 
 				return( -1 );
 			}
-			byte_value = 0;
-
 			if( ( url_stream[ url_stream_index ] >= (uint8_t) 'A' )
 			 && ( url_stream[ url_stream_index ] <= (uint8_t) 'F' ) )
 			{

@@ -1173,6 +1173,17 @@ int export_handle_export_base_encoded_input(
 
 			break;
 	}
+	if( source_buffer_size == 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: missing source buffer size.",
+		 function );
+
+		return( -1 );
+	}
 	source_buffer = (uint8_t *) memory_allocate(
 	                             sizeof( uint8_t ) * source_buffer_size );
 
@@ -1186,6 +1197,17 @@ int export_handle_export_base_encoded_input(
 		 function );
 
 		goto on_error;
+	}
+	if( destination_buffer_size == 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
+		 "%s: missing destination buffer size.",
+		 function );
+
+		return( -1 );
 	}
 	destination_buffer = (uint8_t *) memory_allocate(
 	                                  sizeof( uint8_t ) * destination_buffer_size );
