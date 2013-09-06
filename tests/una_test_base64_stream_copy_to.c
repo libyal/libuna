@@ -66,7 +66,6 @@ int una_test_base64_stream_copy_to_byte_stream(
 	{
 		if( result_byte_stream_size != expected_byte_stream_size )
 		{
-fprintf( stderr, "CP1: %zd != %zd\n", result_byte_stream_size, expected_byte_stream_size );
 			result = 0;
 		}
 	}
@@ -93,11 +92,9 @@ fprintf( stderr, "CP1: %zd != %zd\n", result_byte_stream_size, expected_byte_str
 		     expected_byte_stream,
 		     sizeof( uint8_t ) * expected_byte_stream_size ) != 0 )
 		{
-fprintf( stderr, "CP2: %s != %s\n", byte_stream, expected_byte_stream );
 			result = 0;
 		}
 	}
-fprintf( stderr, "CP3: %d\n", result );
 	if( result == expected_result )
 	{
 		fprintf(

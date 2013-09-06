@@ -87,6 +87,8 @@ int una_test_base32_stream_copy_to_byte_stream(
 	}
 	if( result == 1 )
 	{
+fprintf( stderr, "A: %s (%zd)\n", byte_stream, result_byte_stream_size );
+fprintf( stderr, "B: %s (%zd)\n", expected_byte_stream, expected_byte_stream_size );
 		if( memory_compare(
 		     byte_stream,
 		     expected_byte_stream,
@@ -146,40 +148,24 @@ int main( int argc, char * const argv[] )
 	uint8_t expected_byte_stream[ 16 ] = {
 		'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.' };
 
-	uint8_t lower_case_base16_stream[ 32 ] = {
-		'5', '4', '6', '8', '6', '9', '7', '3', '2', '0', '6', '9', '7', '3', '2', '0',
-	        'c', '3', 'a', '1', '2', '0', '7', '4', '6', '5', '7', '3', '7', '4', '2', 'e' };
+	uint8_t base32_stream[ 32 ] = {
+		'K', 'R', 'U', 'G', 'S', '4', 'Z', 'A', 'N', 'F', 'Z', 'S', 'B', 'Q', '5', 'B',
+	        'E', 'B', '2', 'G', 'K', '4', '3', 'U', 'F', 'Y', '=', '=', '=', '=', '=', '=' };
 
-	uint8_t upper_case_base16_stream[ 32 ] = {
-		'5', '4', '6', '8', '6', '9', '7', '3', '2', '0', '6', '9', '7', '3', '2', '0',
-	        'C', '3', 'A', '1', '2', '0', '7', '4', '6', '5', '7', '3', '7', '4', '2', 'E' };
-
-	uint8_t utf16le_lower_case_base16_stream[ 64 ] = {
-		'5', 0, '4', 0, '6', 0, '8', 0, '6', 0, '9', 0, '7', 0, '3', 0,
-	        '2', 0, '0', 0, '6', 0, '9', 0, '7', 0, '3', 0, '2', 0, '0', 0,
-	        'c', 0, '3', 0, 'a', 0, '1', 0, '2', 0, '0', 0, '7', 0, '4', 0,
-	        '6', 0, '5', 0, '7', 0, '3', 0, '7', 0, '4', 0, '2', 0, 'e', 0 };
-
-	uint8_t utf32be_upper_case_base16_stream[ 128 ] = {
-		0, 0, 0, '5', 0, 0, 0, '4', 0, 0, 0, '6', 0, 0, 0, '8', 0, 0, 0, '6', 0, 0, 0, '9', 0, 0, 0, '7', 0, 0, 0, '3',
-	        0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '6', 0, 0, 0, '9', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '2', 0, 0, 0, '0',
-	        0, 0, 0, 'C', 0, 0, 0, '3', 0, 0, 0, 'A', 0, 0, 0, '1', 0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '7', 0, 0, 0, '4',
-	        0, 0, 0, '6', 0, 0, 0, '5', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '7', 0, 0, 0, '4', 0, 0, 0, '2', 0, 0, 0, 'E' };
+	uint8_t utf16le_base32_stream[ 64 ] = {
+		'K', 0, 'R', 0, 'U', 0, 'G', 0, 'S', 0, '4', 0, 'Z', 0, 'A', 0,
+	        'N', 0, 'F', 0, 'Z', 0, 'S', 0, 'B', 0, 'Q', 0, '5', 0, 'B', 0,
+	        'E', 0, 'B', 0, '2', 0, 'G', 0, 'K', 0, '4', 0, '3', 0, 'U', 0,
+	        'F', 0, 'Y', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0 };
 
 	uint8_t *expected_long_byte_stream = \
-		(uint8_t *) "The test of success is not what you do when you are on top. Success is how high you bounce when you hit bottom.\n";
+		(uint8_t *) "The test of success is not what you do when you are on top. " \
+	                    "Success is how high you bounce when you hit bottom.\n";
 
-	uint8_t *long_base16_stream1 = \
-		(uint8_t *) "5468652074657374206f662073756363657373206973206e6f74207768617420\n"
-	                    "796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363\n"
-		            "65737320697320686f77206869676820796f7520626f756e6365207768656e20\n"
-	                    "796f752068697420626f74746f6d2e0a\n";
-
-	uint8_t *long_base16_stream2 = \
-		(uint8_t *) "\t5468652074657374206f662073756363657373206973206e6f74207768617420\t\n"
-	                    "  796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363  \n"
-		            "\t65737320697320686f77206869676820796f7520626f756e6365207768656e20  \n"
-	                    "\t796f752068697420626f74746f6d2e0a                                  \n";
+	uint8_t *long_base32_stream1 = \
+		(uint8_t *) "KRUGKIDUMVZXIIDPMYQHG5LDMNSXG4ZANFZSA3TPOQQHO2DBOQQHS33VEBSG6IDX" \
+	                    "NBSW4IDZN52SAYLSMUQG63RAORXXALRAKN2WGY3FONZSA2LTEBUG65ZANBUWO2BA" \
+	                    "PFXXKIDCN52W4Y3FEB3WQZLOEB4W65JANBUXIIDCN52HI33NFYFA====";
 
 	libuna_error_t *error = NULL;
 
@@ -191,17 +177,16 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-#ifdef TODO
-	/* Case 1: base16 stream is NULL, base16 stream size is 32, variant lower case
+	/* Case 1: base32 stream is NULL, base32 stream size is 32, variant RFC4648
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
+	if( una_test_base32_stream_copy_to_byte_stream(
 	     NULL,
 	     32,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	     LIBUNA_BASE32_VARIANT_RFC4648,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -209,20 +194,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 2: base16 stream is a buffer, base16 stream size is 32, variant lower case
+	/* Case 2: base32 stream is a buffer, base32 stream size is 32, variant RFC4648
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: 1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     lower_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     base32_stream,
 	     32,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	     LIBUNA_BASE32_VARIANT_RFC4648,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -230,20 +215,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 3: base16 stream is a buffer, base16 stream size is 32, variant lower case
+	/* Case 3: base32 stream is a buffer, base32 stream size is 32, variant RFC4648
 	 *         byte stream is a buffer, byte stream size is 8
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     lower_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     base32_stream,
 	     32,
 	     byte_stream,
 	     8,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	     LIBUNA_BASE32_VARIANT_RFC4648,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -251,20 +236,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 4: base16 stream is a buffer, base16 stream size is 32, variant lower case
+	/* Case 4: base32 stream is a buffer, base32 stream size is 32, variant RFC4648
 	 *         byte stream is NULL, byte stream size is 256
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     lower_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     base32_stream,
 	     32,
 	     NULL,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	     LIBUNA_BASE32_VARIANT_RFC4648,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -272,62 +257,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 5: base16 stream is a buffer, base16 stream size is 32, variant upper case
-	 *         byte stream is a buffer, byte stream size is 256
-	 * Expected result: 1
-	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     upper_case_base16_stream,
-	     32,
-	     byte_stream,
-	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
-	     0,
-	     expected_byte_stream,
-	     16,
-	     1 ) != 1 )
-	{
-		fprintf(
-		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
-
-		goto on_error;
-	}
-	/* Case 6: base16 stream is a buffer, base16 stream size is 32, variant lower case
+	/* Case 5: base32 stream is a buffer, base32 stream size is 64, variant RFC4648 UTF-16 big-endian
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     upper_case_base16_stream,
-	     32,
-	     byte_stream,
-	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
-	     0,
-	     expected_byte_stream,
-	     16,
-	     -1 ) != 1 )
-	{
-		fprintf(
-		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
-
-		goto on_error;
-	}
-	/* Case 6: base16 stream is a buffer, base16 stream size is 64, variant lower case UTF-16 big-endian
-	 *         byte stream is a buffer, byte stream size is 256
-	 * Expected result: -1
-	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     utf16le_lower_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     utf16le_base32_stream,
 	     64,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
+	     LIBUNA_BASE32_VARIANT_RFC4648 | LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -335,20 +278,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 7: base16 stream is a buffer, base16 stream size is 64, variant lower case UTF-16 little-endian
+	/* Case 6: base32 stream is a buffer, base32 stream size is 64, variant RFC4648 UTF-16 little-endian
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: 1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     utf16le_lower_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     utf16le_base32_stream,
 	     64,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	     LIBUNA_BASE32_VARIANT_RFC4648 | LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -356,20 +299,21 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 8: base16 stream is a buffer, base16 stream size is 128, variant upper case UTF-32 big-endian
+#ifdef TODO
+	/* Case 8: base32 stream is a buffer, base32 stream size is 128, variant upper case UTF-32 big-endian
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: 1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     utf32be_upper_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     utf32be_upper_case_base32_stream,
 	     128,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	     LIBUNA_BASE32_VARIANT_CASE_UPPER | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -377,20 +321,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 9: base16 stream is a buffer, base16 stream size is 128, variant upper case UTF-32 little-endian
+	/* Case 9: base32 stream is a buffer, base32 stream size is 128, variant upper case UTF-32 little-endian
 	 *         byte stream is a buffer, byte stream size is 256
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     utf32be_upper_case_base16_stream,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     utf32be_upper_case_base32_stream,
 	     128,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
+	     LIBUNA_BASE32_VARIANT_CASE_UPPER | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
 	     0,
 	     expected_byte_stream,
 	     16,
@@ -398,20 +342,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 10: base16 stream is a buffer, base16 stream size is 228, variant mixed case with 64 character limit
+	/* Case 10: base32 stream is a buffer, base32 stream size is 228, variant mixed case with 64 character limit
 	 *          byte stream is a buffer, byte stream size is 256
 	 * Expected result: 1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     long_base16_stream1,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     long_base32_stream1,
 	     228,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
+	     LIBUNA_BASE32_VARIANT_CASE_MIXED | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64,
 	     0,
 	     expected_long_byte_stream,
 	     112,
@@ -419,20 +363,20 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 11: base16 stream is a buffer, base16 stream size is 228, variant mixed case with 76 character limit
+	/* Case 11: base32 stream is a buffer, base32 stream size is 228, variant mixed case with 76 character limit
 	 *          byte stream is a buffer, byte stream size is 256
 	 * Expected result: -1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     long_base16_stream1,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     long_base32_stream1,
 	     228,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76,
+	     LIBUNA_BASE32_VARIANT_CASE_MIXED | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_76,
 	     0,
 	     expected_long_byte_stream,
 	     112,
@@ -440,28 +384,28 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}
-	/* Case 12: base16 stream is a buffer, base16 stream size is 272, variant mixed case with 64 character limit
+	/* Case 12: base32 stream is a buffer, base32 stream size is 272, variant mixed case with 64 character limit
 	 *          byte stream is a buffer, byte stream size is 256
 	 * Expected result: 1
 	 */
-	if( una_test_base16_stream_copy_to_byte_stream(
-	     long_base16_stream2,
+	if( una_test_base32_stream_copy_to_byte_stream(
+	     long_base32_stream2,
 	     272,
 	     byte_stream,
 	     256,
-	     LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
-	     LIBUNA_BASE16_FLAG_STRIP_WHITESPACE,
+	     LIBUNA_BASE32_VARIANT_CASE_MIXED | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64,
+	     LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
 	     expected_long_byte_stream,
 	     112,
 	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy base16 stream to byte stream.\n" );
+		 "Unable to copy base32 stream to byte stream.\n" );
 
 		goto on_error;
 	}

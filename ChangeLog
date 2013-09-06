@@ -15,6 +15,8 @@ TODO
 * implement with index functions
 * base16
   - add separate function to convert a byte like base64 sixtet
+* base32
+  - add support of base32 variations, e.g. zbase32?
 
 * libuna
   - add source == destination check to functions?
@@ -101,6 +103,13 @@ Note:
 * CodeGear uses OEM codepage e.g. 850
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
+
+20130906
+* worked on tests
+
+20130905
+* code clean up
+* worked on tests
 
 20130728
 * fixes for some stream functions being too strict

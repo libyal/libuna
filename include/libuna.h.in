@@ -48,7 +48,7 @@ const char *libuna_get_version(
  * Error functions
  * ------------------------------------------------------------------------- */
 
-/* Frees the error including elements
+/* Frees an error
  */
 LIBUNA_EXTERN \
 void libuna_error_free(
