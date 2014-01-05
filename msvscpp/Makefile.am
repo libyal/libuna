@@ -1,4 +1,5 @@
 MSVSCPP_FILES = \
+	libcdatetime/libcdatetime.vcproj \
 	libcerror/libcerror.vcproj \
 	libcfile/libcfile.vcproj \
 	libclocale/libclocale.vcproj \

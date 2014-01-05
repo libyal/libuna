@@ -96,13 +96,18 @@ Tools:
 * gettext support
 
 Deployment:
-* create Borland C++ 5.5 files
 
 Note:
 * iso codepage formatting conversion %s/^0x\(..\)\t0x\(....\)\t#\t/\1 = U+\2 : 
 * CodeGear uses OEM codepage e.g. 850
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
+
+20140105
+* 2014 update
+* updated dependencies
+* worked on libcdatetime support
+* updated updated msvscpp files
 
 20130906
 * worked on tests

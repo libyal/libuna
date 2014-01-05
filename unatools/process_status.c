@@ -1,7 +1,7 @@
 /*
  * Process status functions
  *
- * Copyright (c) 2008-2012, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2008-2014, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -38,7 +38,8 @@
 #include "unatools_libcstring.h"
 #include "process_status.h"
 
-/* Initializes the process status information
+/* Creates process status information
+ * Make sure the value X is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int process_status_initialize(
@@ -165,7 +166,7 @@ on_error:
 	return( -1 );
 }
 
-/* Frees the process status information
+/* Frees process status information
  * Returns 1 if successful or -1 on error
  */
 int process_status_free(

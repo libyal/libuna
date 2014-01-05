@@ -1,6 +1,6 @@
 # Files to ignore by git
 #
-# Version: 20130831
+# Version: 20130922
 
 # Generic auto-generated build files
 *~
@@ -107,6 +107,7 @@ stamp-h1
 /macosx/libuna.pmdoc/04share.xml
 /macosx/libuna.pmdoc/index.xml
 /macosx/Introduction.rtf
+/tests/tmp
 /tests/una_test_base16_stream_copy_from
 /tests/una_test_base16_stream_copy_to
 /tests/una_test_base32_stream_copy_from

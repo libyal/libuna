@@ -1,7 +1,7 @@
 /*
  * ISO 8859-13 codepage (Baltic) function
  *
- * Copyright (c) 2008-2013, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2008-2014, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
