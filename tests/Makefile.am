@@ -27,6 +27,7 @@ check_SCRIPTS = \
 	test_base32_stream_copy_to.sh \
 	test_base64_stream_copy_from.sh \
 	test_base64_stream_copy_to.sh \
+	test_runner.sh \
 	test_utf16_stream_copy_from.sh \
 	test_utf16_string_copy_from.sh \
 	test_utf32_stream_copy_from.sh \
