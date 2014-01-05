@@ -3,6 +3,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/common \
 	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
+	@LIBCDATETIME_CPPFLAGS@ \
 	@LIBCLOCALE_CPPFLAGS@ \
 	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBCFILE_CPPFLAGS@ \
@@ -23,6 +24,7 @@ unabase_SOURCES = \
 	unacommon.h \
 	unainput.c unainput.h \
 	unaoutput.c unaoutput.h
+	unatools_libcdatetime.h \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
@@ -35,6 +37,8 @@ unabase_LDADD = \
 	@LIBCSYSTEM_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
 	@LIBCNOTIFY_LIBADD@ \
+	@LIBCLOCALE_LIBADD@ \
+	@LIBCDATETIME_LIBADD@ \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@ \
@@ -48,6 +52,7 @@ unaexport_SOURCES = \
 	unaexport.c \
 	unainput.c unainput.h \
 	unaoutput.c unaoutput.h \
+	unatools_libcdatetime.h \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
@@ -60,6 +65,8 @@ unaexport_LDADD = \
 	@LIBCSYSTEM_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
 	@LIBCNOTIFY_LIBADD@ \
+	@LIBCLOCALE_LIBADD@ \
+	@LIBCDATETIME_LIBADD@ \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@ \

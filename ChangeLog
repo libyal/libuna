@@ -132,6 +132,8 @@ Note:
 
 20130105
 * removed date time functionality from libcsystem
+* added libcdatetime
+* changes for libcdatetime
 
 20130103
 * 2013 update

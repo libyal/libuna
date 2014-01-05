@@ -6,6 +6,7 @@ SUBDIRS = \
 	libcstring \
 	libcerror \
 	libuna \
+	libcdatetime \
 	libclocale \
 	libcnotify \
 	libcfile \
@@ -83,9 +84,10 @@ splint:
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcdatetime && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libclocale && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcnotify && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
 
