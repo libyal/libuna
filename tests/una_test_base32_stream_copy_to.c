@@ -87,8 +87,6 @@ int una_test_base32_stream_copy_to_byte_stream(
 	}
 	if( result == 1 )
 	{
-fprintf( stderr, "A: %s (%zd)\n", byte_stream, result_byte_stream_size );
-fprintf( stderr, "B: %s (%zd)\n", expected_byte_stream, expected_byte_stream_size );
 		if( memory_compare(
 		     byte_stream,
 		     expected_byte_stream,

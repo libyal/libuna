@@ -67,6 +67,7 @@ library:
 	cd $(srcdir)/libcstring && $(MAKE) $(AM_MAKEFLAGS)
 	cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS)
 	cd $(srcdir)/libuna && $(MAKE) $(AM_MAKEFLAGS)
+	cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS)
 
 distclean: clean
 	/bin/rm -f Makefile
@@ -90,4 +91,5 @@ splint:
 	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcsystem && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/po && $(MAKE) splint $(AM_MAKEFLAGS))
 
