@@ -103,6 +103,10 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20140505
+* updated libcsystem
+* fixes to build static library with mingw and cygwin
+
 20140105
 * 2014 update
 * updated dependencies
