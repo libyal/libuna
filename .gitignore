@@ -101,12 +101,6 @@ stamp-h1
 /include/libuna/types.h
 /libuna/libuna.rc
 /libuna/libuna_definitions.h
-/macosx/libuna.pmdoc/01bin.xml
-/macosx/libuna.pmdoc/02include.xml
-/macosx/libuna.pmdoc/03lib.xml
-/macosx/libuna.pmdoc/04share.xml
-/macosx/libuna.pmdoc/index.xml
-/macosx/Introduction.rtf
 /tests/tmp
 /tests/una_test_base16_stream_copy_from
 /tests/una_test_base16_stream_copy_to
