@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libuna_dll"
-	ProjectGUID="{B5225323-AC67-411D-8FBA-199E9467FAB5}"
+	Name="libuna"
+	ProjectGUID="{3F999025-B0E2-496D-B9FD-F69C5BA9FD85}"
 	RootNamespace="libuna"
 	TargetFrameworkVersion="131072"
 	>
@@ -20,6 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,9 +41,9 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\include;..\..\common;..\..\libcstring;..\..\libcerror"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING;HAVE_LOCAL_LIBCERROR;LIBUNA_DLL_EXPORT"
-				SmallerTypeCheck="false"
 				RuntimeLibrary="2"
 				WarningLevel="4"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -55,11 +56,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\libuna.dll"
-				AdditionalLibraryDirectories=""
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
+				OutputFile="$(OutDir)\$(ProjectName).dll"
+				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
+				RandomizedBaseAddress="2"
+				DataExecutionPrevention="2"
 				TargetMachine="1"
+				ImportLibrary="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -88,6 +90,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -114,6 +117,7 @@
 				RuntimeLibrary="3"
 				WarningLevel="4"
 				DebugInformationFormat="3"
+				CompileAs="1"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -126,12 +130,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\libuna.dll"
-				AdditionalLibraryDirectories=""
+				OutputFile="$(OutDir)\$(ProjectName).dll"
+				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
+				DataExecutionPrevention="1"
 				TargetMachine="1"
+				ImportLibrary="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
