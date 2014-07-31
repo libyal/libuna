@@ -7,72 +7,87 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-
 %:
 	dh  $@
 
-install_libuna:
-	# Set up libuna package directories and files
-	mkdir -p debian/libuna/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.so.*.*.* debian/libuna/usr/lib
+.PHONY: override_dh_auto_configure
+override_dh_auto_configure:
+	dh_auto_configure -- CFLAGS="-g"
 
-install_libuna_dev:
-	# Set up libuna-dev package directories and files
-	mkdir -p debian/libuna-dev/usr/include
-	mkdir -p debian/libuna-dev/usr/include/libuna
-	mkdir -p debian/libuna-dev/usr/lib
-	mkdir -p debian/libuna-dev/usr/lib/pkgconfig
-	mkdir -p debian/libuna-dev/usr/share/man/man3
-	install -p -m755 debian/tmp/usr/include/*.h debian/libuna-dev/usr/include
-	install -p -m755 debian/tmp/usr/include/libuna/*.h debian/libuna-dev/usr/include/libuna
-	install -p -m755 debian/tmp/usr/lib/*.la debian/libuna-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.a debian/libuna-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.so debian/libuna-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/pkgconfig/* debian/libuna-dev/usr/lib/pkgconfig
-	install -p -m755 debian/tmp/usr/share/man/man3/* debian/libuna-dev/usr/share/man/man3
-
-install_libuna_tools:
-	# Set up libuna-tools package directories and files
-	mkdir -p debian/libuna-tools/usr/bin
-	mkdir -p debian/libuna-tools/usr/share/man/man1
-	install -p -m755 debian/tmp/usr/bin/* debian/libuna-tools/usr/bin
-	install -p -m755 debian/tmp/usr/share/man/man1/* debian/libuna-tools/usr/share/man/man1
-
+.PHONY: override_dh_auto_test
 override_dh_auto_test:
 
-override_dh_installinit: install_libuna install_libuna_dev install_libuna_tools
+.PHONY: override_dh_install
+override_dh_install:
+	# Create the libuna package.
+	dh_install "debian/tmp/usr/lib/lib*.so.*.*.*" -p libuna
+	# Create the libuna-dev package.
+	dh_install "debian/tmp/usr/include/*.h" -p libuna-dev
+	dh_install "debian/tmp/usr/include/lib*/*.h" -p libuna-dev
+	dh_install "debian/tmp/usr/lib/*.a" -p libuna-dev
+	dh_install "debian/tmp/usr/lib/*.la" -p libuna-dev
+	dh_install "debian/tmp/usr/lib/*.so" -p libuna-dev
+	dh_install "debian/tmp/usr/lib/pkgconfig/*" -p libuna-dev
+	dh_install "debian/tmp/usr/share/man/man3/*" -p libuna-dev
+	# Create the libuna-tools package.
+	dh_install "debian/tmp/usr/bin/*" -p libuna-tools
+	dh_install "debian/tmp/usr/share/man/man1/*" -p libuna-tools
+	# The libuna-dbg package is created by dh_strip.
+	dh_install
 
+.PHONY: override_dh_installmenu
 override_dh_installmenu:
 
+.PHONY: override_dh_installmime
 override_dh_installmime:
 
+.PHONY: override_dh_installmodules
 override_dh_installmodules:
 
+.PHONY: override_dh_installlogcheck
 override_dh_installlogcheck:
 
+.PHONY: override_dh_installlogrotate
 override_dh_installlogrotate:
 
+.PHONY: override_dh_installpam
 override_dh_installpam:
 
+.PHONY: override_dh_installppp
 override_dh_installppp:
 
+.PHONY: override_dh_installudev
 override_dh_installudev:
 
+.PHONY: override_dh_installwm
 override_dh_installwm:
 
+.PHONY: override_dh_installxfonts
 override_dh_installxfonts:
 
+.PHONY: override_dh_gconf
 override_dh_gconf:
 
+.PHONY: override_dh_icons
 override_dh_icons:
 
+.PHONY: override_dh_perl
 override_dh_perl:
 
+.PHONY: override_dh_pysupport
 override_dh_pysupport:
 
+.PHONY: override_dh_strip
+override_dh_strip:
+ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
+	dh_strip -plibuna --dbg-package=libuna-dbg
+endif
+
+.PHONY: override_dh_shlibdeps
 override_dh_shlibdeps:
 	dh_shlibdeps -Llibuna -l${PWD}/debian/tmp/usr/lib
 
+.PHONY: override_dh_makeshlibs
 override_dh_makeshlibs:
 	dh_makeshlibs -Xlibuna-dev
 

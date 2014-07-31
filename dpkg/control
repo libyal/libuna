@@ -10,8 +10,16 @@ Package: libuna
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: libuna-dbg
 Description: Library to support Unicode and ASCII (byte stream) conversions.
  libuna is a library to support Unicode and ASCII (byte stream) conversions.
+
+Package: libuna-dbg
+Architecture: any
+Section: debug
+Depends: libuna (= ${Source-Version}), ${misc:Depends}
+Description: Debugging symbols for libuna
+ Debugging symbols for libuna.
 
 Package: libuna-dev
 Section: libdevel
