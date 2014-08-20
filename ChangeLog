@@ -103,6 +103,10 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20140820
+* changed version for new release
+* switched to tar-ustar dist format to support longer filenames
+
 20140505
 * updated libcsystem
 * fixes to build static library with mingw and cygwin
