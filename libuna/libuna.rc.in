@@ -28,7 +28,7 @@ BEGIN
       VALUE "OriginalFilename",		"libuna.dll\0"
       VALUE "ProductName",		"libuna\0"
       VALUE "ProductVersion",		"@VERSION@" "\0"
-      VALUE "Comments",			"For more information visit http://code.google.com/p/libuna/\0"
+      VALUE "Comments",			"For more information visit https://github.com/libyal/libuna/\0"
     END
   END
   BLOCK "VarFileInfo"

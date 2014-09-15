@@ -1,4 +1,6 @@
-See:
-* http://code.google.com/p/libuna/wiki/Building
-* README.macosx
+libuna is a library to support Unicode and ASCII (byte string) conversions.
+
+For more information see:
+* Project documentation: https://github.com/libyal/libuna/wiki/Home
+* How to build from source: https://github.com/libyal/libuna/wiki/Building
 

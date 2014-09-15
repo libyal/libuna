@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20140915
+* changes for project site move
+
 20140820
 * changed version for new release
 * switched to tar-ustar dist format to support longer filenames

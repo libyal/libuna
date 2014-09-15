@@ -1,9 +1,9 @@
 #!/bin/sh
 # Script that synchronizes the local library dependencies
 #
-# Version: 20130330
+# Version: 20140915
 
-GIT_URL_PREFIX="https://code.google.com/p"
+GIT_URL_PREFIX="https://github.com/libyal";
 LOCAL_LIBS="libcdatetime libcerror libcfile libclocale libcnotify";
 
 OLDIFS=$IFS;
