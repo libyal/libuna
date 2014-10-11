@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20141011
+* worked on utility scripts
+
 20140915
 * changes for project site move
 
