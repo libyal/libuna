@@ -69,6 +69,11 @@ endif
 			sed -i'~' -f ${LOCAL_LIB}-$$.sed ${LOCAL_LIB}/Makefile.am;
 			rm -f ${LOCAL_LIB}-$$.sed;
 
+			if test ${LOCAL_LIB} = "libcfile" || test ${LOCAL_LIB} = "libcsystem";
+			then
+				sed -i'~' "s/@LIBUNA_CPPFLAGS@/-I\$(top_srcdir)\/libuna/" ${LOCAL_LIB}/Makefile.am;
+			fi
+
 			sed -i'~' "/${LOCAL_LIB}_definitions.h.in/d" ${LOCAL_LIB}/Makefile.am;
 			sed -i'~' "/${LOCAL_LIB}.rc/d" ${LOCAL_LIB}/Makefile.am;
 			sed -i'~' '/EXTRA_DIST = /d' ${LOCAL_LIB}/Makefile.am;
