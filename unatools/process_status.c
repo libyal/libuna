@@ -32,6 +32,8 @@
 #include <time.h>
 #endif
 
+#include <stdio.h>
+
 #include "byte_size_string.h"
 #include "unatools_libcdatetime.h"
 #include "unatools_libcerror.h"
