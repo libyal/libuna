@@ -36,6 +36,7 @@
 #include <libcsystem_signal.h>
 #include <libcsystem_string.h>
 #include <libcsystem_support.h>
+#include <libcsystem_types.h>
 #include <libcsystem_unused.h>
 
 #else
