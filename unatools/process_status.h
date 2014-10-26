@@ -23,6 +23,7 @@
 #define _PROCESS_STATUS_H
 
 #include <common.h>
+#include <file_stream.h>
 #include <types.h>
 
 #include "unatools_libcdatetime.h"
