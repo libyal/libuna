@@ -1,7 +1,8 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	@LIBCSTRING_CPPFLAGS@ \
-	@LIBCERROR_CPPFLAGS@
+	@LIBCERROR_CPPFLAGS@ \
+	@LIBUNA_DLL_IMPORT@
 
 TESTS = \
 	test_base16_stream_copy_from.sh \
