@@ -20,10 +20,9 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
 #include <memory.h>
 #include <types.h>
-
-#include <stdio.h>
 
 #include "unacommon.h"
 #include "unatools_libcerror.h"
