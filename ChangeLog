@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20141229
+* updated dpkg files
+
 20141026
 * changes for deployment
 

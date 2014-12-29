@@ -1,13 +1,12 @@
 Source: libuna
-Section: unknown
+Section: libs
 Priority: extra
 Maintainer: Joachim Metz <joachim.metz@gmail.com>
 Build-Depends: debhelper (>= 7), autotools-dev
-Standards-Version: 3.8.3
+Standards-Version: 3.9.5
 Homepage: https://github.com/libyal/libuna/
 
 Package: libuna
-Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: libuna-dbg
@@ -17,21 +16,21 @@ Description: Library to support Unicode and ASCII (byte stream) conversions.
 Package: libuna-dbg
 Architecture: any
 Section: debug
-Depends: libuna (= ${Source-Version}), ${misc:Depends}
+Depends: libuna (= ${binary:Version}), ${misc:Depends}
 Description: Debugging symbols for libuna
  Debugging symbols for libuna.
 
 Package: libuna-dev
 Section: libdevel
 Architecture: any
-Depends: libuna (= ${Source-Version})
+Depends: libuna (= ${binary:Version}), ${misc:Depends}
 Description: Header files and libraries for developing applications for libuna
  Header files and libraries for developing applications for libuna.
 
 Package: libuna-tools
 Section: utils
 Architecture: any
-Depends: libuna (= ${Source-Version}), ${shlibs:Depends}
+Depends: libuna (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: Several tools for converting Unicode and ASCII (byte stream) based text
  Several tools for converting Unicode and ASCII (byte stream) based text.
 
