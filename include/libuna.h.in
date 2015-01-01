@@ -1,7 +1,7 @@
 /*
  * Library to support Unicode and ASCII (byte stream) conversions
  *
- * Copyright (c) 2008-2014, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2015, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -142,8 +142,8 @@ LIBUNA_EXTERN \
 int libuna_unicode_character_copy_from_utf7_stream(
      libuna_unicode_character_t *unicode_character,
      const uint8_t *utf7_stream,
-     size_t utf7_sstreamsize,
-     size_t *utf7_sstreamindex,
+     size_t utf7_stream_size,
+     size_t *utf7_stream_index,
      uint32_t *utf7_stream_base64_data,
      libuna_error_t **error );
 
