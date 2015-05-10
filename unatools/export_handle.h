@@ -73,46 +73,39 @@ struct export_handle
 	 */
 	libcfile_file_t *destination_file;
 
-	union
-	{
-		/* Values for base encoding export
-		 */
-		struct
-		{
-			/* The enconding
-			 */
-			uint8_t encoding;
-
-			/* The encoding mode
-			 */
-			uint8_t encoding_mode;
-		};
-
-		/* Values for text encoding export
-		 */
-		struct
-		{
-			/* The input format
-			 */
-			uint8_t input_format;
-
-			/* The output format
-			 */
-			uint8_t output_format;
-
-			/* The newline conversion
-			 */
-			uint8_t newline_conversion;
-
-			/* Value to indicate if the byte-order mark should be exported
-			 */
-			uint8_t export_byte_order_mark;
-		};
-	};
-
-	/* The byte stream codepage
+	/* Values for base encoding export
 	 */
-	int byte_stream_codepage;
+
+	/* The base enconding
+	 */
+	uint8_t base_encoding;
+
+	/* The base encoding mode
+	 */
+	uint8_t base_encoding_mode;
+
+	/* Values for text encoding export
+	 */
+
+	/* The input format
+	 */
+	uint8_t text_input_format;
+
+	/* The output format
+	 */
+	uint8_t text_output_format;
+
+	/* The newline conversion
+	 */
+	uint8_t text_newline_conversion;
+
+	/* Value to indicate if the byte-order mark should be exported
+	 */
+	uint8_t text_export_byte_order_mark;
+
+	/* The text byte stream codepage
+	 */
+	int text_byte_stream_codepage;
 
 	/* The nofication output stream
 	 */

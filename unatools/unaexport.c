@@ -394,7 +394,7 @@ int main( int argc, char * const argv[] )
 			 "Unsupported newline conversion defaulting to: none.\n" );
 		}
 	}
-	unaexport_export_handle->export_byte_order_mark = export_byte_order_mark;
+	unaexport_export_handle->text_export_byte_order_mark = export_byte_order_mark;
 
 	if( option_byte_stream_codepage != NULL )
 	{

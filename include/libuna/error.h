@@ -39,7 +39,7 @@ enum LIBUNA_ERROR_DOMAINS
 	LIBUNA_ERROR_DOMAIN_INPUT			= (int) 'i',
 	LIBUNA_ERROR_DOMAIN_MEMORY			= (int) 'm',
 	LIBUNA_ERROR_DOMAIN_OUTPUT			= (int) 'o',
-	LIBUNA_ERROR_DOMAIN_RUNTIME			= (int) 'r',
+	LIBUNA_ERROR_DOMAIN_RUNTIME			= (int) 'r'
 };
 
 /* The argument error codes

@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20150510
+* Changes for gcc 5 support
+
 20150101
 * 2015 update
 

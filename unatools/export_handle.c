@@ -146,16 +146,16 @@ int export_handle_initialize(
 
 	if( mode == EXPORT_HANDLE_MODE_BASE_ENCODING )
 	{
-		( *export_handle )->encoding      = UNACOMMON_ENCODING_BASE64;
-		( *export_handle )->encoding_mode = UNACOMMON_ENCODING_MODE_ENCODE;
+		( *export_handle )->base_encoding      = UNACOMMON_ENCODING_BASE64;
+		( *export_handle )->base_encoding_mode = UNACOMMON_ENCODING_MODE_ENCODE;
 	}
 	else if( mode == EXPORT_HANDLE_MODE_TEXT_ENCODING )
 	{
-		( *export_handle )->input_format           = UNACOMMON_FORMAT_AUTO_DETECT;
-		( *export_handle )->output_format          = UNACOMMON_FORMAT_UTF8;
-		( *export_handle )->newline_conversion     = UNACOMMON_NEWLINE_CONVERSION_NONE;
-		( *export_handle )->export_byte_order_mark = 1;
-		( *export_handle )->byte_stream_codepage   = LIBUNA_CODEPAGE_ASCII;
+		( *export_handle )->text_input_format           = UNACOMMON_FORMAT_AUTO_DETECT;
+		( *export_handle )->text_output_format          = UNACOMMON_FORMAT_UTF8;
+		( *export_handle )->text_newline_conversion     = UNACOMMON_NEWLINE_CONVERSION_NONE;
+		( *export_handle )->text_export_byte_order_mark = 1;
+		( *export_handle )->text_byte_stream_codepage   = LIBUNA_CODEPAGE_ASCII;
 	}
 	( *export_handle )->notify_stream = EXPORT_HANDLE_NOTIFY_STREAM;
 
@@ -588,7 +588,7 @@ int export_handle_set_encoding(
 	}
 	result = unainput_determine_encoding(
 		  string,
-		  &( export_handle->encoding ),
+		  &( export_handle->base_encoding ),
 		  error );
 
 	if( result == -1 )
@@ -640,7 +640,7 @@ int export_handle_set_encoding_mode(
 	}
 	result = unainput_determine_encoding_mode(
 		  string,
-		  &( export_handle->encoding_mode ),
+		  &( export_handle->base_encoding_mode ),
 		  error );
 
 	if( result == -1 )
@@ -701,7 +701,7 @@ int export_handle_set_input_format(
 		     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
 		     11 ) == 0 )
 		{
-			export_handle->input_format = UNACOMMON_FORMAT_AUTO_DETECT;
+			export_handle->text_input_format = UNACOMMON_FORMAT_AUTO_DETECT;
 			result                      = 1;
 		}
 	}
@@ -709,7 +709,7 @@ int export_handle_set_input_format(
 	{
 		result = unainput_determine_format(
 		          string,
-		          &( export_handle->input_format ),
+		          &( export_handle->text_input_format ),
 		          error );
 
 		if( result == -1 )
@@ -762,7 +762,7 @@ int export_handle_set_output_format(
 	}
 	result = unainput_determine_format(
 		  string,
-		  &( export_handle->output_format ),
+		  &( export_handle->text_output_format ),
 		  error );
 
 	if( result == -1 )
@@ -814,7 +814,7 @@ int export_handle_set_newline_conversion(
 	}
 	result = unainput_determine_newline_conversion(
 		  string,
-		  &( export_handle->newline_conversion ),
+		  &( export_handle->text_newline_conversion ),
 		  error );
 
 	if( result == -1 )
@@ -875,14 +875,14 @@ int export_handle_set_byte_stream_codepage(
 
 #if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
 	result = libclocale_codepage_copy_from_string_wide(
-	          &( export_handle->byte_stream_codepage ),
+	          &( export_handle->text_byte_stream_codepage ),
 	          string,
 	          string_length,
 	          feature_flags,
 	          error );
 #else
 	result = libclocale_codepage_copy_from_string(
-	          &( export_handle->byte_stream_codepage ),
+	          &( export_handle->text_byte_stream_codepage ),
 	          string,
 	          string_length,
 	          feature_flags,
@@ -1057,11 +1057,11 @@ int export_handle_export_base_encoded_input(
 
 		return( -1 );
 	}
-	if( ( export_handle->encoding != UNACOMMON_ENCODING_BASE16 )
-	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE32 )
-	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE32HEX )
-	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64 )
-	 && ( export_handle->encoding != UNACOMMON_ENCODING_BASE64URL ) )
+	if( ( export_handle->base_encoding != UNACOMMON_ENCODING_BASE16 )
+	 && ( export_handle->base_encoding != UNACOMMON_ENCODING_BASE32 )
+	 && ( export_handle->base_encoding != UNACOMMON_ENCODING_BASE32HEX )
+	 && ( export_handle->base_encoding != UNACOMMON_ENCODING_BASE64 )
+	 && ( export_handle->base_encoding != UNACOMMON_ENCODING_BASE64URL ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1072,8 +1072,8 @@ int export_handle_export_base_encoded_input(
 
 		return( -1 );
 	}
-	if( ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_DECODE )
-	 && ( export_handle->encoding_mode != UNACOMMON_ENCODING_MODE_ENCODE ) )
+	if( ( export_handle->base_encoding_mode != UNACOMMON_ENCODING_MODE_DECODE )
+	 && ( export_handle->base_encoding_mode != UNACOMMON_ENCODING_MODE_ENCODE ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1084,7 +1084,7 @@ int export_handle_export_base_encoded_input(
 
 		return( -1 );
 	}
-	if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+	if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 	{
 		encoding_mode_string = "decode";
 	}
@@ -1092,10 +1092,10 @@ int export_handle_export_base_encoded_input(
 	{
 		encoding_mode_string = "encode";
 	}
-	switch( export_handle->encoding )
+	switch( export_handle->base_encoding )
 	{
 		case UNACOMMON_ENCODING_BASE16:
-			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 			{
 				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 2 ) * 2;
 				destination_buffer_size = EXPORT_HANDLE_BUFFER_SIZE / 2;
@@ -1111,7 +1111,7 @@ int export_handle_export_base_encoded_input(
 			break;
 
 		case UNACOMMON_ENCODING_BASE32:
-			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 			{
 				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) * 5;
 				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 5 ) / 8;
@@ -1127,7 +1127,7 @@ int export_handle_export_base_encoded_input(
 			break;
 
 		case UNACOMMON_ENCODING_BASE32HEX:
-			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 			{
 				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 5 ) * 5;
 				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 5 ) / 8;
@@ -1143,7 +1143,7 @@ int export_handle_export_base_encoded_input(
 			break;
 
 		case UNACOMMON_ENCODING_BASE64:
-			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 			{
 				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) * 3;
 				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 3 ) / 4;
@@ -1159,7 +1159,7 @@ int export_handle_export_base_encoded_input(
 			break;
 
 		case UNACOMMON_ENCODING_BASE64URL:
-			if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+			if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 			{
 				source_buffer_size      = ( EXPORT_HANDLE_BUFFER_SIZE / 3 ) * 3;
 				destination_buffer_size = ( EXPORT_HANDLE_BUFFER_SIZE * 3 ) / 4;
@@ -1249,10 +1249,10 @@ int export_handle_export_base_encoded_input(
 		{
 			break;
 		}
-		switch( export_handle->encoding )
+		switch( export_handle->base_encoding )
 		{
 			case UNACOMMON_ENCODING_BASE16:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base16_stream_size_to_byte_stream(
 					          source_buffer,
@@ -1276,7 +1276,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE32:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base32_stream_size_to_byte_stream(
 					          source_buffer,
@@ -1302,7 +1302,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE32HEX:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base32_stream_size_to_byte_stream(
 					          source_buffer,
@@ -1328,7 +1328,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE64:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base64_stream_size_to_byte_stream(
 					          source_buffer,
@@ -1352,7 +1352,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE64URL:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base64_stream_size_to_byte_stream(
 					          source_buffer,
@@ -1386,10 +1386,10 @@ int export_handle_export_base_encoded_input(
 
 			goto on_error;
 		}
-		switch( export_handle->encoding )
+		switch( export_handle->base_encoding )
 		{
 			case UNACOMMON_ENCODING_BASE16:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base16_stream_copy_to_byte_stream(
 					          source_buffer,
@@ -1415,7 +1415,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE32:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base32_stream_copy_to_byte_stream(
 					          source_buffer,
@@ -1443,7 +1443,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE32HEX:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base32_stream_copy_to_byte_stream(
 					          source_buffer,
@@ -1471,7 +1471,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE64:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base64_stream_copy_to_byte_stream(
 					          source_buffer,
@@ -1497,7 +1497,7 @@ int export_handle_export_base_encoded_input(
 				break;
 
 			case UNACOMMON_ENCODING_BASE64URL:
-				if( export_handle->encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
+				if( export_handle->base_encoding_mode == UNACOMMON_ENCODING_MODE_DECODE )
 				{
 					result = libuna_base64_stream_copy_to_byte_stream(
 					          source_buffer,
@@ -1665,14 +1665,14 @@ int export_handle_export_text_encoded_input(
 
 		return( -1 );
 	}
-	if( ( export_handle->input_format != UNACOMMON_FORMAT_AUTO_DETECT )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_BYTE_STREAM )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF7 )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF8 )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16BE )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32BE )
-	 && ( export_handle->input_format != UNACOMMON_FORMAT_UTF32LE ) )
+	if( ( export_handle->text_input_format != UNACOMMON_FORMAT_AUTO_DETECT )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF7 )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF16BE )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF32BE )
+	 && ( export_handle->text_input_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1683,13 +1683,13 @@ int export_handle_export_text_encoded_input(
 
 		return( -1 );
 	}
-	if( ( export_handle->output_format != UNACOMMON_FORMAT_BYTE_STREAM )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF7 )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF8 )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16BE )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF16LE )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32BE )
-	 && ( export_handle->output_format != UNACOMMON_FORMAT_UTF32LE ) )
+	if( ( export_handle->text_output_format != UNACOMMON_FORMAT_BYTE_STREAM )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF7 )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF8 )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF16BE )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF16LE )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF32BE )
+	 && ( export_handle->text_output_format != UNACOMMON_FORMAT_UTF32LE ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1700,10 +1700,10 @@ int export_handle_export_text_encoded_input(
 
 		return( -1 );
 	}
-	if( ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
-	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CRLF )
-	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
-	 && ( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
+	if( ( export_handle->text_newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
+	 && ( export_handle->text_newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CRLF )
+	 && ( export_handle->text_newline_conversion != UNACOMMON_NEWLINE_CONVERSION_CR )
+	 && ( export_handle->text_newline_conversion != UNACOMMON_NEWLINE_CONVERSION_LF ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1742,9 +1742,9 @@ int export_handle_export_text_encoded_input(
 
 		goto on_error;
 	}
-	if( export_handle->export_byte_order_mark != 0 )
+	if( export_handle->text_export_byte_order_mark != 0 )
 	{
-		switch( export_handle->output_format )
+		switch( export_handle->text_output_format )
 		{
 			case UNACOMMON_FORMAT_UTF8:
 				result = libuna_utf8_stream_copy_byte_order_mark(
@@ -1840,11 +1840,11 @@ int export_handle_export_text_encoded_input(
 			 && ( source_buffer[ 1 ] == 0xbb )
 			 && ( source_buffer[ 2 ] == 0xbf ) )
 			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF8;
+					export_handle->text_input_format = UNACOMMON_FORMAT_UTF8;
 				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF8 )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_UTF8 )
 				{
 					source_buffer_index += 3;
 				}
@@ -1853,11 +1853,11 @@ int export_handle_export_text_encoded_input(
 			      && ( source_buffer[ 0 ] == 0xfe )
 			      && ( source_buffer[ 1 ] == 0xff ) )
 			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF16BE;
+					export_handle->text_input_format = UNACOMMON_FORMAT_UTF16BE;
 				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF16BE )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_UTF16BE )
 				{
 					source_buffer_index += 2;
 				}
@@ -1870,22 +1870,22 @@ int export_handle_export_text_encoded_input(
 				 && ( source_buffer[ 2 ] == 0x00 )
 			         && ( source_buffer[ 3 ] == 0x00 ) )
 				{
-					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+					if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 					{
-						export_handle->input_format = UNACOMMON_FORMAT_UTF32LE;
+						export_handle->text_input_format = UNACOMMON_FORMAT_UTF32LE;
 					}
-					if( export_handle->input_format == UNACOMMON_FORMAT_UTF32LE )
+					if( export_handle->text_input_format == UNACOMMON_FORMAT_UTF32LE )
 					{
 						source_buffer_index += 4;
 					}
 				}
 				else
 				{
-					if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+					if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 					{
-						export_handle->input_format = UNACOMMON_FORMAT_UTF16LE;
+						export_handle->text_input_format = UNACOMMON_FORMAT_UTF16LE;
 					}
-					if( export_handle->input_format == UNACOMMON_FORMAT_UTF16LE )
+					if( export_handle->text_input_format == UNACOMMON_FORMAT_UTF16LE )
 					{
 						source_buffer_index += 2;
 					}
@@ -1897,18 +1897,18 @@ int export_handle_export_text_encoded_input(
 			      && ( source_buffer[ 1 ] == 0xfe )
 			      && ( source_buffer[ 1 ] == 0xff ) )
 			{
-				if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 				{
-					export_handle->input_format = UNACOMMON_FORMAT_UTF32BE;
+					export_handle->text_input_format = UNACOMMON_FORMAT_UTF32BE;
 				}
-				if( export_handle->input_format == UNACOMMON_FORMAT_UTF32BE )
+				if( export_handle->text_input_format == UNACOMMON_FORMAT_UTF32BE )
 				{
 					source_buffer_index += 4;
 				}
 			}
-			else if( export_handle->input_format == UNACOMMON_FORMAT_AUTO_DETECT )
+			else if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 			{
-				export_handle->input_format = UNACOMMON_FORMAT_BYTE_STREAM;
+				export_handle->text_input_format = UNACOMMON_FORMAT_BYTE_STREAM;
 			}
 			read_count -= (ssize_t) source_buffer_index;
 
@@ -1930,7 +1930,7 @@ int export_handle_export_text_encoded_input(
 			{
 				break;
 			}
-			switch( export_handle->input_format )
+			switch( export_handle->text_input_format )
 			{
 				case UNACOMMON_FORMAT_BYTE_STREAM:
 					result = libuna_unicode_character_copy_from_byte_stream(
@@ -1938,7 +1938,7 @@ int export_handle_export_text_encoded_input(
 						  source_buffer,
 						  source_buffer_size,
 						  &source_buffer_index,
-						  export_handle->byte_stream_codepage,
+						  export_handle->text_byte_stream_codepage,
 					          error );
 					break;
 
@@ -2022,13 +2022,13 @@ int export_handle_export_text_encoded_input(
 
 			last_source_buffer_index = source_buffer_index;
 
-			if( export_handle->newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
+			if( export_handle->text_newline_conversion != UNACOMMON_NEWLINE_CONVERSION_NONE )
 			{
 				/* Determine if character is a line feed (LF)
 				 */
 				if( unicode_character[ unicode_character_index ] == 0x000a )
 				{
-					if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
+					if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
 					{
 						if( unicode_character_index == 0 )
 						{
@@ -2038,7 +2038,7 @@ int export_handle_export_text_encoded_input(
 							number_of_unicode_characters++;
 						}
 					}
-					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
+					else if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
 					{
 						if( unicode_character_index == 0 )
 						{
@@ -2051,7 +2051,7 @@ int export_handle_export_text_encoded_input(
 							number_of_unicode_characters--;
 						}
 					}
-					else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
+					else if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
 					{
 						if( unicode_character_index == 1 )
 						{
@@ -2076,7 +2076,7 @@ int export_handle_export_text_encoded_input(
 			     unicode_character_index < number_of_unicode_characters;
 			     unicode_character_index++ )
 			{
-				switch( export_handle->output_format )
+				switch( export_handle->text_output_format )
 				{
 					case UNACOMMON_FORMAT_BYTE_STREAM:
 						result = libuna_unicode_character_copy_to_byte_stream(
@@ -2084,7 +2084,7 @@ int export_handle_export_text_encoded_input(
 							  destination_buffer,
 							  destination_buffer_size,
 							  &destination_buffer_index,
-							  export_handle->byte_stream_codepage,
+							  export_handle->text_byte_stream_codepage,
 						          error );
 						break;
 
@@ -2347,7 +2347,7 @@ int export_handle_print_parameters(
 
 		unaoutput_format_fprint(
 		 export_handle->notify_stream,
-		 export_handle->input_format );
+		 export_handle->text_input_format );
 
 		fprintf(
 		 export_handle->notify_stream,
@@ -2364,7 +2364,7 @@ int export_handle_print_parameters(
 
 		unaoutput_format_fprint(
 		 export_handle->notify_stream,
-		 export_handle->output_format );
+		 export_handle->text_output_format );
 
 		fprintf(
 		 export_handle->notify_stream,
@@ -2376,7 +2376,7 @@ int export_handle_print_parameters(
 
 		unaoutput_codepage_fprint(
 		 export_handle->notify_stream,
-		 export_handle->byte_stream_codepage );
+		 export_handle->text_byte_stream_codepage );
 
 		fprintf(
 		 export_handle->notify_stream,
@@ -2386,7 +2386,7 @@ int export_handle_print_parameters(
 		 export_handle->notify_stream,
 		 "\texport byte order mark:\t" );
 
-		if( export_handle->export_byte_order_mark == 0 )
+		if( export_handle->text_export_byte_order_mark == 0 )
 		{
 			fprintf(
 			 export_handle->notify_stream,
@@ -2406,25 +2406,25 @@ int export_handle_print_parameters(
 		 export_handle->notify_stream,
 		 "\tnewline conversion:\t" );
 		
-		if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
+		if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
 		{
 			fprintf(
 			 export_handle->notify_stream,
 			 "none" );
 		}
-		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
+		else if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CRLF )
 		{
 			fprintf(
 			 export_handle->notify_stream,
 			 "carriage return and line feed (crlf)" );
 		}
-		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
+		else if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_CR )
 		{
 			fprintf(
 			 export_handle->notify_stream,
 			 "carriage return (cr)" );
 		}
-		else if( export_handle->newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
+		else if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_LF )
 		{
 			fprintf(
 			 export_handle->notify_stream,
