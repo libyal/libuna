@@ -26,16 +26,18 @@ EXIT_IGNORE=77;
 
 test_utf7_stream_copy_from()
 { 
-	rm -rf tmp;
-	mkdir tmp;
+	TMPDIR="tmp$$";
+
+	rm -rf ${TMPDIR};
+	mkdir ${TMPDIR};
 
 	echo "Testing UTF-7 stream copy from function";
 
-	${TEST_RUNNER} ./${UNA_TEST_UTF7_STRING_COPY_FROM};
+	${TEST_RUNNER} ${TMPDIR} ./${UNA_TEST_UTF7_STRING_COPY_FROM};
 
 	RESULT=$?;
 
-	rm -rf tmp;
+	rm -rf ${TMPDIR};
 
 	echo "";
 

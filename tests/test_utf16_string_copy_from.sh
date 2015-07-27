@@ -26,16 +26,18 @@ EXIT_IGNORE=77;
 
 test_utf16_string_copy_from()
 { 
-	rm -rf tmp;
-	mkdir tmp;
+	TMPDIR="tmp$$";
+
+	rm -rf ${TMPDIR};
+	mkdir ${TMPDIR};
 
 	echo "Testing UTF-16 string copy from function";
 
-	${TEST_RUNNER} ./${UNA_TEST_UTF16_STRING_COPY_FROM};
+	${TEST_RUNNER} ${TMPDIR} ./${UNA_TEST_UTF16_STRING_COPY_FROM};
 
 	RESULT=$?;
 
-	rm -rf tmp;
+	rm -rf ${TMPDIR};
 
 	echo "";
 

@@ -26,16 +26,18 @@ EXIT_IGNORE=77;
 
 test_base64_stream_copy_to()
 { 
-	rm -rf tmp;
-	mkdir tmp;
+	TMPDIR="tmp$$";
+
+	rm -rf ${TMPDIR};
+	mkdir ${TMPDIR};
 
 	echo "Testing base64 stream copy to function";
 
-	${TEST_RUNNER} ./${UNA_TEST_BASE64_STREAM_COPY_FROM};
+	${TEST_RUNNER} ${TMPDIR} ./${UNA_TEST_BASE64_STREAM_COPY_FROM};
 
 	RESULT=$?;
 
-	rm -rf tmp;
+	rm -rf ${TMPDIR};
 
 	echo "";
 

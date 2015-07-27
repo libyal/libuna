@@ -26,16 +26,18 @@ EXIT_IGNORE=77;
 
 test_unicode_character_copy_to()
 { 
-	rm -rf tmp;
-	mkdir tmp;
+	TMPDIR="tmp$$";
+
+	rm -rf ${TMPDIR};
+	mkdir ${TMPDIR};
 
 	echo "Testing Unicode character copy to function";
 
-	${TEST_RUNNER} ./${UNA_TEST_UNICODE_CHARACTER_COPY_TO};
+	${TEST_RUNNER} ${TMPDIR} ./${UNA_TEST_UNICODE_CHARACTER_COPY_TO};
 
 	RESULT=$?;
 
-	rm -rf tmp;
+	rm -rf ${TMPDIR};
 
 	echo "";
 

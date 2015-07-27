@@ -25,7 +25,6 @@ EXIT_FAILURE=1;
 EXIT_IGNORE=77;
 
 INPUT="input";
-TMP="tmp";
 
 GREP="grep";
 LS="ls";
@@ -38,14 +37,16 @@ test_unaexport()
 { 
 	INPUT_FILE=$1;
 
-	rm -rf tmp;
-	mkdir tmp;
+	TMPDIR="tmp$$";
 
-	SUM=`${TEST_RUNNER} ${UNAEXPORT} -d md5 ${INPUT_FILE} | ${GREP} "MD5" | ${SED} 's/^[^:]*[:][\t][\t]*//'`;
+	rm -rf ${TMPDIR};
+	mkdir ${TMPDIR};
+
+	SUM=`${TEST_RUNNER} ${TMPDIR} ${UNAEXPORT} -d md5 ${INPUT_FILE} | ${GREP} "MD5" | ${SED} 's/^[^:]*[:][\t][\t]*//'`;
 
 	RESULT=$?;
 
-	rm -rf tmp;
+	rm -rf ${TMPDIR};
 
 	if test ${RESULT} -eq ${EXIT_SUCCESS};
 	then
