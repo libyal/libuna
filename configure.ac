@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20121224],
+ [20130103],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -137,7 +137,6 @@ AC_CONFIG_FILES([documents/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
 AC_CONFIG_FILES([macosx/Makefile])
-AC_CONFIG_FILES([borlandc/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libuna.h])

@@ -1,4 +1,5 @@
 TODO
+* test macosx package maker files
 * make sure whitespace is stripped when copying to byte stream:
   - base32
 * base encoding: support UTF-16 and 32 encoding by flags
@@ -7,32 +8,12 @@ TODO
   - base16
   - base32
   - base64
-* tests: copy from
-  - invalid number of characters in line ?
-  - base32 (+/-)
-* tests: copy to
-  - invalid number of characters in line ?
-  - base32
 * check TODO's
   - base64 definitions
-
-* tests
-  - unicode 2 codepage tests
-    - test values not in codepage
-  - codepage 2 unicode tests
-    - test values not in codepage
 
 * implement with index functions
 * base16
   - add separate function to convert a byte like base64 sixtet
-* unabase:
-  - convert between base64 binary base16?
-  - have hexdump as input/output
-  - add msvscpp project file
-  - add codegear project file
-* tests
-  - implement tests
-* gettext support
 
 * libuna
   - add source == destination check to functions?
@@ -71,8 +52,23 @@ Test:
 * create automated tests and test files
   - create test_unabase.sh
   - complete test_unaexport.sh
+* unicode 2 codepage tests
+  - test values not in codepage
+* codepage 2 unicode tests
+  - test values not in codepage
+* tests: copy from
+  - invalid number of characters in line ?
+  - base32 (+/-)
+* tests: copy to
+  - invalid number of characters in line ?
+  - base32
 
 Tools:
+* unabase:
+  - convert between base64 binary base16?
+  - have hexdump as input/output
+  - add msvscpp project file
+  - add codegear project file
 * unaexport
   - implement export_handle
   - what happens when exporting UTF16LE as UTF16BE to UTF16LE with the BOM
@@ -94,6 +90,7 @@ Tools:
     .Xr unainfo 1
   - update spec.in file
   - update msvscpp, codegear project files
+* gettext support
 
 Deployment:
 * create Borland C++ 5.5 files
@@ -103,6 +100,13 @@ Note:
 * CodeGear uses OEM codepage e.g. 850
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
+
+20130103
+* 2013 update
+* worked on macosx package maker files
+* updated dependencies
+* update msvscpp files
+* removed borlandc files
 
 20121224
 * added .gitignore

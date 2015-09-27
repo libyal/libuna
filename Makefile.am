@@ -16,7 +16,6 @@ SUBDIRS = \
 	manuals \
 	tests \
 	macosx \
-	borlandc \
 	msvscpp
 
 DPKG_FILES = \

@@ -10,7 +10,8 @@
 *.so
 *.so.[0-9][0-9]*
 *.so.[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*
-.debs
+*.Tpo
+.deps
 .libs
 Makefile
 Makefile.in

@@ -66,6 +66,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %files tools
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README
+%attr(755,root,root) %{_bindir}/unabase
 %attr(755,root,root) %{_bindir}/unaexport
 %{_mandir}/man1/*
 
