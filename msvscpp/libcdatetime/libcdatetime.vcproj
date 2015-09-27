@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libcdatetime"
-	ProjectGUID="{E83B079C-1FEC-44CB-A12C-45538D8B86F6}"
+	ProjectGUID="{2DDB33B8-3251-4231-A2C8-4835C57B91F9}"
 	RootNamespace="libcdatetime"
 	TargetFrameworkVersion="131072"
 	>
