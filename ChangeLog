@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20151230
+* updated dependencies
+
 20150927
 * merged history from backups
 * updated m4 scripts and msvscpp files
