@@ -1,7 +1,7 @@
 /*
  * Unicode and ASCII (byte stream) conversion library UTF-8 stream copy from testing program
  *
- * Copyright (C) 2008-2015, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *

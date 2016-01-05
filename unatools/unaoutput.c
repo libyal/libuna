@@ -1,7 +1,7 @@
 /*
  * Common output functions for the unatools
  *
- * Copyright (C) 2008-2015, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -42,7 +42,7 @@ void unaoutput_copyright_fprint(
 	}
 	fprintf(
 	 stream,
-	 "Copyright (C) 2008-2015, Joachim Metz <%s>.\n"
+	 "Copyright (C) 2008-2016, Joachim Metz <%s>.\n"
 	 "This is free software; see the source for copying conditions. There is NO\n"
 	 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
 	 PACKAGE_BUGREPORT );

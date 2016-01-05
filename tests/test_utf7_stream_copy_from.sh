@@ -2,7 +2,7 @@
 #
 # Unicode and ASCII (byte stream) conversion library UTF-7 stream copy from testing script
 #
-# Copyright (C) 2008-2015, Joachim Metz <joachim.metz@gmail.com>
+# Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
 #
 # Refer to AUTHORS for acknowledgements.
 #
