@@ -59,7 +59,7 @@ libuna_la_SOURCES = \
 	libuna_utf8_stream.c libuna_utf8_stream.h \
 	libuna_utf8_string.c libuna_utf8_string.h
 
-libuna_la_LIBADD  = \
+libuna_la_LIBADD = \
 	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@
 
