@@ -1,7 +1,7 @@
 #!/bin/sh
 # Script that synchronizes the local library dependencies
 #
-# Version: 20141004
+# Version: 20160212
 
 GIT_URL_PREFIX="https://github.com/libyal";
 LOCAL_LIBS="libcdatetime libcerror libcfile libclocale libcnotify libcstring libcsystem";
@@ -69,11 +69,6 @@ endif
 			sed -i'~' -f ${LOCAL_LIB}-$$.sed ${LOCAL_LIB}/Makefile.am;
 			rm -f ${LOCAL_LIB}-$$.sed;
 
-			if test ${LOCAL_LIB} = "libcfile" || test ${LOCAL_LIB} = "libcsystem";
-			then
-				sed -i'~' "s/@LIBUNA_CPPFLAGS@/-I\$(top_srcdir)\/libuna/" ${LOCAL_LIB}/Makefile.am;
-			fi
-
 			sed -i'~' "/${LOCAL_LIB}_definitions.h.in/d" ${LOCAL_LIB}/Makefile.am;
 			sed -i'~' "/${LOCAL_LIB}.rc/d" ${LOCAL_LIB}/Makefile.am;
 			sed -i'~' '/EXTRA_DIST = /d' ${LOCAL_LIB}/Makefile.am;
@@ -94,7 +89,7 @@ SED_SCRIPT="/^$/ {
 			rm -f ${LOCAL_LIB}/${LOCAL_LIB}.c;
 
 			cp ${LOCAL_LIB}-$$/${LOCAL_LIB}/${LOCAL_LIB}_definitions.h.in ${LOCAL_LIB}/${LOCAL_LIB}_definitions.h;
-			sed -i'~' 's/@VERSION@/${LOCAL_LIB_VERSION}/' ${LOCAL_LIB}/${LOCAL_LIB}_definitions.h;
+			sed -i'~' "s/@VERSION@/${LOCAL_LIB_VERSION}/" ${LOCAL_LIB}/${LOCAL_LIB}_definitions.h;
 		fi
 		rm -rf ${LOCAL_LIB}-$$;
 	fi

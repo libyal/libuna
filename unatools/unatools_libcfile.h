@@ -19,8 +19,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNATOOLS_LIBCFILE_H )
-#define _LIBUNATOOLS_LIBCFILE_H
+#if !defined( _UNATOOLS_LIBCFILE_H )
+#define _UNATOOLS_LIBCFILE_H
 
 #include <common.h>
 
@@ -44,7 +44,7 @@
 
 #include <libcfile.h>
 
-#endif
+#endif /* defined( HAVE_LOCAL_LIBCFILE ) */
 
-#endif
+#endif /* !defined( _UNATOOLS_LIBCFILE_H ) */
 

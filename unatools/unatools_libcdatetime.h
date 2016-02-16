@@ -19,8 +19,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNATOOLS_LIBCDATETIME_H )
-#define _LIBUNATOOLS_LIBCDATETIME_H
+#if !defined( _UNATOOLS_LIBCDATETIME_H )
+#define _UNATOOLS_LIBCDATETIME_H
 
 #include <common.h>
 
@@ -44,7 +44,7 @@
 
 #include <libcdatetime.h>
 
-#endif
+#endif /* defined( HAVE_LOCAL_LIBCDATETIME ) */
 
-#endif
+#endif /* !defined( _UNATOOLS_LIBCDATETIME_H ) */
 

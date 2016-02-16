@@ -35,7 +35,6 @@
 #include <libcsystem_signal.h>
 #include <libcsystem_string.h>
 #include <libcsystem_support.h>
-#include <libcsystem_types.h>
 #include <libcsystem_unused.h>
 
 #else
@@ -49,7 +48,7 @@
 
 #include <libcsystem.h>
 
-#endif
+#endif /* defined( HAVE_LOCAL_LIBCSYSTEM ) */
 
-#endif
+#endif /* !defined( _UNATOOLS_LIBCSYSTEM_H ) */
 
