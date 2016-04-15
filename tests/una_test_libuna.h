@@ -24,14 +24,14 @@
 
 #include <common.h>
 
-/* If Cygwin libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
+/* If Cygwin libtool DLL support is enabled and do not want to create static
+ * executables set LIBUNA_DLL_IMPORT before including libuna.h
  */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
+#if defined( _WIN32 ) && defined( DLL_EXPORT ) && !defined( HAVE_STATIC_EXECUTABLES )
 #define LIBUNA_DLL_IMPORT
 #endif
 
 #include <libuna.h>
 
-#endif
+#endif /* !defined( _UNA_TEST_LIBUNA_H ) */
 

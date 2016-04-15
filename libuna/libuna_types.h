@@ -47,7 +47,7 @@ typedef uint16_t libuna_utf16_character_t;
  */
 typedef uint32_t libuna_utf32_character_t;
 
-#endif
-
-#endif
+#endif /* defined( HAVE_LOCAL_LIBUNA ) */
+ 
+#endif /* !defined( _LIBUNA_INTERNAL_TYPES_H ) */
 

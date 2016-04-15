@@ -107,7 +107,7 @@ struct export_handle
 	 */
 	int text_byte_stream_codepage;
 
-	/* The nofication output stream
+	/* The notification output stream
 	 */
 	FILE *notify_stream;
 
