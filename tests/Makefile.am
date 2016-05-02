@@ -5,39 +5,12 @@ AM_CPPFLAGS = \
 	@LIBUNA_DLL_IMPORT@
 
 TESTS = \
-	test_base16_stream_copy_from.sh \
-	test_base16_stream_copy_to.sh \
-	test_base32_stream_copy_from.sh \
-	test_base32_stream_copy_to.sh \
-	test_base64_stream_copy_from.sh \
-	test_base64_stream_copy_to.sh \
-	test_unicode_character_copy_from.sh \
-	test_unicode_character_copy_to.sh \
-	test_utf16_stream_copy_from.sh \
-	test_utf16_string_copy_from.sh \
-	test_utf32_stream_copy_from.sh \
-	test_utf32_string_copy_from.sh \
-	test_utf7_stream_copy_from.sh \
-	test_utf8_stream_copy_from.sh \
-	test_utf8_string_copy_from.sh
+	test_api_functions.sh
 
 check_SCRIPTS = \
-	test_base16_stream_copy_from.sh \
-	test_base16_stream_copy_to.sh \
-	test_base32_stream_copy_from.sh \
-	test_base32_stream_copy_to.sh \
-	test_base64_stream_copy_from.sh \
-	test_base64_stream_copy_to.sh \
+	test_api_functions.sh \
 	test_runner.sh \
-	test_utf16_stream_copy_from.sh \
-	test_utf16_string_copy_from.sh \
-	test_utf32_stream_copy_from.sh \
-	test_utf32_string_copy_from.sh \
-	test_utf7_stream_copy_from.sh \
-	test_utf8_stream_copy_from.sh \
-	test_utf8_string_copy_from.sh \
-	test_unicode_character_copy_from.sh \
-	test_unicode_character_copy_to.sh
+	test_unaexport.sh
 
 EXTRA_DIST = \
 	$(check_SCRIPTS)
@@ -49,6 +22,7 @@ check_PROGRAMS = \
 	una_test_base32_stream_copy_to \
 	una_test_base64_stream_copy_from \
 	una_test_base64_stream_copy_to \
+	una_test_get_version \
 	una_test_utf16_stream_copy_from \
 	una_test_utf16_string_copy_from \
 	una_test_utf32_stream_copy_from \
@@ -110,6 +84,16 @@ una_test_base64_stream_copy_to_SOURCES = \
 	una_test_libuna.h
 
 una_test_base64_stream_copy_to_LDADD = \
+	../libuna/libuna.la \
+	@LIBCSTRING_LIBADD@
+
+una_test_get_version_SOURCES = \
+	una_test_get_version.c \
+	una_test_libcstring.h \
+	una_test_libuna.h \
+	una_test_unused.h
+
+una_test_get_version_LDADD = \
 	../libuna/libuna.la \
 	@LIBCSTRING_LIBADD@
 
