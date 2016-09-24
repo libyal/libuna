@@ -91,6 +91,7 @@ una_test_get_version_SOURCES = \
 	una_test_get_version.c \
 	una_test_libcstring.h \
 	una_test_libuna.h \
+	una_test_macros.h \
 	una_test_unused.h
 
 una_test_get_version_LDADD = \
