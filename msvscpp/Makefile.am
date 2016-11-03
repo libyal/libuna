@@ -13,7 +13,7 @@ MSVSCPP_FILES = \
 	una_test_base32_stream_copy_to/una_test_base32_stream_copy_to.vcproj \
 	una_test_base64_stream_copy_from/una_test_base64_stream_copy_from.vcproj \
 	una_test_base64_stream_copy_to/una_test_base64_stream_copy_to.vcproj \
-	una_test_get_version/una_test_get_version.vcproj \
+	una_test_support/una_test_support.vcproj \
 	una_test_unicode_character_copy_from/una_test_unicode_character_copy_from.vcproj \
 	una_test_unicode_character_copy_to/una_test_unicode_character_copy_to.vcproj \
 	una_test_utf16_stream_copy_from/una_test_utf16_stream_copy_from.vcproj \

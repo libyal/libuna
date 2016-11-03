@@ -103,6 +103,9 @@ Note:
 * streams, except for a (byte stream) ASCII string, are not considered
   terminated by an end-of-string character
 
+20161103
+* worked on tests
+
 20160105
 * 2016 update
 

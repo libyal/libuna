@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_get_version"
-	ProjectGUID="{60887BFA-96DD-4198-A60C-72E2FA2372F2}"
-	RootNamespace="una_test_get_version"
+	Name="una_test_support"
+	ProjectGUID="{B12AA291-88AE-48B4-B284-8DF524AAB1D6}"
+	RootNamespace="una_test_support"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_get_version.c"
+				RelativePath="..\..\tests\una_test_support.c"
 				>
 			</File>
 		</Filter>

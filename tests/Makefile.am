@@ -22,7 +22,7 @@ check_PROGRAMS = \
 	una_test_base32_stream_copy_to \
 	una_test_base64_stream_copy_from \
 	una_test_base64_stream_copy_to \
-	una_test_get_version \
+	una_test_support \
 	una_test_utf16_stream_copy_from \
 	una_test_utf16_string_copy_from \
 	una_test_utf32_stream_copy_from \
@@ -87,14 +87,14 @@ una_test_base64_stream_copy_to_LDADD = \
 	../libuna/libuna.la \
 	@LIBCSTRING_LIBADD@
 
-una_test_get_version_SOURCES = \
-	una_test_get_version.c \
+una_test_support_SOURCES = \
 	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_support.c \
 	una_test_unused.h
 
-una_test_get_version_LDADD = \
+una_test_support_LDADD = \
 	../libuna/libuna.la \
 	@LIBCSTRING_LIBADD@
 
