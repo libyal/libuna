@@ -10,7 +10,7 @@ $TestPrefix = Split-Path -path ${Pwd}.Path -parent
 $TestPrefix = Split-Path -path ${TestPrefix} -leaf
 $TestPrefix = ${TestPrefix}.Substring(3)
 
-$TestFunctions = "base16_stream base32_stream_copy_from base32_stream_copy_to base64_stream_copy_from base64_stream_copy_to support unicode_character_copy_from unicode_character_copy_to utf16_stream_copy_from utf16_string_copy_from utf32_stream_copy_from utf32_string_copy_from utf7_stream_copy_from utf8_stream_copy_from utf8_string_copy_from" -split " "
+$TestFunctions = "base16_stream base32_stream_copy_from base32_stream_copy_to base64_stream_copy_from base64_stream_copy_to error support unicode_character_copy_from unicode_character_copy_to utf16_stream_copy_from utf16_string_copy_from utf32_stream_copy_from utf32_string_copy_from utf7_stream_copy_from utf8_stream_copy_from utf8_string_copy_from" -split " "
 
 $TestToolDirectory = "..\vs2010\Release"
 

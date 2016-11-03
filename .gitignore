@@ -126,6 +126,7 @@ stamp-h[1-9]
 /tests/una_test_base32_stream_copy_to
 /tests/una_test_base64_stream_copy_from
 /tests/una_test_base64_stream_copy_to
+/tests/una_test_error
 /tests/una_test_support
 /tests/una_test_utf16_stream_copy_from
 /tests/una_test_utf16_string_copy_from
