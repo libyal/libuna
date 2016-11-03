@@ -299,5 +299,5 @@ enum LIBUNA_BASE64_FLAGS
 	LIBUNA_BASE64_FLAG_STRIP_WHITESPACE			= 0x01
 };
 
-#endif
+#endif /* !defined( _LIBUNA_DEFINITIONS_H ) */
 

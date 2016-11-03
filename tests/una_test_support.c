@@ -1,5 +1,5 @@
 /*
- * Library get version test program
+ * Library support functions test program
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -30,7 +30,7 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
-/* Tests retrieving the library version
+/* Tests the libuna_get_version function
  * Returns 1 if successful or 0 if not
  */
 int una_test_get_version(
@@ -74,7 +74,7 @@ int main(
 
 	UNA_TEST_RUN(
 	 "libuna_get_version",
-	 una_test_get_version() )
+	 una_test_get_version );
 
 	return( EXIT_SUCCESS );
 

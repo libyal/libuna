@@ -223,5 +223,5 @@ typedef uint32_t libuna_utf32_character_t;
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_TYPES_H ) */
 
