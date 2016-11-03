@@ -83,5 +83,5 @@ int libuna_base16_stream_with_index_copy_from_byte_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_BASE16_STREAM_H ) */
 
