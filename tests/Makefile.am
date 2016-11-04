@@ -17,8 +17,7 @@ EXTRA_DIST = \
 
 check_PROGRAMS = \
 	una_test_base16_stream \
-	una_test_base32_stream_copy_from \
-	una_test_base32_stream_copy_to \
+	una_test_base32_stream \
 	una_test_base64_stream_copy_from \
 	una_test_base64_stream_copy_to \
 	una_test_error \
@@ -46,22 +45,17 @@ una_test_base16_stream_LDADD = \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
-una_test_base32_stream_copy_from_SOURCES = \
-	una_test_base32_stream_copy_from.c \
+una_test_base32_stream_SOURCES = \
+	una_test_base32_stream.c \
+	una_test_libcerror.h \
 	una_test_libcstring.h \
-	una_test_libuna.h
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
 
-una_test_base32_stream_copy_from_LDADD = \
+una_test_base32_stream_LDADD = \
 	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
-
-una_test_base32_stream_copy_to_SOURCES = \
-	una_test_base32_stream_copy_to.c \
-	una_test_libcstring.h \
-	una_test_libuna.h
-
-una_test_base32_stream_copy_to_LDADD = \
-	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
 una_test_base64_stream_copy_from_SOURCES = \

@@ -11,7 +11,7 @@ TEST_PREFIX=`dirname ${PWD}`;
 TEST_PREFIX=`basename ${TEST_PREFIX} | sed 's/^lib\([^-]*\).*$/\1/'`;
 
 TEST_PROFILE="lib${TEST_PREFIX}";
-TEST_FUNCTIONS="base16_stream base32_stream_copy_from base32_stream_copy_to base64_stream_copy_from base64_stream_copy_to error support unicode_character_copy_from unicode_character_copy_to utf16_stream_copy_from utf16_string_copy_from utf32_stream_copy_from utf32_string_copy_from utf7_stream_copy_from utf8_stream_copy_from utf8_string_copy_from";
+TEST_FUNCTIONS="base16_stream base32_stream base64_stream_copy_from base64_stream_copy_to error support unicode_character_copy_from unicode_character_copy_to utf16_stream_copy_from utf16_string_copy_from utf32_stream_copy_from utf32_string_copy_from utf7_stream_copy_from utf8_stream_copy_from utf8_string_copy_from";
 TEST_FUNCTIONS_WITH_INPUT="";
 OPTION_SETS="";
 

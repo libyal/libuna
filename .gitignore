@@ -122,8 +122,7 @@ stamp-h[1-9]
 /libuna/libuna_definitions.h
 /tests/tmp*
 /tests/una_test_base16_stream
-/tests/una_test_base32_stream_copy_from
-/tests/una_test_base32_stream_copy_to
+/tests/una_test_base32_stream
 /tests/una_test_base64_stream_copy_from
 /tests/una_test_base64_stream_copy_to
 /tests/una_test_error

@@ -1,5 +1,5 @@
 /*
- * Unicode and ASCII (byte stream) conversion library base16 stream copy from testing program
+ * Library base16 stream functions test program
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -55,20 +55,21 @@ uint8_t una_test_base16_stream_utf32be_upper_case_base16_stream[ 128 ] = {
         0, 0, 0, 'C', 0, 0, 0, '3', 0, 0, 0, 'A', 0, 0, 0, '1', 0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '7', 0, 0, 0, '4',
         0, 0, 0, '6', 0, 0, 0, '5', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '7', 0, 0, 0, '4', 0, 0, 0, '2', 0, 0, 0, 'E' };
 
-uint8_t *una_test_base16_stream_byte_stream_long = \
-	(uint8_t *) "The test of success is not what you do when you are on top. Success is how high you bounce when you hit bottom.\n";
+char *una_test_base16_stream_byte_stream_long = \
+	"The test of success is not what you do when you are on top. " \
+	"Success is how high you bounce when you hit bottom.\n";
 
-uint8_t *una_test_base16_stream_lower_case_base16_stream_long = \
-	(uint8_t *) "5468652074657374206f662073756363657373206973206e6f74207768617420\n"
-                    "796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363\n"
-	            "65737320697320686f77206869676820796f7520626f756e6365207768656e20\n"
-                    "796f752068697420626f74746f6d2e0a\n";
+char *una_test_base16_stream_lower_case_base16_stream_long = \
+	"5468652074657374206f662073756363657373206973206e6f74207768617420\n"
+        "796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363\n"
+	"65737320697320686f77206869676820796f7520626f756e6365207768656e20\n"
+        "796f752068697420626f74746f6d2e0a\n";
 
-uint8_t *una_test_base16_stream_lower_case_base16_stream_long_with_whitespace = \
-	(uint8_t *) "\t5468652074657374206f662073756363657373206973206e6f74207768617420\t\n"
-                    "  796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363  \n"
-	            "\t65737320697320686f77206869676820796f7520626f756e6365207768656e20  \n"
-                    "\t796f752068697420626f74746f6d2e0a                                  \n";
+char *una_test_base16_stream_lower_case_base16_stream_long_with_whitespace = \
+	"\t5468652074657374206f662073756363657373206973206e6f74207768617420\t\n"
+        "  796f7520646f207768656e20796f7520617265206f6e20746f702e2053756363  \n"
+	"\t65737320697320686f77206869676820796f7520626f756e6365207768656e20  \n"
+        "\t796f752068697420626f74746f6d2e0a                                  \n";
 
 /* Tests the libuna_base16_stream_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
@@ -169,7 +170,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	 (size_t) 16 );
 
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long,
 	          228,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
@@ -191,7 +192,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	 (size_t) 112 );
 
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
 	          272,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
@@ -363,7 +364,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	/* Incorrect character limit
 	 */
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long,
 	          228,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_76,
@@ -385,7 +386,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	/* Missing whitespace flag
 	 */
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
 	          272,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_MIXED | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
@@ -534,7 +535,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long,
 	          228,
 		  byte_stream,
 		  112,
@@ -562,7 +563,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
 	          272,
 		  byte_stream,
 		  112,
@@ -791,7 +792,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	/* Incorrect character limit
 	 */
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long,
 	          228,
 		  byte_stream,
 		  112,
@@ -814,7 +815,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	/* Missing whitespace flag
 	 */
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
+	          (uint8_t *) una_test_base16_stream_lower_case_base16_stream_long_with_whitespace,
 	          272,
 		  byte_stream,
 		  112,
@@ -935,7 +936,7 @@ int una_test_base16_stream_size_from_byte_stream(
 	 (size_t) 128 );
 
 	result = libuna_base16_stream_size_from_byte_stream(
-		  una_test_base16_stream_byte_stream_long,
+		  (uint8_t *) una_test_base16_stream_byte_stream_long,
 		  112,
 		  &base16_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
@@ -1161,7 +1162,7 @@ int una_test_base16_stream_copy_from_byte_stream(
 	result = libuna_base16_stream_copy_from_byte_stream(
 		  base16_stream,
 		  228,
-		  una_test_base16_stream_byte_stream_long,
+		  (uint8_t *) una_test_base16_stream_byte_stream_long,
 		  112,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
 		  &error );
