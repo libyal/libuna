@@ -21,15 +21,13 @@
 
 #include <common.h>
 #include <file_stream.h>
-#include <memory.h>
 #include <types.h>
 
 #include "unacommon.h"
+#include "unaoutput.h"
 #include "unatools_libcerror.h"
-#include "unatools_libcstring.h"
 #include "unatools_libcsystem.h"
 #include "unatools_libuna.h"
-#include "unaoutput.h"
 
 /* Prints the copyright information
  */

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20161103],
+ [20161106],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -54,9 +54,6 @@ AX_TYPES_CHECK_LOCAL
 
 dnl Checks for libraries and library functions
 AX_COMMON_CHECK_LOCAL
-
-dnl Check for enabling libcstring for cross-platform C string functions
-AX_LIBCSTRING_CHECK_ENABLE
 
 dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
@@ -119,7 +116,7 @@ CFLAGS="$CFLAGS -Wall";
 
 dnl Check if requires and build requires should be set in spec file
 AS_IF(
- [test "x$ac_cv_libcstring" = xyes || test "x$ac_cv_libcerror" = xyes],
+ [test "x$ac_cv_libcerror" = xyes],
  [AC_SUBST(
   [libuna_spec_requires],
   [Requires:])
@@ -154,7 +151,6 @@ dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
-AC_CONFIG_FILES([libcstring/Makefile])
 AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
 AC_CONFIG_FILES([libcdatetime/Makefile])
@@ -190,7 +186,6 @@ AC_OUTPUT
 dnl Print a summary
 AC_MSG_NOTICE([
 Building:
-   libcstring support:                       $ac_cv_libcstring
    libcerror support:                        $ac_cv_libcerror
    libcdatetime support:                     $ac_cv_libcdatetime
    libclocale support:                       $ac_cv_libclocale

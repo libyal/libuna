@@ -26,34 +26,33 @@
 #include <types.h>
 
 #include "unatools_libcerror.h"
-#include "unatools_libcstring.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
 int unainput_determine_encoding(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *encoding,
      libcerror_error_t **error );
 
 int unainput_determine_encoding_mode(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *encoding_mode,
      libcerror_error_t **error );
 
 int unainput_determine_format(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *format,
      libcerror_error_t **error );
 
 int unainput_determine_format(
-     const libcstring_system_character_t *argument,
+     const system_character_t *argument,
      uint8_t *format,
      libcerror_error_t **error );
 
 int unainput_determine_newline_conversion(
-     const libcstring_system_character_t *argument,
+     const system_character_t *argument,
      uint8_t *newline_conversion,
      libcerror_error_t **error );
 
@@ -61,5 +60,5 @@ int unainput_determine_newline_conversion(
 }
 #endif
 
-#endif
+#endif /* !defined( _UNAINPUT_H ) */
 

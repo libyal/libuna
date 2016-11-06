@@ -20,15 +20,14 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <memory.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
-#include <stdio.h>
-
-#include "una_test_libcstring.h"
 #include "una_test_libuna.h"
 
 /* Tests copying a base64 stream from a byte stream
@@ -132,7 +131,7 @@ int una_test_base64_stream_copy_from_byte_stream(
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain( int argc, wchar_t * const argv[] )
 #else
 int main( int argc, char * const argv[] )

@@ -1,6 +1,5 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 
@@ -35,131 +34,105 @@ check_PROGRAMS = \
 una_test_base16_stream_SOURCES = \
 	una_test_base16_stream.c \
 	una_test_libcerror.h \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_macros.h \
 	una_test_unused.h
 
 una_test_base16_stream_LDADD = \
 	../libuna/libuna.la \
-	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@
+	@LIBCERROR_LIBADD@
 
 una_test_base32_stream_SOURCES = \
 	una_test_base32_stream.c \
 	una_test_libcerror.h \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_macros.h \
 	una_test_unused.h
 
 una_test_base32_stream_LDADD = \
 	../libuna/libuna.la \
-	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@
+	@LIBCERROR_LIBADD@
 
 una_test_base64_stream_copy_from_SOURCES = \
 	una_test_base64_stream_copy_from.c \
-	una_test_libcstring.h \
 	una_test_libuna.h
 
 una_test_base64_stream_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_base64_stream_copy_to_SOURCES = \
 	una_test_base64_stream_copy_to.c \
-	una_test_libcstring.h \
 	una_test_libuna.h
 
 una_test_base64_stream_copy_to_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_error_SOURCES = \
 	una_test_error.c \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_macros.h \
 	una_test_unused.h
 
 una_test_error_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_support_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_macros.h \
 	una_test_support.c \
 	una_test_unused.h
 
 una_test_support_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf16_stream_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf16_stream_copy_from.c
 
 una_test_utf16_stream_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf16_string_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf16_string_copy_from.c
 
 una_test_utf16_string_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf32_stream_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf32_stream_copy_from.c
 
 una_test_utf32_stream_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf32_string_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf32_string_copy_from.c
 
 una_test_utf32_string_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf7_stream_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf7_stream_copy_from.c
 
 una_test_utf7_stream_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf8_stream_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf8_stream_copy_from.c
 
 una_test_utf8_stream_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_utf8_string_copy_from_SOURCES = \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_utf8_string_copy_from.c
 
 una_test_utf8_string_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_unicode_character_copy_from_SOURCES = \
 	una_test_codepage_ascii.h \
@@ -194,14 +167,12 @@ una_test_unicode_character_copy_from_SOURCES = \
 	una_test_codepage_windows_1256.h \
 	una_test_codepage_windows_1257.h \
 	una_test_codepage_windows_1258.h \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_unicode_character_copy_from.c \
 	una_test_types.h
 
 una_test_unicode_character_copy_from_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 una_test_unicode_character_copy_to_SOURCES = \
 	una_test_codepage_iso_8859_1.h \
@@ -235,14 +206,12 @@ una_test_unicode_character_copy_to_SOURCES = \
 	una_test_codepage_windows_1256.h \
 	una_test_codepage_windows_1257.h \
 	una_test_codepage_windows_1258.h \
-	una_test_libcstring.h \
 	una_test_libuna.h \
 	una_test_unicode_character_copy_to.c \
 	una_test_types.h
 
 una_test_unicode_character_copy_to_LDADD = \
-	../libuna/libuna.la \
-	@LIBCSTRING_LIBADD@
+	../libuna/libuna.la
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

@@ -26,7 +26,6 @@
 #include <types.h>
 
 #include "unatools_libcerror.h"
-#include "unatools_libcstring.h"
 
 #if defined( __cplusplus )
 extern "C" {
@@ -39,14 +38,14 @@ enum BYTE_SIZE_STRING_UNITS
 };
 
 int byte_size_string_create(
-     libcstring_system_character_t *byte_size_string,
+     system_character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t size,
      int units,
      libcerror_error_t **error );
 
 int byte_size_string_convert(
-     const libcstring_system_character_t *byte_size_string,
+     const system_character_t *byte_size_string,
      size_t byte_size_string_length,
      uint64_t *size,
      libcerror_error_t **error );
@@ -55,5 +54,5 @@ int byte_size_string_convert(
 }
 #endif
 
-#endif
+#endif /* !defined( _BYTE_SIZE_STRING_H ) */
 

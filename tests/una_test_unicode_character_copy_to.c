@@ -20,13 +20,13 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <memory.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
-
-#include <stdio.h>
 
 #include "una_test_codepage_ascii.h"
 #include "una_test_codepage_iso_8859_1.h"
@@ -60,7 +60,6 @@
 #include "una_test_codepage_windows_1256.h"
 #include "una_test_codepage_windows_1257.h"
 #include "una_test_codepage_windows_1258.h"
-#include "una_test_libcstring.h"
 #include "una_test_libuna.h"
 #include "una_test_types.h"
 
@@ -198,7 +197,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain( int argc, wchar_t * const argv[] )
 #else
 int main( int argc, char * const argv[] )

@@ -28,7 +28,6 @@
 #include "process_status.h"
 #include "unatools_libcerror.h"
 #include "unatools_libcfile.h"
-#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 #if defined( __cplusplus )
@@ -51,7 +50,7 @@ struct export_handle
 
 	/* The source filename
 	 */
-	libcstring_system_character_t *source_filename;
+	system_character_t *source_filename;
 
 	/* The source filename size
 	 */
@@ -59,7 +58,7 @@ struct export_handle
 
 	/* The destination filename
 	 */
-	libcstring_system_character_t *destination_filename;
+	system_character_t *destination_filename;
 
 	/* The destination filename size
 	 */
@@ -143,39 +142,39 @@ int export_handle_close(
 
 int export_handle_set_string(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
-     libcstring_system_character_t **internal_string,
+     const system_character_t *string,
+     system_character_t **internal_string,
      size_t *internal_string_size,
      libcerror_error_t **error );
 
 int export_handle_set_encoding(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_set_encoding_mode(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_set_input_format(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_set_output_format(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_set_newline_conversion(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_set_byte_stream_codepage(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error );
 
 int export_handle_export_input(

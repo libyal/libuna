@@ -1,7 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBCDATETIME_CPPFLAGS@ \
 	@LIBCLOCALE_CPPFLAGS@ \
@@ -29,7 +28,6 @@ unabase_SOURCES = \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
 	unatools_libcnotify.h \
-	unatools_libcstring.h \
 	unatools_libcsystem.h \
 	unatools_libuna.h
 
@@ -41,7 +39,6 @@ unabase_LDADD = \
 	@LIBCDATETIME_LIBADD@ \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@ \
 	@LIBINTL@
 
 unaexport_SOURCES = \
@@ -57,7 +54,6 @@ unaexport_SOURCES = \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
 	unatools_libcnotify.h \
-	unatools_libcstring.h \
 	unatools_libcsystem.h \
 	unatools_libuna.h
 
@@ -69,7 +65,6 @@ unaexport_LDADD = \
 	@LIBCDATETIME_LIBADD@ \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@ \
 	@LIBINTL@
 
 MAINTAINERCLEANFILES = \

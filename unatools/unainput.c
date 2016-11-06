@@ -20,19 +20,21 @@
  */
 
 #include <common.h>
+#include <narrow_string.h>
+#include <system_string.h>
 #include <types.h>
+#include <wide_string.h>
 
 #include "unacommon.h"
 #include "unainput.h"
 #include "unatools_libcerror.h"
-#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 /* Determines the encoding from a string
  * Returns 1 if successful or -1 on error
  */
 int unainput_determine_encoding(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *encoding,
      libcerror_error_t **error )
 {
@@ -62,30 +64,30 @@ int unainput_determine_encoding(
 
 		return( -1 );
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length == 6 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "base16" ),
+		     _SYSTEM_STRING( "base16" ),
 		     6 ) == 0 )
 		{
 			*encoding = UNACOMMON_ENCODING_BASE16;
 			result    = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "base32" ),
+			  _SYSTEM_STRING( "base32" ),
 			  6 ) == 0 )
 		{
 			*encoding = UNACOMMON_ENCODING_BASE32;
 			result    = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "base64" ),
+			  _SYSTEM_STRING( "base64" ),
 			  6 ) == 0 )
 		{
 			*encoding = UNACOMMON_ENCODING_BASE64;
@@ -94,17 +96,17 @@ int unainput_determine_encoding(
 	}
 	else if( string_length == 9 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "base32hex" ),
+		     _SYSTEM_STRING( "base32hex" ),
 		     9 ) == 0 )
 		{
 			*encoding = UNACOMMON_ENCODING_BASE32HEX;
 			result    = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "base64url" ),
+			  _SYSTEM_STRING( "base64url" ),
 			  9 ) == 0 )
 		{
 			*encoding = UNACOMMON_ENCODING_BASE64URL;
@@ -118,7 +120,7 @@ int unainput_determine_encoding(
  * Returns 1 if successful or -1 on error
  */
 int unainput_determine_encoding_mode(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *encoding_mode,
      libcerror_error_t **error )
 {
@@ -148,22 +150,22 @@ int unainput_determine_encoding_mode(
 
 		return( -1 );
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length == 6 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "decode" ),
+		     _SYSTEM_STRING( "decode" ),
 		     6 ) == 0 )
 		{
 			*encoding_mode = UNACOMMON_ENCODING_MODE_DECODE;
 			result         = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "encode" ),
+			  _SYSTEM_STRING( "encode" ),
 			  6 ) == 0 )
 		{
 			*encoding_mode = UNACOMMON_ENCODING_MODE_ENCODE;
@@ -177,7 +179,7 @@ int unainput_determine_encoding_mode(
  * Returns 1 if successful or -1 on error
  */
 int unainput_determine_format(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *format,
      libcerror_error_t **error )
 {
@@ -207,22 +209,22 @@ int unainput_determine_format(
 
 		return( -1 );
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length == 4 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "utf7" ),
+		     _SYSTEM_STRING( "utf7" ),
 		     4 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF7;
 			result  = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "utf8" ),
+			  _SYSTEM_STRING( "utf8" ),
 			  4 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF8;
@@ -231,33 +233,33 @@ int unainput_determine_format(
 	}
 	else if( string_length == 7 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "utf16be" ),
+		     _SYSTEM_STRING( "utf16be" ),
 		     7 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF16BE;
 			result  = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "utf16le" ),
+			  _SYSTEM_STRING( "utf16le" ),
 			  7 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF16LE;
 			result  = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "utf32be" ),
+			  _SYSTEM_STRING( "utf32be" ),
 			  7 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF32BE;
 			result  = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "utf32le" ),
+			  _SYSTEM_STRING( "utf32le" ),
 			  7 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_UTF32LE;
@@ -266,17 +268,17 @@ int unainput_determine_format(
 	}
 	else if( string_length == 11 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "byte-stream" ),
+		     _SYSTEM_STRING( "byte-stream" ),
 		     11 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_BYTE_STREAM;
 			result  = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "byte_stream" ),
+			  _SYSTEM_STRING( "byte_stream" ),
 			  11 ) == 0 )
 		{
 			*format = UNACOMMON_FORMAT_BYTE_STREAM;
@@ -290,7 +292,7 @@ int unainput_determine_format(
  * Returns 1 if successful, 0 if unsupported value or -1 on error
  */
 int unainput_determine_newline_conversion(
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      uint8_t *newline_conversion,
      libcerror_error_t **error )
 {
@@ -320,22 +322,22 @@ int unainput_determine_newline_conversion(
 
 		return( -1 );
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length == 2 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "cr" ),
+		     _SYSTEM_STRING( "cr" ),
 		     2 ) == 0 )
 		{
 			*newline_conversion = UNACOMMON_NEWLINE_CONVERSION_CR;
 			result              = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "lf" ),
+			  _SYSTEM_STRING( "lf" ),
 			  2 ) == 0 )
 		{
 			*newline_conversion = UNACOMMON_NEWLINE_CONVERSION_LF;
@@ -344,17 +346,17 @@ int unainput_determine_newline_conversion(
 	}
 	else if( string_length == 4 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "none" ),
+		     _SYSTEM_STRING( "none" ),
 		     4 ) == 0 )
 		{
 			*newline_conversion = UNACOMMON_NEWLINE_CONVERSION_NONE;
 			result              = 1;
 		}
-		else if( libcstring_system_string_compare(
+		else if( system_string_compare(
 			  string,
-			  _LIBCSTRING_SYSTEM_STRING( "crlf" ),
+			  _SYSTEM_STRING( "crlf" ),
 			  4 ) == 0 )
 		{
 			*newline_conversion = UNACOMMON_NEWLINE_CONVERSION_CRLF;

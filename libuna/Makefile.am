@@ -1,7 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@
 
 lib_LTLIBRARIES = libuna.la
@@ -60,7 +59,6 @@ libuna_la_SOURCES = \
 	libuna_utf8_string.c libuna_utf8_string.h
 
 libuna_la_LIBADD = \
-	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@
 
 libuna_la_LDFLAGS = -no-undefined -version-info 1:0:0

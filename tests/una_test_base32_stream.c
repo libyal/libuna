@@ -20,6 +20,8 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <memory.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
@@ -27,7 +29,6 @@
 #endif
 
 #include "una_test_libcerror.h"
-#include "una_test_libcstring.h"
 #include "una_test_libuna.h"
 #include "una_test_macros.h"
 #include "una_test_unused.h"
@@ -912,7 +913,7 @@ on_error:
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain(
      int argc UNA_TEST_ATTRIBUTE_UNUSED,
      wchar_t * const argv[] UNA_TEST_ATTRIBUTE_UNUSED )

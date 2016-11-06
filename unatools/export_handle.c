@@ -21,7 +21,10 @@
 
 #include <common.h>
 #include <memory.h>
+#include <narrow_string.h>
+#include <system_string.h>
 #include <types.h>
+#include <wide_string.h>
 
 #include "export_handle.h"
 #include "process_status.h"
@@ -31,7 +34,6 @@
 #include "unatools_libcerror.h"
 #include "unatools_libcfile.h"
 #include "unatools_libclocale.h"
-#include "unatools_libcstring.h"
 #include "unatools_libuna.h"
 
 #define EXPORT_HANDLE_BUFFER_SIZE		8 * 1024 * 1024
@@ -301,7 +303,7 @@ int export_handle_open_input(
 
 		return( -1 );
 	}
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 	if( libcfile_file_open_wide(
 	     export_handle->source_file,
 	     export_handle->source_filename,
@@ -319,7 +321,7 @@ int export_handle_open_input(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_IO,
 		 LIBCERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open source file: %" PRIs_LIBCSTRING_SYSTEM ".",
+		 "%s: unable to open source file: %" PRIs_SYSTEM ".",
 		 function,
 		 export_handle->source_filename );
 
@@ -359,7 +361,7 @@ int export_handle_open_output(
 
 		return( -1 );
 	}
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 	if( libcfile_file_open_wide(
 	     export_handle->destination_file,
 	     export_handle->destination_filename,
@@ -377,7 +379,7 @@ int export_handle_open_output(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_IO,
 		 LIBCERROR_IO_ERROR_OPEN_FAILED,
-		 "%s: unable to open destination file: %" PRIs_LIBCSTRING_SYSTEM ".",
+		 "%s: unable to open destination file: %" PRIs_SYSTEM ".",
 		 function,
 		 export_handle->destination_filename );
 
@@ -441,8 +443,8 @@ int export_handle_close(
  */
 int export_handle_set_string(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
-     libcstring_system_character_t **internal_string,
+     const system_character_t *string,
+     system_character_t **internal_string,
      size_t *internal_string_size,
      libcerror_error_t **error )
 {
@@ -501,12 +503,12 @@ int export_handle_set_string(
 		*internal_string      = NULL;
 		*internal_string_size = 0;
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length > 0 )
 	{
-		*internal_string = libcstring_system_string_allocate(
+		*internal_string = system_string_allocate(
 		                    string_length + 1 );
 
 		if( *internal_string == NULL )
@@ -520,7 +522,7 @@ int export_handle_set_string(
 
 			goto on_error;
 		}
-		if( libcstring_system_string_copy(
+		if( system_string_copy(
 		     *internal_string,
 		     string,
 		     string_length ) == NULL )
@@ -558,7 +560,7 @@ on_error:
  */
 int export_handle_set_encoding(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_encoding";
@@ -610,7 +612,7 @@ int export_handle_set_encoding(
  */
 int export_handle_set_encoding_mode(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_encoding_mode";
@@ -662,7 +664,7 @@ int export_handle_set_encoding_mode(
  */
 int export_handle_set_input_format(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_input_format";
@@ -691,14 +693,14 @@ int export_handle_set_input_format(
 
 		return( -1 );
 	}
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
 	if( string_length == 11 )
 	{
-		if( libcstring_system_string_compare(
+		if( system_string_compare(
 		     string,
-		     _LIBCSTRING_SYSTEM_STRING( "auto-detect" ),
+		     _SYSTEM_STRING( "auto-detect" ),
 		     11 ) == 0 )
 		{
 			export_handle->text_input_format = UNACOMMON_FORMAT_AUTO_DETECT;
@@ -732,7 +734,7 @@ int export_handle_set_input_format(
  */
 int export_handle_set_output_format(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_output_format";
@@ -784,7 +786,7 @@ int export_handle_set_output_format(
  */
 int export_handle_set_newline_conversion(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function = "export_handle_set_newline_conversion";
@@ -836,7 +838,7 @@ int export_handle_set_newline_conversion(
  */
 int export_handle_set_byte_stream_codepage(
      export_handle_t *export_handle,
-     const libcstring_system_character_t *string,
+     const system_character_t *string,
      libcerror_error_t **error )
 {
 	static char *function  = "export_handle_set_byte_stream_codepage";
@@ -870,10 +872,10 @@ int export_handle_set_byte_stream_codepage(
 	              | LIBCLOCALE_CODEPAGE_FEATURE_FLAG_HAVE_KOI8
 	              | LIBCLOCALE_CODEPAGE_FEATURE_FLAG_HAVE_WINDOWS;
 
-	string_length = libcstring_system_string_length(
+	string_length = system_string_length(
 	                 string );
 
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 	result = libclocale_codepage_copy_from_string_wide(
 	          &( export_handle->text_byte_stream_codepage ),
 	          string,
@@ -926,9 +928,9 @@ int export_handle_export_input(
 	}
 	if( process_status_initialize(
 	     &process_status,
-	     _LIBCSTRING_SYSTEM_STRING( "Export" ),
-	     _LIBCSTRING_SYSTEM_STRING( "exported" ),
-	     _LIBCSTRING_SYSTEM_STRING( "Exported" ),
+	     _SYSTEM_STRING( "Export" ),
+	     _SYSTEM_STRING( "exported" ),
+	     _SYSTEM_STRING( "Exported" ),
 	     stdout,
 	     print_status_information,
 	     error ) != 1 )
@@ -2338,7 +2340,7 @@ int export_handle_print_parameters(
 	{
 		fprintf(
 		 export_handle->notify_stream,
-		 "\tsource:\t\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
+		 "\tsource:\t\t\t%" PRIs_SYSTEM "\n",
 		 export_handle->source_filename );
 
 		fprintf(
@@ -2355,7 +2357,7 @@ int export_handle_print_parameters(
 
 		fprintf(
 		 export_handle->notify_stream,
-		 "\tdestination:\t\t%" PRIs_LIBCSTRING_SYSTEM "\n",
+		 "\tdestination:\t\t%" PRIs_SYSTEM "\n",
 		 export_handle->destination_filename );
 
 		fprintf(

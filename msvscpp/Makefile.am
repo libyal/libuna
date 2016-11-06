@@ -4,7 +4,6 @@ MSVSCPP_FILES = \
 	libcfile/libcfile.vcproj \
 	libclocale/libclocale.vcproj \
 	libcnotify/libcnotify.vcproj \
-	libcstring/libcstring.vcproj \
 	libcsystem/libcsystem.vcproj \
 	libuna/libuna.vcproj \
 	una_test_base16_stream/una_test_base16_stream.vcproj \
