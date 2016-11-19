@@ -24,7 +24,6 @@
 #include <types.h>
 
 #include "libuna_definitions.h"
-#include "libuna_inline.h"
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"

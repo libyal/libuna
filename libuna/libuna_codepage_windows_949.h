@@ -26,7 +26,6 @@
 #include <types.h>
 
 #include "libuna_extern.h"
-#include "libuna_inline.h"
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
 
@@ -35,14 +34,12 @@ extern "C" {
 #endif
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_codepage_windows_949_unicode_character_size_to_byte_stream(
      libuna_unicode_character_t unicode_character,
      size_t *byte_stream_character_size,
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_codepage_windows_949_copy_from_byte_stream(
      libuna_unicode_character_t *unicode_character,
      const uint8_t *byte_stream,
@@ -51,7 +48,6 @@ int libuna_codepage_windows_949_copy_from_byte_stream(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_codepage_windows_949_copy_to_byte_stream(
      libuna_unicode_character_t unicode_character,
      uint8_t *byte_stream,

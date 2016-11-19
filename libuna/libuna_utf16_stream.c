@@ -23,7 +23,6 @@
 #include <types.h>
 
 #include "libuna_definitions.h"
-#include "libuna_inline.h"
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
@@ -32,7 +31,6 @@
 /* Copies an UTF-16 stream byte order mark (BOM)
  * Returns 1 if successful or -1 on error
  */
-LIBUNA_INLINE \
 int libuna_utf16_stream_copy_byte_order_mark(
      uint8_t *utf16_stream,
      size_t utf16_stream_size,

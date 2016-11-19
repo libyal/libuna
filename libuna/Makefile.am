@@ -43,7 +43,6 @@ libuna_la_SOURCES = \
 	libuna_definitions.h \
 	libuna_error.c libuna_error.h \
 	libuna_extern.h \
-	libuna_inline.h \
 	libuna_libcerror.h \
 	libuna_support.c libuna_support.h \
 	libuna_types.h \

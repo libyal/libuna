@@ -25,7 +25,6 @@
 #include <common.h>
 #include <types.h>
 
-#include "libuna_inline.h"
 #include "libuna_extern.h"
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
@@ -34,7 +33,6 @@
 extern "C" {
 #endif
 
-LIBUNA_INLINE \
 int libuna_base32_character_copy_to_quintet(
      uint8_t base32_character,
      uint8_t *base32_quintet,
@@ -42,7 +40,6 @@ int libuna_base32_character_copy_to_quintet(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_base32_quintuplet_copy_from_base32_stream(
      uint64_t *base32_quintuplet,
      const uint8_t *base32_stream,
@@ -53,7 +50,6 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_base32_quintuplet_copy_to_base32_stream(
      uint64_t base32_quintuplet,
      uint8_t *base32_stream,
@@ -64,7 +60,6 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_base32_quintuplet_copy_from_byte_stream(
      uint64_t *base32_quintuplet,
      const uint8_t *byte_stream,
@@ -74,7 +69,6 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_base32_quintuplet_copy_to_byte_stream(
      uint64_t base32_quintuplet,
      uint8_t *byte_stream,

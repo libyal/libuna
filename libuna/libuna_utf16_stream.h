@@ -26,7 +26,6 @@
 #include <types.h>
 
 #include "libuna_extern.h"
-#include "libuna_inline.h"
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
 
@@ -35,7 +34,6 @@ extern "C" {
 #endif
 
 LIBUNA_EXTERN \
-LIBUNA_INLINE \
 int libuna_utf16_stream_copy_byte_order_mark(
      uint8_t *utf16_stream,
      size_t utf16_stream_size,
