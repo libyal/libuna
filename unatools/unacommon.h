@@ -67,5 +67,5 @@ enum UNACOMMON_NEWLINE_CONVERSIONS
 }
 #endif
 
-#endif
+#endif /* !defined( _UNACOMMON_H ) */
 

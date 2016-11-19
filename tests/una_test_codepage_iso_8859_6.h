@@ -255,5 +255,5 @@ una_test_byte_stream_to_unicode_t una_test_codepage_iso_8859_6_byte_stream_to_un
 }
 #endif
 
-#endif
+#endif /* !defined( _UNA_TEST_CODEPAGE_ISO_8859_6_H ) */
 

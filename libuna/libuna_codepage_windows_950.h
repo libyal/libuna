@@ -59,5 +59,5 @@ int libuna_codepage_windows_950_copy_to_byte_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_CODEPAGE_WINDOWS_950_H ) */
 

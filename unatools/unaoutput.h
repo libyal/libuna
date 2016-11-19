@@ -52,5 +52,5 @@ void unaoutput_format_fprint(
 }
 #endif
 
-#endif
+#endif /* !defined( _UNAOUTPUT_H ) */
 

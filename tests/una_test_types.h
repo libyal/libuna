@@ -54,5 +54,5 @@ struct una_test_byte_stream_to_unicode
 }
 #endif
 
-#endif
+#endif /* !defined( _UNA_TEST_TYPES_H ) */
 

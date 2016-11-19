@@ -200,5 +200,5 @@ int export_handle_print_parameters(
 }
 #endif
 
-#endif
+#endif /* !defined( _EXPORT_HANDLE_H ) */
 

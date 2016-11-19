@@ -294,5 +294,5 @@ una_test_byte_stream_to_unicode_t una_test_codepage_windows_1251_byte_stream_to_
 }
 #endif
 
-#endif
+#endif /* !defined( _UNA_TEST_CODEPAGE_WINDOWS_1251_H ) */
 

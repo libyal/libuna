@@ -190,5 +190,5 @@ int libuna_unicode_character_copy_to_utf32_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_UNICDODE_CHARACTER_H ) */
 

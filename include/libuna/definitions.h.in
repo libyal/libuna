@@ -166,11 +166,11 @@ enum LIBUNA_CODEPAGES
 
 /* Base16 variants
  * Byte:
- * 0 - 1	Character limit
- * 2 - 3	Reserved
- * 4		Case (0 not supported)
- * 5 - 6	Reserved
- * 7		String encoding (0 is byte stream)
+ * 0 - 1							Character limit
+ * 2 - 3							Reserved
+ * 4								Case (0 not supported)
+ * 5 - 6							Reserved
+ * 7								String encoding (0 is byte stream)
  */
 enum LIBUNA_BASE16_VARIANTS
 {
@@ -200,12 +200,12 @@ enum LIBUNA_BASE16_FLAGS
 
 /* Base32 variants
  * Byte:
- * 0 - 1	Character limit
- * 2 - 3	Reserved
- * 4		Alphabet type (0 not supported)
- * 5		Reserved
- * 6    	Padding (0 not supported)
- * 7		String encoding (0 is byte stream)
+ * 0 - 1							Character limit
+ * 2 - 3							Reserved
+ * 4								Alphabet type (0 not supported)
+ * 5								Reserved
+ * 6    							Padding (0 not supported)
+ * 7								String encoding (0 is byte stream)
  */
 enum LIBUNA_BASE32_VARIANTS
 {
@@ -240,12 +240,12 @@ enum LIBUNA_BASE32_FLAGS
 
 /* Base64 variants
  * Byte:
- * 0 - 1	Character limit
- * 2 - 3	Reserved
- * 4		Alphabet type (0 not supported)
- * 5		Reserved
- * 6    	Padding (0 not supported)
- * 7		String encoding (0 is byte stream)
+ * 0 - 1							Character limit
+ * 2 - 3							Reserved
+ * 4								Alphabet type (0 not supported)
+ * 5								Reserved
+ * 6    							Padding (0 not supported)
+ * 7								String encoding (0 is byte stream)
  */
 enum LIBUNA_BASE64_VARIANTS
 {

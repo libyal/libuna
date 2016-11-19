@@ -38,5 +38,5 @@ extern const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_CODEPAGE_WINDOWS_874_H ) */
 

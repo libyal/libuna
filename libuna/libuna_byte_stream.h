@@ -100,5 +100,5 @@ int libuna_byte_stream_copy_from_utf32(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_BYTE_STREAM_H ) */
 

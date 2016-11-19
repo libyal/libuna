@@ -67,5 +67,5 @@ int libuna_url_stream_copy_to_byte_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_URL_STREAM_H ) */
 

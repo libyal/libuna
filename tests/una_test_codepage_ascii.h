@@ -166,5 +166,5 @@ una_test_byte_stream_to_unicode_t una_test_codepage_ascii_byte_stream_to_unicode
 }
 #endif
 
-#endif
+#endif /* !defined( _UNA_TEST_CODEPAGE_ASCII_H ) */
 

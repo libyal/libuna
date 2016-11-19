@@ -127,5 +127,5 @@ int libuna_base64_stream_with_index_copy_from_byte_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_BASE64_STREAM_H ) */
 

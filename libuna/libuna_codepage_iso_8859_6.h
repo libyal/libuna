@@ -37,5 +37,5 @@ extern const uint8_t libuna_codepage_iso_8859_6_unicode_to_byte_stream_base_0x06
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_CODEPAGE_ISO_8859_6_H ) */
 

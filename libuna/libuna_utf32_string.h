@@ -293,5 +293,5 @@ int libuna_utf32_string_compare_with_utf32_stream(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_UTF32_STRING_H ) */
 

@@ -38,9 +38,9 @@
 #include <libuna/extern.h>
 
 #else
-#define LIBUNA_EXTERN	extern
+#define LIBUNA_EXTERN	/* extern */
 
-#endif
+#endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 
 #endif /* !defined( _LIBUNA_INTERNAL_EXTERN_H ) */
 

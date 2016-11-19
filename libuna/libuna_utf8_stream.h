@@ -101,5 +101,5 @@ int libuna_utf8_stream_copy_from_utf32(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_UTF8_STREAM_H ) */
 

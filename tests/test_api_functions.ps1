@@ -1,6 +1,6 @@
 # Library API functions testing script
 #
-# Version: 20161106
+# Version: 20161110
 
 $ExitSuccess = 0
 $ExitFailure = 1
@@ -11,7 +11,7 @@ $TestPrefix = Split-Path -path ${TestPrefix} -leaf
 $TestPrefix = ${TestPrefix}.Substring(3)
 
 $TestFunctions = "base16_stream base32_stream base64_stream_copy_from base64_stream_copy_to error support unicode_character_copy_from unicode_character_copy_to utf16_stream_copy_from utf16_string_copy_from utf32_stream_copy_from utf32_string_copy_from utf7_stream_copy_from utf8_stream_copy_from utf8_string_copy_from"
-$TestFunctions = ${TestFunctions} -split " "
+$TestFunctionsWithInput = ""
 
 $TestToolDirectory = "..\msvscpp\Release"
 
@@ -55,7 +55,17 @@ If (-Not (Test-Path ${TestToolDirectory}))
 
 $Result = ${ExitIgnore}
 
-Foreach (${TestFunction} in ${TestFunctions})
+Foreach (${TestFunction} in ${TestFunctions} -split " ")
+{
+	$Result = TestAPIFunction ${TestFunction}
+
+	If (${Result} -ne ${ExitSuccess})
+	{
+		Break
+	}
+}
+
+Foreach (${TestFunction} in ${TestFunctionsWithInput} -split " ")
 {
 	$Result = TestAPIFunction ${TestFunction}
 

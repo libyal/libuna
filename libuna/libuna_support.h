@@ -45,5 +45,5 @@ const char *libuna_get_version(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBUNA_SUPPORT_H ) */
 

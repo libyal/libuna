@@ -294,5 +294,5 @@ una_test_byte_stream_to_unicode_t una_test_codepage_koi8_r_byte_stream_to_unicod
 }
 #endif
 
-#endif
+#endif /* !defined( _UNA_TEST_CODEPAGE_KOI8_R_H ) */
 
