@@ -3,7 +3,7 @@
 # Version: 20161110
 
 $GitUrlPrefix = "https://github.com/libyal"
-$LocalLibs = "libcdatetime libcerror libcfile libclocale libcnotify libcsystem"
+$LocalLibs = "libcdatetime libcerror libcfile libclocale libcnotify"
 $LocalLibs = ${LocalLibs} -split " "
 
 $Git = "git"

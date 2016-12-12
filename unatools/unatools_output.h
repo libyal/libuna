@@ -1,5 +1,5 @@
 /*
- * The internal libuna header
+ * Output functions
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,19 +19,42 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UNATOOLS_LIBUNA_H )
-#define _UNATOOLS_LIBUNA_H
+#if !defined( _UNATOOLS_OUTPUT_H )
+#define _UNATOOLS_OUTPUT_H
 
 #include <common.h>
+#include <file_stream.h>
+#include <types.h>
 
-/* If Cygwin libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
- */
-#if defined( _WIN32 ) && defined( DLL_IMPORT ) && !defined( HAVE_STATIC_EXECUTABLES )
-#define LIBUNA_DLL_IMPORT
+#if defined( __cplusplus )
+extern "C" {
 #endif
 
-#include <libuna.h>
+int unatools_output_initialize(
+     int stdio_mode,
+     libcerror_error_t **error );
 
-#endif /* !defined( _UNATOOLS_LIBUNA_H ) */
+void unatools_output_copyright_fprint(
+      FILE *stream );
+
+void unatools_output_version_fprint(
+      FILE *stream,
+      const char *program );
+
+void unatools_output_codepage_fprint(
+      FILE *stream,
+      int codepage );
+
+void unatools_output_codepages_fprint(
+      FILE *stream );
+
+void unatools_output_format_fprint(
+      FILE *stream,
+      int format );
+
+#if defined( __cplusplus )
+}
+#endif
+
+#endif /* !defined( _UNATOOLS_OUTPUT_H ) */
 

@@ -22,8 +22,10 @@
 #include <common.h>
 #include <file_stream.h>
 #include <memory.h>
+#include <narrow_string.h>
 #include <system_string.h>
 #include <types.h>
+#include <wide_string.h>
 
 #if defined( HAVE_UNISTD_H )
 #include <unistd.h>
@@ -35,12 +37,14 @@
 
 #include "export_handle.h"
 #include "unacommon.h"
-#include "unaoutput.h"
+#include "unatools_getopt.h"
 #include "unatools_libcerror.h"
 #include "unatools_libclocale.h"
 #include "unatools_libcnotify.h"
-#include "unatools_libcsystem.h"
 #include "unatools_libuna.h"
+#include "unatools_output.h"
+#include "unatools_signal.h"
+#include "unatools_unused.h"
 
 export_handle_t *unabase_export_handle = NULL;
 int unabase_abort                      = 0;
@@ -75,12 +79,12 @@ void usage_fprint(
 /* Signal handler for unabase
  */
 void unabase_signal_handler(
-      libcsystem_signal_t signal LIBCSYSTEM_ATTRIBUTE_UNUSED )
+      unatools_signal_t signal UNATOOLS_ATTRIBUTE_UNUSED )
 {
 	libcerror_error_t *error = NULL;
 	static char *function   = "unabase_signal_handler";
 
-	LIBCSYSTEM_UNREFERENCED_PARAMETER( signal )
+	UNATOOLS_UNREFERENCED_PARAMETER( signal )
 
 	unabase_abort = 1;
 
@@ -102,8 +106,13 @@ void unabase_signal_handler(
 	}
 	/* Force stdin to close otherwise any function reading it will remain blocked
 	 */
-	if( libcsystem_file_io_close(
+#if defined( WINAPI ) && !defined( __CYGWIN__ )
+	if( _close(
 	     0 ) != 0 )
+#else
+	if( close(
+	     0 ) != 0 )
+#endif
 	{
 		libcnotify_printf(
 		 "%s: unable to close stdin.\n",
@@ -146,21 +155,21 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	if( libcsystem_initialize(
+	if( unatools_output_initialize(
 	     _IONBF,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to initialize system values.\n" );
+		 "Unable to initialize output settings.\n" );
 
 		goto on_error;
 	}
-	unaoutput_version_fprint(
+	unatools_output_version_fprint(
 	 stdout,
 	 program );
 
-	while( ( option = libcsystem_getopt(
+	while( ( option = unatools_getopt(
 	                   argc,
 	                   argv,
 	                   _SYSTEM_STRING( "e:hm:qvV" ) ) ) != (system_integer_t) -1 )
@@ -206,7 +215,7 @@ int main( int argc, char * const argv[] )
 				break;
 
 			case (system_integer_t) 'V':
-				unaoutput_copyright_fprint(
+				unatools_output_copyright_fprint(
 				 stdout );
 
 				return( EXIT_SUCCESS );
@@ -252,7 +261,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	if( libcsystem_signal_attach(
+	if( unatools_signal_attach(
 	     unabase_signal_handler,
 	     &error ) != 1 )
 	{
@@ -391,7 +400,7 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	if( libcsystem_signal_detach(
+	if( unatools_signal_detach(
 	     &error ) != 1 )
 	{
 		fprintf(

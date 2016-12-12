@@ -1,5 +1,5 @@
 /*
- * Common output functions for the unatools
+ * The unused definition
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,38 +19,32 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UNAOUTPUT_H )
-#define _UNAOUTPUT_H
+#if !defined( _UNATOOLS_UNUSED_H )
+#define _UNATOOLS_UNUSED_H
 
 #include <common.h>
-#include <file_stream.h>
-#include <types.h>
 
-#if defined( __cplusplus )
-extern "C" {
-#endif
+#if !defined( UNATOOLS_ATTRIBUTE_UNUSED )
 
-void unaoutput_copyright_fprint(
-      FILE *stream );
+#if defined( __GNUC__ ) && __GNUC__ >= 3
+#define UNATOOLS_ATTRIBUTE_UNUSED	__attribute__ ((__unused__))
 
-void unaoutput_version_fprint(
-      FILE *stream,
-      const char *program );
+#else
+#define UNATOOLS_ATTRIBUTE_UNUSED
 
-void unaoutput_codepage_fprint(
-      FILE *stream,
-      int codepage );
+#endif /* defined( __GNUC__ ) && __GNUC__ >= 3 */
 
-void unaoutput_codepages_fprint(
-      FILE *stream );
+#endif /* !defined( UNATOOLS_ATTRIBUTE_UNUSED ) */
 
-void unaoutput_format_fprint(
-      FILE *stream,
-      int format );
+#if defined( _MSC_VER )
+#define UNATOOLS_UNREFERENCED_PARAMETER( parameter ) \
+	UNREFERENCED_PARAMETER( parameter );
 
-#if defined( __cplusplus )
-}
-#endif
+#else
+#define UNATOOLS_UNREFERENCED_PARAMETER( parameter ) \
+	/* parameter */
 
-#endif /* !defined( _UNAOUTPUT_H ) */
+#endif /* defined( _MSC_VER ) */
+
+#endif /* !defined( _UNATOOLS_UNUSED_H ) */
 

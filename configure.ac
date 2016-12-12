@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20161119],
+ [20161212],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -58,6 +58,9 @@ AX_COMMON_CHECK_LOCAL
 dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
 
+dnl Check for libuna function support
+AX_LIBOLECF_CHECK_LOCAL
+
 dnl Check for enabling libcdatetime for cross-platform C datetime functions
 AX_LIBCDATETIME_CHECK_ENABLE
 
@@ -70,13 +73,8 @@ AX_LIBCNOTIFY_CHECK_ENABLE
 dnl Check for enabling libcfile for cross-platform C file functions
 AX_LIBCFILE_CHECK_ENABLE
 
-dnl Check for enabling libcsystem for cross-platform C generic system functions
-AX_LIBCSYSTEM_CHECK_ENABLE
-
-dnl Check for headers and functions used in tools
-
-dnl Check if unatools should be build as static executables
-AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
+dnl Check for olecftools function support
+AX_UNATOOLS_CHECK_LOCAL
 
 dnl Headers included in various places
 AC_CHECK_HEADERS([stdarg.h varargs.h])
@@ -86,29 +84,6 @@ AS_IF(
  [AC_MSG_FAILURE(
   [Missing headers: stdarg.h and varargs.h],
   [1])
- ])
-
-dnl Check if DLL support is needed
-AS_IF(
- [test "x$enable_shared" = xyes],
- [AS_CASE(
-  [$host],
-  [*cygwin* | *mingw*],
-  [AC_DEFINE(
-   [HAVE_DLLMAIN],
-   [1],
-   [Define to 1 to enable the DllMain function.])
-  AC_SUBST(
-   [HAVE_DLLMAIN],
-   [1])
-
-  AS_IF(
-   [test "x$ac_cv_enable_static_executables" = xno],
-   [AC_SUBST(
-    [LIBUNA_DLL_IMPORT],
-    ["-DLIBUNA_DLL_IMPORT"])
-   ])
-  ])
  ])
 
 dnl Set additional compiler flags
@@ -126,7 +101,7 @@ AS_IF(
  ])
 
 AS_IF(
- [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes || test "x$ac_cv_libcsystem" = xyes],
+ [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes],
  [AC_SUBST(
   [libuna_tools_spec_build_requires],
   [BuildRequires:])
@@ -157,7 +132,6 @@ AC_CONFIG_FILES([libcdatetime/Makefile])
 AC_CONFIG_FILES([libclocale/Makefile])
 AC_CONFIG_FILES([libcnotify/Makefile])
 AC_CONFIG_FILES([libcfile/Makefile])
-AC_CONFIG_FILES([libcsystem/Makefile])
 AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
@@ -191,7 +165,6 @@ Building:
    libclocale support:                       $ac_cv_libclocale
    libcnotify support:                       $ac_cv_libcnotify
    libcfile support:                         $ac_cv_libcfile
-   libcsystem support:                       $ac_cv_libcsystem
 
 Features:
    Wide character type support:              $ac_cv_enable_wide_character_type

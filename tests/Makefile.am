@@ -1,5 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
+	-I$(top_srcdir)/common \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 

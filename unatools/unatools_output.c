@@ -1,5 +1,5 @@
 /*
- * Common output functions for the unatools
+ * Output functions
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -24,31 +24,104 @@
 #include <types.h>
 
 #include "unacommon.h"
-#include "unaoutput.h"
+#include "unatools_i18n.h"
 #include "unatools_libcerror.h"
-#include "unatools_libcsystem.h"
 #include "unatools_libuna.h"
+#include "unatools_output.h"
+
+/* Initializes output settings
+ * Returns 1 if successful or -1 on error
+ */
+int unatools_output_initialize(
+     int stdio_mode,
+     libcerror_error_t **error )
+{
+	static char *function = "unatools_output_initialize";
+
+	if( ( stdio_mode != _IOFBF )
+	 && ( stdio_mode != _IOLBF )
+	 && ( stdio_mode != _IONBF ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported standard IO mode.",
+		 function );
+
+		return( -1 );
+	}
+#if !defined( __BORLANDC__ )
+	if( setvbuf(
+	     stdout,
+	     NULL,
+	     stdio_mode,
+	     0 ) != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set IO mode of stdout.",
+		 function );
+
+		return( -1 );
+	}
+	if( setvbuf(
+	     stderr,
+	     NULL,
+	     stdio_mode,
+	     0 ) != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set IO mode of stderr.",
+		 function );
+
+		return( -1 );
+	}
+#endif /* !defined( __BORLANDC__ ) */
+
+	return( 1 );
+}
 
 /* Prints the copyright information
  */
-void unaoutput_copyright_fprint(
+void unatools_output_copyright_fprint(
       FILE *stream )
 {
 	if( stream == NULL )
 	{
 		return;
 	}
+	/* TRANSLATORS: This is a proper name.
+	 */
 	fprintf(
 	 stream,
-	 "Copyright (C) 2008-2016, Joachim Metz <%s>.\n"
-	 "This is free software; see the source for copying conditions. There is NO\n"
-	 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
+	 _( "Copyright (C) 2008-2016, %s.\n" ),
+	 _( "Joachim Metz" ) );
+
+	fprintf(
+	 stream,
+	 _( "This is free software; see the source for copying conditions. There is NO\n"
+	    "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n" ) );
+
+	/* TRANSLATORS: The placeholder indicates the bug-reporting address
+	 * for this package.  Please add _another line_ saying
+	 * "Report translation bugs to <...>\n" with the address for translation
+	 * bugs (typically your translation team's web or email address).
+	 */
+	fprintf(
+	 stream,
+	 _( "Report bugs to <%s>.\n" ),
 	 PACKAGE_BUGREPORT );
 }
 
 /* Prints the version information
  */
-void unaoutput_version_fprint(
+void unatools_output_version_fprint(
       FILE *stream,
       const char *program )
 {
@@ -70,7 +143,7 @@ void unaoutput_version_fprint(
 
 /* Prints the codepage information
  */
-void unaoutput_codepage_fprint(
+void unatools_output_codepage_fprint(
       FILE *stream,
       int codepage )
 {
@@ -270,7 +343,7 @@ void unaoutput_codepage_fprint(
 
 /* Prints the codepages information
  */
-void unaoutput_codepages_fprint(
+void unatools_output_codepages_fprint(
       FILE *stream )
 {
 	if( stream == NULL )
@@ -313,7 +386,7 @@ void unaoutput_codepages_fprint(
 
 /* Prints the format (encoding) information
  */
-void unaoutput_format_fprint(
+void unatools_output_format_fprint(
       FILE *stream,
       int format )
 {

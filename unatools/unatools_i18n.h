@@ -1,5 +1,5 @@
 /*
- * The internal libuna header
+ * Internationalization (i18n) functions
  *
  * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,19 +19,30 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _UNATOOLS_LIBUNA_H )
-#define _UNATOOLS_LIBUNA_H
+#if !defined( _UNATOOLS_I18N_H )
+#define _UNATOOLS_I18N_H
 
 #include <common.h>
 
-/* If Cygwin libtool DLL support is enabled set LIBUNA_DLL_IMPORT
- * before including libuna.h
- */
-#if defined( _WIN32 ) && defined( DLL_IMPORT ) && !defined( HAVE_STATIC_EXECUTABLES )
-#define LIBUNA_DLL_IMPORT
+#if defined( HAVE_LIBINTL_H )
+#include <libintl.h>
 #endif
 
-#include <libuna.h>
+#if defined( __cplusplus )
+extern "C" {
+#endif
 
-#endif /* !defined( _UNATOOLS_LIBUNA_H ) */
+/* TODO for now do nothing i18n-like
+#define	_( string ) \
+	gettext( string )
+*/
+
+#define	_( string ) \
+	string
+
+#if defined( __cplusplus )
+}
+#endif
+
+#endif /* !defined( _UNATOOLS_I18N_H ) */
 

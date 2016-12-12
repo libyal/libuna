@@ -30,11 +30,11 @@
 #include "process_status.h"
 #include "unacommon.h"
 #include "unainput.h"
-#include "unaoutput.h"
 #include "unatools_libcerror.h"
 #include "unatools_libcfile.h"
 #include "unatools_libclocale.h"
 #include "unatools_libuna.h"
+#include "unatools_output.h"
 
 #define EXPORT_HANDLE_BUFFER_SIZE		8 * 1024 * 1024
 #define EXPORT_HANDLE_STRING_SIZE		1024
@@ -2347,7 +2347,7 @@ int export_handle_print_parameters(
 		 export_handle->notify_stream,
 		 "\tof format:\t\t" );
 
-		unaoutput_format_fprint(
+		unatools_output_format_fprint(
 		 export_handle->notify_stream,
 		 export_handle->text_input_format );
 
@@ -2364,7 +2364,7 @@ int export_handle_print_parameters(
 		 export_handle->notify_stream,
 		 "\tof format:\t\t" );
 
-		unaoutput_format_fprint(
+		unatools_output_format_fprint(
 		 export_handle->notify_stream,
 		 export_handle->text_output_format );
 
@@ -2376,7 +2376,7 @@ int export_handle_print_parameters(
 		 export_handle->notify_stream,
 		 "\tbyte-stream codepage:\t" );
 
-		unaoutput_codepage_fprint(
+		unatools_output_codepage_fprint(
 		 export_handle->notify_stream,
 		 export_handle->text_byte_stream_codepage );
 

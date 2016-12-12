@@ -28,7 +28,6 @@
 
 #include "unatools_libcdatetime.h"
 #include "unatools_libcerror.h"
-#include "unatools_libcsystem.h"
 
 #if defined( __cplusplus )
 extern "C" {

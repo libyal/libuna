@@ -6,7 +6,6 @@ AM_CPPFLAGS = \
 	@LIBCLOCALE_CPPFLAGS@ \
 	@LIBCNOTIFY_CPPFLAGS@ \
 	@LIBCFILE_CPPFLAGS@ \
-	@LIBCSYSTEM_CPPFLAGS@ \
 	@LIBUNA_DLL_IMPORT@
 
 AM_LDFLAGS = @STATIC_LDFLAGS@
@@ -22,17 +21,19 @@ unabase_SOURCES = \
 	unabase.c \
 	unacommon.h \
 	unainput.c unainput.h \
-	unaoutput.c unaoutput.h
+	unatools_getopt.c unatools_getopt.h \
+	unatools_i18n.h \
 	unatools_libcdatetime.h \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
 	unatools_libcnotify.h \
-	unatools_libcsystem.h \
-	unatools_libuna.h
+	unatools_libuna.h \
+	unatools_output.c unatools_output.h \
+	unatools_signal.c unatools_signal.h \
+	unatools_unused.h
 
 unabase_LDADD = \
-	@LIBCSYSTEM_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
 	@LIBCNOTIFY_LIBADD@ \
 	@LIBCLOCALE_LIBADD@ \
@@ -48,17 +49,19 @@ unaexport_SOURCES = \
 	unacommon.h \
 	unaexport.c \
 	unainput.c unainput.h \
-	unaoutput.c unaoutput.h \
+	unatools_getopt.c unatools_getopt.h \
+	unatools_i18n.h \
 	unatools_libcdatetime.h \
 	unatools_libcerror.h \
 	unatools_libcfile.h \
 	unatools_libclocale.h \
 	unatools_libcnotify.h \
-	unatools_libcsystem.h \
-	unatools_libuna.h
+	unatools_libuna.h \
+	unatools_output.c unatools_output.h \
+	unatools_signal.c unatools_signal.h \
+	unatools_unused.h
 
 unaexport_LDADD = \
-	@LIBCSYSTEM_LIBADD@ \
 	@LIBCFILE_LIBADD@ \
 	@LIBCNOTIFY_LIBADD@ \
 	@LIBCLOCALE_LIBADD@ \
