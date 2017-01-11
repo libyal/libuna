@@ -17,7 +17,7 @@ AC_DEFUN([AX_LIBUNA_CHECK_LOCAL],
   ])
 ])
 
-dnl Function to detect if olecftools dependencies are available
+dnl Function to detect if unatools dependencies are available
 AC_DEFUN([AX_UNATOOLS_CHECK_LOCAL],
   [AC_CHECK_HEADERS([signal.h sys/signal.h unistd.h])
 

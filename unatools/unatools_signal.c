@@ -1,7 +1,7 @@
 /*
  * Signal handling functions
  *
- * Copyright (C) 2008-2016, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2017, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -35,7 +35,7 @@
 
 #if defined( WINAPI )
 
-void (*unatools_signal_signal_handler)( unatools_signal_t ) = NULL;
+void (*unatools_signal_signal_handler)( olecftools_signal_t ) = NULL;
 
 /* Signal handler for Ctrl+C or Ctrl+Break signals
  */
