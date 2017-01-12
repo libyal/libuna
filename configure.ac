@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20170111],
+ [20170112],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -59,7 +59,7 @@ dnl Check for enabling libcerror for cross-platform C error functions
 AX_LIBCERROR_CHECK_ENABLE
 
 dnl Check for libuna function support
-AX_LIBOLECF_CHECK_LOCAL
+AX_LIBUNA_CHECK_LOCAL
 
 dnl Check for enabling libcdatetime for cross-platform C datetime functions
 AX_LIBCDATETIME_CHECK_ENABLE
