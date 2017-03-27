@@ -5,10 +5,10 @@ AM_CPPFLAGS = \
 	@LIBUNA_DLL_IMPORT@
 
 TESTS = \
-	test_api_functions.sh
+	test_library.sh
 
 check_SCRIPTS = \
-	test_api_functions.sh \
+	test_library.sh \
 	test_runner.sh \
 	test_unaexport.sh
 
