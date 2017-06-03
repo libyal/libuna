@@ -22,11 +22,10 @@ DPKG_FILES = \
 	dpkg/compat \
 	dpkg/control \
 	dpkg/copyright \
-	dpkg/copyright.in \
 	dpkg/rules \
-	dpkg/libuna-dev.docs \
-	dpkg/libuna.docs \
-	dpkg/libuna-tools.docs \
+	dpkg/libuna-dev.install \
+	dpkg/libuna.install \
+	dpkg/libuna-tools.install \
 	dpkg/source/format
 
 GETTEXT_FILES = \

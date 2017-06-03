@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20170326],
+ [20170603],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -148,7 +148,6 @@ AC_CONFIG_FILES([libuna/libuna_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
 AC_CONFIG_FILES([dpkg/changelog])
-AC_CONFIG_FILES([dpkg/copyright])
 AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])
 AC_CONFIG_FILES([libuna.spec])
