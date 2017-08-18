@@ -3,33 +3,36 @@ environment:
   - TARGET: vs2008
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
     VisualStudioVersion: 9.0
+    platform: Win32
+    configuration: Release
   - TARGET: vs2010
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
     VisualStudioVersion: 10.0
+    platform: Win32
+    configuration: VSDebug
   - TARGET: vs2012
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
     VisualStudioVersion: 11.0
+    platform: x64
+    configuration: Release
   - TARGET: vs2013
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
     VisualStudioVersion: 12.0
+    platform: Win32
+    configuration: Release
   - TARGET: vs2015
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     VisualStudioVersion: 14.0
+    platform: Win32
+    configuration: Release
   - TARGET: cygwin
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   - TARGET: cygwin64
   - TARGET: mingw
   - TARGET: mingw-w64
 
-# TODO: add x64, fix issue: LNK1158: cannot run 'cvtres.exe'
-platform:
-- Win32
-
-# TODO: add VSDebug
-configuration:
-- Release
-
 install:
-- cmd: git clone https://github.com/libyal/libyal.git && move libyal ..\
+- cmd: git clone https://github.com/libyal/vstools.git && move vstools ..\
 
 build_script:
 - ps: .\synclibs.ps1
@@ -37,38 +40,38 @@ build_script:
 - cmd: if [%TARGET%]==[vs2008] (
     msbuild msvscpp\libuna.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" )
 - cmd: if [%TARGET%]==[vs2010] (
-    C:\Python27\python.exe ..\libyal\scripts\msvscpp-convert.py --to 2010 msvscpp\libuna.sln &&
+    set PYTHONPATH=..\vstools &&
+    C:\Python27\python.exe ..\vstools\scripts\msvscpp-convert.py --to 2010 msvscpp\libuna.sln &&
     msbuild vs2010\libuna.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" )
 - cmd: if [%TARGET%]==[vs2012] (
-    C:\Python27\python.exe ..\libyal\scripts\msvscpp-convert.py --to 2012 msvscpp\libuna.sln &&
+    set PYTHONPATH=..\vstools &&
+    C:\Python27\python.exe ..\vstools\scripts\msvscpp-convert.py --to 2012 msvscpp\libuna.sln &&
     msbuild vs2012\libuna.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" )
 - cmd: if [%TARGET%]==[vs2013] (
-    C:\Python27\python.exe ..\libyal\scripts\msvscpp-convert.py --to 2013 msvscpp\libuna.sln &&
+    set PYTHONPATH=..\vstools &&
+    C:\Python27\python.exe ..\vstools\scripts\msvscpp-convert.py --to 2013 msvscpp\libuna.sln &&
     msbuild vs2013\libuna.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" )
 - cmd: if [%TARGET%]==[vs2015] (
-    C:\Python27\python.exe ..\libyal\scripts\msvscpp-convert.py --to 2015 msvscpp\libuna.sln &&
+    set PYTHONPATH=..\vstools &&
+    C:\Python27\python.exe ..\vstools\scripts\msvscpp-convert.py --to 2015 msvscpp\libuna.sln &&
     msbuild vs2015\libuna.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" )
 - cmd: if [%TARGET%]==[cygwin] (
     xcopy /q /s C:\projects\libuna C:\cygwin\home\appveyor\ &&
     C:\cygwin\bin\bash -e -l -c "cd libuna" &&
-    C:\cygwin\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" &&
-    C:\cygwin\bin\bash -e -l -c "./runtests.sh" )
+    C:\cygwin\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" )
 - cmd: if [%TARGET%]==[cygwin64] (
     xcopy /q /s C:\projects\libuna C:\cygwin64\home\appveyor\ &&
     C:\cygwin64\bin\bash -e -l -c "cd libuna" &&
-    C:\cygwin64\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" &&
-    C:\cygwin64\bin\bash -e -l -c "./runtests.sh" )
+    C:\cygwin64\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" )
 - cmd: if [%TARGET%]==[mingw] (
     xcopy /q /s C:\projects\libuna C:\MinGW\msys\1.0\home\appveyor\ &&
     C:\MinGW\msys\1.0\bin\bash -e -l -c "cd libuna" &&
     C:\MinGW\msys\1.0\bin\bash -e -l -c "sed 's/@VERSION@/0.29/g' m4/pkg.m4.in > m4/pkg.m4" &&
-    C:\MinGW\msys\1.0\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" &&
-    C:\MinGW\msys\1.0\bin\bash -e -l -c "./runtests.sh" )
+    C:\MinGW\msys\1.0\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" )
 - cmd: if [%TARGET%]==[mingw-w64] (
     xcopy /q /s C:\projects\libuna C:\msys64\home\appveyor\ &&
     C:\msys64\usr\bin\bash -e -l -c "cd libuna" &&
-    C:\msys64\usr\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" &&
-    C:\msys64\usr\bin\bash -e -l -c "./runtests.sh" )
+    C:\msys64\usr\bin\bash -e -l -c "./synclibs.sh && ./autogen.sh" )
 
 test_script:
 - cmd: rem Run tests
@@ -82,4 +85,12 @@ test_script:
     .\runtests.ps1 }
 - ps: if ($env:TARGET -eq "vs2015") {
     .\runtests.ps1 }
+- cmd: if [%TARGET%]==[cygwin] (
+    C:\cygwin\bin\bash -e -l -c "./runtests.sh" )
+- cmd: if [%TARGET%]==[cygwin64] (
+    C:\cygwin64\bin\bash -e -l -c "./runtests.sh" )
+- cmd: if [%TARGET%]==[mingw] (
+    C:\MinGW\msys\1.0\bin\bash -e -l -c "./runtests.sh" )
+- cmd: if [%TARGET%]==[mingw-w64] (
+    C:\msys64\usr\bin\bash -e -l -c "./runtests.sh" )
 
