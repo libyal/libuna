@@ -4934,7 +4934,7 @@ int libuna_unicode_character_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( *utf16_stream_index >= utf16_stream_size )
+	if( ( *utf16_stream_index + 1 ) >= utf16_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -4976,7 +4976,7 @@ int libuna_unicode_character_copy_from_utf16_stream(
 	if( ( *unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
 	 && ( *unicode_character <= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_END ) )
 	{
-		if( *utf16_stream_index >= utf16_stream_size )
+		if( ( *utf16_stream_index + 1 ) >= utf16_stream_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -5412,7 +5412,7 @@ int libuna_unicode_character_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( *utf32_stream_index >= utf32_stream_size )
+	if( ( *utf32_stream_index + 3 ) >= utf32_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -5513,7 +5513,7 @@ int libuna_unicode_character_copy_to_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( *utf32_stream_index + 1 ) >= utf32_stream_size )
+	if( ( *utf32_stream_index + 3 ) >= utf32_stream_size )
 	{
 		libcerror_error_set(
 		 error,
