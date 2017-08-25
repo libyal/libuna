@@ -5449,9 +5449,9 @@ int libuna_unicode_character_copy_from_utf32_stream(
 	{
 		*unicode_character   = utf32_stream[ *utf32_stream_index + 3 ];
 		*unicode_character <<= 8;
-		*unicode_character   = utf32_stream[ *utf32_stream_index + 2 ];
+		*unicode_character  += utf32_stream[ *utf32_stream_index + 2 ];
 		*unicode_character <<= 8;
-		*unicode_character   = utf32_stream[ *utf32_stream_index + 1 ];
+		*unicode_character  += utf32_stream[ *utf32_stream_index + 1 ];
 		*unicode_character <<= 8;
 		*unicode_character  += utf32_stream[ *utf32_stream_index ];
 	}

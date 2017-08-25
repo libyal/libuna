@@ -1896,8 +1896,8 @@ int export_handle_export_text_encoded_input(
 			else if( ( read_count >= 4 )
 			      && ( source_buffer[ 0 ] == 0x00 )
 			      && ( source_buffer[ 1 ] == 0x00 )
-			      && ( source_buffer[ 1 ] == 0xfe )
-			      && ( source_buffer[ 1 ] == 0xff ) )
+			      && ( source_buffer[ 2 ] == 0xfe )
+			      && ( source_buffer[ 3 ] == 0xff ) )
 			{
 				if( export_handle->text_input_format == UNACOMMON_FORMAT_AUTO_DETECT )
 				{
