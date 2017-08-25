@@ -26,7 +26,6 @@ environment:
     platform: Win32
     configuration: Release
   - TARGET: cygwin
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   - TARGET: cygwin64
   - TARGET: mingw
   - TARGET: mingw-w64
