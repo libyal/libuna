@@ -42,9 +42,9 @@ uint8_t una_test_base32_stream_upper_case_base32_stream[ 32 ] = {
 
 uint8_t una_test_base32_stream_utf16le_base32_stream[ 64 ] = {
 	'K', 0, 'R', 0, 'U', 0, 'G', 0, 'S', 0, '4', 0, 'Z', 0, 'A', 0,
-        'N', 0, 'F', 0, 'Z', 0, 'S', 0, 'B', 0, 'Q', 0, '5', 0, 'B', 0,
-        'E', 0, 'B', 0, '2', 0, 'G', 0, 'K', 0, '4', 0, '3', 0, 'U', 0,
-        'F', 0, 'Y', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0 };
+	'N', 0, 'F', 0, 'Z', 0, 'S', 0, 'B', 0, 'Q', 0, '5', 0, 'B', 0,
+	'E', 0, 'B', 0, '2', 0, 'G', 0, 'K', 0, '4', 0, '3', 0, 'U', 0,
+	'F', 0, 'Y', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0, '=', 0 };
 
 char *una_test_base32_stream_byte_stream_long = \
 	"The test of success is not what you do when you are on top. " \
@@ -78,9 +78,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "byte_stream_size",
@@ -100,9 +100,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "byte_stream_size",
@@ -122,9 +122,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "byte_stream_size",
@@ -146,9 +146,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -166,9 +166,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -186,9 +186,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -206,9 +206,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -231,9 +231,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -253,9 +253,9 @@ int una_test_base32_stream_size_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -294,9 +294,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = memory_compare(
 	          byte_stream,
@@ -322,9 +322,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = memory_compare(
 	          byte_stream,
@@ -350,9 +350,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = memory_compare(
 	          byte_stream,
@@ -380,9 +380,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -401,9 +401,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -422,9 +422,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -443,9 +443,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -464,9 +464,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -487,9 +487,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -513,9 +513,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -536,9 +536,9 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -574,9 +574,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "base32_stream_size",
@@ -595,9 +595,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "base32_stream_size",
@@ -621,9 +621,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -640,9 +640,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -659,9 +659,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -678,9 +678,9 @@ int una_test_base32_stream_size_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -715,9 +715,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = memory_compare(
 	          base32_stream,
@@ -742,9 +742,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        UNA_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = memory_compare(
 	          base32_stream,
@@ -774,9 +774,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -794,9 +794,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -814,9 +814,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -834,9 +834,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -854,9 +854,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -876,9 +876,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -898,9 +898,9 @@ int una_test_base32_stream_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        UNA_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );

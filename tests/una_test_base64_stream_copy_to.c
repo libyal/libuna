@@ -48,9 +48,9 @@ int una_test_base64_stream_copy_to_byte_stream(
 	size_t result_byte_stream_size = 0;
 	int result                     = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying base64 stream to byte stream with variant: 0x%08" PRIx32 "\t",
+	fprintf(
+	 stdout,
+	 "Testing copying base64 stream to byte stream with variant: 0x%08" PRIx32 "\t",
 	 base64_variant );
 
 	result = libuna_base64_stream_size_to_byte_stream(

@@ -79,9 +79,9 @@ int una_test_unicode_character_copy_to_byte_stream(
 	size_t byte_stream_to_unicode_entry_index = 0;
 	int result                                = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying Unicode character to byte stream with codepage: %d\t",
+	fprintf(
+	 stdout,
+	 "Testing copying Unicode character to byte stream with codepage: %d\t",
 	 codepage );
 
 	while( byte_stream_to_unicode_entry_index < number_of_byte_stream_to_unicode_entries )

@@ -47,9 +47,9 @@ int una_test_utf16_string_copy_from_byte_stream(
 	size_t result_utf16_string_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from byte stream\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from byte stream\t" );
 
 	result = libuna_utf16_string_size_from_byte_stream(
 	          byte_stream,
@@ -144,9 +144,9 @@ int una_test_utf16_string_copy_from_utf7_stream(
 	size_t result_utf16_string_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-7 stream\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-7 stream\t" );
 
 	result = libuna_utf16_string_size_from_utf7_stream(
 	          utf7_stream,
@@ -239,9 +239,9 @@ int una_test_utf16_string_copy_from_utf8_stream(
 	size_t result_utf16_string_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-8 stream\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-8 stream\t" );
 
 	result = libuna_utf16_string_size_from_utf8_stream(
 	          utf8_stream,
@@ -344,9 +344,9 @@ int una_test_utf16_string_copy_from_utf16_stream(
 	{
 		byte_order_string = "little-endian";
 	}
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-16 stream with byte-order: %s\t",
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-16 stream with byte-order: %s\t",
 	 byte_order_string );
 
 	result = libuna_utf16_string_size_from_utf16_stream(
@@ -452,9 +452,9 @@ int una_test_utf16_string_copy_from_utf32_stream(
 	{
 		byte_order_string = "little-endian";
 	}
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-32 stream with byte-order: %s\t",
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-32 stream with byte-order: %s\t",
 	 byte_order_string );
 
 	result = libuna_utf16_string_size_from_utf32_stream(
@@ -550,9 +550,9 @@ int una_test_utf16_string_copy_from_utf8_string(
 	size_t result_utf16_string_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-8 string\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-8 string\t" );
 
 	result = libuna_utf16_string_size_from_utf8(
 	          utf8_string,
@@ -645,9 +645,9 @@ int una_test_utf16_string_copy_from_utf32_string(
 	size_t result_utf16_string_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-16 string from UTF-32 string\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-16 string from UTF-32 string\t" );
 
 	result = libuna_utf16_string_size_from_utf32(
 	          utf32_string,

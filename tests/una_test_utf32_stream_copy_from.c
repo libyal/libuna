@@ -47,9 +47,9 @@ int una_test_utf32_stream_copy_from_utf8_string(
 	size_t result_utf32_stream_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-32 stream from UTF-8 string\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-32 stream from UTF-8 string\t" );
 
 	result = libuna_utf32_stream_size_from_utf8(
 	          utf8_string,
@@ -144,9 +144,9 @@ int una_test_utf32_stream_copy_from_utf16_string(
 	size_t result_utf32_stream_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-32 stream from UTF-16 string\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-32 stream from UTF-16 string\t" );
 
 	result = libuna_utf32_stream_size_from_utf16(
 	          utf16_string,
@@ -241,9 +241,9 @@ int una_test_utf32_stream_copy_from_utf32_string(
 	size_t result_utf32_stream_size = 0;
 	int result                      = 0;
 
-        fprintf(
-         stdout,
-         "Testing copying UTF-32 stream from UTF-32 string\t" );
+	fprintf(
+	 stdout,
+	 "Testing copying UTF-32 stream from UTF-32 string\t" );
 
 	result = libuna_utf32_stream_size_from_utf32(
 	          utf32_string,
