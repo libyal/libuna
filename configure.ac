@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20170829],
+ [20170903],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -14,9 +14,6 @@ AC_CONFIG_MACRO_DIR([m4])
 
 dnl Check for host type
 AC_CANONICAL_HOST
-
-dnl Check for large file support
-AC_SYS_LARGEFILE
 
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
@@ -43,6 +40,9 @@ AC_C_CONST
 AC_C_INLINE
 AC_C_VOLATILE
 
+dnl Check for large file support
+AC_SYS_LARGEFILE
+
 dnl Check if WINAPI support should be enabled
 AX_COMMON_CHECK_ENABLE_WINAPI
 
@@ -52,38 +52,52 @@ AX_COMMON_CHECK_ENABLE_WIDE_CHARACTER_TYPE
 dnl Check for type definitions
 AX_TYPES_CHECK_LOCAL
 
-dnl Checks for libraries and library functions
+dnl Check if common required headers and functions are available
 AX_COMMON_CHECK_LOCAL
 
-dnl Check for enabling libcerror for cross-platform C error functions
+dnl Check if libcerror or required headers and functions are available
 AX_LIBCERROR_CHECK_ENABLE
 
-dnl Check for libuna function support
+dnl Check if libuna required headers and functions are available
 AX_LIBUNA_CHECK_LOCAL
 
-dnl Check for enabling libcdatetime for cross-platform C datetime functions
+dnl Check if libcdatetime or required headers and functions are available
 AX_LIBCDATETIME_CHECK_ENABLE
 
-dnl Check for enabling libclocale for cross-platform C locale functions
+dnl Check if libclocale or required headers and functions are available
 AX_LIBCLOCALE_CHECK_ENABLE
 
-dnl Check for enabling libcnotify for cross-platform C notification functions
+dnl Check if libcnotify or required headers and functions are available
 AX_LIBCNOTIFY_CHECK_ENABLE
 
-dnl Check for enabling libcfile for cross-platform C file functions
+dnl Check if libcfile or required headers and functions are available
 AX_LIBCFILE_CHECK_ENABLE
 
-dnl Check for olecftools function support
+dnl Check if unatools required headers and functions are available
 AX_UNATOOLS_CHECK_LOCAL
 
-dnl Headers included in various places
-AC_CHECK_HEADERS([stdarg.h varargs.h])
+dnl Check if tests required headers and functions are available
+AX_TESTS_CHECK_LOCAL
 
+dnl Check if DLL support is needed
 AS_IF(
- [test "x$ac_cv_header_stdarg_h" != xyes && test "x$ac_cv_header_varargs_h" != xyes],
- [AC_MSG_FAILURE(
-  [Missing headers: stdarg.h and varargs.h],
-  [1])
+ [test "x$enable_shared" = xyes],
+ [AS_CASE(
+  [$host],
+  [*cygwin* | *mingw*],
+  [AC_DEFINE(
+   [HAVE_DLLMAIN],
+   [1],
+   [Define to 1 to enable the DllMain function.])
+  AC_SUBST(
+   [HAVE_DLLMAIN],
+   [1])
+
+  dnl Used in tests
+  AC_SUBST(
+   [LIBUNA_DLL_IMPORT],
+   ["-DLIBUNA_DLL_IMPORT"])
+  ])
  ])
 
 dnl Set additional compiler flags
@@ -101,7 +115,7 @@ AS_IF(
  ])
 
 AS_IF(
- [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libcfile" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes],
+ [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes || test "x$ac_cv_libcfile" = xyes],
  [AC_SUBST(
   [libuna_tools_spec_build_requires],
   [BuildRequires:])
@@ -117,12 +131,7 @@ AC_SUBST(
  [SPEC_DATE],
  [`date +"%a %b %e %Y" 2> /dev/null`])
 
-dnl Set the current working directory for PackageMaker files
-AC_SUBST(
- [PWD],
- [`pwd`])
-
-dnl Have configure make the Makefiles
+dnl Generate Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
@@ -139,19 +148,19 @@ AC_CONFIG_FILES([documents/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
-dnl Have configure make the include files
+dnl Generate header files
 AC_CONFIG_FILES([include/libuna.h])
 AC_CONFIG_FILES([include/libuna/definitions.h])
 AC_CONFIG_FILES([include/libuna/features.h])
 AC_CONFIG_FILES([include/libuna/types.h])
 AC_CONFIG_FILES([libuna/libuna_definitions.h])
-dnl Have configure make distribution specific files
+dnl Generate distribution specific files
 AC_CONFIG_FILES([common/types.h])
 AC_CONFIG_FILES([dpkg/changelog])
 AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])
 AC_CONFIG_FILES([libuna.spec])
-dnl Have configure write its configuration
+dnl Generate a source configuration file
 AC_CONFIG_HEADERS([common/config.h])
 
 AC_OUTPUT
