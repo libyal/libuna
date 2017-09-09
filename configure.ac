@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20170903],
+ [20170909],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -37,7 +37,6 @@ AM_GNU_GETTEXT_VERSION([0.18.1])
 
 dnl Check for compiler language support
 AC_C_CONST
-AC_C_INLINE
 AC_C_VOLATILE
 
 dnl Check for large file support
@@ -117,7 +116,7 @@ AS_IF(
 AS_IF(
  [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes || test "x$ac_cv_libcfile" = xyes],
  [AC_SUBST(
-  [libuna_tools_spec_build_requires],
+  [libuna_spec_tools_build_requires],
   [BuildRequires:])
  ])
 
