@@ -1,7 +1,7 @@
 /*
  * Unicode and ASCII (byte stream) conversion library UTF-32 stream copy from testing program
  *
- * Copyright (C) 2008-2017, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2018, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
