@@ -1,5 +1,5 @@
 /*
- * The internal libuna header
+ * The libuna header wrapper
  *
  * Copyright (C) 2008-2018, Joachim Metz <joachim.metz@gmail.com>
  *
