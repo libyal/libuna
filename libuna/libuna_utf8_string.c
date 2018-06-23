@@ -77,12 +77,6 @@ int libuna_utf8_string_size_from_byte_stream(
 	}
 	*utf8_string_size = 0;
 
-	/* Check if the byte stream is terminated with a zero byte
-	 */
-	if( byte_stream[ byte_stream_size - 1 ] != 0 )
-	{
-		*utf8_string_size += 1;
-	}
 	while( byte_stream_index < byte_stream_size )
 	{
 		/* Convert the byte stream bytes into an Unicode character
@@ -120,6 +114,13 @@ int libuna_utf8_string_size_from_byte_stream(
 
 			return( -1 );
 		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( byte_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
+	{
+		*utf8_string_size += 1;
 	}
 	return( 1 );
 }
@@ -174,7 +175,6 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
 	static char *function                        = "libuna_utf8_string_with_index_copy_from_byte_stream";
 	size_t byte_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t has_end_of_string_character          = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -231,12 +231,6 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	/* Check if the byte stream is terminated with zero bytes
-	 */
-	if( byte_stream[ byte_stream_size - 1 ] != 0 )
-	{
-		has_end_of_string_character = 1;
-	}
 	while( byte_stream_index < byte_stream_size )
 	{
 		/* Convert the byte stream bytes into an Unicode character
@@ -277,7 +271,10 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
 			return( -1 );
 		}
 	}
-	if( has_end_of_string_character != 0 )
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( byte_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
 	{
 		if( *utf8_string_index >= utf8_string_size )
 		{
@@ -293,17 +290,6 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
 		utf8_string[ *utf8_string_index ] = 0;
 
 		*utf8_string_index += 1;
-	}
-	if( utf8_string[ *utf8_string_index - 1 ] != 0 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-		 "%s: Missing end-of-string character.",
-		 function );
-
-		return( -1 );
 	}
 	return( 1 );
 }
@@ -470,17 +456,6 @@ int libuna_utf8_string_size_from_utf7_stream(
 
 		return( -1 );
 	}
-	if( utf7_stream_size < 1 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing UTF-7 stream bytes.",
-		 function );
-
-		return( -1 );
-	}
 	if( utf8_string_size == NULL )
 	{
 		libcerror_error_set(
@@ -494,12 +469,6 @@ int libuna_utf8_string_size_from_utf7_stream(
 	}
 	*utf8_string_size = 0;
 
-	/* Check if the UTF-7 stream is terminated with a zero byte
-	 */
-	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
-	{
-		*utf8_string_size += 1;
-	}
 	while( utf7_stream_index < utf7_stream_size )
 	{
 		/* Convert the UTF-7 stream bytes into an Unicode character
@@ -537,6 +506,13 @@ int libuna_utf8_string_size_from_utf7_stream(
 
 			return( -1 );
 		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf7_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
+	{
+		*utf8_string_size += 1;
 	}
 	return( 1 );
 }
@@ -589,7 +565,6 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
 	size_t utf7_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
-	uint8_t has_end_of_string_character          = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -646,23 +621,6 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
 
 		return( -1 );
 	}
-	if( utf7_stream_size < 1 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing UTF-7 stream bytes.",
-		 function );
-
-		return( -1 );
-	}
-	/* Check if the UTF-7 stream is terminated with zero bytes
-	 */
-	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
-	{
-		has_end_of_string_character = 1;
-	}
 	while( utf7_stream_index < utf7_stream_size )
 	{
 		/* Convert the UTF-7 stream bytes into an Unicode character
@@ -703,7 +661,10 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
 			return( -1 );
 		}
 	}
-	if( has_end_of_string_character != 0 )
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf7_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
 	{
 		if( *utf8_string_index >= utf8_string_size )
 		{
@@ -719,17 +680,6 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
 		utf8_string[ *utf8_string_index ] = 0;
 
 		*utf8_string_index += 1;
-	}
-	if( utf8_string[ *utf8_string_index - 1 ] != 0 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-		 "%s: Missing end-of-string character.",
-		 function );
-
-		return( -1 );
 	}
 	return( 1 );
 }
@@ -941,12 +891,6 @@ int libuna_utf8_string_size_from_utf8_stream(
 			utf8_stream_index += 3;
 		}
 	}
-	/* Check if the UTF-8 stream is terminated with a zero byte
-	 */
-	if( utf8_stream[ utf8_stream_size - 1 ] != 0 )
-	{
-		*utf8_string_size += 1;
-	}
 	while( utf8_stream_index < utf8_stream_size )
 	{
 		/* Convert the UTF-8 stream bytes into an Unicode character
@@ -983,6 +927,13 @@ int libuna_utf8_string_size_from_utf8_stream(
 
 			return( -1 );
 		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf8_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
+	{
+		*utf8_string_size += 1;
 	}
 	return( 1 );
 }
@@ -1034,7 +985,6 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
 	static char *function                        = "libuna_utf8_string_with_index_copy_from_utf8_stream";
 	size_t utf8_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t has_end_of_string_character          = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -1113,12 +1063,6 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
 			utf8_stream_index += 3;
 		}
 	}
-	/* Check if the UTF-8 stream is terminated with zero bytes
-	 */
-	if( utf8_stream[ utf8_stream_size - 1 ] != 0 )
-	{
-		has_end_of_string_character = 1;
-	}
 	while( utf8_stream_index < utf8_stream_size )
 	{
 		/* Convert the UTF-8 stream bytes into an Unicode character
@@ -1158,7 +1102,10 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
 			return( -1 );
 		}
 	}
-	if( has_end_of_string_character != 0 )
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf8_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
 	{
 		if( *utf8_string_index >= utf8_string_size )
 		{
@@ -1174,17 +1121,6 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
 		utf8_string[ *utf8_string_index ] = 0;
 
 		*utf8_string_index += 1;
-	}
-	if( utf8_string[ *utf8_string_index - 1 ] != 0 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-		 "%s: Missing end-of-string character.",
-		 function );
-
-		return( -1 );
 	}
 	return( 1 );
 }
@@ -1727,8 +1663,7 @@ int libuna_utf8_string_size_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size < 2 )
-	 || ( ( utf16_stream_size % 2 ) != 0 ) )
+	if( ( utf16_stream_size % 2 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -1754,21 +1689,24 @@ int libuna_utf8_string_size_from_utf16_stream(
 
 	/* Check if UTF-16 stream is in big or little endian
 	 */
-	if( ( utf16_stream[ 0 ] == 0xfe )
-	 && ( utf16_stream[ 1 ] == 0xff ) )
+	if( utf16_stream_size >= 2 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf16_stream_index = 2;
-	}
-	else if( ( utf16_stream[ 0 ] == 0xff )
-	      && ( utf16_stream[ 1 ] == 0xfe ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf16_stream_index = 2;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf16_stream[ 0 ] == 0xfe )
+		 && ( utf16_stream[ 1 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf16_stream_index = 2;
+		}
+		else if( ( utf16_stream[ 0 ] == 0xff )
+		      && ( utf16_stream[ 1 ] == 0xfe ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf16_stream_index = 2;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
@@ -1781,13 +1719,6 @@ int libuna_utf8_string_size_from_utf16_stream(
 		 function );
 
 		return( -1 );
-	}
-	/* Check if the UTF-16 stream is terminated with zero bytes
-	 */
-	if( ( utf16_stream[ utf16_stream_size - 2 ] != 0 )
-	 || ( utf16_stream[ utf16_stream_size - 1 ] != 0 ) )
-	{
-		*utf8_string_size += 1;
 	}
 	while( ( utf16_stream_index + 1 ) < utf16_stream_size )
 	{
@@ -1837,6 +1768,13 @@ int libuna_utf8_string_size_from_utf16_stream(
 		 function );
 
 		return( -1 );
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf16_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
+	{
+		*utf8_string_size += 1;
 	}
 	return( 1 );
 }
@@ -1891,7 +1829,6 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 	static char *function                        = "libuna_utf8_string_with_index_copy_from_utf16_stream";
 	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t has_end_of_string_character          = 0;
 	int read_byte_order                          = 0;
 
 	if( utf8_string == NULL )
@@ -1949,8 +1886,7 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size < 2 )
-	 || ( ( utf16_stream_size % 2 ) != 0 ) )
+	if( ( utf16_stream_size % 2 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -1963,21 +1899,24 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 	}
 	/* Check if UTF-16 stream is in big or little endian
 	 */
-	if( ( utf16_stream[ 0 ] == 0xfe )
-	 && ( utf16_stream[ 1 ] == 0xff ) )
+	if( utf16_stream_size >= 2 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf16_stream_index = 2;
-	}
-	else if( ( utf16_stream[ 0 ] == 0xff )
-	      && ( utf16_stream[ 1 ] == 0xfe ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf16_stream_index = 2;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf16_stream[ 0 ] == 0xfe )
+		 && ( utf16_stream[ 1 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf16_stream_index = 2;
+		}
+		else if( ( utf16_stream[ 0 ] == 0xff )
+		      && ( utf16_stream[ 1 ] == 0xfe ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf16_stream_index = 2;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
@@ -1990,13 +1929,6 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 		 function );
 
 		return( -1 );
-	}
-	/* Check if the UTF-16 stream is terminated with zero bytes
-	 */
-	if( ( utf16_stream[ utf16_stream_size - 2 ] != 0 )
-	 || ( utf16_stream[ utf16_stream_size - 1 ] != 0 ) )
-	{
-		has_end_of_string_character = 1;
 	}
 	while( ( utf16_stream_index + 1 ) < utf16_stream_size )
 	{
@@ -2049,7 +1981,10 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( has_end_of_string_character != 0 )
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf16_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
 	{
 		if( *utf8_string_index >= utf8_string_size )
 		{
@@ -2065,17 +2000,6 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 		utf8_string[ *utf8_string_index ] = 0;
 
 		*utf8_string_index += 1;
-	}
-	if( utf8_string[ *utf8_string_index - 1 ] != 0 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-		 "%s: Missing end-of-string character.",
-		 function );
-
-		return( -1 );
 	}
 	return( 1 );
 }
@@ -2142,8 +2066,7 @@ int libuna_utf8_string_compare_with_utf16_stream(
 
 		return( -1 );
 	}
-	if( ( utf16_stream_size < 2 )
-	 || ( ( utf16_stream_size % 2 ) != 0 ) )
+	if( ( utf16_stream_size % 2 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -2156,21 +2079,24 @@ int libuna_utf8_string_compare_with_utf16_stream(
 	}
 	/* Check if UTF-16 stream is in big or little endian
 	 */
-	if( ( utf16_stream[ 0 ] == 0xfe )
-	 && ( utf16_stream[ 1 ] == 0xff ) )
+	if( utf16_stream_size >= 2 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf16_stream_index = 2;
-	}
-	else if( ( utf16_stream[ 0 ] == 0xff )
-	      && ( utf16_stream[ 1 ] == 0xfe ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf16_stream_index = 2;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf16_stream[ 0 ] == 0xfe )
+		 && ( utf16_stream[ 1 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf16_stream_index = 2;
+		}
+		else if( ( utf16_stream[ 0 ] == 0xff )
+		      && ( utf16_stream[ 1 ] == 0xfe ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf16_stream_index = 2;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
@@ -2642,8 +2568,7 @@ int libuna_utf8_string_size_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( utf32_stream_size < 4 )
-	 || ( ( utf32_stream_size % 4 ) != 0 ) )
+	if( ( utf32_stream_size % 4 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -2669,25 +2594,28 @@ int libuna_utf8_string_size_from_utf32_stream(
 
 	/* Check if UTF-32 stream is in big or little endian
 	 */
-	if( ( utf32_stream[ 0 ] == 0x00 )
-	 && ( utf32_stream[ 1 ] == 0x00 )
-	 && ( utf32_stream[ 2 ] == 0xfe )
-	 && ( utf32_stream[ 3 ] == 0xff ) )
+	if( utf32_stream_size >= 4 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf32_stream_index = 4;
-	}
-	else if( ( utf32_stream[ 0 ] == 0xff )
-	      && ( utf32_stream[ 1 ] == 0xfe )
-	      && ( utf32_stream[ 2 ] == 0x00 )
-	      && ( utf32_stream[ 3 ] == 0x00 ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf32_stream_index = 4;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf32_stream[ 0 ] == 0x00 )
+		 && ( utf32_stream[ 1 ] == 0x00 )
+		 && ( utf32_stream[ 2 ] == 0xfe )
+		 && ( utf32_stream[ 3 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf32_stream_index = 4;
+		}
+		else if( ( utf32_stream[ 0 ] == 0xff )
+		      && ( utf32_stream[ 1 ] == 0xfe )
+		      && ( utf32_stream[ 2 ] == 0x00 )
+		      && ( utf32_stream[ 3 ] == 0x00 ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf32_stream_index = 4;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
@@ -2701,16 +2629,7 @@ int libuna_utf8_string_size_from_utf32_stream(
 
 		return( -1 );
 	}
-	/* Check if the UTF-32 stream is terminated with zero bytes
-	 */
-	if( ( utf32_stream[ utf32_stream_size - 4 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 3 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 2 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 1 ] != 0 ) )
-	{
-		*utf8_string_size += 1;
-	}
-	while( ( utf32_stream_index + 1 ) < utf32_stream_size )
+	while( ( utf32_stream_index + 3 ) < utf32_stream_size )
 	{
 		/* Convert the UTF-32 stream bytes into an Unicode character
 		 */
@@ -2758,6 +2677,13 @@ int libuna_utf8_string_size_from_utf32_stream(
 		 function );
 
 		return( -1 );
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf32_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
+	{
+		*utf8_string_size += 1;
 	}
 	return( 1 );
 }
@@ -2812,7 +2738,6 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 	static char *function                        = "libuna_utf8_string_with_index_copy_from_utf32_stream";
 	size_t utf32_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t has_end_of_string_character          = 0;
 	int read_byte_order                          = 0;
 
 	if( utf8_string == NULL )
@@ -2870,8 +2795,7 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( utf32_stream_size < 4 )
-	 || ( ( utf32_stream_size % 4 ) != 0 ) )
+	if( ( utf32_stream_size % 4 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -2884,25 +2808,28 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 	}
 	/* Check if UTF-32 stream is in big or little endian
 	 */
-	if( ( utf32_stream[ 0 ] == 0x00 )
-	 && ( utf32_stream[ 1 ] == 0x00 )
-	 && ( utf32_stream[ 2 ] == 0xfe )
-	 && ( utf32_stream[ 3 ] == 0xff ) )
+	if( utf32_stream_size >= 4 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf32_stream_index = 4;
-	}
-	else if( ( utf32_stream[ 0 ] == 0xff )
-	      && ( utf32_stream[ 1 ] == 0xfe )
-	      && ( utf32_stream[ 2 ] == 0x00 )
-	      && ( utf32_stream[ 3 ] == 0x00 ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf32_stream_index = 4;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf32_stream[ 0 ] == 0x00 )
+		 && ( utf32_stream[ 1 ] == 0x00 )
+		 && ( utf32_stream[ 2 ] == 0xfe )
+		 && ( utf32_stream[ 3 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf32_stream_index = 4;
+		}
+		else if( ( utf32_stream[ 0 ] == 0xff )
+		      && ( utf32_stream[ 1 ] == 0xfe )
+		      && ( utf32_stream[ 2 ] == 0x00 )
+		      && ( utf32_stream[ 3 ] == 0x00 ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf32_stream_index = 4;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
@@ -2916,16 +2843,7 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	/* Check if the UTF-32 stream is terminated with zero bytes
-	 */
-	if( ( utf32_stream[ utf32_stream_size - 4 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 3 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 2 ] != 0 )
-	 || ( utf32_stream[ utf32_stream_size - 1 ] != 0 ) )
-	{
-		has_end_of_string_character = 1;
-	}
-	while( ( utf32_stream_index + 1 ) < utf32_stream_size )
+	while( ( utf32_stream_index + 3 ) < utf32_stream_size )
 	{
 		/* Convert the UTF-32 stream bytes into an Unicode character
 		 */
@@ -2976,7 +2894,10 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( has_end_of_string_character != 0 )
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( ( utf32_stream_size == 0 )
+	 || ( unicode_character != 0 ) )
 	{
 		if( *utf8_string_index >= utf8_string_size )
 		{
@@ -2992,17 +2913,6 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 		utf8_string[ *utf8_string_index ] = 0;
 
 		*utf8_string_index += 1;
-	}
-	if( utf8_string[ *utf8_string_index - 1 ] != 0 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
-		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
-		 "%s: Missing end-of-string character.",
-		 function );
-
-		return( -1 );
 	}
 	return( 1 );
 }
@@ -3069,8 +2979,7 @@ int libuna_utf8_string_compare_with_utf32_stream(
 
 		return( -1 );
 	}
-	if( ( utf32_stream_size < 4 )
-	 || ( ( utf32_stream_size % 4 ) != 0 ) )
+	if( ( utf32_stream_size % 4 ) != 0 )
 	{
 		libcerror_error_set(
 		 error,
@@ -3083,25 +2992,28 @@ int libuna_utf8_string_compare_with_utf32_stream(
 	}
 	/* Check if UTF-32 stream is in big or little endian
 	 */
-	if( ( utf32_stream[ 0 ] == 0x00 )
-	 && ( utf32_stream[ 1 ] == 0x00 )
-	 && ( utf32_stream[ 2 ] == 0xfe )
-	 && ( utf32_stream[ 3 ] == 0xff ) )
+	if( utf32_stream_size >= 4 )
 	{
-		read_byte_order    = LIBUNA_ENDIAN_BIG;
-		utf32_stream_index = 4;
-	}
-	else if( ( utf32_stream[ 0 ] == 0xff )
-	      && ( utf32_stream[ 1 ] == 0xfe )
-	      && ( utf32_stream[ 2 ] == 0x00 )
-	      && ( utf32_stream[ 3 ] == 0x00 ) )
-	{
-		read_byte_order    = LIBUNA_ENDIAN_LITTLE;
-		utf32_stream_index = 4;
-	}
-	if( byte_order == 0 )
-	{
-		byte_order = read_byte_order;
+		if( ( utf32_stream[ 0 ] == 0x00 )
+		 && ( utf32_stream[ 1 ] == 0x00 )
+		 && ( utf32_stream[ 2 ] == 0xfe )
+		 && ( utf32_stream[ 3 ] == 0xff ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_BIG;
+			utf32_stream_index = 4;
+		}
+		else if( ( utf32_stream[ 0 ] == 0xff )
+		      && ( utf32_stream[ 1 ] == 0xfe )
+		      && ( utf32_stream[ 2 ] == 0x00 )
+		      && ( utf32_stream[ 3 ] == 0x00 ) )
+		{
+			read_byte_order    = LIBUNA_ENDIAN_LITTLE;
+			utf32_stream_index = 4;
+		}
+		if( byte_order == 0 )
+		{
+			byte_order = read_byte_order;
+		}
 	}
 	if( ( byte_order != LIBUNA_ENDIAN_BIG )
 	 && ( byte_order != LIBUNA_ENDIAN_LITTLE ) )
