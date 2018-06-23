@@ -174,7 +174,7 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
 	static char *function                        = "libuna_utf32_string_with_index_copy_from_byte_stream";
 	size_t byte_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t zero_byte                            = 0;
+	uint8_t has_end_of_string_character          = 0;
 
 	if( utf32_string == NULL )
 	{
@@ -235,7 +235,7 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
 	 */
 	if( byte_stream[ byte_stream_size - 1 ] != 0 )
 	{
-		zero_byte = 1;
+		has_end_of_string_character = 1;
 	}
 	while( byte_stream_index < byte_stream_size )
 	{
@@ -277,7 +277,7 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
 			return( -1 );
 		}
 	}
-	if( zero_byte != 0 )
+	if( has_end_of_string_character != 0 )
 	{
 		if( *utf32_string_index >= utf32_string_size )
 		{
@@ -293,6 +293,17 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
 		utf32_string[ *utf32_string_index ] = 0;
 
 		*utf32_string_index += 1;
+	}
+	if( utf32_string[ *utf32_string_index - 1 ] != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+		 "%s: Missing end-of-string character.",
+		 function );
+
+		return( -1 );
 	}
 	return( 1 );
 }
@@ -578,7 +589,7 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
 	size_t utf7_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
-	uint8_t zero_byte                            = 0;
+	uint8_t has_end_of_string_character          = 0;
 
 	if( utf32_string == NULL )
 	{
@@ -650,7 +661,7 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
 	 */
 	if( utf7_stream[ utf7_stream_size - 1 ] != 0 )
 	{
-		zero_byte = 1;
+		has_end_of_string_character = 1;
 	}
 	while( utf7_stream_index < utf7_stream_size )
 	{
@@ -692,7 +703,7 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
 			return( -1 );
 		}
 	}
-	if( zero_byte != 0 )
+	if( has_end_of_string_character != 0 )
 	{
 		if( *utf32_string_index >= utf32_string_size )
 		{
@@ -708,6 +719,17 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
 		utf32_string[ *utf32_string_index ] = 0;
 
 		*utf32_string_index += 1;
+	}
+	if( utf32_string[ *utf32_string_index - 1 ] != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+		 "%s: Missing end-of-string character.",
+		 function );
+
+		return( -1 );
 	}
 	return( 1 );
 }
@@ -1246,7 +1268,7 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
 	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf8_stream";
 	size_t utf8_stream_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t zero_byte                            = 0;
+	uint8_t has_end_of_string_character          = 0;
 
 	if( utf32_string == NULL )
 	{
@@ -1329,7 +1351,7 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
 	 */
 	if( utf8_stream[ utf8_stream_size - 1 ] != 0 )
 	{
-		zero_byte = 1;
+		has_end_of_string_character = 1;
 	}
 	while( utf8_stream_index < utf8_stream_size )
 	{
@@ -1370,7 +1392,7 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
 			return( -1 );
 		}
 	}
-	if( zero_byte != 0 )
+	if( has_end_of_string_character != 0 )
 	{
 		if( *utf32_string_index >= utf32_string_size )
 		{
@@ -1386,6 +1408,17 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
 		utf32_string[ *utf32_string_index ] = 0;
 
 		*utf32_string_index += 1;
+	}
+	if( utf32_string[ *utf32_string_index - 1 ] != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+		 "%s: Missing end-of-string character.",
+		 function );
+
+		return( -1 );
 	}
 	return( 1 );
 }
@@ -1970,7 +2003,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
 	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf16_stream";
 	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t zero_byte                            = 0;
+	uint8_t has_end_of_string_character          = 0;
 	int read_byte_order                          = 0;
 
 	if( utf32_string == NULL )
@@ -2075,7 +2108,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
 	if( ( utf16_stream[ utf16_stream_size - 2 ] != 0 )
 	 || ( utf16_stream[ utf16_stream_size - 1 ] != 0 ) )
 	{
-		zero_byte = 1;
+		has_end_of_string_character = 1;
 	}
 	while( ( utf16_stream_index + 1 ) < utf16_stream_size )
 	{
@@ -2128,7 +2161,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
 
 		return( -1 );
 	}
-	if( zero_byte != 0 )
+	if( has_end_of_string_character != 0 )
 	{
 		if( *utf32_string_index >= utf32_string_size )
 		{
@@ -2144,6 +2177,17 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
 		utf32_string[ *utf32_string_index ] = 0;
 
 		*utf32_string_index += 1;
+	}
+	if( utf32_string[ *utf32_string_index - 1 ] != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+		 "%s: Missing end-of-string character.",
+		 function );
+
+		return( -1 );
 	}
 	return( 1 );
 }
@@ -2525,7 +2569,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
 	static char *function                        = "libuna_utf32_string_with_index_copy_from_utf32_stream";
 	size_t utf32_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
-	uint8_t zero_byte                            = 0;
+	uint8_t has_end_of_string_character          = 0;
 	int read_byte_order                          = 0;
 
 	if( utf32_string == NULL )
@@ -2636,7 +2680,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
 	 || ( utf32_stream[ utf32_stream_size - 2 ] != 0 )
 	 || ( utf32_stream[ utf32_stream_size - 1 ] != 0 ) )
 	{
-		zero_byte = 1;
+		has_end_of_string_character = 1;
 	}
 	while( ( utf32_stream_index + 1 ) < utf32_stream_size )
 	{
@@ -2689,7 +2733,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
 
 		return( -1 );
 	}
-	if( zero_byte != 0 )
+	if( has_end_of_string_character != 0 )
 	{
 		if( *utf32_string_index >= utf32_string_size )
 		{
@@ -2705,6 +2749,17 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
 		utf32_string[ *utf32_string_index ] = 0;
 
 		*utf32_string_index += 1;
+	}
+	if( utf32_string[ *utf32_string_index - 1 ] != 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+		 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+		 "%s: Missing end-of-string character.",
+		 function );
+
+		return( -1 );
 	}
 	return( 1 );
 }
