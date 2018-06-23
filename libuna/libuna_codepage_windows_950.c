@@ -5402,7 +5402,7 @@ int libuna_codepage_windows_950_unicode_character_size_to_byte_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character from a byte stream
+/* Copies an Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_codepage_windows_950_copy_from_byte_stream(
@@ -6288,7 +6288,7 @@ int libuna_codepage_windows_950_copy_from_byte_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character to a byte stream
+/* Copies an Unicode character to a byte stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_codepage_windows_950_copy_to_byte_stream(

@@ -168,7 +168,7 @@ int libuna_unicode_character_size_to_byte_stream(
 	return( result );
 }
 
-/* Copies a Unicode character from a byte stream
+/* Copies an Unicode character from a byte stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_byte_stream(
@@ -745,7 +745,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 	return( result );
 }
 
-/* Copies a Unicode character to a byte stream
+/* Copies an Unicode character to a byte stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_byte_stream(
@@ -3204,7 +3204,7 @@ int libuna_unicode_character_size_to_utf7_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-7 stream
+/* Copies an Unicode character from an UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
  *  24 - 25 the number of bytes in the triplet
@@ -3681,7 +3681,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character into a UTF-7 stream
+/* Copies an Unicode character into a UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
  *  24 - 25 the number of bytes in the triplet
@@ -4186,7 +4186,7 @@ int libuna_unicode_character_size_to_utf8(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-8 string
+/* Copies an Unicode character from an UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf8(
@@ -4510,7 +4510,7 @@ int libuna_unicode_character_copy_from_utf8(
 	return( 1 );
 }
 
-/* Copies a Unicode character into a UTF-8 string
+/* Copies an Unicode character into a UTF-8 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_utf8(
@@ -4669,7 +4669,7 @@ int libuna_unicode_character_size_to_utf16(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-16 string
+/* Copies an Unicode character from an UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf16(
@@ -4784,7 +4784,7 @@ int libuna_unicode_character_copy_from_utf16(
 	return( 1 );
 }
 
-/* Copies a Unicode character into a UTF-16 string
+/* Copies an Unicode character into a UTF-16 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_utf16(
@@ -4876,7 +4876,7 @@ int libuna_unicode_character_copy_to_utf16(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-16 stream
+/* Copies an Unicode character from an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf16_stream(
@@ -5026,7 +5026,7 @@ int libuna_unicode_character_copy_from_utf16_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character to an UTF-16 stream
+/* Copies an Unicode character to an UTF-16 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_utf16_stream(
@@ -5199,7 +5199,7 @@ int libuna_unicode_character_size_to_utf32(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-32 string
+/* Copies an Unicode character from an UTF-32 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf32(
@@ -5282,7 +5282,7 @@ int libuna_unicode_character_copy_from_utf32(
 	return( 1 );
 }
 
-/* Copies a Unicode character into a UTF-32 string
+/* Copies an Unicode character into a UTF-32 string
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_utf32(
@@ -5355,7 +5355,7 @@ int libuna_unicode_character_copy_to_utf32(
 	return( 1 );
 }
 
-/* Copies a Unicode character from an UTF-32 stream
+/* Copies an Unicode character from an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf32_stream(
@@ -5467,7 +5467,7 @@ int libuna_unicode_character_copy_from_utf32_stream(
 	return( 1 );
 }
 
-/* Copies a Unicode character to an UTF-32 stream
+/* Copies an Unicode character to an UTF-32 stream
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_to_utf32_stream(

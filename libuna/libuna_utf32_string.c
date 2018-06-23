@@ -85,7 +85,7 @@ int libuna_utf32_string_size_from_byte_stream(
 	}
 	while( byte_stream_index < byte_stream_size )
 	{
-		/* Convert the byte stream bytes into a Unicode character
+		/* Convert the byte stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_byte_stream(
 		     &unicode_character,
@@ -239,7 +239,7 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
 	}
 	while( byte_stream_index < byte_stream_size )
 	{
-		/* Convert the byte stream bytes into a Unicode character
+		/* Convert the byte stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_byte_stream(
 		     &unicode_character,
@@ -371,7 +371,7 @@ int libuna_utf32_string_compare_with_byte_stream(
 	while( ( utf32_string_index < utf32_string_size )
 	    && ( byte_stream_index < byte_stream_size ) )
 	{
-		/* Convert the UTF-32 character bytes into a Unicode character
+		/* Convert the UTF-32 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32(
 		     &utf32_unicode_character,
@@ -389,7 +389,7 @@ int libuna_utf32_string_compare_with_byte_stream(
 
 			return( -1 );
 		}
-		/* Convert the byte stream bytes into a Unicode character
+		/* Convert the byte stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_byte_stream(
 		     &byte_stream_unicode_character,
@@ -491,7 +491,7 @@ int libuna_utf32_string_size_from_utf7_stream(
 	}
 	while( utf7_stream_index < utf7_stream_size )
 	{
-		/* Convert the UTF-7 stream bytes into a Unicode character
+		/* Convert the UTF-7 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf7_stream(
 		     &unicode_character,
@@ -654,7 +654,7 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
 	}
 	while( utf7_stream_index < utf7_stream_size )
 	{
-		/* Convert the UTF-7 stream bytes into a Unicode character
+		/* Convert the UTF-7 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf7_stream(
 		     &unicode_character,
@@ -797,7 +797,7 @@ int libuna_utf32_string_compare_with_utf7_stream(
 	while( ( utf32_string_index < utf32_string_size )
 	    && ( utf7_stream_index < utf7_stream_size ) )
 	{
-		/* Convert the UTF-32 character bytes into a Unicode character
+		/* Convert the UTF-32 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32(
 		     &utf32_unicode_character,
@@ -815,7 +815,7 @@ int libuna_utf32_string_compare_with_utf7_stream(
 
 			return( -1 );
 		}
-		/* Convert the UTF-7 character bytes into a Unicode character
+		/* Convert the UTF-7 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf7_stream(
 		     &utf7_stream_unicode_character,
@@ -900,7 +900,7 @@ int libuna_utf32_string_size_from_utf8(
 
 	while( utf8_string_index < utf8_string_size )
 	{
-		/* Convert the UTF-8 character bytes into a Unicode character
+		/* Convert the UTF-8 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf8(
 		     &unicode_character,
@@ -1043,7 +1043,7 @@ int libuna_utf32_string_with_index_copy_from_utf8(
 	}
 	while( utf8_string_index < utf8_string_size )
 	{
-		/* Convert the UTF-8 character bytes into a Unicode character
+		/* Convert the UTF-8 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf8(
 		     &unicode_character,
@@ -1161,7 +1161,7 @@ int libuna_utf32_string_size_from_utf8_stream(
 	}
 	while( utf8_stream_index < utf8_stream_size )
 	{
-		/* Convert the UTF-8 stream bytes into a Unicode character
+		/* Convert the UTF-8 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf8(
 		     &unicode_character,
@@ -1333,7 +1333,7 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
 	}
 	while( utf8_stream_index < utf8_stream_size )
 	{
-		/* Convert the UTF-8 stream bytes into a Unicode character
+		/* Convert the UTF-8 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf8(
 		     &unicode_character,
@@ -1485,7 +1485,7 @@ int libuna_utf32_string_compare_with_utf8_stream(
 	while( ( utf32_string_index < utf32_string_size )
 	    && ( utf8_stream_index < utf8_stream_size ) )
 	{
-		/* Convert the UTF-32 character bytes into a Unicode character
+		/* Convert the UTF-32 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32(
 		     &utf32_unicode_character,
@@ -1503,7 +1503,7 @@ int libuna_utf32_string_compare_with_utf8_stream(
 
 			return( -1 );
 		}
-		/* Convert the UTF-8 character bytes into a Unicode character
+		/* Convert the UTF-8 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf8(
 		     &utf8_stream_unicode_character,
@@ -1586,7 +1586,7 @@ int libuna_utf32_string_size_from_utf16(
 
 	while( utf16_string_index < utf16_string_size )
 	{
-		/* Convert the UTF-16 character bytes into a Unicode character
+		/* Convert the UTF-16 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf16(
 		     &unicode_character,
@@ -1729,7 +1729,7 @@ int libuna_utf32_string_with_index_copy_from_utf16(
 	}
 	while( utf16_string_index < utf16_string_size )
 	{
-		/* Convert the UTF-16 character bytes into a Unicode character
+		/* Convert the UTF-16 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf16(
 		     &unicode_character,
@@ -1870,7 +1870,7 @@ int libuna_utf32_string_size_from_utf16_stream(
 	}
 	while( ( utf16_stream_index + 1 ) < utf16_stream_size )
 	{
-		/* Convert the UTF-16 stream bytes into a Unicode character
+		/* Convert the UTF-16 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf16_stream(
 		     &unicode_character,
@@ -2079,7 +2079,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
 	}
 	while( ( utf16_stream_index + 1 ) < utf16_stream_size )
 	{
-		/* Convert the UTF-16 stream bytes into a Unicode character
+		/* Convert the UTF-16 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf16_stream(
 		     &unicode_character,
@@ -2266,7 +2266,7 @@ int libuna_utf32_string_compare_with_utf16_stream(
 	while( ( utf32_string_index < utf32_string_size )
 	    && ( utf16_stream_index < utf16_stream_size ) )
 	{
-		/* Convert the UTF-32 character bytes into a Unicode character
+		/* Convert the UTF-32 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32(
 		     &utf32_unicode_character,
@@ -2284,7 +2284,7 @@ int libuna_utf32_string_compare_with_utf16_stream(
 
 			return( -1 );
 		}
-		/* Convert the UTF-16 stream bytes into a Unicode character
+		/* Convert the UTF-16 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf16_stream(
 		     &utf16_stream_unicode_character,
@@ -2425,7 +2425,7 @@ int libuna_utf32_string_size_from_utf32_stream(
 	}
 	while( ( utf32_stream_index + 1 ) < utf32_stream_size )
 	{
-		/* Convert the UTF-32 stream bytes into a Unicode character
+		/* Convert the UTF-32 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32_stream(
 		     &unicode_character,
@@ -2640,7 +2640,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
 	}
 	while( ( utf32_stream_index + 1 ) < utf32_stream_size )
 	{
-		/* Convert the UTF-32 stream bytes into a Unicode character
+		/* Convert the UTF-32 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32_stream(
 		     &unicode_character,
@@ -2833,7 +2833,7 @@ int libuna_utf32_string_compare_with_utf32_stream(
 	while( ( utf32_string_index < utf32_string_size )
 	    && ( utf32_stream_index < utf32_stream_size ) )
 	{
-		/* Convert the UTF-32 character bytes into a Unicode character
+		/* Convert the UTF-32 character bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32(
 		     &utf32_unicode_character,
@@ -2851,7 +2851,7 @@ int libuna_utf32_string_compare_with_utf32_stream(
 
 			return( -1 );
 		}
-		/* Convert the UTF-32 stream bytes into a Unicode character
+		/* Convert the UTF-32 stream bytes into an Unicode character
 		 */
 		if( libuna_unicode_character_copy_from_utf32_stream(
 		     &utf32_stream_unicode_character,
