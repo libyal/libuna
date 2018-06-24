@@ -20,6 +20,10 @@ check_PROGRAMS = \
 	una_test_base32_stream \
 	una_test_base64_stream_copy_from \
 	una_test_base64_stream_copy_to \
+	una_test_codepage_windows_932 \
+	una_test_codepage_windows_936 \
+	una_test_codepage_windows_949 \
+	una_test_codepage_windows_950 \
 	una_test_error \
 	una_test_support \
 	una_test_utf16_stream_copy_from \
@@ -67,6 +71,50 @@ una_test_base64_stream_copy_to_SOURCES = \
 
 una_test_base64_stream_copy_to_LDADD = \
 	../libuna/libuna.la
+
+una_test_codepage_windows_932_SOURCES = \
+	una_test_codepage_windows_932.c una_test_codepage_windows_932.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
+
+una_test_codepage_windows_932_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_936_SOURCES = \
+	una_test_codepage_windows_936.c una_test_codepage_windows_936.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
+
+una_test_codepage_windows_936_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_949_SOURCES = \
+	una_test_codepage_windows_949.c una_test_codepage_windows_949.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
+
+una_test_codepage_windows_949_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_950_SOURCES = \
+	una_test_codepage_windows_950.c una_test_codepage_windows_950.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
+
+una_test_codepage_windows_950_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_error_SOURCES = \
 	una_test_error.c \

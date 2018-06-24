@@ -1,5 +1,5 @@
 /*
- * Library base16 stream functions test program
+ * Library utf16_string functions test program
  *
  * Copyright (C) 2008-2018, Joachim Metz <joachim.metz@gmail.com>
  *
