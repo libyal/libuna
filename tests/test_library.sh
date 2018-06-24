@@ -7,7 +7,7 @@ EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
 EXIT_IGNORE=77;
 
-LIBRARY_TESTS="base16_stream base32_stream error support";
+LIBRARY_TESTS="base16_stream base32_stream error support utf8_string";
 LIBRARY_TESTS_WITH_INPUT="";
 OPTION_SETS="";
 

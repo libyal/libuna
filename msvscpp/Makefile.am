@@ -19,7 +19,7 @@ MSVSCPP_FILES = \
 	una_test_utf32_string_copy_from/una_test_utf32_string_copy_from.vcproj \
 	una_test_utf7_stream_copy_from/una_test_utf7_stream_copy_from.vcproj \
 	una_test_utf8_stream_copy_from/una_test_utf8_stream_copy_from.vcproj \
-	una_test_utf8_string_copy_from/una_test_utf8_string_copy_from.vcproj \
+	una_test_utf8_string/una_test_utf8_string.vcproj \
 	unabase/unabase.vcproj \
 	unaexport/unaexport.vcproj \
 	libuna.sln

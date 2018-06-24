@@ -114,6 +114,10 @@ int libuna_utf8_string_size_from_byte_stream(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	/* Check if the string is terminated with an end-of-string character
 	 */
@@ -269,6 +273,10 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character
@@ -506,6 +514,10 @@ int libuna_utf8_string_size_from_utf7_stream(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	/* Check if the string is terminated with an end-of-string character
 	 */
@@ -659,6 +671,10 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character
@@ -927,6 +943,10 @@ int libuna_utf8_string_size_from_utf8_stream(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	/* Check if the string is terminated with an end-of-string character
 	 */
@@ -1100,6 +1120,10 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character
@@ -1757,6 +1781,10 @@ int libuna_utf8_string_size_from_utf16_stream(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	if( utf16_stream_index != utf16_stream_size )
 	{
@@ -1968,6 +1996,10 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	if( utf16_stream_index != utf16_stream_size )
@@ -2666,6 +2698,10 @@ int libuna_utf8_string_size_from_utf32_stream(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	if( utf32_stream_index != utf32_stream_size )
 	{
@@ -2881,6 +2917,10 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	if( utf32_stream_index != utf32_stream_size )
