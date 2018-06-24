@@ -6,7 +6,7 @@ $ExitSuccess = 0
 $ExitFailure = 1
 $ExitIgnore = 77
 
-$LibraryTests = "base16_stream base32_stream codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 error support utf16_string utf32_string utf8_string"
+$LibraryTests = "base16_stream base32_stream codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 error support unicode_character utf16_string utf32_string utf8_string"
 $LibraryTestsWithInput = ""
 
 Function GetTestToolDirectory

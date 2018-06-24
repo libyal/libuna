@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_unicode_character_copy_from"
-	ProjectGUID="{9C5D4661-2B48-4BD1-A27A-4083ED3DFAFF}"
-	RootNamespace="una_test_unicode_character_copy_from"
+	Name="una_test_unicode_character"
+	ProjectGUID="{9EE5D0A9-1575-43EC-BA49-BF2B393F9764}"
+	RootNamespace="una_test_unicode_character"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_unicode_character_copy_from.c"
+				RelativePath="..\..\tests\una_test_unicode_character.c"
 				>
 			</File>
 		</Filter>
@@ -314,11 +314,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\tests\una_test_libcerror.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\tests\una_test_libuna.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\tests\una_test_types.h"
+				RelativePath="..\..\tests\una_test_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_unused.h"
 				>
 			</File>
 		</Filter>

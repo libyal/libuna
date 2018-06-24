@@ -15,8 +15,7 @@ MSVSCPP_FILES = \
 	una_test_codepage_windows_950/una_test_codepage_windows_950.vcproj \
 	una_test_error/una_test_error.vcproj \
 	una_test_support/una_test_support.vcproj \
-	una_test_unicode_character_copy_from/una_test_unicode_character_copy_from.vcproj \
-	una_test_unicode_character_copy_to/una_test_unicode_character_copy_to.vcproj \
+	una_test_unicode_character/una_test_unicode_character.vcproj \
 	una_test_utf16_stream_copy_from/una_test_utf16_stream_copy_from.vcproj \
 	una_test_utf16_string/una_test_utf16_string.vcproj \
 	una_test_utf32_stream_copy_from/una_test_utf32_stream_copy_from.vcproj \
