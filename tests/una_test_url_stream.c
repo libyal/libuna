@@ -48,6 +48,11 @@ int main(
 	UNA_TEST_UNREFERENCED_PARAMETER( argc )
 	UNA_TEST_UNREFERENCED_PARAMETER( argv )
 
+	/* TODO add tests for libuna_url_stream_size_from_byte_stream */
+	/* TODO add tests for libuna_url_stream_copy_from_byte_stream */
+	/* TODO add tests for libuna_url_stream_size_to_byte_stream */
+	/* TODO add tests for libuna_url_stream_copy_to_byte_stream */
+
 	return( EXIT_SUCCESS );
 
 on_error:

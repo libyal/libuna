@@ -33,6 +33,12 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
+uint8_t lnk_test_utf32_stream_byte_order_mark_big_endian[ 4 ] = {
+	0, 0, 0xfe, 0xff };
+
+uint8_t lnk_test_utf32_stream_byte_order_mark_little_endian[ 4 ] = {
+	0xff, 0xfe, 0, 0 };
+
 uint8_t lnk_test_utf32_stream_utf32_stream[ 68 ] = {
 	0xff, 0xfe, 0, 0, 'T', 0, 0, 0, 'h', 0, 0, 0, 'i', 0, 0, 0, 's', 0, 0, 0,
 	' ', 0, 0, 0, 'i', 0, 0, 0, 's', 0, 0, 0, ' ', 0, 0, 0, 0xe1, 0, 0, 0, ' ', 0, 0, 0,
@@ -46,6 +52,170 @@ uint32_t lnk_test_utf32_stream_utf32_string[ 16 ] = {
 
 uint8_t lnk_test_utf32_stream_utf8_string[ 17 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
+
+uint8_t lnk_test_utf32_stream_error_utf8_string[ 17 ] = {
+	'T', 0xfc, 0xa1, 0xa1, 0xa1, 0xa1, 0xa1, ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
+
+/* Tests the libuna_utf32_stream_copy_byte_order_mark function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf32_stream_copy_byte_order_mark(
+     void )
+{
+	uint8_t utf32_stream[ 16 ];
+
+	libuna_error_t *error     = NULL;
+	size_t utf32_stream_index = 0;
+	int result                = 0;
+
+	/* Test regular cases
+	 */
+	utf32_stream_index = 0;
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          utf32_stream,
+	          16,
+	          &utf32_stream_index,
+	          LIBUNA_ENDIAN_BIG,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          lnk_test_utf32_stream_byte_order_mark_big_endian,
+	          utf32_stream,
+	          sizeof( uint8_t ) * 4 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf32_stream_index = 0;
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          utf32_stream,
+	          16,
+	          &utf32_stream_index,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          lnk_test_utf32_stream_byte_order_mark_little_endian,
+	          utf32_stream,
+	          sizeof( uint8_t ) * 4 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	utf32_stream_index = 0;
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          NULL,
+	          16,
+	          &utf32_stream_index,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          utf32_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          &utf32_stream_index,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          utf32_stream,
+	          16,
+	          NULL,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf32_stream_copy_byte_order_mark(
+	          utf32_stream,
+	          16,
+	          &utf32_stream_index,
+	          -1,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
 
 /* Tests the libuna_utf32_stream_size_from_utf8 function
  * Returns 1 if successful or 0 if not
@@ -121,6 +291,24 @@ int una_test_utf32_stream_size_from_utf8(
 	          lnk_test_utf32_stream_utf8_string,
 	          17,
 	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf32_stream_size_from_utf8(
+	          lnk_test_utf32_stream_error_utf8_string,
+	          17,
+	          &utf32_stream_size,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -288,6 +476,26 @@ int una_test_utf32_stream_copy_from_utf8(
 	libcerror_error_free(
 	 &error );
 
+	result = libuna_utf32_stream_copy_from_utf8(
+	          utf32_stream,
+	          128,
+	          LIBUNA_ENDIAN_LITTLE,
+	          lnk_test_utf32_stream_error_utf8_string,
+	          17,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
 	return( 1 );
 
 on_error:
@@ -386,6 +594,8 @@ int una_test_utf32_stream_size_from_utf16(
 
 	libcerror_error_free(
 	 &error );
+
+	/* TODO implement test for lnk_test_utf32_stream_error_utf16_string */
 
 	return( 1 );
 
@@ -540,6 +750,8 @@ int una_test_utf32_stream_copy_from_utf16(
 	libcerror_error_free(
 	 &error );
 
+	/* TODO implement test for lnk_test_utf32_stream_error_utf16_string */
+
 	return( 1 );
 
 on_error:
@@ -638,6 +850,8 @@ int una_test_utf32_stream_size_from_utf32(
 
 	libcerror_error_free(
 	 &error );
+
+	/* TODO implement test for lnk_test_utf32_stream_error_utf32_string */
 
 	return( 1 );
 
@@ -792,6 +1006,8 @@ int una_test_utf32_stream_copy_from_utf32(
 	libcerror_error_free(
 	 &error );
 
+	/* TODO implement test for lnk_test_utf32_stream_error_utf32_string */
+
 	return( 1 );
 
 on_error:
@@ -818,7 +1034,9 @@ int main(
 	UNA_TEST_UNREFERENCED_PARAMETER( argc )
 	UNA_TEST_UNREFERENCED_PARAMETER( argv )
 
-	/* TODO add tests for libuna_utf32_stream_copy_byte_order_mark */
+	UNA_TEST_RUN(
+	 "libuna_utf32_stream_copy_byte_order_mark",
+	 una_test_utf32_stream_copy_byte_order_mark );
 
 	UNA_TEST_RUN(
 	 "libuna_utf32_stream_size_from_utf8",

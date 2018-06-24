@@ -143,7 +143,6 @@ stamp-h[1-9]
 /tests/una_test_utf32_stream
 /tests/una_test_utf32_string
 /tests/una_test_utf7_stream
-/tests/una_test_utf7_stream_copy_from
 /tests/una_test_utf8_stream
 /tests/una_test_utf8_string
 

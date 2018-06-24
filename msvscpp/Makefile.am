@@ -23,7 +23,6 @@ MSVSCPP_FILES = \
 	una_test_utf32_stream/una_test_utf32_stream.vcproj \
 	una_test_utf32_string/una_test_utf32_string.vcproj \
 	una_test_utf7_stream/una_test_utf7_stream.vcproj \
-	una_test_utf7_stream_copy_from/una_test_utf7_stream_copy_from.vcproj \
 	una_test_utf8_stream/una_test_utf8_stream.vcproj \
 	una_test_utf8_string/una_test_utf8_string.vcproj \
 	unabase/unabase.vcproj \

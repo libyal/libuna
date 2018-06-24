@@ -4138,15 +4138,15 @@ int libuna_unicode_character_size_to_utf8(
 
 		return( -1 );
 	}
-	if( unicode_character < 0x080 )
+	if( unicode_character < 0x00000080UL )
 	{
 		*utf8_character_size += 1;
 	}
-	else if( unicode_character < 0x0800 )
+	else if( unicode_character < 0x00000800UL )
 	{
 		*utf8_character_size += 2;
 	}
-	else if( unicode_character < 0x010000 )
+	else if( unicode_character < 0x00010000UL )
 	{
 		*utf8_character_size += 3;
 	}

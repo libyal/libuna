@@ -34,7 +34,6 @@ check_PROGRAMS = \
 	una_test_utf32_stream \
 	una_test_utf32_string \
 	una_test_utf7_stream \
-	una_test_utf7_stream_copy_from \
 	una_test_utf8_stream \
 	una_test_utf8_string
 
@@ -255,13 +254,6 @@ una_test_utf7_stream_SOURCES = \
 una_test_utf7_stream_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
-
-una_test_utf7_stream_copy_from_SOURCES = \
-	una_test_libuna.h \
-	una_test_utf7_stream_copy_from.c
-
-una_test_utf7_stream_copy_from_LDADD = \
-	../libuna/libuna.la
 
 una_test_utf8_stream_SOURCES = \
 	una_test_libcerror.h \

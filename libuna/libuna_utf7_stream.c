@@ -39,8 +39,8 @@ int libuna_utf7_stream_size_from_utf8(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_size_from_utf8";
-	size_t utf8_string_index                     = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf8_string_index                     = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf8_string == NULL )
@@ -113,6 +113,10 @@ int libuna_utf7_stream_size_from_utf8(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -128,9 +132,9 @@ int libuna_utf7_stream_copy_from_utf8(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_copy_from_utf8";
+	libuna_unicode_character_t unicode_character = 0;
 	size_t utf7_stream_index                     = 0;
 	size_t utf8_string_index                     = 0;
-	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf7_stream == NULL )
@@ -216,6 +220,10 @@ int libuna_utf7_stream_copy_from_utf8(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -230,8 +238,8 @@ int libuna_utf7_stream_size_from_utf16(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_size_from_utf16";
-	size_t utf16_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf16_string_index                    = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf16_string == NULL )
@@ -304,6 +312,10 @@ int libuna_utf7_stream_size_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -319,9 +331,9 @@ int libuna_utf7_stream_copy_from_utf16(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_copy_from_utf16";
+	libuna_unicode_character_t unicode_character = 0;
 	size_t utf16_string_index                    = 0;
 	size_t utf7_stream_index                     = 0;
-	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf7_stream == NULL )
@@ -407,6 +419,10 @@ int libuna_utf7_stream_copy_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -421,8 +437,8 @@ int libuna_utf7_stream_size_from_utf32(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_size_from_utf32";
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf32_string_index                    = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf32_string == NULL )
@@ -495,6 +511,10 @@ int libuna_utf7_stream_size_from_utf32(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -510,9 +530,9 @@ int libuna_utf7_stream_copy_from_utf32(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf7_stream_copy_from_utf32";
+	libuna_unicode_character_t unicode_character = 0;
 	size_t utf32_string_index                    = 0;
 	size_t utf7_stream_index                     = 0;
-	libuna_unicode_character_t unicode_character = 0;
 	uint32_t utf7_stream_base64_data             = 0;
 
 	if( utf7_stream == NULL )
@@ -597,6 +617,10 @@ int libuna_utf7_stream_copy_from_utf32(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	return( 1 );
