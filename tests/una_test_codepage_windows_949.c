@@ -108,6 +108,146 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libuna_codepage_windows_949_copy_from_byte_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_codepage_windows_949_copy_from_byte_stream(
+     void )
+{
+	libuna_error_t *error                          = NULL;
+	una_test_byte_stream_to_unicode_t *test_values = NULL;
+	libuna_unicode_character_t unicode_character   = 0;
+	size_t byte_stream_index                       = 0;
+	int result                                     = 0;
+	int test_number                                = 0;
+
+	/* Test regular cases
+	 */
+	for( test_number = 0;
+	     test_number < 17176;
+	     test_number++ )
+	{
+		test_values = &( una_test_codepage_windows_949_byte_stream_to_unicode[ test_number ] );
+
+		byte_stream_index = 0;
+
+		result = libuna_codepage_windows_949_copy_from_byte_stream(
+		          &unicode_character,
+		          test_values->byte_stream,
+		          test_values->byte_stream_size,
+		          &byte_stream_index,
+		          &error );
+
+		UNA_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 1 );
+
+		UNA_TEST_ASSERT_EQUAL_UINT32(
+		 "unicode_character",
+		 unicode_character,
+		 test_values->unicode_character );
+
+		UNA_TEST_ASSERT_EQUAL_SIZE(
+		 "byte_stream_index",
+		 byte_stream_index,
+		 test_values->byte_stream_size );
+
+		UNA_TEST_ASSERT_IS_NULL(
+		 "error",
+		 error );
+	}
+	/* Test error cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_codepage_windows_949_copy_from_byte_stream(
+	          NULL,
+	          (uint8_t *) "A",
+	          1,
+	          &byte_stream_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_codepage_windows_949_copy_from_byte_stream(
+	          &unicode_character,
+	          NULL,
+	          1,
+	          &byte_stream_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_codepage_windows_949_copy_from_byte_stream(
+	          &unicode_character,
+	          (uint8_t *) "A",
+	          (size_t) SSIZE_MAX + 1,
+	          &byte_stream_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_codepage_windows_949_copy_from_byte_stream(
+	          &unicode_character,
+	          (uint8_t *) "A",
+	          1,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -127,7 +267,10 @@ int main(
 	 "libuna_codepage_windows_949_unicode_character_size_to_byte_stream",
 	 una_test_codepage_windows_949_unicode_character_size_to_byte_stream );
 
-	/* TODO libuna_codepage_windows_949_copy_from_byte_stream */
+	UNA_TEST_RUN(
+	 "libuna_codepage_windows_949_copy_from_byte_stream",
+	 una_test_codepage_windows_949_copy_from_byte_stream );
+
 	/* TODO libuna_codepage_windows_949_copy_to_byte_stream */
 
 	return( EXIT_SUCCESS );
