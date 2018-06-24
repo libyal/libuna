@@ -58,9 +58,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf16_stream_copy_
 		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf16_string_copy_from", "una_test_utf16_string_copy_from\una_test_utf16_string_copy_from.vcproj", "{BF258669-F701-4AA6-8E0D-0811F2AB92A9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf16_string", "una_test_utf16_string\una_test_utf16_string.vcproj", "{C56FE7F3-F0FA-462C-B433-31684CC58AB0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
+		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf32_stream_copy_from", "una_test_utf32_stream_copy_from\una_test_utf32_stream_copy_from.vcproj", "{743971E9-C71B-4F7A-8A63-E807F1DF0248}"
@@ -68,9 +69,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf32_stream_copy_
 		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf32_string_copy_from", "una_test_utf32_string_copy_from\una_test_utf32_string_copy_from.vcproj", "{3D14A8B7-5C2F-4163-B53B-78E216E254CF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf32_string", "una_test_utf32_string\una_test_utf32_string.vcproj", "{08C22716-30F4-428B-94B5-05EE1946CD5E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
+		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_utf7_stream_copy_from", "una_test_utf7_stream_copy_from\una_test_utf7_stream_copy_from.vcproj", "{C41B42B6-E427-4DBB-B9F4-A433F1873B40}"
@@ -170,18 +172,18 @@ Global
 		{6FD5C336-3702-4A97-8E98-BBA4F528EAD1}.Release|Win32.Build.0 = Release|Win32
 		{6FD5C336-3702-4A97-8E98-BBA4F528EAD1}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{6FD5C336-3702-4A97-8E98-BBA4F528EAD1}.VSDebug|Win32.Build.0 = VSDebug|Win32
-		{BF258669-F701-4AA6-8E0D-0811F2AB92A9}.Release|Win32.ActiveCfg = Release|Win32
-		{BF258669-F701-4AA6-8E0D-0811F2AB92A9}.Release|Win32.Build.0 = Release|Win32
-		{BF258669-F701-4AA6-8E0D-0811F2AB92A9}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
-		{BF258669-F701-4AA6-8E0D-0811F2AB92A9}.VSDebug|Win32.Build.0 = VSDebug|Win32
+		{C56FE7F3-F0FA-462C-B433-31684CC58AB0}.Release|Win32.ActiveCfg = Release|Win32
+		{C56FE7F3-F0FA-462C-B433-31684CC58AB0}.Release|Win32.Build.0 = Release|Win32
+		{C56FE7F3-F0FA-462C-B433-31684CC58AB0}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{C56FE7F3-F0FA-462C-B433-31684CC58AB0}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{743971E9-C71B-4F7A-8A63-E807F1DF0248}.Release|Win32.ActiveCfg = Release|Win32
 		{743971E9-C71B-4F7A-8A63-E807F1DF0248}.Release|Win32.Build.0 = Release|Win32
 		{743971E9-C71B-4F7A-8A63-E807F1DF0248}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{743971E9-C71B-4F7A-8A63-E807F1DF0248}.VSDebug|Win32.Build.0 = VSDebug|Win32
-		{3D14A8B7-5C2F-4163-B53B-78E216E254CF}.Release|Win32.ActiveCfg = Release|Win32
-		{3D14A8B7-5C2F-4163-B53B-78E216E254CF}.Release|Win32.Build.0 = Release|Win32
-		{3D14A8B7-5C2F-4163-B53B-78E216E254CF}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
-		{3D14A8B7-5C2F-4163-B53B-78E216E254CF}.VSDebug|Win32.Build.0 = VSDebug|Win32
+		{08C22716-30F4-428B-94B5-05EE1946CD5E}.Release|Win32.ActiveCfg = Release|Win32
+		{08C22716-30F4-428B-94B5-05EE1946CD5E}.Release|Win32.Build.0 = Release|Win32
+		{08C22716-30F4-428B-94B5-05EE1946CD5E}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{08C22716-30F4-428B-94B5-05EE1946CD5E}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{C41B42B6-E427-4DBB-B9F4-A433F1873B40}.Release|Win32.ActiveCfg = Release|Win32
 		{C41B42B6-E427-4DBB-B9F4-A433F1873B40}.Release|Win32.Build.0 = Release|Win32
 		{C41B42B6-E427-4DBB-B9F4-A433F1873B40}.VSDebug|Win32.ActiveCfg = VSDebug|Win32

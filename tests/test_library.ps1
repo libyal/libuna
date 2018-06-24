@@ -6,7 +6,7 @@ $ExitSuccess = 0
 $ExitFailure = 1
 $ExitIgnore = 77
 
-$LibraryTests = "base16_stream base32_stream error support utf8_string"
+$LibraryTests = "base16_stream base32_stream error support utf16_string utf32_string utf8_string"
 $LibraryTestsWithInput = ""
 
 Function GetTestToolDirectory

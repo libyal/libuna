@@ -23,9 +23,9 @@ check_PROGRAMS = \
 	una_test_error \
 	una_test_support \
 	una_test_utf16_stream_copy_from \
-	una_test_utf16_string_copy_from \
+	una_test_utf16_string \
 	una_test_utf32_stream_copy_from \
-	una_test_utf32_string_copy_from \
+	una_test_utf32_string \
 	una_test_utf7_stream_copy_from \
 	una_test_utf8_stream_copy_from \
 	una_test_utf8_string \
@@ -93,12 +93,16 @@ una_test_utf16_stream_copy_from_SOURCES = \
 una_test_utf16_stream_copy_from_LDADD = \
 	../libuna/libuna.la
 
-una_test_utf16_string_copy_from_SOURCES = \
+una_test_utf16_string_SOURCES = \
+	una_test_libcerror.h \
 	una_test_libuna.h \
-	una_test_utf16_string_copy_from.c
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf16_string.c
 
-una_test_utf16_string_copy_from_LDADD = \
-	../libuna/libuna.la
+una_test_utf16_string_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_utf32_stream_copy_from_SOURCES = \
 	una_test_libuna.h \
@@ -107,12 +111,16 @@ una_test_utf32_stream_copy_from_SOURCES = \
 una_test_utf32_stream_copy_from_LDADD = \
 	../libuna/libuna.la
 
-una_test_utf32_string_copy_from_SOURCES = \
+una_test_utf32_string_SOURCES = \
+	una_test_libcerror.h \
 	una_test_libuna.h \
-	una_test_utf32_string_copy_from.c
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf32_string.c
 
-una_test_utf32_string_copy_from_LDADD = \
-	../libuna/libuna.la
+una_test_utf32_string_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_utf7_stream_copy_from_SOURCES = \
 	una_test_libuna.h \

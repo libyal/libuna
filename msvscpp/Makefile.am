@@ -14,9 +14,9 @@ MSVSCPP_FILES = \
 	una_test_unicode_character_copy_from/una_test_unicode_character_copy_from.vcproj \
 	una_test_unicode_character_copy_to/una_test_unicode_character_copy_to.vcproj \
 	una_test_utf16_stream_copy_from/una_test_utf16_stream_copy_from.vcproj \
-	una_test_utf16_string_copy_from/una_test_utf16_string_copy_from.vcproj \
+	una_test_utf16_string/una_test_utf16_string.vcproj \
 	una_test_utf32_stream_copy_from/una_test_utf32_stream_copy_from.vcproj \
-	una_test_utf32_string_copy_from/una_test_utf32_string_copy_from.vcproj \
+	una_test_utf32_string/una_test_utf32_string.vcproj \
 	una_test_utf7_stream_copy_from/una_test_utf7_stream_copy_from.vcproj \
 	una_test_utf8_stream_copy_from/una_test_utf8_stream_copy_from.vcproj \
 	una_test_utf8_string/una_test_utf8_string.vcproj \
