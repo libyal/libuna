@@ -17,12 +17,14 @@ MSVSCPP_FILES = \
 	una_test_error/una_test_error.vcproj \
 	una_test_support/una_test_support.vcproj \
 	una_test_unicode_character/una_test_unicode_character.vcproj \
-	una_test_utf16_stream_copy_from/una_test_utf16_stream_copy_from.vcproj \
+	una_test_url_stream/una_test_url_stream.vcproj \
+	una_test_utf16_stream/una_test_utf16_stream.vcproj \
 	una_test_utf16_string/una_test_utf16_string.vcproj \
-	una_test_utf32_stream_copy_from/una_test_utf32_stream_copy_from.vcproj \
+	una_test_utf32_stream/una_test_utf32_stream.vcproj \
 	una_test_utf32_string/una_test_utf32_string.vcproj \
+	una_test_utf7_stream/una_test_utf7_stream.vcproj \
 	una_test_utf7_stream_copy_from/una_test_utf7_stream_copy_from.vcproj \
-	una_test_utf8_stream_copy_from/una_test_utf8_stream_copy_from.vcproj \
+	una_test_utf8_stream/una_test_utf8_stream.vcproj \
 	una_test_utf8_string/una_test_utf8_string.vcproj \
 	unabase/unabase.vcproj \
 	unaexport/unaexport.vcproj \

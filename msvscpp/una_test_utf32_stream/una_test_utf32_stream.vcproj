@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_utf8_stream_copy_from"
-	ProjectGUID="{8457514F-C618-4BE5-B179-A2E7DF6B91CD}"
-	RootNamespace="una_test_utf8_stream_copy_from"
+	Name="una_test_utf32_stream"
+	ProjectGUID="{800934D7-8C73-4057-BAB9-72D4CE51FA72}"
+	RootNamespace="una_test_utf32_stream"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_utf8_stream_copy_from.c"
+				RelativePath="..\..\tests\una_test_utf32_stream.c"
 				>
 			</File>
 		</Filter>
@@ -186,7 +186,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\tests\una_test_libcerror.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\tests\una_test_libuna.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_unused.h"
 				>
 			</File>
 		</Filter>

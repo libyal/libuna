@@ -28,12 +28,14 @@ check_PROGRAMS = \
 	una_test_error \
 	una_test_support \
 	una_test_unicode_character \
-	una_test_utf16_stream_copy_from \
+	una_test_url_stream \
+	una_test_utf16_stream \
 	una_test_utf16_string \
-	una_test_utf32_stream_copy_from \
+	una_test_utf32_stream \
 	una_test_utf32_string \
+	una_test_utf7_stream \
 	una_test_utf7_stream_copy_from \
-	una_test_utf8_stream_copy_from \
+	una_test_utf8_stream \
 	una_test_utf8_string
 
 una_test_base16_stream_SOURCES = \
@@ -188,12 +190,27 @@ una_test_unicode_character_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
-una_test_utf16_stream_copy_from_SOURCES = \
+una_test_url_stream_SOURCES = \
+	una_test_libcerror.h \
 	una_test_libuna.h \
-	una_test_utf16_stream_copy_from.c
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_url_stream.c
 
-una_test_utf16_stream_copy_from_LDADD = \
-	../libuna/libuna.la
+una_test_url_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_utf16_stream_SOURCES = \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf16_stream.c
+
+una_test_utf16_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_utf16_string_SOURCES = \
 	una_test_libcerror.h \
@@ -206,12 +223,16 @@ una_test_utf16_string_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
-una_test_utf32_stream_copy_from_SOURCES = \
+una_test_utf32_stream_SOURCES = \
+	una_test_libcerror.h \
 	una_test_libuna.h \
-	una_test_utf32_stream_copy_from.c
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf32_stream.c
 
-una_test_utf32_stream_copy_from_LDADD = \
-	../libuna/libuna.la
+una_test_utf32_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_utf32_string_SOURCES = \
 	una_test_libcerror.h \
@@ -224,6 +245,17 @@ una_test_utf32_string_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
+una_test_utf7_stream_SOURCES = \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf7_stream.c
+
+una_test_utf7_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
 una_test_utf7_stream_copy_from_SOURCES = \
 	una_test_libuna.h \
 	una_test_utf7_stream_copy_from.c
@@ -231,12 +263,16 @@ una_test_utf7_stream_copy_from_SOURCES = \
 una_test_utf7_stream_copy_from_LDADD = \
 	../libuna/libuna.la
 
-una_test_utf8_stream_copy_from_SOURCES = \
+una_test_utf8_stream_SOURCES = \
+	una_test_libcerror.h \
 	una_test_libuna.h \
-	una_test_utf8_stream_copy_from.c
+	una_test_macros.h \
+	una_test_unused.h \
+	una_test_utf8_stream.c
 
-una_test_utf8_stream_copy_from_LDADD = \
-	../libuna/libuna.la
+una_test_utf8_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_utf8_string_SOURCES = \
 	una_test_libcerror.h \

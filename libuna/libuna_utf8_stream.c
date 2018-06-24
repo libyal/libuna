@@ -102,7 +102,9 @@ int libuna_utf8_stream_size_from_utf8(
      size_t *utf8_stream_size,
      libcerror_error_t **error )
 {
-	static char *function = "libuna_utf8_stream_size_from_utf8";
+	static char *function                        = "libuna_utf8_stream_size_from_utf8";
+	libuna_unicode_character_t unicode_character = 0;
+	size_t utf8_string_index                     = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -138,10 +140,50 @@ int libuna_utf8_stream_size_from_utf8(
 		return( -1 );
 	}
 	/* Add the byte order mark
-	 * Assumes the UTF-8 string is santized
 	 */
-	*utf8_stream_size = 3 + utf8_string_size;
+	*utf8_stream_size = 3;
 
+	while( utf8_string_index < utf8_string_size )
+	{
+		/* Convert the UTF-8 character bytes into an Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf8(
+		     &unicode_character,
+		     utf8_string,
+		     utf8_string_size,
+		     &utf8_string_index,
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-8.",
+			 function );
+
+			return( -1 );
+		}
+		/* Determine how many UTF-8 character bytes are required
+		 */
+		if( libuna_unicode_character_size_to_utf8(
+		     unicode_character,
+		     utf8_stream_size,
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+			 "%s: unable to determine size of Unicode character in UTF-8.",
+			 function );
+
+			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
+	}
 	return( 1 );
 }
 
@@ -155,8 +197,10 @@ int libuna_utf8_stream_copy_from_utf8(
      size_t utf8_string_size,
      libcerror_error_t **error )
 {
-	static char *function    = "libuna_utf8_stream_copy_from_utf8";
-	size_t utf8_stream_index = 0;
+	static char *function                        = "libuna_utf8_stream_copy_from_utf8";
+	libuna_unicode_character_t unicode_character = 0;
+	size_t utf8_stream_index                     = 0;
+	size_t utf8_string_index                     = 0;
 
 	if( utf8_stream == NULL )
 	{
@@ -228,21 +272,48 @@ int libuna_utf8_stream_copy_from_utf8(
 
 		return( -1 );
 	}
-	/* Assumes the UTF-8 string is santized
-	 */
-	if( memory_copy(
-	     &utf8_stream[ utf8_stream_index ],
-	     utf8_string,
-	     utf8_string_size ) == NULL )
+	while( utf8_string_index < utf8_string_size )
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: unable to copy UTF-8 string to stream.",
-		 function );
+		/* Convert the UTF-8 string bytes into an Unicode character
+		 */
+		if( libuna_unicode_character_copy_from_utf8(
+		     &unicode_character,
+		     utf8_string,
+		     utf8_string_size,
+		     &utf8_string_index,
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
+			 "%s: unable to copy Unicode character from UTF-8 string.",
+			 function );
 
-		return( -1 );
+			return( -1 );
+		}
+		/* Convert the Unicode character into UTF-8 stream bytes
+		 */
+		if( libuna_unicode_character_copy_to_utf8(
+		     unicode_character,
+		     utf8_stream,
+		     utf8_stream_size,
+		     &utf8_stream_index,
+		     error ) != 1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+			 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+			 "%s: unable to copy Unicode character to UTF-8 stream.",
+			 function );
+
+			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -257,8 +328,8 @@ int libuna_utf8_stream_size_from_utf16(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_stream_size_from_utf16";
-	size_t utf16_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf16_string_index                    = 0;
 
 	if( utf16_string == NULL )
 	{
@@ -333,6 +404,10 @@ int libuna_utf8_stream_size_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -348,9 +423,9 @@ int libuna_utf8_stream_copy_from_utf16(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_stream_copy_from_utf16";
+	libuna_unicode_character_t unicode_character = 0;
 	size_t utf16_string_index                    = 0;
 	size_t utf8_stream_index                     = 0;
-	libuna_unicode_character_t unicode_character = 0;
 
 	if( utf8_stream == NULL )
 	{
@@ -449,6 +524,10 @@ int libuna_utf8_stream_copy_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -463,8 +542,8 @@ int libuna_utf8_stream_size_from_utf32(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_stream_size_from_utf32";
-	size_t utf32_string_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf32_string_index                    = 0;
 
 	if( utf32_string == NULL )
 	{
@@ -539,6 +618,10 @@ int libuna_utf8_stream_size_from_utf32(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -554,9 +637,9 @@ int libuna_utf8_stream_copy_from_utf32(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_stream_copy_from_utf32";
+	libuna_unicode_character_t unicode_character = 0;
 	size_t utf32_string_index                    = 0;
 	size_t utf8_stream_index                     = 0;
-	libuna_unicode_character_t unicode_character = 0;
 
 	if( utf8_stream == NULL )
 	{
@@ -654,6 +737,10 @@ int libuna_utf8_stream_copy_from_utf32(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	return( 1 );

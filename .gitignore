@@ -137,12 +137,14 @@ stamp-h[1-9]
 /tests/una_test_error
 /tests/una_test_support
 /tests/una_test_unicode_character
-/tests/una_test_utf16_stream_copy_from
+/tests/una_test_url_stream
+/tests/una_test_utf16_stream
 /tests/una_test_utf16_string
-/tests/una_test_utf32_stream_copy_from
+/tests/una_test_utf32_stream
 /tests/una_test_utf32_string
+/tests/una_test_utf7_stream
 /tests/una_test_utf7_stream_copy_from
-/tests/una_test_utf8_stream_copy_from
+/tests/una_test_utf8_stream
 /tests/una_test_utf8_string
 
 # Local library dependencies specific files
