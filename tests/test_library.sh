@@ -7,7 +7,7 @@ EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
 EXIT_IGNORE=77;
 
-LIBRARY_TESTS="base16_stream base32_stream codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 error support unicode_character utf16_string utf32_string utf8_string";
+LIBRARY_TESTS="base16_stream base32_stream byte_stream codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 error support unicode_character utf16_string utf32_string utf8_string";
 LIBRARY_TESTS_WITH_INPUT="";
 OPTION_SETS="";
 

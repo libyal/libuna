@@ -114,6 +114,10 @@ int libuna_byte_stream_size_from_utf8(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -217,6 +221,10 @@ int libuna_byte_stream_copy_from_utf8(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -306,6 +314,10 @@ int libuna_byte_stream_size_from_utf16(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	return( 1 );
@@ -410,6 +422,10 @@ int libuna_byte_stream_copy_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	return( 1 );
 }
@@ -499,6 +515,10 @@ int libuna_byte_stream_size_from_utf32(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	return( 1 );
@@ -602,6 +622,10 @@ int libuna_byte_stream_copy_from_utf32(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	return( 1 );

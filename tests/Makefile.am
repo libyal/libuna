@@ -20,6 +20,7 @@ check_PROGRAMS = \
 	una_test_base32_stream \
 	una_test_base64_stream_copy_from \
 	una_test_base64_stream_copy_to \
+	una_test_byte_stream \
 	una_test_codepage_windows_932 \
 	una_test_codepage_windows_936 \
 	una_test_codepage_windows_949 \
@@ -70,6 +71,17 @@ una_test_base64_stream_copy_to_SOURCES = \
 
 una_test_base64_stream_copy_to_LDADD = \
 	../libuna/libuna.la
+
+una_test_byte_stream_SOURCES = \
+	una_test_byte_stream.c \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_unused.h
+
+una_test_byte_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
 
 una_test_codepage_windows_932_SOURCES = \
 	una_test_codepage_windows_932.c una_test_codepage_windows_932.h \

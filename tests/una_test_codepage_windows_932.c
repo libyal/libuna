@@ -237,6 +237,27 @@ int una_test_codepage_windows_932_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
+	byte_stream_index = 1;
+
+	result = libuna_codepage_windows_932_copy_from_byte_stream(
+	          &unicode_character,
+	          (uint8_t *) "A",
+	          1,
+	          &byte_stream_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
 	return( 1 );
 
 on_error:
@@ -354,6 +375,27 @@ int una_test_codepage_windows_932_copy_to_byte_stream(
 	          byte_stream,
 	          16,
 	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 16;
+
+	result = libuna_codepage_windows_932_copy_to_byte_stream(
+	          0x00000041UL,
+	          byte_stream,
+	          16,
+	          &byte_stream_index,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
