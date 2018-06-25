@@ -37,6 +37,15 @@
 
 #include "../libuna/libuna_codepage_windows_950.h"
 
+una_test_byte_stream_to_unicode_t una_test_codepage_windows_950_replacement_byte_stream_to_unicode[ 6 ] = {
+	{ { 0xa2, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xa3, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xc5, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xc6, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xf9, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfa, 0x00 }, 2, 0xfffd, 0 },
+};
+
 /* Tests the libuna_codepage_windows_950_unicode_character_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -157,6 +166,42 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 		 "error",
 		 error );
 	}
+	for( test_number = 0;
+	     test_number < 6;
+	     test_number++ )
+	{
+		test_values = &( una_test_codepage_windows_950_replacement_byte_stream_to_unicode[ test_number ] );
+
+		byte_stream_index = 0;
+
+		result = libuna_codepage_windows_950_copy_from_byte_stream(
+		          &unicode_character,
+		          test_values->byte_stream,
+		          test_values->byte_stream_size,
+		          &byte_stream_index,
+		          &error );
+
+		UNA_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 1 );
+
+		UNA_TEST_ASSERT_EQUAL_UINT32(
+		 "unicode_character",
+		 unicode_character,
+		 test_values->unicode_character );
+
+		UNA_TEST_ASSERT_EQUAL_SIZE(
+		 "byte_stream_index",
+		 byte_stream_index,
+		 test_values->byte_stream_size );
+
+		UNA_TEST_ASSERT_IS_NULL(
+		 "error",
+		 error );
+	}
+/* TODO add test for replacements */
+
 	/* Test error cases
 	 */
 	byte_stream_index = 0;

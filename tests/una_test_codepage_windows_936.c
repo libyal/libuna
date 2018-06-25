@@ -37,6 +37,30 @@
 
 #include "../libuna/libuna_codepage_windows_936.h"
 
+una_test_byte_stream_to_unicode_t una_test_codepage_windows_936_replacement_byte_stream_to_unicode[ 21 ] = {
+	{ { 0xa0, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xa3, 0x9f }, 2, 0xfffd, 0 },
+	{ { 0xa6, 0x9f }, 2, 0xfffd, 0 },
+	{ { 0xa7, 0x9f }, 2, 0xfffd, 0 },
+	{ { 0xa8, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xa9, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xaa, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xab, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xac, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xad, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xae, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xaf, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xf7, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xf8, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xf9, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfa, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfb, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfc, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfd, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xfe, 0x3f }, 2, 0xfffd, 0 },
+	{ { 0xff, 0x00 }, 2, 0xfffd, 0 },
+};
+
 /* Tests the libuna_codepage_windows_936_unicode_character_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -157,6 +181,42 @@ int una_test_codepage_windows_936_copy_from_byte_stream(
 		 "error",
 		 error );
 	}
+	for( test_number = 0;
+	     test_number < 21;
+	     test_number++ )
+	{
+		test_values = &( una_test_codepage_windows_936_replacement_byte_stream_to_unicode[ test_number ] );
+
+		byte_stream_index = 0;
+
+		result = libuna_codepage_windows_936_copy_from_byte_stream(
+		          &unicode_character,
+		          test_values->byte_stream,
+		          test_values->byte_stream_size,
+		          &byte_stream_index,
+		          &error );
+
+		UNA_TEST_ASSERT_EQUAL_INT(
+		 "result",
+		 result,
+		 1 );
+
+		UNA_TEST_ASSERT_EQUAL_UINT32(
+		 "unicode_character",
+		 unicode_character,
+		 test_values->unicode_character );
+
+		UNA_TEST_ASSERT_EQUAL_SIZE(
+		 "byte_stream_index",
+		 byte_stream_index,
+		 test_values->byte_stream_size );
+
+		UNA_TEST_ASSERT_IS_NULL(
+		 "error",
+		 error );
+	}
+/* TODO add test for replacements */
+
 	/* Test error cases
 	 */
 	byte_stream_index = 0;
