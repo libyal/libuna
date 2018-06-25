@@ -456,17 +456,6 @@ int libuna_utf16_string_size_from_utf7_stream(
 
 		return( -1 );
 	}
-	if( utf7_stream_size < 1 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing UTF-7 stream bytes.",
-		 function );
-
-		return( -1 );
-	}
 	if( utf16_string_size == NULL )
 	{
 		libcerror_error_set(
