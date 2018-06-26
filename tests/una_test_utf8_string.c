@@ -290,8 +290,6 @@ int una_test_utf8_string_with_index_copy_from_byte_stream(
 
 	/* Test regular cases
 	 */
-	utf8_string_index = 0;
-
 	result = libuna_utf8_string_with_index_copy_from_byte_stream(
 	          utf8_string,
 	          32,
@@ -834,8 +832,6 @@ int una_test_utf8_string_with_index_copy_from_utf7_stream(
 
 	/* Test regular cases
 	 */
-	utf8_string_index = 0;
-
 	result = libuna_utf8_string_with_index_copy_from_utf7_stream(
 	          utf8_string,
 	          32,
