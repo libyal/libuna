@@ -947,6 +947,12 @@ int libuna_utf32_string_size_from_utf8(
 			return( -1 );
 		}
 	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		*utf32_string_size += 1;
+	}
 	return( 1 );
 }
 
@@ -1102,6 +1108,25 @@ int libuna_utf32_string_with_index_copy_from_utf8(
 
 			return( -1 );
 		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		if( *utf32_string_index >= utf32_string_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-32 string too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
@@ -1636,6 +1661,12 @@ int libuna_utf32_string_size_from_utf16(
 			return( -1 );
 		}
 	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		*utf32_string_size += 1;
+	}
 	return( 1 );
 }
 
@@ -1791,6 +1822,25 @@ int libuna_utf32_string_with_index_copy_from_utf16(
 
 			return( -1 );
 		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		if( *utf32_string_index >= utf32_string_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-32 string too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
 	}
 	return( 1 );
 }
