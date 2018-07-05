@@ -326,6 +326,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\tests\una_test_types.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\tests\una_test_unused.h"
 				>
 			</File>

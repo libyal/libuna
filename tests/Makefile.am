@@ -89,6 +89,7 @@ una_test_codepage_windows_932_SOURCES = \
 	una_test_libcerror.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_types.h \
 	una_test_unused.h
 
 una_test_codepage_windows_932_LDADD = \
@@ -100,6 +101,7 @@ una_test_codepage_windows_936_SOURCES = \
 	una_test_libcerror.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_types.h \
 	una_test_unused.h
 
 una_test_codepage_windows_936_LDADD = \
@@ -111,6 +113,7 @@ una_test_codepage_windows_949_SOURCES = \
 	una_test_libcerror.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_types.h \
 	una_test_unused.h
 
 una_test_codepage_windows_949_LDADD = \
@@ -122,6 +125,7 @@ una_test_codepage_windows_950_SOURCES = \
 	una_test_libcerror.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_types.h \
 	una_test_unused.h
 
 una_test_codepage_windows_950_LDADD = \
@@ -182,6 +186,7 @@ una_test_unicode_character_SOURCES = \
 	una_test_libcerror.h \
 	una_test_libuna.h \
 	una_test_macros.h \
+	una_test_types.h \
 	una_test_unused.h \
 	una_test_unicode_character.c
 
