@@ -65,6 +65,8 @@ int una_test_base32_stream_size_to_byte_stream(
 	size_t byte_stream_size  = 0;
 	int result               = 0;
 
+	/* Test regular cases
+	 */
 	result = libuna_base32_stream_size_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 	          32,
@@ -266,6 +268,11 @@ int una_test_base32_stream_size_to_byte_stream(
 	return( 1 );
 
 on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
 	return( 0 );
 }
 
@@ -280,6 +287,8 @@ int una_test_base32_stream_copy_to_byte_stream(
 	libcerror_error_t *error = NULL;
 	int result               = 0;
 
+	/* Test regular cases
+	 */
 	result = libuna_base32_stream_copy_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 	          32,
@@ -549,6 +558,11 @@ int una_test_base32_stream_copy_to_byte_stream(
 	return( 1 );
 
 on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
 	return( 0 );
 }
 
@@ -562,6 +576,8 @@ int una_test_base32_stream_size_from_byte_stream(
 	size_t base32_stream_size = 0;
 	int result                = 0;
 
+	/* Test regular cases
+	 */
 	result = libuna_base32_stream_size_from_byte_stream(
 		  una_test_base32_stream_byte_stream,
 		  16,
@@ -688,6 +704,11 @@ int una_test_base32_stream_size_from_byte_stream(
 	return( 1 );
 
 on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
 	return( 0 );
 }
 
@@ -702,6 +723,8 @@ int una_test_base32_stream_copy_from_byte_stream(
 	libcerror_error_t *error = NULL;
 	int result               = 0;
 
+	/* Test regular cases
+	 */
 	result = libuna_base32_stream_copy_from_byte_stream(
 		  base32_stream,
 		  32,
@@ -908,6 +931,11 @@ int una_test_base32_stream_copy_from_byte_stream(
 	return( 1 );
 
 on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
 	return( 0 );
 }
 

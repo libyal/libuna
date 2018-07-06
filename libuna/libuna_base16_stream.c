@@ -1171,6 +1171,23 @@ int libuna_base16_stream_size_from_byte_stream(
 
 			return( -1 );
 	}
+	switch( base16_variant & 0x000f0000UL )
+	{
+		case LIBUNA_BASE16_VARIANT_CASE_LOWER:
+		case LIBUNA_BASE16_VARIANT_CASE_MIXED:
+		case LIBUNA_BASE16_VARIANT_CASE_UPPER:
+			break;
+
+		default:
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base16 variant.",
+			 function );
+
+			return( -1 );
+	}
 	switch( base16_variant & 0xf0000000UL )
 	{
 		case LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM:
