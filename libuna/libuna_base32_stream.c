@@ -1352,6 +1352,17 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
 
 		return( -1 );
 	}
+	if( padding_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid padding size.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the value of 5 bytes (40 bits)
 	 */
 	*base32_quintuplet  = (uint64_t) byte_stream[ *byte_stream_index ] << 32;

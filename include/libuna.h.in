@@ -1841,7 +1841,7 @@ int libuna_base16_stream_with_index_copy_from_byte_stream(
  */
 LIBUNA_EXTERN \
 int libuna_base32_quintuplet_copy_from_base32_stream(
-     uint32_t *base32_quintuplet,
+     uint64_t *base32_quintuplet,
      const uint8_t *base32_stream,
      size_t base32_stream_size,
      size_t *base32_stream_index,
@@ -1854,7 +1854,7 @@ int libuna_base32_quintuplet_copy_from_base32_stream(
  */
 LIBUNA_EXTERN \
 int libuna_base32_quintuplet_copy_to_base32_stream(
-     uint32_t base32_quintuplet,
+     uint64_t base32_quintuplet,
      uint8_t *base32_stream,
      size_t base32_stream_size,
      size_t *base32_stream_index,
@@ -1867,7 +1867,7 @@ int libuna_base32_quintuplet_copy_to_base32_stream(
  */
 LIBUNA_EXTERN \
 int libuna_base32_quintuplet_copy_from_byte_stream(
-     uint32_t *base32_quintuplet,
+     uint64_t *base32_quintuplet,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *byte_stream_index,
@@ -1879,7 +1879,7 @@ int libuna_base32_quintuplet_copy_from_byte_stream(
  */
 LIBUNA_EXTERN \
 int libuna_base32_quintuplet_copy_to_byte_stream(
-     uint32_t base32_quintuplet,
+     uint64_t base32_quintuplet,
      uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *byte_stream_index,

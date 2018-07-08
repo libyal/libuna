@@ -44,6 +44,12 @@ uint8_t una_test_base16_stream_upper_case_base16_stream[ 32 ] = {
 	'5', '4', '6', '8', '6', '9', '7', '3', '2', '0', '6', '9', '7', '3', '2', '0',
 	'C', '3', 'A', '1', '2', '0', '7', '4', '6', '5', '7', '3', '7', '4', '2', 'E' };
 
+uint8_t una_test_base16_stream_utf16be_lower_case_base16_stream[ 64 ] = {
+	0, '5', 0, '4', 0, '6', 0, '8', 0, '6', 0, '9', 0, '7', 0, '3',
+	0, '2', 0, '0', 0, '6', 0, '9', 0, '7', 0, '3', 0, '2', 0, '0',
+	0, 'c', 0, '3', 0, 'a', 0, '1', 0, '2', 0, '0', 0, '7', 0, '4',
+	0, '6', 0, '5', 0, '7', 0, '3', 0, '7', 0, '4', 0, '2', 0, 'e' };
+
 uint8_t una_test_base16_stream_utf16le_lower_case_base16_stream[ 64 ] = {
 	'5', 0, '4', 0, '6', 0, '8', 0, '6', 0, '9', 0, '7', 0, '3', 0,
 	'2', 0, '0', 0, '6', 0, '9', 0, '7', 0, '3', 0, '2', 0, '0', 0,
@@ -55,6 +61,24 @@ uint8_t una_test_base16_stream_utf32be_upper_case_base16_stream[ 128 ] = {
 	0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '6', 0, 0, 0, '9', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '2', 0, 0, 0, '0',
 	0, 0, 0, 'C', 0, 0, 0, '3', 0, 0, 0, 'A', 0, 0, 0, '1', 0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '7', 0, 0, 0, '4',
 	0, 0, 0, '6', 0, 0, 0, '5', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '7', 0, 0, 0, '4', 0, 0, 0, '2', 0, 0, 0, 'E' };
+
+uint8_t una_test_base16_stream_utf32le_upper_case_base16_stream[ 128 ] = {
+	'5', 0, 0, 0, '4', 0, 0, 0, '6', 0, 0, 0, '8', 0, 0, 0, '6', 0, 0, 0, '9', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0,
+	'2', 0, 0, 0, '0', 0, 0, 0, '6', 0, 0, 0, '9', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0,
+	'C', 0, 0, 0, '3', 0, 0, 0, 'A', 0, 0, 0, '1', 0, 0, 0, '2', 0, 0, 0, '0', 0, 0, 0, '7', 0, 0, 0, '4', 0, 0, 0,
+	'6', 0, 0, 0, '5', 0, 0, 0, '7', 0, 0, 0, '3', 0, 0, 0, '7', 0, 0, 0, '4', 0, 0, 0, '2', 0, 0, 0, 'E', 0, 0, 0 };
+
+uint8_t una_test_base16_stream_utf16be_lower_case_error_first_character[ 64 ] = {
+	1, '5', 0, '4', 0, '6', 0, '8', 0, '6', 0, '9', 0, '7', 0, '3',
+	0, '2', 0, '0', 0, '6', 0, '9', 0, '7', 0, '3', 0, '2', 0, '0',
+	0, 'c', 0, '3', 0, 'a', 0, '1', 0, '2', 0, '0', 0, '7', 0, '4',
+	0, '6', 0, '5', 0, '7', 0, '3', 0, '7', 0, '4', 0, '2', 0, 'e' };
+
+uint8_t una_test_base16_stream_utf16be_lower_case_error_second_character[ 64 ] = {
+	0, '5', 1, '4', 0, '6', 0, '8', 0, '6', 0, '9', 0, '7', 0, '3',
+	0, '2', 0, '0', 0, '6', 0, '9', 0, '7', 0, '3', 0, '2', 0, '0',
+	0, 'c', 0, '3', 0, 'a', 0, '1', 0, '2', 0, '0', 0, '7', 0, '4',
+	0, '6', 0, '5', 0, '7', 0, '3', 0, '7', 0, '4', 0, '2', 0, 'e' };
 
 char *una_test_base16_stream_byte_stream_long = \
 	"The test of success is not what you do when you are on top. " \
@@ -129,6 +153,28 @@ int una_test_base16_stream_size_to_byte_stream(
 	 (size_t) 16 );
 
 	result = libuna_base16_stream_size_to_byte_stream(
+	          una_test_base16_stream_utf16be_lower_case_base16_stream,
+	          64,
+		  &byte_stream_size,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	result = libuna_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          64,
 		  &byte_stream_size,
@@ -155,6 +201,28 @@ int una_test_base16_stream_size_to_byte_stream(
 	          128,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	result = libuna_base16_stream_size_to_byte_stream(
+	          una_test_base16_stream_utf32le_upper_case_base16_stream,
+	          128,
+		  &byte_stream_size,
+	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -394,13 +462,35 @@ int una_test_base16_stream_size_to_byte_stream(
 	/* Base16 stream too small for second character
 	 */
 
-	/* Incorrect byte order
+	/* Incorrect first character
 	 */
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_utf32be_upper_case_base16_stream,
-	          128,
+	          una_test_base16_stream_utf16be_lower_case_error_first_character,
+	          64,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Incorrect second character
+	 */
+	result = libuna_base16_stream_size_to_byte_stream(
+	          una_test_base16_stream_utf16be_lower_case_error_second_character,
+	          64,
+		  &byte_stream_size,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -541,6 +631,34 @@ int una_test_base16_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base16_stream_copy_to_byte_stream(
+	          una_test_base16_stream_utf16be_lower_case_base16_stream,
+	          64,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base16_stream_byte_stream,
+	          16 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base16_stream_copy_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          64,
 		  byte_stream,
@@ -574,6 +692,34 @@ int una_test_base16_stream_copy_to_byte_stream(
 		  byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base16_stream_byte_stream,
+	          16 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base16_stream_copy_to_byte_stream(
+	          una_test_base16_stream_utf32le_upper_case_base16_stream,
+	          128,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -905,14 +1051,14 @@ int una_test_base16_stream_copy_to_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	/* Incorrect byte order
+	/* Incorrect first character
 	 */
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_utf16le_lower_case_base16_stream,
+	          una_test_base16_stream_utf16be_lower_case_error_first_character,
 	          64,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -928,14 +1074,14 @@ int una_test_base16_stream_copy_to_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	/* Incorrect byte order
+	/* Incorrect second character
 	 */
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_utf32be_upper_case_base16_stream,
-	          128,
+	          una_test_base16_stream_utf16be_lower_case_error_second_character,
+	          64,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
 	          0,
 		  &error );
 

@@ -33,6 +33,12 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
+int libuna_base32_character_copy_to_quintet(
+     uint8_t base32_character,
+     uint8_t *base32_quintet,
+     uint32_t base32_variant,
+     libcerror_error_t **error );
+
 uint8_t una_test_base32_stream_byte_stream[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.' };
 
@@ -54,6 +60,572 @@ char *una_test_base32_stream_upper_case_base32_stream_long = \
 	"KRUGKIDUMVZXIIDPMYQHG5LDMNSXG4ZANFZSA3TPOQQHO2DBOQQHS33VEBSG6IDX" \
 	"NBSW4IDZN52SAYLSMUQG63RAORXXALRAKN2WGY3FONZSA2LTEBUG65ZANBUWO2BA" \
 	"PFXXKIDCN52W4Y3FEB3WQZLOEB4W65JANBUXIIDCN52HI33NFYFA====";
+
+/* Tests the libuna_base32_character_copy_to_quintet function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base32_character_copy_to_quintet(
+     void )
+{
+	uint8_t base32_quintet[ 8 ];
+
+	libcerror_error_t *error = NULL;
+	int result               = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'A',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'J',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'S',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) '2',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) '0',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'A',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'J',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'S',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) '0',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'Z',
+		  base32_quintet,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'A',
+		  NULL,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_character_copy_to_quintet(
+	          (uint8_t) 'A',
+		  base32_quintet,
+	          0x000f0000UL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base32_quintuplet_copy_from_base32_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base32_quintuplet_copy_from_base32_stream(
+     void )
+{
+	libcerror_error_t *error   = NULL;
+	size_t base32_stream_index = 0;
+	uint64_t base32_quintuplet = 0;
+	uint8_t padding_size       = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	base32_stream_index = 0;
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+	          &base32_stream_index,
+	          &padding_size,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	base32_stream_index = 0;
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  NULL,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+	          &base32_stream_index,
+	          &padding_size,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+		  NULL,
+	          32,
+	          &base32_stream_index,
+	          &padding_size,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          &base32_stream_index,
+	          &padding_size,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+		  NULL,
+	          &padding_size,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+	          &base32_stream_index,
+		  NULL,
+	          LIBUNA_BASE32_VARIANT_RFC4648,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid variant
+	 */
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+	          &base32_stream_index,
+	          &padding_size,
+	          0x0f000000UL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid encoding
+	 */
+	result = libuna_base32_quintuplet_copy_from_base32_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_upper_case_base32_stream,
+	          32,
+	          &base32_stream_index,
+	          &padding_size,
+	          0xf0000000UL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base32_quintuplet_copy_from_byte_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base32_quintuplet_copy_from_byte_stream(
+     void )
+{
+	libcerror_error_t *error   = NULL;
+	size_t byte_stream_index   = 0;
+	uint64_t base32_quintuplet = 0;
+	uint8_t padding_size       = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_byte_stream,
+	          16,
+	          &byte_stream_index,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  NULL,
+	          una_test_base32_stream_byte_stream,
+	          16,
+	          &byte_stream_index,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+		  NULL,
+	          16,
+	          &byte_stream_index,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_byte_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          &byte_stream_index,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_byte_stream,
+	          16,
+		  NULL,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_byte_stream,
+	          16,
+	          &byte_stream_index,
+		  NULL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
 
 /* Tests the libuna_base32_stream_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
@@ -954,9 +1526,20 @@ int main(
 	UNA_TEST_UNREFERENCED_PARAMETER( argc )
 	UNA_TEST_UNREFERENCED_PARAMETER( argv )
 
-	/* TODO add tests for libuna_base32_quintuplet_copy_from_base32_stream */
+	UNA_TEST_RUN(
+	 "libuna_base32_character_copy_to_quintet",
+	 una_test_base32_character_copy_to_quintet );
+
+	UNA_TEST_RUN(
+	 "libuna_base32_quintuplet_copy_from_base32_stream",
+	 una_test_base32_quintuplet_copy_from_base32_stream );
+
 	/* TODO add tests for libuna_base32_quintuplet_copy_to_base32_stream */
-	/* TODO add tests for libuna_base32_quintuplet_copy_from_byte_stream */
+
+	UNA_TEST_RUN(
+	 "libuna_base32_quintuplet_copy_from_byte_stream",
+	 una_test_base32_quintuplet_copy_from_byte_stream );
+
 	/* TODO add tests for libuna_base32_quintuplet_copy_to_byte_stream */
 
 /* TODO fix issue
