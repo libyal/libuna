@@ -33,6 +33,16 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
+int libuna_base16_character_copy_from_base16_stream(
+     uint32_t *base16_character,
+     const uint8_t *base16_stream,
+     uint32_t base16_variant,
+     libcerror_error_t **error );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
+
 uint8_t una_test_base16_stream_byte_stream[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.' };
 
@@ -96,6 +106,183 @@ char *una_test_base16_stream_lower_case_base16_stream_long_with_whitespace = \
 	"\t65737320697320686f77206869676820796f7520626f756e6365207768656e20  \n"
 	"\t796f752068697420626f74746f6d2e0a                                  \n";
 
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
+/* Tests the libuna_base16_character_copy_from_base16_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base16_character_copy_from_base16_stream(
+     void )
+{
+	libcerror_error_t *error  = NULL;
+	size_t byte_stream_size   = 0;
+	uint32_t base16_character = 0;
+	int result                = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_lower_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_utf16be_lower_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_utf16le_lower_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_utf32be_upper_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_utf32le_upper_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_base16_character_copy_from_base16_stream(
+	          NULL,
+	          una_test_base16_stream_lower_case_base16_stream,
+	          LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          NULL,
+	          LIBUNA_BASE16_VARIANT_ENCODING_BYTE_STREAM,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_lower_case_base16_stream,
+	          0xf0000000UL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base16_character_copy_from_base16_stream(
+	          &base16_character,
+	          una_test_base16_stream_utf16be_lower_case_error_first_character,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
+
 /* Tests the libuna_base16_stream_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -153,28 +340,6 @@ int una_test_base16_stream_size_to_byte_stream(
 	 (size_t) 16 );
 
 	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_utf16be_lower_case_base16_stream,
-	          64,
-		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
-	          0,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "byte_stream_size",
-	 byte_stream_size,
-	 (size_t) 16 );
-
-	result = libuna_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          64,
 		  &byte_stream_size,
@@ -201,28 +366,6 @@ int una_test_base16_stream_size_to_byte_stream(
 	          128,
 		  &byte_stream_size,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
-	          0,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "byte_stream_size",
-	 byte_stream_size,
-	 (size_t) 16 );
-
-	result = libuna_base16_stream_size_to_byte_stream(
-	          una_test_base16_stream_utf32le_upper_case_base16_stream,
-	          128,
-		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -631,34 +774,6 @@ int una_test_base16_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_utf16be_lower_case_base16_stream,
-	          64,
-		  byte_stream,
-		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN,
-	          0,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = memory_compare(
-	          byte_stream,
-	          una_test_base16_stream_byte_stream,
-	          16 );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 0 );
-
-	result = libuna_base16_stream_copy_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          64,
 		  byte_stream,
@@ -692,34 +807,6 @@ int una_test_base16_stream_copy_to_byte_stream(
 		  byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
-	          0,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = memory_compare(
-	          byte_stream,
-	          una_test_base16_stream_byte_stream,
-	          16 );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 0 );
-
-	result = libuna_base16_stream_copy_to_byte_stream(
-	          una_test_base16_stream_utf32le_upper_case_base16_stream,
-	          128,
-		  byte_stream,
-		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN,
 	          0,
 		  &error );
 
@@ -1747,6 +1834,14 @@ int main(
 {
 	UNA_TEST_UNREFERENCED_PARAMETER( argc )
 	UNA_TEST_UNREFERENCED_PARAMETER( argv )
+
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
+	UNA_TEST_RUN(
+	 "libuna_base16_character_copy_from_base16_stream",
+	 una_test_base16_character_copy_from_base16_stream );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
 
 	UNA_TEST_RUN(
 	 "libuna_base16_stream_size_to_byte_stream",
