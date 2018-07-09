@@ -7,8 +7,7 @@ MSVSCPP_FILES = \
 	libuna/libuna.vcproj \
 	una_test_base16_stream/una_test_base16_stream.vcproj \
 	una_test_base32_stream/una_test_base32_stream.vcproj \
-	una_test_base64_stream_copy_from/una_test_base64_stream_copy_from.vcproj \
-	una_test_base64_stream_copy_to/una_test_base64_stream_copy_to.vcproj \
+	una_test_base64_stream/una_test_base64_stream.vcproj \
 	una_test_byte_stream/una_test_byte_stream.vcproj \
 	una_test_codepage_windows_932/una_test_codepage_windows_932.vcproj \
 	una_test_codepage_windows_936/una_test_codepage_windows_936.vcproj \

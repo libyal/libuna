@@ -127,8 +127,7 @@ stamp-h[1-9]
 /tests/tmp*
 /tests/una_test_base16_stream
 /tests/una_test_base32_stream
-/tests/una_test_base64_stream_copy_from
-/tests/una_test_base64_stream_copy_to
+/tests/una_test_base64_stream
 /tests/una_test_byte_stream
 /tests/una_test_codepage_windows_932
 /tests/una_test_codepage_windows_936
