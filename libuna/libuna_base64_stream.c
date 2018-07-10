@@ -2213,12 +2213,13 @@ int libuna_base64_stream_size_from_byte_stream(
      uint32_t base64_variant,
      libcerror_error_t **error )
 {
-	static char *function        = "libuna_base64_stream_size_from_byte_stream";
-	size_t base64_character_size = 0;
-	size_t remaining_size        = 0;
-	size_t whitespace_size       = 0;
-	uint8_t character_limit      = 0;
-	uint8_t padding_character    = 0;
+	static char *function                = "libuna_base64_stream_size_from_byte_stream";
+	size_t base64_character_size         = 0;
+	size_t calculated_base64_stream_size = 0;
+	size_t remaining_size                = 0;
+	size_t whitespace_size               = 0;
+	uint8_t character_limit              = 0;
+	uint8_t padding_character            = 0;
 
 	if( byte_stream == NULL )
 	{
@@ -2333,7 +2334,7 @@ int libuna_base64_stream_size_from_byte_stream(
 	/* Make sure the base64 stream is able to hold
 	 * at least 4 base64 characters for each 3 bytes
 	 */
-	*base64_stream_size = ( byte_stream_size / 3 ) * 4;
+	calculated_base64_stream_size = ( byte_stream_size / 3 ) * 4;
 
 	remaining_size = byte_stream_size % 3;
 
@@ -2341,28 +2342,33 @@ int libuna_base64_stream_size_from_byte_stream(
 	{
 		if( padding_character != 0 )
 		{
-			*base64_stream_size += 4;
+			calculated_base64_stream_size += 4;
 		}
 		else if( remaining_size == 1 )
 		{
-			*base64_stream_size += 2;
+			calculated_base64_stream_size += 2;
 		}
 		else if( remaining_size == 2 )
 		{
-			*base64_stream_size += 3;
+			calculated_base64_stream_size += 3;
 		}
 	}
-	if( character_limit != 0 )
-	{
-		whitespace_size = *base64_stream_size / character_limit;
+	calculated_base64_stream_size += 1;
 
-		if( ( *base64_stream_size % character_limit ) != 0 )
+	if( ( character_limit != 0 )
+	 && ( calculated_base64_stream_size > character_limit ) )
+	{
+		whitespace_size = calculated_base64_stream_size / character_limit;
+
+		if( ( calculated_base64_stream_size % character_limit ) != 0 )
 		{
 			whitespace_size += 1;
 		}
-		*base64_stream_size += whitespace_size;
+		calculated_base64_stream_size += whitespace_size;
 	}
-	*base64_stream_size *= base64_character_size;
+	calculated_base64_stream_size *= base64_character_size;
+
+	*base64_stream_size = calculated_base64_stream_size;
 
 	return( 1 );
 }
@@ -2597,7 +2603,8 @@ int libuna_base64_stream_with_index_copy_from_byte_stream(
 	}
 	calculated_base64_stream_size += 1;
 
-	if( character_limit != 0 )
+	if( ( character_limit != 0 )
+	 && ( calculated_base64_stream_size > character_limit ) )
 	{
 		whitespace_size = calculated_base64_stream_size / character_limit;
 

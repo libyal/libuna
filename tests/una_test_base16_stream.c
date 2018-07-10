@@ -115,7 +115,6 @@ int una_test_base16_character_copy_from_base16_stream(
      void )
 {
 	libcerror_error_t *error  = NULL;
-	size_t byte_stream_size   = 0;
 	uint32_t base16_character = 0;
 	int result                = 0;
 
@@ -1531,9 +1530,89 @@ int una_test_base16_stream_copy_from_byte_stream(
 	 result,
 	 0 );
 
+	/* Test error cases
+	 */
 	result = libuna_base16_stream_copy_from_byte_stream(
+	          NULL,
+		  32,
+		  una_test_base16_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base16_stream_with_index_copy_from_byte_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base16_stream_with_index_copy_from_byte_stream(
+     void )
+{
+	uint8_t base16_stream[ 256 ];
+
+	libcerror_error_t *error   = NULL;
+	size_t base16_stream_index = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 		  base16_stream,
 		  32,
+		  &base16_stream_index,
+		  una_test_base16_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base16_stream,
+	          una_test_base16_stream_lower_case_base16_stream,
+	          32 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
+		  base16_stream,
+		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1558,9 +1637,12 @@ int una_test_base16_stream_copy_from_byte_stream(
 	 result,
 	 0 );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 		  base16_stream,
 		  64,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
@@ -1585,9 +1667,12 @@ int una_test_base16_stream_copy_from_byte_stream(
 	 result,
 	 0 );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 		  base16_stream,
 		  128,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
@@ -1612,9 +1697,12 @@ int una_test_base16_stream_copy_from_byte_stream(
 	 result,
 	 0 );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 		  base16_stream,
 		  228,
+		  &base16_stream_index,
 		  (uint8_t *) una_test_base16_stream_byte_stream_long,
 		  112,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_64,
@@ -1641,9 +1729,12 @@ int una_test_base16_stream_copy_from_byte_stream(
 
 	/* Test error cases
 	 */
-	result = libuna_base16_stream_copy_from_byte_stream(
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          NULL,
 		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1661,9 +1752,10 @@ int una_test_base16_stream_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  (size_t) SSIZE_MAX + 1,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1681,9 +1773,31 @@ int una_test_base16_stream_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  32,
+		  NULL,
+		  una_test_base16_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
+	          base16_stream,
+		  32,
+		  &base16_stream_index,
 		  NULL,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1701,9 +1815,10 @@ int una_test_base16_stream_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  (size_t) SSIZE_MAX + 1,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1723,9 +1838,10 @@ int una_test_base16_stream_copy_from_byte_stream(
 
 	/* Invalid character limit
 	 */
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          0x000000ffUL,
@@ -1745,9 +1861,10 @@ int una_test_base16_stream_copy_from_byte_stream(
 
 	/* Invalid variant
 	 */
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          0x000f0000UL | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1767,9 +1884,10 @@ int una_test_base16_stream_copy_from_byte_stream(
 
 	/* Invalid encoding
 	 */
-	result = libuna_base16_stream_copy_from_byte_stream(
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  32,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          0xf0000000UL | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1789,9 +1907,12 @@ int una_test_base16_stream_copy_from_byte_stream(
 
 	/* Base16 stream too small
 	 */
-	result = libuna_base16_stream_copy_from_byte_stream(
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
 	          base16_stream,
 		  8,
+		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1859,7 +1980,9 @@ int main(
 	 "libuna_base16_stream_copy_from_byte_stream",
 	 una_test_base16_stream_copy_from_byte_stream );
 
-	/* TODO add tests for libuna_base16_stream_with_index_copy_from_byte_stream */
+	UNA_TEST_RUN(
+	 "libuna_base16_stream_with_index_copy_from_byte_stream",
+	 una_test_base16_stream_with_index_copy_from_byte_stream );
 
 	return( EXIT_SUCCESS );
 
