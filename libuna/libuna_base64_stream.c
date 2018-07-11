@@ -1053,6 +1053,17 @@ int libuna_base64_triplet_copy_from_byte_stream(
 
 		return( -1 );
 	}
+	if( padding_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid padding size.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the value of 3 bytes (24 bits)
 	 */
 	*base64_triplet     = (uint32_t) byte_stream[ *byte_stream_index ] << 16;

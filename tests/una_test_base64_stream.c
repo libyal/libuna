@@ -215,6 +215,21 @@ int una_test_base64_character_copy_to_sixtet(
 	 "error",
 	 error );
 
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint8_t) '/',
+		  base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test error cases
 	 */
 	result = libuna_base64_character_copy_to_sixtet(
@@ -283,6 +298,696 @@ on_error:
 }
 
 #endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
+
+/* Tests the libuna_base64_triplet_copy_from_base64_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base64_triplet_copy_from_base64_stream(
+     void )
+{
+	libcerror_error_t *error   = NULL;
+	size_t base64_stream_index = 0;
+	uint32_t base64_triplet    = 0;
+	uint8_t padding_size       = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          NULL,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          NULL,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          (size_t) SSIZE_MAX + 1,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  NULL,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  NULL,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid character limit
+	 */
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          0x000000ffUL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid alphabet
+	 */
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid encoding
+	 */
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          25,
+		  &base64_stream_index,
+		  &padding_size,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base64_triplet_copy_to_base64_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base64_triplet_copy_to_base64_stream(
+     void )
+{
+	uint8_t base64_stream[ 32 ];
+
+	libcerror_error_t *error   = NULL;
+	size_t base64_stream_index = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 4 );
+
+	/* Test error cases
+	 */
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          NULL,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          (size_t) SSIZE_MAX + 1,
+		  &base64_stream_index,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  NULL,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid character limit
+	 */
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          0x000000ffUL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid alphabet
+	 */
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid encoding
+	 */
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base64_triplet_copy_from_byte_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base64_triplet_copy_from_byte_stream(
+     void )
+{
+	libcerror_error_t *error = NULL;
+	size_t byte_stream_index = 0;
+	uint32_t base64_triplet  = 0;
+	uint8_t padding_size     = 0;
+	int result               = 0;
+
+	/* Test regular cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_byte_stream,
+	          16,
+		  &byte_stream_index,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          NULL,
+	          una_test_base64_stream_byte_stream,
+	          16,
+		  &byte_stream_index,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          NULL,
+	          16,
+		  &byte_stream_index,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_byte_stream,
+	          (size_t) SSIZE_MAX + 1,
+		  &byte_stream_index,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_byte_stream,
+	          16,
+		  NULL,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_byte_stream,
+	          16,
+		  &byte_stream_index,
+		  NULL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_base64_triplet_copy_to_byte_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_base64_triplet_copy_to_byte_stream(
+     void )
+{
+	uint8_t byte_stream[ 32 ];
+
+	libcerror_error_t *error = NULL;
+	size_t byte_stream_index = 0;
+	int result               = 0;
+
+	/* Test regular cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          byte_stream,
+	          32,
+		  &byte_stream_index,
+		  0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 3 );
+
+	/* Test error cases
+	 */
+	byte_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          NULL,
+	          32,
+		  &byte_stream_index,
+		  0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          byte_stream,
+	          (size_t) SSIZE_MAX + 1,
+		  &byte_stream_index,
+		  0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          byte_stream,
+	          32,
+		  NULL,
+		  0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
 
 /* Tests the libuna_base64_stream_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
@@ -1204,10 +1909,21 @@ int main(
 
 #endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
 
-	/* TODO add tests for libuna_base64_triplet_copy_from_base64_stream */
-	/* TODO add tests for libuna_base64_triplet_copy_to_base64_stream */
-	/* TODO add tests for libuna_base64_triplet_copy_from_byte_stream */
-	/* TODO add tests for libuna_base64_triplet_copy_to_byte_stream */
+	UNA_TEST_RUN(
+	 "libuna_base64_triplet_copy_from_base64_stream",
+	 una_test_base64_triplet_copy_from_base64_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_base64_triplet_copy_to_base64_stream",
+	 una_test_base64_triplet_copy_to_base64_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_base64_triplet_copy_from_byte_stream",
+	 una_test_base64_triplet_copy_from_byte_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_base64_triplet_copy_to_byte_stream",
+	 una_test_base64_triplet_copy_to_byte_stream );
 
 	UNA_TEST_RUN(
 	 "libuna_base64_stream_size_to_byte_stream",
