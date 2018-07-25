@@ -37,8 +37,11 @@
 
 #include <libuna/extern.h>
 
+#define LIBUNA_EXTERN_VARIABLE	LIBUNA_EXTERN
+
 #else
-#define LIBUNA_EXTERN	/* extern */
+#define LIBUNA_EXTERN		/* extern */
+#define LIBUNA_EXTERN_VARIABLE	extern
 
 #endif /* !defined( HAVE_LOCAL_LIBUNA ) */
 

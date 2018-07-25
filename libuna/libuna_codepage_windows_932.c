@@ -4385,7 +4385,7 @@ int libuna_codepage_windows_932_copy_from_byte_stream(
 				*unicode_character = libuna_codepage_windows_932_byte_stream_to_unicode_base_0x81c8[ additional_character ];
 			}
 			else if( ( additional_character >= 0xda )
-			      && ( additional_character < 0xea ) )
+			      && ( additional_character < 0xe9 ) )
 			{
 				additional_character -= 0xda;
 
