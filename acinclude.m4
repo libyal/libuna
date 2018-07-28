@@ -1,21 +1,11 @@
+dnl Checks for required headers and functions
+dnl
+dnl Version: 20170903
+
 dnl Function to detect if libuna dependencies are available
 AC_DEFUN([AX_LIBUNA_CHECK_LOCAL],
-  [dnl Check if DLL support is needed
-  AS_IF(
-    [test "x$enable_shared" = xyes],
-    [AS_CASE(
-      [$host],
-      [*cygwin* | *mingw*],
-      [AC_DEFINE(
-        [HAVE_DLLMAIN],
-        [1],
-        [Define to 1 to enable the DllMain function.])
-      AC_SUBST(
-        [HAVE_DLLMAIN],
-        [1])
-    ])
+  [dnl No additional checks.
   ])
-])
 
 dnl Function to detect if unatools dependencies are available
 AC_DEFUN([AX_UNATOOLS_CHECK_LOCAL],
@@ -32,17 +22,5 @@ AC_DEFUN([AX_UNATOOLS_CHECK_LOCAL],
 
   dnl Check if tools should be build as static executables
   AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
-
-  dnl Check if DLL support is needed
-  AS_IF(
-    [test "x$enable_shared" = xyes && test "x$ac_cv_enable_static_executables" = xno],
-    [AS_CASE(
-      [$host],
-      [*cygwin* | *mingw*],
-      [AC_SUBST(
-        [LIBUNA_DLL_IMPORT],
-        ["-DLIBUNA_DLL_IMPORT"])
-    ])
-  ])
 ])
 

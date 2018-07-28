@@ -28,13 +28,6 @@
  */
 #if !defined( HAVE_LOCAL_LIBUNA )
 
-/* If libtool DLL support is enabled set LIBUNA_DLL_EXPORT
- * before including libuna/extern.h
- */
-#if defined( _WIN32 ) && defined( DLL_EXPORT )
-#define LIBUNA_DLL_EXPORT
-#endif
-
 #include <libuna/extern.h>
 
 #define LIBUNA_EXTERN_VARIABLE	LIBUNA_EXTERN
