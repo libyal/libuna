@@ -1923,7 +1923,7 @@ int libuna_base32_stream_size_to_byte_stream(
 			if( ( base32_character1 == (uint32_t) '\n' )
 			 || ( base32_character1 == (uint32_t) '\r' ) )
 			{
-				whitespace_size++;
+				whitespace_size += base32_character_size;
 
 				continue;
 			}
@@ -1935,14 +1935,14 @@ int libuna_base32_stream_size_to_byte_stream(
 			 || ( base32_character1 == (uint32_t) '\t' )
 			 || ( base32_character1 == (uint32_t) '\v' ) )
 			{
-				whitespace_size++;
+				whitespace_size += base32_character_size;
 			}
 			else
 			{
 				break;
 			}
 		}
-		base32_stream_size -= whitespace_size * base32_character_size;
+		base32_stream_size -= whitespace_size;
 	}
 	/* Determine and ignore the padding
 	 */
@@ -2055,30 +2055,30 @@ int libuna_base32_stream_size_to_byte_stream(
 					switch( base32_variant & 0xf0000000UL )
 					{
 						case LIBUNA_BASE32_VARIANT_ENCODING_BYTE_STREAM:
-							base32_character2 = base32_stream[ base32_stream_index ];
+							base32_character2 = base32_stream[ base32_stream_index + 1 ];
 							break;
 
 						case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
 							byte_stream_copy_to_uint16_big_endian(
-							 &( base32_stream[ base32_stream_index ] ),
+							 &( base32_stream[ base32_stream_index + 2 ] ),
 							 base32_character2 );
 							break;
 
 						case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
 							byte_stream_copy_to_uint16_little_endian(
-							 &( base32_stream[ base32_stream_index ] ),
+							 &( base32_stream[ base32_stream_index + 2 ] ),
 							 base32_character2 );
 							break;
 
 						case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
 							byte_stream_copy_to_uint32_big_endian(
-							 &( base32_stream[ base32_stream_index ] ),
+							 &( base32_stream[ base32_stream_index + 4 ] ),
 							 base32_character2 );
 							break;
 
 						case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
 							byte_stream_copy_to_uint32_little_endian(
-							 &( base32_stream[ base32_stream_index ] ),
+							 &( base32_stream[ base32_stream_index + 4 ] ),
 							 base32_character2 );
 							break;
 					}
@@ -2087,7 +2087,7 @@ int libuna_base32_stream_size_to_byte_stream(
 					{
 						base32_stream_index += base32_character_size;
 
-						whitespace_size++;
+						whitespace_size += base32_character_size;
 					}
 				}
 				strip_mode = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
@@ -2110,7 +2110,7 @@ int libuna_base32_stream_size_to_byte_stream(
 				}
 				number_of_characters = 0;
 			}
-			whitespace_size++;
+			whitespace_size += base32_character_size;
 		}
 		else if( ( base32_character1 == (uint32_t) ' ' )
 		      || ( base32_character1 == (uint32_t) '\t' )
@@ -2133,7 +2133,7 @@ int libuna_base32_stream_size_to_byte_stream(
 				}
 				else
 				{
-					whitespace_size++;
+					whitespace_size += base32_character_size;
 				}
 			}
 		}
@@ -2241,7 +2241,7 @@ int libuna_base32_stream_size_to_byte_stream(
 			return( -1 );
 		}
 	}
-	base32_stream_size -= whitespace_size * base32_character_size;
+	base32_stream_size -= whitespace_size;
 
 	/* Make sure the byte stream is able to hold
 	 * at least 5 bytes for each 8 base32 characters
@@ -2269,14 +2269,18 @@ int libuna_base32_stream_copy_to_byte_stream(
      uint8_t flags,
      libcerror_error_t **error )
 {
-	static char *function       = "libuna_base32_stream_copy_to_byte_stream";
-	size_t base32_stream_index  = 0;
-	size_t byte_stream_index    = 0;
-	size_t number_of_characters = 0;
-	uint64_t base32_quintuplet  = 0;
-	uint8_t character_limit     = 0;
-	uint8_t padding_size        = 0;
-	uint8_t strip_mode          = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
+	static char *function        = "libuna_base32_stream_copy_to_byte_stream";
+	size_t base32_character_size = 0;
+	size_t base32_stream_index   = 0;
+	size_t byte_stream_index     = 0;
+	size_t number_of_characters  = 0;
+	size_t whitespace_size       = 0;
+	uint64_t base32_quintuplet   = 0;
+	uint32_t base32_character1   = 0;
+	uint32_t base32_character2   = 0;
+	uint8_t character_limit      = 0;
+	uint8_t padding_size         = 0;
+	uint8_t strip_mode           = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
 
 	if( base32_stream == NULL )
 	{
@@ -2342,6 +2346,32 @@ int libuna_base32_stream_copy_to_byte_stream(
 
 			return( -1 );
 	}
+	switch( base32_variant & 0xf0000000UL )
+	{
+		case LIBUNA_BASE32_VARIANT_ENCODING_BYTE_STREAM:
+			base32_character_size = 1;
+			break;
+
+		case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+		case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+			base32_character_size = 2;
+			break;
+
+		case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+		case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+			base32_character_size = 4;
+			break;
+
+		default:
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported base32 variant.",
+			 function );
+
+			return( -1 );
+	}
 	if( ( flags & ~( LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) ) != 0 )
 	{
 		libcerror_error_set(
@@ -2353,14 +2383,111 @@ int libuna_base32_stream_copy_to_byte_stream(
 
 		return( -1 );
 	}
+	/* Ignore trailing whitespace
+	 */
+	if( base32_stream_size > base32_character_size )
+	{
+		base32_stream_index = base32_stream_size - base32_character_size;
+		whitespace_size     = 0;
+
+		while( base32_stream_index > base32_character_size )
+		{
+			switch( base32_variant & 0xf0000000UL )
+			{
+				case LIBUNA_BASE32_VARIANT_ENCODING_BYTE_STREAM:
+					base32_character1 = base32_stream[ base32_stream_index ];
+					break;
+
+				case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+					byte_stream_copy_to_uint16_big_endian(
+					 &( base32_stream[ base32_stream_index ] ),
+					 base32_character1 );
+					break;
+
+				case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+					byte_stream_copy_to_uint16_little_endian(
+					 &( base32_stream[ base32_stream_index ] ),
+					 base32_character1 );
+					break;
+
+				case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+					byte_stream_copy_to_uint32_big_endian(
+					 &( base32_stream[ base32_stream_index ] ),
+					 base32_character1 );
+					break;
+
+				case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+					byte_stream_copy_to_uint32_little_endian(
+					 &( base32_stream[ base32_stream_index ] ),
+					 base32_character1 );
+					break;
+			}
+			base32_stream_index -= base32_character_size;
+
+			if( ( base32_character1 == (uint32_t) '\n' )
+			 || ( base32_character1 == (uint32_t) '\r' ) )
+			{
+				whitespace_size += base32_character_size;
+
+				continue;
+			}
+			else if( ( flags & LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) == 0 )
+			{
+				break;
+			}
+			if( ( base32_character1 == (uint32_t) ' ' )
+			 || ( base32_character1 == (uint32_t) '\t' )
+			 || ( base32_character1 == (uint32_t) '\v' ) )
+			{
+				whitespace_size += base32_character_size;
+			}
+			else
+			{
+				break;
+			}
+		}
+		base32_stream_size -= whitespace_size;
+	}
 	if( ( flags & LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) == 0 )
 	{
 		strip_mode = LIBUNA_STRIP_MODE_NON_WHITESPACE;
 	}
-	while( base32_stream_index < base32_stream_size )
+	base32_stream_index = 0;
+
+	while( ( base32_stream_index + base32_character_size ) < base32_stream_size )
 	{
-		if( ( base32_stream[ base32_stream_index ] == (uint8_t) '\n' )
-		 || ( base32_stream[ base32_stream_index ] == (uint8_t) '\r' ) )
+		switch( base32_variant & 0xf0000000UL )
+		{
+			case LIBUNA_BASE32_VARIANT_ENCODING_BYTE_STREAM:
+				base32_character1 = base32_stream[ base32_stream_index ];
+				break;
+
+			case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+				byte_stream_copy_to_uint16_big_endian(
+				 &( base32_stream[ base32_stream_index ] ),
+				 base32_character1 );
+				break;
+
+			case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint16_little_endian(
+				 &( base32_stream[ base32_stream_index ] ),
+				 base32_character1 );
+				break;
+
+			case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+				byte_stream_copy_to_uint32_big_endian(
+				 &( base32_stream[ base32_stream_index ] ),
+				 base32_character1 );
+				break;
+
+			case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+				byte_stream_copy_to_uint32_little_endian(
+				 &( base32_stream[ base32_stream_index ] ),
+				 base32_character1 );
+				break;
+		}
+		if( ( base32_character1 == (uint32_t) '\n' )
+		 || ( base32_character1 == (uint32_t) '\r' ) )
 		{
 			if( ( strip_mode != LIBUNA_STRIP_MODE_NON_WHITESPACE )
 			 && ( strip_mode != LIBUNA_STRIP_MODE_TRAILING_WHITESPACE ) )
@@ -2369,17 +2496,49 @@ int libuna_base32_stream_copy_to_byte_stream(
 			}
 			else
 			{
-				if( base32_stream_index < base32_stream_size )
+				/* Handle multi-character end-of-line
+				 */
+				if( ( base32_stream_index + base32_character_size ) < base32_stream_size )
 				{
-					if( ( base32_stream[ base32_stream_index + 1 ] == (uint8_t) '\n' )
-					 || ( base32_stream[ base32_stream_index + 1 ] == (uint8_t) '\r' ) )
+					switch( base32_variant & 0xf0000000UL )
 					{
-						base32_stream_index++;
+						case LIBUNA_BASE32_VARIANT_ENCODING_BYTE_STREAM:
+							base32_character2 = base32_stream[ base32_stream_index + 1 ];
+							break;
+
+						case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN:
+							byte_stream_copy_to_uint16_big_endian(
+							 &( base32_stream[ base32_stream_index + 2 ] ),
+							 base32_character2 );
+							break;
+
+						case LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint16_little_endian(
+							 &( base32_stream[ base32_stream_index + 2 ] ),
+							 base32_character2 );
+							break;
+
+						case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN:
+							byte_stream_copy_to_uint32_big_endian(
+							 &( base32_stream[ base32_stream_index + 4 ] ),
+							 base32_character2 );
+							break;
+
+						case LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN:
+							byte_stream_copy_to_uint32_little_endian(
+							 &( base32_stream[ base32_stream_index + 4 ] ),
+							 base32_character2 );
+							break;
+					}
+					if( ( base32_character2 == (uint32_t) '\n' )
+					 || ( base32_character2 == (uint32_t) '\r' ) )
+					{
+						base32_stream_index += base32_character_size;
 					}
 				}
 				strip_mode = LIBUNA_STRIP_MODE_LEADING_WHITESPACE;
 
-				base32_stream_index++;
+				base32_stream_index += base32_character_size;
 			}
 			if( character_limit != 0 )
 			{
@@ -2397,9 +2556,9 @@ int libuna_base32_stream_copy_to_byte_stream(
 				number_of_characters = 0;
 			}
 		}
-		else if( ( base32_stream[ base32_stream_index ] == (uint8_t) ' ' )
-		      || ( base32_stream[ base32_stream_index ] == (uint8_t) '\t' )
-		      || ( base32_stream[ base32_stream_index ] == (uint8_t) '\v' ) )
+		else if( ( base32_character1 == (uint32_t) ' ' )
+		      || ( base32_character1 == (uint32_t) '\t' )
+		      || ( base32_character1 == (uint32_t) '\v' ) )
 		{
 			if( ( flags & LIBUNA_BASE32_FLAG_STRIP_WHITESPACE ) != 0 )
 			{
@@ -2412,7 +2571,7 @@ int libuna_base32_stream_copy_to_byte_stream(
 				{
 					strip_mode = LIBUNA_STRIP_MODE_INVALID_CHARACTER;
 				}
-				base32_stream_index++;
+				base32_stream_index += base32_character_size;
 			}
 			else
 			{
@@ -2681,7 +2840,7 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 {
 	static char *function                = "libuna_base32_stream_with_index_copy_from_byte_stream";
 	size_t calculated_base32_stream_size = 0;
-	size_t stream_index                  = 0;
+	size_t safe_base32_stream_index      = 0;
 	size_t byte_stream_index             = 0;
 	size_t number_of_characters          = 0;
 	size_t whitespace_size               = 0;
@@ -2775,7 +2934,7 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 
 			return( -1 );
 	}
-	stream_index = *base32_stream_index;
+	safe_base32_stream_index = *base32_stream_index;
 
 	/* Make sure the base32 stream is able to hold
 	 * at least 8 base32 characters for each 5 bytes
@@ -2836,7 +2995,7 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 		     base32_quintuplet,
 		     base32_stream,
 		     base32_stream_size,
-		     &stream_index,
+		     &safe_base32_stream_index,
 		     padding_size,
 		     base32_variant,
 		     error ) != 1 )
@@ -2856,7 +3015,7 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 
 			if( number_of_characters >= (size_t) character_limit )
 			{
-				base32_stream[ stream_index++ ] = (uint8_t) '\n';
+				base32_stream[ safe_base32_stream_index++ ] = (uint8_t) '\n';
 
 				number_of_characters = 0;
 			}
@@ -2866,10 +3025,10 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 	{
 		if( number_of_characters != 0 )
 		{
-			base32_stream[ stream_index++ ] = (uint8_t) '\n';
+			base32_stream[ safe_base32_stream_index++ ] = (uint8_t) '\n';
 		}
 	}
-	*base32_stream_index = stream_index;
+	*base32_stream_index = safe_base32_stream_index;
 
 	return( 1 );
 }

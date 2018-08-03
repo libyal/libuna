@@ -95,7 +95,12 @@ char *una_test_base32_stream_upper_case_base32_stream_long = \
 	"NBSW4IDZN52SAYLSMUQG63RAORXXALRAKN2WGY3FONZSA2LTEBUG65ZANBUWO2BA" \
 	"PFXXKIDCN52W4Y3FEB3WQZLOEB4W65JANBUXIIDCN52HI33NFYFA====";
 
-char *una_test_base32_stream_upper_case_base32_stream_long_with_whitespace = \
+char *una_test_base32_stream_upper_case_base32_stream_limit64 = \
+	"KRUGKIDUMVZXIIDPMYQHG5LDMNSXG4ZANFZSA3TPOQQHO2DBOQQHS33VEBSG6IDX\n" \
+	"NBSW4IDZN52SAYLSMUQG63RAORXXALRAKN2WGY3FONZSA2LTEBUG65ZANBUWO2BA\n" \
+	"PFXXKIDCN52W4Y3FEB3WQZLOEB4W65JANBUXIIDCN52HI33NFYFA====\n";
+
+char *una_test_base32_stream_upper_case_base32_stream_limit64_with_whitespace = \
 	"\tKRUGKIDUMVZXIIDPMYQHG5LDMNSXG4ZANFZSA3TPOQQHO2DBOQQHS33VEBSG6IDX\r\n" \
 	"\tNBSW4IDZN52SAYLSMUQG63RAORXXALRAKN2WGY3FONZSA2LTEBUG65ZANBUWO2BA\r\n" \
 	"\tPFXXKIDCN52W4Y3FEB3WQZLOEB4W65JANBUXIIDCN52HI33NFYFA====\r\n";
@@ -1012,11 +1017,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          0,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          1,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1050,11 +1055,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          1,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          3,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1088,11 +1093,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          2,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          5,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1126,11 +1131,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          3,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          7,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1164,11 +1169,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          4,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          9,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1202,11 +1207,11 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          5,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          11,
 	          &base32_stream_index,
 	          &padding_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1240,8 +1245,8 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          6,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          13,
 	          &base32_stream_index,
 	          &padding_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
@@ -1278,8 +1283,8 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 */
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
-	          una_test_base32_stream_upper_case_base32_stream,
-	          7,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          15,
 	          &base32_stream_index,
 	          &padding_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
@@ -1751,8 +1756,6 @@ int una_test_base32_quintuplet_copy_to_base32_stream(
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
-	base32_stream_index = 0;
-
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
@@ -1761,7 +1764,7 @@ int una_test_base32_quintuplet_copy_to_base32_stream(
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "base32_stream_index",
 	 base32_stream_index,
-	 (size_t) 0 );
+	 (size_t) 32 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1769,6 +1772,8 @@ int una_test_base32_quintuplet_copy_to_base32_stream(
 
 	libcerror_error_free(
 	 &error );
+
+	base32_stream_index = 0;
 
 	result = libuna_base32_quintuplet_copy_to_base32_stream(
 		  0x5468697320UL,
@@ -2031,6 +2036,35 @@ int una_test_base32_quintuplet_copy_to_byte_stream(
 
 	libcerror_error_free(
 	 &error );
+
+	byte_stream_index = 32;
+
+	result = libuna_base32_quintuplet_copy_to_byte_stream(
+		  0x5468697320UL,
+	          byte_stream,
+	          32,
+	          &byte_stream_index,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 32 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 0;
 
 	result = libuna_base32_quintuplet_copy_to_byte_stream(
 		  0x5468697320UL,
@@ -2300,6 +2334,45 @@ int una_test_base32_quintuplet_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
+	byte_stream_index = 16;
+
+	result = libuna_base32_quintuplet_copy_from_byte_stream(
+		  &base32_quintuplet,
+	          una_test_base32_stream_byte_stream,
+	          16,
+	          &byte_stream_index,
+	          &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT64(
+	 "base32_quintuplet",
+	 base32_quintuplet,
+	 (uint64_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 (uint8_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 0;
+
 	result = libuna_base32_quintuplet_copy_from_byte_stream(
 		  &base32_quintuplet,
 	          una_test_base32_stream_byte_stream,
@@ -2481,10 +2554,10 @@ int una_test_base32_stream_size_to_byte_stream(
 	byte_stream_size = 0;
 
 	result = libuna_base32_stream_size_to_byte_stream(
-	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_long,
-	          184,
+	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_limit64,
+	          187,
 		  &byte_stream_size,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
 		  &error );
 
@@ -2505,7 +2578,7 @@ int una_test_base32_stream_size_to_byte_stream(
 	byte_stream_size = 0;
 
 	result = libuna_base32_stream_size_to_byte_stream(
-	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_long_with_whitespace,
+	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_limit64_with_whitespace,
 	          193,
 		  &byte_stream_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
@@ -2545,6 +2618,30 @@ int una_test_base32_stream_size_to_byte_stream(
 	 "byte_stream_size",
 	 byte_stream_size,
 	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	byte_stream_size = 0;
+
+	result = libuna_base32_stream_size_to_byte_stream(
+	          una_test_base32_stream_upper_case_base32_stream_hex,
+	          32,
+		  &byte_stream_size,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_HEX | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2634,7 +2731,7 @@ int una_test_base32_stream_size_to_byte_stream(
 	result = libuna_base32_stream_size_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 		  32,
-	          NULL,
+		  &byte_stream_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | 0x000000ffUL | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
 		  &error );
@@ -2661,7 +2758,7 @@ int una_test_base32_stream_size_to_byte_stream(
 	result = libuna_base32_stream_size_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 		  32,
-	          NULL,
+		  &byte_stream_size,
 	          0x000f0000UL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
 		  &error );
@@ -2688,7 +2785,7 @@ int una_test_base32_stream_size_to_byte_stream(
 	result = libuna_base32_stream_size_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 		  32,
-	          NULL,
+		  &byte_stream_size,
 	          0xf0000000UL | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
 		  &error );
@@ -2715,7 +2812,7 @@ int una_test_base32_stream_size_to_byte_stream(
 	result = libuna_base32_stream_size_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 		  32,
-	          NULL,
+		  &byte_stream_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0xff,
 		  &error );
@@ -2850,6 +2947,34 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base32_stream_copy_to_byte_stream(
+	          una_test_base32_stream_utf16be_base32_stream,
+	          64,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base32_stream_byte_stream,
+	          16 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base32_stream_copy_to_byte_stream(
 	          una_test_base32_stream_utf16le_base32_stream,
 	          64,
 		  byte_stream,
@@ -2878,12 +3003,96 @@ int una_test_base32_stream_copy_to_byte_stream(
 	 0 );
 
 	result = libuna_base32_stream_copy_to_byte_stream(
-	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_long,
-	          184,
+	          una_test_base32_stream_utf32be_base32_stream,
+	          64,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base32_stream_byte_stream,
+	          16 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base32_stream_copy_to_byte_stream(
+	          una_test_base32_stream_utf32le_base32_stream,
+	          64,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base32_stream_byte_stream,
+	          16 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base32_stream_copy_to_byte_stream(
+	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_limit64,
+	          187,
 		  byte_stream,
 		  112,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          byte_stream,
+	          una_test_base32_stream_byte_stream_long,
+	          112 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	result = libuna_base32_stream_copy_to_byte_stream(
+	          (uint8_t *) una_test_base32_stream_upper_case_base32_stream_limit64_with_whitespace,
+	          193,
+		  byte_stream,
+		  112,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE32_FLAG_STRIP_WHITESPACE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -2991,13 +3200,61 @@ int una_test_base32_stream_copy_to_byte_stream(
 	libcerror_error_free(
 	 &error );
 
+	/* Invalid character limit
+	 */
 	result = libuna_base32_stream_copy_to_byte_stream(
 	          una_test_base32_stream_upper_case_base32_stream,
 		  32,
 		  byte_stream,
 		  16,
-	          0xffffffffUL,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | 0x000000ffUL | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid encoding
+	 */
+	result = libuna_base32_stream_copy_to_byte_stream(
+	          una_test_base32_stream_upper_case_base32_stream,
+		  32,
+		  byte_stream,
+		  16,
+	          0xf0000000UL | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Invalid flags
+	 */
+	result = libuna_base32_stream_copy_to_byte_stream(
+	          una_test_base32_stream_upper_case_base32_stream,
+		  32,
+		  byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+	          0xff,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -3485,11 +3742,11 @@ int una_test_base32_stream_with_index_copy_from_byte_stream(
 
 	result = libuna_base32_stream_with_index_copy_from_byte_stream(
 		  base32_stream,
-		  184,
+		  64,
 		  &base32_stream_index,
-		  (uint8_t *) una_test_base32_stream_byte_stream_long,
-		  112,
-	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  una_test_base32_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -3503,8 +3760,128 @@ int una_test_base32_stream_with_index_copy_from_byte_stream(
 
 	result = memory_compare(
 	          base32_stream,
-	          una_test_base32_stream_upper_case_base32_stream_long,
-	          184 );
+	          una_test_base32_stream_utf16be_base32_stream,
+	          64 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base32_stream_index = 0;
+
+	result = libuna_base32_stream_with_index_copy_from_byte_stream(
+		  base32_stream,
+		  64,
+		  &base32_stream_index,
+		  una_test_base32_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base32_stream,
+	          una_test_base32_stream_utf16le_base32_stream,
+	          64 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base32_stream_index = 0;
+
+	result = libuna_base32_stream_with_index_copy_from_byte_stream(
+		  base32_stream,
+		  128,
+		  &base32_stream_index,
+		  una_test_base32_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base32_stream,
+	          una_test_base32_stream_utf32be_base32_stream,
+	          128 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base32_stream_index = 0;
+
+	result = libuna_base32_stream_with_index_copy_from_byte_stream(
+		  base32_stream,
+		  128,
+		  &base32_stream_index,
+		  una_test_base32_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE32_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base32_stream,
+	          una_test_base32_stream_utf32le_base32_stream,
+	          128 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base32_stream_index = 0;
+
+	result = libuna_base32_stream_with_index_copy_from_byte_stream(
+		  base32_stream,
+		  187,
+		  &base32_stream_index,
+		  (uint8_t *) una_test_base32_stream_byte_stream_long,
+		  112,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base32_stream,
+	          una_test_base32_stream_upper_case_base32_stream_limit64,
+	          187 );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -3540,9 +3917,6 @@ int una_test_base32_stream_with_index_copy_from_byte_stream(
 	 "result",
 	 result,
 	 0 );
-
-/* TODO test char limit */
-/* TODO test encodings */
 
 	/* Test error cases
 	 */
