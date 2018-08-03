@@ -2,8 +2,6 @@ TODO
 * pre compiler macro to detect ASCII vs non-ASCII system?
 * make sure whitespace is stripped when copying to byte stream:
   - base32
-* base encoding: support UTF-16 and 32 encoding by flags
-  - base32 (+/-)
 * add baseX functions with index:
   - base16
   - base32
