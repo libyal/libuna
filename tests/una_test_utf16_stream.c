@@ -33,29 +33,29 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
-uint8_t lnk_test_utf16_stream_byte_order_mark_big_endian[ 2 ] = {
+uint8_t una_test_utf16_stream_byte_order_mark_big_endian[ 2 ] = {
 	0xfe, 0xff };
 
-uint8_t lnk_test_utf16_stream_byte_order_mark_little_endian[ 2 ] = {
+uint8_t una_test_utf16_stream_byte_order_mark_little_endian[ 2 ] = {
 	0xff, 0xfe };
 
-uint8_t lnk_test_utf16_stream_utf16_stream[ 34 ] = {
+uint8_t una_test_utf16_stream_utf16_stream[ 34 ] = {
 	0xff, 0xfe, 'T', 0, 'h', 0, 'i', 0, 's', 0, ' ', 0, 'i', 0, 's', 0, ' ', 0,
 	0xe1, 0, ' ', 0, 't', 0, 'e', 0, 's', 0, 't', 0, '.', 0, 0, 0 };
 
-uint16_t lnk_test_utf16_stream_utf16_string[ 16 ] = {
+uint16_t una_test_utf16_stream_utf16_string[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint16_t lnk_test_utf16_stream_error_utf16_string[ 16 ] = {
+uint16_t una_test_utf16_stream_error_utf16_string[ 16 ] = {
 	'T', 0xd800, 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint32_t lnk_test_utf16_stream_utf32_string[ 16 ] = {
+uint32_t una_test_utf16_stream_utf32_string[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint8_t lnk_test_utf16_stream_utf8_string[ 17 ] = {
+uint8_t una_test_utf16_stream_utf8_string[ 17 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint8_t lnk_test_utf16_stream_error_utf8_string[ 17 ] = {
+uint8_t una_test_utf16_stream_error_utf8_string[ 17 ] = {
 	'T', 0xfc, 0xa1, 0xa1, 0xa1, 0xa1, 0xa1, ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
 
 /* Tests the libuna_utf16_stream_copy_byte_order_mark function
@@ -91,7 +91,7 @@ int una_test_utf16_stream_copy_byte_order_mark(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_utf16_stream_byte_order_mark_big_endian,
+	          una_test_utf16_stream_byte_order_mark_big_endian,
 	          utf16_stream,
 	          sizeof( uint8_t ) * 2 );
 
@@ -119,7 +119,7 @@ int una_test_utf16_stream_copy_byte_order_mark(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_utf16_stream_byte_order_mark_little_endian,
+	          una_test_utf16_stream_byte_order_mark_little_endian,
 	          utf16_stream,
 	          sizeof( uint8_t ) * 2 );
 
@@ -232,7 +232,7 @@ int una_test_utf16_stream_size_from_utf8(
 	/* Test regular cases
 	 */
 	result = libuna_utf16_stream_size_from_utf8(
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          &utf16_stream_size,
 	          &error );
@@ -272,7 +272,7 @@ int una_test_utf16_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf8(
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf16_stream_size,
 	          &error );
@@ -290,7 +290,7 @@ int una_test_utf16_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf8(
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          NULL,
 	          &error );
@@ -308,7 +308,7 @@ int una_test_utf16_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf8(
-	          lnk_test_utf16_stream_error_utf8_string,
+	          una_test_utf16_stream_error_utf8_string,
 	          17,
 	          &utf16_stream_size,
 	          &error );
@@ -353,7 +353,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -367,7 +367,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_utf16_stream_utf16_stream,
+	          una_test_utf16_stream_utf16_stream,
 	          utf16_stream,
 	          sizeof( uint8_t ) * 34 );
 
@@ -382,7 +382,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          NULL,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -402,7 +402,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          utf16_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -422,7 +422,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          utf16_stream,
 	          64,
 	          -1,
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -462,7 +462,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf8_string,
+	          una_test_utf16_stream_utf8_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -482,7 +482,7 @@ int una_test_utf16_stream_copy_from_utf8(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_error_utf8_string,
+	          una_test_utf16_stream_error_utf8_string,
 	          17,
 	          &error );
 
@@ -522,7 +522,7 @@ int una_test_utf16_stream_size_from_utf16(
 	/* Test regular cases
 	 */
 	result = libuna_utf16_stream_size_from_utf16(
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          &utf16_stream_size,
 	          &error );
@@ -562,7 +562,7 @@ int una_test_utf16_stream_size_from_utf16(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf16(
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf16_stream_size,
 	          &error );
@@ -580,7 +580,7 @@ int una_test_utf16_stream_size_from_utf16(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf16(
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          NULL,
 	          &error );
@@ -597,7 +597,7 @@ int una_test_utf16_stream_size_from_utf16(
 	libcerror_error_free(
 	 &error );
 
-	/* TODO implement test for lnk_test_utf16_stream_error_utf16_string */
+	/* TODO implement test for una_test_utf16_stream_error_utf16_string */
 
 	return( 1 );
 
@@ -627,7 +627,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -641,7 +641,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_utf16_stream_utf16_stream,
+	          una_test_utf16_stream_utf16_stream,
 	          utf16_stream,
 	          sizeof( uint8_t ) * 34 );
 
@@ -656,7 +656,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	          NULL,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -676,7 +676,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	          utf16_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -696,7 +696,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	          utf16_stream,
 	          64,
 	          -1,
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -736,7 +736,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf16_string,
+	          una_test_utf16_stream_utf16_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -752,7 +752,7 @@ int una_test_utf16_stream_copy_from_utf16(
 	libcerror_error_free(
 	 &error );
 
-	/* TODO implement test for lnk_test_utf16_stream_error_utf16_string */
+	/* TODO implement test for una_test_utf16_stream_error_utf16_string */
 
 	return( 1 );
 
@@ -778,7 +778,7 @@ int una_test_utf16_stream_size_from_utf32(
 	/* Test regular cases
 	 */
 	result = libuna_utf16_stream_size_from_utf32(
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          &utf16_stream_size,
 	          &error );
@@ -818,7 +818,7 @@ int una_test_utf16_stream_size_from_utf32(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf32(
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf16_stream_size,
 	          &error );
@@ -836,7 +836,7 @@ int una_test_utf16_stream_size_from_utf32(
 	 &error );
 
 	result = libuna_utf16_stream_size_from_utf32(
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          NULL,
 	          &error );
@@ -853,7 +853,7 @@ int una_test_utf16_stream_size_from_utf32(
 	libcerror_error_free(
 	 &error );
 
-	/* TODO implement test for lnk_test_utf16_stream_error_utf32_string */
+	/* TODO implement test for una_test_utf16_stream_error_utf32_string */
 
 	return( 1 );
 
@@ -883,7 +883,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -897,7 +897,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_utf16_stream_utf16_stream,
+	          una_test_utf16_stream_utf16_stream,
 	          utf16_stream,
 	          sizeof( uint8_t ) * 34 );
 
@@ -912,7 +912,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	          NULL,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -932,7 +932,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	          utf16_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -952,7 +952,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	          utf16_stream,
 	          64,
 	          -1,
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -992,7 +992,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	          utf16_stream,
 	          64,
 	          LIBUNA_ENDIAN_LITTLE,
-	          lnk_test_utf16_stream_utf32_string,
+	          una_test_utf16_stream_utf32_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -1008,7 +1008,7 @@ int una_test_utf16_stream_copy_from_utf32(
 	libcerror_error_free(
 	 &error );
 
-	/* TODO implement test for lnk_test_utf16_stream_error_utf32_string */
+	/* TODO implement test for una_test_utf16_stream_error_utf32_string */
 
 	return( 1 );
 

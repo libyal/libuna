@@ -604,12 +604,12 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 error );
 
 	base32_quintuplet   = 0;
-	base32_stream_index = 32 - 8;
+	base32_stream_index = 24;
 
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
 	          una_test_base32_stream_upper_case_base32_stream,
-	          32 - 6,
+	          26,
 	          &base32_stream_index,
 	          &padding_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_NONE,
@@ -640,7 +640,7 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 error );
 
 	base32_quintuplet   = 0;
-	base32_stream_index = 32 - 8;
+	base32_stream_index = 24;
 
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
@@ -676,7 +676,7 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	 error );
 
 	base32_quintuplet   = 0;
-	base32_stream_index = 32 - 8;
+	base32_stream_index = 24;
 
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
@@ -867,7 +867,7 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
 	          una_test_base32_stream_upper_case_base32_stream,
 	          32,
-		  NULL,
+	          &base32_stream_index,
 	          &padding_size,
 	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
@@ -1320,7 +1320,7 @@ int una_test_base32_quintuplet_copy_from_base32_stream(
 	/* Padding where not supposed to
 	 */
 	base32_quintuplet   = 0;
-	base32_stream_index = 32 - 8;
+	base32_stream_index = 24;
 
 	result = libuna_base32_quintuplet_copy_from_base32_stream(
 		  &base32_quintuplet,
@@ -1866,6 +1866,146 @@ int una_test_base32_quintuplet_copy_to_base32_stream(
 	          &base32_stream_index,
 	          0,
 	          0xf0000000UL | LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base32_stream_index",
+	 base32_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test insufficient space for 1st and 2nd base32 characters
+	 */
+	result = libuna_base32_quintuplet_copy_to_base32_stream(
+		  0x5468697320UL,
+	          base32_stream,
+	          1,
+	          &base32_stream_index,
+	          0,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base32_stream_index",
+	 base32_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test insufficient space for 3rd and 4th base32 characters
+	 */
+	result = libuna_base32_quintuplet_copy_to_base32_stream(
+		  0x5468697320UL,
+	          base32_stream,
+	          3,
+	          &base32_stream_index,
+	          0,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base32_stream_index",
+	 base32_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test insufficient space for 5th base32 character
+	 */
+	result = libuna_base32_quintuplet_copy_to_base32_stream(
+		  0x5468697320UL,
+	          base32_stream,
+	          4,
+	          &base32_stream_index,
+	          0,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base32_stream_index",
+	 base32_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test insufficient space for 6th and 7th base32 characters
+	 */
+	result = libuna_base32_quintuplet_copy_to_base32_stream(
+		  0x5468697320UL,
+	          base32_stream,
+	          6,
+	          &base32_stream_index,
+	          0,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base32_stream_index",
+	 base32_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Test insufficient space for 8th base32 character
+	 */
+	result = libuna_base32_quintuplet_copy_to_base32_stream(
+		  0x5468697320UL,
+	          base32_stream,
+	          7,
+	          &base32_stream_index,
+	          0,
+	          LIBUNA_BASE32_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE32_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE32_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(

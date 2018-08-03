@@ -34,7 +34,7 @@ extern "C" {
 #endif
 
 int libuna_base64_character_copy_to_sixtet(
-     uint8_t base64_character,
+     uint32_t base64_character,
      uint8_t *base64_sixtet,
      uint32_t base64_variant,
      libcerror_error_t **error );

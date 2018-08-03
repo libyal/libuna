@@ -58,6 +58,48 @@
 #include "libuna_unicode_character.h"
 #include "libuna_unused.h"
 
+/* Valid directly encoded characters: A-Z, a-z, 0-9, '\', '(', ')', ',', '-', '.', '/', ':', '?'
+ * Valid directly encoded whitespace: '\t', '\n', '\r', ' '
+ * Valid optional directly encoded characters: '!', '"', '#', '$', '%', '&', '*', ';', '<', '=', '>', '@', '[', ']', '^', '_', '`', '{', '|', '}'
+ */
+uint8_t libuna_unicode_character_utf7_valid_directly_encoded_character[ 256 ] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+/* Valid UTF-7 base64 characters: A-Z, a-z, 0-9, '+' and '/'
+ */
+uint8_t libuna_unicode_character_utf7_valid_base64_character[ 256 ] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 /* Determines the size of a byte stream character from an Unicode character
  * Adds the size to the byte stream character size value
  * Returns 1 if successful or -1 on error
@@ -2934,13 +2976,15 @@ int libuna_unicode_character_size_to_utf7_stream(
      uint32_t *utf7_stream_base64_data,
      libcerror_error_t **error )
 {
-	libuna_utf16_character_t utf16_surrogate = 0;
 	static char *function                    = "libuna_unicode_character_size_to_utf7_stream";
-	uint8_t base64_encode_character          = 0;
+	libuna_utf16_character_t utf16_surrogate = 0;
+	size_t safe_utf7_stream_character_size   = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t number_of_bytes                  = 0;
-	uint8_t current_byte                     = 0;
+	uint32_t safe_utf7_stream_base64_data    = 0;
+	uint8_t base64_encode_character          = 0;
 	uint8_t byte_bit_shift                   = 0;
+	uint8_t current_byte                     = 0;
+	uint8_t number_of_bytes                  = 0;
 
 	if( utf7_stream_character_size == NULL )
 	{
@@ -2964,96 +3008,18 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 		return( -1 );
 	}
+	safe_utf7_stream_character_size = *utf7_stream_character_size;
+	safe_utf7_stream_base64_data    = *utf7_stream_base64_data;
+
 	/* Determine if the Unicode character is valid
 	 */
 	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
 		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
 	}
-	/* A-Z is not a continous range on an EBCDIC based system
-	 * it consists of the ranges: A-I, J-R, S-Z
-	 */
-	if( ( unicode_character >= 0x41 )
-	 && ( unicode_character <= 0x49 ) )
-	{
-	}
-	else if( ( unicode_character >= 0x4a )
-	      && ( unicode_character <= 0x52 ) )
-	{
-	}
-	else if( ( unicode_character >= 0x53 )
-	      && ( unicode_character <= 0x5a ) )
-	{
-	}
-	/* a-z is not a continous range on an EBCDIC based system
-	 * it consists of the ranges: a-i, j-r, s-z
-	 */
-	else if( ( unicode_character >= 0x61 )
-	      && ( unicode_character <= 0x69 ) )
-	{
-	}
-	else if( ( unicode_character >= 0x6a )
-	      && ( unicode_character <= 0x72 ) )
-	{
-	}
-	else if( ( unicode_character >= 0x73 )
-	      && ( unicode_character <= 0x7a ) )
-	{
-	}
-	/* 0-9
-	 */
-	else if( ( unicode_character >= 0x30 )
-	      && ( unicode_character <= 0x39 ) )
-	{
-	}
-	/* Valid directly encoded whitespace
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '\t' )
-	      || ( unicode_character == (libuna_unicode_character_t) '\n' )
-	      || ( unicode_character == (libuna_unicode_character_t) '\r' )
-	      || ( unicode_character == (libuna_unicode_character_t) ' ' ) )
-	{
-	}
 	/* The + character must be escaped
 	 */
-	else if( unicode_character == (libuna_unicode_character_t) '+' )
-	{
-	}
-	/* Valid directly encoded characters
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '\'' )
-	      || ( unicode_character == (libuna_unicode_character_t) '(' )
-	      || ( unicode_character == (libuna_unicode_character_t) ')' )
-	      || ( unicode_character == (libuna_unicode_character_t) ',' )
-	      || ( unicode_character == (libuna_unicode_character_t) '-' )
-	      || ( unicode_character == (libuna_unicode_character_t) '.' )
-	      || ( unicode_character == (libuna_unicode_character_t) '/' )
-	      || ( unicode_character == (libuna_unicode_character_t) ':' )
-	      || ( unicode_character == (libuna_unicode_character_t) '?' ) )
-	{
-	}
-	/* Valid optional directly encoded characters
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '!' )
-	      || ( unicode_character == (libuna_unicode_character_t) '"' )
-	      || ( unicode_character == (libuna_unicode_character_t) '#' )
-	      || ( unicode_character == (libuna_unicode_character_t) '$' )
-	      || ( unicode_character == (libuna_unicode_character_t) '%' )
-	      || ( unicode_character == (libuna_unicode_character_t) '&' )
-	      || ( unicode_character == (libuna_unicode_character_t) '*' )
-	      || ( unicode_character == (libuna_unicode_character_t) ';' )
-	      || ( unicode_character == (libuna_unicode_character_t) '<' )
-	      || ( unicode_character == (libuna_unicode_character_t) '=' )
-	      || ( unicode_character == (libuna_unicode_character_t) '>' )
-	      || ( unicode_character == (libuna_unicode_character_t) '@' )
-	      || ( unicode_character == (libuna_unicode_character_t) '[' )
-	      || ( unicode_character == (libuna_unicode_character_t) ']' )
-	      || ( unicode_character == (libuna_unicode_character_t) '^' )
-	      || ( unicode_character == (libuna_unicode_character_t) '_' )
-	      || ( unicode_character == (libuna_unicode_character_t) '`' )
-	      || ( unicode_character == (libuna_unicode_character_t) '{' )
-	      || ( unicode_character == (libuna_unicode_character_t) '|' )
-	      || ( unicode_character == (libuna_unicode_character_t) '}' ) )
+	if( unicode_character == (libuna_unicode_character_t) '+' )
 	{
 	}
 	/* Allow for the end of string character
@@ -3061,44 +3027,45 @@ int libuna_unicode_character_size_to_utf7_stream(
 	else if( unicode_character == 0 )
 	{
 	}
-	else
+	else if( ( unicode_character >= 256 )
+	      || ( libuna_unicode_character_utf7_valid_directly_encoded_character[ (uint8_t) unicode_character ] == 0 ) )
 	{
 		base64_encode_character = 1;
 	}
 	if( base64_encode_character == 0 )
 	{
-		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+		if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 		{
-			*utf7_stream_base64_data = 0;
+			safe_utf7_stream_base64_data = 0;
 		}
-		*utf7_stream_character_size += 1;
+		safe_utf7_stream_character_size += 1;
 
 		/* The + character must be escaped
 		 */
 		if( unicode_character == (libuna_unicode_character_t) '+' )
 		{
-			*utf7_stream_character_size += 1;
+			safe_utf7_stream_character_size += 1;
 		}
 	}
 	else
 	{
 		/* Escape the base64 encoded characters with a +
 		 */
-		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+		if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
 		{
-			*utf7_stream_character_size += 1;
+			safe_utf7_stream_character_size += 1;
 		}
 		/* Otherwise continue the previously base64 encoded characters
 		 */
 		else
 		{
-			base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-			number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
-			current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
+			base64_triplet  = safe_utf7_stream_base64_data & 0x00ffffff;
+			number_of_bytes = ( safe_utf7_stream_base64_data >> 24 ) & 0x03;
+			current_byte    = ( safe_utf7_stream_base64_data >> 28 ) & 0x03;
 
 			if( number_of_bytes > 0 )
 			{
-				if( *utf7_stream_character_size < (size_t) ( number_of_bytes + 1 ) )
+				if( safe_utf7_stream_character_size < (size_t) ( number_of_bytes + 1 ) )
 				{
 					libcerror_error_set(
 					 error,
@@ -3111,9 +3078,9 @@ int libuna_unicode_character_size_to_utf7_stream(
 				}
 				/* Correct the size for the last partial base64 stream
 				 */
-				*utf7_stream_character_size -= number_of_bytes + 1;
+				safe_utf7_stream_character_size -= number_of_bytes + 1;
 			}
-			if( *utf7_stream_character_size < 1 )
+			if( safe_utf7_stream_character_size < 1 )
 			{
 				libcerror_error_set(
 				 error,
@@ -3126,9 +3093,9 @@ int libuna_unicode_character_size_to_utf7_stream(
 			}
 			/* Correct the size for the base64 stream termination character
 			 */
-			*utf7_stream_character_size -= 1;
+			safe_utf7_stream_character_size -= 1;
 		}
-		*utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		safe_utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
 
 		if( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 		{
@@ -3143,10 +3110,10 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 			if( number_of_bytes == 3 )
 			{
-				*utf7_stream_character_size += 4;
-				number_of_bytes              = 0;
-				current_byte                 = 0;
-				base64_triplet               = 0;
+				safe_utf7_stream_character_size += 4;
+				number_of_bytes                  = 0;
+				current_byte                     = 0;
+				base64_triplet                   = 0;
 			}
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			base64_triplet  += (uint32_t) ( utf16_surrogate & 0xff ) << byte_bit_shift;
@@ -3155,10 +3122,10 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 			if( number_of_bytes == 3 )
 			{
-				*utf7_stream_character_size += 4;
-				number_of_bytes              = 0;
-				current_byte                 = 0;
-				base64_triplet               = 0;
+				safe_utf7_stream_character_size += 4;
+				number_of_bytes                  = 0;
+				current_byte                    = 0;
+				base64_triplet                  = 0;
 			}
 			unicode_character = (libuna_utf16_character_t) ( ( unicode_character & 0x03ff ) + LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START );
 		}
@@ -3169,10 +3136,10 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 		if( number_of_bytes == 3 )
 		{
-			*utf7_stream_character_size += 4;
-			number_of_bytes              = 0;
-			current_byte                 = 0;
-			base64_triplet               = 0;
+			safe_utf7_stream_character_size += 4;
+			number_of_bytes                  = 0;
+			current_byte                     = 0;
+			base64_triplet                   = 0;
 		}
 		byte_bit_shift   = 16 - ( current_byte * 8 );
 		base64_triplet  += (uint32_t) ( unicode_character & 0xff ) << byte_bit_shift;
@@ -3181,26 +3148,29 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 		if( number_of_bytes == 3 )
 		{
-			*utf7_stream_character_size += 4;
-			number_of_bytes              = 0;
-			current_byte                 = 0;
-			base64_triplet               = 0;
+			safe_utf7_stream_character_size += 4;
+			number_of_bytes                  = 0;
+			current_byte                     = 0;
+			base64_triplet                   = 0;
 		}
 		/* Terminate the base64 encoded characters
 		 */
 		if( number_of_bytes > 0 )
 		{
-			*utf7_stream_character_size += number_of_bytes + 1;
+			safe_utf7_stream_character_size += number_of_bytes + 1;
 		}
-		*utf7_stream_character_size += 1;
+		safe_utf7_stream_character_size += 1;
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
-		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
-		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
-		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
+		safe_utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		safe_utf7_stream_base64_data |= (uint32_t) current_byte << 28;
+		safe_utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
+		safe_utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
+	*utf7_stream_character_size = safe_utf7_stream_character_size;
+	*utf7_stream_base64_data    = safe_utf7_stream_base64_data;
+
 	return( 1 );
 }
 
@@ -3225,11 +3195,14 @@ int libuna_unicode_character_copy_from_utf7_stream(
 {
 	static char *function                    = "libuna_unicode_character_copy_from_utf7_stream";
 	libuna_utf16_character_t utf16_surrogate = 0;
+	size_t safe_utf7_stream_index            = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t number_of_bytes                  = 0;
-	uint8_t current_byte                     = 0;
-	uint8_t padding_size                     = 0;
+	uint32_t safe_utf7_stream_base64_data    = 0;
 	uint8_t byte_bit_shift                   = 0;
+	uint8_t current_byte                     = 0;
+	uint8_t number_of_bytes                  = 0;
+	uint8_t padding_size                     = 0;
+	uint8_t utf7_character_value             = 0;
 
 	if( unicode_character == NULL )
 	{
@@ -3297,166 +3270,82 @@ int libuna_unicode_character_copy_from_utf7_stream(
 
 		return( -1 );
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+	safe_utf7_stream_index       = *utf7_stream_index;
+	safe_utf7_stream_base64_data = *utf7_stream_base64_data;
+
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
-		base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-		number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
-		current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
+		base64_triplet  = safe_utf7_stream_base64_data & 0x00ffffff;
+		number_of_bytes = ( safe_utf7_stream_base64_data >> 24 ) & 0x03;
+		current_byte    = ( safe_utf7_stream_base64_data >> 28 ) & 0x03;
 
 		if( current_byte >= number_of_bytes )
 		{
-			/* A-Z is not a continous range on an EBCDIC based system
-			 * it consists of the ranges: A-I, J-R, S-Z
+			if( safe_utf7_stream_index >= utf7_stream_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid UTF-7 stream character size value out of bounds.",
+				 function );
+
+				return( -1 );
+			}
+			utf7_character_value = utf7_stream[ safe_utf7_stream_index ];
+
+			/* Any character not in the modified base64 alphabet terminates the base64 encoded sequence
 			 */
-			if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'A' )
-			 && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'I' ) )
+			if( libuna_unicode_character_utf7_valid_base64_character[ utf7_character_value ] == 0 )
 			{
-			}
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'J' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'R' ) )
-			{
-			}
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'S' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'Z' ) )
-			{
-			}
-			/* a-z is not a continous range on an EBCDIC based system
-			 * it consists of the ranges: a-i, j-r, s-z
-			 */
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'a' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'i' ) )
-			{
-			}
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'j' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'r' ) )
-			{
-			}
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 's' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'z' ) )
-			{
-			}
-			/* 0-9
-			 */
-			else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) '0' )
-			      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) '9' ) )
-			{
-			}
-			/* + or /
-			 */
-			else if( ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '+' )
-			      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '/' ) )
-			{
-			}
-			/* Any character not in the modified base64 alphabet
-			 * terminates the base64 encoded sequence
-			 */
-			else
-			{
-				*utf7_stream_base64_data = 0;
+				safe_utf7_stream_base64_data = 0;
 			}
 		}
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
 	{
+		if( safe_utf7_stream_index >= utf7_stream_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid UTF-7 stream character size value out of bounds.",
+			 function );
+
+			return( -1 );
+		}
+		utf7_character_value = utf7_stream[ safe_utf7_stream_index ];
+
 		/* Determine if the character is modified base64 encoded
 		 * or a + character
 		 */
-		if( utf7_stream[ *utf7_stream_index ] == (uint8_t) '+' )
+		if( utf7_character_value == (uint8_t) '+' )
 		{
-			if( utf7_stream[ *utf7_stream_index + 1 ] != (uint8_t) '-' )
+			if( ( safe_utf7_stream_index + 1 ) >= utf7_stream_size )
 			{
-				*utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid UTF-7 stream character size value out of bounds.",
+				 function );
 
-				*utf7_stream_index += 1;
+				return( -1 );
 			}
-		}
-		/* A-Z is not a continous range on an EBCDIC based system
-		 * it consists of the ranges: A-I, J-R, S-Z
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'A' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'I' ) )
-		{
-		}
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'J' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'R' ) )
-		{
-		}
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'S' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'Z' ) )
-		{
-		}
-		/* a-z is not a continous range on an EBCDIC based system
-		 * it consists of the ranges: a-i, j-r, s-z
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'a' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'i' ) )
-		{
-		}
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 'j' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'r' ) )
-		{
-		}
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) 's' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) 'z' ) )
-		{
-		}
-		/* 0-9
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] >= (uint8_t) '0' )
-		      && ( utf7_stream[ *utf7_stream_index ] <= (uint8_t) '9' ) )
-		{
-		}
-		/* Valid directly encoded whitespace
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '\t' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '\n' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '\r' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ' ' ) )
-		{
-		}
-		/* Valid directly encoded characters
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '\'' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '(' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ')' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ',' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '-' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '.' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '/' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ':' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '?' ) )
-		{
-		}
-		/* Valid optional directly encoded characters
-		 */
-		else if( ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '!' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '"' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '#' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '$' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '%' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '&' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '*' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ';' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '<' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '=' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '>' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '@' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '[' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) ']' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '^' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '_' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '`' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '{' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '|' )
-		      || ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '}' ) )
-		{
+			if( utf7_stream[ safe_utf7_stream_index + 1 ] != (uint8_t) '-' )
+			{
+				safe_utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+
+				safe_utf7_stream_index++;
+			}
 		}
 		/* Allow for the end of string character
 		 */
-		else if( utf7_stream[ *utf7_stream_index ] == 0 )
+		else if( utf7_character_value == 0 )
 		{
 		}
-		else
+		else if( libuna_unicode_character_utf7_valid_directly_encoded_character[ utf7_character_value ] == 0 )
 		{
 			libcerror_error_set(
 			 error,
@@ -3464,20 +3353,19 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: invalid directly encoded UTF-7 character byte: 0x%02" PRIx8 ".",
 			 function,
-			 utf7_stream[ *utf7_stream_index ] );
+			 utf7_character_value );
 
 			return( -1 );
 		}
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
 	{
-		*unicode_character  = utf7_stream[ *utf7_stream_index ];
-		*utf7_stream_index += 1;
+		*unicode_character = utf7_stream[ safe_utf7_stream_index++ ];
 
 		if( ( *unicode_character == (libuna_unicode_character_t) '+' )
-		 && ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '-' ) )
+		 && ( utf7_stream[ safe_utf7_stream_index ] == (uint8_t) '-' ) )
 		{
-			*utf7_stream_index += 1;
+			safe_utf7_stream_index++;
 		}
 	}
 	else if( ( number_of_bytes == 0 )
@@ -3487,7 +3375,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 		     &base64_triplet,
 		     utf7_stream,
 		     utf7_stream_size,
-		     utf7_stream_index,
+		     &safe_utf7_stream_index,
 		     &padding_size,
 		     LIBUNA_BASE64_VARIANT_UTF7,
 		     error ) != 1 )
@@ -3515,7 +3403,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 		number_of_bytes = 3 - padding_size;
 		current_byte    = 0;
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
 		byte_bit_shift     = 16 - ( current_byte * 8 );
 		*unicode_character = ( ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL ) << 8;
@@ -3527,7 +3415,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			     &base64_triplet,
 			     utf7_stream,
 			     utf7_stream_size,
-			     utf7_stream_index,
+			     &safe_utf7_stream_index,
 			     &padding_size,
 			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
@@ -3568,7 +3456,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				     &base64_triplet,
 				     utf7_stream,
 				     utf7_stream_size,
-				     utf7_stream_index,
+				     &safe_utf7_stream_index,
 				     &padding_size,
 				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
@@ -3606,7 +3494,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				     &base64_triplet,
 				     utf7_stream,
 				     utf7_stream_size,
-				     utf7_stream_index,
+				     &safe_utf7_stream_index,
 				     &padding_size,
 				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
@@ -3653,7 +3541,7 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				*unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
 			}
 		}
-		if( *utf7_stream_index >= utf7_stream_size )
+		if( safe_utf7_stream_index >= utf7_stream_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -3665,19 +3553,23 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			return( -1 );
 		}
 		if( ( current_byte >= number_of_bytes )
-		 && ( utf7_stream[ *utf7_stream_index ] == (uint8_t) '-' ) )
+		 && ( utf7_stream[ safe_utf7_stream_index ] == (uint8_t) '-' ) )
 		{
-			*utf7_stream_base64_data = 0;
-			*utf7_stream_index      += 1;
+			safe_utf7_stream_base64_data = 0;
+
+			safe_utf7_stream_index++;
 		}
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
-		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
-		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
-		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
+		safe_utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		safe_utf7_stream_base64_data |= (uint32_t) current_byte << 28;
+		safe_utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
+		safe_utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
+	*utf7_stream_index       = safe_utf7_stream_index;
+	*utf7_stream_base64_data = safe_utf7_stream_base64_data;
+
 	return( 1 );
 }
 
@@ -3702,11 +3594,13 @@ int libuna_unicode_character_copy_to_utf7_stream(
 {
 	static char *function                    = "libuna_unicode_character_copy_to_utf7_stream";
 	libuna_utf16_character_t utf16_surrogate = 0;
+	size_t safe_utf7_stream_index            = 0;
 	uint32_t base64_triplet                  = 0;
-	uint8_t number_of_bytes                  = 0;
+	uint32_t safe_utf7_stream_base64_data    = 0;
 	uint8_t base64_encode_character          = 0;
-	uint8_t current_byte                     = 0;
 	uint8_t byte_bit_shift                   = 0;
+	uint8_t current_byte                     = 0;
+	uint8_t number_of_bytes                  = 0;
 
 	if( utf7_stream == NULL )
 	{
@@ -3752,6 +3646,9 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 		return( -1 );
 	}
+	safe_utf7_stream_index       = *utf7_stream_index;
+	safe_utf7_stream_base64_data = *utf7_stream_base64_data;
+
 	/* Determine if the Unicode character is valid
 	 */
 	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
@@ -3801,54 +3698,9 @@ int libuna_unicode_character_copy_to_utf7_stream(
 	{
 		unicode_character = ( unicode_character - 0x30 ) + (libuna_unicode_character_t) '0';
 	}
-	/* Valid directly encoded whitespace
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '\t' )
-	      || ( unicode_character == (libuna_unicode_character_t) '\n' )
-	      || ( unicode_character == (libuna_unicode_character_t) '\r' )
-	      || ( unicode_character == (libuna_unicode_character_t) ' ' ) )
-	{
-	}
 	/* The + character must be escaped
 	 */
 	else if( unicode_character == (libuna_unicode_character_t) '+' )
-	{
-	}
-	/* Valid directly encoded characters
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '\'' )
-	      || ( unicode_character == (libuna_unicode_character_t) '(' )
-	      || ( unicode_character == (libuna_unicode_character_t) ')' )
-	      || ( unicode_character == (libuna_unicode_character_t) ',' )
-	      || ( unicode_character == (libuna_unicode_character_t) '-' )
-	      || ( unicode_character == (libuna_unicode_character_t) '.' )
-	      || ( unicode_character == (libuna_unicode_character_t) '/' )
-	      || ( unicode_character == (libuna_unicode_character_t) ':' )
-	      || ( unicode_character == (libuna_unicode_character_t) '?' ) )
-	{
-	}
-	/* Valid optional directly encoded characters
-	 */
-	else if( ( unicode_character == (libuna_unicode_character_t) '!' )
-	      || ( unicode_character == (libuna_unicode_character_t) '"' )
-	      || ( unicode_character == (libuna_unicode_character_t) '#' )
-	      || ( unicode_character == (libuna_unicode_character_t) '$' )
-	      || ( unicode_character == (libuna_unicode_character_t) '%' )
-	      || ( unicode_character == (libuna_unicode_character_t) '&' )
-	      || ( unicode_character == (libuna_unicode_character_t) '*' )
-	      || ( unicode_character == (libuna_unicode_character_t) ';' )
-	      || ( unicode_character == (libuna_unicode_character_t) '<' )
-	      || ( unicode_character == (libuna_unicode_character_t) '=' )
-	      || ( unicode_character == (libuna_unicode_character_t) '>' )
-	      || ( unicode_character == (libuna_unicode_character_t) '@' )
-	      || ( unicode_character == (libuna_unicode_character_t) '[' )
-	      || ( unicode_character == (libuna_unicode_character_t) ']' )
-	      || ( unicode_character == (libuna_unicode_character_t) '^' )
-	      || ( unicode_character == (libuna_unicode_character_t) '_' )
-	      || ( unicode_character == (libuna_unicode_character_t) '`' )
-	      || ( unicode_character == (libuna_unicode_character_t) '{' )
-	      || ( unicode_character == (libuna_unicode_character_t) '|' )
-	      || ( unicode_character == (libuna_unicode_character_t) '}' ) )
 	{
 	}
 	/* Allow for the end of string character
@@ -3856,17 +3708,18 @@ int libuna_unicode_character_copy_to_utf7_stream(
 	else if( unicode_character == 0 )
 	{
 	}
-	else
+	else if( ( unicode_character >= 256 )
+	      || ( libuna_unicode_character_utf7_valid_directly_encoded_character[ (uint8_t) unicode_character ] == 0 ) )
 	{
 		base64_encode_character = 1;
 	}
 	if( base64_encode_character == 0 )
 	{
-		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+		if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 		{
-			*utf7_stream_base64_data = 0;
+			safe_utf7_stream_base64_data = 0;
 		}
-		if( *utf7_stream_index >= utf7_stream_size )
+		if( safe_utf7_stream_index >= utf7_stream_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -3877,15 +3730,13 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 			return( -1 );
 		}
-		utf7_stream[ *utf7_stream_index ] = (uint8_t) unicode_character;
-
-		*utf7_stream_index += 1;
+		utf7_stream[ safe_utf7_stream_index++ ] = (uint8_t) unicode_character;
 
 		/* The + character must be escaped
 		 */
 		if( unicode_character == (libuna_unicode_character_t) '+' )
 		{
-			if( *utf7_stream_index >= utf7_stream_size )
+			if( safe_utf7_stream_index >= utf7_stream_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -3896,18 +3747,16 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 				return( -1 );
 			}
-			utf7_stream[ *utf7_stream_index ] = (uint8_t) '-';
-
-			*utf7_stream_index += 1;
+			utf7_stream[ safe_utf7_stream_index++ ] = (uint8_t) '-';
 		}
 	}
 	else
 	{
 		/* Escape the base64 encoded chracters with a +
 		 */
-		if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
+		if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) == 0 )
 		{
-			if( *utf7_stream_index >= utf7_stream_size )
+			if( safe_utf7_stream_index >= utf7_stream_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -3918,29 +3767,27 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 				return( -1 );
 			}
-			utf7_stream[ *utf7_stream_index ] = (uint8_t) '+';
-
-			*utf7_stream_index += 1;
+			utf7_stream[ safe_utf7_stream_index++ ] = (uint8_t) '+';
 		}
 		/* Otherwise continue the previously base64 encoded characters
 		 */
 		else
 		{
-			base64_triplet  = *utf7_stream_base64_data & 0x00ffffff;
-			number_of_bytes = ( *utf7_stream_base64_data >> 24 ) & 0x03;
-			current_byte    = ( *utf7_stream_base64_data >> 28 ) & 0x03;
+			base64_triplet  = safe_utf7_stream_base64_data & 0x00ffffff;
+			number_of_bytes = ( safe_utf7_stream_base64_data >> 24 ) & 0x03;
+			current_byte    = ( safe_utf7_stream_base64_data >> 28 ) & 0x03;
 
 			if( number_of_bytes > 0 )
 			{
 				/* Correct the index for the last partial base64 stream
 				 */
-				*utf7_stream_index -= number_of_bytes + 1;
+				safe_utf7_stream_index -= number_of_bytes + 1;
 			}
 			/* Correct the index for the base64 stream termination character
 			 */
-			*utf7_stream_index -= 1;
+			safe_utf7_stream_index -= 1;
 		}
-		*utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		safe_utf7_stream_base64_data = LIBUNA_UTF7_IS_BASE64_ENCODED;
 
 		if( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 		{
@@ -3960,7 +3807,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				     base64_triplet,
 				     utf7_stream,
 				     utf7_stream_size,
-				     utf7_stream_index,
+				     &safe_utf7_stream_index,
 				     0,
 				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
@@ -3989,7 +3836,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				     base64_triplet,
 				     utf7_stream,
 				     utf7_stream_size,
-				     utf7_stream_index,
+				     &safe_utf7_stream_index,
 				     0,
 				     LIBUNA_BASE64_VARIANT_UTF7,
 				     error ) != 1 )
@@ -4021,7 +3868,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     base64_triplet,
 			     utf7_stream,
 			     utf7_stream_size,
-			     utf7_stream_index,
+			     &safe_utf7_stream_index,
 			     0,
 			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
@@ -4050,7 +3897,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     base64_triplet,
 			     utf7_stream,
 			     utf7_stream_size,
-			     utf7_stream_index,
+			     &safe_utf7_stream_index,
 			     0,
 			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
@@ -4076,7 +3923,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 			     base64_triplet,
 			     utf7_stream,
 			     utf7_stream_size,
-			     utf7_stream_index,
+			     &safe_utf7_stream_index,
 			     3 - number_of_bytes,
 			     LIBUNA_BASE64_VARIANT_UTF7,
 			     error ) != 1 )
@@ -4091,7 +3938,7 @@ int libuna_unicode_character_copy_to_utf7_stream(
 				return( -1 );
 			}
 		}
-		if( *utf7_stream_index >= utf7_stream_size )
+		if( safe_utf7_stream_index >= utf7_stream_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -4102,17 +3949,18 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 			return( -1 );
 		}
-		utf7_stream[ *utf7_stream_index ] = (uint8_t) '-';
-
-		*utf7_stream_index += 1;
+		utf7_stream[ safe_utf7_stream_index++ ] = (uint8_t) '-';
 	}
-	if( ( *utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
+	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
-		*utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
-		*utf7_stream_base64_data |= (uint32_t) current_byte << 28;
-		*utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
-		*utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
+		safe_utf7_stream_base64_data  = LIBUNA_UTF7_IS_BASE64_ENCODED;
+		safe_utf7_stream_base64_data |= (uint32_t) current_byte << 28;
+		safe_utf7_stream_base64_data |= (uint32_t) number_of_bytes << 24;
+		safe_utf7_stream_base64_data |= base64_triplet & 0x00ffffff;
 	}
+	*utf7_stream_index       = safe_utf7_stream_index;
+	*utf7_stream_base64_data = safe_utf7_stream_base64_data;
+
 	return( 1 );
 }
 

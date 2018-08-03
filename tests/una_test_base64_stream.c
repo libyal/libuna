@@ -36,7 +36,7 @@
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
 int libuna_base64_character_copy_to_sixtet(
-     uint8_t base64_character,
+     uint32_t base64_character,
      uint8_t *base64_sixtet,
      uint32_t base64_variant,
      libcerror_error_t **error );
@@ -54,16 +54,25 @@ uint8_t una_test_base64_stream_rfc1642_byte_stream[ 22 ] = {
 	'V', 'G', 'h', 'p', 'c', 'y', 'B', 'p', 'c', 'y', 'D', 'D', 'o', 'S', 'B', '0', 'Z', 'X', 'N', '0',
         'L', 'g' };
 
-uint8_t una_test_base64_stream_rfc1421_utf16be_stream[ 50 ] = {
+uint8_t una_test_base64_stream_rfc1421_utf16be_stream[ 48 ] = {
 	0, 'V', 0, 'G', 0, 'h', 0, 'p', 0, 'c', 0, 'y', 0, 'B', 0, 'p', 0, 'c', 0, 'y', 0, 'D', 0, 'D',
-        0, 'o', 0, 'S', 0, 'B', 0, '0', 0, 'Z', 0, 'X', 0, 'N', 0, '0', 0, 'L', 0, 'g', 0, '=', 0, '=',
-        0, '\n' };
+        0, 'o', 0, 'S', 0, 'B', 0, '0', 0, 'Z', 0, 'X', 0, 'N', 0, '0', 0, 'L', 0, 'g', 0, '=', 0, '=' };
 
-uint8_t una_test_base64_stream_rfc1421_utf32le_stream[ 100 ] = {
+uint8_t una_test_base64_stream_rfc1421_utf16le_stream[ 48 ] = {
+	'V', 0, 'G', 0, 'h', 0, 'p', 0, 'c', 0, 'y', 0, 'B', 0, 'p', 0, 'c', 0, 'y', 0, 'D', 0, 'D', 0,
+        'o', 0, 'S', 0, 'B', 0, '0', 0, 'Z', 0, 'X', 0, 'N', 0, '0', 0, 'L', 0, 'g', 0, '=', 0, '=', 0 };
+
+uint8_t una_test_base64_stream_rfc1421_utf32be_stream[ 96 ] = {
+	0, 0, 0, 'V', 0, 0, 0, 'G', 0, 0, 0, 'h', 0, 0, 0, 'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'B',
+        0, 0, 0, 'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'D', 0, 0, 0, 'D', 0, 0, 0, 'o', 0, 0, 0, 'S',
+        0, 0, 0, 'B', 0, 0, 0, '0', 0, 0, 0, 'Z', 0, 0, 0, 'X', 0, 0, 0, 'N', 0, 0, 0, '0', 0, 0, 0, 'L',
+        0, 0, 0, 'g', 0, 0, 0, '=', 0, 0, 0, '=' };
+
+uint8_t una_test_base64_stream_rfc1421_utf32le_stream[ 96 ] = {
 	'V', 0, 0, 0, 'G', 0, 0, 0, 'h', 0, 0, 0, 'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'B', 0, 0, 0,
         'p', 0, 0, 0, 'c', 0, 0, 0, 'y', 0, 0, 0, 'D', 0, 0, 0, 'D', 0, 0, 0, 'o', 0, 0, 0, 'S', 0, 0, 0,
         'B', 0, 0, 0, '0', 0, 0, 0, 'Z', 0, 0, 0, 'X', 0, 0, 0, 'N', 0, 0, 0, '0', 0, 0, 0, 'L', 0, 0, 0,
-        'g', 0, 0, 0, '=', 0, 0, 0, '=', 0, 0, 0, '\n', 0, 0, 0 };
+        'g', 0, 0, 0, '=', 0, 0, 0, '=', 0, 0, 0 };
 
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
@@ -73,16 +82,17 @@ uint8_t una_test_base64_stream_rfc1421_utf32le_stream[ 100 ] = {
 int una_test_base64_character_copy_to_sixtet(
      void )
 {
-	uint8_t base64_sixtet[ 8 ];
-
 	libcerror_error_t *error = NULL;
+	uint8_t base64_sixtet    = 0;
 	int result               = 0;
 
 	/* Test regular cases
 	 */
+	base64_sixtet = 0;
+
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) '+',
-		  base64_sixtet,
+	          (uint32_t) 'A',
+		  &base64_sixtet,
 	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
 		  &error );
 
@@ -91,13 +101,196 @@ int una_test_base64_character_copy_to_sixtet(
 	 result,
 	 1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
+	base64_sixtet = 0;
+
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) '-',
-		  base64_sixtet,
+	          (uint32_t) 'J',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 9 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) 'S',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 18 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) 'a',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 26 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) 'j',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 35 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) 's',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 44 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) '0',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 52 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) '+',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 62 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) '/',
+		  &base64_sixtet,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 63 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_sixtet = 0;
+
+	result = libuna_base64_character_copy_to_sixtet(
+	          (uint32_t) '-',
+		  &base64_sixtet,
 	          LIBUNA_BASE64_VARIANT_ALPHABET_URL,
 		  &error );
 
@@ -106,125 +299,54 @@ int una_test_base64_character_copy_to_sixtet(
 	 result,
 	 1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 62 );
+
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
+	base64_sixtet = 0;
+
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'A',
-		  base64_sixtet,
+	          (uint32_t) 0xffffffffUL,
+		  &base64_sixtet,
 	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
+	base64_sixtet = 0;
+
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'J',
-		  base64_sixtet,
+	          (uint32_t) '#',
+		  &base64_sixtet,
 	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 0 );
 
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'S',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
+	UNA_TEST_ASSERT_EQUAL_UINT8(
 	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'a',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'j',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 's',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) '0',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) '/',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
+	 base64_sixtet,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -232,26 +354,10 @@ int una_test_base64_character_copy_to_sixtet(
 
 	/* Test error cases
 	 */
-	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) '#',
-		  base64_sixtet,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
-		  &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
+	base64_sixtet = 0;
 
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'A',
+	          (uint32_t) 'A',
 		  NULL,
 	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL,
 		  &error );
@@ -261,6 +367,11 @@ int una_test_base64_character_copy_to_sixtet(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -268,9 +379,11 @@ int una_test_base64_character_copy_to_sixtet(
 	libcerror_error_free(
 	 &error );
 
+	/* Invalid alphabet
+	 */
 	result = libuna_base64_character_copy_to_sixtet(
-	          (uint8_t) 'A',
-		  base64_sixtet,
+	          (uint32_t) 'A',
+		  &base64_sixtet,
 	          0x000f0000UL,
 		  &error );
 
@@ -278,6 +391,11 @@ int una_test_base64_character_copy_to_sixtet(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "result",
+	 base64_sixtet,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -313,15 +431,17 @@ int una_test_base64_triplet_copy_from_base64_stream(
 
 	/* Test regular cases
 	 */
+	base64_triplet      = 0;
 	base64_stream_index = 0;
+	padding_size        = 0;
 
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -339,27 +459,308 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	 base64_stream_index,
 	 (size_t) 4 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 0;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_utf16be_stream,
+	          48,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 8 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 0;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_utf16le_stream,
+	          48,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 8 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 0;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_utf32be_stream,
+	          96,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 0;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_utf32le_stream,
+	          96,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x00546869UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 20;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          22,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_NONE,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x002e0000UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 22 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 20;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_OPTIONAL,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x002e0000UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 24 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	base64_triplet      = 0;
+	base64_stream_index = 20;
+	padding_size        = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24,
+		  &base64_stream_index,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0x002e0000UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 24 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 2 );
+
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
 	/* Test error cases
 	 */
+	base64_triplet      = 0;
 	base64_stream_index = 0;
+	padding_size        = 0;
 
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          NULL,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -371,16 +772,26 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          NULL,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -395,13 +806,28 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	          (size_t) SSIZE_MAX + 1,
 		  &base64_stream_index,
 		  &padding_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -413,16 +839,31 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  NULL,
 		  &padding_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -431,19 +872,74 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	libcerror_error_free(
 	 &error );
 
+	base64_stream_index = 24;
+
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
-		  NULL,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &padding_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 24 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_from_base64_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24,
+		  &base64_stream_index,
+		  NULL,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -457,7 +953,7 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
 	          0x000000ffUL,
@@ -467,6 +963,21 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -480,16 +991,31 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -503,10 +1029,10 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	result = libuna_base64_triplet_copy_from_base64_stream(
 	          &base64_triplet,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &base64_stream_index,
 		  &padding_size,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -514,12 +1040,35 @@ int una_test_base64_triplet_copy_from_base64_stream(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
 
 	libcerror_error_free(
 	 &error );
+
+	/* TODO add tests for missing 1st base64 character */
+
+	/* TODO add tests for missing 2nd base64 character */
+
+	/* TODO add tests for missing 3rd base64 character */
+
+	/* TODO add tests for missing 4th base64 character */
 
 	return( 1 );
 
@@ -554,7 +1103,7 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          32,
 		  &base64_stream_index,
 		  0,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -562,14 +1111,39 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	 result,
 	 1 );
 
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 4 );
+
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_URL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
 
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "base64_stream_index",
 	 base64_stream_index,
 	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -581,13 +1155,18 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          32,
 		  &base64_stream_index,
 		  0,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -602,13 +1181,18 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          (size_t) SSIZE_MAX + 1,
 		  &base64_stream_index,
 		  0,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -623,13 +1207,74 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          32,
 		  NULL,
 		  0,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	base64_stream_index = 32;
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  0,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 32 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_base64_stream(
+	          0x00546869UL,
+	          base64_stream,
+	          32,
+		  &base64_stream_index,
+		  3,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -654,6 +1299,11 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -669,13 +1319,18 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          32,
 		  &base64_stream_index,
 		  0,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -692,13 +1347,18 @@ int una_test_base64_triplet_copy_to_base64_stream(
 	          32,
 		  &base64_stream_index,
 		  0,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_index",
+	 base64_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -732,7 +1392,9 @@ int una_test_base64_triplet_copy_from_byte_stream(
 
 	/* Test regular cases
 	 */
+	base64_triplet    = 0;
 	byte_stream_index = 0;
+	padding_size      = 0;
 
 	result = libuna_base64_triplet_copy_from_byte_stream(
 	          &base64_triplet,
@@ -757,13 +1419,20 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 byte_stream_index,
 	 (size_t) 3 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
 	/* Test error cases
 	 */
+	base64_triplet    = 0;
 	byte_stream_index = 0;
+	padding_size      = 0;
 
 	result = libuna_base64_triplet_copy_from_byte_stream(
 	          NULL,
@@ -777,6 +1446,21 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -797,6 +1481,21 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -818,6 +1517,21 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -838,12 +1552,66 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
 
 	libcerror_error_free(
 	 &error );
+
+	byte_stream_index = 16;
+
+	result = libuna_base64_triplet_copy_from_byte_stream(
+	          &base64_triplet,
+	          una_test_base64_stream_byte_stream,
+	          16,
+		  &byte_stream_index,
+		  &padding_size,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 0;
 
 	result = libuna_base64_triplet_copy_from_byte_stream(
 	          &base64_triplet,
@@ -857,6 +1625,21 @@ int una_test_base64_triplet_copy_from_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "base64_triplet",
+	 base64_triplet,
+	 (uint32_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT8(
+	 "padding_size",
+	 padding_size,
+	 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -905,14 +1688,14 @@ int una_test_base64_triplet_copy_to_byte_stream(
 	 result,
 	 1 );
 
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "byte_stream_index",
 	 byte_stream_index,
 	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -930,6 +1713,11 @@ int una_test_base64_triplet_copy_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -951,6 +1739,11 @@ int una_test_base64_triplet_copy_to_byte_stream(
 	 result,
 	 -1 );
 
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -970,6 +1763,65 @@ int una_test_base64_triplet_copy_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 32;
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          byte_stream,
+	          32,
+		  &byte_stream_index,
+		  0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 32 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_index = 0;
+
+	result = libuna_base64_triplet_copy_to_byte_stream(
+	          0x00546869UL,
+	          byte_stream,
+	          32,
+		  &byte_stream_index,
+		  3,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_index",
+	 byte_stream_index,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1001,6 +1853,207 @@ int una_test_base64_stream_size_to_byte_stream(
 
 	/* Test regular cases
 	 */
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_utf16be_stream,
+	          48,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_utf16le_stream,
+	          48,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_utf32be_stream,
+	          96,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_utf32le_stream,
+	          96,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 16 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	byte_stream_size = 0;
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          NULL,
+		  24,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_byte_stream,
+		  (size_t) SSIZE_MAX + 1,
+		  &byte_stream_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_base64_stream_size_to_byte_stream(
+	          una_test_base64_stream_rfc1421_byte_stream,
+		  24,
+	          NULL,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	byte_stream_size = 0;
+
 	result = libuna_base64_stream_size_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
 	          25,
@@ -1014,82 +2067,22 @@ int una_test_base64_stream_size_to_byte_stream(
 	 result,
 	 1 );
 
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	UNA_TEST_ASSERT_EQUAL_SIZE(
 	 "byte_stream_size",
 	 byte_stream_size,
 	 (size_t) 16 );
 
-	/* Test error cases
-	 */
-	result = libuna_base64_stream_size_to_byte_stream(
-	          NULL,
-		  25,
-		  &byte_stream_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
-	          0,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
+	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	result = libuna_base64_stream_size_to_byte_stream(
-	          una_test_base64_stream_rfc1421_byte_stream,
-		  (size_t) SSIZE_MAX + 1,
-		  &byte_stream_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
-	          0,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	result = libuna_base64_stream_size_to_byte_stream(
-	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
-	          NULL,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
-	          0,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
 
 	/* Invalid character limit
 	 */
+	byte_stream_size = 0;
+
 	result = libuna_base64_stream_size_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 		  &byte_stream_size,
 	          0x000000ffUL,
 	          0,
@@ -1099,6 +2092,11 @@ int una_test_base64_stream_size_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1111,9 +2109,9 @@ int una_test_base64_stream_size_to_byte_stream(
 	 */
 	result = libuna_base64_stream_size_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &byte_stream_size,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -1121,6 +2119,11 @@ int una_test_base64_stream_size_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1132,10 +2135,10 @@ int una_test_base64_stream_size_to_byte_stream(
 	/* Invalid encoding
 	 */
 	result = libuna_base64_stream_size_to_byte_stream(
-	          una_test_base64_stream_rfc1421_utf16be_stream,
-	          40,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24,
 		  &byte_stream_size,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -1143,6 +2146,11 @@ int una_test_base64_stream_size_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1155,9 +2163,9 @@ int una_test_base64_stream_size_to_byte_stream(
 	 */
 	result = libuna_base64_stream_size_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  &byte_stream_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0xff,
 		  &error );
 
@@ -1165,6 +2173,11 @@ int una_test_base64_stream_size_to_byte_stream(
 	 "result",
 	 result,
 	 -1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "byte_stream_size",
+	 byte_stream_size,
+	 (size_t) 0 );
 
 	UNA_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1199,10 +2212,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0,
 		  &error );
 
@@ -1229,7 +2242,7 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          NULL,
-		  25,
+		  24,
 		  byte_stream,
 		  16,
 	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
@@ -1253,7 +2266,7 @@ int una_test_base64_stream_copy_to_byte_stream(
 		  (size_t) SSIZE_MAX + 1,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0,
 	          &error );
 
@@ -1271,10 +2284,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 	          NULL,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0,
 	          &error );
 
@@ -1292,10 +2305,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 		  byte_stream,
 		  (size_t) SSIZE_MAX + 1,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0,
 	          &error );
 
@@ -1315,7 +2328,7 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 		  byte_stream,
 		  16,
 	          0x000000ffUL,
@@ -1338,10 +2351,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 		  byte_stream,
 		  16,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 	          &error );
 
@@ -1361,10 +2374,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-		  25,
+		  24,
 		  byte_stream,
 		  16,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 	          &error );
 
@@ -1384,10 +2397,10 @@ int una_test_base64_stream_copy_to_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_to_byte_stream(
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25,
+	          24,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          0xff,
 		  &error );
 
@@ -1426,6 +2439,123 @@ int una_test_base64_stream_size_from_byte_stream(
 
 	/* Test regular cases
 	 */
+	base64_stream_size = 0;
+
+	result = libuna_base64_stream_size_from_byte_stream(
+		  una_test_base64_stream_byte_stream,
+		  16,
+		  &base64_stream_size,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_size",
+	 base64_stream_size,
+	 (size_t) 24 );
+
+	base64_stream_size = 0;
+
+	result = libuna_base64_stream_size_from_byte_stream(
+		  una_test_base64_stream_byte_stream,
+		  16,
+		  &base64_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_size",
+	 base64_stream_size,
+	 (size_t) 48 );
+
+	base64_stream_size = 0;
+
+	result = libuna_base64_stream_size_from_byte_stream(
+		  una_test_base64_stream_byte_stream,
+		  16,
+		  &base64_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_size",
+	 base64_stream_size,
+	 (size_t) 48 );
+
+	base64_stream_size = 0;
+
+	result = libuna_base64_stream_size_from_byte_stream(
+		  una_test_base64_stream_byte_stream,
+		  16,
+		  &base64_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_size",
+	 base64_stream_size,
+	 (size_t) 96 );
+
+	base64_stream_size = 0;
+
+	result = libuna_base64_stream_size_from_byte_stream(
+		  una_test_base64_stream_byte_stream,
+		  16,
+		  &base64_stream_size,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base64_stream_size",
+	 base64_stream_size,
+	 (size_t) 96 );
+
+	base64_stream_size = 0;
+
 	result = libuna_base64_stream_size_from_byte_stream(
 		  una_test_base64_stream_byte_stream,
 		  16,
@@ -1449,11 +2579,13 @@ int una_test_base64_stream_size_from_byte_stream(
 
 	/* Test error cases
 	 */
+	base64_stream_size = 0;
+
 	result = libuna_base64_stream_size_from_byte_stream(
 		  NULL,
 		  16,
 		  &base64_stream_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1472,7 +2604,7 @@ int una_test_base64_stream_size_from_byte_stream(
 		  una_test_base64_stream_byte_stream,
 		  (size_t) SSIZE_MAX + 1,
 		  &base64_stream_size,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1491,7 +2623,7 @@ int una_test_base64_stream_size_from_byte_stream(
 		  una_test_base64_stream_byte_stream,
 		  16,
 		  NULL,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1533,7 +2665,7 @@ int una_test_base64_stream_size_from_byte_stream(
 		  una_test_base64_stream_byte_stream,
 		  16,
 		  &base64_stream_size,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1554,7 +2686,7 @@ int una_test_base64_stream_size_from_byte_stream(
 		  una_test_base64_stream_byte_stream,
 		  16,
 		  &base64_stream_size,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1595,10 +2727,10 @@ int una_test_base64_stream_copy_from_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_from_byte_stream(
 		  base64_stream,
-		  25,
+		  24,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1613,7 +2745,7 @@ int una_test_base64_stream_copy_from_byte_stream(
 	result = memory_compare(
 	          base64_stream,
 	          una_test_base64_stream_rfc1421_byte_stream,
-	          25 );
+	          24 );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -1624,10 +2756,10 @@ int una_test_base64_stream_copy_from_byte_stream(
 	 */
 	result = libuna_base64_stream_copy_from_byte_stream(
 	          NULL,
-		  25,
+		  24,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1671,6 +2803,156 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 
 	result = libuna_base64_stream_with_index_copy_from_byte_stream(
 		  base64_stream,
+		  24,
+		  &base64_stream_index,
+		  una_test_base64_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base64_stream,
+	          una_test_base64_stream_rfc1421_byte_stream,
+	          24 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_stream_with_index_copy_from_byte_stream(
+		  base64_stream,
+		  48,
+		  &base64_stream_index,
+		  una_test_base64_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base64_stream,
+	          una_test_base64_stream_rfc1421_utf16be_stream,
+	          48 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_stream_with_index_copy_from_byte_stream(
+		  base64_stream,
+		  48,
+		  &base64_stream_index,
+		  una_test_base64_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base64_stream,
+	          una_test_base64_stream_rfc1421_utf16le_stream,
+	          48 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_stream_with_index_copy_from_byte_stream(
+		  base64_stream,
+		  96,
+		  &base64_stream_index,
+		  una_test_base64_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base64_stream,
+	          una_test_base64_stream_rfc1421_utf32be_stream,
+	          96 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_stream_with_index_copy_from_byte_stream(
+		  base64_stream,
+		  96,
+		  &base64_stream_index,
+		  una_test_base64_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE64_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base64_stream,
+	          una_test_base64_stream_rfc1421_utf32le_stream,
+	          96 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base64_stream_index = 0;
+
+	result = libuna_base64_stream_with_index_copy_from_byte_stream(
+		  base64_stream,
 		  25,
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
@@ -1707,7 +2989,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1728,7 +3010,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1749,7 +3031,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  NULL,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1770,7 +3052,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  NULL,
 		  16,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1791,7 +3073,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
 		  (size_t) SSIZE_MAX + 1,
-	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64 | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
+	          LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE64_VARIANT_PADDING_REQUIRED,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1837,7 +3119,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0x000f0000UL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1860,7 +3142,7 @@ int una_test_base64_stream_with_index_copy_from_byte_stream(
 		  &base64_stream_index,
 		  una_test_base64_stream_byte_stream,
 		  16,
-	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_64,
+	          0xf0000000UL | LIBUNA_BASE64_VARIANT_ALPHABET_NORMAL | LIBUNA_BASE64_VARIANT_CHARACTER_LIMIT_NONE,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(

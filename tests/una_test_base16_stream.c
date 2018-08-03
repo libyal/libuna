@@ -410,7 +410,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          64,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -434,7 +434,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf32be_upper_case_base16_stream,
 	          128,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -711,7 +711,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16le_lower_case_base16_stream,
 	          1,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -739,7 +739,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16be_lower_case_error_first_character,
 	          64,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -761,7 +761,7 @@ int una_test_base16_stream_size_to_byte_stream(
 	          una_test_base16_stream_utf16be_lower_case_error_second_character,
 	          64,
 		  &byte_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -908,7 +908,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	          64,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -936,7 +936,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	          128,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -1280,7 +1280,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	          64,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -1303,7 +1303,7 @@ int una_test_base16_stream_copy_to_byte_stream(
 	          64,
 		  byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 	          0,
 		  &error );
 
@@ -1442,7 +1442,7 @@ int una_test_base16_stream_size_from_byte_stream(
 		  una_test_base16_stream_byte_stream,
 		  16,
 		  &base16_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1465,7 +1465,7 @@ int una_test_base16_stream_size_from_byte_stream(
 		  una_test_base16_stream_byte_stream,
 		  16,
 		  &base16_stream_size,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1858,7 +1858,42 @@ int una_test_base16_stream_with_index_copy_from_byte_stream(
 		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_BIG_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base16_stream_index",
+	 base16_stream_index,
+	 (size_t) 64 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base16_stream,
+	          una_test_base16_stream_utf16be_lower_case_base16_stream,
+	          64 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
+		  base16_stream,
+		  64,
+		  &base16_stream_index,
+		  una_test_base16_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF16_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_LOWER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1893,7 +1928,7 @@ int una_test_base16_stream_with_index_copy_from_byte_stream(
 		  &base16_stream_index,
 		  una_test_base16_stream_byte_stream,
 		  16,
-	          LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE | LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_BIG_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
 		  &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -1913,6 +1948,41 @@ int una_test_base16_stream_with_index_copy_from_byte_stream(
 	result = memory_compare(
 	          base16_stream,
 	          una_test_base16_stream_utf32be_upper_case_base16_stream,
+	          128 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	base16_stream_index = 0;
+
+	result = libuna_base16_stream_with_index_copy_from_byte_stream(
+		  base16_stream,
+		  128,
+		  &base16_stream_index,
+		  una_test_base16_stream_byte_stream,
+		  16,
+	          LIBUNA_BASE16_VARIANT_ENCODING_UTF32_LITTLE_ENDIAN | LIBUNA_BASE16_VARIANT_CASE_UPPER | LIBUNA_BASE16_VARIANT_CHARACTER_LIMIT_NONE,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "base16_stream_index",
+	 base16_stream_index,
+	 (size_t) 128 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          base16_stream,
+	          una_test_base16_stream_utf32le_upper_case_base16_stream,
 	          128 );
 
 	UNA_TEST_ASSERT_EQUAL_INT(

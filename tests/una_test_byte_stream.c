@@ -33,16 +33,16 @@
 #include "una_test_macros.h"
 #include "una_test_unused.h"
 
-uint8_t lnk_test_byte_stream_byte_stream[ 16 ] = {
+uint8_t una_test_byte_stream_byte_stream[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint16_t lnk_test_byte_stream_utf16_string[ 16 ] = {
+uint16_t una_test_byte_stream_utf16_string[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint32_t lnk_test_byte_stream_utf32_string[ 16 ] = {
+uint32_t una_test_byte_stream_utf32_string[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
-uint8_t lnk_test_byte_stream_utf8_string[ 17 ] = {
+uint8_t una_test_byte_stream_utf8_string[ 17 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xc3, 0xa1, ' ', 't', 'e', 's', 't', '.', 0 };
 
 /* Tests the libuna_byte_stream_size_from_utf8 function
@@ -58,7 +58,7 @@ int una_test_byte_stream_size_from_utf8(
 	/* Test regular cases
 	 */
 	result = libuna_byte_stream_size_from_utf8(
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -100,7 +100,7 @@ int una_test_byte_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf8(
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -119,7 +119,7 @@ int una_test_byte_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf8(
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          -1,
 	          &byte_stream_size,
@@ -138,7 +138,7 @@ int una_test_byte_stream_size_from_utf8(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf8(
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          NULL,
@@ -184,7 +184,7 @@ int una_test_byte_stream_copy_from_utf8(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -198,7 +198,7 @@ int una_test_byte_stream_copy_from_utf8(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_byte_stream_byte_stream,
+	          una_test_byte_stream_byte_stream,
 	          byte_stream,
 	          sizeof( uint8_t ) * 16 );
 
@@ -213,7 +213,7 @@ int una_test_byte_stream_copy_from_utf8(
 	          NULL,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -233,7 +233,7 @@ int una_test_byte_stream_copy_from_utf8(
 	          byte_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -253,7 +253,7 @@ int una_test_byte_stream_copy_from_utf8(
 	          byte_stream,
 	          32,
 	          -1,
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          17,
 	          &error );
 
@@ -293,7 +293,7 @@ int una_test_byte_stream_copy_from_utf8(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf8_string,
+	          una_test_byte_stream_utf8_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -333,7 +333,7 @@ int una_test_byte_stream_size_from_utf16(
 	/* Test regular cases
 	 */
 	result = libuna_byte_stream_size_from_utf16(
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -375,7 +375,7 @@ int una_test_byte_stream_size_from_utf16(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf16(
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -394,7 +394,7 @@ int una_test_byte_stream_size_from_utf16(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf16(
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          -1,
 	          &byte_stream_size,
@@ -413,7 +413,7 @@ int una_test_byte_stream_size_from_utf16(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf16(
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          NULL,
@@ -459,7 +459,7 @@ int una_test_byte_stream_copy_from_utf16(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -473,7 +473,7 @@ int una_test_byte_stream_copy_from_utf16(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_byte_stream_byte_stream,
+	          una_test_byte_stream_byte_stream,
 	          byte_stream,
 	          sizeof( uint8_t ) * 16 );
 
@@ -488,7 +488,7 @@ int una_test_byte_stream_copy_from_utf16(
 	          NULL,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -508,7 +508,7 @@ int una_test_byte_stream_copy_from_utf16(
 	          byte_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -528,7 +528,7 @@ int una_test_byte_stream_copy_from_utf16(
 	          byte_stream,
 	          32,
 	          -1,
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          16,
 	          &error );
 
@@ -568,7 +568,7 @@ int una_test_byte_stream_copy_from_utf16(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf16_string,
+	          una_test_byte_stream_utf16_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
@@ -608,7 +608,7 @@ int una_test_byte_stream_size_from_utf32(
 	/* Test regular cases
 	 */
 	result = libuna_byte_stream_size_from_utf32(
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -650,7 +650,7 @@ int una_test_byte_stream_size_from_utf32(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf32(
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &byte_stream_size,
@@ -669,7 +669,7 @@ int una_test_byte_stream_size_from_utf32(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf32(
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          -1,
 	          &byte_stream_size,
@@ -688,7 +688,7 @@ int una_test_byte_stream_size_from_utf32(
 	 &error );
 
 	result = libuna_byte_stream_size_from_utf32(
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          NULL,
@@ -734,7 +734,7 @@ int una_test_byte_stream_copy_from_utf32(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -748,7 +748,7 @@ int una_test_byte_stream_copy_from_utf32(
 	 error );
 
 	result = memory_compare(
-	          lnk_test_byte_stream_byte_stream,
+	          una_test_byte_stream_byte_stream,
 	          byte_stream,
 	          sizeof( uint8_t ) * 16 );
 
@@ -763,7 +763,7 @@ int una_test_byte_stream_copy_from_utf32(
 	          NULL,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -783,7 +783,7 @@ int una_test_byte_stream_copy_from_utf32(
 	          byte_stream,
 	          (size_t) SSIZE_MAX + 1,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -803,7 +803,7 @@ int una_test_byte_stream_copy_from_utf32(
 	          byte_stream,
 	          32,
 	          -1,
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          16,
 	          &error );
 
@@ -843,7 +843,7 @@ int una_test_byte_stream_copy_from_utf32(
 	          byte_stream,
 	          32,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
-	          lnk_test_byte_stream_utf32_string,
+	          una_test_byte_stream_utf32_string,
 	          (size_t) SSIZE_MAX + 1,
 	          &error );
 
