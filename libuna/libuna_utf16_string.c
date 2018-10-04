@@ -308,7 +308,7 @@ int libuna_utf16_string_with_index_copy_from_byte_stream(
 }
 
 /* Compares an UTF-16 string with a byte stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_byte_stream(
      const libuna_utf16_character_t *utf16_string,
@@ -429,19 +429,26 @@ int libuna_utf16_string_compare_with_byte_stream(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != byte_stream_unicode_character )
+		if( utf16_unicode_character < byte_stream_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > byte_stream_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( byte_stream_index != byte_stream_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( byte_stream_index < byte_stream_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 
 /* Determines the size of an UTF-16 string from an UTF-7 stream
@@ -722,7 +729,7 @@ int libuna_utf16_string_with_index_copy_from_utf7_stream(
 }
 
 /* Compares an UTF-16 string with an UTF-7 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_utf7_stream(
      const libuna_utf16_character_t *utf16_string,
@@ -843,19 +850,26 @@ int libuna_utf16_string_compare_with_utf7_stream(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != utf7_stream_unicode_character )
+		if( utf16_unicode_character < utf7_stream_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > utf7_stream_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( utf7_stream_index != utf7_stream_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( utf7_stream_index < utf7_stream_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 
 /* Determines the size of an UTF-16 string from an UTF-8 string
@@ -1427,7 +1441,7 @@ int libuna_utf16_string_with_index_copy_from_utf8_stream(
 }
 
 /* Compares an UTF-16 string with an UTF-8 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_utf8_stream(
      const libuna_utf16_character_t *utf16_string,
@@ -1557,19 +1571,26 @@ int libuna_utf16_string_compare_with_utf8_stream(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != utf8_stream_unicode_character )
+		if( utf16_unicode_character < utf8_stream_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > utf8_stream_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( utf8_stream_index != utf8_stream_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( utf8_stream_index < utf8_stream_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 
 /* Determines the size of an UTF-16 string from an UTF-16 stream
@@ -1932,7 +1953,7 @@ int libuna_utf16_string_with_index_copy_from_utf16_stream(
 }
 
 /* Compares an UTF-16 string with an UTF-16 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_utf16_stream(
      const libuna_utf16_character_t *utf16_string,
@@ -2089,19 +2110,26 @@ int libuna_utf16_string_compare_with_utf16_stream(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != utf16_stream_unicode_character )
+		if( utf16_unicode_character < utf16_stream_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > utf16_stream_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( utf16_stream_index != utf16_stream_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( utf16_stream_index < utf16_stream_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 
 /* Determines the size of an UTF-16 string from an UTF-32 string
@@ -2378,7 +2406,7 @@ int libuna_utf16_string_with_index_copy_from_utf32(
 }
 
 /* Compares an UTF-16 string with an UTF-32 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_utf32(
      const libuna_utf16_character_t *utf16_string,
@@ -2495,19 +2523,26 @@ int libuna_utf16_string_compare_with_utf32(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != utf32_unicode_character )
+		if( utf16_unicode_character < utf32_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > utf32_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( utf32_string_index != utf32_string_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( utf32_string_index < utf32_string_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 
 /* Determines the size of an UTF-16 string from an UTF-32 stream
@@ -2878,7 +2913,7 @@ int libuna_utf16_string_with_index_copy_from_utf32_stream(
 }
 
 /* Compares an UTF-16 string with an UTF-32 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 int libuna_utf16_string_compare_with_utf32_stream(
      const libuna_utf16_character_t *utf16_string,
@@ -3041,18 +3076,25 @@ int libuna_utf16_string_compare_with_utf32_stream(
 
 			return( -1 );
 		}
-		if( utf16_unicode_character != utf32_stream_unicode_character )
+		if( utf16_unicode_character < utf32_stream_unicode_character )
 		{
-			return( 0 );
+			return( LIBUNA_COMPARE_LESS );
+		}
+		else if( utf16_unicode_character > utf32_stream_unicode_character )
+		{
+			return( LIBUNA_COMPARE_GREATER );
 		}
 	}
 	/* Check if both strings were entirely processed
 	 */
-	if( ( utf16_string_index != utf16_string_size )
-	 || ( utf32_stream_index != utf32_stream_size ) )
+	if( utf16_string_index < utf16_string_size )
 	{
-		return( 0 );
+		return( LIBUNA_COMPARE_GREATER );
 	}
-	return( 1 );
+	else if( utf32_stream_index < utf32_stream_size )
+	{
+		return( LIBUNA_COMPARE_LESS );
+	}
+	return( LIBUNA_COMPARE_EQUAL );
 }
 

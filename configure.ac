@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libuna],
- [20180803],
+ [20181004],
  [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -111,9 +111,6 @@ AS_IF(
  [AC_SUBST(
   [libuna_spec_requires],
   [Requires:])
- AC_SUBST(
-  [libuna_spec_build_requires],
-  [BuildRequires:])
  ])
 
 AS_IF(

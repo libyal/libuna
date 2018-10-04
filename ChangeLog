@@ -1,4 +1,7 @@
 TODO
+* have compare functions return less, equal, greater
+** complete changes to compare functions (utf32)
+** add test coverage
 * pre compiler macro to detect ASCII vs non-ASCII system?
 * make sure whitespace is stripped when copying to byte stream:
   - base32

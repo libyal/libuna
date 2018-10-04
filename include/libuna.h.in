@@ -579,7 +579,7 @@ int libuna_utf8_string_with_index_copy_from_byte_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with a byte stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_byte_stream(
@@ -628,7 +628,7 @@ int libuna_utf8_string_with_index_copy_from_utf7_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-7 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf7_stream(
@@ -676,7 +676,7 @@ int libuna_utf8_string_with_index_copy_from_utf8_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-8 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf8_stream(
@@ -724,7 +724,7 @@ int libuna_utf8_string_with_index_copy_from_utf16(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-16 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf16(
@@ -775,7 +775,7 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-16 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf16_stream(
@@ -824,7 +824,7 @@ int libuna_utf8_string_with_index_copy_from_utf32(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-32 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf32(
@@ -875,7 +875,7 @@ int libuna_utf8_string_with_index_copy_from_utf32_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-8 string with an UTF-32 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf8_string_compare_with_utf32_stream(
@@ -1024,7 +1024,7 @@ int libuna_utf16_string_with_index_copy_from_byte_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with a byte stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_byte_stream(
@@ -1073,7 +1073,7 @@ int libuna_utf16_string_with_index_copy_from_utf7_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with an UTF-7 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_utf7_stream(
@@ -1162,7 +1162,7 @@ int libuna_utf16_string_with_index_copy_from_utf8_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with an UTF-8 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_utf8_stream(
@@ -1213,7 +1213,7 @@ int libuna_utf16_string_with_index_copy_from_utf16_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with an UTF-16 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_utf16_stream(
@@ -1262,7 +1262,7 @@ int libuna_utf16_string_with_index_copy_from_utf32(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with an UTF-32 string
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_utf32(
@@ -1313,7 +1313,7 @@ int libuna_utf16_string_with_index_copy_from_utf32_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-16 string with an UTF-32 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf16_string_compare_with_utf16_stream(
@@ -1462,7 +1462,7 @@ int libuna_utf32_string_with_index_copy_from_byte_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-32 string with a byte stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf32_string_compare_with_byte_stream(
@@ -1511,7 +1511,7 @@ int libuna_utf32_string_with_index_copy_from_utf7_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-32 string with an UTF-7 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf32_string_compare_with_utf7_stream(
@@ -1600,7 +1600,7 @@ int libuna_utf32_string_with_index_copy_from_utf8_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-32 string with an UTF-8 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf32_string_compare_with_utf8_stream(
@@ -1692,7 +1692,7 @@ int libuna_utf32_string_with_index_copy_from_utf16_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-32 string with an UTF-16 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf32_string_compare_with_utf16_stream(
@@ -1744,7 +1744,7 @@ int libuna_utf32_string_with_index_copy_from_utf32_stream(
      libuna_error_t **error );
 
 /* Compares an UTF-32 string with an UTF-32 stream
- * Returns 1 if the strings are equal, 0 if not or -1 on error
+ * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_utf32_string_compare_with_utf32_stream(

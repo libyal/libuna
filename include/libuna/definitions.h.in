@@ -164,6 +164,23 @@ enum LIBUNA_CODEPAGES
 #define LIBUNA_CODEPAGE_SHIFT_JIS				LIBUNA_CODEPAGE_WINDOWS_932
 #define LIBUNA_CODEPAGE_GB2312					LIBUNA_CODEPAGE_WINDOWS_936
 
+/* The comparison function definitions
+ */
+enum LIBUNA_COMPARE_DEFINITIONS
+{
+	/* The first string is less than the second string
+	 */
+	LIBUNA_COMPARE_LESS,
+
+	/* The first and second strings are equal
+	 */
+	LIBUNA_COMPARE_EQUAL,
+
+	/* The first string is greater than the second string
+	 */
+	LIBUNA_COMPARE_GREATER
+};
+
 /* Base16 variants
  * Byte:
  * 0 - 1							Character limit
