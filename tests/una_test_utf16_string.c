@@ -549,29 +549,105 @@ on_error:
 int una_test_utf16_string_compare_with_byte_stream(
      void )
 {
-	libuna_error_t *error = NULL;
-	int result            = 0;
+	uint8_t byte_stream_equal[ 5 ]     = { 'e', 'q', 'u', 'a', 'l' };
+	uint8_t byte_stream_great[ 5 ]     = { 'g', 'r', 'e', 'a', 't' };
+	uint8_t byte_stream_less[ 4 ]      = { 'l', 'e', 's', 's' };
+	uint8_t byte_stream_lesser[ 6 ]    = { 'l', 'e', 's', 's', 'e', 'r' };
+	uint8_t byte_stream_more[ 4 ]      = { 'm', 'o', 'r', 'e' };
+	uint16_t utf16_string_equal[ 5 ]   = { 'e', 'q', 'u', 'a', 'l' };
+	uint16_t utf16_string_greater[ 7 ] = { 'g', 'r', 'e', 'a', 't', 'e', 'r' };
+	uint16_t utf16_string_less[ 4 ]    = { 'l', 'e', 's', 's' };
+	uint16_t utf16_string_more[ 4 ]    = { 'm', 'o', 'r', 'e' };
+
+	libuna_error_t *error              = NULL;
+	int result                         = 0;
 
 	/* Test regular cases
 	 */
 	result = libuna_utf16_string_compare_with_byte_stream(
-	          una_test_utf16_string_utf16_string,
-	          16,
-	          una_test_utf16_string_byte_stream,
-	          16,
+	          utf16_string_equal,
+	          5,
+	          byte_stream_equal,
+	          5,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 LIBUNA_COMPARE_EQUAL );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
-/* TODO: test non-equal */
+	result = libuna_utf16_string_compare_with_byte_stream(
+	          utf16_string_more,
+	          4,
+	          byte_stream_less,
+	          4,
+	          LIBUNA_CODEPAGE_WINDOWS_1252,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_byte_stream(
+	          utf16_string_less,
+	          4,
+	          byte_stream_more,
+	          4,
+	          LIBUNA_CODEPAGE_WINDOWS_1252,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_byte_stream(
+	          utf16_string_greater,
+	          7,
+	          byte_stream_great,
+	          5,
+	          LIBUNA_CODEPAGE_WINDOWS_1252,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_byte_stream(
+	          utf16_string_less,
+	          4,
+	          byte_stream_lesser,
+	          6,
+	          LIBUNA_CODEPAGE_WINDOWS_1252,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1119,28 +1195,100 @@ on_error:
 int una_test_utf16_string_compare_with_utf7_stream(
      void )
 {
-	libuna_error_t *error = NULL;
-	int result            = 0;
+	uint8_t utf7_stream_equal[ 5 ]     = { 'e', 'q', 'u', 'a', 'l' };
+	uint8_t utf7_stream_great[ 5 ]     = { 'g', 'r', 'e', 'a', 't' };
+	uint8_t utf7_stream_less[ 4 ]      = { 'l', 'e', 's', 's' };
+	uint8_t utf7_stream_lesser[ 6 ]    = { 'l', 'e', 's', 's', 'e', 'r' };
+	uint8_t utf7_stream_more[ 4 ]      = { 'm', 'o', 'r', 'e' };
+	uint16_t utf16_string_equal[ 5 ]   = { 'e', 'q', 'u', 'a', 'l' };
+	uint16_t utf16_string_greater[ 7 ] = { 'g', 'r', 'e', 'a', 't', 'e', 'r' };
+	uint16_t utf16_string_less[ 4 ]    = { 'l', 'e', 's', 's' };
+	uint16_t utf16_string_more[ 4 ]    = { 'm', 'o', 'r', 'e' };
+
+	libuna_error_t *error              = NULL;
+	int result                         = 0;
 
 	/* Test regular cases
 	 */
 	result = libuna_utf16_string_compare_with_utf7_stream(
-	          una_test_utf16_string_utf16_string,
-	          16,
-	          una_test_utf16_string_utf7_stream,
-	          20,
+	          utf16_string_equal,
+	          5,
+	          utf7_stream_equal,
+	          5,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
-	 1 );
+	 LIBUNA_COMPARE_EQUAL );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
-/* TODO: test non-equal */
+	result = libuna_utf16_string_compare_with_utf7_stream(
+	          utf16_string_more,
+	          4,
+	          utf7_stream_less,
+	          4,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf7_stream(
+	          utf16_string_less,
+	          4,
+	          utf7_stream_more,
+	          4,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf7_stream(
+	          utf16_string_greater,
+	          7,
+	          utf7_stream_great,
+	          5,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf7_stream(
+	          utf16_string_less,
+	          4,
+	          utf7_stream_lesser,
+	          6,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -2085,6 +2233,197 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libuna_utf16_string_compare_with_utf8_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf16_string_compare_with_utf8_stream(
+     void )
+{
+	uint8_t utf8_stream_equal[ 5 ]     = { 'e', 'q', 'u', 'a', 'l' };
+	uint8_t utf8_stream_great[ 5 ]     = { 'g', 'r', 'e', 'a', 't' };
+	uint8_t utf8_stream_less[ 4 ]      = { 'l', 'e', 's', 's' };
+	uint8_t utf8_stream_lesser[ 6 ]    = { 'l', 'e', 's', 's', 'e', 'r' };
+	uint8_t utf8_stream_more[ 4 ]      = { 'm', 'o', 'r', 'e' };
+	uint16_t utf16_string_equal[ 5 ]   = { 'e', 'q', 'u', 'a', 'l' };
+	uint16_t utf16_string_greater[ 7 ] = { 'g', 'r', 'e', 'a', 't', 'e', 'r' };
+	uint16_t utf16_string_less[ 4 ]    = { 'l', 'e', 's', 's' };
+	uint16_t utf16_string_more[ 4 ]    = { 'm', 'o', 'r', 'e' };
+
+	libuna_error_t *error              = NULL;
+	int result                         = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          utf16_string_equal,
+	          5,
+	          utf8_stream_equal,
+	          5,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_EQUAL );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          utf16_string_more,
+	          4,
+	          utf8_stream_less,
+	          4,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          utf16_string_less,
+	          4,
+	          utf8_stream_more,
+	          4,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          utf16_string_greater,
+	          7,
+	          utf8_stream_great,
+	          5,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          utf16_string_less,
+	          4,
+	          utf8_stream_lesser,
+	          6,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          NULL,
+	          16,
+	          una_test_utf16_string_utf8_stream,
+	          17,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          una_test_utf16_string_utf16_string,
+	          (size_t) SSIZE_MAX + 1,
+	          una_test_utf16_string_utf8_stream,
+	          17,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          una_test_utf16_string_utf16_string,
+	          16,
+	          NULL,
+	          17,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf8_stream(
+	          una_test_utf16_string_utf16_string,
+	          16,
+	          una_test_utf16_string_utf8_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
 /* Tests the libuna_utf16_string_size_from_utf16_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -2540,6 +2879,225 @@ int una_test_utf16_string_with_index_copy_from_utf16_stream(
 	          utf16_string,
 	          32,
 	          &utf16_string_index,
+	          una_test_utf16_string_utf16_stream,
+	          32,
+	          -1,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_utf16_string_compare_with_utf16_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf16_string_compare_with_utf16_stream(
+     void )
+{
+	uint8_t utf16_stream_equal[ 10 ]   = { 'e', 0, 'q', 0, 'u', 0, 'a', 0, 'l', 0 };
+	uint8_t utf16_stream_great[ 10 ]   = { 'g', 0, 'r', 0, 'e', 0, 'a', 0, 't', 0 };
+	uint8_t utf16_stream_less[ 8 ]     = { 'l', 0, 'e', 0, 's', 0, 's', 0 };
+	uint8_t utf16_stream_lesser[ 12 ]  = { 'l', 0, 'e', 0, 's', 0, 's', 0, 'e', 0, 'r', 0 };
+	uint8_t utf16_stream_more[ 8 ]     = { 'm', 0, 'o', 0, 'r', 0, 'e', 0 };
+	uint16_t utf16_string_equal[ 5 ]   = { 'e', 'q', 'u', 'a', 'l' };
+	uint16_t utf16_string_greater[ 7 ] = { 'g', 'r', 'e', 'a', 't', 'e', 'r' };
+	uint16_t utf16_string_less[ 4 ]    = { 'l', 'e', 's', 's' };
+	uint16_t utf16_string_more[ 4 ]    = { 'm', 'o', 'r', 'e' };
+
+	libuna_error_t *error              = NULL;
+	int result                         = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          utf16_string_equal,
+	          5,
+	          utf16_stream_equal,
+	          10,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_EQUAL );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          utf16_string_more,
+	          4,
+	          utf16_stream_less,
+	          8,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          utf16_string_less,
+	          4,
+	          utf16_stream_more,
+	          8,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          utf16_string_greater,
+	          7,
+	          utf16_stream_great,
+	          10,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_GREATER );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          utf16_string_less,
+	          4,
+	          utf16_stream_lesser,
+	          12,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 LIBUNA_COMPARE_LESS );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          NULL,
+	          16,
+	          una_test_utf16_string_utf16_stream,
+	          32,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          una_test_utf16_string_utf16_string,
+	          (size_t) SSIZE_MAX + 1,
+	          una_test_utf16_string_utf16_stream,
+	          32,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          una_test_utf16_string_utf16_string,
+	          16,
+	          NULL,
+	          32,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          una_test_utf16_string_utf16_string,
+	          16,
+	          una_test_utf16_string_utf16_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_compare_with_utf16_stream(
+	          una_test_utf16_string_utf16_string,
+	          16,
 	          una_test_utf16_string_utf16_stream,
 	          32,
 	          -1,
@@ -3537,8 +4095,6 @@ int main(
 	 "libuna_utf16_string_with_index_copy_from_utf8",
 	 una_test_utf16_string_with_index_copy_from_utf8 );
 
-	/* TODO libuna_utf16_string_compare_with_utf8 */
-
 	UNA_TEST_RUN(
 	 "libuna_utf16_string_size_from_utf8_stream",
 	 una_test_utf16_string_size_from_utf8_stream );
@@ -3551,7 +4107,9 @@ int main(
 	 "libuna_utf16_string_with_index_copy_from_utf8_stream",
 	 una_test_utf16_string_with_index_copy_from_utf8_stream );
 
-	/* TODO libuna_utf16_string_compare_with_utf8_stream */
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_compare_with_utf8_stream",
+	 una_test_utf16_string_compare_with_utf8_stream );
 
 	UNA_TEST_RUN(
 	 "libuna_utf16_string_size_from_utf16_stream",
@@ -3565,7 +4123,9 @@ int main(
 	 "libuna_utf16_string_with_index_copy_from_utf16_stream",
 	 una_test_utf16_string_with_index_copy_from_utf16_stream );
 
-	/* TODO libuna_utf16_string_compare_with_utf16_stream */
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_compare_with_utf16_stream",
+	 una_test_utf16_string_compare_with_utf16_stream );
 
 	UNA_TEST_RUN(
 	 "libuna_utf16_string_size_from_utf32",
@@ -3579,7 +4139,11 @@ int main(
 	 "libuna_utf16_string_with_index_copy_from_utf32",
 	 una_test_utf16_string_with_index_copy_from_utf32 );
 
-	/* TODO libuna_utf16_string_compare_with_utf32 */
+/* TODO
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_compare_with_utf32",
+	 una_test_utf16_string_compare_with_utf32 );
+*/
 
 	UNA_TEST_RUN(
 	 "libuna_utf16_string_size_from_utf32_stream",
@@ -3593,7 +4157,11 @@ int main(
 	 "libuna_utf16_string_with_index_copy_from_utf32_stream",
 	 una_test_utf16_string_with_index_copy_from_utf32_stream );
 
-	/* TODO libuna_utf16_string_compare_with_utf32_stream */
+/* TODO
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_compare_with_utf32_stream",
+	 una_test_utf16_string_compare_with_utf32_stream );
+*/
 
 	return( EXIT_SUCCESS );
 
