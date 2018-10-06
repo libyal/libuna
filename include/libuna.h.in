@@ -1316,7 +1316,7 @@ int libuna_utf16_string_with_index_copy_from_utf32_stream(
  * Returns LIBUNA_COMPARE_LESS, LIBUNA_COMPARE_EQUAL, LIBUNA_COMPARE_GREATER if successful or -1 on error
  */
 LIBUNA_EXTERN \
-int libuna_utf16_string_compare_with_utf16_stream(
+int libuna_utf16_string_compare_with_utf32_stream(
      const libuna_utf16_character_t *utf16_string,
      size_t utf16_string_size,
      const uint8_t *utf32_stream,

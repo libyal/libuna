@@ -1,4 +1,4 @@
-.Dd January 11, 2017
+.Dd October  6, 2018
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -229,7 +229,7 @@ UTF-16 string functions
 .Ft int
 .Fn libuna_utf16_string_with_index_copy_from_utf32_stream "libuna_utf16_character_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, const uint8_t *utf32_stream, size_t utf32_stream_size, int byte_order, libuna_error_t **error"
 .Ft int
-.Fn libuna_utf16_string_compare_with_utf16_stream "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const uint8_t *utf32_stream, size_t utf32_stream_size, int byte_order, libuna_error_t **error"
+.Fn libuna_utf16_string_compare_with_utf32_stream "const libuna_utf16_character_t *utf16_string, size_t utf16_string_size, const uint8_t *utf32_stream, size_t utf32_stream_size, int byte_order, libuna_error_t **error"
 .Pp
 UTF-32 stream functions
 .Ft int

@@ -4431,8 +4431,8 @@ int una_test_utf8_string_compare_with_utf32_stream(
 	uint8_t utf8_string_less[ 4 ]     = { 'l', 'e', 's', 's' };
 	uint8_t utf8_string_more[ 4 ]     = { 'm', 'o', 'r', 'e' };
 
-	libuna_error_t *error     = NULL;
-	int result                = 0;
+	libuna_error_t *error             = NULL;
+	int result                        = 0;
 
 	/* Test regular cases
 	 */
