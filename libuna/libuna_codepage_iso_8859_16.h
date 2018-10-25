@@ -25,17 +25,29 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_extern.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-extern const uint16_t libuna_codepage_iso_8859_16_byte_stream_to_unicode_base_0xa0[ 96 ];
+LIBUNA_EXTERN_VARIABLE \
+const uint16_t libuna_codepage_iso_8859_16_byte_stream_to_unicode_base_0xa0[ 96 ];
 
-extern const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x00a8[ 96 ];
-extern const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0140[ 8 ];
-extern const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0150[ 8 ];
-extern const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0178[ 8 ];
-extern const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0218[ 8 ];
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x00a8[ 96 ];
+
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0140[ 8 ];
+
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0150[ 8 ];
+
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0178[ 8 ];
+
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_16_unicode_to_byte_stream_base_0x0218[ 8 ];
 
 #if defined( __cplusplus )
 }

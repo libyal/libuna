@@ -25,13 +25,17 @@
 #include <common.h>
 #include <types.h>
 
+#include "libuna_extern.h"
+
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-extern const uint16_t libuna_codepage_iso_8859_9_byte_stream_to_unicode_base_0xd0[ 48 ];
+LIBUNA_EXTERN_VARIABLE \
+const uint16_t libuna_codepage_iso_8859_9_byte_stream_to_unicode_base_0xd0[ 48 ];
 
-extern const uint8_t libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ 48 ];
+LIBUNA_EXTERN_VARIABLE \
+const uint8_t libuna_codepage_iso_8859_9_unicode_to_byte_stream_base_0x00d0[ 48 ];
 
 #if defined( __cplusplus )
 }

@@ -19,8 +19,8 @@
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNA_UNICDODE_CHARACTER_H )
-#define _LIBUNA_UNICDODE_CHARACTER_H
+#if !defined( _LIBUNA_UNICODE_CHARACTER_H )
+#define _LIBUNA_UNICODE_CHARACTER_H
 
 #include <common.h>
 #include <types.h>
@@ -190,5 +190,5 @@ int libuna_unicode_character_copy_to_utf32_stream(
 }
 #endif
 
-#endif /* !defined( _LIBUNA_UNICDODE_CHARACTER_H ) */
+#endif /* !defined( _LIBUNA_UNICODE_CHARACTER_H ) */
 
