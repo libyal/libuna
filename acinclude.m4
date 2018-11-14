@@ -1,6 +1,6 @@
 dnl Checks for libuna or required headers and functions
 dnl
-dnl Version: 20180803
+dnl Version: 20181006
 
 dnl Function to detect if libuna dependencies are available
 AC_DEFUN([AX_LIBUNA_CHECK_LOCAL],

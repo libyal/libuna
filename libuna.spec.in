@@ -10,24 +10,24 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 @libuna_spec_requires@ @ax_libcerror_spec_requires@
 BuildRequires: gcc @ax_libcerror_spec_build_requires@
 
-%description
+%description -n libuna
 Library to support Unicode and ASCII (byte stream) conversions
 
-%package devel
+%package -n libuna-devel
 Summary: Header files and libraries for developing applications for libuna
 Group: Development/Libraries
 Requires: libuna = %{version}-%{release}
 
-%description devel
+%description -n libuna-devel
 Header files and libraries for developing applications for libuna.
 
-%package tools
+%package -n libuna-tools
 Summary: Several tools for converting Unicode and ASCII (byte stream) based text
 Group: Applications/System
 Requires: libuna = %{version}-%{release} @ax_libcdatetime_spec_requires@ @ax_libcfile_spec_requires@ @ax_libclocale_spec_requires@ @ax_libcnotify_spec_requires@
 @libuna_spec_tools_build_requires@ @ax_libcdatetime_spec_build_requires@ @ax_libcfile_spec_build_requires@ @ax_libclocale_spec_build_requires@ @ax_libcnotify_spec_build_requires@
 
-%description tools
+%description -n libuna-tools
 Several tools for converting Unicode and ASCII (byte stream) based text
 
 %prep
@@ -48,13 +48,13 @@ rm -rf %{buildroot}
 
 %postun -p /sbin/ldconfig
 
-%files
+%files -n libuna
 %defattr(644,root,root,755)
 %license COPYING
 %doc AUTHORS README
 %attr(755,root,root) %{_libdir}/*.so.*
 
-%files devel
+%files -n libuna-devel
 %defattr(644,root,root,755)
 %license COPYING
 %doc AUTHORS README ChangeLog
@@ -65,7 +65,7 @@ rm -rf %{buildroot}
 %{_includedir}/*
 %{_mandir}/man3/*
 
-%files tools
+%files -n libuna-tools
 %defattr(644,root,root,755)
 %license COPYING
 %doc AUTHORS README
