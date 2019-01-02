@@ -9,6 +9,8 @@ Homepage: https://github.com/libyal/libuna
 Package: libuna
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libuna1
+Replaces: libuna1
 Suggests: libuna-dbg
 Description: Library to support Unicode and ASCII (byte stream) conversions
  libuna is a library to support Unicode and ASCII (byte stream) conversions.
@@ -31,6 +33,8 @@ Package: libuna-tools
 Section: utils
 Architecture: any
 Depends: libuna (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libuna-utils
+Replaces: libuna-utils
 Description: Several tools for converting Unicode and ASCII (byte stream) based text
  Several tools for converting Unicode and ASCII (byte stream) based text.
 

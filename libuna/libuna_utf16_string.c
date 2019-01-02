@@ -1,7 +1,7 @@
 /*
  * UTF-16 string functions
  *
- * Copyright (C) 2008-2018, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2019, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -2480,9 +2480,9 @@ int libuna_utf16_string_compare_with_utf32(
 	{
 		utf16_string_size -= 1;
 	}
-	if( utf32_string[ utf16_string_size - 1 ] == 0 )
+	if( utf32_string[ utf32_string_size - 1 ] == 0 )
 	{
-		utf16_string_size -= 1;
+		utf32_string_size -= 1;
 	}
 	while( ( utf16_string_index < utf16_string_size )
 	    && ( utf32_string_index < utf32_string_size ) )
