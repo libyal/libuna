@@ -13,6 +13,14 @@ BuildRequires: gcc @ax_libcerror_spec_build_requires@
 %description -n libuna
 Library to support Unicode and ASCII (byte stream) conversions
 
+%package -n libuna-static
+Summary: Library to support Unicode and ASCII (byte stream) conversions
+Group: Development/Libraries
+Requires: libuna = %{version}-%{release}
+
+%description -n libuna-static
+Static library version of libuna.
+
 %package -n libuna-devel
 Summary: Header files and libraries for developing applications for libuna
 Group: Development/Libraries
@@ -54,11 +62,16 @@ rm -rf %{buildroot}
 %doc AUTHORS README
 %attr(755,root,root) %{_libdir}/*.so.*
 
+%files -n libuna-static
+%defattr(644,root,root,755)
+%license COPYING
+%doc AUTHORS README
+%attr(755,root,root) %{_libdir}/*.a
+
 %files -n libuna-devel
 %defattr(644,root,root,755)
 %license COPYING
 %doc AUTHORS README
-%{_libdir}/*.a
 %{_libdir}/*.la
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/libuna.pc

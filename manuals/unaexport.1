@@ -1,4 +1,4 @@
-.Dd January 5, 2014
+.Dd April 10, 2019
 .Dt unaexport
 .Os libuna
 .Sh NAME
@@ -11,7 +11,7 @@
 .Op Fl n Ar newline_conversion
 .Op Fl o Ar output_format
 .Op Fl BhlqvV
-.Va Ar source
+.Ar source
 .Sh DESCRIPTION
 .Nm unaexport
 is a utility to export Unicode and ASCII (byte stream) text
@@ -57,7 +57,7 @@ None
 .Bd -literal
 # unaexport -c windows-1250 -i byte_stream -o utf8 source.txt destination.txt
 unaexport 20110108 (libuna 20110108)
-
+.sp
 Exporting:
 	source:			source.txt
 	of format:		auto detect
@@ -65,18 +65,18 @@ Exporting:
 	of format:		UTF-8
 	export byte order mark:	yes
 	newline conversion:	none
-
+.sp
 Export started at: Sat Jan  8 09:09:23 2011
-
+.sp
 This could take a while.
-
+.sp
 Status: exported 492 bytes
         in 0 second(s).
-
+.sp
 Export completed at: Sat Jan  8 09:09:23 2011
-
+.sp
 Exported: 492 bytes in 0 second(s).
-
+.sp
 .Ed
 .Sh DIAGNOSTICS
 Errors, verbose and debug output are printed to stderr when verbose output \-v is enabled.
@@ -89,4 +89,3 @@ These man pages were written by Joachim Metz.
 .Sh COPYRIGHT
 Copyright (C) 2008-2019, Joachim Metz <joachim.metz@gmail.com>.
 This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
