@@ -226,6 +226,8 @@ on_error:
 int una_test_unicode_character_copy_from_byte_stream(
      void )
 {
+	uint8_t byte_stream1[ 2 ]                            = { 'A', 0 };
+
 	libuna_error_t *error                                = NULL;
 	una_test_byte_stream_to_unicode_t *test_values       = NULL;
 	una_test_unicode_character_codepage_t *test_codepage = NULL;
@@ -372,7 +374,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 
 	result = libuna_unicode_character_copy_from_byte_stream(
 	          NULL,
-	          (uint8_t *) "A",
+	          byte_stream1,
 	          1,
 	          &byte_stream_index,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
@@ -412,7 +414,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 
 	result = libuna_unicode_character_copy_from_byte_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          byte_stream1,
 	          (size_t) SSIZE_MAX + 1,
 	          &byte_stream_index,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
@@ -432,7 +434,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 
 	result = libuna_unicode_character_copy_from_byte_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          byte_stream1,
 	          1,
 	          NULL,
 	          LIBUNA_CODEPAGE_WINDOWS_1252,
@@ -452,7 +454,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 
 	result = libuna_unicode_character_copy_from_byte_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          byte_stream1,
 	          1,
 	          &byte_stream_index,
 	          -1,
@@ -488,6 +490,8 @@ int una_test_unicode_character_copy_to_byte_stream(
      void )
 {
 	uint8_t byte_stream[ 16 ];
+
+	uint8_t expected_byte_stream1[ 2 ]                   = { 0x1a, 0 };
 
 	libuna_error_t *error                                = NULL;
 	una_test_byte_stream_to_unicode_t *test_values       = NULL;
@@ -575,7 +579,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -609,7 +613,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -643,7 +647,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -677,7 +681,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -711,7 +715,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -745,7 +749,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -779,7 +783,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -813,7 +817,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -847,7 +851,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -881,7 +885,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -915,7 +919,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -949,7 +953,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x1a",
+		  expected_byte_stream1,
 		  byte_stream,
 		  1 );
 
@@ -1165,6 +1169,8 @@ on_error:
 int una_test_unicode_character_copy_from_utf7_stream(
      void )
 {
+	uint8_t utf7_stream1[ 2 ]                    = { 'A', 0 };
+
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
 	size_t utf7_stream_index                     = 0;
@@ -1177,7 +1183,7 @@ int una_test_unicode_character_copy_from_utf7_stream(
 
 	result = libuna_unicode_character_copy_from_utf7_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf7_stream1,
 	          1,
 	          &utf7_stream_index,
 	          &utf7_stream_base64_data,
@@ -1208,7 +1214,7 @@ int una_test_unicode_character_copy_from_utf7_stream(
 
 	result = libuna_unicode_character_copy_from_utf7_stream(
 	          NULL,
-	          (uint8_t *) "A",
+	          utf7_stream1,
 	          1,
 	          &utf7_stream_index,
 	          &utf7_stream_base64_data,
@@ -1248,7 +1254,7 @@ int una_test_unicode_character_copy_from_utf7_stream(
 
 	result = libuna_unicode_character_copy_from_utf7_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf7_stream1,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf7_stream_index,
 	          &utf7_stream_base64_data,
@@ -1268,7 +1274,7 @@ int una_test_unicode_character_copy_from_utf7_stream(
 
 	result = libuna_unicode_character_copy_from_utf7_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf7_stream1,
 	          1,
 	          NULL,
 	          &utf7_stream_base64_data,
@@ -1288,7 +1294,7 @@ int una_test_unicode_character_copy_from_utf7_stream(
 
 	result = libuna_unicode_character_copy_from_utf7_stream(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf7_stream1,
 	          1,
 	          &utf7_stream_index,
 	          NULL,
@@ -1325,10 +1331,12 @@ int una_test_unicode_character_copy_to_utf7_stream(
 {
 	uint8_t utf7_stream[ 16 ];
 
-	libuna_error_t *error            = NULL;
-	size_t utf7_stream_index         = 0;
-	uint32_t utf7_stream_base64_data = 0;
-	int result                       = 0;
+	uint8_t expected_utf7_stream1[ 2 ] = { 'A', 0 };
+
+	libuna_error_t *error              = NULL;
+	size_t utf7_stream_index           = 0;
+	uint32_t utf7_stream_base64_data   = 0;
+	int result                         = 0;
 
 	/* Test regular cases
 	 */
@@ -1357,7 +1365,7 @@ int una_test_unicode_character_copy_to_utf7_stream(
 	 error );
 
 	result = memory_compare(
-		  "A",
+		  expected_utf7_stream1,
 		  utf7_stream,
 		  1 );
 
@@ -1616,6 +1624,8 @@ on_error:
 int una_test_unicode_character_copy_from_utf8(
      void )
 {
+	uint8_t utf8_stream1[ 2 ]                    = { 'A', 0 };
+
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
 	size_t utf8_string_index                     = 0;
@@ -1627,7 +1637,7 @@ int una_test_unicode_character_copy_from_utf8(
 
 	result = libuna_unicode_character_copy_from_utf8(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf8_stream1,
 	          1,
 	          &utf8_string_index,
 	          &error );
@@ -1657,7 +1667,7 @@ int una_test_unicode_character_copy_from_utf8(
 
 	result = libuna_unicode_character_copy_from_utf8(
 	          NULL,
-	          (uint8_t *) "A",
+	          utf8_stream1,
 	          1,
 	          &utf8_string_index,
 	          &error );
@@ -1695,7 +1705,7 @@ int una_test_unicode_character_copy_from_utf8(
 
 	result = libuna_unicode_character_copy_from_utf8(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf8_stream1,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf8_string_index,
 	          &error );
@@ -1714,7 +1724,7 @@ int una_test_unicode_character_copy_from_utf8(
 
 	result = libuna_unicode_character_copy_from_utf8(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf8_stream1,
 	          1,
 	          NULL,
 	          &error );
@@ -1735,7 +1745,7 @@ int una_test_unicode_character_copy_from_utf8(
 
 	result = libuna_unicode_character_copy_from_utf8(
 	          &unicode_character,
-	          (uint8_t *) "A",
+	          utf8_stream1,
 	          1,
 	          &utf8_string_index,
 	          &error );
@@ -1771,9 +1781,11 @@ int una_test_unicode_character_copy_to_utf8(
 {
 	uint8_t utf8_string[ 16 ];
 
-	libuna_error_t *error    = NULL;
-	size_t utf8_string_index = 0;
-	int result               = 0;
+	uint8_t expected_utf8_stream1[ 2 ] = { 'A', 0 };
+
+	libuna_error_t *error              = NULL;
+	size_t utf8_string_index           = 0;
+	int result                         = 0;
 
 	/* Test regular cases
 	 */
@@ -1801,7 +1813,7 @@ int una_test_unicode_character_copy_to_utf8(
 	 error );
 
 	result = memory_compare(
-		  "A",
+		  expected_utf8_stream1,
 		  utf8_string,
 		  1 );
 
@@ -2106,9 +2118,11 @@ int una_test_unicode_character_copy_to_utf16(
 {
 	uint16_t utf16_string[ 16 ];
 
-	libuna_error_t *error     = NULL;
-	size_t utf16_string_index = 0;
-	int result                = 0;
+	uint16_t expected_utf16_string[ 2 ] = { 'A', 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t utf16_string_index           = 0;
+	int result                          = 0;
 
 	/* Test regular cases
 	 */
@@ -2136,7 +2150,7 @@ int una_test_unicode_character_copy_to_utf16(
 	 error );
 
 	result = memory_compare(
-		  "A",
+		  expected_utf16_string,
 		  utf16_string,
 		  1 );
 
@@ -2223,6 +2237,9 @@ on_error:
 int una_test_unicode_character_copy_from_utf16_stream(
      void )
 {
+	uint8_t utf16_stream1[ 4 ]                   = { 0, 'A', 0, 0 };
+	uint8_t utf16_stream2[ 4 ]                   = { 'A', 0, 0, 0 };
+
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
 	size_t utf16_stream_index                    = 0;
@@ -2234,7 +2251,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x00\x41",
+	          utf16_stream1,
 	          2,
 	          &utf16_stream_index,
 	          LIBUNA_ENDIAN_BIG,
@@ -2263,7 +2280,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          2,
 	          &utf16_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -2294,7 +2311,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          NULL,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          2,
 	          &utf16_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -2334,7 +2351,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf16_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -2354,7 +2371,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          2,
 	          NULL,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -2374,7 +2391,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          2,
 	          &utf16_stream_index,
 	          -1,
@@ -2396,7 +2413,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 
 	result = libuna_unicode_character_copy_from_utf16_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00",
+	          utf16_stream2,
 	          2,
 	          &utf16_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -2433,9 +2450,12 @@ int una_test_unicode_character_copy_to_utf16_stream(
 {
 	uint8_t utf16_stream[ 16 ];
 
-	libuna_error_t *error     = NULL;
-	size_t utf16_stream_index = 0;
-	int result                = 0;
+	uint8_t expected_utf16_stream1[ 4 ] = { 0, 'A', 0, 0 };
+	uint8_t expected_utf16_stream2[ 4 ] = { 'A', 0, 0, 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t utf16_stream_index           = 0;
+	int result                          = 0;
 
 	/* Test regular cases
 	 */
@@ -2464,7 +2484,7 @@ int una_test_unicode_character_copy_to_utf16_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x00\x41",
+		  expected_utf16_stream1,
 		  utf16_stream,
 		  2 );
 
@@ -2498,7 +2518,7 @@ int una_test_unicode_character_copy_to_utf16_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x41\x00",
+		  expected_utf16_stream2,
 		  utf16_stream,
 		  2 );
 
@@ -2848,9 +2868,11 @@ int una_test_unicode_character_copy_to_utf32(
 {
 	uint32_t utf32_string[ 16 ];
 
-	libuna_error_t *error     = NULL;
-	size_t utf32_string_index = 0;
-	int result                = 0;
+	uint32_t expected_utf32_string[ 2 ] = { 'A', 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t utf32_string_index           = 0;
+	int result                          = 0;
 
 	/* Test regular cases
 	 */
@@ -2878,7 +2900,7 @@ int una_test_unicode_character_copy_to_utf32(
 	 error );
 
 	result = memory_compare(
-		  "A",
+		  expected_utf32_string,
 		  utf32_string,
 		  1 );
 
@@ -2965,6 +2987,9 @@ on_error:
 int una_test_unicode_character_copy_from_utf32_stream(
      void )
 {
+	uint8_t utf32_stream1[ 8 ]                   = { 0, 0, 0, 'A', 0, 0, 0, 0 };
+	uint8_t utf32_stream2[ 8 ]                   = { 'A', 0, 0, 0, 0, 0, 0, 0 };
+
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
 	size_t utf32_stream_index                    = 0;
@@ -2976,7 +3001,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x00\x00\x00\x41",
+	          utf32_stream1,
 	          4,
 	          &utf32_stream_index,
 	          LIBUNA_ENDIAN_BIG,
@@ -3005,7 +3030,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          4,
 	          &utf32_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -3036,7 +3061,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          NULL,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          4,
 	          &utf32_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -3076,7 +3101,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          (size_t) SSIZE_MAX + 1,
 	          &utf32_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -3096,7 +3121,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          4,
 	          NULL,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -3116,7 +3141,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          4,
 	          &utf32_stream_index,
 	          -1,
@@ -3138,7 +3163,7 @@ int una_test_unicode_character_copy_from_utf32_stream(
 
 	result = libuna_unicode_character_copy_from_utf32_stream(
 	          &unicode_character,
-	          (uint8_t *) "\x41\x00\x00\x00",
+	          utf32_stream2,
 	          4,
 	          &utf32_stream_index,
 	          LIBUNA_ENDIAN_LITTLE,
@@ -3175,9 +3200,12 @@ int una_test_unicode_character_copy_to_utf32_stream(
 {
 	uint8_t utf32_stream[ 16 ];
 
-	libuna_error_t *error     = NULL;
-	size_t utf32_stream_index = 0;
-	int result                = 0;
+	uint8_t expected_utf32_stream1[ 8 ] = { 0, 0, 0, 'A', 0, 0, 0, 0 };
+	uint8_t expected_utf32_stream2[ 8 ] = { 'A', 0, 0, 0, 0, 0, 0, 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t utf32_stream_index           = 0;
+	int result                          = 0;
 
 	/* Test regular cases
 	 */
@@ -3206,7 +3234,7 @@ int una_test_unicode_character_copy_to_utf32_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x00\x00\x00\x41",
+		  expected_utf32_stream1,
 		  utf32_stream,
 		  4 );
 
@@ -3240,7 +3268,7 @@ int una_test_unicode_character_copy_to_utf32_stream(
 	 error );
 
 	result = memory_compare(
-		  "\x41\x00\x00\x00",
+		  expected_utf32_stream2,
 		  utf32_stream,
 		  4 );
 
