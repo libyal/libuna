@@ -1,18 +1,18 @@
+version: ~> 1.0
 language: c
+os: linux
+dist: bionic
 env:
   global:
    # Encrypted COVERITY_SCAN_TOKEN
    - secure: "jLYArCRXpLLrtonemyT3+5uguAPvfhkjlGK6sTIVozBE9sJsf9AX24gDKOi6E8kNJK2lOmLS6uKsPyJi3YGGKkMiKhgc/Esc9XLLOdpmsBCc7chFM/GuTj9Oxdv5P61omuSk9SdZcOm5qatpi/7XT8khGF9Ntqbqn44M2nTak8E="
-matrix:
+jobs:
   include:
   - name: "Coverity"
     env:
     - CONFIGURE_OPTIONS=""
     - TARGET="coverity"
     compiler: clang
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
     addons:
       coverity_scan:
@@ -30,9 +30,6 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="linux-clang"
     compiler: clang
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Linux with gcc"
     env:
@@ -41,9 +38,6 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="linux-gcc"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Linux with gcc on s390x (Docker)"
     env:
@@ -54,9 +48,6 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="docker"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
     services:
     - docker
@@ -68,9 +59,6 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="linux-gcc-no-optimization"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Linux with gcc and shared libraries"
     env:
@@ -79,9 +67,6 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="linux-gcc-shared"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Linux with gcc, shared libraries and wide character type (wchar_t) support"
     env:
@@ -90,20 +75,14 @@ matrix:
     - LDFLAGS="--coverage"
     - TARGET="linux-gcc-shared-wide-character-type"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Linux with gcc and static executables support"
     env:
-    - CONFIGURE_OPTIONS="--enable-static-executables"
+    - CONFIGURE_OPTIONS="--enable-static-executables=yes --enable-multi-threading-support=no"
     - CFLAGS="--coverage"
     - LDFLAGS="--coverage"
     - TARGET="linux-gcc-static-executables"
     compiler: gcc
-    os: linux
-    dist: bionic
-    sudo: required
     group: edge
   - name: "Mac OS with clang"
     env:
@@ -111,21 +90,21 @@ matrix:
     - TARGET="macos-clang"
     compiler: clang
     os: osx
-    osx_image: xcode8.3
+    osx_image: xcode9.2
   - name: "Mac OS with gcc"
     env:
     - CONFIGURE_OPTIONS=""
     - TARGET="macos-gcc"
     compiler: gcc
     os: osx
-    osx_image: xcode8.3
+    osx_image: xcode9.2
   - name: "Mac OS gcc and pkgbuild"
     env:
     - CONFIGURE_OPTIONS="--disable-dependency-tracking --prefix=/usr/local"
     - TARGET="macos-gcc-pkgbuild"
     compiler: gcc
     os: osx
-    osx_image: xcode8.3
+    osx_image: xcode9.2
 before_install:
 - .travis/before_install.sh
 install:
