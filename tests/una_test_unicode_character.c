@@ -1962,6 +1962,7 @@ int una_test_unicode_character_copy_from_utf16(
      void )
 {
 	uint16_t utf16_stream[ 2 ] = { 'A', 0 };
+	uint16_t emoji_stream[ 2 ] = { 55357, 56840 };
 
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
@@ -1993,6 +1994,36 @@ int una_test_unicode_character_copy_from_utf16(
 	 "utf16_stream_index",
 	 utf16_stream_index,
 	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test emoji case
+	 */
+	utf16_stream_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf16(
+	          &unicode_character,
+	          emoji_stream,
+	          2,
+	          &utf16_stream_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0001F608UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_stream_index",
+	 utf16_stream_index,
+	 (size_t) 2 );
 
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2239,6 +2270,7 @@ int una_test_unicode_character_copy_from_utf16_stream(
 {
 	uint8_t utf16_stream1[ 4 ]                   = { 0, 'A', 0, 0 };
 	uint8_t utf16_stream2[ 4 ]                   = { 'A', 0, 0, 0 };
+	uint8_t emoji_stream[ 6 ]                    = { 61, 216, 8, 222, 0, 0 };
 
 	libuna_error_t *error                        = NULL;
 	libuna_unicode_character_t unicode_character = 0;
@@ -2304,6 +2336,38 @@ int una_test_unicode_character_copy_from_utf16_stream(
 	UNA_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	/* Test emoji case
+	*/
+	utf16_stream_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf16_stream(
+	          &unicode_character,
+	          emoji_stream,
+	          4,
+	          &utf16_stream_index,
+              LIBUNA_ENDIAN_LITTLE,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0001F608UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_stream_index",
+	 utf16_stream_index,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 
 	/* Test error cases
 	 */

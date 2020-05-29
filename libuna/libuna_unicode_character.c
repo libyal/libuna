@@ -4629,7 +4629,7 @@ int libuna_unicode_character_copy_from_utf16(
 		{
 			*unicode_character  -= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START;
 			*unicode_character <<= 10;
-			*unicode_character  += utf16_surrogate - LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END;
+			*unicode_character  += utf16_surrogate - LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START;
 			*unicode_character  += 0x010000;
 		}
 		else
@@ -4899,7 +4899,7 @@ int libuna_unicode_character_copy_from_utf16_stream(
 		}
 		safe_unicode_character  -= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START;
 		safe_unicode_character <<= 10;
-		safe_unicode_character  += utf16_surrogate - LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END;
+		safe_unicode_character  += utf16_surrogate - LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START;
 		safe_unicode_character  += 0x010000;
 	}
 	*unicode_character  = safe_unicode_character;
