@@ -59,9 +59,9 @@ int una_test_utf8_stream_copy_byte_order_mark(
 {
 	uint8_t utf8_stream[ 16 ];
 
-	libuna_error_t *error     = NULL;
+	libuna_error_t *error    = NULL;
 	size_t utf8_stream_index = 0;
-	int result                = 0;
+	int result               = 0;
 
 	/* Test regular cases
 	 */

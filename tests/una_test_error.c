@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #endif
 
-#include "una_test_libcerror.h"
 #include "una_test_libuna.h"
 #include "una_test_macros.h"
 #include "una_test_unused.h"

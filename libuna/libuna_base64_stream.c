@@ -221,17 +221,6 @@ int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( *base64_stream_index >= base64_stream_size )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: base64 stream string too small.",
-		 function );
-
-		return( -1 );
-	}
 	if( padding_size == NULL )
 	{
 		libcerror_error_set(
@@ -289,13 +278,14 @@ int libuna_base64_triplet_copy_from_base64_stream(
 	}
 	safe_base64_stream_index = *base64_stream_index;
 
-	if( ( safe_base64_stream_index + base64_character_size ) > base64_stream_size )
+	if( ( base64_character_size > base64_stream_size )
+	 || ( safe_base64_stream_index > ( base64_stream_size - base64_character_size ) ) )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 1st base64 character.",
+		 "%s: base64 stream string too small - missing 1st base64 character.",
 		 function );
 
 		return( -1 );
@@ -360,13 +350,14 @@ int libuna_base64_triplet_copy_from_base64_stream(
 
 		return( -1 );
 	}
-	if( ( safe_base64_stream_index + base64_character_size ) > base64_stream_size )
+	if( ( base64_character_size > base64_stream_size )
+	 || ( safe_base64_stream_index > ( base64_stream_size - base64_character_size ) ) )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 2nd base64 character.",
+		 "%s: base64 stream string too small - missing 2nd base64 character.",
 		 function );
 
 		return( -1 );
@@ -433,7 +424,22 @@ int libuna_base64_triplet_copy_from_base64_stream(
 	}
 	safe_padding_size = 2;
 
-	if( ( safe_base64_stream_index + base64_character_size ) <= base64_stream_size )
+	if( ( base64_character_size > base64_stream_size )
+	 || ( safe_base64_stream_index > ( base64_stream_size - base64_character_size ) ) )
+	{
+		if( ( base64_variant & 0x0f000000UL ) == LIBUNA_BASE64_VARIANT_PADDING_REQUIRED )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: base64 stream string too small - missing 3rd base64 character.",
+			 function );
+
+			return( -1 );
+		}
+	}
+	else
 	{
 		switch( base64_variant & 0xf0000000UL )
 		{
@@ -531,18 +537,22 @@ int libuna_base64_triplet_copy_from_base64_stream(
 			}
 		}
 	}
-	else if( ( base64_variant & 0x0f000000UL ) != LIBUNA_BASE64_VARIANT_PADDING_NONE )
+	if( ( base64_character_size > base64_stream_size )
+	 || ( safe_base64_stream_index > ( base64_stream_size - base64_character_size ) ) )
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 3rd base64 character.",
-		 function );
+		if( ( base64_variant & 0x0f000000UL ) == LIBUNA_BASE64_VARIANT_PADDING_REQUIRED )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: base64 stream string too small - missing 4th base64 character.",
+			 function );
 
-		return( -1 );
+			return( -1 );
+		}
 	}
-	if( ( safe_base64_stream_index + base64_character_size ) <= base64_stream_size )
+	else
 	{
 		switch( base64_variant & 0xf0000000UL )
 		{
@@ -650,17 +660,6 @@ int libuna_base64_triplet_copy_from_base64_stream(
 				safe_padding_size -= 1;
 			}
 		}
-	}
-	else if( ( base64_variant & 0x0f000000UL ) != LIBUNA_BASE64_VARIANT_PADDING_NONE )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: missing 4th base64 character.",
-		 function );
-
-		return( -1 );
 	}
 	safe_base64_triplet   = sixtet1;
 	safe_base64_triplet <<= 6;
