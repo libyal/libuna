@@ -293,6 +293,30 @@ int libuna_utf16_string_compare_with_utf32_stream(
      int byte_order,
      libcerror_error_t **error );
 
+LIBUNA_EXTERN \
+int libuna_utf16_string_size_from_scsu_stream(
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     size_t *utf16_string_size,
+     libcerror_error_t **error );
+
+LIBUNA_EXTERN \
+int libuna_utf16_string_copy_from_scsu_stream(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libcerror_error_t **error );
+
+LIBUNA_EXTERN \
+int libuna_utf16_string_with_index_copy_from_scsu_stream(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libcerror_error_t **error );
+
 #if defined( __cplusplus )
 }
 #endif

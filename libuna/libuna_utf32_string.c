@@ -24,6 +24,7 @@
 
 #include "libuna_definitions.h"
 #include "libuna_libcerror.h"
+#include "libuna_scsu.h"
 #include "libuna_types.h"
 #include "libuna_unicode_character.h"
 #include "libuna_utf32_string.h"
@@ -2966,5 +2967,820 @@ int libuna_utf32_string_compare_with_utf32_stream(
 		return( LIBUNA_COMPARE_LESS );
 	}
 	return( LIBUNA_COMPARE_EQUAL );
+}
+
+/* Determines the size of an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_size_from_scsu_stream(
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     size_t *utf32_string_size,
+     libcerror_error_t **error )
+{
+	uint32_t scsu_dynamic_window_positions[ 8 ] = {
+		0x0080, 0x00c0, 0x0400, 0x0600, 0x0900, 0x3040, 0x30a0, 0xff00 };
+
+	static char *function                        = "libuna_utf8_string_size_from_scsu_stream";
+	libuna_unicode_character_t unicode_character = 0;
+	size_t scsu_stream_index                     = 0;
+	uint32_t scsu_window_position                = 0;
+	uint8_t byte_value1                          = 0;
+	uint8_t byte_value2                          = 0;
+	uint8_t byte_value3                          = 0;
+	uint8_t dynamic_window_position_index        = 0;
+	uint8_t in_unicode_mode                      = 0;
+	uint8_t unicode_character_set                = 0;
+
+	if( scsu_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid SCSU stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( scsu_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid SCSU stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string size.",
+		 function );
+
+		return( -1 );
+	}
+	*utf32_string_size = 0;
+
+	if( scsu_stream_size == 0 )
+	{
+		return( 1 );
+	}
+	while( scsu_stream_index < scsu_stream_size )
+	{
+		unicode_character_set = 0;
+
+		if( scsu_stream_index >= scsu_stream_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: SCSU stream too small.",
+			 function );
+
+			return( -1 );
+		}
+		byte_value1 = scsu_stream[ scsu_stream_index++ ];
+
+		if( in_unicode_mode != 0 )
+		{
+			if( ( byte_value1 <= 0xdf )
+			 || ( byte_value1 >= 0xf3 ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value1;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value2;
+
+				unicode_character_set = 1;
+			}
+			/* UCn tags
+			 */
+			else if( ( byte_value1 >= 0xe0 )
+			      && ( byte_value1 <= 0xe7 ) )
+			{
+				dynamic_window_position_index = byte_value1 - 0xe0;
+
+				in_unicode_mode = 0;
+			}
+			/* UDn tags
+			 */
+			else if( ( byte_value1 >= 0xe8 )
+			      && ( byte_value1 <= 0xef ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value1 - 0xe8;
+				scsu_window_position          = libuna_scsu_window_offset_table[ byte_value2 ];
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+
+				in_unicode_mode = 0;
+			}
+			/* UQU tag
+			 */
+			else if( byte_value1 == 0xf0 )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value2;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value3;
+
+				unicode_character_set = 1;
+			}
+			/* UDX tag
+			 */
+			else if( byte_value1 == 0xf1 )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value2 >> 5;
+				scsu_window_position          = byte_value2 & 0x1f;
+				scsu_window_position        <<= 8;
+				scsu_window_position         |= byte_value3;
+				scsu_window_position        <<= 7;
+				scsu_window_position         += 0x00010000UL;
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+
+				in_unicode_mode = 0;
+			}
+		}
+		else
+		{
+			if( ( byte_value1 == 0x00 )
+			 || ( byte_value1 == 0x09 )
+			 || ( byte_value1 == 0x0a )
+			 || ( byte_value1 == 0x0c )
+			 || ( byte_value1 == 0x0d )
+			 || ( ( byte_value1 >= 0x20 )
+			  &&  ( byte_value1 <= 0x7f ) ) )
+			{
+				unicode_character = byte_value1;
+
+				unicode_character_set = 1;
+			}
+			/* SQn tags
+			 */
+			else if( ( byte_value1 >= 0x01 )
+			      && ( byte_value1 <= 0x08 ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character = byte_value2;
+
+				if( byte_value2 < 0x80 )
+				{
+					unicode_character += libuna_scsu_static_window_positions[ byte_value1 - 0x01 ];
+				}
+				else
+				{
+					unicode_character -= 0x80;
+					unicode_character += scsu_dynamic_window_positions[ byte_value1 - 0x01 ];
+				}
+				unicode_character_set = 1;
+			}
+			/* SDX tag
+			 */
+			else if( byte_value1 == 0x0b )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value2 >> 5;
+				scsu_window_position          = byte_value2 & 0x1f;
+				scsu_window_position        <<= 8;
+				scsu_window_position         |= byte_value3;
+				scsu_window_position        <<= 7;
+				scsu_window_position         += 0x00010000UL;
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+			}
+			/* SQU tag
+			 */
+			else if( byte_value1 == 0x0e )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value2;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value3;
+
+				unicode_character_set = 1;
+			}
+			/* SCU tag
+			 */
+			else if( byte_value1 == 0x0f )
+			{
+				in_unicode_mode = 1;
+			}
+			/* SCn tags
+			 */
+			else if( ( byte_value1 >= 0x10 )
+			      && ( byte_value1 <= 0x17 ) )
+			{
+				dynamic_window_position_index = byte_value1 - 0x10;
+			}
+			/* SDn tags
+			 */
+			else if( ( byte_value1 >= 0x18 )
+			      && ( byte_value1 <= 0x1f ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value1 - 0x18;
+				scsu_window_position          = libuna_scsu_window_offset_table[ byte_value2 ];
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+			}
+			else if( byte_value1 >= 0x80 )
+			{
+				unicode_character  = byte_value1 - 0x80;
+				unicode_character += scsu_dynamic_window_positions[ dynamic_window_position_index ];
+
+				unicode_character_set = 1;
+			}
+		}
+		if( unicode_character_set != 0 )
+		{
+			/* Determine how many UTF-32 character bytes are required
+			 */
+			if( libuna_unicode_character_size_to_utf32(
+			     unicode_character,
+			     utf32_string_size,
+			     error ) != 1 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBCERROR_CONVERSION_ERROR_INPUT_FAILED,
+				 "%s: unable to unable to determine size of Unicode character in UTF-32.",
+				 function );
+
+				return( -1 );
+			}
+			if( unicode_character == 0 )
+			{
+				break;
+			}
+			unicode_character_set = 0;
+		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		*utf32_string_size += 1;
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_copy_from_scsu_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libcerror_error_t **error )
+{
+	static char *function     = "libuna_utf32_string_copy_from_scsu_stream";
+	size_t utf32_string_index = 0;
+
+	if( libuna_utf32_string_with_index_copy_from_scsu_stream(
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     scsu_stream,
+	     scsu_stream_size,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to SCSU stream to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Copies an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_utf32_string_with_index_copy_from_scsu_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libcerror_error_t **error )
+{
+	uint32_t scsu_dynamic_window_positions[ 8 ] = {
+		0x0080, 0x00c0, 0x0400, 0x0600, 0x0900, 0x3040, 0x30a0, 0xff00 };
+
+	static char *function                        = "libuna_utf32_string_with_index_copy_from_scsu_stream";
+	libuna_unicode_character_t unicode_character = 0;
+	size_t scsu_stream_index                     = 0;
+	uint32_t scsu_window_position                = 0;
+	uint8_t byte_value1                          = 0;
+	uint8_t byte_value2                          = 0;
+	uint8_t byte_value3                          = 0;
+	uint8_t dynamic_window_position_index        = 0;
+	uint8_t in_unicode_mode                      = 0;
+	uint8_t unicode_character_set                = 0;
+
+	if( utf32_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( scsu_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid SCSU stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( scsu_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid SCSU stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( scsu_stream_size == 0 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_ZERO_OR_LESS,
+		 "%s: missing SCSU stream value.",
+		 function );
+
+		return( -1 );
+	}
+	while( scsu_stream_index < scsu_stream_size )
+	{
+		unicode_character_set = 0;
+
+		if( scsu_stream_index >= scsu_stream_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: SCSU stream too small.",
+			 function );
+
+			return( -1 );
+		}
+		byte_value1 = scsu_stream[ scsu_stream_index++ ];
+
+		if( in_unicode_mode != 0 )
+		{
+			if( ( byte_value1 <= 0xdf )
+			 || ( byte_value1 >= 0xf3 ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value1;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value2;
+
+				unicode_character_set = 1;
+			}
+			/* UCn tags
+			 */
+			else if( ( byte_value1 >= 0xe0 )
+			      && ( byte_value1 <= 0xe7 ) )
+			{
+				dynamic_window_position_index = byte_value1 - 0xe0;
+
+				in_unicode_mode = 0;
+			}
+			/* UDn tags
+			 */
+			else if( ( byte_value1 >= 0xe8 )
+			      && ( byte_value1 <= 0xef ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value1 - 0xe8;
+				scsu_window_position          = libuna_scsu_window_offset_table[ byte_value2 ];
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+
+				in_unicode_mode = 0;
+			}
+			/* UQU tag
+			 */
+			else if( byte_value1 == 0xf0 )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value2;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value3;
+
+				unicode_character_set = 1;
+			}
+			/* UDX tag
+			 */
+			else if( byte_value1 == 0xf1 )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value2 >> 5;
+				scsu_window_position          = byte_value2 & 0x1f;
+				scsu_window_position        <<= 8;
+				scsu_window_position         |= byte_value3;
+				scsu_window_position        <<= 7;
+				scsu_window_position         += 0x00010000UL;
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+
+				in_unicode_mode = 0;
+			}
+		}
+		else
+		{
+			if( ( byte_value1 == 0x00 )
+			 || ( byte_value1 == 0x09 )
+			 || ( byte_value1 == 0x0a )
+			 || ( byte_value1 == 0x0c )
+			 || ( byte_value1 == 0x0d )
+			 || ( ( byte_value1 >= 0x20 )
+			  &&  ( byte_value1 <= 0x7f ) ) )
+			{
+				unicode_character = byte_value1;
+
+				unicode_character_set = 1;
+			}
+			/* SQn tags
+			 */
+			else if( ( byte_value1 >= 0x01 )
+			      && ( byte_value1 <= 0x08 ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character = byte_value2;
+
+				if( byte_value2 < 0x80 )
+				{
+					unicode_character += libuna_scsu_static_window_positions[ byte_value1 - 0x01 ];
+				}
+				else
+				{
+					unicode_character -= 0x80;
+					unicode_character += scsu_dynamic_window_positions[ byte_value1 - 0x01 ];
+				}
+				unicode_character_set = 1;
+			}
+			/* SDX tag
+			 */
+			else if( byte_value1 == 0x0b )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value2 >> 5;
+				scsu_window_position          = byte_value2 & 0x1f;
+				scsu_window_position        <<= 8;
+				scsu_window_position         |= byte_value3;
+				scsu_window_position        <<= 7;
+				scsu_window_position         += 0x00010000UL;
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+			}
+			/* SQU tag
+			 */
+			else if( byte_value1 == 0x0e )
+			{
+				if( ( scsu_stream_size < 2 )
+				 || ( scsu_stream_index > ( scsu_stream_size - 2 ) ) )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+				byte_value3 = scsu_stream[ scsu_stream_index++ ];
+
+				unicode_character   = byte_value2;
+				unicode_character <<= 8;
+				unicode_character  |= byte_value3;
+
+				unicode_character_set = 1;
+			}
+			/* SCU tag
+			 */
+			else if( byte_value1 == 0x0f )
+			{
+				in_unicode_mode = 1;
+			}
+			/* SCn tags
+			 */
+			else if( ( byte_value1 >= 0x10 )
+			      && ( byte_value1 <= 0x17 ) )
+			{
+				dynamic_window_position_index = byte_value1 - 0x10;
+			}
+			/* SDn tags
+			 */
+			else if( ( byte_value1 >= 0x18 )
+			      && ( byte_value1 <= 0x1f ) )
+			{
+				if( scsu_stream_index >= scsu_stream_size )
+				{
+					libcerror_error_set(
+					 error,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: SCSU stream too small.",
+					 function );
+
+					return( -1 );
+				}
+				byte_value2 = scsu_stream[ scsu_stream_index++ ];
+
+				dynamic_window_position_index = byte_value1 - 0x18;
+				scsu_window_position          = libuna_scsu_window_offset_table[ byte_value2 ];
+
+				scsu_dynamic_window_positions[ dynamic_window_position_index ] = scsu_window_position;
+			}
+			else if( byte_value1 >= 0x80 )
+			{
+				unicode_character  = byte_value1 - 0x80;
+				unicode_character += scsu_dynamic_window_positions[ dynamic_window_position_index ];
+
+				unicode_character_set = 1;
+			}
+		}
+		if( unicode_character_set != 0 )
+		{
+			/* Convert the Unicode character into UTF-32 character bytes
+			 */
+			if( libuna_unicode_character_copy_to_utf32(
+			     unicode_character,
+			     utf32_string,
+			     utf32_string_size,
+			     utf32_string_index,
+			     error ) != 1 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_CONVERSION,
+				 LIBCERROR_CONVERSION_ERROR_OUTPUT_FAILED,
+				 "%s: unable to copy Unicode character to UTF-32.",
+				 function );
+
+				return( -1 );
+			}
+			if( unicode_character == 0 )
+			{
+				break;
+			}
+			unicode_character_set = 0;
+		}
+	}
+	/* Check if the string is terminated with an end-of-string character
+	 */
+	if( unicode_character != 0 )
+	{
+		if( *utf32_string_index >= utf32_string_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-32 string too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf32_string[ *utf32_string_index ] = 0;
+
+		*utf32_string_index += 1;
+	}
+	return( 1 );
 }
 

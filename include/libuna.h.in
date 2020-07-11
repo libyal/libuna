@@ -886,6 +886,39 @@ int libuna_utf8_string_compare_with_utf32_stream(
      int byte_order,
      libuna_error_t **error );
 
+/* Determines the size of an UTF-8 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf8_string_size_from_scsu_stream(
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     size_t *utf8_string_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-8 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf8_string_copy_from_scsu_stream(
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-8 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf8_string_with_index_copy_from_scsu_stream(
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libuna_error_t **error );
+
 /* -------------------------------------------------------------------------
  * UTF-16 stream functions
  * ------------------------------------------------------------------------- */
@@ -1324,6 +1357,39 @@ int libuna_utf16_string_compare_with_utf32_stream(
      int byte_order,
      libuna_error_t **error );
 
+/* Determines the size of an UTF-16 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf16_string_size_from_scsu_stream(
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     size_t *utf16_string_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-16 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf16_string_copy_from_scsu_stream(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-16 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf16_string_with_index_copy_from_scsu_stream(
+     libuna_utf16_character_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libuna_error_t **error );
+
 /* -------------------------------------------------------------------------
  * UTF-32 stream functions
  * ------------------------------------------------------------------------- */
@@ -1753,6 +1819,39 @@ int libuna_utf32_string_compare_with_utf32_stream(
      const uint8_t *utf32_stream,
      size_t utf32_stream_size,
      int byte_order,
+     libuna_error_t **error );
+
+/* Determines the size of an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf32_string_size_from_scsu_stream(
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     size_t *utf32_string_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf32_string_copy_from_scsu_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
+     libuna_error_t **error );
+
+/* Copies an UTF-32 string from a Standard Compression Scheme for Unicode (SCSU) stream
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_utf32_string_with_index_copy_from_scsu_stream(
+     libuna_utf32_character_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     const uint8_t *scsu_stream,
+     size_t scsu_stream_size,
      libuna_error_t **error );
 
 /* -------------------------------------------------------------------------

@@ -36,6 +36,31 @@
 uint8_t una_test_utf16_string_byte_stream[ 16 ] = {
 	'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 0xe1, ' ', 't', 'e', 's', 't', '.', 0 };
 
+uint8_t una_test_utf16_string_scsu_stream1[ 9 ] = {
+	0xd6, 0x6c, 0x20, 0x66, 0x6c, 0x69, 0x65, 0xdf, 0x74 };
+
+uint8_t una_test_utf16_string_scsu_stream2[ 7 ] = {
+	0x12, 0x9c, 0xbe, 0xc1, 0xba, 0xb2, 0xb0 };
+
+uint8_t una_test_utf16_string_scsu_stream3[ 178 ] = {
+	0x08, 0x00, 0x1b, 0x4c, 0xea, 0x16, 0xca, 0xd3, 0x94, 0x0f, 0x53, 0xef, 0x61, 0x1b, 0xe5, 0x84,
+	0xc4, 0x0f, 0x53, 0xef, 0x61, 0x1b, 0xe5, 0x84, 0xc4, 0x16, 0xca, 0xd3, 0x94, 0x08, 0x02, 0x0f,
+	0x53, 0x4a, 0x4e, 0x16, 0x7d, 0x00, 0x30, 0x82, 0x52, 0x4d, 0x30, 0x6b, 0x6d, 0x41, 0x88, 0x4c,
+	0xe5, 0x97, 0x9f, 0x08, 0x0c, 0x16, 0xca, 0xd3, 0x94, 0x15, 0xae, 0x0e, 0x6b, 0x4c, 0x08, 0x0d,
+	0x8c, 0xb4, 0xa3, 0x9f, 0xca, 0x99, 0xcb, 0x8b, 0xc2, 0x97, 0xcc, 0xaa, 0x84, 0x08, 0x02, 0x0e,
+	0x7c, 0x73, 0xe2, 0x16, 0xa3, 0xb7, 0xcb, 0x93, 0xd3, 0xb4, 0xc5, 0xdc, 0x9f, 0x0e, 0x79, 0x3e,
+	0x06, 0xae, 0xb1, 0x9d, 0x93, 0xd3, 0x08, 0x0c, 0xbe, 0xa3, 0x8f, 0x08, 0x88, 0xbe, 0xa3, 0x8d,
+	0xd3, 0xa8, 0xa3, 0x97, 0xc5, 0x17, 0x89, 0x08, 0x0d, 0x15, 0xd2, 0x08, 0x01, 0x93, 0xc8, 0xaa,
+	0x8f, 0x0e, 0x61, 0x1b, 0x99, 0xcb, 0x0e, 0x4e, 0xba, 0x9f, 0xa1, 0xae, 0x93, 0xa8, 0xa0, 0x08,
+	0x02, 0x08, 0x0c, 0xe2, 0x16, 0xa3, 0xb7, 0xcb, 0x0f, 0x4f, 0xe1, 0x80, 0x05, 0xec, 0x60, 0x8d,
+	0xea, 0x06, 0xd3, 0xe6, 0x0f, 0x8a, 0x00, 0x30, 0x44, 0x65, 0xb9, 0xe4, 0xfe, 0xe7, 0xc2, 0x06,
+	0xcb, 0x82 };
+
+uint8_t una_test_utf16_string_scsu_stream4[ 35 ] = {
+	0x41, 0xdf, 0x12, 0x81, 0x03, 0x5f, 0x10, 0xdf, 0x1b, 0x03, 0xdf, 0x1c, 0x88, 0x80, 0x0b, 0xbf,
+	0xff, 0xff, 0x0d, 0x0a, 0x41, 0x10, 0xdf, 0x12, 0x81, 0x03, 0x5f, 0x10, 0xdf, 0x13, 0xdf, 0x14,
+	0x80, 0x15, 0xff };
+
 uint8_t una_test_utf16_string_utf16_stream[ 32 ] = {
 	'T', 0, 'h', 0, 'i', 0, 's', 0, ' ', 0, 'i', 0, 's', 0, ' ', 0, 0xe1, 0,
 	' ', 0, 't', 0, 'e', 0, 's', 0, 't', 0, '.', 0, 0, 0 };
@@ -4445,6 +4470,543 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libuna_utf16_string_size_from_scsu_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf16_string_size_from_scsu_stream(
+     void )
+{
+	libuna_error_t *error    = NULL;
+	size_t utf16_string_size = 0;
+	int result               = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_size",
+	 utf16_string_size,
+	 (size_t) 10 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream2,
+	          7,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_size",
+	 utf16_string_size,
+	 (size_t) 7 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream3,
+	          178,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_size",
+	 utf16_string_size,
+	 (size_t) 117 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream4,
+	          35,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_size",
+	 utf16_string_size,
+	 (size_t) 21 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          NULL,
+	          64,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream1,
+	          (size_t) SSIZE_MAX + 1,
+	          &utf16_string_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_size_from_scsu_stream(
+	          una_test_utf16_string_scsu_stream1,
+	          64,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_utf16_string_copy_from_scsu_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf16_string_copy_from_scsu_stream(
+     void )
+{
+	uint16_t utf16_string[ 32 ];
+
+	uint16_t expected_utf16_string1[ 10 ] = {
+		0x00d6, 0x006c, 0x0020, 0x0066, 0x006c, 0x0069, 0x0065, 0x00df, 0x0074, 0 };
+
+	libuna_error_t *error = NULL;
+	int result            = 0;
+
+	/* Test regular cases
+	 */
+	result = libuna_utf16_string_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          expected_utf16_string1,
+	          utf16_string,
+	          sizeof( uint16_t ) * 10 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	result = libuna_utf16_string_copy_from_scsu_stream(
+	          NULL,
+	          32,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_utf16_string_with_index_copy_from_scsu_stream function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_utf16_string_with_index_copy_from_scsu_stream(
+     void )
+{
+	uint16_t utf16_string[ 256 ];
+
+	uint16_t expected_utf16_string1[ 10 ] = {
+		0x00d6, 0x006c, 0x0020, 0x0066, 0x006c, 0x0069, 0x0065, 0x00df, 0x0074, 0 };
+	uint16_t expected_utf16_string2[ 7 ] = {
+		0x041c, 0x043e, 0x0441, 0x043a, 0x0432, 0x0430, 0 };
+	uint16_t expected_utf16_string3[ 117 ] = {
+		0x3000, 0x266a, 0x30ea, 0x30f3, 0x30b4, 0x53ef, 0x611b, 0x3044, 0x3084, 0x53ef, 0x611b, 0x3044,
+		0x3084, 0x30ea, 0x30f3, 0x30b4, 0x3002, 0x534a, 0x4e16, 0x7d00, 0x3082, 0x524d, 0x306b, 0x6d41,
+		0x884c, 0x3057, 0x305f, 0x300c, 0x30ea, 0x30f3, 0x30b4, 0x306e, 0x6b4c, 0x300d, 0x304c, 0x3074,
+		0x3063, 0x305f, 0x308a, 0x3059, 0x308b, 0x304b, 0x3082, 0x3057, 0x308c, 0x306a, 0x3044, 0x3002,
+		0x7c73, 0x30a2, 0x30c3, 0x30d7, 0x30eb, 0x30b3, 0x30f3, 0x30d4, 0x30e5, 0x30fc, 0x30bf, 0x793e,
+		0x306e, 0x30d1, 0x30bd, 0x30b3, 0x30f3, 0x300c, 0x30de, 0x30c3, 0x30af, 0xff08, 0x30de, 0x30c3,
+		0x30ad, 0x30f3, 0x30c8, 0x30c3, 0x30b7, 0x30e5, 0xff09, 0x300d, 0x3092, 0x3001, 0x3053, 0x3088,
+		0x306a, 0x304f, 0x611b, 0x3059, 0x308b, 0x4eba, 0x305f, 0x3061, 0x306e, 0x3053, 0x3068, 0x3060,
+		0x3002, 0x300c, 0x30a2, 0x30c3, 0x30d7, 0x30eb, 0x4fe1, 0x8005, 0x300d, 0x306a, 0x3093, 0x3066,
+		0x8a00, 0x3044, 0x65b9, 0x307e, 0x3067, 0x3042, 0x308b, 0x3002 };
+	uint16_t expected_utf16_string4[ 21 ] = {
+		0x0041, 0x00df, 0x0401, 0x015f, 0x00df, 0x01df, 0xf000, 0xdbff, 0xdfff, 0x000d, 0x000a, 0x0041,
+		0x00df, 0x0401, 0x015f, 0x00df, 0x01df, 0xf000, 0xdbff, 0xdfff, 0 };
+
+	libuna_error_t *error     = NULL;
+	size_t utf16_string_index = 0;
+	int result                = 0;
+
+	/* Test regular cases
+	 */
+	utf16_string_index = 0;
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_index",
+	 utf16_string_index,
+	 (size_t) 10 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          expected_utf16_string1,
+	          utf16_string,
+	          sizeof( uint16_t ) * 10 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf16_string_index = 0;
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream2,
+	          7,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_index",
+	 utf16_string_index,
+	 (size_t) 7 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          expected_utf16_string2,
+	          utf16_string,
+	          sizeof( uint16_t ) * 7 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf16_string_index = 0;
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          256,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream3,
+	          178,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_index",
+	 utf16_string_index,
+	 (size_t) 117 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          expected_utf16_string3,
+	          utf16_string,
+	          sizeof( uint16_t ) * 117 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf16_string_index = 0;
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream4,
+	          35,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf16_string_index",
+	 utf16_string_index,
+	 (size_t) 21 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          expected_utf16_string4,
+	          utf16_string,
+	          sizeof( uint16_t ) * 21 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	utf16_string_index = 0;
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          NULL,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          NULL,
+	          una_test_utf16_string_scsu_stream1,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          NULL,
+	          9,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream1,
+	          (size_t) SSIZE_MAX + 1,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_utf16_string_with_index_copy_from_scsu_stream(
+	          utf16_string,
+	          32,
+	          &utf16_string_index,
+	          una_test_utf16_string_scsu_stream1,
+	          0,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -4567,6 +5129,18 @@ int main(
 	UNA_TEST_RUN(
 	 "libuna_utf16_string_compare_with_utf32_stream",
 	 una_test_utf16_string_compare_with_utf32_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_size_from_scsu_stream",
+	 una_test_utf16_string_size_from_scsu_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_copy_from_scsu_stream",
+	 una_test_utf16_string_copy_from_scsu_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_utf16_string_with_index_copy_from_scsu_stream",
+	 una_test_utf16_string_with_index_copy_from_scsu_stream );
 
 	return( EXIT_SUCCESS );
 
