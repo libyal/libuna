@@ -1,4 +1,4 @@
-dnl Checks for libuna or required headers and functions
+dnl Checks for required headers and functions
 dnl
 dnl Version: 20200118
 
@@ -36,8 +36,31 @@ AC_DEFUN([AX_UNATOOLS_CHECK_LOCAL],
      [Missing function: close],
      [1])
   ])
-
-  dnl Check if tools should be build as static executables
-  AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
 ])
+
+dnl Function to check if DLL support is needed
+AC_DEFUN([AX_LIBUNA_CHECK_DLL_SUPPORT],
+  [AS_IF(
+    [test "x$enable_shared" = xyes && test "x$ac_cv_enable_static_executables" = xno],
+    [AS_CASE(
+      [$host],
+      [*cygwin* | *mingw* | *msys*],
+      [AC_DEFINE(
+        [HAVE_DLLMAIN],
+        [1],
+        [Define to 1 to enable the DllMain function.])
+      AC_SUBST(
+        [HAVE_DLLMAIN],
+        [1])
+
+      AC_SUBST(
+        [LIBUNA_DLL_EXPORT],
+        ["-DLIBUNA_DLL_EXPORT"])
+
+      AC_SUBST(
+        [LIBUNA_DLL_IMPORT],
+        ["-DLIBUNA_DLL_IMPORT"])
+      ])
+    ])
+  ])
 
