@@ -3650,7 +3650,6 @@ int libuna_utf8_string_size_from_scsu_stream(
 			{
 				break;
 			}
-			unicode_character_set = 0;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character
@@ -4083,7 +4082,6 @@ int libuna_utf8_string_with_index_copy_from_scsu_stream(
 			{
 				break;
 			}
-			unicode_character_set = 0;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character

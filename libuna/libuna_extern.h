@@ -30,7 +30,11 @@
 
 #include <libuna/extern.h>
 
+#if defined( __CYGWIN__ ) || defined( __MINGW32__ )
+#define LIBUNA_EXTERN_VARIABLE	extern
+#else
 #define LIBUNA_EXTERN_VARIABLE	LIBUNA_EXTERN
+#endif
 
 #else
 #define LIBUNA_EXTERN		/* extern */

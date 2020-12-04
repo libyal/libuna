@@ -297,6 +297,14 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
+	if( unaexport_export_handle == NULL )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to create export handle.\n" );
+
+		goto on_error;
+	}
 	if( unatools_signal_attach(
 	     unaexport_signal_handler,
 	     &error ) != 1 )
