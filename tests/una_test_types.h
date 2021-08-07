@@ -45,7 +45,7 @@ struct una_test_byte_stream_to_unicode
 	 */
 	libuna_unicode_character_t unicode_character;
 
-	/* Value to indicate this is a duplicate unicode character entry
+	/* Value to indicate this is a duplicate Unicode character entry
 	 */
 	uint8_t is_duplicate;
 };

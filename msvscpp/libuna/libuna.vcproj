@@ -250,6 +250,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_roman.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_1250.c"
 				>
 			</File>
@@ -433,6 +437,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_koi8_u.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_roman.h"
 				>
 			</File>
 			<File

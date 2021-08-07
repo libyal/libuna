@@ -1,5 +1,5 @@
 /*
- * Windows 1250 codepage (Central European) functions
+ * MacRoman codepage functions
  *
  * Copyright (C) 2008-2021, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if !defined( _LIBUNA_CODEPAGE_WINDOWS_1250_H )
-#define _LIBUNA_CODEPAGE_WINDOWS_1250_H
+#if !defined( _LIBUNA_CODEPAGE_MAC_ROMAN_H )
+#define _LIBUNA_CODEPAGE_MAC_ROMAN_H
 
 #include <common.h>
 #include <types.h>
@@ -32,14 +32,14 @@
 extern "C" {
 #endif
 
-int libuna_codepage_windows_1250_copy_from_byte_stream(
+int libuna_codepage_mac_roman_copy_from_byte_stream(
      libuna_unicode_character_t *unicode_character,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      size_t *byte_stream_index,
      libcerror_error_t **error );
 
-int libuna_codepage_windows_1250_copy_to_byte_stream(
+int libuna_codepage_mac_roman_copy_to_byte_stream(
      libuna_unicode_character_t unicode_character,
      uint8_t *byte_stream,
      size_t byte_stream_size,
@@ -50,5 +50,5 @@ int libuna_codepage_windows_1250_copy_to_byte_stream(
 }
 #endif
 
-#endif /* !defined( _LIBUNA_CODEPAGE_WINDOWS_1250_H ) */
+#endif /* !defined( _LIBUNA_CODEPAGE_MAC_ROMAN_H ) */
 

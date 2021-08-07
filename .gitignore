@@ -132,10 +132,12 @@ stamp-h[1-9]
 /tests/una_test_base32_stream
 /tests/una_test_base64_stream
 /tests/una_test_byte_stream
+/tests/una_test_codepage_mac_roman
 /tests/una_test_codepage_windows_932
 /tests/una_test_codepage_windows_936
 /tests/una_test_codepage_windows_949
 /tests/una_test_codepage_windows_950
+/tests/una_test_codepage_windows_1250
 /tests/una_test_error
 /tests/una_test_support
 /tests/una_test_unicode_character
