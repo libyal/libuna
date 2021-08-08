@@ -17,6 +17,9 @@ EXTRA_DIST = \
 	iso-8859-16.txt \
 	koi8-r.txt \
 	koi8-u.txt \
+	mac-centraleurroman.txt \
+	mac-cyrillic.txt \
+	mac-roman.txt \
 	oem-437.txt \
 	oem-720.txt \
 	oem-737.txt \

@@ -27,6 +27,8 @@ libuna_la_SOURCES = \
 	libuna_codepage_iso_8859_16.c libuna_codepage_iso_8859_16.h \
 	libuna_codepage_koi8_r.c libuna_codepage_koi8_r.h \
 	libuna_codepage_koi8_u.c libuna_codepage_koi8_u.h \
+	libuna_codepage_mac_centraleurroman.c libuna_codepage_mac_centraleurroman.h \
+	libuna_codepage_mac_cyrillic.c libuna_codepage_mac_cyrillic.h \
 	libuna_codepage_mac_roman.c libuna_codepage_mac_roman.h \
 	libuna_codepage_windows_874.c libuna_codepage_windows_874.h \
 	libuna_codepage_windows_932.c libuna_codepage_windows_932.h \
