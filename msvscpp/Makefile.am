@@ -11,6 +11,14 @@ MSVSCPP_FILES = \
 	una_test_byte_stream/una_test_byte_stream.vcproj \
 	una_test_codepage_mac_roman/una_test_codepage_mac_roman.vcproj \
 	una_test_codepage_windows_1250/una_test_codepage_windows_1250.vcproj \
+	una_test_codepage_windows_1251/una_test_codepage_windows_1251.vcproj \
+	una_test_codepage_windows_1252/una_test_codepage_windows_1252.vcproj \
+	una_test_codepage_windows_1253/una_test_codepage_windows_1253.vcproj \
+	una_test_codepage_windows_1254/una_test_codepage_windows_1254.vcproj \
+	una_test_codepage_windows_1255/una_test_codepage_windows_1255.vcproj \
+	una_test_codepage_windows_1256/una_test_codepage_windows_1256.vcproj \
+	una_test_codepage_windows_1257/una_test_codepage_windows_1257.vcproj \
+	una_test_codepage_windows_1258/una_test_codepage_windows_1258.vcproj \
 	una_test_codepage_windows_932/una_test_codepage_windows_932.vcproj \
 	una_test_codepage_windows_936/una_test_codepage_windows_936.vcproj \
 	una_test_codepage_windows_949/una_test_codepage_windows_949.vcproj \

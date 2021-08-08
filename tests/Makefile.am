@@ -26,6 +26,14 @@ check_PROGRAMS = \
 	una_test_codepage_windows_949 \
 	una_test_codepage_windows_950 \
 	una_test_codepage_windows_1250 \
+	una_test_codepage_windows_1251 \
+	una_test_codepage_windows_1252 \
+	una_test_codepage_windows_1253 \
+	una_test_codepage_windows_1254 \
+	una_test_codepage_windows_1255 \
+	una_test_codepage_windows_1256 \
+	una_test_codepage_windows_1257 \
+	una_test_codepage_windows_1258 \
 	una_test_error \
 	una_test_support \
 	una_test_unicode_character \
@@ -151,6 +159,102 @@ una_test_codepage_windows_1250_SOURCES = \
 	una_test_unused.h
 
 una_test_codepage_windows_1250_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1251_SOURCES = \
+	una_test_codepage_windows_1251.c una_test_codepage_windows_1251.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1251_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1252_SOURCES = \
+	una_test_codepage_windows_1252.c una_test_codepage_windows_1252.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1252_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1253_SOURCES = \
+	una_test_codepage_windows_1253.c una_test_codepage_windows_1253.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1253_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1254_SOURCES = \
+	una_test_codepage_windows_1254.c una_test_codepage_windows_1254.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1254_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1255_SOURCES = \
+	una_test_codepage_windows_1255.c una_test_codepage_windows_1255.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1255_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1256_SOURCES = \
+	una_test_codepage_windows_1256.c una_test_codepage_windows_1256.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1256_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1257_SOURCES = \
+	una_test_codepage_windows_1257.c una_test_codepage_windows_1257.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1257_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_1258_SOURCES = \
+	una_test_codepage_windows_1258.c una_test_codepage_windows_1258.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_1258_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 

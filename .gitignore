@@ -138,6 +138,14 @@ stamp-h[1-9]
 /tests/una_test_codepage_windows_949
 /tests/una_test_codepage_windows_950
 /tests/una_test_codepage_windows_1250
+/tests/una_test_codepage_windows_1251
+/tests/una_test_codepage_windows_1252
+/tests/una_test_codepage_windows_1253
+/tests/una_test_codepage_windows_1254
+/tests/una_test_codepage_windows_1255
+/tests/una_test_codepage_windows_1256
+/tests/una_test_codepage_windows_1257
+/tests/una_test_codepage_windows_1258
 /tests/una_test_error
 /tests/una_test_support
 /tests/una_test_unicode_character

@@ -250,7 +250,7 @@ int libuna_codepage_windows_1250_copy_to_byte_stream(
 	}
 	if( unicode_character < 0x0080 )
 	{
-		byte_stream_value = (uint8_t) unicode_character;
+		byte_stream_value = (uint16_t) unicode_character;
 	}
 	else if( ( unicode_character >= 0x00a0 )
 	      && ( unicode_character < 0x0120 ) )
