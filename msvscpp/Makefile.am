@@ -9,6 +9,8 @@ MSVSCPP_FILES = \
 	una_test_base32_stream/una_test_base32_stream.vcproj \
 	una_test_base64_stream/una_test_base64_stream.vcproj \
 	una_test_byte_stream/una_test_byte_stream.vcproj \
+	una_test_codepage_koi8_r/una_test_codepage_koi8_r.vcproj \
+	una_test_codepage_koi8_u/una_test_codepage_koi8_u.vcproj \
 	una_test_codepage_mac_roman/una_test_codepage_mac_roman.vcproj \
 	una_test_codepage_windows_1250/una_test_codepage_windows_1250.vcproj \
 	una_test_codepage_windows_1251/una_test_codepage_windows_1251.vcproj \

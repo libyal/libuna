@@ -23,8 +23,10 @@
 #include <types.h>
 
 #include "libuna_codepage_koi8_r.h"
+#include "libuna_libcerror.h"
+#include "libuna_types.h"
 
-/* Extended ASCII to Unicode character lookup table for KOI8-R codepage
+/* Extended ASCII to Unicode character lookup table for the KOI8-R codepage
  * Unknown are filled with the Unicode replacement character 0xfffd
  */
 const uint16_t libuna_codepage_koi8_r_byte_stream_to_unicode_base_0x80[ 128 ] = {
@@ -46,7 +48,7 @@ const uint16_t libuna_codepage_koi8_r_byte_stream_to_unicode_base_0x80[ 128 ] = 
 	0x042c, 0x042b, 0x0417, 0x0428, 0x042d, 0x0429, 0x0427, 0x042a
 };
 
-/* Unicode to ASCII character lookup table for KOI8-R codepage
+/* Unicode to ASCII character lookup tables for the KOI8-R codepage
  * Unknown are filled with the ASCII replacement character 0x1a
  */
 const uint8_t libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x0410[ 64 ] = {
@@ -66,4 +68,325 @@ const uint8_t libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x2550[ 32 ] = 
 	0xb1, 0xb2, 0xb4, 0xb5, 0xb6, 0xb7, 0xb8, 0xb9,
 	0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0x1a, 0x1a, 0x1a
 };
+
+/* Copies an Unicode character from a KOI8-R encoded byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_codepage_koi8_r_copy_from_byte_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error )
+{
+	static char *function                             = "libuna_codepage_koi8_r_copy_from_byte_stream";
+	libuna_unicode_character_t safe_unicode_character = 0xfffd;
+	size_t safe_byte_stream_index                     = 0;
+	uint8_t byte_stream_character                     = 0;
+
+	if( unicode_character == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid byte stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: byte stream too small.",
+		 function );
+
+		return( -1 );
+	}
+	byte_stream_character = byte_stream[ safe_byte_stream_index++ ];
+
+	if( byte_stream_character < 0x80 )
+	{
+		safe_unicode_character = byte_stream_character;
+	}
+	else
+	{
+		byte_stream_character -= 0x80;
+
+		safe_unicode_character = libuna_codepage_koi8_r_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
+	}
+	*unicode_character = safe_unicode_character;
+	*byte_stream_index = safe_byte_stream_index;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character to a KOI8-R encoded byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_codepage_koi8_r_copy_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error )
+{
+	static char *function         = "libuna_codepage_koi8_r_copy_to_byte_stream";
+	size_t safe_byte_stream_index = 0;
+	uint16_t byte_stream_value    = 0x001a;
+
+	if( byte_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid byte stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: byte stream too small.",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character < 0x0080 )
+	{
+		byte_stream_value = (uint16_t) unicode_character;
+	}
+	else if( ( unicode_character >= 0x0410 )
+	      && ( unicode_character < 0x0450 ) )
+	{
+		unicode_character -= 0x0410;
+
+		byte_stream_value = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x0410[ unicode_character ];
+	}
+	else if( ( unicode_character >= 0x2550 )
+	      && ( unicode_character < 0x2570 ) )
+	{
+		unicode_character -= 0x2550;
+
+		byte_stream_value = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x2550[ unicode_character ];
+	}
+	else switch( unicode_character )
+	{
+		case 0x00a0:
+			byte_stream_value = 0x9a;
+			break;
+
+		case 0x00a9:
+			byte_stream_value = 0xbf;
+			break;
+
+		case 0x00b0:
+			byte_stream_value = 0x9c;
+			break;
+
+		case 0x00b2:
+			byte_stream_value = 0x9d;
+			break;
+
+		case 0x00b7:
+			byte_stream_value = 0x9e;
+			break;
+
+		case 0x00f7:
+			byte_stream_value = 0x9f;
+			break;
+
+		case 0x0401:
+			byte_stream_value = 0xb3;
+			break;
+
+		case 0x0451:
+			byte_stream_value = 0xa3;
+			break;
+
+		case 0x2219:
+			byte_stream_value = 0x95;
+			break;
+
+		case 0x221a:
+			byte_stream_value = 0x96;
+			break;
+
+		case 0x2248:
+			byte_stream_value = 0x97;
+			break;
+
+		case 0x2264:
+			byte_stream_value = 0x98;
+			break;
+
+		case 0x2265:
+			byte_stream_value = 0x99;
+			break;
+
+		case 0x2320:
+			byte_stream_value = 0x93;
+			break;
+
+		case 0x2321:
+			byte_stream_value = 0x9b;
+			break;
+
+		case 0x2500:
+			byte_stream_value = 0x80;
+			break;
+
+		case 0x2502:
+			byte_stream_value = 0x81;
+			break;
+
+		case 0x250c:
+			byte_stream_value = 0x82;
+			break;
+
+		case 0x2510:
+			byte_stream_value = 0x83;
+			break;
+
+		case 0x2514:
+			byte_stream_value = 0x84;
+			break;
+
+		case 0x2518:
+			byte_stream_value = 0x85;
+			break;
+
+		case 0x251c:
+			byte_stream_value = 0x86;
+			break;
+
+		case 0x2524:
+			byte_stream_value = 0x87;
+			break;
+
+		case 0x252c:
+			byte_stream_value = 0x88;
+			break;
+
+		case 0x2534:
+			byte_stream_value = 0x89;
+			break;
+
+		case 0x253c:
+			byte_stream_value = 0x8a;
+			break;
+
+		case 0x2580:
+			byte_stream_value = 0x8b;
+			break;
+
+		case 0x2584:
+			byte_stream_value = 0x8c;
+			break;
+
+		case 0x2588:
+			byte_stream_value = 0x8d;
+			break;
+
+		case 0x258c:
+			byte_stream_value = 0x8e;
+			break;
+
+		case 0x2590:
+			byte_stream_value = 0x8f;
+			break;
+
+		case 0x2591:
+			byte_stream_value = 0x90;
+			break;
+
+		case 0x2592:
+			byte_stream_value = 0x91;
+			break;
+
+		case 0x2593:
+			byte_stream_value = 0x92;
+			break;
+
+		case 0x25a0:
+			byte_stream_value = 0x94;
+			break;
+
+		default:
+			byte_stream_value = 0x1a;
+			break;
+	}
+	byte_stream[ safe_byte_stream_index++ ] = (uint8_t) ( byte_stream_value & 0x00ff );
+
+	*byte_stream_index = safe_byte_stream_index;
+
+	return( 1 );
+}
 

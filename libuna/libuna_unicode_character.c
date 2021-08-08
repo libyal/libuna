@@ -148,6 +148,7 @@ int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_ISO_8859_16:
 		case LIBUNA_CODEPAGE_KOI8_R:
 		case LIBUNA_CODEPAGE_KOI8_U:
+		case LIBUNA_CODEPAGE_MAC_ROMAN:
 		case LIBUNA_CODEPAGE_WINDOWS_874:
 		case LIBUNA_CODEPAGE_WINDOWS_1250:
 		case LIBUNA_CODEPAGE_WINDOWS_1251:
@@ -536,33 +537,21 @@ int libuna_unicode_character_copy_from_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_R:
-			if( byte_stream_character < 0x80 )
-			{
-				safe_unicode_character = byte_stream_character;
-			}
-			else
-			{
-				byte_stream_character -= 0x80;
-
-				safe_unicode_character = libuna_codepage_koi8_r_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
-			}
-			safe_byte_stream_index += 1;
-
+			result = libuna_codepage_koi8_r_copy_from_byte_stream(
+			          &safe_unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_U:
-			if( byte_stream_character < 0x80 )
-			{
-				safe_unicode_character = byte_stream_character;
-			}
-			else
-			{
-				byte_stream_character -= 0x80;
-
-				safe_unicode_character = libuna_codepage_koi8_u_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
-			}
-			safe_byte_stream_index += 1;
-
+			result = libuna_codepage_koi8_u_copy_from_byte_stream(
+			          &safe_unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_MAC_ROMAN:
@@ -1626,373 +1615,30 @@ int libuna_unicode_character_copy_to_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_R:
-			if( unicode_character < 0x0080 )
-			{
-				byte_stream[ safe_byte_stream_index ] = (uint8_t) unicode_character;
-			}
-			else if( ( unicode_character >= 0x0410 )
-			      && ( unicode_character < 0x0450 ) )
-			{
-				unicode_character -= 0x0410;
-
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x0410[ unicode_character ];
-			}
-			else if( ( unicode_character >= 0x2550 )
-			      && ( unicode_character < 0x2570 ) )
-			{
-				unicode_character -= 0x2550;
-
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_koi8_r_unicode_to_byte_stream_base_0x2550[ unicode_character ];
-			}
-			else switch( unicode_character )
-			{
-				case 0x00a0:
-					byte_stream[ safe_byte_stream_index ] = 0x9a;
-					break;
-
-				case 0x00a9:
-					byte_stream[ safe_byte_stream_index ] = 0xbf;
-					break;
-
-				case 0x00b0:
-					byte_stream[ safe_byte_stream_index ] = 0x9c;
-					break;
-
-				case 0x00b2:
-					byte_stream[ safe_byte_stream_index ] = 0x9d;
-					break;
-
-				case 0x00b7:
-					byte_stream[ safe_byte_stream_index ] = 0x9e;
-					break;
-
-				case 0x00f7:
-					byte_stream[ safe_byte_stream_index ] = 0x9f;
-					break;
-
-				case 0x0401:
-					byte_stream[ safe_byte_stream_index ] = 0xb3;
-					break;
-
-				case 0x0451:
-					byte_stream[ safe_byte_stream_index ] = 0xa3;
-					break;
-
-				case 0x2219:
-					byte_stream[ safe_byte_stream_index ] = 0x95;
-					break;
-
-				case 0x221a:
-					byte_stream[ safe_byte_stream_index ] = 0x96;
-					break;
-
-				case 0x2248:
-					byte_stream[ safe_byte_stream_index ] = 0x97;
-					break;
-
-				case 0x2264:
-					byte_stream[ safe_byte_stream_index ] = 0x98;
-					break;
-
-				case 0x2265:
-					byte_stream[ safe_byte_stream_index ] = 0x99;
-					break;
-
-				case 0x2320:
-					byte_stream[ safe_byte_stream_index ] = 0x93;
-					break;
-
-				case 0x2321:
-					byte_stream[ safe_byte_stream_index ] = 0x9b;
-					break;
-
-				case 0x2500:
-					byte_stream[ safe_byte_stream_index ] = 0x80;
-					break;
-
-				case 0x2502:
-					byte_stream[ safe_byte_stream_index ] = 0x81;
-					break;
-
-				case 0x250c:
-					byte_stream[ safe_byte_stream_index ] = 0x82;
-					break;
-
-				case 0x2510:
-					byte_stream[ safe_byte_stream_index ] = 0x83;
-					break;
-
-				case 0x2514:
-					byte_stream[ safe_byte_stream_index ] = 0x84;
-					break;
-
-				case 0x2518:
-					byte_stream[ safe_byte_stream_index ] = 0x85;
-					break;
-
-				case 0x251c:
-					byte_stream[ safe_byte_stream_index ] = 0x86;
-					break;
-
-				case 0x2524:
-					byte_stream[ safe_byte_stream_index ] = 0x87;
-					break;
-
-				case 0x252c:
-					byte_stream[ safe_byte_stream_index ] = 0x88;
-					break;
-
-				case 0x2534:
-					byte_stream[ safe_byte_stream_index ] = 0x89;
-					break;
-
-				case 0x253c:
-					byte_stream[ safe_byte_stream_index ] = 0x8a;
-					break;
-
-				case 0x2580:
-					byte_stream[ safe_byte_stream_index ] = 0x8b;
-					break;
-
-				case 0x2584:
-					byte_stream[ safe_byte_stream_index ] = 0x8c;
-					break;
-
-				case 0x2588:
-					byte_stream[ safe_byte_stream_index ] = 0x8d;
-					break;
-
-				case 0x258c:
-					byte_stream[ safe_byte_stream_index ] = 0x8e;
-					break;
-
-				case 0x2590:
-					byte_stream[ safe_byte_stream_index ] = 0x8f;
-					break;
-
-				case 0x2591:
-					byte_stream[ safe_byte_stream_index ] = 0x90;
-					break;
-
-				case 0x2592:
-					byte_stream[ safe_byte_stream_index ] = 0x91;
-					break;
-
-				case 0x2593:
-					byte_stream[ safe_byte_stream_index ] = 0x92;
-					break;
-
-				case 0x25a0:
-					byte_stream[ safe_byte_stream_index ] = 0x94;
-					break;
-
-				default:
-					byte_stream[ safe_byte_stream_index ] = 0x1a;
-					break;
-			}
-			safe_byte_stream_index += 1;
-
+			result = libuna_codepage_koi8_r_copy_to_byte_stream(
+			          unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_KOI8_U:
-			if( unicode_character < 0x0080 )
-			{
-				byte_stream[ safe_byte_stream_index ] = (uint8_t) unicode_character;
-			}
-			else if( ( unicode_character >= 0x0410 )
-			      && ( unicode_character < 0x0450 ) )
-			{
-				unicode_character -= 0x0410;
+			result = libuna_codepage_koi8_u_copy_to_byte_stream(
+			          unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
+			break;
 
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x0410[ unicode_character ];
-			}
-			else if( ( unicode_character >= 0x2550 )
-			      && ( unicode_character < 0x2570 ) )
-			{
-				unicode_character -= 0x2550;
-
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_koi8_u_unicode_to_byte_stream_base_0x2550[ unicode_character ];
-			}
-			else switch( unicode_character )
-			{
-				case 0x00a0:
-					byte_stream[ safe_byte_stream_index ] = 0x9a;
-					break;
-
-				case 0x00a9:
-					byte_stream[ safe_byte_stream_index ] = 0xbf;
-					break;
-
-				case 0x00b0:
-					byte_stream[ safe_byte_stream_index ] = 0x9c;
-					break;
-
-				case 0x00b2:
-					byte_stream[ safe_byte_stream_index ] = 0x9d;
-					break;
-
-				case 0x00b7:
-					byte_stream[ safe_byte_stream_index ] = 0x9e;
-					break;
-
-				case 0x00f7:
-					byte_stream[ safe_byte_stream_index ] = 0x9f;
-					break;
-
-				case 0x0401:
-					byte_stream[ safe_byte_stream_index ] = 0xb3;
-					break;
-
-				case 0x0404:
-					byte_stream[ safe_byte_stream_index ] = 0xb4;
-					break;
-
-				case 0x0406:
-					byte_stream[ safe_byte_stream_index ] = 0xb6;
-					break;
-
-				case 0x0407:
-					byte_stream[ safe_byte_stream_index ] = 0xb7;
-					break;
-
-				case 0x0451:
-					byte_stream[ safe_byte_stream_index ] = 0xa3;
-					break;
-
-				case 0x0454:
-					byte_stream[ safe_byte_stream_index ] = 0xa4;
-					break;
-
-				case 0x0456:
-					byte_stream[ safe_byte_stream_index ] = 0xa6;
-					break;
-
-				case 0x0457:
-					byte_stream[ safe_byte_stream_index ] = 0xa7;
-					break;
-
-				case 0x0490:
-					byte_stream[ safe_byte_stream_index ] = 0xbd;
-					break;
-
-				case 0x0491:
-					byte_stream[ safe_byte_stream_index ] = 0xad;
-					break;
-
-				case 0x2219:
-					byte_stream[ safe_byte_stream_index ] = 0x95;
-					break;
-
-				case 0x221a:
-					byte_stream[ safe_byte_stream_index ] = 0x96;
-					break;
-
-				case 0x2248:
-					byte_stream[ safe_byte_stream_index ] = 0x97;
-					break;
-
-				case 0x2264:
-					byte_stream[ safe_byte_stream_index ] = 0x98;
-					break;
-
-				case 0x2265:
-					byte_stream[ safe_byte_stream_index ] = 0x99;
-					break;
-
-				case 0x2320:
-					byte_stream[ safe_byte_stream_index ] = 0x93;
-					break;
-
-				case 0x2321:
-					byte_stream[ safe_byte_stream_index ] = 0x9b;
-					break;
-
-				case 0x2500:
-					byte_stream[ safe_byte_stream_index ] = 0x80;
-					break;
-
-				case 0x2502:
-					byte_stream[ safe_byte_stream_index ] = 0x81;
-					break;
-
-				case 0x250c:
-					byte_stream[ safe_byte_stream_index ] = 0x82;
-					break;
-
-				case 0x2510:
-					byte_stream[ safe_byte_stream_index ] = 0x83;
-					break;
-
-				case 0x2514:
-					byte_stream[ safe_byte_stream_index ] = 0x84;
-					break;
-
-				case 0x2518:
-					byte_stream[ safe_byte_stream_index ] = 0x85;
-					break;
-
-				case 0x251c:
-					byte_stream[ safe_byte_stream_index ] = 0x86;
-					break;
-
-				case 0x2524:
-					byte_stream[ safe_byte_stream_index ] = 0x87;
-					break;
-
-				case 0x252c:
-					byte_stream[ safe_byte_stream_index ] = 0x88;
-					break;
-
-				case 0x2534:
-					byte_stream[ safe_byte_stream_index ] = 0x89;
-					break;
-
-				case 0x253c:
-					byte_stream[ safe_byte_stream_index ] = 0x8a;
-					break;
-
-				case 0x2580:
-					byte_stream[ safe_byte_stream_index ] = 0x8b;
-					break;
-
-				case 0x2584:
-					byte_stream[ safe_byte_stream_index ] = 0x8c;
-					break;
-
-				case 0x2588:
-					byte_stream[ safe_byte_stream_index ] = 0x8d;
-					break;
-
-				case 0x258c:
-					byte_stream[ safe_byte_stream_index ] = 0x8e;
-					break;
-
-				case 0x2590:
-					byte_stream[ safe_byte_stream_index ] = 0x8f;
-					break;
-
-				case 0x2591:
-					byte_stream[ safe_byte_stream_index ] = 0x90;
-					break;
-
-				case 0x2592:
-					byte_stream[ safe_byte_stream_index ] = 0x91;
-					break;
-
-				case 0x2593:
-					byte_stream[ safe_byte_stream_index ] = 0x92;
-					break;
-
-				case 0x25a0:
-					byte_stream[ safe_byte_stream_index ] = 0x94;
-					break;
-
-				default:
-					byte_stream[ safe_byte_stream_index ] = 0x1a;
-					break;
-			}
-			safe_byte_stream_index += 1;
-
+		case LIBUNA_CODEPAGE_MAC_ROMAN:
+			result = libuna_codepage_mac_roman_copy_to_byte_stream(
+			          unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:

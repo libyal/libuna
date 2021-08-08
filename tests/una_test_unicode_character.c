@@ -46,6 +46,7 @@
 #include "una_test_codepage_iso_8859_16.h"
 #include "una_test_codepage_koi8_r.h"
 #include "una_test_codepage_koi8_u.h"
+#include "una_test_codepage_mac_roman.h"
 #include "una_test_codepage_windows_874.h"
 #include "una_test_codepage_windows_932.h"
 #include "una_test_codepage_windows_936.h"
@@ -85,7 +86,7 @@ struct una_test_unicode_character_codepage
 	una_test_byte_stream_to_unicode_t *test_values;
 };
 
-una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ 32 ] = {
+una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ 33 ] = {
 	{ LIBUNA_CODEPAGE_ASCII, 128, una_test_codepage_ascii_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_ISO_8859_1, 256, una_test_codepage_iso_8859_1_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_ISO_8859_2, 256, una_test_codepage_iso_8859_2_byte_stream_to_unicode },
@@ -104,6 +105,7 @@ una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ 32 ]
 	{ LIBUNA_CODEPAGE_ISO_8859_16, 256, una_test_codepage_iso_8859_16_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_KOI8_R, 256, una_test_codepage_koi8_r_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_KOI8_U, 256, una_test_codepage_koi8_u_byte_stream_to_unicode },
+	{ LIBUNA_CODEPAGE_MAC_ROMAN, 256, una_test_codepage_mac_roman_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_874, 225, una_test_codepage_windows_874_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_932, 7915, una_test_codepage_windows_932_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_936, 21920, una_test_codepage_windows_936_byte_stream_to_unicode },
@@ -137,7 +139,7 @@ int una_test_unicode_character_size_to_byte_stream(
 	/* Test regular cases
 	 */
 	for( codepage_number = 0;
-	     codepage_number < 32;
+	     codepage_number < 33;
 	     codepage_number++ )
 	{
 		test_codepage = &( una_test_unicode_character_codepages[ codepage_number ] );
@@ -240,7 +242,7 @@ int una_test_unicode_character_copy_from_byte_stream(
 	/* Test regular cases
 	 */
 	for( codepage_number = 0;
-	     codepage_number < 32;
+	     codepage_number < 33;
 	     codepage_number++ )
 	{
 		test_codepage = &( una_test_unicode_character_codepages[ codepage_number ] );
@@ -504,7 +506,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 	/* Test regular cases
 	 */
 	for( codepage_number = 0;
-	     codepage_number < 32;
+	     codepage_number < 33;
 	     codepage_number++ )
 	{
 		test_codepage = &( una_test_unicode_character_codepages[ codepage_number ] );

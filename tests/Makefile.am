@@ -20,6 +20,8 @@ check_PROGRAMS = \
 	una_test_base32_stream \
 	una_test_base64_stream \
 	una_test_byte_stream \
+	una_test_codepage_koi8_r \
+	una_test_codepage_koi8_u \
 	una_test_codepage_mac_roman \
 	una_test_codepage_windows_874 \
 	una_test_codepage_windows_932 \
@@ -88,6 +90,30 @@ una_test_byte_stream_SOURCES = \
 	una_test_unused.h
 
 una_test_byte_stream_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_koi8_r_SOURCES = \
+	una_test_codepage_koi8_r.c una_test_codepage_koi8_r.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_koi8_r_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_koi8_u_SOURCES = \
+	una_test_codepage_koi8_u.c una_test_codepage_koi8_u.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_koi8_u_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
@@ -308,6 +334,7 @@ una_test_unicode_character_SOURCES = \
 	una_test_codepage_iso_8859_16.h \
 	una_test_codepage_koi8_r.h \
 	una_test_codepage_koi8_u.h \
+	una_test_codepage_mac_roman.h \
 	una_test_codepage_windows_874.h \
 	una_test_codepage_windows_932.h \
 	una_test_codepage_windows_936.h \
