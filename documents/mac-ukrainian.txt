@@ -1,4 +1,4 @@
-The Mac OS Cyrillic codepage (MacCyrillic or MacCyrillicEuroSignVariant)
+The Mac OS Ukrainian codepage (MacUkrainian, MacCyrillicCurrSignUkrVariant or Windows codepage 10017)
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING
@@ -255,4 +255,4 @@ FB = U+044B : CYRILLIC SMALL LETTER YERU
 FC = U+044C : CYRILLIC SMALL LETTER SOFT SIGN
 FD = U+044D : CYRILLIC SMALL LETTER E
 FE = U+044E : CYRILLIC SMALL LETTER YU
-FF = U+20AC : EURO SIGN
+FF = U+00A4 : CURRENCY SIGN
