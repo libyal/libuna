@@ -270,6 +270,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\tests\una_test_codepage_mac_russian.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_codepage_mac_ukrainian.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\tests\una_test_codepage_windows_1250.h"
 				>
 			</File>

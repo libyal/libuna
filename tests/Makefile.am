@@ -25,6 +25,8 @@ check_PROGRAMS = \
 	una_test_codepage_mac_centraleurroman \
 	una_test_codepage_mac_cyrillic \
 	una_test_codepage_mac_roman \
+	una_test_codepage_mac_russian \
+	una_test_codepage_mac_ukrainian \
 	una_test_codepage_windows_874 \
 	una_test_codepage_windows_932 \
 	una_test_codepage_windows_936 \
@@ -131,7 +133,7 @@ una_test_codepage_mac_centraleurroman_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
-una_test_codepage_mac_cyrillic_SOURCES = \
+ona_test_codepage_mac_cyrillic_SOURCES = \
 	una_test_codepage_mac_cyrillic.c una_test_codepage_mac_cyrillic.h \
 	una_test_libcerror.h \
 	una_test_libuna.h \
@@ -152,6 +154,30 @@ una_test_codepage_mac_roman_SOURCES = \
 	una_test_unused.h
 
 una_test_codepage_mac_roman_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_mac_russian_SOURCES = \
+	una_test_codepage_mac_russian.c una_test_codepage_mac_russian.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_mac_russian_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_mac_ukrainian_SOURCES = \
+	una_test_codepage_mac_ukrainian.c una_test_codepage_mac_ukrainian.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_mac_ukrainian_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
@@ -363,6 +389,8 @@ una_test_unicode_character_SOURCES = \
 	una_test_codepage_mac_centraleurroman.h \
 	una_test_codepage_mac_cyrillic.h \
 	una_test_codepage_mac_roman.h \
+	una_test_codepage_mac_russian.h \
+	una_test_codepage_mac_ukrainian.h \
 	una_test_codepage_windows_874.h \
 	una_test_codepage_windows_932.h \
 	una_test_codepage_windows_936.h \

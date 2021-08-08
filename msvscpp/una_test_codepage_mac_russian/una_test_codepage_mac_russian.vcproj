@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_codepage_mac_cyrillic"
-	ProjectGUID="{76301E26-29E0-43C6-BA73-BD1AE5AFF99A}"
-	RootNamespace="una_test_codepage_mac_cyrillic"
+	Name="una_test_codepage_mac_russian"
+	ProjectGUID="{F39A627C-2AB6-4F3B-932A-ADC7E7B5DCEC}"
+	RootNamespace="una_test_codepage_mac_russian"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -175,12 +175,40 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\tests\una_test_codepage_mac_russian.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\tests\una_test_codepage_mac_russian.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_libcerror.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_libuna.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\una_test_unused.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

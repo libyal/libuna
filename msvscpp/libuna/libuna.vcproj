@@ -262,6 +262,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_russian.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_ukrainian.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_windows_1250.c"
 				>
 			</File>
@@ -457,6 +465,14 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_roman.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_russian.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_ukrainian.h"
 				>
 			</File>
 			<File

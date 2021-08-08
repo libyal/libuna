@@ -49,6 +49,8 @@
 #include "una_test_codepage_mac_centraleurroman.h"
 #include "una_test_codepage_mac_cyrillic.h"
 #include "una_test_codepage_mac_roman.h"
+#include "una_test_codepage_mac_russian.h"
+#include "una_test_codepage_mac_ukrainian.h"
 #include "una_test_codepage_windows_874.h"
 #include "una_test_codepage_windows_932.h"
 #include "una_test_codepage_windows_936.h"
@@ -88,7 +90,7 @@ struct una_test_unicode_character_codepage
 	una_test_byte_stream_to_unicode_t *test_values;
 };
 
-#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	35
+#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	37
 
 una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES ] = {
 	{ LIBUNA_CODEPAGE_ASCII, 128, una_test_codepage_ascii_byte_stream_to_unicode },
@@ -112,6 +114,8 @@ una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_
 	{ LIBUNA_CODEPAGE_MAC_CYRILLIC, 256, una_test_codepage_mac_cyrillic_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_CENTRALEURROMAN, 256, una_test_codepage_mac_centraleurroman_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_ROMAN, 256, una_test_codepage_mac_roman_byte_stream_to_unicode },
+	{ LIBUNA_CODEPAGE_MAC_RUSSIAN, 256, una_test_codepage_mac_russian_byte_stream_to_unicode },
+	{ LIBUNA_CODEPAGE_MAC_UKRAINIAN, 256, una_test_codepage_mac_ukrainian_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_874, 225, una_test_codepage_windows_874_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_932, 7915, una_test_codepage_windows_932_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_WINDOWS_936, 21920, una_test_codepage_windows_936_byte_stream_to_unicode },

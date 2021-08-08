@@ -30,6 +30,8 @@ libuna_la_SOURCES = \
 	libuna_codepage_mac_centraleurroman.c libuna_codepage_mac_centraleurroman.h \
 	libuna_codepage_mac_cyrillic.c libuna_codepage_mac_cyrillic.h \
 	libuna_codepage_mac_roman.c libuna_codepage_mac_roman.h \
+	libuna_codepage_mac_russian.c libuna_codepage_mac_russian.h \
+	libuna_codepage_mac_ukrainian.c libuna_codepage_mac_ukrainian.h \
 	libuna_codepage_windows_874.c libuna_codepage_windows_874.h \
 	libuna_codepage_windows_932.c libuna_codepage_windows_932.h \
 	libuna_codepage_windows_936.c libuna_codepage_windows_936.h \
