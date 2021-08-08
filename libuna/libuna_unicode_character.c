@@ -575,18 +575,12 @@ int libuna_unicode_character_copy_from_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
-			if( byte_stream_character < 0x80 )
-			{
-				safe_unicode_character = byte_stream_character;
-			}
-			else
-			{
-				byte_stream_character -= 0x80;
-
-				safe_unicode_character = libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
-			}
-			safe_byte_stream_index += 1;
-
+			result = libuna_codepage_windows_874_copy_from_byte_stream(
+			          &safe_unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_932:
@@ -2002,53 +1996,12 @@ int libuna_unicode_character_copy_to_byte_stream(
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_874:
-			if( ( unicode_character < 0x0080 )
-			 || ( unicode_character == 0x00a0 ) )
-			{
-				byte_stream[ safe_byte_stream_index ] = (uint8_t) unicode_character;
-			}
-			else if( ( unicode_character >= 0x0e00 )
-			      && ( unicode_character < 0x0e60 ) )
-			{
-				unicode_character -= 0x0e00;
-
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ unicode_character ];
-			}
-			else if( ( unicode_character >= 0x2018 )
-			      && ( unicode_character < 0x2020 ) )
-			{
-				unicode_character -= 0x2018;
-
-				byte_stream[ safe_byte_stream_index ] = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ unicode_character ];
-			}
-			else switch( unicode_character )
-			{
-				case 0x2013:
-					byte_stream[ safe_byte_stream_index ] = 0x96;
-					break;
-
-				case 0x2014:
-					byte_stream[ safe_byte_stream_index ] = 0x97;
-					break;
-
-				case 0x2022:
-					byte_stream[ safe_byte_stream_index ] = 0x95;
-					break;
-
-				case 0x2026:
-					byte_stream[ safe_byte_stream_index ] = 0x85;
-					break;
-
-				case 0x20ac:
-					byte_stream[ safe_byte_stream_index ] = 0x80;
-					break;
-
-				default:
-					byte_stream[ safe_byte_stream_index ] = 0x1a;
-					break;
-			}
-			safe_byte_stream_index += 1;
-
+			result = libuna_codepage_windows_874_copy_to_byte_stream(
+			          unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_932:

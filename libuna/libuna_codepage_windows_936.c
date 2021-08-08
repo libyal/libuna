@@ -26,7 +26,7 @@
 #include "libuna_libcerror.h"
 #include "libuna_types.h"
 
-/* Extended ASCII to Unicode character lookup table for Windows 936 codepage
+/* Extended ASCII to Unicode character lookup tables for the Windows 936 codepage
  * Unknown are filled with the Unicode replacement character 0xfffd
  */
 const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8140[ 192 ] = {
@@ -3177,10 +3177,9 @@ const uint16_t libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ 1
 	0xfa1f, 0xfa20, 0xfa21, 0xfa23, 0xfa24, 0xfa27, 0xfa28, 0xfa29
 };
 
-/* Unicode to ASCII character lookup table for Windows 936 codepage
+/* Unicode to ASCII character lookup tables for the Windows 936 codepage
  * Unknown are filled with the ASCII replacement character 0x1a
  */
-
 const uint16_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0x0080[ 1024 ] = {
 	0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a,
 	0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a,
@@ -6443,9 +6442,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
      size_t *byte_stream_index,
      libcerror_error_t **error )
 {
-	static char *function         = "libuna_codepage_windows_936_copy_from_byte_stream";
-	uint8_t additional_character  = 0;
-	uint8_t byte_stream_character = 0;
+	static char *function                             = "libuna_codepage_windows_936_copy_from_byte_stream";
+	libuna_unicode_character_t safe_unicode_character = 0xfffd;
+	size_t safe_byte_stream_index                     = 0;
+	uint8_t additional_character                      = 0;
+	uint8_t byte_stream_character                     = 0;
 
 	if( unicode_character == NULL )
 	{
@@ -6491,7 +6492,9 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	if( *byte_stream_index >= byte_stream_size )
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -6502,21 +6505,21 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	byte_stream_character = byte_stream[ *byte_stream_index ];
+	byte_stream_character = byte_stream[ safe_byte_stream_index ];
 
 	if( byte_stream_character < 0x80 )
 	{
-		*unicode_character = byte_stream_character;
+		safe_unicode_character = byte_stream_character;
 	}
 	else if( byte_stream_character == 0x80 )
 	{
-		*unicode_character = 0x20ac;
+		safe_unicode_character = 0x20ac;
 	}
-	else if( ( *byte_stream_index + 1 ) <= byte_stream_size )
+	else if( ( safe_byte_stream_index + 1 ) <= byte_stream_size )
 	{
-		*byte_stream_index += 1;
+		safe_byte_stream_index += 1;
 
-		additional_character = byte_stream[ *byte_stream_index ];
+		additional_character = byte_stream[ safe_byte_stream_index ];
 
 		if( ( byte_stream_character >= 0x81 )
 		 && ( byte_stream_character <= 0xa0 ) )
@@ -6528,137 +6531,133 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 				switch( byte_stream_character )
 				{
 					case 0x81:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8140[ additional_character ];
 						break;
 
 					case 0x82:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8240[ additional_character ];
 						break;
 
 					case 0x83:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8340[ additional_character ];
 						break;
 
 					case 0x84:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8440[ additional_character ];
 						break;
 
 					case 0x85:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8540[ additional_character ];
 						break;
 
 					case 0x86:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8640[ additional_character ];
 						break;
 
 					case 0x87:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8740[ additional_character ];
 						break;
 
 					case 0x88:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8840[ additional_character ];
 						break;
 
 					case 0x89:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8940[ additional_character ];
 						break;
 
 					case 0x8a:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8a40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8a40[ additional_character ];
 						break;
 
 					case 0x8b:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8b40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8b40[ additional_character ];
 						break;
 
 					case 0x8c:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8c40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8c40[ additional_character ];
 						break;
 
 					case 0x8d:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8d40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8d40[ additional_character ];
 						break;
 
 					case 0x8e:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8e40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8e40[ additional_character ];
 						break;
 
 					case 0x8f:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8f40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x8f40[ additional_character ];
 						break;
 
 					case 0x90:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9040[ additional_character ];
 						break;
 
 					case 0x91:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9140[ additional_character ];
 						break;
 
 					case 0x92:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9240[ additional_character ];
 						break;
 
 					case 0x93:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9340[ additional_character ];
 						break;
 
 					case 0x94:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9440[ additional_character ];
 						break;
 
 					case 0x95:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9540[ additional_character ];
 						break;
 
 					case 0x96:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9640[ additional_character ];
 						break;
 
 					case 0x97:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9740[ additional_character ];
 						break;
 
 					case 0x98:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9840[ additional_character ];
 						break;
 
 					case 0x99:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9940[ additional_character ];
 						break;
 
 					case 0x9a:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9a40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9a40[ additional_character ];
 						break;
 
 					case 0x9b:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9b40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9b40[ additional_character ];
 						break;
 
 					case 0x9c:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9c40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9c40[ additional_character ];
 						break;
 
 					case 0x9d:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9d40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9d40[ additional_character ];
 						break;
 
 					case 0x9e:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9e40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9e40[ additional_character ];
 						break;
 
 					case 0x9f:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9f40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0x9f40[ additional_character ];
 						break;
 
 					case 0xa0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa040[ additional_character ];
 						break;
 				}
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
 			}
 		}
 		else if( ( byte_stream_character >= 0xa1 )
@@ -6671,21 +6670,17 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 				switch( byte_stream_character )
 				{
 					case 0xa1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa1a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa1a0[ additional_character ];
 						break;
 
 					case 0xa2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa2a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa2a0[ additional_character ];
 						break;
 
 					case 0xa3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa3a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa3a0[ additional_character ];
 						break;
 				}
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
 			}
 		}
 		else if( ( byte_stream_character >= 0xa4 )
@@ -6699,21 +6694,17 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 				switch( byte_stream_character )
 				{
 					case 0xa4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa4a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa4a0[ additional_character ];
 						break;
 
 					case 0xa5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa5a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa5a0[ additional_character ];
 						break;
 
 					case 0xa6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa6a0[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa6a0[ additional_character ];
 						break;
 				}
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
 			}
 		}
 		else if( byte_stream_character == 0xa7 )
@@ -6723,18 +6714,14 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0xa0;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7a0[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7a0[ additional_character ];
 			}
 			else if( ( additional_character >= 0xd0 )
 			      && ( additional_character < 0xf8 ) )
 			{
 				additional_character -= 0xd0;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7d0[ additional_character ];
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa7d0[ additional_character ];
 			}
 		}
 		else if( byte_stream_character == 0xa8 )
@@ -6744,18 +6731,14 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa840[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa840[ additional_character ];
 			}
 			else if( ( additional_character >= 0xa0 )
 			      && ( additional_character < 0xf0 ) )
 			{
 				additional_character -= 0xa0;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa8a0[ additional_character ];
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa8a0[ additional_character ];
 			}
 		}
 		else if( byte_stream_character == 0xa9 )
@@ -6765,26 +6748,22 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa940[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa940[ additional_character ];
 			}
 			else if( additional_character == 0x88 )
 			{
-				*unicode_character = 0xfe6b;
+				safe_unicode_character = 0xfe6b;
 			}
 			else if( additional_character == 0x96 )
 			{
-				*unicode_character = 0x3007;
+				safe_unicode_character = 0x3007;
 			}
 			else if( ( additional_character >= 0xa0 )
 			      && ( additional_character < 0xf0 ) )
 			{
 				additional_character -= 0xa0;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa9a0[ additional_character ];
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xa9a0[ additional_character ];
 			}
 		}
 		else if( byte_stream_character == 0xaa )
@@ -6794,15 +6773,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaa40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaa40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x7371;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x7371;
 			}
 		}
 		else if( byte_stream_character == 0xab )
@@ -6812,15 +6787,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xab40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xab40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x73f7;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x73f7;
 			}
 		}
 		else if( byte_stream_character == 0xac )
@@ -6830,15 +6801,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xac40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xac40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x747a;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x747a;
 			}
 		}
 		else if( byte_stream_character == 0xad )
@@ -6848,15 +6815,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xad40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xad40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x74f2;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x74f2;
 			}
 		}
 		else if( byte_stream_character == 0xae )
@@ -6866,15 +6829,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xae40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xae40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x7587;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x7587;
 			}
 		}
 		else if( byte_stream_character == 0xaf )
@@ -6884,15 +6843,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaf40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xaf40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x7644;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x7644;
 			}
 		}
 		else if( ( byte_stream_character >= 0xb0 )
@@ -6905,297 +6860,293 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 				switch( byte_stream_character )
 				{
 					case 0xb0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb040[ additional_character ];
 						break;
 
 					case 0xb1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb140[ additional_character ];
 						break;
 
 					case 0xb2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb240[ additional_character ];
 						break;
 
 					case 0xb3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb340[ additional_character ];
 						break;
 
 					case 0xb4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb440[ additional_character ];
 						break;
 
 					case 0xb5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb540[ additional_character ];
 						break;
 
 					case 0xb6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb640[ additional_character ];
 						break;
 
 					case 0xb7:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb740[ additional_character ];
 						break;
 
 					case 0xb8:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb840[ additional_character ];
 						break;
 
 					case 0xb9:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xb940[ additional_character ];
 						break;
 
 					case 0xba:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xba40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xba40[ additional_character ];
 						break;
 
 					case 0xbb:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbb40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbb40[ additional_character ];
 						break;
 
 					case 0xbc:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbc40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbc40[ additional_character ];
 						break;
 
 					case 0xbd:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbd40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbd40[ additional_character ];
 						break;
 
 					case 0xbe:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbe40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbe40[ additional_character ];
 						break;
 
 					case 0xbf:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbf40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xbf40[ additional_character ];
 						break;
 
 					case 0xc0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc040[ additional_character ];
 						break;
 
 					case 0xc1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc140[ additional_character ];
 						break;
 
 					case 0xc2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc240[ additional_character ];
 						break;
 
 					case 0xc3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc340[ additional_character ];
 						break;
 
 					case 0xc4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc440[ additional_character ];
 						break;
 
 					case 0xc5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc540[ additional_character ];
 						break;
 
 					case 0xc6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc640[ additional_character ];
 						break;
 
 					case 0xc7:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc740[ additional_character ];
 						break;
 
 					case 0xc8:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc840[ additional_character ];
 						break;
 
 					case 0xc9:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xc940[ additional_character ];
 						break;
 
 					case 0xca:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xca40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xca40[ additional_character ];
 						break;
 
 					case 0xcb:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcb40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcb40[ additional_character ];
 						break;
 
 					case 0xcc:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcc40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcc40[ additional_character ];
 						break;
 
 					case 0xcd:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcd40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcd40[ additional_character ];
 						break;
 
 					case 0xce:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xce40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xce40[ additional_character ];
 						break;
 
 					case 0xcf:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcf40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xcf40[ additional_character ];
 						break;
 
 					case 0xd0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd040[ additional_character ];
 						break;
 
 					case 0xd1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd140[ additional_character ];
 						break;
 
 					case 0xd2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd240[ additional_character ];
 						break;
 
 					case 0xd3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd340[ additional_character ];
 						break;
 
 					case 0xd4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd440[ additional_character ];
 						break;
 
 					case 0xd5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd540[ additional_character ];
 						break;
 
 					case 0xd6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd640[ additional_character ];
 						break;
 
 					case 0xd7:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd740[ additional_character ];
 						break;
 
 					case 0xd8:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd840[ additional_character ];
 						break;
 
 					case 0xd9:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xd940[ additional_character ];
 						break;
 
 					case 0xda:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xda40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xda40[ additional_character ];
 						break;
 
 					case 0xdb:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdb40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdb40[ additional_character ];
 						break;
 
 					case 0xdc:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdc40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdc40[ additional_character ];
 						break;
 
 					case 0xdd:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdd40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdd40[ additional_character ];
 						break;
 
 					case 0xde:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xde40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xde40[ additional_character ];
 						break;
 
 					case 0xdf:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdf40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xdf40[ additional_character ];
 						break;
 
 					case 0xe0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe040[ additional_character ];
 						break;
 
 					case 0xe1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe140[ additional_character ];
 						break;
 
 					case 0xe2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe240[ additional_character ];
 						break;
 
 					case 0xe3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe340[ additional_character ];
 						break;
 
 					case 0xe4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe440[ additional_character ];
 						break;
 
 					case 0xe5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe540[ additional_character ];
 						break;
 
 					case 0xe6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe640[ additional_character ];
 						break;
 
 					case 0xe7:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe740[ additional_character ];
 						break;
 
 					case 0xe8:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe840[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe840[ additional_character ];
 						break;
 
 					case 0xe9:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe940[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xe940[ additional_character ];
 						break;
 
 					case 0xea:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xea40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xea40[ additional_character ];
 						break;
 
 					case 0xeb:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xeb40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xeb40[ additional_character ];
 						break;
 
 					case 0xec:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xec40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xec40[ additional_character ];
 						break;
 
 					case 0xed:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xed40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xed40[ additional_character ];
 						break;
 
 					case 0xee:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xee40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xee40[ additional_character ];
 						break;
 
 					case 0xef:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xef40[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xef40[ additional_character ];
 						break;
 
 					case 0xf0:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf040[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf040[ additional_character ];
 						break;
 
 					case 0xf1:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf140[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf140[ additional_character ];
 						break;
 
 					case 0xf2:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf240[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf240[ additional_character ];
 						break;
 
 					case 0xf3:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf340[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf340[ additional_character ];
 						break;
 
 					case 0xf4:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf440[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf440[ additional_character ];
 						break;
 
 					case 0xf5:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf540[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf540[ additional_character ];
 						break;
 
 					case 0xf6:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf640[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf640[ additional_character ];
 						break;
 
 					case 0xf7:
-						*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf740[ additional_character ];
+						safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf740[ additional_character ];
 						break;
 				}
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
 			}
 		}
 		else if( byte_stream_character == 0xf8 )
@@ -7205,15 +7156,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf840[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf840[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x9d42;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x9d42;
 			}
 		}
 		else if( byte_stream_character == 0xf9 )
@@ -7223,15 +7170,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf940[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xf940[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x9da2;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x9da2;
 			}
 		}
 		else if( byte_stream_character == 0xfa )
@@ -7241,15 +7184,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfa40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfa40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x9e02;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x9e02;
 			}
 		}
 		else if( byte_stream_character == 0xfb )
@@ -7259,15 +7198,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfb40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfb40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x9eaa;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x9eaa;
 			}
 		}
 		else if( byte_stream_character == 0xfc )
@@ -7277,15 +7212,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfc40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfc40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0x9f31;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0x9f31;
 			}
 		}
 		else if( byte_stream_character == 0xfd )
@@ -7295,15 +7226,11 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfd40[ additional_character ];
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfd40[ additional_character ];
 			}
 			else if( additional_character == 0xa0 )
 			{
-				*unicode_character = 0xf9f1;
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = 0xf9f1;
 			}
 		}
 		else if( byte_stream_character == 0xfe )
@@ -7313,23 +7240,12 @@ int libuna_codepage_windows_936_copy_from_byte_stream(
 			{
 				additional_character -= 0x40;
 
-				*unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ additional_character ];
-			}
-			else
-			{
-				*unicode_character = 0xfffd;
+				safe_unicode_character = libuna_codepage_windows_936_byte_stream_to_unicode_base_0xfe40[ additional_character ];
 			}
 		}
-		else
-		{
-			*unicode_character = 0xfffd;
-		}
 	}
-	else
-	{
-		*unicode_character = 0xfffd;
-	}
-	*byte_stream_index += 1;
+	*unicode_character = safe_unicode_character;
+	*byte_stream_index = safe_byte_stream_index + 1;
 
 	return( 1 );
 }
@@ -7344,8 +7260,9 @@ int libuna_codepage_windows_936_copy_to_byte_stream(
      size_t *byte_stream_index,
      libcerror_error_t **error )
 {
-	static char *function      = "libuna_codepage_windows_936_copy_to_byte_stream";
-	uint16_t byte_stream_value = 0x001a;
+	static char *function         = "libuna_codepage_windows_936_copy_to_byte_stream";
+	size_t safe_byte_stream_index = 0;
+	uint16_t byte_stream_value    = 0x001a;
 
 	if( byte_stream == NULL )
 	{
@@ -7380,7 +7297,9 @@ int libuna_codepage_windows_936_copy_to_byte_stream(
 
 		return( -1 );
 	}
-	if( *byte_stream_index >= byte_stream_size )
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -7437,17 +7356,15 @@ int libuna_codepage_windows_936_copy_to_byte_stream(
 		unicode_character -= 0xfe00;
 		byte_stream_value  = libuna_codepage_windows_936_unicode_to_byte_stream_base_0xfe00[ unicode_character ];
 	}
-	byte_stream[ *byte_stream_index ] = (uint8_t) ( byte_stream_value & 0x00ff );
-
-	byte_stream_value >>= 8;
-
-	if( byte_stream_value != 0 )
+	do
 	{
-		*byte_stream_index += 1;
+		byte_stream[ safe_byte_stream_index++ ] = (uint8_t) ( byte_stream_value & 0x00ff );
 
-		byte_stream[ *byte_stream_index ] = (uint8_t) ( byte_stream_value & 0x00ff );
+		byte_stream_value >>= 8;
 	}
-	*byte_stream_index += 1;
+	while( byte_stream_value != 0 );
+
+	*byte_stream_index = safe_byte_stream_index;
 
 	return( 1 );
 }

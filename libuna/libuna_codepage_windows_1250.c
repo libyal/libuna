@@ -108,7 +108,7 @@ int libuna_codepage_windows_1250_copy_from_byte_stream(
      libcerror_error_t **error )
 {
 	static char *function                             = "libuna_codepage_windows_1250_copy_from_byte_stream";
-	libuna_unicode_character_t safe_unicode_character = 0;
+	libuna_unicode_character_t safe_unicode_character = 0xfffd;
 	size_t safe_byte_stream_index                     = 0;
 	uint8_t byte_stream_character                     = 0;
 
@@ -169,8 +169,7 @@ int libuna_codepage_windows_1250_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	safe_unicode_character = 0xfffd;
-	byte_stream_character  = byte_stream[ safe_byte_stream_index ];
+	byte_stream_character = byte_stream[ safe_byte_stream_index++ ];
 
 	if( byte_stream_character < 0x80 )
 	{
@@ -183,7 +182,7 @@ int libuna_codepage_windows_1250_copy_from_byte_stream(
 		safe_unicode_character = libuna_codepage_windows_1250_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
 	}
 	*unicode_character = safe_unicode_character;
-	*byte_stream_index = safe_byte_stream_index + 1;
+	*byte_stream_index = safe_byte_stream_index;
 
 	return( 1 );
 }

@@ -21,6 +21,7 @@ check_PROGRAMS = \
 	una_test_base64_stream \
 	una_test_byte_stream \
 	una_test_codepage_mac_roman \
+	una_test_codepage_windows_874 \
 	una_test_codepage_windows_932 \
 	una_test_codepage_windows_936 \
 	una_test_codepage_windows_949 \
@@ -99,6 +100,18 @@ una_test_codepage_mac_roman_SOURCES = \
 	una_test_unused.h
 
 una_test_codepage_mac_roman_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_windows_874_SOURCES = \
+	una_test_codepage_windows_874.c una_test_codepage_windows_874.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_windows_874_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 

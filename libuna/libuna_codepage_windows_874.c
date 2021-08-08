@@ -23,8 +23,10 @@
 #include <types.h>
 
 #include "libuna_codepage_windows_874.h"
+#include "libuna_libcerror.h"
+#include "libuna_types.h"
 
-/* Extended ASCII to Unicode character lookup table for Windows 874 codepage
+/* Extended ASCII to Unicode character lookup table for the Windows 874 codepage
  * Unknown are filled with the Unicode replacement character 0xfffd
  */
 const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128 ] = {
@@ -46,7 +48,7 @@ const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128
 	0x0e58, 0x0e59, 0x0e5a, 0x0e5b, 0xfffd, 0xfffd, 0xfffd, 0xfffd
 };
 
-/* Unicode to ASCII character lookup table for Windows 874 codepage
+/* Unicode to ASCII character lookup tables for the Windows 874 codepage
  * Unknown are filled with the ASCII replacement character 0x1a
  */
 const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96 ] = {
@@ -67,4 +69,206 @@ const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96
 const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ 8 ] = {
 	0x91, 0x92, 0x1a, 0x1a, 0x93, 0x94, 0x1a, 0x1a
 };
+
+/* Copies an Unicode character from a Windows 874 encoded byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_codepage_windows_874_copy_from_byte_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error )
+{
+	static char *function                             = "libuna_codepage_windows_874_copy_from_byte_stream";
+	libuna_unicode_character_t safe_unicode_character = 0xfffd;
+	size_t safe_byte_stream_index                     = 0;
+	uint8_t byte_stream_character                     = 0;
+
+	if( unicode_character == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid byte stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: byte stream too small.",
+		 function );
+
+		return( -1 );
+	}
+	byte_stream_character = byte_stream[ safe_byte_stream_index++ ];
+
+	if( byte_stream_character < 0x80 )
+	{
+		safe_unicode_character = byte_stream_character;
+	}
+	else
+	{
+		byte_stream_character -= 0x80;
+
+		safe_unicode_character = libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ byte_stream_character ];
+	}
+	*unicode_character = safe_unicode_character;
+	*byte_stream_index = safe_byte_stream_index;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character to a Windows 874 encoded byte stream
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_codepage_windows_874_copy_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error )
+{
+	static char *function         = "libuna_codepage_windows_874_copy_to_byte_stream";
+	size_t safe_byte_stream_index = 0;
+	uint16_t byte_stream_value    = 0x001a;
+
+	if( byte_stream == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid byte stream size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( byte_stream_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_byte_stream_index = *byte_stream_index;
+
+	if( safe_byte_stream_index >= byte_stream_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: byte stream too small.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( unicode_character < 0x0080 )
+	 || ( unicode_character == 0x00a0 ) )
+	{
+		byte_stream_value = (uint16_t) unicode_character;
+	}
+	else if( ( unicode_character >= 0x0e00 )
+	      && ( unicode_character < 0x0e60 ) )
+	{
+		unicode_character -= 0x0e00;
+
+		byte_stream_value = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ unicode_character ];
+	}
+	else if( ( unicode_character >= 0x2018 )
+	      && ( unicode_character < 0x2020 ) )
+	{
+		unicode_character -= 0x2018;
+
+		byte_stream_value = libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ unicode_character ];
+	}
+	else switch( unicode_character )
+	{
+		case 0x2013:
+			byte_stream_value = 0x96;
+			break;
+
+		case 0x2014:
+			byte_stream_value = 0x97;
+			break;
+
+		case 0x2022:
+			byte_stream_value = 0x95;
+			break;
+
+		case 0x2026:
+			byte_stream_value = 0x85;
+			break;
+
+		case 0x20ac:
+			byte_stream_value = 0x80;
+			break;
+
+		default:
+			byte_stream_value = 0x1a;
+			break;
+	}
+	byte_stream[ safe_byte_stream_index++ ] = (uint8_t) ( byte_stream_value & 0x00ff );
+
+	*byte_stream_index = safe_byte_stream_index;
+
+	return( 1 );
+}
 

@@ -25,20 +25,26 @@
 #include <common.h>
 #include <types.h>
 
-#include "libuna_extern.h"
+#include "libuna_libcerror.h"
+#include "libuna_types.h"
 
 #if defined( __cplusplus )
 extern "C" {
 #endif
 
-LIBUNA_EXTERN_VARIABLE \
-const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128 ];
+int libuna_codepage_windows_874_copy_from_byte_stream(
+     libuna_unicode_character_t *unicode_character,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error );
 
-LIBUNA_EXTERN_VARIABLE \
-const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96 ];
-
-LIBUNA_EXTERN_VARIABLE \
-const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ 8 ];
+int libuna_codepage_windows_874_copy_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     uint8_t *byte_stream,
+     size_t byte_stream_size,
+     size_t *byte_stream_index,
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

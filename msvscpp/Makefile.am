@@ -19,6 +19,7 @@ MSVSCPP_FILES = \
 	una_test_codepage_windows_1256/una_test_codepage_windows_1256.vcproj \
 	una_test_codepage_windows_1257/una_test_codepage_windows_1257.vcproj \
 	una_test_codepage_windows_1258/una_test_codepage_windows_1258.vcproj \
+	una_test_codepage_windows_874/una_test_codepage_windows_874.vcproj \
 	una_test_codepage_windows_932/una_test_codepage_windows_932.vcproj \
 	una_test_codepage_windows_936/una_test_codepage_windows_936.vcproj \
 	una_test_codepage_windows_949/una_test_codepage_windows_949.vcproj \
