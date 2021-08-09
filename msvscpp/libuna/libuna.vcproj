@@ -258,6 +258,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_croatian.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_cyrillic.c"
 				>
 			</File>
@@ -465,6 +469,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_centraleurroman.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_croatian.h"
 				>
 			</File>
 			<File

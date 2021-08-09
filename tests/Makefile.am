@@ -24,6 +24,7 @@ check_PROGRAMS = \
 	una_test_codepage_koi8_u \
 	una_test_codepage_mac_arabic \
 	una_test_codepage_mac_centraleurroman \
+	una_test_codepage_mac_croatian \
 	una_test_codepage_mac_cyrillic \
 	una_test_codepage_mac_roman \
 	una_test_codepage_mac_russian \
@@ -143,6 +144,18 @@ una_test_codepage_mac_centraleurroman_SOURCES = \
 	una_test_unused.h
 
 una_test_codepage_mac_centraleurroman_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_mac_croatian_SOURCES = \
+	una_test_codepage_mac_croatian.c una_test_codepage_mac_croatian.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_mac_croatian_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
@@ -399,7 +412,9 @@ una_test_unicode_character_SOURCES = \
 	una_test_codepage_iso_8859_16.h \
 	una_test_codepage_koi8_r.h \
 	una_test_codepage_koi8_u.h \
+	una_test_codepage_mac_arabic.h \
 	una_test_codepage_mac_centraleurroman.h \
+	una_test_codepage_mac_croatian.h \
 	una_test_codepage_mac_cyrillic.h \
 	una_test_codepage_mac_roman.h \
 	una_test_codepage_mac_russian.h \

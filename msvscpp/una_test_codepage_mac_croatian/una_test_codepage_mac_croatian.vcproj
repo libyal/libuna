@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_unicode_character"
-	ProjectGUID="{9EE5D0A9-1575-43EC-BA49-BF2B393F9764}"
-	RootNamespace="una_test_unicode_character"
+	Name="una_test_codepage_mac_croatian"
+	ProjectGUID="{C887ED18-CB89-4597-ACA9-E7B6768F08DE}"
+	RootNamespace="una_test_codepage_mac_croatian"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_unicode_character.c"
+				RelativePath="..\..\tests\una_test_codepage_mac_croatian.c"
 				>
 			</File>
 		</Filter>
@@ -186,159 +186,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_codepage_ascii.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_1.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_10.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_11.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_13.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_14.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_15.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_16.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_5.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_6.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_7.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_8.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_iso_8859_9.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_koi8_r.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_koi8_u.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_arabic.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_centraleurroman.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\tests\una_test_codepage_mac_croatian.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_cyrillic.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_roman.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_russian.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_ukrainian.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1250.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1251.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1252.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1253.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1254.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1255.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1256.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1257.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_1258.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_874.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_932.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_936.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_949.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\tests\una_test_codepage_windows_950.h"
 				>
 			</File>
 			<File

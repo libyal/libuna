@@ -1,5 +1,5 @@
 /*
- * Library codepage_windows_950 functions test program
+ * Library codepage_mac_croatian functions test program
  *
  * Copyright (C) 2008-2021, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -28,101 +28,21 @@
 #include <stdlib.h>
 #endif
 
-#include "una_test_codepage_windows_950.h"
+#include "una_test_codepage_mac_croatian.h"
 #include "una_test_libcerror.h"
 #include "una_test_libuna.h"
 #include "una_test_macros.h"
 #include "una_test_types.h"
 #include "una_test_unused.h"
 
-#include "../libuna/libuna_codepage_windows_950.h"
-
-una_test_byte_stream_to_unicode_t una_test_codepage_windows_950_replacement_byte_stream_to_unicode[ 6 ] = {
-	{ { 0xa2, 0x3f }, 2, 0xfffd, 0 },
-	{ { 0xa3, 0x3f }, 2, 0xfffd, 0 },
-	{ { 0xc5, 0x3f }, 2, 0xfffd, 0 },
-	{ { 0xc6, 0x3f }, 2, 0xfffd, 0 },
-	{ { 0xf9, 0x3f }, 2, 0xfffd, 0 },
-	{ { 0xfa, 0x00 }, 2, 0xfffd, 0 },
-};
+#include "../libuna/libuna_codepage_mac_croatian.h"
 
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
-/* Tests the libuna_codepage_windows_950_unicode_character_size_to_byte_stream function
+/* Tests the libuna_codepage_mac_croatian_copy_from_byte_stream function
  * Returns 1 if successful or 0 if not
  */
-int una_test_codepage_windows_950_unicode_character_size_to_byte_stream(
-     void )
-{
-	libuna_error_t *error                          = NULL;
-	una_test_byte_stream_to_unicode_t *test_values = NULL;
-	size_t byte_stream_character_size              = 0;
-	int result                                     = 0;
-	int test_number                                = 0;
-
-	/* Test regular cases
-	 */
-	for( test_number = 0;
-	     test_number < 13631;
-	     test_number++ )
-	{
-		test_values = &( una_test_codepage_windows_950_byte_stream_to_unicode[ test_number ] );
-
-		byte_stream_character_size = 0;
-
-		result = libuna_codepage_windows_950_unicode_character_size_to_byte_stream(
-		          test_values->unicode_character,
-		          &byte_stream_character_size,
-		          &error );
-
-		UNA_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 1 );
-
-		UNA_TEST_ASSERT_EQUAL_SIZE(
-		 "byte_stream_character_size",
-		 byte_stream_character_size,
-		 test_values->byte_stream_size );
-
-		UNA_TEST_ASSERT_IS_NULL(
-		 "error",
-		 error );
-	}
-	/* Test error cases
-	 */
-	result = libuna_codepage_windows_950_unicode_character_size_to_byte_stream(
-	          0x00000041UL,
-	          NULL,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	return( 1 );
-
-on_error:
-	if( error != NULL )
-	{
-		libcerror_error_free(
-		 &error );
-	}
-	return( 0 );
-}
-
-/* Tests the libuna_codepage_windows_950_copy_from_byte_stream function
- * Returns 1 if successful or 0 if not
- */
-int una_test_codepage_windows_950_copy_from_byte_stream(
+int una_test_codepage_mac_croatian_copy_from_byte_stream(
      void )
 {
 	libuna_error_t *error                          = NULL;
@@ -135,14 +55,14 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 	/* Test regular cases
 	 */
 	for( test_number = 0;
-	     test_number < 13631;
+	     test_number < 256;
 	     test_number++ )
 	{
-		test_values = &( una_test_codepage_windows_950_byte_stream_to_unicode[ test_number ] );
+		test_values = &( una_test_codepage_mac_croatian_byte_stream_to_unicode[ test_number ] );
 
 		byte_stream_index = 0;
 
-		result = libuna_codepage_windows_950_copy_from_byte_stream(
+		result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 		          &unicode_character,
 		          test_values->byte_stream,
 		          test_values->byte_stream_size,
@@ -168,47 +88,11 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 		 "error",
 		 error );
 	}
-	for( test_number = 0;
-	     test_number < 6;
-	     test_number++ )
-	{
-		test_values = &( una_test_codepage_windows_950_replacement_byte_stream_to_unicode[ test_number ] );
-
-		byte_stream_index = 0;
-
-		result = libuna_codepage_windows_950_copy_from_byte_stream(
-		          &unicode_character,
-		          test_values->byte_stream,
-		          test_values->byte_stream_size,
-		          &byte_stream_index,
-		          &error );
-
-		UNA_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 1 );
-
-		UNA_TEST_ASSERT_EQUAL_UINT32(
-		 "unicode_character",
-		 unicode_character,
-		 test_values->unicode_character );
-
-		UNA_TEST_ASSERT_EQUAL_SIZE(
-		 "byte_stream_index",
-		 byte_stream_index,
-		 test_values->byte_stream_size );
-
-		UNA_TEST_ASSERT_IS_NULL(
-		 "error",
-		 error );
-	}
-/* TODO add test for replacements */
-
 	/* Test error cases
 	 */
 	byte_stream_index = 0;
 
-	result = libuna_codepage_windows_950_copy_from_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 	          NULL,
 	          (uint8_t *) "A",
 	          1,
@@ -227,7 +111,7 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_windows_950_copy_from_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 	          &unicode_character,
 	          NULL,
 	          1,
@@ -246,7 +130,7 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_windows_950_copy_from_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          (size_t) SSIZE_MAX + 1,
@@ -265,7 +149,7 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_windows_950_copy_from_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          1,
@@ -286,7 +170,7 @@ int una_test_codepage_windows_950_copy_from_byte_stream(
 
 	byte_stream_index = 1;
 
-	result = libuna_codepage_windows_950_copy_from_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          1,
@@ -316,10 +200,10 @@ on_error:
 	return( 0 );
 }
 
-/* Tests the libuna_codepage_windows_950_copy_to_byte_stream function
+/* Tests the libuna_codepage_mac_croatian_copy_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
-int una_test_codepage_windows_950_copy_to_byte_stream(
+int una_test_codepage_mac_croatian_copy_to_byte_stream(
      void )
 {
 	uint8_t byte_stream[ 16 ];
@@ -333,10 +217,10 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 	/* Test regular cases
 	 */
 	for( test_number = 0;
-	     test_number < 13631;
+	     test_number < 256;
 	     test_number++ )
 	{
-		test_values = &( una_test_codepage_windows_950_byte_stream_to_unicode[ test_number ] );
+		test_values = &( una_test_codepage_mac_croatian_byte_stream_to_unicode[ test_number ] );
 
 		if( test_values->is_duplicate != 0 )
 		{
@@ -344,7 +228,7 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 		}
 		byte_stream_index = 0;
 
-		result = libuna_codepage_windows_950_copy_to_byte_stream(
+		result = libuna_codepage_mac_croatian_copy_to_byte_stream(
 		          test_values->unicode_character,
 		          byte_stream,
 		          16,
@@ -379,7 +263,7 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 	 */
 	byte_stream_index = 0;
 
-	result = libuna_codepage_windows_950_copy_to_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_to_byte_stream(
 	          0x00000041UL,
 	          NULL,
 	          16,
@@ -398,7 +282,7 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_windows_950_copy_to_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          (size_t) SSIZE_MAX + 1,
@@ -417,7 +301,7 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_windows_950_copy_to_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          16,
@@ -438,7 +322,7 @@ int una_test_codepage_windows_950_copy_to_byte_stream(
 
 	byte_stream_index = 16;
 
-	result = libuna_codepage_windows_950_copy_to_byte_stream(
+	result = libuna_codepage_mac_croatian_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          16,
@@ -488,16 +372,12 @@ int main(
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
 	UNA_TEST_RUN(
-	 "libuna_codepage_windows_950_unicode_character_size_to_byte_stream",
-	 una_test_codepage_windows_950_unicode_character_size_to_byte_stream );
+	 "libuna_codepage_mac_croatian_copy_from_byte_stream",
+	 una_test_codepage_mac_croatian_copy_from_byte_stream );
 
 	UNA_TEST_RUN(
-	 "libuna_codepage_windows_950_copy_from_byte_stream",
-	 una_test_codepage_windows_950_copy_from_byte_stream );
-
-	UNA_TEST_RUN(
-	 "libuna_codepage_windows_950_copy_to_byte_stream",
-	 una_test_codepage_windows_950_copy_to_byte_stream );
+	 "libuna_codepage_mac_croatian_copy_to_byte_stream",
+	 una_test_codepage_mac_croatian_copy_to_byte_stream );
 
 #endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
 
