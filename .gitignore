@@ -138,6 +138,7 @@ stamp-h[1-9]
 /tests/una_test_codepage_mac_centraleurroman
 /tests/una_test_codepage_mac_croatian
 /tests/una_test_codepage_mac_cyrillic
+/tests/una_test_codepage_mac_greek
 /tests/una_test_codepage_mac_roman
 /tests/una_test_codepage_mac_russian
 /tests/una_test_codepage_mac_ukrainian
