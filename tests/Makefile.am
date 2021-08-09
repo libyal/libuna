@@ -22,6 +22,7 @@ check_PROGRAMS = \
 	una_test_byte_stream \
 	una_test_codepage_koi8_r \
 	una_test_codepage_koi8_u \
+	una_test_codepage_mac_arabic \
 	una_test_codepage_mac_centraleurroman \
 	una_test_codepage_mac_cyrillic \
 	una_test_codepage_mac_roman \
@@ -118,6 +119,18 @@ una_test_codepage_koi8_u_SOURCES = \
 	una_test_unused.h
 
 una_test_codepage_koi8_u_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
+una_test_codepage_mac_arabic_SOURCES = \
+	una_test_codepage_mac_arabic.c una_test_codepage_mac_arabic.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_mac_arabic_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 

@@ -134,6 +134,7 @@ stamp-h[1-9]
 /tests/una_test_byte_stream
 /tests/una_test_codepage_koi8_r
 /tests/una_test_codepage_koi8_u
+/tests/una_test_codepage_mac_arabic
 /tests/una_test_codepage_mac_centraleurroman
 /tests/una_test_codepage_mac_cyrillic
 /tests/una_test_codepage_mac_roman
