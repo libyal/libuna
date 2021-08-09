@@ -61,6 +61,8 @@ una_test_byte_stream_to_unicode_t una_test_codepage_windows_936_replacement_byte
 	{ { 0xff, 0x00 }, 2, 0xfffd, 0 },
 };
 
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
 /* Tests the libuna_codepage_windows_936_unicode_character_size_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -481,6 +483,8 @@ on_error:
 	return( 0 );
 }
 
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
+
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -496,6 +500,8 @@ int main(
 	UNA_TEST_UNREFERENCED_PARAMETER( argc )
 	UNA_TEST_UNREFERENCED_PARAMETER( argv )
 
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
 	UNA_TEST_RUN(
 	 "libuna_codepage_windows_936_unicode_character_size_to_byte_stream",
 	 una_test_codepage_windows_936_unicode_character_size_to_byte_stream );
@@ -510,7 +516,15 @@ int main(
 
 	return( EXIT_SUCCESS );
 
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
+
+	return( EXIT_SUCCESS );
+
+#if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
+
 on_error:
 	return( EXIT_FAILURE );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
 }
 
