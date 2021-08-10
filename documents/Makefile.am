@@ -29,7 +29,9 @@ EXTRA_DIST = \
 	mac-icelandic.txt \
 	mac-romanian.txt \
 	mac-roman.txt \
+	mac-romanian.txt \
 	mac-russian.txt \
+	mac-symbol.txt \
 	mac-ukrainian.txt \
 	oem-437.txt \
 	oem-720.txt \
