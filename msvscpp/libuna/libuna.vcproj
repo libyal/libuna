@@ -270,6 +270,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_dingbats.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_greek.c"
 				>
 			</File>
@@ -493,6 +497,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_cyrillic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_dingbats.h"
 				>
 			</File>
 			<File
