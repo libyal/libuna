@@ -45,6 +45,7 @@
 #include "libuna_codepage_mac_cyrillic.h"
 #include "libuna_codepage_mac_dingbats.h"
 #include "libuna_codepage_mac_farsi.h"
+#include "libuna_codepage_mac_gaelic.h"
 #include "libuna_codepage_mac_greek.h"
 #include "libuna_codepage_mac_icelandic.h"
 #include "libuna_codepage_mac_roman.h"
@@ -166,6 +167,7 @@ int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_MAC_CYRILLIC:
 		case LIBUNA_CODEPAGE_MAC_DINGBATS:
 		case LIBUNA_CODEPAGE_MAC_FARSI:
+		case LIBUNA_CODEPAGE_MAC_GAELIC:
 		case LIBUNA_CODEPAGE_MAC_GREEK:
 		case LIBUNA_CODEPAGE_MAC_ICELANDIC:
 		case LIBUNA_CODEPAGE_MAC_ROMAN:
@@ -632,6 +634,15 @@ int libuna_unicode_character_copy_from_byte_stream(
 
 		case LIBUNA_CODEPAGE_MAC_FARSI:
 			result = libuna_codepage_mac_farsi_copy_from_byte_stream(
+			          &safe_unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
+			break;
+
+		case LIBUNA_CODEPAGE_MAC_GAELIC:
+			result = libuna_codepage_mac_gaelic_copy_from_byte_stream(
 			          &safe_unicode_character,
 			          byte_stream,
 			          byte_stream_size,
@@ -1809,6 +1820,15 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 		case LIBUNA_CODEPAGE_MAC_FARSI:
 			result = libuna_codepage_mac_farsi_copy_to_byte_stream(
+			          unicode_character,
+			          byte_stream,
+			          byte_stream_size,
+			          &safe_byte_stream_index,
+			          error );
+			break;
+
+		case LIBUNA_CODEPAGE_MAC_GAELIC:
+			result = libuna_codepage_mac_gaelic_copy_to_byte_stream(
 			          unicode_character,
 			          byte_stream,
 			          byte_stream_size,
