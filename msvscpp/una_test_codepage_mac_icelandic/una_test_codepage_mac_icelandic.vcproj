@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="una_test_codepage_mac_cyrillic"
-	ProjectGUID="{76301E26-29E0-43C6-BA73-BD1AE5AFF99A}"
-	RootNamespace="una_test_codepage_mac_cyrillic"
+	Name="una_test_codepage_mac_icelandic"
+	ProjectGUID="{CE4A36B0-E33F-4F9A-98AB-4D3B7C20CC10}"
+	RootNamespace="una_test_codepage_mac_icelandic"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_cyrillic.c"
+				RelativePath="..\..\tests\una_test_codepage_mac_icelandic.c"
 				>
 			</File>
 		</Filter>
@@ -186,7 +186,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\tests\una_test_codepage_mac_cyrillic.h"
+				RelativePath="..\..\tests\una_test_codepage_mac_icelandic.h"
 				>
 			</File>
 			<File
