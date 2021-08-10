@@ -17,6 +17,7 @@ MSVSCPP_FILES = \
 	una_test_codepage_mac_croatian/una_test_codepage_mac_croatian.vcproj \
 	una_test_codepage_mac_cyrillic/una_test_codepage_mac_cyrillic.vcproj \
 	una_test_codepage_mac_dingbats/una_test_codepage_mac_dingbats.vcproj \
+	una_test_codepage_mac_farsi/una_test_codepage_mac_farsi.vcproj \
 	una_test_codepage_mac_greek/una_test_codepage_mac_greek.vcproj \
 	una_test_codepage_mac_icelandic/una_test_codepage_mac_icelandic.vcproj \
 	una_test_codepage_mac_roman/una_test_codepage_mac_roman.vcproj \
