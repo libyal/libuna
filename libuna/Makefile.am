@@ -38,6 +38,7 @@ libuna_la_SOURCES = \
 	libuna_codepage_mac_greek.c libuna_codepage_mac_greek.h \
 	libuna_codepage_mac_icelandic.c libuna_codepage_mac_icelandic.h \
 	libuna_codepage_mac_roman.c libuna_codepage_mac_roman.h \
+	libuna_codepage_mac_romanian.c libuna_codepage_mac_romanian.h \
 	libuna_codepage_mac_russian.c libuna_codepage_mac_russian.h \
 	libuna_codepage_mac_ukrainian.c libuna_codepage_mac_ukrainian.h \
 	libuna_codepage_windows_874.c libuna_codepage_windows_874.h \

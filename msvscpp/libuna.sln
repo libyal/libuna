@@ -123,6 +123,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_codepage_mac_roman
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_codepage_mac_romanian", "una_test_codepage_mac_romanian\una_test_codepage_mac_romanian.vcproj", "{46BDDD6D-9F83-47DF-9FB5-2A52C00D1671}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
+		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "una_test_codepage_mac_russian", "una_test_codepage_mac_russian\una_test_codepage_mac_russian.vcproj", "{F39A627C-2AB6-4F3B-932A-ADC7E7B5DCEC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3F999025-B0E2-496D-B9FD-F69C5BA9FD85} = {3F999025-B0E2-496D-B9FD-F69C5BA9FD85}
@@ -394,6 +400,10 @@ Global
 		{C5391B09-0521-4C71-961C-DB02B49DE009}.Release|Win32.Build.0 = Release|Win32
 		{C5391B09-0521-4C71-961C-DB02B49DE009}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{C5391B09-0521-4C71-961C-DB02B49DE009}.VSDebug|Win32.Build.0 = VSDebug|Win32
+		{46BDDD6D-9F83-47DF-9FB5-2A52C00D1671}.Release|Win32.ActiveCfg = Release|Win32
+		{46BDDD6D-9F83-47DF-9FB5-2A52C00D1671}.Release|Win32.Build.0 = Release|Win32
+		{46BDDD6D-9F83-47DF-9FB5-2A52C00D1671}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{46BDDD6D-9F83-47DF-9FB5-2A52C00D1671}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{F39A627C-2AB6-4F3B-932A-ADC7E7B5DCEC}.Release|Win32.ActiveCfg = Release|Win32
 		{F39A627C-2AB6-4F3B-932A-ADC7E7B5DCEC}.Release|Win32.Build.0 = Release|Win32
 		{F39A627C-2AB6-4F3B-932A-ADC7E7B5DCEC}.VSDebug|Win32.ActiveCfg = VSDebug|Win32

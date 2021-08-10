@@ -145,6 +145,7 @@ stamp-h[1-9]
 /tests/una_test_codepage_mac_greek
 /tests/una_test_codepage_mac_icelandic
 /tests/una_test_codepage_mac_roman
+/tests/una_test_codepage_mac_romanian
 /tests/una_test_codepage_mac_russian
 /tests/una_test_codepage_mac_ukrainian
 /tests/una_test_codepage_windows_874
