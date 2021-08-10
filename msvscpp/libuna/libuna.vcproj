@@ -290,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_inuit.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_roman.c"
 				>
 			</File>
@@ -533,6 +537,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_icelandic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_inuit.h"
 				>
 			</File>
 			<File

@@ -56,6 +56,7 @@
 #include "una_test_codepage_mac_gaelic.h"
 #include "una_test_codepage_mac_greek.h"
 #include "una_test_codepage_mac_icelandic.h"
+#include "una_test_codepage_mac_inuit.h"
 #include "una_test_codepage_mac_roman.h"
 #include "una_test_codepage_mac_romanian.h"
 #include "una_test_codepage_mac_russian.h"
@@ -100,7 +101,7 @@ struct una_test_unicode_character_codepage
 	una_test_byte_stream_to_unicode_t *test_values;
 };
 
-#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	47
+#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	48
 
 una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES ] = {
 	{ LIBUNA_CODEPAGE_ASCII, 128, una_test_codepage_ascii_byte_stream_to_unicode },
@@ -131,6 +132,7 @@ una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_
 	{ LIBUNA_CODEPAGE_MAC_GAELIC, 256, una_test_codepage_mac_gaelic_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_GREEK, 256, una_test_codepage_mac_greek_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_ICELANDIC, 256, una_test_codepage_mac_icelandic_byte_stream_to_unicode },
+	{ LIBUNA_CODEPAGE_MAC_INUIT, 256, una_test_codepage_mac_inuit_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_ROMAN, 256, una_test_codepage_mac_roman_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_ROMANIAN, 256, una_test_codepage_mac_romanian_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_RUSSIAN, 256, una_test_codepage_mac_russian_byte_stream_to_unicode },
