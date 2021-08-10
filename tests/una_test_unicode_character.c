@@ -47,6 +47,7 @@
 #include "una_test_codepage_koi8_r.h"
 #include "una_test_codepage_koi8_u.h"
 #include "una_test_codepage_mac_arabic.h"
+#include "una_test_codepage_mac_celtic.h"
 #include "una_test_codepage_mac_centraleurroman.h"
 #include "una_test_codepage_mac_croatian.h"
 #include "una_test_codepage_mac_cyrillic.h"
@@ -94,7 +95,7 @@ struct una_test_unicode_character_codepage
 	una_test_byte_stream_to_unicode_t *test_values;
 };
 
-#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	41
+#define UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES	42
 
 una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_TEST_UNICODE_CHARACTER_NUMBER_OF_CODEPAGES ] = {
 	{ LIBUNA_CODEPAGE_ASCII, 128, una_test_codepage_ascii_byte_stream_to_unicode },
@@ -116,6 +117,7 @@ una_test_unicode_character_codepage_t una_test_unicode_character_codepages[ UNA_
 	{ LIBUNA_CODEPAGE_KOI8_R, 256, una_test_codepage_koi8_r_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_KOI8_U, 256, una_test_codepage_koi8_u_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_ARABIC, 256, una_test_codepage_mac_arabic_byte_stream_to_unicode },
+	{ LIBUNA_CODEPAGE_MAC_CELTIC, 256, una_test_codepage_mac_celtic_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_CENTRALEURROMAN, 256, una_test_codepage_mac_centraleurroman_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_CROATIAN, 256, una_test_codepage_mac_croatian_byte_stream_to_unicode },
 	{ LIBUNA_CODEPAGE_MAC_CYRILLIC, 256, una_test_codepage_mac_cyrillic_byte_stream_to_unicode },

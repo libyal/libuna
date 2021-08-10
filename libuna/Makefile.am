@@ -28,6 +28,7 @@ libuna_la_SOURCES = \
 	libuna_codepage_koi8_r.c libuna_codepage_koi8_r.h \
 	libuna_codepage_koi8_u.c libuna_codepage_koi8_u.h \
 	libuna_codepage_mac_arabic.c libuna_codepage_mac_arabic.h \
+	libuna_codepage_mac_celtic.c libuna_codepage_mac_celtic.h \
 	libuna_codepage_mac_centraleurroman.c libuna_codepage_mac_centraleurroman.h \
 	libuna_codepage_mac_croatian.c libuna_codepage_mac_croatian.h \
 	libuna_codepage_mac_cyrillic.c libuna_codepage_mac_cyrillic.h \
