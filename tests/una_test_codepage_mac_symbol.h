@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-una_test_byte_stream_to_unicode_t una_test_codepage_mac_symbol_byte_stream_to_unicode[ 220 ] = {
+una_test_byte_stream_to_unicode_t una_test_codepage_mac_symbol_byte_stream_to_unicode[ 223 ] = {
 	{ { 0x00 }, 1, 0x0000, 0 },
 	{ { 0x01 }, 1, 0x0001, 0 },
 	{ { 0x02 }, 1, 0x0002, 0 },
@@ -227,7 +227,9 @@ una_test_byte_stream_to_unicode_t una_test_codepage_mac_symbol_byte_stream_to_un
 	{ { 0xdf }, 1, 0x21d3, 0 },
 	{ { 0xe0 }, 1, 0x25ca, 0 },
 	{ { 0xe1 }, 1, 0x3008, 0 },
-
+	{ { 0xe2 }, 1, 0x00ae, 1 },
+	{ { 0xe3 }, 1, 0x00a9, 1 },
+	{ { 0xe4 }, 1, 0x2122, 1 },
 	{ { 0xe5 }, 1, 0x2211, 0 },
 	{ { 0xe6 }, 1, 0x239b, 0 },
 	{ { 0xe7 }, 1, 0x239c, 0 },

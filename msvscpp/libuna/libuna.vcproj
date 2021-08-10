@@ -310,6 +310,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_thai.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_ukrainian.c"
 				>
 			</File>
@@ -557,6 +561,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libuna\libuna_codepage_mac_symbol.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libuna\libuna_codepage_mac_thai.h"
 				>
 			</File>
 			<File

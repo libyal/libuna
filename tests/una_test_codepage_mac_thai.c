@@ -1,5 +1,5 @@
 /*
- * Library codepage_mac_symbol functions test program
+ * Library codepage_mac_thai functions test program
  *
  * Copyright (C) 2008-2021, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -28,21 +28,21 @@
 #include <stdlib.h>
 #endif
 
-#include "una_test_codepage_mac_symbol.h"
+#include "una_test_codepage_mac_thai.h"
 #include "una_test_libcerror.h"
 #include "una_test_libuna.h"
 #include "una_test_macros.h"
 #include "una_test_types.h"
 #include "una_test_unused.h"
 
-#include "../libuna/libuna_codepage_mac_symbol.h"
+#include "../libuna/libuna_codepage_mac_thai.h"
 
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
-/* Tests the libuna_codepage_mac_symbol_copy_from_byte_stream function
+/* Tests the libuna_codepage_mac_thai_copy_from_byte_stream function
  * Returns 1 if successful or 0 if not
  */
-int una_test_codepage_mac_symbol_copy_from_byte_stream(
+int una_test_codepage_mac_thai_copy_from_byte_stream(
      void )
 {
 	libuna_error_t *error                          = NULL;
@@ -55,14 +55,14 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 	/* Test regular cases
 	 */
 	for( test_number = 0;
-	     test_number < 223;
+	     test_number < 250;
 	     test_number++ )
 	{
-		test_values = &( una_test_codepage_mac_symbol_byte_stream_to_unicode[ test_number ] );
+		test_values = &( una_test_codepage_mac_thai_byte_stream_to_unicode[ test_number ] );
 
 		byte_stream_index = 0;
 
-		result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+		result = libuna_codepage_mac_thai_copy_from_byte_stream(
 		          &unicode_character,
 		          test_values->byte_stream,
 		          test_values->byte_stream_size,
@@ -92,7 +92,7 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 	 */
 	byte_stream_index = 0;
 
-	result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+	result = libuna_codepage_mac_thai_copy_from_byte_stream(
 	          NULL,
 	          (uint8_t *) "A",
 	          1,
@@ -111,7 +111,7 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+	result = libuna_codepage_mac_thai_copy_from_byte_stream(
 	          &unicode_character,
 	          NULL,
 	          1,
@@ -130,7 +130,7 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+	result = libuna_codepage_mac_thai_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          (size_t) SSIZE_MAX + 1,
@@ -149,7 +149,7 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+	result = libuna_codepage_mac_thai_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          1,
@@ -170,7 +170,7 @@ int una_test_codepage_mac_symbol_copy_from_byte_stream(
 
 	byte_stream_index = 1;
 
-	result = libuna_codepage_mac_symbol_copy_from_byte_stream(
+	result = libuna_codepage_mac_thai_copy_from_byte_stream(
 	          &unicode_character,
 	          (uint8_t *) "A",
 	          1,
@@ -200,10 +200,10 @@ on_error:
 	return( 0 );
 }
 
-/* Tests the libuna_codepage_mac_symbol_copy_to_byte_stream function
+/* Tests the libuna_codepage_mac_thai_copy_to_byte_stream function
  * Returns 1 if successful or 0 if not
  */
-int una_test_codepage_mac_symbol_copy_to_byte_stream(
+int una_test_codepage_mac_thai_copy_to_byte_stream(
      void )
 {
 	uint8_t byte_stream[ 16 ];
@@ -217,10 +217,10 @@ int una_test_codepage_mac_symbol_copy_to_byte_stream(
 	/* Test regular cases
 	 */
 	for( test_number = 0;
-	     test_number < 223;
+	     test_number < 250;
 	     test_number++ )
 	{
-		test_values = &( una_test_codepage_mac_symbol_byte_stream_to_unicode[ test_number ] );
+		test_values = &( una_test_codepage_mac_thai_byte_stream_to_unicode[ test_number ] );
 
 		if( test_values->is_duplicate != 0 )
 		{
@@ -228,7 +228,7 @@ int una_test_codepage_mac_symbol_copy_to_byte_stream(
 		}
 		byte_stream_index = 0;
 
-		result = libuna_codepage_mac_symbol_copy_to_byte_stream(
+		result = libuna_codepage_mac_thai_copy_to_byte_stream(
 		          test_values->unicode_character,
 		          byte_stream,
 		          16,
@@ -249,8 +249,6 @@ int una_test_codepage_mac_symbol_copy_to_byte_stream(
 		 "error",
 		 error );
 
-fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
-
 		result = memory_compare(
 		          test_values->byte_stream,
 		          byte_stream,
@@ -265,7 +263,7 @@ fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
 	 */
 	byte_stream_index = 0;
 
-	result = libuna_codepage_mac_symbol_copy_to_byte_stream(
+	result = libuna_codepage_mac_thai_copy_to_byte_stream(
 	          0x00000041UL,
 	          NULL,
 	          16,
@@ -284,7 +282,7 @@ fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_mac_symbol_copy_to_byte_stream(
+	result = libuna_codepage_mac_thai_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          (size_t) SSIZE_MAX + 1,
@@ -303,7 +301,7 @@ fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
 	libcerror_error_free(
 	 &error );
 
-	result = libuna_codepage_mac_symbol_copy_to_byte_stream(
+	result = libuna_codepage_mac_thai_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          16,
@@ -324,7 +322,7 @@ fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
 
 	byte_stream_index = 16;
 
-	result = libuna_codepage_mac_symbol_copy_to_byte_stream(
+	result = libuna_codepage_mac_thai_copy_to_byte_stream(
 	          0x00000041UL,
 	          byte_stream,
 	          16,
@@ -374,12 +372,12 @@ int main(
 #if defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT )
 
 	UNA_TEST_RUN(
-	 "libuna_codepage_mac_symbol_copy_from_byte_stream",
-	 una_test_codepage_mac_symbol_copy_from_byte_stream );
+	 "libuna_codepage_mac_thai_copy_from_byte_stream",
+	 una_test_codepage_mac_thai_copy_from_byte_stream );
 
 	UNA_TEST_RUN(
-	 "libuna_codepage_mac_symbol_copy_to_byte_stream",
-	 una_test_codepage_mac_symbol_copy_to_byte_stream );
+	 "libuna_codepage_mac_thai_copy_to_byte_stream",
+	 una_test_codepage_mac_thai_copy_to_byte_stream );
 
 #endif /* defined( __GNUC__ ) && !defined( LIBUNA_DLL_IMPORT ) */
 

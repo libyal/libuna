@@ -37,6 +37,7 @@ check_PROGRAMS = \
 	una_test_codepage_mac_romanian \
 	una_test_codepage_mac_russian \
 	una_test_codepage_mac_symbol \
+	una_test_codepage_mac_thai \
 	una_test_codepage_mac_ukrainian \
 	una_test_codepage_windows_874 \
 	una_test_codepage_windows_932 \
@@ -312,6 +313,18 @@ una_test_codepage_mac_symbol_LDADD = \
 	../libuna/libuna.la \
 	@LIBCERROR_LIBADD@
 
+una_test_codepage_mac_thai_SOURCES = \
+	una_test_codepage_mac_thai.c una_test_codepage_mac_thai.h \
+	una_test_libcerror.h \
+	una_test_libuna.h \
+	una_test_macros.h \
+	una_test_types.h \
+	una_test_unused.h
+
+una_test_codepage_mac_thai_LDADD = \
+	../libuna/libuna.la \
+	@LIBCERROR_LIBADD@
+
 una_test_codepage_mac_ukrainian_SOURCES = \
 	una_test_codepage_mac_ukrainian.c una_test_codepage_mac_ukrainian.h \
 	una_test_libcerror.h \
@@ -543,6 +556,7 @@ una_test_unicode_character_SOURCES = \
 	una_test_codepage_mac_romanian.h \
 	una_test_codepage_mac_russian.h \
 	una_test_codepage_mac_symbol.h \
+	una_test_codepage_mac_thai.h \
 	una_test_codepage_mac_ukrainian.h \
 	una_test_codepage_windows_874.h \
 	una_test_codepage_windows_932.h \
