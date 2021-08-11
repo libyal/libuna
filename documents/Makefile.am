@@ -34,6 +34,7 @@ EXTRA_DIST = \
 	mac-russian.txt \
 	mac-symbol.txt \
 	mac-thai.txt \
+	mac-turkish.txt \
 	mac-ukrainian.txt \
 	oem-437.txt \
 	oem-720.txt \

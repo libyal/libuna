@@ -27,6 +27,7 @@ MSVSCPP_FILES = \
 	una_test_codepage_mac_russian/una_test_codepage_mac_russian.vcproj \
 	una_test_codepage_mac_symbol/una_test_codepage_mac_symbol.vcproj \
 	una_test_codepage_mac_thai/una_test_codepage_mac_thai.vcproj \
+	una_test_codepage_mac_turkish/una_test_codepage_mac_turkish.vcproj \
 	una_test_codepage_mac_ukrainian/una_test_codepage_mac_ukrainian.vcproj \
 	una_test_codepage_windows_1250/una_test_codepage_windows_1250.vcproj \
 	una_test_codepage_windows_1251/una_test_codepage_windows_1251.vcproj \
