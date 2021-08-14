@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	mac-farsi.txt \
 	mac-gaelic.txt \
 	mac-greek.txt \
+	mac-hebrew.txt \
 	mac-icelandic.txt \
 	mac-inuit.txt \
 	mac-romanian.txt \
