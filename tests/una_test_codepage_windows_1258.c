@@ -222,7 +222,7 @@ int una_test_codepage_windows_1258_copy_to_byte_stream(
 	{
 		test_values = &( una_test_codepage_windows_1258_byte_stream_to_unicode[ test_number ] );
 
-		if( test_values->is_duplicate != 0 )
+		if( test_values->flags != 0 )
 		{
 			continue;
 		}

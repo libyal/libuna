@@ -6350,9 +6350,9 @@ const uint16_t libuna_codepage_windows_936_unicode_to_byte_stream_base_0xfe00[ 5
 	0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a, 0x001a
 };
 
-/* Determines the size of a byte stream character from an Unicode character
+/* Determines the size of a Windows 936 encoded byte stream from an Unicode character
  * Adds the size to the byte stream character size value
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
  */
 int libuna_codepage_windows_936_unicode_character_size_to_byte_stream(
      libuna_unicode_character_t unicode_character,

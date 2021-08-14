@@ -94,7 +94,7 @@ int libuna_error_backtrace_sprint(
 
 /* Determines the size of a byte stream character from an Unicode character
  * Adds the size to the byte stream character size value
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_unicode_character_size_to_byte_stream(
@@ -104,7 +104,7 @@ int libuna_unicode_character_size_to_byte_stream(
      libuna_error_t **error );
 
 /* Copies a Unicode character from a byte stream
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_unicode_character_copy_from_byte_stream(
@@ -116,7 +116,7 @@ int libuna_unicode_character_copy_from_byte_stream(
      libuna_error_t **error );
 
 /* Copies a Unicode character to a byte stream string
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the Unicode character is valid but not supported since it requires special handling or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_unicode_character_copy_to_byte_stream(

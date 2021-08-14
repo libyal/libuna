@@ -186,6 +186,10 @@ int una_test_unicode_character_size_to_byte_stream(
 		{
 			test_values = &( test_codepage->test_values[ test_number ] );
 
+			if( test_values->flags != 0 )
+			{
+				continue;
+			}
 			byte_stream_character_size = 0;
 
 			result = libuna_unicode_character_size_to_byte_stream(
@@ -193,6 +197,8 @@ int una_test_unicode_character_size_to_byte_stream(
 				  test_codepage->codepage,
 				  &byte_stream_character_size,
 				  &error );
+
+fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
 
 			UNA_TEST_ASSERT_EQUAL_INT(
 			 "result",
@@ -553,7 +559,7 @@ int una_test_unicode_character_copy_to_byte_stream(
 		{
 			test_values = &( test_codepage->test_values[ test_number ] );
 
-			if( test_values->is_duplicate != 0 )
+			if( test_values->flags != 0 )
 			{
 				continue;
 			}

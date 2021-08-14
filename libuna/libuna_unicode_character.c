@@ -120,7 +120,7 @@ uint8_t libuna_unicode_character_utf7_valid_base64_character[ 256 ] = {
 
 /* Determines the size of a byte stream character from an Unicode character
  * Adds the size to the byte stream character size value
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
  */
 int libuna_unicode_character_size_to_byte_stream(
      libuna_unicode_character_t unicode_character,
@@ -179,8 +179,6 @@ int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_MAC_ROMAN:
 		case LIBUNA_CODEPAGE_MAC_ROMANIAN:
 		case LIBUNA_CODEPAGE_MAC_RUSSIAN:
-		case LIBUNA_CODEPAGE_MAC_SYMBOL:
-		case LIBUNA_CODEPAGE_MAC_THAI:
 		case LIBUNA_CODEPAGE_MAC_TURKISH:
 		case LIBUNA_CODEPAGE_MAC_UKRAINIAN:
 		case LIBUNA_CODEPAGE_WINDOWS_874:
@@ -194,6 +192,20 @@ int libuna_unicode_character_size_to_byte_stream(
 		case LIBUNA_CODEPAGE_WINDOWS_1257:
 		case LIBUNA_CODEPAGE_WINDOWS_1258:
 			safe_byte_stream_character_size += 1;
+			break;
+
+		case LIBUNA_CODEPAGE_MAC_SYMBOL:
+			result = libuna_codepage_mac_symbol_unicode_character_size_to_byte_stream(
+			          unicode_character,
+			          &safe_byte_stream_character_size,
+			          error );
+			break;
+
+		case LIBUNA_CODEPAGE_MAC_THAI:
+			result = libuna_codepage_mac_thai_unicode_character_size_to_byte_stream(
+			          unicode_character,
+			          &safe_byte_stream_character_size,
+			          error );
 			break;
 
 		case LIBUNA_CODEPAGE_WINDOWS_932:
@@ -235,7 +247,7 @@ int libuna_unicode_character_size_to_byte_stream(
 
 			return( -1 );
 	}
-	if( result != 1 )
+	if( result == -1 )
 	{
 		libcerror_error_set(
 		 error,
@@ -252,7 +264,7 @@ int libuna_unicode_character_size_to_byte_stream(
 }
 
 /* Copies an Unicode character from a byte stream
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
  */
 int libuna_unicode_character_copy_from_byte_stream(
      libuna_unicode_character_t *unicode_character,
@@ -887,7 +899,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 
 			return( -1 );
 	}
-	if( result != 1 )
+	if( result == -1 )
 	{
 		libcerror_error_set(
 		 error,
@@ -905,7 +917,7 @@ int libuna_unicode_character_copy_from_byte_stream(
 }
 
 /* Copies an Unicode character to a byte stream
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the Unicode character is valid but not supported since it requires special handling or -1 on error
  */
 int libuna_unicode_character_copy_to_byte_stream(
      libuna_unicode_character_t unicode_character,
@@ -2118,7 +2130,7 @@ int libuna_unicode_character_copy_to_byte_stream(
 
 			return( -1 );
 	}
-	if( result != 1 )
+	if( result == -1 )
 	{
 		libcerror_error_set(
 		 error,
@@ -2131,7 +2143,7 @@ int libuna_unicode_character_copy_to_byte_stream(
 	}
 	*byte_stream_index = safe_byte_stream_index;
 
-	return( 1 );
+	return( result );
 }
 
 /* Determines the size of an UTF-7 stream character from an Unicode character

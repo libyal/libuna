@@ -32,6 +32,11 @@
 extern "C" {
 #endif
 
+int libuna_codepage_mac_thai_unicode_character_size_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     size_t *byte_stream_character_size,
+     libcerror_error_t **error );
+
 int libuna_codepage_mac_thai_copy_from_byte_stream(
      libuna_unicode_character_t *unicode_character,
      const uint8_t *byte_stream,

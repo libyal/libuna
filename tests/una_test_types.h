@@ -33,21 +33,27 @@ typedef struct una_test_byte_stream_to_unicode una_test_byte_stream_to_unicode_t
 
 struct una_test_byte_stream_to_unicode
 {
-	/* The byte stream
+	/* Byte stream
 	 */
 	uint8_t byte_stream[ 2 ];
 
-	/* The byte stream size
+	/* Byte stream size
 	 */
 	size_t byte_stream_size;
 
-	/* The Unicode character
+	/* Unicode character
 	 */
 	libuna_unicode_character_t unicode_character;
 
-	/* Value to indicate this is a duplicate Unicode character entry
+	/* Flags
 	 */
-	uint8_t is_duplicate;
+	uint8_t flags;
+};
+
+enum UNA_TEST_UNICODE_FLAGS
+{
+	UNA_TEST_UNICODE_FLAG_IS_DUPLICATE		= 1,
+	UNA_TEST_UNICODE_FLAG_NEEDS_SPECIAL_HANDLING	= 2,
 };
 
 #if defined( __cplusplus )

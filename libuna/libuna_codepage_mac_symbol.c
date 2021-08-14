@@ -102,6 +102,46 @@ const uint8_t libuna_codepage_mac_symbol_unicode_to_byte_stream_base_0x2398[ 24 
 	0xed, 0xee, 0xef, 0xfc, 0xfd, 0xfe, 0xf4, 0xbe
 };
 
+/* Determines the size of a MacSymbol encoded byte stream from an Unicode character
+ * Adds the size to the byte stream character size value
+ * Returns 1 if successful, 0 if the byte stream character is valid but not supported since it requires special handling or -1 on error
+ */
+int libuna_codepage_mac_symbol_unicode_character_size_to_byte_stream(
+     libuna_unicode_character_t unicode_character,
+     size_t *byte_stream_character_size,
+     libcerror_error_t **error )
+{
+	static char *function = "libuna_codepage_mac_symbol_unicode_character_size_to_byte_stream";
+	int result            = 0;
+
+	if( byte_stream_character_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid byte stream character size.",
+		 function );
+
+		return( -1 );
+	}
+	switch( unicode_character )
+	{
+		case 0x000000aeUL:
+		case 0x000000a9UL:
+		case 0x00002122UL:
+			result = 0;
+			break;
+
+		default:
+			*byte_stream_character_size += 1;
+
+			result = 1;
+			break;
+	}
+	return( result );
+}
+
 /* Copies an Unicode character from a MacSymbol encoded byte stream
  * Returns 1 if successful or -1 on error
  */
