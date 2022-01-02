@@ -1,7 +1,7 @@
 /*
  * UTF-8 string functions
  *
- * Copyright (C) 2008-2021, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2022, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -1439,6 +1439,10 @@ int libuna_utf8_string_size_from_utf16(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	/* Check if the string is terminated with an end-of-string character
 	 */
@@ -1600,6 +1604,10 @@ int libuna_utf8_string_with_index_copy_from_utf16(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character
@@ -2403,6 +2411,10 @@ int libuna_utf8_string_size_from_utf32(
 
 			return( -1 );
 		}
+		if( unicode_character == 0 )
+		{
+			break;
+		}
 	}
 	/* Check if the string is terminated with an end-of-string character
 	 */
@@ -2564,6 +2576,10 @@ int libuna_utf8_string_with_index_copy_from_utf32(
 			 function );
 
 			return( -1 );
+		}
+		if( unicode_character == 0 )
+		{
+			break;
 		}
 	}
 	/* Check if the string is terminated with an end-of-string character

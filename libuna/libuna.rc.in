@@ -24,7 +24,7 @@ BEGIN
       VALUE "FileDescription",		"Library to support Unicode and ASCII (byte stream) conversions\0"
       VALUE "FileVersion",		"@VERSION@" "\0"
       VALUE "InternalName",		"libuna.dll\0"
-      VALUE "LegalCopyright",		"(C) 2008-2021, Joachim Metz <joachim.metz@gmail.com>\0"
+      VALUE "LegalCopyright",		"(C) 2008-2022, Joachim Metz <joachim.metz@gmail.com>\0"
       VALUE "OriginalFilename",		"libuna.dll\0"
       VALUE "ProductName",		"libuna\0"
       VALUE "ProductVersion",		"@VERSION@" "\0"
