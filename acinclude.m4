@@ -1,6 +1,6 @@
 dnl Checks for required headers and functions
 dnl
-dnl Version: 20200118
+dnl Version: 20230219
 
 dnl Function to detect if a specific libuna definition is available.
 AC_DEFUN([AX_LIBUNA_CHECK_DEFINITION],
@@ -26,7 +26,7 @@ AC_DEFUN([AX_LIBUNA_CHECK_LOCAL],
 
 dnl Function to detect if unatools dependencies are available
 AC_DEFUN([AX_UNATOOLS_CHECK_LOCAL],
-  [AC_CHECK_HEADERS([signal.h sys/signal.h unistd.h])
+  [AC_CHECK_HEADERS([signal.h sys/signal.h sys/time.h unistd.h])
 
   AC_CHECK_FUNCS([close getopt setvbuf])
 

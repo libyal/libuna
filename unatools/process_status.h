@@ -26,6 +26,12 @@
 #include <file_stream.h>
 #include <types.h>
 
+#if defined( HAVE_SYS_TIME_H )
+#include <sys/time.h>
+#endif
+
+#include <time.h>
+
 #include "unatools_libcdatetime.h"
 #include "unatools_libcerror.h"
 
