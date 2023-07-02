@@ -1,4 +1,4 @@
-.Dd June 11, 2022
+.Dd July  2, 2023
 .Dt libuna 3
 .Os libuna
 .Sh NAME
@@ -38,6 +38,8 @@ Unicode character functions
 .Fn libuna_unicode_character_size_to_utf8 "libuna_unicode_character_t *unicode_character" "size_t *utf8_string_size" "libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_from_utf8 "libuna_unicode_character_t *unicode_character" "const libuna_utf8_character_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_copy_from_utf8_6byte "libuna_unicode_character_t *unicode_character" "const libuna_utf8_character_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_to_utf8 "libuna_unicode_character_t unicode_character" "libuna_utf8_character_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "libuna_error_t **error"
 .Ft int

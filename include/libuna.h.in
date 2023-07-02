@@ -178,10 +178,23 @@ int libuna_unicode_character_size_to_utf8(
      libuna_error_t **error );
 
 /* Copies a Unicode character from an UTF-8 string
+ * This function supports upto 4 byte UTF-8 characters
  * Returns 1 if successful or -1 on error
  */
 LIBUNA_EXTERN \
 int libuna_unicode_character_copy_from_utf8(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     libuna_error_t **error );
+
+/* Copies a Unicode character from an UTF-8 string
+ * This function supports upto 6 byte UTF-8 characters
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_from_utf8_6byte(
      libuna_unicode_character_t *unicode_character,
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,

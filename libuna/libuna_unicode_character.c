@@ -3169,6 +3169,9 @@ int libuna_unicode_character_size_to_utf8(
 
 		return( -1 );
 	}
+	/* Unicode limits the UTF-8 character to consist of a maximum of 4 bytes
+	 * while the original ISO 10646 Universal Character Set (UCS) allowed up to 6 bytes
+	 */
 	if( unicode_character < 0x00000080UL )
 	{
 		safe_utf8_character_size += 1;
@@ -3181,31 +3184,11 @@ int libuna_unicode_character_size_to_utf8(
 	{
 		safe_utf8_character_size += 3;
 	}
-	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
-	{
-		safe_utf8_character_size += 3;
-	}
-	else
+	else if( unicode_character < 0x00200000UL )
 	{
 		safe_utf8_character_size += 4;
 	}
-
-/* If UTF-8 USC support is needed it should be implemented in
- * utf8_usc or something, but for now leave this here as a reminder
-
-	else if( unicode_character < 0x010000 )
-	{
-		safe_utf8_character_size += 3;
-	}
-	else if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
-	{
-		safe_utf8_character_size += 2;
-	}
-	else if( unicode_character < 0x0200000 )
-	{
-		safe_utf8_character_size += 4;
-	}
-	else if( unicode_character < 0x0400000 )
+	else if( unicode_character < 0x04000000UL )
 	{
 		safe_utf8_character_size += 5;
 	}
@@ -3213,13 +3196,13 @@ int libuna_unicode_character_size_to_utf8(
 	{
 		safe_utf8_character_size += 6;
 	}
-*/
 	*utf8_character_size += safe_utf8_character_size;
 
 	return( 1 );
 }
 
 /* Copies an Unicode character from an UTF-8 string
+ * This function supports upto 4 byte UTF-8 characters
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_copy_from_utf8(
@@ -3236,7 +3219,326 @@ int libuna_unicode_character_copy_from_utf8(
 	uint8_t byte_value2                               = 0;
 	uint8_t byte_value3                               = 0;
 	uint8_t byte_value4                               = 0;
+	uint8_t utf8_character_additional_bytes           = 0;
+	int result                                        = 0;
+
+	if( unicode_character == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-8 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-8 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-8 string index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_utf8_string_index = *utf8_string_index;
+
+	if( safe_utf8_string_index >= utf8_string_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-8 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	/* Determine the number of additional bytes of the UTF-8 character
+	 */
+	byte_value1 = utf8_string[ safe_utf8_string_index ];
+
+	/* Determine the UTF-8 character and make sure it is valid
+	 * Unicode limits the UTF-8 character to consist of a maximum of 4 bytes
+	 * while the original ISO 10646 Universal Character Set (UCS) allowed up to 6 bytes
+	 */
+	if( byte_value1 > 0xf4 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
+		 function,
+		 byte_value1 );
+
+		return( -1 );
+	}
+	if( byte_value1 < 0xc0 )
+	{
+		utf8_character_additional_bytes = 0;
+	}
+	else if( byte_value1 < 0xe0 )
+	{
+		utf8_character_additional_bytes = 1;
+	}
+	else if( byte_value1 < 0xf0 )
+	{
+		utf8_character_additional_bytes = 2;
+	}
+	else
+	{
+		utf8_character_additional_bytes = 3;
+	}
+	if( ( ( (size_t) utf8_character_additional_bytes + 1 ) > utf8_string_size )
+	 || ( safe_utf8_string_index > ( utf8_string_size - ( utf8_character_additional_bytes + 1 ) ) ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: missing UTF-8 character bytes.",
+		 function );
+
+		return( -1 );
+	}
+	safe_unicode_character = byte_value1;
+
+	if( utf8_character_additional_bytes == 0 )
+	{
+		if( byte_value1 >= 0x80 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 byte_value1 );
+
+			return( -1 );
+		}
+	}
+	if( utf8_character_additional_bytes >= 1 )
+	{
+		byte_value2 = utf8_string[ safe_utf8_string_index + 1 ];
+
+		if( ( byte_value2 < 0x80 )
+		 || ( byte_value2 > 0xbf ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 byte_value2 );
+
+			return( -1 );
+		}
+		result = 1;
+
+		switch( byte_value1 )
+		{
+			case 0xe0:
+				if( ( byte_value2 < 0xa0 )
+				 || ( byte_value2 > 0xbf ) )
+				{
+					result = 0;
+				}
+				break;
+
+			case 0xed:
+				if( ( byte_value2 < 0x80 )
+				 || ( byte_value2 > 0x9f ) )
+				{
+					result = 0;
+				}
+				break;
+
+			case 0xf0:
+				if( ( byte_value2 < 0x90 )
+				 || ( byte_value2 > 0xbf ) )
+				{
+					result = 0;
+				}
+				break;
+
+			case 0xf4:
+				if( ( byte_value2 < 0x80 )
+				 || ( byte_value2 > 0xbf ) )
+				{
+					result = 0;
+				}
+				break;
+
+			default:
+				break;
+		}
+		if( result == 0 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 1st and 2nd UTF-8 character byte pair: 0x%02" PRIx8 " 0x%02" PRIx8 ".",
+			 function,
+			 byte_value1,
+			 byte_value2 );
+
+			return( -1 );
+		}
+		safe_unicode_character <<= 6;
+		safe_unicode_character += byte_value2;
+
+		if( utf8_character_additional_bytes == 1 )
+		{
+			safe_unicode_character -= 0x03080;
+		}
+	}
+	if( utf8_character_additional_bytes >= 2 )
+	{
+		byte_value3 = utf8_string[ safe_utf8_string_index + 2 ];
+
+		if( ( byte_value3 < 0x80 )
+		 || ( byte_value3 > 0xbf ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 3rd UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 byte_value3 );
+
+			return( -1 );
+		}
+		result = 1;
+
+		switch( byte_value2 )
+		{
+			case 0xe0:
+				if( ( byte_value2 < 0xa0 )
+				 || ( byte_value2 > 0xbf ) )
+				{
+					result = 0;
+				}
+				break;
+
+			case 0xed:
+				if( ( byte_value2 < 0x80 )
+				 || ( byte_value2 > 0x9f ) )
+				{
+					result = 0;
+				}
+				break;
+
+			default:
+				break;
+		}
+		if( result == 0 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 2nd and 3rd UTF-8 character byte pair: 0x%02" PRIx8 " 0x%02" PRIx8 ".",
+			 function,
+			 byte_value2,
+			 byte_value3 );
+
+			return( -1 );
+		}
+		safe_unicode_character <<= 6;
+		safe_unicode_character += byte_value3;
+
+		if( utf8_character_additional_bytes == 2 )
+		{
+			safe_unicode_character -= 0x0e2080;
+		}
+	}
+	if( utf8_character_additional_bytes >= 3 )
+	{
+		byte_value4 = utf8_string[ safe_utf8_string_index + 3 ];
+
+		if( ( byte_value4 < 0x80 )
+		 || ( byte_value4 > 0xbf ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: invalid 4th UTF-8 character byte: 0x%02" PRIx8 ".",
+			 function,
+			 byte_value4 );
+
+			return( -1 );
+		}
+		safe_unicode_character <<= 6;
+		safe_unicode_character += byte_value4;
+
+		if( utf8_character_additional_bytes == 3 )
+		{
+			safe_unicode_character -= 0x03c82080;
+		}
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	{
+		safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+	}
+	*unicode_character = safe_unicode_character;
+	*utf8_string_index = safe_utf8_string_index + 1 + utf8_character_additional_bytes;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character from an UTF-8 string
+ * This function supports upto 6 byte UTF-8 characters
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_copy_from_utf8_6byte(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     libcerror_error_t **error )
+{
+	static char *function                             = "libuna_unicode_character_copy_from_utf8_6byte";
+	libuna_unicode_character_t safe_unicode_character = 0;
+	size_t safe_utf8_string_index                     = 0;
+	uint8_t byte_value1                               = 0;
+	uint8_t byte_value2                               = 0;
+	uint8_t byte_value3                               = 0;
+	uint8_t byte_value4                               = 0;
 	uint8_t byte_value5                               = 0;
+	uint8_t byte_value6                               = 0;
 	uint8_t utf8_character_additional_bytes           = 0;
 
 	if( unicode_character == NULL )
@@ -3300,6 +3602,22 @@ int libuna_unicode_character_copy_from_utf8(
 	 */
 	byte_value1 = utf8_string[ safe_utf8_string_index ];
 
+	/* Determine the UTF-8 character and make sure it is valid
+	 * Unicode limits the UTF-8 character to consist of a maximum of 4 bytes
+	 * while the original ISO 10646 Universal Character Set (UCS) allowed up to 6 bytes
+	 */
+	if( byte_value1 > 0xfd )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
+		 function,
+		 byte_value1 );
+
+		return( -1 );
+	}
 	if( byte_value1 < 0xc0 )
 	{
 		utf8_character_additional_bytes = 0;
@@ -3338,26 +3656,13 @@ int libuna_unicode_character_copy_from_utf8(
 	}
 	/* Determine the UTF-8 character and make sure it is valid
 	 * Unicode limits the UTF-8 character to consist of a maximum of 4 bytes
-	 * while ISO 10646 Universal Character Set (UCS) allows up to 6 bytes
+	 * while the original ISO 10646 Universal Character Set (UCS) allowed up to 6 bytes
 	 */
-	if( byte_value1 > 0xf4 )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid 1st UTF-8 character byte: 0x%02" PRIx8 ".",
-		 function,
-		 byte_value1 );
-
-		return( -1 );
-	}
 	safe_unicode_character = byte_value1;
 
 	if( utf8_character_additional_bytes == 0 )
 	{
-		if( ( byte_value1 >= 0x80 )
-		 && ( byte_value1 < 0xc2 ) )
+		if( byte_value1 >= 0x80 )
 		{
 			libcerror_error_set(
 			 error,
@@ -3374,71 +3679,8 @@ int libuna_unicode_character_copy_from_utf8(
 	{
 		byte_value2 = utf8_string[ safe_utf8_string_index + 1 ];
 
-		if( byte_value2 > 0xbf )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
-			 function,
-			 byte_value2 );
-
-			return( -1 );
-		}
-		if( ( byte_value1 == 0xe0 )
-		 && ( byte_value2 < 0xa0 ) )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
-			 function,
-			 byte_value2 );
-
-			return( -1 );
-		}
-		else if( ( byte_value1 == 0xed )
-		      && ( byte_value2 > 0x9f ) )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
-			 function,
-			 byte_value2 );
-
-			return( -1 );
-		}
-		else if( ( byte_value1 == 0xf0 )
-		      && ( byte_value2 < 0x90 ) )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
-			 function,
-			 byte_value2 );
-
-			return( -1 );
-		}
-		else if( ( byte_value1 == 0xf4 )
-		      && ( byte_value2 > 0x8f ) )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
-			 "%s: invalid 2nd UTF-8 character byte: 0x%02" PRIx8 ".",
-			 function,
-			 byte_value2 );
-
-			return( -1 );
-		}
-		else if( byte_value2 < 0x80 )
+		if( ( byte_value2 < 0x80 )
+		 || ( byte_value2 > 0xbf ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -3535,8 +3777,10 @@ int libuna_unicode_character_copy_from_utf8(
 	}
 	if( utf8_character_additional_bytes == 5 )
 	{
-		if( ( utf8_string[ safe_utf8_string_index + 5 ] < 0x80 )
-		  || ( utf8_string[ safe_utf8_string_index + 5 ] > 0xbf ) )
+		byte_value6 = utf8_string[ safe_utf8_string_index + 5 ];
+
+		if( ( byte_value6 < 0x80 )
+		  || ( byte_value6 > 0xbf ) )
 		{
 			libcerror_error_set(
 			 error,
@@ -3544,12 +3788,12 @@ int libuna_unicode_character_copy_from_utf8(
 			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 			 "%s: invalid 6th UTF-8 character byte: 0x%02" PRIx8 ".",
 			 function,
-			 utf8_string[ safe_utf8_string_index + 5 ] );
+			 byte_value6 );
 
 			return( -1 );
 		}
 		safe_unicode_character <<= 6;
-		safe_unicode_character += utf8_string[ safe_utf8_string_index + 5 ];
+		safe_unicode_character += byte_value6;
 		safe_unicode_character -= 0x082082080;
 	}
 	/* Determine if the Unicode character is valid
