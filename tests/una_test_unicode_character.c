@@ -1728,27 +1728,6 @@ int una_test_unicode_character_size_to_utf8(
 	utf8_character_size = 0;
 
 	result = libuna_unicode_character_size_to_utf8(
-	          LIBUNA_UNICODE_CHARACTER_MAX + 1,
-	          &utf8_character_size,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "utf8_character_size",
-	 utf8_character_size,
-	 (size_t) 4 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	utf8_character_size = 0;
-
-	result = libuna_unicode_character_size_to_utf8(
 	          0x0000d800UL,
 	          &utf8_character_size,
 	          &error );
@@ -1774,6 +1753,25 @@ int una_test_unicode_character_size_to_utf8(
 	result = libuna_unicode_character_size_to_utf8(
 	          0x00000041UL,
 	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8(
+	          LIBUNA_UNICODE_CHARACTER_MAX + 1,
+	          &utf8_character_size,
 	          &error );
 
 	UNA_TEST_ASSERT_EQUAL_INT(
@@ -2005,219 +2003,6 @@ on_error:
 	return( 0 );
 }
 
-/* Tests the libuna_unicode_character_copy_from_utf8_6byte function
- * Returns 1 if successful or 0 if not
- */
-int una_test_unicode_character_copy_from_utf8_6byte(
-     void )
-{
-	uint8_t utf8_stream1[ 2 ]                    = { 'A', 0 };
-	uint8_t utf8_stream2[ 5 ]                    = { 0xf0, 0x9f, 0xa7, 0xaa, 0 };
-	uint8_t utf8_stream3[ 4 ]                    = { 0xed, 0xa0, 0x80, 0 };
-
-	libuna_error_t *error                        = NULL;
-	libuna_unicode_character_t unicode_character = 0;
-	size_t utf8_string_index                     = 0;
-	int result                                   = 0;
-
-	/* Test regular cases
-	 */
-	utf8_string_index = 0;
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream1,
-	          1,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_EQUAL_UINT32(
-	 "unicode_character",
-	 unicode_character,
-	 (uint32_t) 0x00000041UL );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "utf8_string_index",
-	 utf8_string_index,
-	 (size_t) 1 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	utf8_string_index = 0;
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream2,
-	          4,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_EQUAL_UINT32(
-	 "unicode_character",
-	 unicode_character,
-	 (uint32_t) 0x0001f9eaUL );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "utf8_string_index",
-	 utf8_string_index,
-	 (size_t) 4 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	utf8_string_index = 0;
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream3,
-	          3,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	UNA_TEST_ASSERT_EQUAL_UINT32(
-	 "unicode_character",
-	 unicode_character,
-	 (uint32_t) 0x0000d800UL );
-
-	UNA_TEST_ASSERT_EQUAL_SIZE(
-	 "utf8_string_index",
-	 utf8_string_index,
-	 (size_t) 3 );
-
-	UNA_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
-	/* Test error cases
-	 */
-	utf8_string_index = 0;
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          NULL,
-	          utf8_stream1,
-	          1,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          NULL,
-	          1,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream1,
-	          (size_t) SSIZE_MAX + 1,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream1,
-	          1,
-	          NULL,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	utf8_string_index = 1;
-
-	result = libuna_unicode_character_copy_from_utf8_6byte(
-	          &unicode_character,
-	          utf8_stream1,
-	          1,
-	          &utf8_string_index,
-	          &error );
-
-	UNA_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 -1 );
-
-	UNA_TEST_ASSERT_IS_NOT_NULL(
-	 "error",
-	 error );
-
-	libcerror_error_free(
-	 &error );
-
-	return( 1 );
-
-on_error:
-	if( error != NULL )
-	{
-		libcerror_error_free(
-		 &error );
-	}
-	return( 0 );
-}
-
 /* Tests the libuna_unicode_character_copy_to_utf8 function
  * Returns 1 if successful or 0 if not
  */
@@ -2378,6 +2163,616 @@ int una_test_unicode_character_copy_to_utf8(
 	 &error );
 
 	result = libuna_unicode_character_copy_to_utf8(
+	          0x00000041UL,
+	          utf8_string,
+	          16,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_size_to_utf8_rfc2279 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_size_to_utf8_rfc2279(
+     void )
+{
+	libuna_error_t *error      = NULL;
+	size_t utf8_character_size = 0;
+	int result                 = 0;
+
+	/* Test regular cases
+	 */
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x00000041UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x00000080UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x00000800UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x00010000UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x0001f9eaUL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          LIBUNA_UNICODE_CHARACTER_MAX + 1,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x0000d800UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_character_size",
+	 utf8_character_size,
+	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	utf8_character_size = 0;
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x00000041UL,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_size_to_utf8_rfc2279(
+	          0x08000000UL,
+	          &utf8_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_from_utf8_rfc2279 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_from_utf8_rfc2279(
+     void )
+{
+	uint8_t utf8_stream1[ 2 ]                    = { 'A', 0 };
+	uint8_t utf8_stream2[ 5 ]                    = { 0xf0, 0x9f, 0xa7, 0xaa, 0 };
+	uint8_t utf8_stream3[ 4 ]                    = { 0xed, 0xa0, 0x80, 0 };
+
+	libuna_error_t *error                        = NULL;
+	libuna_unicode_character_t unicode_character = 0;
+	size_t utf8_string_index                     = 0;
+	int result                                   = 0;
+
+	/* Test regular cases
+	 */
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream1,
+	          1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x00000041UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream2,
+	          4,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0001f9eaUL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream3,
+	          3,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0000d800UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          NULL,
+	          utf8_stream1,
+	          1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          NULL,
+	          1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream1,
+	          (size_t) SSIZE_MAX + 1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream1,
+	          1,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	utf8_string_index = 1;
+
+	result = libuna_unicode_character_copy_from_utf8_rfc2279(
+	          &unicode_character,
+	          utf8_stream1,
+	          1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_to_utf8_rfc2279 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_to_utf8_rfc2279(
+     void )
+{
+	uint8_t utf8_string[ 16 ];
+
+	uint8_t expected_utf8_stream1[ 2 ] = { 'A', 0 };
+	uint8_t expected_utf8_stream2[ 5 ] = { 0xf0, 0x9f, 0xa7, 0xaa, 0 };
+	uint8_t expected_utf8_stream3[ 4 ] = { 0xed, 0xa0, 0x80, 0 };
+
+	libuna_error_t *error              = NULL;
+	size_t utf8_string_index           = 0;
+	int result                         = 0;
+
+	/* Test regular cases
+	 */
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
+		  0x00000041UL,
+		  utf8_string,
+		  16,
+		  &utf8_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_utf8_stream1,
+		  utf8_string,
+		  1 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
+		  0x0001f9eaUL,
+		  utf8_string,
+		  16,
+		  &utf8_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 4 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_utf8_stream2,
+		  utf8_string,
+		  4 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
+		  0x0000d800UL,
+		  utf8_string,
+		  16,
+		  &utf8_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "utf8_string_index",
+	 utf8_string_index,
+	 (size_t) 3 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_utf8_stream3,
+		  utf8_string,
+		  3 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	utf8_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
+	          0x00000041UL,
+	          NULL,
+	          16,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
+	          0x00000041UL,
+	          utf8_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &utf8_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_utf8_rfc2279(
 	          0x00000041UL,
 	          utf8_string,
 	          16,
@@ -4257,12 +4652,20 @@ int main(
 	 una_test_unicode_character_copy_from_utf8 );
 
 	UNA_TEST_RUN(
-	 "libuna_unicode_character_copy_from_utf8_6byte",
-	 una_test_unicode_character_copy_from_utf8_6byte );
-
-	UNA_TEST_RUN(
 	 "libuna_unicode_character_copy_to_utf8",
 	 una_test_unicode_character_copy_to_utf8 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_size_to_utf8_rfc2279",
+	 una_test_unicode_character_size_to_utf8_rfc2279 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_from_utf8_rfc2279",
+	 una_test_unicode_character_copy_from_utf8_rfc2279 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_to_utf8_rfc2279",
+	 una_test_unicode_character_copy_to_utf8_rfc2279 );
 
 	UNA_TEST_RUN(
 	 "libuna_unicode_character_size_to_utf16",

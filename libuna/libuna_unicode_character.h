@@ -99,7 +99,21 @@ int libuna_unicode_character_copy_from_utf8(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_unicode_character_copy_from_utf8_6byte(
+int libuna_unicode_character_copy_to_utf8(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf8_character_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     libcerror_error_t **error );
+
+LIBUNA_EXTERN \
+int libuna_unicode_character_size_to_utf8_rfc2279(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf8_character_size,
+     libcerror_error_t **error );
+
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_from_utf8_rfc2279(
      libuna_unicode_character_t *unicode_character,
      const libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
@@ -107,7 +121,7 @@ int libuna_unicode_character_copy_from_utf8_6byte(
      libcerror_error_t **error );
 
 LIBUNA_EXTERN \
-int libuna_unicode_character_copy_to_utf8(
+int libuna_unicode_character_copy_to_utf8_rfc2279(
      libuna_unicode_character_t unicode_character,
      libuna_utf8_character_t *utf8_string,
      size_t utf8_string_size,
