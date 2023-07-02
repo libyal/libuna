@@ -2146,6 +2146,485 @@ int libuna_unicode_character_copy_to_byte_stream(
 	return( result );
 }
 
+/* Determines the size of an UCS-2 character from an Unicode character
+ * Adds the size to the UCS-2 character size value
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_size_to_ucs2(
+     libuna_unicode_character_t unicode_character,
+     size_t *ucs2_character_size,
+     libcerror_error_t **error )
+{
+	static char *function = "libuna_unicode_character_size_to_ucs2";
+
+	if( ucs2_character_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-2 character size.",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
+	{
+		*ucs2_character_size += 2;
+	}
+	else
+	{
+		*ucs2_character_size += 1;
+	}
+	return( 1 );
+}
+
+/* Copies an Unicode character from an UCS-2 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_copy_from_ucs2(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf16_character_t *ucs2_string,
+     size_t ucs2_string_size,
+     size_t *ucs2_string_index,
+     libcerror_error_t **error )
+{
+	static char *function                             = "libuna_unicode_character_copy_from_ucs2";
+	libuna_utf16_character_t ucs2_surrogate           = 0;
+	libuna_unicode_character_t safe_unicode_character = 0;
+	size_t safe_ucs2_string_index                     = 0;
+
+	if( unicode_character == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs2_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-2 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs2_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UCS-2 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs2_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-2 string index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_ucs2_string_index = *ucs2_string_index;
+
+	if( safe_ucs2_string_index >= ucs2_string_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UCS-2 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	safe_unicode_character  = ucs2_string[ safe_ucs2_string_index ];
+	safe_ucs2_string_index += 1;
+
+	/* Determine if the UCS-2 character is within the high surrogate range
+	 */
+	if( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	 && ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_END ) )
+	{
+		if( safe_ucs2_string_index >= ucs2_string_size )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+			 "%s: missing surrogate UCS-2 character bytes.",
+			 function );
+
+			return( -1 );
+		}
+		ucs2_surrogate = ucs2_string[ safe_ucs2_string_index ];
+
+		/* Determine if the UCS-2 character is within the low surrogate range
+		 */
+		if( ( ucs2_surrogate >= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START )
+		 && ( ucs2_surrogate <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+		{
+			safe_unicode_character  -= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START;
+			safe_unicode_character <<= 10;
+			safe_unicode_character  += ucs2_surrogate - LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START;
+			safe_unicode_character  += 0x010000;
+
+			safe_ucs2_string_index += 1;
+		}
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( safe_unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	*unicode_character = safe_unicode_character;
+	*ucs2_string_index = safe_ucs2_string_index;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character into a UCS-2 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_copy_to_ucs2(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf16_character_t *ucs2_string,
+     size_t ucs2_string_size,
+     size_t *ucs2_string_index,
+     libcerror_error_t **error )
+{
+	static char *function         = "libuna_unicode_character_copy_to_ucs2";
+	size_t safe_ucs2_string_index = 0;
+
+	if( ucs2_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-2 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs2_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UCS-2 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs2_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-2 string index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_ucs2_string_index = *ucs2_string_index;
+
+	if( safe_ucs2_string_index >= ucs2_string_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UCS-2 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character <= LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
+	{
+		ucs2_string[ safe_ucs2_string_index++ ] = (libuna_utf16_character_t) unicode_character;
+	}
+	else
+	{
+		if( ( ucs2_string_size < 2 )
+		 || ( safe_ucs2_string_index > ( ucs2_string_size - 2 ) ) )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UCS-2 string too small.",
+			 function );
+
+			return( -1 );
+		}
+		unicode_character                      -= 0x010000;
+		ucs2_string[ safe_ucs2_string_index++ ] = (libuna_utf16_character_t) ( ( unicode_character >> 10 ) + LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START );
+		ucs2_string[ safe_ucs2_string_index++ ] = (libuna_utf16_character_t) ( ( unicode_character & 0x03ff ) + LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START );
+	}
+	*ucs2_string_index = safe_ucs2_string_index;
+
+	return( 1 );
+}
+
+/* Determines the size of an UCS-4 character from an Unicode character
+ * Adds the size to the UCS-4 character size value
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_size_to_ucs4(
+     libuna_unicode_character_t unicode_character,
+     size_t *ucs4_character_size,
+     libcerror_error_t **error )
+{
+	static char *function = "libuna_unicode_character_size_to_ucs4";
+
+	LIBUNA_UNREFERENCED_PARAMETER( unicode_character )
+
+	if( ucs4_character_size == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-4 character size.",
+		 function );
+
+		return( -1 );
+	}
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	*ucs4_character_size += 1;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character from an UCS-4 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_copy_from_ucs4(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf32_character_t *ucs4_string,
+     size_t ucs4_string_size,
+     size_t *ucs4_string_index,
+     libcerror_error_t **error )
+{
+	static char *function                             = "libuna_unicode_character_copy_from_ucs4";
+	libuna_unicode_character_t safe_unicode_character = 0;
+	size_t safe_ucs4_string_index                     = 0;
+
+	if( unicode_character == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs4_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-4 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs4_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UCS-4 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs4_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-4 string index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_ucs4_string_index = *ucs4_string_index;
+
+	if( safe_ucs4_string_index >= ucs4_string_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UCS-4 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	safe_unicode_character = ucs4_string[ safe_ucs4_string_index ];
+
+	/* Determine if the Unicode character is valid
+	 */
+	if( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	*unicode_character = safe_unicode_character;
+	*ucs4_string_index = safe_ucs4_string_index + 1;
+
+	return( 1 );
+}
+
+/* Copies an Unicode character into a UCS-4 string
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_copy_to_ucs4(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf32_character_t *ucs4_string,
+     size_t ucs4_string_size,
+     size_t *ucs4_string_index,
+     libcerror_error_t **error )
+{
+	static char *function         = "libuna_unicode_character_copy_to_ucs4";
+	size_t safe_ucs4_string_index = 0;
+
+	if( ucs4_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-4 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs4_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UCS-4 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( ucs4_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UCS-4 string index.",
+		 function );
+
+		return( -1 );
+	}
+	safe_ucs4_string_index = *ucs4_string_index;
+
+	if( safe_ucs4_string_index >= ucs4_string_size )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UCS-4 string too small.",
+		 function );
+
+		return( -1 );
+	}
+	/* Determine if the Unicode character is valid
+	 */
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
+	ucs4_string[ safe_ucs4_string_index ] = (libuna_utf32_character_t) unicode_character;
+
+	*ucs4_string_index = safe_ucs4_string_index + 1;
+
+	return( 1 );
+}
+
 /* Determines the size of an UTF-7 stream character from an Unicode character
  * Adds the size to the UTF-7 stream character size value
  * Returns 1 if successful or -1 on error
@@ -3714,7 +4193,7 @@ int libuna_unicode_character_size_to_utf8_rfc2279(
 
 		return( -1 );
 	}
-	if( unicode_character > 0x07ffffffUL )
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,
@@ -4036,7 +4515,7 @@ int libuna_unicode_character_copy_from_utf8_rfc2279(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( safe_unicode_character > 0x07ffffffUL )
+	if( safe_unicode_character > LIBUNA_UCS_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,
@@ -4118,7 +4597,7 @@ int libuna_unicode_character_copy_to_utf8_rfc2279(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > 0x07ffffffUL )
+	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,
@@ -4225,8 +4704,7 @@ int libuna_unicode_character_size_to_utf16(
 
 		return( -1 );
 	}
-	if( ( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
-         && ( unicode_character <= LIBUNA_UTF16_CHARACTER_MAX ) )
+	if( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 	{
 		*utf16_character_size += 2;
 	}
@@ -4737,7 +5215,7 @@ int libuna_unicode_character_copy_to_utf16_stream(
 
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > LIBUNA_UTF16_CHARACTER_MAX )
+	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,

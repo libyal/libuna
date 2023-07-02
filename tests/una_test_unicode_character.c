@@ -1123,6 +1123,852 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libuna_unicode_character_size_to_ucs2 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_size_to_ucs2(
+     void )
+{
+	libuna_error_t *error             = NULL;
+	size_t ucs2_string_character_size = 0;
+	int result                        = 0;
+
+	/* Test regular cases
+	 */
+	ucs2_string_character_size = 0;
+
+	result = libuna_unicode_character_size_to_ucs2(
+	          0x00000041UL,
+	          &ucs2_string_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_character_size",
+	 ucs2_string_character_size,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	ucs2_string_character_size = 0;
+
+	result = libuna_unicode_character_size_to_ucs2(
+	          0x0001f9eaUL,
+	          &ucs2_string_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_character_size",
+	 ucs2_string_character_size,
+	 (size_t) 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_unicode_character_size_to_ucs2(
+	          0x00000041UL,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_from_ucs2 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_from_ucs2(
+     void )
+{
+	uint16_t ucs2_string1[ 2 ]                   = { 'A', 0 };
+	uint16_t ucs2_string2[ 3 ]                   = { 0xd83e, 0xddea, 0 };
+
+	libuna_error_t *error                        = NULL;
+	libuna_unicode_character_t unicode_character = 0;
+	size_t ucs2_string_index                     = 0;
+	int result                                   = 0;
+
+	/* Test regular cases
+	 */
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          ucs2_string1,
+	          1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x00000041UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_index",
+	 ucs2_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          ucs2_string2,
+	          2,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0001f9eaUL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_index",
+	 ucs2_string_index,
+	 (size_t) 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          NULL,
+	          ucs2_string1,
+	          1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          NULL,
+	          1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          ucs2_string1,
+	          (size_t) SSIZE_MAX + 1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          ucs2_string1,
+	          1,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	ucs2_string_index = 1;
+
+	result = libuna_unicode_character_copy_from_ucs2(
+	          &unicode_character,
+	          ucs2_string1,
+	          1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_to_ucs2 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_to_ucs2(
+     void )
+{
+	uint16_t ucs2_string[ 16 ];
+
+	uint16_t expected_ucs2_string1[ 2 ] = { 'A', 0 };
+	uint16_t expected_ucs2_string2[ 3 ] = { 0xd83e, 0xddea, 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t ucs2_string_index            = 0;
+	int result                          = 0;
+
+	/* Test regular cases
+	 */
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs2(
+		  0x00000041UL,
+		  ucs2_string,
+		  16,
+		  &ucs2_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_index",
+	 ucs2_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_ucs2_string1,
+		  ucs2_string,
+		  1 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs2(
+		  0x0001f9eaUL,
+		  ucs2_string,
+		  16,
+		  &ucs2_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs2_string_index",
+	 ucs2_string_index,
+	 (size_t) 2 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_ucs2_string2,
+		  ucs2_string,
+		  2 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	ucs2_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs2(
+	          0x00000041UL,
+	          NULL,
+	          16,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_ucs2(
+	          0x00000041UL,
+	          ucs2_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &ucs2_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_ucs2(
+	          0x00000041UL,
+	          ucs2_string,
+	          16,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_size_to_ucs4 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_size_to_ucs4(
+     void )
+{
+	libuna_error_t *error             = NULL;
+	size_t ucs4_string_character_size = 0;
+	int result                        = 0;
+
+	/* Test regular cases
+	 */
+	ucs4_string_character_size = 0;
+
+	result = libuna_unicode_character_size_to_ucs4(
+	          0x00000041UL,
+	          &ucs4_string_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_character_size",
+	 ucs4_string_character_size,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	ucs4_string_character_size = 0;
+
+	result = libuna_unicode_character_size_to_ucs4(
+	          0x0001f9eaUL,
+	          &ucs4_string_character_size,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_character_size",
+	 ucs4_string_character_size,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libuna_unicode_character_size_to_ucs4(
+	          0x00000041UL,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_from_ucs4 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_from_ucs4(
+     void )
+{
+	uint32_t ucs4_string1[ 2 ]                   = { 'A', 0 };
+	uint32_t ucs4_string2[ 3 ]                   = { 0x0001f9ea, 0 };
+
+	libuna_error_t *error                        = NULL;
+	libuna_unicode_character_t unicode_character = 0;
+	size_t ucs4_string_index                     = 0;
+	int result                                   = 0;
+
+	/* Test regular cases
+	 */
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          ucs4_string1,
+	          1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x00000041UL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_index",
+	 ucs4_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          ucs4_string2,
+	          1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_UINT32(
+	 "unicode_character",
+	 unicode_character,
+	 (uint32_t) 0x0001f9eaUL );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_index",
+	 ucs4_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          NULL,
+	          ucs4_string1,
+	          1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          NULL,
+	          1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          ucs4_string1,
+	          (size_t) SSIZE_MAX + 1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          ucs4_string1,
+	          1,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	ucs4_string_index = 1;
+
+	result = libuna_unicode_character_copy_from_ucs4(
+	          &unicode_character,
+	          ucs4_string1,
+	          1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
+/* Tests the libuna_unicode_character_copy_to_ucs4 function
+ * Returns 1 if successful or 0 if not
+ */
+int una_test_unicode_character_copy_to_ucs4(
+     void )
+{
+	uint32_t ucs4_string[ 16 ];
+
+	uint32_t expected_ucs4_string1[ 2 ] = { 'A', 0 };
+	uint32_t expected_ucs4_string2[ 2 ] = { 0x0001f9ea, 0 };
+
+	libuna_error_t *error               = NULL;
+	size_t ucs4_string_index            = 0;
+	int result                          = 0;
+
+	/* Test regular cases
+	 */
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs4(
+		  0x00000041UL,
+		  ucs4_string,
+		  16,
+		  &ucs4_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_index",
+	 ucs4_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_ucs4_string1,
+		  ucs4_string,
+		  1 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs4(
+		  0x0001f9eaUL,
+		  ucs4_string,
+		  16,
+		  &ucs4_string_index,
+		  &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	UNA_TEST_ASSERT_EQUAL_SIZE(
+	 "ucs4_string_index",
+	 ucs4_string_index,
+	 (size_t) 1 );
+
+	UNA_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+		  expected_ucs4_string2,
+		  ucs4_string,
+		  1 );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	ucs4_string_index = 0;
+
+	result = libuna_unicode_character_copy_to_ucs4(
+	          0x00000041UL,
+	          NULL,
+	          16,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_ucs4(
+	          0x00000041UL,
+	          ucs4_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &ucs4_string_index,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libuna_unicode_character_copy_to_ucs4(
+	          0x00000041UL,
+	          ucs4_string,
+	          16,
+	          NULL,
+	          &error );
+
+	UNA_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	UNA_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	return( 0 );
+}
+
 /* Tests the libuna_unicode_character_size_to_utf7_stream function
  * Returns 1 if successful or 0 if not
  */
@@ -2352,7 +3198,7 @@ int una_test_unicode_character_size_to_utf8_rfc2279(
 	 &error );
 
 	result = libuna_unicode_character_size_to_utf8_rfc2279(
-	          0x08000000UL,
+	          0x80000000UL,
 	          &utf8_character_size,
 	          &error );
 
@@ -4609,6 +5455,30 @@ int main(
 	UNA_TEST_RUN(
 	 "libuna_unicode_character_copy_to_byte_stream",
 	 una_test_unicode_character_copy_to_byte_stream );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_size_to_ucs2",
+	 una_test_unicode_character_size_to_ucs2 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_from_ucs2",
+	 una_test_unicode_character_copy_from_ucs2 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_to_ucs2",
+	 una_test_unicode_character_copy_to_ucs2 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_size_to_ucs4",
+	 una_test_unicode_character_size_to_ucs4 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_from_ucs4",
+	 una_test_unicode_character_copy_from_ucs4 );
+
+	UNA_TEST_RUN(
+	 "libuna_unicode_character_copy_to_ucs4",
+	 una_test_unicode_character_copy_to_ucs4 );
 
 	UNA_TEST_RUN(
 	 "libuna_unicode_character_size_to_utf7_stream",

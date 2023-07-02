@@ -1785,9 +1785,10 @@ int libuna_utf8_string_size_from_utf16_stream(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_string_size_from_utf16_stream";
-	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf16_stream_index                    = 0;
 	int read_byte_order                          = 0;
+	int result                                   = 0;
 
 	if( utf16_stream == NULL )
 	{
@@ -1883,10 +1884,21 @@ int libuna_utf8_string_size_from_utf16_stream(
 		}
 		/* Determine how many UTF-8 character bytes are required
 		 */
-		if( libuna_unicode_character_size_to_utf8(
-		     unicode_character,
-		     utf8_string_size,
-		     error ) != 1 )
+		if( ( byte_order & LIBUNA_UTF16_STREAM_ALLOW_UNPAIRED_SURROGATE ) == 0 )
+		{
+			result = libuna_unicode_character_size_to_utf8(
+			          unicode_character,
+			          utf8_string_size,
+			          error );
+		}
+		else
+		{
+			result = libuna_unicode_character_size_to_utf8_rfc2279(
+			          unicode_character,
+			          utf8_string_size,
+			          error );
+		}
+		if( result != 1 )
 		{
 			libcerror_error_set(
 			 error,
@@ -1959,9 +1971,10 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
      libcerror_error_t **error )
 {
 	static char *function                        = "libuna_utf8_string_with_index_copy_from_utf16_stream";
-	size_t utf16_stream_index                    = 0;
 	libuna_unicode_character_t unicode_character = 0;
+	size_t utf16_stream_index                    = 0;
 	int read_byte_order                          = 0;
+	int result                                   = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -2074,12 +2087,25 @@ int libuna_utf8_string_with_index_copy_from_utf16_stream(
 		}
 		/* Convert the Unicode character into UTF-8 character bytes
 		 */
-		if( libuna_unicode_character_copy_to_utf8(
-		     unicode_character,
-		     utf8_string,
-		     utf8_string_size,
-		     utf8_string_index,
-		     error ) != 1 )
+		if( ( byte_order & LIBUNA_UTF16_STREAM_ALLOW_UNPAIRED_SURROGATE ) == 0 )
+		{
+			result = libuna_unicode_character_copy_to_utf8(
+			          unicode_character,
+			          utf8_string,
+			          utf8_string_size,
+			          utf8_string_index,
+			          error );
+		}
+		else
+		{
+			result = libuna_unicode_character_copy_to_utf8_rfc2279(
+			          unicode_character,
+			          utf8_string,
+			          utf8_string_size,
+			          utf8_string_index,
+			          error );
+		}
+		if( result != 1 )
 		{
 			libcerror_error_set(
 			 error,
@@ -2129,11 +2155,12 @@ int libuna_utf8_string_compare_with_utf16_stream(
      libcerror_error_t **error )
 {
 	static char *function                                     = "libuna_utf8_string_compare_with_utf16_stream";
+	libuna_unicode_character_t utf16_stream_unicode_character = 0;
+	libuna_unicode_character_t utf8_unicode_character         = 0;
 	size_t utf16_stream_index                                 = 0;
 	size_t utf8_string_index                                  = 0;
-	libuna_unicode_character_t utf8_unicode_character         = 0;
-	libuna_unicode_character_t utf16_stream_unicode_character = 0;
 	int read_byte_order                                       = 0;
+	int result                                                = 0;
 
 	if( utf8_string == NULL )
 	{
@@ -2230,12 +2257,25 @@ int libuna_utf8_string_compare_with_utf16_stream(
 	{
 		/* Convert the UTF-8 character bytes into an Unicode character
 		 */
-		if( libuna_unicode_character_copy_from_utf8(
-		     &utf8_unicode_character,
-		     utf8_string,
-		     utf8_string_size,
-		     &utf8_string_index,
-		     error ) != 1 )
+		if( ( byte_order & LIBUNA_UTF16_STREAM_ALLOW_UNPAIRED_SURROGATE ) == 0 )
+		{
+			result = libuna_unicode_character_copy_from_utf8(
+			          &utf8_unicode_character,
+			          utf8_string,
+			          utf8_string_size,
+			          &utf8_string_index,
+			          error );
+		}
+		else
+		{
+			result = libuna_unicode_character_copy_from_utf8_rfc2279(
+			          &utf8_unicode_character,
+			          utf8_string,
+			          utf8_string_size,
+			          &utf8_string_index,
+			          error );
+		}
+		if( result != 1 )
 		{
 			libcerror_error_set(
 			 error,

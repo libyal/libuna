@@ -31,6 +31,18 @@ Unicode character functions
 .Ft int
 .Fn libuna_unicode_character_copy_to_byte_stream "libuna_unicode_character_t unicode_character" "uint8_t *byte_stream" "size_t byte_stream_size" "size_t *byte_stream_index" "int codepage" "libuna_error_t **error"
 .Ft int
+.Fn libuna_unicode_character_size_to_ucs2 "libuna_unicode_character_t *unicode_character" "size_t *ucs2_string_size" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_copy_from_ucs2 "libuna_unicode_character_t *unicode_character" "const libuna_utf16_character_t *ucs2_string" "size_t ucs2_string_size" "size_t *ucs2_string_index" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_copy_to_ucs2 "libuna_unicode_character_t unicode_character" "libuna_utf16_character_t *ucs2_string" "size_t ucs2_string_size" "size_t *ucs2_string_index" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_size_to_ucs4 "libuna_unicode_character_t *unicode_character" "size_t *ucs4_string_size" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_copy_from_ucs4 "libuna_unicode_character_t *unicode_character" "const libuna_utf32_character_t *ucs4_string" "size_t ucs4_string_size" "size_t *ucs4_string_index" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_copy_to_ucs4 "libuna_unicode_character_t unicode_character" "libuna_utf32_character_t *ucs4_string" "size_t ucs4_string_size" "size_t *ucs4_string_index" "libuna_error_t **error"
+.Ft int
 .Fn libuna_unicode_character_copy_from_utf7_stream "libuna_unicode_character_t *unicode_character" "const uint8_t *utf7_stream" "size_t utf7_stream_size" "size_t *utf7_stream_index" "uint32_t *utf7_stream_base64_data" "libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_to_utf7_stream "libuna_unicode_character_t unicode_character" "uint8_t *utf7_stream" "size_t utf7_stream_size" "size_t *utf7_stream_index" "uint32_t *utf7_stream_base64_data" "libuna_error_t **error"
@@ -56,6 +68,8 @@ Unicode character functions
 .Fn libuna_unicode_character_copy_from_utf16_stream "libuna_unicode_character_t *unicode_character" "const uint8_t *utf16_stream" "size_t utf16_stream_size" "size_t *utf16_stream_index" "int byte_order" "libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_to_utf16_stream "libuna_unicode_character_t unicode_character" "uint8_t *utf16_stream" "size_t utf16_stream_size" "size_t *utf16_stream_index" "int byte_order" "libuna_error_t **error"
+.Ft int
+.Fn libuna_unicode_character_size_to_utf32 "libuna_unicode_character_t *unicode_character" "size_t *utf32_string_size" "libuna_error_t **error"
 .Ft int
 .Fn libuna_unicode_character_copy_from_utf32 "libuna_unicode_character_t *unicode_character" "const libuna_utf32_character_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "libuna_error_t **error"
 .Ft int

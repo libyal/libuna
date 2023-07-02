@@ -127,6 +127,68 @@ int libuna_unicode_character_copy_to_byte_stream(
      int codepage,
      libuna_error_t **error );
 
+/* Determines the size of an UCS-2 character from an Unicode character
+ * Adds the size to the UCS-2 character size value
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_size_to_ucs2(
+     libuna_unicode_character_t unicode_character,
+     size_t *ucs2_character_size,
+     libuna_error_t **error );
+
+/* Copies a Unicode character from an UCS-2 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_from_ucs2(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf16_character_t *ucs2_string,
+     size_t ucs2_string_size,
+     size_t *ucs2_string_index,
+     libuna_error_t **error );
+
+/* Copies a Unicode character into a UCS-2 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_to_ucs2(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf16_character_t *ucs2_string,
+     size_t ucs2_string_size,
+     size_t *ucs2_string_index,
+     libuna_error_t **error );
+
+/* Determines the size of an UCS-4 character from an Unicode character
+ * Adds the size to the UCS-4 character size value
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_size_to_ucs4(
+     libuna_unicode_character_t unicode_character,
+     size_t *ucs4_character_size,
+     libuna_error_t **error );
+
+/* Copies a Unicode character from an UCS-4 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_from_ucs4(
+     libuna_unicode_character_t *unicode_character,
+     const libuna_utf32_character_t *ucs4_string,
+     size_t ucs4_string_size,
+     size_t *ucs4_string_index,
+     libuna_error_t **error );
+
+/* Copies a Unicode character into a UCS-4 string
+ * Returns 1 if successful or -1 on error
+ */
+LIBUNA_EXTERN \
+int libuna_unicode_character_copy_to_ucs4(
+     libuna_unicode_character_t unicode_character,
+     libuna_utf32_character_t *ucs4_string,
+     size_t ucs4_string_size,
+     size_t *ucs4_string_index,
+     libuna_error_t **error );
+
 /* Copies a Unicode character from an UTF-7 stream
  * The bits of the base64 data contain:
  *   0 - 23 the base64 triplet
@@ -290,6 +352,15 @@ int libuna_unicode_character_copy_to_utf16_stream(
      size_t utf16_stream_size,
      size_t *utf16_stream_index,
      int byte_order,
+     libuna_error_t **error );
+
+/* Determines the size of an UTF-32 character from an Unicode character
+ * Adds the size to the UTF-32 character size value
+ * Returns 1 if successful or -1 on error
+ */
+int libuna_unicode_character_size_to_utf32(
+     libuna_unicode_character_t unicode_character,
+     size_t *utf32_character_size,
      libuna_error_t **error );
 
 /* Copies a Unicode character from an UTF-32 string
