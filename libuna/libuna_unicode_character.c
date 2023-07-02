@@ -2193,9 +2193,18 @@ int libuna_unicode_character_size_to_utf7_stream(
 
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	/* The + character must be escaped
 	 */
@@ -2719,7 +2728,14 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			}
 			else
 			{
-				safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+				 "%s: unsupported low surrogate UTF-16 character.",
+				 function );
+
+				return( -1 );
 			}
 		}
 		if( safe_utf7_stream_index >= utf7_stream_size )
@@ -2833,9 +2849,18 @@ int libuna_unicode_character_copy_to_utf7_stream(
 
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	/* A-Z is not a continous range on an EBCDIC based system
 	 * it consists of the ranges: A-I, J-R, S-Z
@@ -3172,7 +3197,9 @@ int libuna_unicode_character_size_to_utf8(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -3515,7 +3542,9 @@ int libuna_unicode_character_copy_from_utf8(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	if( ( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -3597,7 +3626,9 @@ int libuna_unicode_character_copy_to_utf8(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -4181,6 +4212,19 @@ int libuna_unicode_character_size_to_utf16(
 
 		return( -1 );
 	}
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
 	if( ( unicode_character > LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
          && ( unicode_character <= LIBUNA_UTF16_CHARACTER_MAX ) )
 	{
@@ -4299,15 +4343,30 @@ int libuna_unicode_character_copy_from_utf16(
 		}
 		else
 		{
-			safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported low surrogate UTF-16 character.",
+			 function );
+
+			return( -1 );
 		}
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	else if( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START )
-	      && ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	if( ( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	*unicode_character  = safe_unicode_character;
 	*utf16_string_index = safe_utf16_string_index;
@@ -4377,10 +4436,17 @@ int libuna_unicode_character_copy_to_utf16(
 	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
-	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-	 || ( unicode_character > LIBUNA_UTF16_CHARACTER_MAX ) )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	if( unicode_character <= LIBUNA_UNICODE_BASIC_MULTILINGUAL_PLANE_MAX )
 	{
@@ -4587,6 +4653,17 @@ int libuna_unicode_character_copy_from_utf16_stream(
 			}
 		}
 	}
+	if( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
+	}
 	*unicode_character  = safe_unicode_character;
 	*utf16_stream_index = safe_utf16_stream_index;
 
@@ -4772,7 +4849,7 @@ int libuna_unicode_character_copy_to_utf16_stream(
  * Returns 1 if successful or -1 on error
  */
 int libuna_unicode_character_size_to_utf32(
-     libuna_unicode_character_t unicode_character LIBUNA_ATTRIBUTE_UNUSED,
+     libuna_unicode_character_t unicode_character,
      size_t *utf32_character_size,
      libcerror_error_t **error )
 {
@@ -4787,6 +4864,19 @@ int libuna_unicode_character_size_to_utf32(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 character size.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
 		 function );
 
 		return( -1 );
@@ -4867,16 +4957,22 @@ int libuna_unicode_character_copy_from_utf32(
 
 		return( -1 );
 	}
+	safe_unicode_character = utf32_string[ safe_utf32_string_index ];
+
 	/* Determine if the Unicode character is valid
 	 */
-	if( ( utf32_string[ safe_utf32_string_index ] >= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START )
-	 && ( utf32_string[ safe_utf32_string_index ] <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	if( ( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
-	}
-	else
-	{
-		safe_unicode_character = utf32_string[ safe_utf32_string_index ];
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	*unicode_character  = safe_unicode_character;
 	*utf32_string_index = safe_utf32_string_index + 1;
@@ -4946,15 +5042,20 @@ int libuna_unicode_character_copy_to_utf32(
 	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
-	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-	 || ( unicode_character > LIBUNA_UTF32_CHARACTER_MAX ) )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		utf32_string[ safe_utf32_string_index ] = (libuna_utf32_character_t) LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
-	else
-	{
-		utf32_string[ safe_utf32_string_index ] = (libuna_utf32_character_t) unicode_character;
-	}
+	utf32_string[ safe_utf32_string_index ] = (libuna_utf32_character_t) unicode_character;
+
 	*utf32_string_index = safe_utf32_string_index + 1;
 
 	return( 1 );
@@ -5067,10 +5168,18 @@ int libuna_unicode_character_copy_from_utf32_stream(
 	}
 	/* Determine if the Unicode character is valid
 	 */
-	if( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_START )
-	 && ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	if( ( ( safe_unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
+	  &&  ( safe_unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		safe_unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	*unicode_character  = safe_unicode_character;
 	*utf32_stream_index = safe_utf32_stream_index + 4;
@@ -5154,10 +5263,17 @@ int libuna_unicode_character_copy_to_utf32_stream(
 	/* Determine if the Unicode character is valid
 	 */
 	if( ( ( unicode_character >= LIBUNA_UNICODE_SURROGATE_HIGH_RANGE_START )
-	  && ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
-	 || ( unicode_character > LIBUNA_UTF32_CHARACTER_MAX ) )
+	  &&  ( unicode_character <= LIBUNA_UNICODE_SURROGATE_LOW_RANGE_END ) )
+	 || ( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX ) )
 	{
-		unicode_character = LIBUNA_UNICODE_REPLACEMENT_CHARACTER;
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported Unicode character.",
+		 function );
+
+		return( -1 );
 	}
 	if( byte_order == LIBUNA_ENDIAN_BIG )
 	{
