@@ -249,8 +249,6 @@ int una_test_codepage_mac_symbol_copy_to_byte_stream(
 		 "error",
 		 error );
 
-fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
-
 		result = memory_compare(
 		          test_values->byte_stream,
 		          byte_stream,

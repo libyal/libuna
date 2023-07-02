@@ -198,8 +198,6 @@ int una_test_unicode_character_size_to_byte_stream(
 				  &byte_stream_character_size,
 				  &error );
 
-fprintf( stdout, "X: 0x%08x\n", test_values->unicode_character );
-
 			UNA_TEST_ASSERT_EQUAL_INT(
 			 "result",
 			 result,

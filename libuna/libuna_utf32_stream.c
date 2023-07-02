@@ -126,6 +126,7 @@ int libuna_utf32_stream_size_from_utf8(
 {
 	static char *function                        = "libuna_utf32_stream_size_from_utf8";
 	libuna_unicode_character_t unicode_character = 0;
+	size_t safe_utf32_stream_size                = 0;
 	size_t utf8_string_index                     = 0;
 
 	if( utf8_string == NULL )
@@ -163,7 +164,7 @@ int libuna_utf32_stream_size_from_utf8(
 	}
 	/* Add the byte order mark
 	 */
-	*utf32_stream_size = 1;
+	safe_utf32_stream_size = 1;
 
 	while( utf8_string_index < utf8_string_size )
 	{
@@ -189,7 +190,7 @@ int libuna_utf32_stream_size_from_utf8(
 		 */
 		if( libuna_unicode_character_size_to_utf32(
 		     unicode_character,
-		     utf32_stream_size,
+		     &safe_utf32_stream_size,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -208,7 +209,7 @@ int libuna_utf32_stream_size_from_utf8(
 	}
 	/* Convert the number of characters into bytes
 	 */
-	*utf32_stream_size *= 4;
+	*utf32_stream_size = safe_utf32_stream_size * 4;
 
 	return( 1 );
 }
@@ -359,6 +360,7 @@ int libuna_utf32_stream_size_from_utf16(
 {
 	static char *function                        = "libuna_utf32_stream_size_from_utf16";
 	libuna_unicode_character_t unicode_character = 0;
+	size_t safe_utf32_stream_size                = 0;
 	size_t utf16_string_index                    = 0;
 
 	if( utf16_string == NULL )
@@ -396,7 +398,7 @@ int libuna_utf32_stream_size_from_utf16(
 	}
 	/* Add the byte order mark
 	 */
-	*utf32_stream_size = 1;
+	safe_utf32_stream_size = 1;
 
 	while( utf16_string_index < utf16_string_size )
 	{
@@ -422,7 +424,7 @@ int libuna_utf32_stream_size_from_utf16(
 		 */
 		if( libuna_unicode_character_size_to_utf32(
 		     unicode_character,
-		     utf32_stream_size,
+		     &safe_utf32_stream_size,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -441,7 +443,7 @@ int libuna_utf32_stream_size_from_utf16(
 	}
 	/* Convert the number of characters into bytes
 	 */
-	*utf32_stream_size *= 4;
+	*utf32_stream_size = safe_utf32_stream_size * 4;
 
 	return( 1 );
 }
@@ -592,6 +594,7 @@ int libuna_utf32_stream_size_from_utf32(
 {
 	static char *function                        = "libuna_utf32_stream_size_from_utf32";
 	libuna_unicode_character_t unicode_character = 0;
+	size_t safe_utf32_stream_size                = 0;
 	size_t utf32_string_index                    = 0;
 
 	if( utf32_string == NULL )
@@ -629,7 +632,7 @@ int libuna_utf32_stream_size_from_utf32(
 	}
 	/* Add the byte order mark
 	 */
-	*utf32_stream_size = 1;
+	safe_utf32_stream_size = 1;
 
 	while( utf32_string_index < utf32_string_size )
 	{
@@ -655,7 +658,7 @@ int libuna_utf32_stream_size_from_utf32(
 		 */
 		if( libuna_unicode_character_size_to_utf32(
 		     unicode_character,
-		     utf32_stream_size,
+		     &safe_utf32_stream_size,
 		     error ) != 1 )
 		{
 			libcerror_error_set(
@@ -674,7 +677,7 @@ int libuna_utf32_stream_size_from_utf32(
 	}
 	/* Convert the number of characters into bytes
 	 */
-	*utf32_stream_size *= 4;
+	*utf32_stream_size = safe_utf32_stream_size * 4;
 
 	return( 1 );
 }
