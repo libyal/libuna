@@ -2168,7 +2168,10 @@ int libuna_unicode_character_size_to_ucs2(
 
 		return( -1 );
 	}
-	if( unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	/* Determine if the Unicode character is valid
+	 * UCS-2 with surrogate pairs supports upto 0x10ffff characters
+	 */
+	if( unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,
@@ -2297,8 +2300,9 @@ int libuna_unicode_character_copy_from_ucs2(
 		}
 	}
 	/* Determine if the Unicode character is valid
+	 * UCS-2 with surrogate pairs supports upto 0x10ffff characters
 	 */
-	if( safe_unicode_character > LIBUNA_UCS_CHARACTER_MAX )
+	if( safe_unicode_character > LIBUNA_UNICODE_CHARACTER_MAX )
 	{
 		libcerror_error_set(
 		 error,
