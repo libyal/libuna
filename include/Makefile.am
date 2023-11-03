@@ -18,9 +18,9 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libuna.h
-	/bin/rm -f libuna/definitions.h
-	/bin/rm -f libuna/features.h
-	/bin/rm -f libuna/types.h
-	/bin/rm -f Makefile
+	-rm -f libuna.h
+	-rm -f libuna/definitions.h
+	-rm -f libuna/features.h
+	-rm -f libuna/types.h
+	-rm -f Makefile
 

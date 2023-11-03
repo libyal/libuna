@@ -65,25 +65,14 @@ library:
 	cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS)
 
 distclean: clean
-	/bin/rm -f Makefile
-	/bin/rm -f config.status
-	/bin/rm -f config.cache
-	/bin/rm -f config.log
-	/bin/rm -f libuna.pc
-	/bin/rm -f libuna.spec
+	-rm -f Makefile
+	-rm -f config.status
+	-rm -f config.cache
+	-rm -f config.log
+	-rm -f libuna.pc
+	-rm -f libuna.spec
 	@for dir in ${subdirs}; do \
 		(cd $$dir && $(MAKE) distclean) \
 		|| case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
-
-splint:
-	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcdatetime && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libclocale && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcnotify && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/libcfile && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/unatools && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/po && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/tests && $(MAKE) splint $(AM_MAKEFLAGS))
 

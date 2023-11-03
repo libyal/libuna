@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests library functions and types.
 #
-# Version: 20230410
+# Version: 20231007
 
 EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
@@ -9,7 +9,7 @@ EXIT_IGNORE=77;
 
 LIBRARY_TESTS="base16_stream base32_stream base64_stream byte_stream codepage_koi8_r codepage_koi8_u codepage_mac_arabic codepage_mac_celtic codepage_mac_centraleurroman codepage_mac_croatian codepage_mac_cyrillic codepage_mac_dingbats codepage_mac_farsi codepage_mac_gaelic codepage_mac_greek codepage_mac_icelandic codepage_mac_inuit codepage_mac_roman codepage_mac_romanian codepage_mac_russian codepage_mac_symbol codepage_mac_thai codepage_mac_turkish codepage_mac_ukrainian codepage_windows_874 codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 codepage_windows_1250 codepage_windows_1251 codepage_windows_1252 codepage_windows_1253 codepage_windows_1254 codepage_windows_1255 codepage_windows_1256 codepage_windows_1257 codepage_windows_1258 error support unicode_character url_stream utf16_stream utf16_string utf32_stream utf32_string utf7_stream utf8_stream utf8_string";
 LIBRARY_TESTS_WITH_INPUT="";
-OPTION_SETS="";
+OPTION_SETS=();
 
 INPUT_GLOB="*";
 
@@ -78,47 +78,54 @@ run_test_with_input()
 
 		local TEST_SET_DIRECTORY=$(get_test_set_directory "${TEST_PROFILE_DIRECTORY}" "${TEST_SET_INPUT_DIRECTORY}");
 
-		local OLDIFS=${IFS};
-
-		# IFS="\n" is not supported by all platforms.
-		IFS="
-";
-
 		if test -f "${TEST_SET_DIRECTORY}/files";
 		then
-			for INPUT_FILE in `cat ${TEST_SET_DIRECTORY}/files | sed "s?^?${TEST_SET_INPUT_DIRECTORY}/?"`;
-			do
-				if test "${OSTYPE}" = "msys";
-				then
-					# A test executable built with MinGW expects a Windows path.
-					INPUT_FILE=`echo ${INPUT_FILE} | sed 's?/?\\\\?g'`;
-				fi
-				run_test_on_input_file_with_options "${TEST_SET_DIRECTORY}" "${TEST_DESCRIPTION}" "default" "${OPTION_SETS}" "${TEST_EXECUTABLE}" "${INPUT_FILE}";
-				RESULT=$?;
-
-				if test ${RESULT} -ne ${EXIT_SUCCESS};
-				then
-					break;
-				fi
-			done
+			IFS="" read -a INPUT_FILES <<< $(cat ${TEST_SET_DIRECTORY}/files | sed "s?^?${TEST_SET_INPUT_DIRECTORY}/?");
 		else
-			for INPUT_FILE in `ls -1d ${TEST_SET_INPUT_DIRECTORY}/${INPUT_GLOB}`;
-			do
-				if test "${OSTYPE}" = "msys";
-				then
-					# A test executable built with MinGW expects a Windows path.
-					INPUT_FILE=`echo ${INPUT_FILE} | sed 's?/?\\\\?g'`;
-				fi
-				run_test_on_input_file_with_options "${TEST_SET_DIRECTORY}" "${TEST_DESCRIPTION}" "default" "${OPTION_SETS}" "${TEST_EXECUTABLE}" "${INPUT_FILE}";
-				RESULT=$?;
+			IFS="" read -a INPUT_FILES <<< $(ls -1d ${TEST_SET_INPUT_DIRECTORY}/${INPUT_GLOB});
+		fi
+		for INPUT_FILE in "${INPUT_FILES[@]}";
+		do
+			OPTION_INPUT_FILE="${INPUT_FILE}";
 
-				if test ${RESULT} -ne ${EXIT_SUCCESS};
+			if test "${OSTYPE}" = "msys";
+			then
+				# A test executable built with MinGW expects a Windows path.
+				INPUT_FILE=`echo ${INPUT_FILE} | sed 's?/?\\\\?g'`;
+			fi
+			local TESTED_WITH_OPTIONS=0;
+
+			for OPTION_SET in ${OPTION_SETS[@]};
+			do
+				local TEST_DATA_OPTION_FILE=$(get_test_data_option_file "${TEST_SET_DIRECTORY}" "${OPTION_INPUT_FILE}" "${OPTION_SET}");
+
+				if test -f ${TEST_DATA_OPTION_FILE};
 				then
-					break;
+					TESTED_WITH_OPTIONS=1;
+
+					IFS=" " read -a OPTIONS <<< $(read_test_data_option_file "${TEST_SET_DIRECTORY}" "${INPUT_FILE}" "${OPTION_SET}");
+
+					run_test_on_input_file "${TEST_SET_DIRECTORY}" "${TEST_DESCRIPTION}" "default" "${OPTION_SET}" "${TEST_EXECUTABLE}" "${INPUT_FILE}" "${OPTIONS[@]}";
+					RESULT=$?;
+
+					if test ${RESULT} -ne ${EXIT_SUCCESS};
+					then
+						break;
+					fi
 				fi
 			done
-		fi
-		IFS=${OLDIFS};
+
+			if test ${TESTED_WITH_OPTIONS} -eq 0;
+			then
+				run_test_on_input_file "${TEST_SET_DIRECTORY}" "${TEST_DESCRIPTION}" "default" "" "${TEST_EXECUTABLE}" "${INPUT_FILE}";
+				RESULT=$?;
+			fi
+
+			if test ${RESULT} -ne ${EXIT_SUCCESS};
+			then
+				break;
+			fi
+		done
 
 		if test ${RESULT} -ne ${EXIT_SUCCESS};
 		then
