@@ -63,9 +63,7 @@ EXTRA_DIST = \
 	windows-1257.txt \
 	windows-1258.txt
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f Makefile
 

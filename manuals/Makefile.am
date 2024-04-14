@@ -6,9 +6,7 @@ EXTRA_DIST = \
 	unaexport.1 \
 	libuna.3
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f Makefile
 

@@ -1,6 +1,6 @@
 AM_CPPFLAGS = \
-	-I$(top_srcdir)/include \
-	-I$(top_srcdir)/common \
+	-I../include -I$(top_srcdir)/include \
+	-I../common -I$(top_srcdir)/common \
 	@LIBCERROR_CPPFLAGS@ \
 	@LIBUNA_DLL_EXPORT@
 
@@ -87,13 +87,11 @@ EXTRA_DIST = \
 	libuna.rc \
 	libuna.rc.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libuna_definitions.h \
+	libuna.rc \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libuna_definitions.h
-	-rm -f libuna.rc
-	-rm -f Makefile
 
 sources-local: $(BUILT_SOURCES)
 

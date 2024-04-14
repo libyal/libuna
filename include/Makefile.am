@@ -14,13 +14,11 @@ EXTRA_DIST = \
 	libuna/features.h.in \
 	libuna/types.h.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libuna.h \
+	libuna/definitions.h \
+	libuna/features.h \
+	libuna/types.h \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libuna.h
-	-rm -f libuna/definitions.h
-	-rm -f libuna/features.h
-	-rm -f libuna/types.h
-	-rm -f Makefile
 
