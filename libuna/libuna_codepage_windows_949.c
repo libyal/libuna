@@ -1,7 +1,7 @@
 /*
  * Windows 949 codepage (Korean) functions
  *
- * Copyright (C) 2008-2024, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2008-2025, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -7536,7 +7536,7 @@ int libuna_codepage_windows_949_copy_from_byte_stream(
 			}
 		}
 		else if( ( byte_stream_character >= 0xa3 )
-		      && ( byte_stream_character <= 0xa4 ) )
+		      && ( byte_stream_character <= 0xa5 ) )
 		{
 			if( additional_character >= 0x40 )
 			{
@@ -7551,16 +7551,11 @@ int libuna_codepage_windows_949_copy_from_byte_stream(
 					case 0xa4:
 						safe_unicode_character = libuna_codepage_windows_949_byte_stream_to_unicode_base_0xa440[ additional_character ];
 						break;
-				}
-			}
-		}
-		else if( byte_stream_character == 0xa5 )
-		{
-			if( additional_character >= 0x40 )
-			{
-				additional_character -= 0x40;
 
-				safe_unicode_character = libuna_codepage_windows_949_byte_stream_to_unicode_base_0xa540[ additional_character ];
+					case 0xa5:
+						safe_unicode_character = libuna_codepage_windows_949_byte_stream_to_unicode_base_0xa540[ additional_character ];
+						break;
+				}
 			}
 		}
 		else if( byte_stream_character == 0xa6 )

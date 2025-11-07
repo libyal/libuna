@@ -1,4 +1,4 @@
-The ISO 8859-3 codepage (South European))
+The ISO 8859-3 codepage (South European)
 
 00 = U+0000 : NULL
 01 = U+0001 : START OF HEADING
