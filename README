@@ -3,7 +3,7 @@ libuna is a library to support Unicode and ASCII (byte string) conversions.
 Project information:
 
 * Status: alpha
-* Licence: LGPLv3+
+* Licence: LGPL-3.0-or-later
 
 Supported encodings:
 
