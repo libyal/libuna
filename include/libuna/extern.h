@@ -31,14 +31,17 @@
  */
 #if defined( LIBUNA_DLL_EXPORT )
 #define LIBUNA_EXTERN __declspec(dllexport)
+#define LIBUNA_EXTERN_VARIABLE extern __declspec(dllexport)
 
 #elif defined( LIBUNA_DLL_IMPORT )
-#define LIBUNA_EXTERN extern __declspec(dllimport)
+#define LIBUNA_EXTERN __declspec(dllimport)
+#define LIBUNA_EXTERN_VARIABLE extern __declspec(dllimport)
 
 #else
 #define LIBUNA_EXTERN extern
+#define LIBUNA_EXTERN_VARIABLE extern
 
-#endif
+#endif /* defined( LIBUNA_DLL_EXPORT ) */
 
 #endif /* !defined( _LIBUNA_EXTERN_H ) */
 
