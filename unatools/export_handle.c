@@ -2067,9 +2067,12 @@ int export_handle_export_text_encoded_input(
 				 */
 				else if( unicode_character[ unicode_character_index ] == 0x000d )
 				{
-					unicode_character_index++;
+					if( unicode_character_index == 0 )
+					{
+						unicode_character_index++;
 
-					continue;
+						continue;
+					}
 				}
 			}
 			/* Write all unicode characters
@@ -2198,6 +2201,10 @@ int export_handle_export_text_encoded_input(
 		     read_count > 0;
 		     read_count-- )
 		{
+			if( realignment_iterator >= source_buffer_size )
+			{
+				break;
+			}
 			source_buffer[ source_buffer_index++ ] = source_buffer[ realignment_iterator++ ];
 		}
 		if( process_status_update_unknown_total(

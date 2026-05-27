@@ -3078,6 +3078,17 @@ int libuna_unicode_character_copy_from_utf7_stream(
 	}
 	if( ( safe_utf7_stream_base64_data & LIBUNA_UTF7_IS_BASE64_ENCODED ) != 0 )
 	{
+		if( current_byte > 2 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid current byte index value out of bounds.",
+			 function );
+
+			return( -1 );
+		}
 		byte_bit_shift         = 16 - ( current_byte * 8 );
 		safe_unicode_character = ( ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL ) << 8;
 		current_byte          += 1;
@@ -3115,6 +3126,17 @@ int libuna_unicode_character_copy_from_utf7_stream(
 			}
 			number_of_bytes = 3 - padding_size;
 			current_byte    = 0;
+		}
+		if( current_byte > 2 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+			 "%s: invalid current byte index value out of bounds.",
+			 function );
+
+			return( -1 );
 		}
 		byte_bit_shift          = 16 - ( current_byte * 8 );
 		safe_unicode_character += ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL;
@@ -3157,6 +3179,17 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				number_of_bytes = 3 - padding_size;
 				current_byte    = 0;
 			}
+			if( current_byte > 2 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid current byte index value out of bounds.",
+				 function );
+
+				return( -1 );
+			}
 			byte_bit_shift  = 16 - ( current_byte * 8 );
 			utf16_surrogate = ( ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL ) << 8;
 			current_byte   += 1;
@@ -3194,6 +3227,17 @@ int libuna_unicode_character_copy_from_utf7_stream(
 				}
 				number_of_bytes = 3 - padding_size;
 				current_byte    = 0;
+			}
+			if( current_byte > 2 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+				 "%s: invalid current byte index value out of bounds.",
+				 function );
+
+				return( -1 );
 			}
 			byte_bit_shift   = 16 - ( current_byte * 8 );
 			utf16_surrogate += ( base64_triplet >> byte_bit_shift ) & 0x000000ffUL;

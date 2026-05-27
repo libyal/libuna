@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libuna],
-  [20260522],
+  [20260527],
   [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
@@ -82,6 +82,9 @@ AX_UNATOOLS_CHECK_LOCAL
 
 dnl Check if DLL support is needed
 AX_LIBUNA_CHECK_DLL_SUPPORT
+
+dnl Check if code coverage support should be enabled
+AX_TESTS_CHECK_ENABLE_CODE_COVERAGE
 
 dnl Check if tests required headers and functions are available
 AX_TESTS_CHECK_LOCAL
