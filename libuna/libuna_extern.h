@@ -24,8 +24,12 @@
 
 #include <common.h>
 
-#if defined( __has_attribute ) && __has_attribute( visibility ) && !defined( __CYGWIN__ ) && !defined( _WIN32 )
+#if defined( __has_attribute ) && !defined( __CYGWIN__ ) && !defined( _WIN32 )
+#if __has_attribute( visibility )
 #define LIBUNA_INTERNAL	__attribute__((visibility("hidden"))) extern
+#else
+#define LIBUNA_INTERNAL	extern
+#endif
 #else
 #define LIBUNA_INTERNAL	extern
 #endif
