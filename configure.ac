@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libuna],
-  [20260601],
+  [20260602],
   [joachim.metz@gmail.com])
 
 AC_CONFIG_SRCDIR(
