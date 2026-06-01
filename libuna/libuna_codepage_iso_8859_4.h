@@ -31,13 +31,13 @@
 extern "C" {
 #endif
 
-LIBUNA_EXTERN_VARIABLE \
+LIBUNA_INTERNAL \
 const uint16_t libuna_codepage_iso_8859_4_byte_stream_to_unicode_base_0xa0[ 96 ];
 
-LIBUNA_EXTERN_VARIABLE \
+LIBUNA_INTERNAL \
 const uint8_t libuna_codepage_iso_8859_4_unicode_to_byte_stream_base_0x00a0[ 184 ];
 
-LIBUNA_EXTERN_VARIABLE \
+LIBUNA_INTERNAL \
 const uint8_t libuna_codepage_iso_8859_4_unicode_to_byte_stream_base_0x0160[ 32 ];
 
 #if defined( __cplusplus )

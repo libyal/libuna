@@ -79,3 +79,4 @@ const uint8_t libuna_codepage_iso_8859_13_unicode_to_byte_stream_base_0x00a0[ 22
 const uint8_t libuna_codepage_iso_8859_13_unicode_to_byte_stream_base_0x2018[ 8 ] = {
 	0x1a, 0xff, 0x1a, 0x1a, 0xb4, 0xa1, 0xa5, 0x1a
 };
+

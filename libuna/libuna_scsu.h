@@ -31,10 +31,10 @@
 extern "C" {
 #endif
 
-LIBUNA_EXTERN_VARIABLE \
+LIBUNA_INTERNAL \
 const uint32_t libuna_scsu_static_window_positions[ 8 ];
 
-LIBUNA_EXTERN_VARIABLE \
+LIBUNA_INTERNAL \
 const uint32_t libuna_scsu_window_offset_table[ 256 ];
 
 #if defined( __cplusplus )

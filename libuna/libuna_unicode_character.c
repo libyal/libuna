@@ -80,7 +80,7 @@
  * Valid directly encoded whitespace: '\t', '\n', '\r', ' '
  * Valid optional directly encoded characters: '!', '"', '#', '$', '%', '&', '*', ';', '<', '=', '>', '@', '[', ']', '^', '_', '`', '{', '|', '}'
  */
-uint8_t libuna_unicode_character_utf7_valid_directly_encoded_character[ 256 ] = {
+static uint8_t libuna_unicode_character_utf7_valid_directly_encoded_character[ 256 ] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
@@ -100,7 +100,7 @@ uint8_t libuna_unicode_character_utf7_valid_directly_encoded_character[ 256 ] = 
 
 /* Valid UTF-7 base64 characters: A-Z, a-z, 0-9, '+' and '/'
  */
-uint8_t libuna_unicode_character_utf7_valid_base64_character[ 256 ] = {
+static uint8_t libuna_unicode_character_utf7_valid_base64_character[ 256 ] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,

@@ -29,7 +29,7 @@
 /* Extended ASCII to Unicode character lookup table for the Windows 874 codepage
  * Unknown are filled with the Unicode replacement character 0xfffd
  */
-const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128 ] = {
+static const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128 ] = {
 	0x20ac, 0xfffd, 0xfffd, 0xfffd, 0xfffd, 0x2026, 0xfffd, 0xfffd,
 	0xfffd, 0xfffd, 0xfffd, 0xfffd, 0xfffd, 0xfffd, 0xfffd, 0xfffd,
 	0xfffd, 0x2018, 0x2019, 0x201c, 0x201d, 0x2022, 0x2013, 0x2014,
@@ -51,7 +51,7 @@ const uint16_t libuna_codepage_windows_874_byte_stream_to_unicode_base_0x80[ 128
 /* Unicode to ASCII character lookup tables for the Windows 874 codepage
  * Unknown are filled with the ASCII replacement character 0x1a
  */
-const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96 ] = {
+static const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96 ] = {
 	0x1a, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7,
 	0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf,
 	0xb0, 0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6, 0xb7,
@@ -66,7 +66,7 @@ const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x0e00[ 96
 	0xf8, 0xf9, 0xfa, 0xfb, 0x1a, 0x1a, 0x1a, 0x1a
 };
 
-const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ 8 ] = {
+static const uint8_t libuna_codepage_windows_874_unicode_to_byte_stream_base_0x2018[ 8 ] = {
 	0x91, 0x92, 0x1a, 0x1a, 0x93, 0x94, 0x1a, 0x1a
 };
 
