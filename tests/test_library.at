@@ -1,0 +1,34 @@
+m4_include([package.m4])
+m4_include([test_macros.at])
+
+dnl Wrap m4_define to overwrite AT_TESTSUITE_NAME
+m4_define([_M4_DEFINE_HOOK], m4_defn([m4_define]))
+m4_define([m4_define],
+  [m4_if(
+    [$1],
+    [AT_TESTSUITE_NAME],
+    [_M4_DEFINE_HOOK([$1], [Running library tests])],
+    [_M4_DEFINE_HOOK([$1], [$2])])])
+
+dnl Redefine AS_BOX to remove the "box"
+m4_undefine([AS_BOX])
+m4_define([AS_BOX], [echo "$1"])
+
+AT_INIT([library])
+AT_COLOR_TESTS
+
+dnl Rewrite AT_SETUP to change the minimum line length
+m4_define([AT_SETUP],
+  m4_unquote(
+    [m4_bpatsubst(
+      m4_dquote(m4_defn([AT_SETUP])),
+      [47],
+      [72])
+    ])
+  )
+
+SETUP_HELPER_FUNCTIONS
+
+RUN_TEST_BINARIES(
+  [SKIP_LIBRARY_TESTS],
+  [base16_stream base32_stream base64_stream byte_stream codepage_koi8_r codepage_koi8_u codepage_mac_arabic codepage_mac_celtic codepage_mac_centraleurroman codepage_mac_croatian codepage_mac_cyrillic codepage_mac_dingbats codepage_mac_farsi codepage_mac_gaelic codepage_mac_greek codepage_mac_icelandic codepage_mac_inuit codepage_mac_roman codepage_mac_romanian codepage_mac_russian codepage_mac_symbol codepage_mac_thai codepage_mac_turkish codepage_mac_ukrainian codepage_windows_874 codepage_windows_932 codepage_windows_936 codepage_windows_949 codepage_windows_950 codepage_windows_1250 codepage_windows_1251 codepage_windows_1252 codepage_windows_1253 codepage_windows_1254 codepage_windows_1255 codepage_windows_1256 codepage_windows_1257 codepage_windows_1258 error support unicode_character url_stream utf16_stream utf16_string utf32_stream utf32_string utf7_stream utf8_stream utf8_string])

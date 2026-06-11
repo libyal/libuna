@@ -2,8 +2,8 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libuna],
-  [20260602],
-  [joachim.metz@gmail.com])
+  [20260611],
+  [https://github.com/libyal/libuna/issues])
 
 AC_CONFIG_SRCDIR(
   [include/libuna.h.in])
@@ -12,6 +12,8 @@ AM_INIT_AUTOMAKE([gnu 1.6 tar-ustar])
 AM_EXTRA_RECURSIVE_TARGETS([sources splint])
 
 AC_CONFIG_MACRO_DIR([m4])
+
+AC_CONFIG_TESTDIR([tests])
 
 dnl Check for host type
 AC_CANONICAL_HOST
@@ -152,6 +154,8 @@ AC_CONFIG_FILES([dpkg/changelog])
 AC_CONFIG_FILES([libuna/libuna.rc])
 AC_CONFIG_FILES([libuna.pc])
 AC_CONFIG_FILES([libuna.spec])
+dnl Generate test configuration files
+AC_CONFIG_FILES([tests/atlocal])
 dnl Generate a source configuration file
 AC_CONFIG_HEADERS([common/config.h])
 
