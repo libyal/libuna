@@ -1,9 +1,5 @@
 MSVSCPP_FILES = \
-	libcdatetime/libcdatetime.vcproj \
 	libcerror/libcerror.vcproj \
-	libcfile/libcfile.vcproj \
-	libclocale/libclocale.vcproj \
-	libcnotify/libcnotify.vcproj \
 	libuna/libuna.vcproj \
 	una_test_base16_stream/una_test_base16_stream.vcproj \
 	una_test_base32_stream/una_test_base32_stream.vcproj \
@@ -54,8 +50,6 @@ MSVSCPP_FILES = \
 	una_test_utf7_stream/una_test_utf7_stream.vcproj \
 	una_test_utf8_stream/una_test_utf8_stream.vcproj \
 	una_test_utf8_string/una_test_utf8_string.vcproj \
-	unabase/unabase.vcproj \
-	unaexport/unaexport.vcproj \
 	libuna.sln
 
 EXTRA_DIST = \

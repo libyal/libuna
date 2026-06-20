@@ -55,14 +55,8 @@ AX_TESTS_CHECK_ENABLE_UBSAN
 dnl Check if code coverage support should be enabled
 AX_TESTS_CHECK_ENABLE_CODE_COVERAGE
 
-dnl Check if tools should be build as static executables
-AX_COMMON_CHECK_ENABLE_STATIC_EXECUTABLES
-
 dnl Check if WINAPI support should be enabled
 AX_COMMON_CHECK_ENABLE_WINAPI
-
-dnl Check if wide character type should be enabled
-AX_COMMON_CHECK_ENABLE_WIDE_CHARACTER_TYPE
 
 dnl Check for type definitions
 AX_TYPES_CHECK_LOCAL
@@ -75,21 +69,6 @@ AX_LIBCERROR_CHECK_ENABLE
 
 dnl Check if libuna required headers and functions are available
 AX_LIBUNA_CHECK_LOCAL
-
-dnl Check if libcdatetime or required headers and functions are available
-AX_LIBCDATETIME_CHECK_ENABLE
-
-dnl Check if libclocale or required headers and functions are available
-AX_LIBCLOCALE_CHECK_ENABLE
-
-dnl Check if libcnotify or required headers and functions are available
-AX_LIBCNOTIFY_CHECK_ENABLE
-
-dnl Check if libcfile or required headers and functions are available
-AX_LIBCFILE_CHECK_ENABLE
-
-dnl Check if unatools required headers and functions are available
-AX_UNATOOLS_CHECK_LOCAL
 
 dnl Check if DLL support is needed
 AX_LIBUNA_CHECK_DLL_SUPPORT
@@ -108,13 +87,6 @@ AS_IF(
     [Requires:])
   ])
 
-AS_IF(
-  [test "x$ac_cv_libcdatetime" = xyes || test "x$ac_cv_libclocale" = xyes || test "x$ac_cv_libcnotify" = xyes || test "x$ac_cv_libcfile" = xyes],
-  [AC_SUBST(
-    [libuna_spec_tools_build_requires],
-    [BuildRequires:])
-  ])
-
 dnl Set the date for the dpkg files
 AC_SUBST(
   [DPKG_DATE],
@@ -131,14 +103,9 @@ AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([libcerror/Makefile])
 AC_CONFIG_FILES([libuna/Makefile])
-AC_CONFIG_FILES([libcdatetime/Makefile])
-AC_CONFIG_FILES([libclocale/Makefile])
-AC_CONFIG_FILES([libcnotify/Makefile])
-AC_CONFIG_FILES([libcfile/Makefile])
-AC_CONFIG_FILES([unatools/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([po/Makevars])
-AC_CONFIG_FILES([documents/Makefile])
+AC_CONFIG_FILES([documentation/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
@@ -164,14 +131,6 @@ AC_OUTPUT
 dnl Print a summary
 AC_MSG_NOTICE([
 Building:
-   libcerror support:                        $ac_cv_libcerror
-   libcdatetime support:                     $ac_cv_libcdatetime
-   libclocale support:                       $ac_cv_libclocale
-   libcnotify support:                       $ac_cv_libcnotify
-   libcfile support:                         $ac_cv_libcfile
-
-Features:
-   Wide character type support:              $ac_cv_enable_wide_character_type
-   unatools are build as static executables: $ac_cv_enable_static_executables
+   libcerror support: $ac_cv_libcerror
 ]);
 

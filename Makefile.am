@@ -5,13 +5,8 @@ SUBDIRS = \
 	common \
 	libcerror \
 	libuna \
-	libcdatetime \
-	libclocale \
-	libcnotify \
-	libcfile \
-	unatools \
 	po \
-	documents \
+	documentation \
 	manuals \
 	tests \
 	msvscpp
@@ -25,7 +20,6 @@ DPKG_FILES = \
 	dpkg/rules \
 	dpkg/libuna-dev.install \
 	dpkg/libuna.install \
-	dpkg/libuna-tools.install \
 	dpkg/source/format
 
 GETTEXT_FILES = \

@@ -7,9 +7,5 @@ coverage:
     patch: true
     changes: false
   ignore:
-    - "libcdatetime/*"
     - "libcerror/*"
-    - "libcfile/*"
-    - "libclocale/*"
-    - "libcnotify/*"
     - "tests/*"

@@ -7,7 +7,7 @@ EXIT_SUCCESS=0;
 EXIT_FAILURE=1;
 
 GIT_URL_PREFIX="https://github.com/libyal";
-LOCAL_LIBS="libcdatetime libcerror libcfile libclocale libcnotify";
+LOCAL_LIBS="libcerror";
 
 OLDIFS=$IFS;
 IFS=" ";

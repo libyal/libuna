@@ -6,9 +6,6 @@ AM_CPPFLAGS = \
 
 BUILT_SOURCES = package.m4
 
-TESTS = \
-	test_unaexport.sh
-
 check_AUTOTESTS = \
 	test_library \
 	test_manpages
@@ -733,9 +730,7 @@ test_manpages: \
 EXTRA_DIST = \
 	$(check_AUTOTESTS:=.at) \
 	package.m4 \
-	test_macros.at \
-	test_runner.sh \
-	test_unaexport.sh
+	test_macros.at
 
 CLEANFILES = \
 	$(check_AUTOTESTS) \

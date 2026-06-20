@@ -22,9 +22,6 @@ jobs:
         - os: ubuntu-24.04-arm
           compiler: 'gcc'
           configure_options: ''
-        - os: ubuntu-24.04
-          compiler: 'gcc'
-          configure_options: '--disable-multi-threading-support --enable-static-executables'
     steps:
     - uses: actions/checkout@v6
     - name: Install build dependencies

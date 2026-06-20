@@ -127,9 +127,6 @@ stamp-h[1-9]
 /libuna.spec
 /libuna/libuna.rc
 /libuna/libuna_definitions.h
-/unatools/*.exe
-/unatools/unabase
-/unatools/unaexport
 /tests/*.dir
 /tests/*.exe
 /tests/*.log
@@ -139,7 +136,6 @@ stamp-h[1-9]
 /tests/package.m4
 /tests/test_library
 /tests/test_manpages
-/tests/test_tools
 /tests/tmp*
 /tests/una_test_base16_stream
 /tests/una_test_base32_stream
@@ -192,8 +188,4 @@ stamp-h[1-9]
 /tests/una_test_utf8_string
 
 # Local library dependencies specific files
-/libcdatetime
 /libcerror
-/libcfile
-/libclocale
-/libcnotify

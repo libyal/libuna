@@ -27,7 +27,7 @@ AC_DEFUN([AX_LIBUNA_CHECK_LOCAL],
 dnl Function to check if DLL support is needed
 AC_DEFUN([AX_LIBUNA_CHECK_DLL_SUPPORT],
   [AS_IF(
-    [test "x$enable_shared" = xyes && test "x$ac_cv_enable_static_executables" = xno],
+    [test "x$enable_shared" = xyes],
     [AS_CASE(
       [$host],
       [*cygwin* | *mingw* | *msys*],

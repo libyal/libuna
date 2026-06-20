@@ -28,15 +28,6 @@ Requires: libuna = %{version}-%{release}
 %description -n libuna-devel
 Header files and libraries for developing applications for libuna.
 
-%package -n libuna-tools
-Summary: Several tools for converting Unicode and ASCII (byte stream) based text
-Group: Applications/System
-Requires: libuna = %{version}-%{release} @ax_libcdatetime_spec_requires@ @ax_libcfile_spec_requires@ @ax_libclocale_spec_requires@ @ax_libcnotify_spec_requires@
-@libuna_spec_tools_build_requires@ @ax_libcdatetime_spec_build_requires@ @ax_libcfile_spec_build_requires@ @ax_libclocale_spec_build_requires@ @ax_libcnotify_spec_build_requires@
-
-%description -n libuna-tools
-Several tools for converting Unicode and ASCII (byte stream) based text
-
 %prep
 %setup -q
 
@@ -72,12 +63,6 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/libuna.pc
 %{_includedir}/*
 %{_mandir}/man3/*
-
-%files -n libuna-tools
-%license COPYING COPYING.LESSER
-%doc AUTHORS README
-%{_bindir}/*
-%{_mandir}/man1/*
 
 %changelog
 * @SPEC_DATE@ Joachim Metz <joachim.metz@gmail.com> @VERSION@-1
