@@ -2036,7 +2036,7 @@ int export_handle_export_text_encoded_input(
 						{
 							unicode_character[ unicode_character_index     ] = 0x000d;
 							unicode_character[ unicode_character_index + 1 ] = 0x000a;
-			
+
 							number_of_unicode_characters++;
 						}
 					}
@@ -2414,7 +2414,7 @@ int export_handle_print_parameters(
 		fprintf(
 		 export_handle->notify_stream,
 		 "\tnewline conversion:\t" );
-		
+
 		if( export_handle->text_newline_conversion == UNACOMMON_NEWLINE_CONVERSION_NONE )
 		{
 			fprintf(
