@@ -2,7 +2,7 @@ AC_PREREQ([2.71])
 
 AC_INIT(
   [libuna],
-  [20260620],
+  [20260623],
   [https://github.com/libyal/libuna/issues])
 
 AC_CONFIG_SRCDIR(
