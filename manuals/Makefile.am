@@ -2,7 +2,7 @@ man_MANS = \
 	libuna.3
 
 EXTRA_DIST = \
-	libuna.3
+	$(man_MANS)
 
 DISTCLEANFILES = \
 	Makefile \
