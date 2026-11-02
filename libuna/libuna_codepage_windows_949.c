@@ -7376,7 +7376,7 @@ int libuna_codepage_windows_949_copy_from_byte_stream(
 	{
 		safe_unicode_character = byte_stream_character;
 	}
-	else if( ( safe_byte_stream_index + 1 ) <= byte_stream_size )
+	else if( ( safe_byte_stream_index + 1 ) < byte_stream_size )
 	{
 		safe_byte_stream_index += 1;
 

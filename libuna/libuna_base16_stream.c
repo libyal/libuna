@@ -314,7 +314,7 @@ int libuna_base16_stream_size_to_byte_stream(
 	base16_stream_index = 0;
 	whitespace_size     = 0;
 
-	while( base16_stream_index < base16_stream_size )
+	while( ( base16_stream_index + base16_character_size ) <= base16_stream_size )
 	{
 		if( libuna_base16_character_copy_from_base16_stream(
 		     &base16_character1,
@@ -346,7 +346,7 @@ int libuna_base16_stream_size_to_byte_stream(
 			{
 				/* Handle multi-character end-of-line
 				 */
-				if( ( base16_stream_index + base16_character_size ) < base16_stream_size )
+				if( ( base16_stream_index + ( 2 * base16_character_size ) ) <= base16_stream_size )
 				{
 					if( libuna_base16_character_copy_from_base16_stream(
 					     &base16_character2,
@@ -720,7 +720,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 	}
 	base16_stream_index = 0;
 
-	while( base16_stream_index < base16_stream_size )
+	while( ( base16_stream_index + base16_character_size ) <= base16_stream_size )
 	{
 		if( libuna_base16_character_copy_from_base16_stream(
 		     &base16_character1,
@@ -752,7 +752,7 @@ int libuna_base16_stream_copy_to_byte_stream(
 			{
 				/* Handle multi-character end-of-line
 				 */
-				if( ( base16_stream_index + base16_character_size ) < base16_stream_size )
+				if( ( base16_stream_index + ( 2 * base16_character_size ) ) <= base16_stream_size )
 				{
 					if( libuna_base16_character_copy_from_base16_stream(
 					     &base16_character2,
@@ -1323,7 +1323,7 @@ int libuna_base16_stream_with_index_copy_from_byte_stream(
 	}
 	calculated_base16_stream_size *= base16_character_size;
 
-	if( base16_stream_size < calculated_base16_stream_size )
+	if( ( base16_stream_size - safe_base16_stream_index ) < calculated_base16_stream_size )
 	{
 		libcerror_error_set(
 		 error,

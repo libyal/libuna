@@ -2690,7 +2690,7 @@ int libuna_base64_stream_with_index_copy_from_byte_stream(
 	}
 	calculated_base64_stream_size *= base64_character_size;
 
-	if( base64_stream_size < calculated_base64_stream_size )
+	if( ( base64_stream_size - safe_base64_stream_index ) < calculated_base64_stream_size )
 	{
 		libcerror_error_set(
 		 error,

@@ -127,6 +127,7 @@ stamp-h[1-9]
 /libuna.spec
 /libuna/libuna.rc
 /libuna/libuna_definitions.h
+/ossfuzz/*_fuzzer
 /tests/*.dir
 /tests/*.exe
 /tests/*.log

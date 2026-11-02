@@ -2957,7 +2957,7 @@ int libuna_base32_stream_with_index_copy_from_byte_stream(
 		}
 		calculated_base32_stream_size += whitespace_size;
 	}
-	if( base32_stream_size < calculated_base32_stream_size )
+	if( ( base32_stream_size - safe_base32_stream_index ) < calculated_base32_stream_size )
 	{
 		libcerror_error_set(
 		 error,

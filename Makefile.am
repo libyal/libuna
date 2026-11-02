@@ -9,6 +9,7 @@ SUBDIRS = \
 	documentation \
 	manuals \
 	tests \
+	ossfuzz \
 	msvscpp
 
 DPKG_FILES = \
